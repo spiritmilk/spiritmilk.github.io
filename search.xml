@@ -1937,7 +1937,8 @@
 <h3 id="第五章-极限理论"><a href="#第五章-极限理论" class="headerlink" title="第五章 极限理论"></a>第五章 极限理论</h3><p><strong>马尔科夫不等式:</strong></p>
 <p>设随机变量$X$只取非负值，则对任意$a&gt;0$，<br>$$<br>P(X\geq a)\leq \frac{E[X]}{a}<br>$$<br><strong>切尔雪夫不等式：</strong></p>
 <p>设随机变量$X$的均值为$\mu$,方差为$\sigma ^2$，则对任意$c&gt;0$，<br>$$<br>P(|X-\mu|\geq c)\leq \frac{\sigma ^2 }{c^2}<br>$$<br><strong>弱大数定律：</strong></p>
-<p>设$X <em>1, …, X <em>n$独立同分布, 其分布的均值为 $\mu$, 则对任意的 $\epsilon&gt;0$, 当 $n \rightarrow \infty$ 时,<br>$$<br>P \left(\left|M</em>{n}-\mu\right| \geqslant \epsilon\right)= P \left(\left|\frac{X</em>{1}+\cdots+X_{n}}{n}-\mu\right| \geqslant \epsilon\right) \rightarrow 0<br>$$<br><strong>中心极限定理：</strong><br>设$X <em>1, X <em>2 …$是独立同分布的随机变量序列，序列的每一项的均值为 $\mu$, 方<br>差为$\sigma^2$. 记<br>$$<br>Z</em>{n}=\frac{X</em>{1}+…+X_{n}-n \mu}{\sqrt{n} \sigma}<br>$$<br>则$Z <em>n$ 的分市函数的极限分布为标准正态分布函数<br>$$<br>\Phi(x)=\frac{1}{\sqrt{2 \pi}} \int</em>{-\infty}^{x} e ^{-z^{2} / 2} d z<br>$$</p>
+<p>设$X _1,…,X _n$独立同分布, 其分布的均值为$\mu$, </p>
+<p>则对任意的$\epsilon&gt;0$, 当$n \rightarrow \infty$ 时,<br>$$<br>P \left(\left|M_{n}-\mu\right| \geqslant \epsilon\right)= P \left(\left|\frac{X_{1}+\cdots+X_{n}}{n}-\mu\right| \geqslant \epsilon\right) \rightarrow 0<br>$$<br><strong>中心极限定理：</strong><br>设$X <em>1, X <em>2 …$是独立同分布的随机变量序列，序列的每一项的均值为 $\mu$, 方差为$\sigma^2$. 记<br>$$<br>Z</em>{n}=\frac{X</em>{1}+…+X_{n}-n \mu}{\sqrt{n} \sigma}<br>$$<br>则$Z <em>n$ 的分市函数的极限分布为标准正态分布函数<br>$$<br>\Phi(x)=\frac{1}{\sqrt{2 \pi}} \int</em>{-\infty}^{x} e ^{-z^{2} / 2} d z<br>$$</p>
 <p>即<br>$$<br>\lim <em>{n \rightarrow \infty} P \left(Z</em>{n} \leqslant x\right)=\Phi(x), \text { 对任意的 } x \text { 成立. }<br>$$<br><strong>强大数定律：</strong><br>设$X_1,$ $X _{2}, \cdots, X _{n}$是均值为$\mu$ 的独立同分布随机变量序列, 则样本均值$M _{n}=(X _{1}+X _{2}+…+X _{n}) / n$以概率 1 收敛于 $\mu$, 即</p>
 <p>$$<br>P \left(\lim <em>{n \rightarrow \infty} \frac{X</em>{1}+X_{2}+\cdots+X_{n}}{n}=\mu\right)=1<br>$$</p>
 ]]></content>
