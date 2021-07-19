@@ -1940,9 +1940,10 @@
 <p>设$X _1,…,X _n$独立同分布, 其分布的均值为$\mu$, </p>
 <p>则对任意的$\epsilon&gt;0$, 当$n \rightarrow \infty$ 时,<br>$$<br>P \left(\left|M_{n}-\mu\right| \geqslant \epsilon\right)= P \left(\left|\frac{X_{1}+\cdots+X_{n}}{n}-\mu\right| \geqslant \epsilon\right) \rightarrow 0<br>$$<br><strong>中心极限定理：</strong><br>设$X _1, X _2 …$是独立同分布的随机变量序列，序列的每一项的均值为$\mu$, 方差为$\sigma^2$.<br>记<br>$$<br>Z _n=\frac{X _1+…+X _n-n \mu}{\sqrt{n} \sigma}<br>$$</p>
 <p>则$Z _n$的分布函数的极限分布为标准正态分布函数：</p>
-<p>$$<br>\Phi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^xe^{-z^2/2} dz<br>$$</p>
+<p>$$<br>\Phi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^xe^{-z^2/2}dz<br>$$</p>
 <p>即<br>$$<br>\lim _{n \rightarrow \infty} P \left(Z _n \leqslant x\right)=\Phi(x), \text { 对任意的 } x \text { 成立. }<br>$$<br><strong>强大数定律：</strong><br>设$X_1,$ $X _{2}, \cdots, X _{n}$是均值为$\mu$ 的独立同分布随机变量序列, 则样本均值$M _{n}=(X _{1}+X _{2}+…+X _{n}) / n$以概率 1 收敛于$\mu$, 即</p>
 <p>$$<br>P \left(\lim _{n \rightarrow \infty} \frac{X _1+X _2+\cdots+X _n}{n}=\mu\right)=1<br>$$</p>
+<p>2</p>
 ]]></content>
   </entry>
   <entry>
