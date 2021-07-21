@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    机器学习之回归 |  小熊的小站
+    机器学习之回归算法&amp;异常检测算法 |  小熊的小站
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -78,7 +78,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  机器学习之回归
+  机器学习之回归算法&amp;异常检测算法
 </h1>
  
 
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.9k</span>
+            <span class="post-count">2.4k</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">7 min</span>
+            <span class="post-count">9 min</span>
         </span>
     </span>
 </div>
@@ -219,6 +219,29 @@ var _hmt = _hmt || [];
 <p>图中的矩阵尺寸为 （n+1）*(n+1)。</p>
 <p>同样对于逻辑回归，我们也给代价函数增加一个正则化的表达式，得到代价函数：</p>
 <p>$$<br>J(\theta)=\frac{1}{m}\sum\limits_{i=1}^{m}{[-y^{(i)}\log (h_\theta( x^{(i)}) )-( 1-y^{(i)} )\log ( 1-{h_\theta}( x^{(i)}) )]}+\frac{\lambda }{2m}\sum\limits_{j=1}^{n}\theta _j ^2<br>$$</p>
+<h5 id="异常检测算法"><a href="#异常检测算法" class="headerlink" title="异常检测算法"></a>异常检测算法</h5><p>异常检测算法(<strong>Anomaly detection</strong>)主要用于非监督学习问题，但从某些角度看，它又类似于一些监督学习问题。</p>
+<p>正如其名，异常检测算法根据一堆无标签数据中的样本点检测另一个数据点是否异常。</p>
+<p>异常检测算法用到了高斯分布。</p>
+<p>算法流程：</p>
+<p>我们可以利用已有的数据来预测总体中的$μ$和$σ^2$的计算方法如下：<br>$$<br>\mu=\frac{1}{m}\sum\limits_{i=1}^mx^{(i)}\<br>\sigma^2=\frac{1}{m}\sum\limits_{i=1}^m(x^{(i)}-\mu)^2<br>$$</p>
+<p>一旦我们获得了平均值和方差的估计值，给定新的一个训练实例，根据模型计算 $p(x)$：</p>
+<p>$$<br>p(x)=\prod\limits_{j=1}^np(x_j;\mu_j,\sigma_j^2)=\prod\limits_{j=1}^1\frac{1}{\sqrt{2\pi}\sigma_j}exp(-\frac{(x_j-\mu_j)^2}{2\sigma_j^2})<br>$$<br>当$p(x) &lt; \varepsilon$时，为异常。</p>
+<p>下图是一个由两个特征的训练集，以及特征的分布情况：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/ba47767a11ba39a23898b9f1a5a57cc5.png" alt="img"></p>
+<p>下面的三维图表表示的是密度估计函数，$z$轴为根据两个特征的值所估计$p(x)$值：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/82b90f56570c05966da116c3afe6fc91.jpg" alt="img"></p>
+<p>接下来的具体评价方法如下：</p>
+<ol>
+<li>根据测试集数据，我们估计特征的平均值和方差并构建$p(x)$函数</li>
+<li>对交叉检验集，我们尝试使用不同的$\varepsilon$值作为阀值，并预测数据是否异常，根据$F1$值或者查准率与查全率的比例来选择 $\varepsilon$</li>
+<li>选出 $\varepsilon$ 后，针对测试集进行预测，计算异常检验系统的$F1$值，或者查准率与查全率之比</li>
+</ol>
+<blockquote>
+<p> F1值：</p>
+<p>为了能够评价不同算法的优劣，在Precision和Recall的基础上提出了F1值的概念，来对Precision和Recall进行整体评价。F1的定义如下：</p>
+<p>F1值 = 正确率 * 召回率 * 2 / (正确率 + 召回率)</p>
+<p>$F_1={(\frac{recall^{-1}+precision^{-1}}{2})}^{-1}=2* \frac{precision * recall}{precision+recall}$</p>
+</blockquote>
  
       <!-- reward -->
       
