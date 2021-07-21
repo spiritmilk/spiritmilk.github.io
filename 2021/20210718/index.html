@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">79</span>
+            <span class="post-count">506</span>
         </span>
     </span>
 
@@ -115,10 +115,31 @@ var _hmt = _hmt || [];
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>问题：输入无向图G和一个整数k。G中有n个顶点。每条边的费用非1 即2。请在图G中寻找一棵费用为k 的生成树。<br>问题为数据结构与算法HW5的bouns题第一题<br>(待写)</p>
+  <p>问题：输入无向图G和一个整数k。G中有n个顶点。每条边的费用非1 即2。请在图G中寻找一棵费用为k 的生成树。<br>(此题为数据结构与算法HW5的bouns题第一题)</p>
 <span id="more"></span>
 
-<p>参考资料：<a target="_blank" rel="noopener" href="https://www.comp.nus.edu.sg/~gilbert/CS4234/2015/psets/pset1-solutions.pdf">新加坡国立大学CS4234课程Problem Set 1</a></p>
+<p>算法流程：</p>
+<p>先建立两棵生成树——一棵最小生成树，记为R；一棵最大生成树，记为B。</p>
+<p>接下来:（该过程能将树R变形为树B）</p>
+<p>(1)取一条在树B而不是树R中的边e;</p>
+<p>(2)将边e加到树R上;</p>
+<p>(3)因为R是一棵生成树，必然产生了一个环，环中也必然有些边不在B，去除其中的一条边</p>
+<p>重复这三个步骤,直到满足条件。</p>
+<p>时间复杂度：</p>
+<p>算法的第一部分需要运行最小生成树算法两次，因此运行时间为O(Elog V)。</p>
+<p>算法的第二部分最多重复插值算法V−1次。</p>
+<p>插值算法的每次迭代都需要:(i)找到一条边，并将其加到R上，最多需要V次时间;(ii)在循环中寻找一条边从R中移除，这最多需要V个时间。因此，运行插值步骤的总时间最多为$O(V^2)$。因此，算法的总运行时间为$O(V^2+  ElogV)$。</p>
+<p>快速解决方案:这个算法的缓慢部分在于，当我们将一棵生成树插入到另一棵生成树时，在生成树中寻找环。</p>
+<p>下面是一种避免这种情况的方法:•</p>
+<ul>
+<li><p>首先，识别图中只有权值为1的边的连通分量。</p>
+</li>
+<li><p>其次，用权值为2的边连接上述连通分量。这可以使用并查集来检查红色连接组件之间的连接性，每次迭代一个权值为2的边。如果连接两个之前不连接的分量，则添加边。如果这个图最初是连通的，算法则是可行的。</p>
+</li>
+</ul>
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://www.comp.nus.edu.sg/~gilbert/CS4234/2015/psets/pset1-solutions.pdf">新加坡国立大学CS4234课程Problem Set 1</a></p>
+<p>洛谷P3623</p>
  
       <!-- reward -->
       
