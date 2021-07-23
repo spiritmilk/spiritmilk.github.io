@@ -1520,7 +1520,7 @@
 </tbody></table>
 <p>若$(X^T X)^-1$不可逆的情况:<br>(1)首先，看特征值里是否有一些多余的特征，像这些${x_1}$和${x_2}$是线性相关的，互为线性函数。同时，当有一些多余的特征时，可以删除这两个重复特征里的其中一个，无须两个特征同时保留，将解决不可逆性的问题。<br>(2)正规化方法<br>(3)直接使用伪逆(pseudoinverse）,有时被称为广义逆（Generalized inverse）。定义：A* B* A=A，则B是A的广义逆矩阵。所有的矩阵都存在逆矩阵。若一矩阵存在逆矩阵，则其逆矩阵即为其唯一的广义逆矩阵。Matlab的伪逆函数是pinv(逆矩阵函数为inv），可以证明：使用伪逆，以下式子任成立<br>$$<br>\theta =( X^T X )^{-1}{X^T}y<br>$$</p>
 <h5 id="逻辑回归-Logistic-Regression"><a href="#逻辑回归-Logistic-Regression" class="headerlink" title="逻辑回归 (Logistic Regression)"></a>逻辑回归 (<strong>Logistic Regression</strong>)</h5><p>简单而言，即将数据分类划分为离散的值{0,1}。</p>
-<p>我们将因变量(<strong>dependent variable</strong>)可能属于的两个类分别称为负向类（<strong>negative class</strong>）和正向类（<strong>positive class</strong>），则因变量$y\in { 0,1 \}$ ，其中 0 表示负向类，1 表示正向类。</p>
+<p>我们将因变量(<strong>dependent variable</strong>)可能属于的两个类分别称为负向类（<strong>negative class</strong>）和正向类（<strong>positive class</strong>），则因变量$y\in { 0,1}$ ，其中 0 表示负向类，1 表示正向类。</p>
 <p>我们引入一个新的模型，逻辑回归，该模型的输出变量范围始终在0和1之间。<br>逻辑回归模型的假设是： $h_\theta ( x )=g(\theta^{T}X )$<br>其中：<br>$X$ 代表特征向量<br>$g$ 代表逻辑函数（<strong>logistic function</strong>)是一个常用的逻辑函数为<strong>S</strong>形函数（<strong>Sigmoid function</strong>），公式为： $g( z )=\frac{1}{1+e^{-z}}$。</p>
 <p>该函数的图像为：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/1073efb17b0d053b4f9218d4393246cc.jpg" alt="img"></p>
