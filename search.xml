@@ -434,7 +434,7 @@
 <p><img src="http://www.ai-start.com/ml2014/images/8f7c28297fc9ed297f42942018441850.jpg" alt="img"></p>
 <h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>记<br>$$<br>h_\theta(x)\in \mathbb{R}^{K}{({h_\theta}(x))}_{i}={i}^{th} \text{output}<br>$$</p>
 <p>则：</p>
-<p>$$<br>J(\Theta )=-\frac{1}{m}[\sum _{i=1}^m\sum <em>{k=1}^ky_k^{(i)}\log (h</em>{\Theta }(x^{(i)}))<em>k+(1-y_k^{(i)})\log (1-(h</em>{\Theta }(x^{(i)}))_k)]<br>$$</p>
+<p>$$<br>J(\Theta)=-\frac{1}{m}[\sum_{i=1}^m\sum_{k=1}^ky_k^{(i)}\log(h_{\Theta}(x^{(i)}))<em>k+(1-y_k^{(i)})\log(1-(h</em>{\Theta}(x^{(i)}))_k)]<br>$$</p>
 <p>$$<br>+\frac{\lambda}{2 m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}}\left(\Theta_{j i}^{(l)}\right)^{2}<br>$$</p>
 <p>$h_\theta(x)$与真实值之间的距离为每个样本-每个类输出的加和，对参数进行<strong>regularization</strong>的<strong>bias</strong>项处理所有参数的平方和。</p>
 ]]></content>
