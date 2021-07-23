@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">626</span>
+            <span class="post-count">665</span>
         </span>
     </span>
 
@@ -121,7 +121,9 @@ var _hmt = _hmt || [];
 <p>所以我们引入神经网络。</p>
 <span id="more"></span>
 
-<h5 id="一些神经网络术语："><a href="#一些神经网络术语：" class="headerlink" title="一些神经网络术语："></a>一些神经网络术语：</h5><p>下图为一个3层的神经网络，第一层成为输入层（<strong>Input Layer</strong>），最后一层称为输出层（<strong>Output Layer</strong>），中间一层成为隐藏层（<strong>Hidden Layers</strong>）。我们为每一层都增加一个偏差单位（<strong>bias unit</strong>）：</p>
+<h5 id="一些神经网络术语："><a href="#一些神经网络术语：" class="headerlink" title="一些神经网络术语："></a>一些神经网络术语：</h5><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/WypJ74"><img src="https://z3.ax1x.com/2021/07/23/WypJ74.jpg" alt="WypJ74.jpg"></a></p>
+<p>上图为神经元，神经元处理信号后，通过激活函数处理以产生神经元的输出。（常用的有Sigmoid函数、阶跃函数等）</p>
+<p>下图为一个3层的神经网络，第一层成为输入层（<strong>Input Layer</strong>），最后一层称为输出层（<strong>Output Layer</strong>），中间一层成为隐藏层（<strong>Hidden Layers</strong>）。我们为每一层都增加一个偏差单位（<strong>bias unit</strong>）：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/8293711e1d23414d0a03f6878f5a2d91.jpg" alt="img"></p>
 <h5 id="逻辑函数的一些例子："><a href="#逻辑函数的一些例子：" class="headerlink" title="逻辑函数的一些例子："></a>逻辑函数的一些例子：</h5><p>下图的神经元（三个权重分别为-30，20，20）可以被视为作用同于逻辑与（<strong>AND</strong>）：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/57480b04956f1dc54ecfc64d68a6b357.jpg" alt="img"></p>
@@ -129,8 +131,8 @@ var _hmt = _hmt || [];
 <p><img src="http://www.ai-start.com/ml2014/images/7527e61b1612dcf84dadbcf7a26a22fb.jpg" alt="img"></p>
 <p>下图的神经元（两个权重分别为 10，-20）可以被视为作用等同于逻辑非（<strong>NOT</strong>）：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/1fd3017dfa554642a5e1805d6d2b1fa6.jpg" alt="img"></p>
-<p>**$\text{XNOR}$**：</p>
-<p>我们可以利用神经元来组合成更为复杂的神经网络以实现更复杂的运算。例如我们要实现<strong>XNOR</strong> 功能（输入的两个值必须一样，均为1或均为0），即<br>$$<br>\text{XNOR}=( \text{x}_1, \text{AND}, \text{x}_2 ), \text{OR} ( ( \text{NOT}, \text{x}_1 \right) \text{AND} ( \text{NOT}, \text{x}_2 \right) \right)<br>$$<br>首先构造一个能表达$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$部分的神经元：</p>
+<p><strong>XNOR</strong>：</p>
+<p>我们可以利用神经元来组合成更为复杂的神经网络以实现更复杂的运算。例如我们要实现<strong>XNOR</strong> 功能（输入的两个值必须一样，均为1或均为0），即<br>$$<br>\text{XNOR}=( \text{x}_1, \text{AND}, \text{x}_2 ), \text{OR} ( ( \text{NOT}, \text{x}_1)\text{AND} ( \text{NOT}, \text{x}_2))<br>$$<br>首先构造一个能表达$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$部分的神经元：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/4c44e69a12b48efdff2fe92a0a698768.jpg" alt="img"></p>
 <p>然后将表示 <strong>AND</strong> 的神经元和表示$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$的神经元以及表示 OR 的神经元进行组合：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/432c906875baca78031bd337fe0c8682.jpg" alt="img"></p>
