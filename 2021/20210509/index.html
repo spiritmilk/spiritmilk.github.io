@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">640</span>
+            <span class="post-count">626</span>
         </span>
     </span>
 
@@ -130,7 +130,7 @@ var _hmt = _hmt || [];
 <p>下图的神经元（两个权重分别为 10，-20）可以被视为作用等同于逻辑非（<strong>NOT</strong>）：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/1fd3017dfa554642a5e1805d6d2b1fa6.jpg" alt="img"></p>
 <p>**$\text{XNOR}$**：</p>
-<p>我们可以利用神经元来组合成更为复杂的神经网络以实现更复杂的运算。例如我们要实现<strong>XNOR</strong> 功能（输入的两个值必须一样，均为1或均为0），即<br>$$<br>\text{XNOR}=( \text{x}_1, \text{AND}, \text{x}_2 ), \text{OR} \left( \left( \text{NOT}, \text{x}_1 \right) \text{AND} \left( \text{NOT}, \text{x}_2 \right) \right)<br>$$<br>首先构造一个能表达$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$部分的神经元：</p>
+<p>我们可以利用神经元来组合成更为复杂的神经网络以实现更复杂的运算。例如我们要实现<strong>XNOR</strong> 功能（输入的两个值必须一样，均为1或均为0），即<br>$$<br>\text{XNOR}=( \text{x}_1, \text{AND}, \text{x}_2 ), \text{OR} ( ( \text{NOT}, \text{x}_1 \right) \text{AND} ( \text{NOT}, \text{x}_2 \right) \right)<br>$$<br>首先构造一个能表达$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$部分的神经元：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/4c44e69a12b48efdff2fe92a0a698768.jpg" alt="img"></p>
 <p>然后将表示 <strong>AND</strong> 的神经元和表示$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$的神经元以及表示 OR 的神经元进行组合：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/432c906875baca78031bd337fe0c8682.jpg" alt="img"></p>
@@ -139,7 +139,8 @@ var _hmt = _hmt || [];
 <p>二类分类：$S_L=0, y=0, or, 1$表示哪一类；</p>
 <p>$K$类分类：$S_L=k, y_i = 1$表示分到第$i$类；$(k&gt;2)$</p>
 <p><img src="http://www.ai-start.com/ml2014/images/8f7c28297fc9ed297f42942018441850.jpg" alt="img"></p>
-<h5 id="代价函数："><a href="#代价函数：" class="headerlink" title="代价函数："></a>代价函数：</h5><p>$$<br>h_\theta(x)\in \mathbb{R}^{K}{({h_\theta}(x))}<em>{i}={i}^{th} \text{output}<br>$$<br>$$<br>J(\Theta) = -\frac{1}{m} \left[ \sum\limits</em>{i=1}^{m} \sum\limits_{k=1}^{k} {y_k}^{(i)} \log {(h_\Theta(x^{(i)}))}<em>k + \left( 1 - y_k^{(i)} \right) \log \left( 1- {\left( h_\Theta \left( x^{(i)} \right) \right)<em>k} \right) \right] + \frac{\lambda}{2m} \sum\limits</em>{l=1}^{L-1} \sum\limits</em>{i=1}^{s_l} \sum\limits_{j=1}^{s_{l+1}} \left( \Theta_{ji}^{(l)} \right)^2<br>$$</p>
+<h5 id="代价函数："><a href="#代价函数：" class="headerlink" title="代价函数："></a>代价函数：</h5><p>$$<br>h_\theta(x)\in \mathbb{R}^{K}{({h_\theta}(x))}_{i}={i}^{th} \text{output}<br>$$</p>
+<p>-<br>$$<br>J(\Theta) = -\frac{1}{m} [ \sum\limits_{i=1}^{m} \sum\limits_{k=1}^{k} {y_k}^{(i)} \log {(h_\Theta(x^{(i)}))}<em>k + ( 1 - y_k^{(i)} ) \log ( 1- {( h_\Theta ( x^{(i)} ) )<em>k} )] \+ \frac{\lambda}{2m} \sum\limits</em>{l=1}^{L-1} \sum\limits</em>{i=1}^{s_l} \sum\limits_{j=1}^{s_{l+1}} ( \Theta_{ji}^{(l)} )^2<br>$$</p>
 <p>$h_\theta(x)$与真实值之间的距离为每个样本-每个类输出的加和，对参数进行<strong>regularization</strong>的<strong>bias</strong>项处理所有参数的平方和。</p>
  
       <!-- reward -->
