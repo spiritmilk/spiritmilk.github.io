@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">682</span>
+            <span class="post-count">683</span>
         </span>
     </span>
 
@@ -143,7 +143,8 @@ var _hmt = _hmt || [];
 <p><img src="http://www.ai-start.com/ml2014/images/8f7c28297fc9ed297f42942018441850.jpg" alt="img"></p>
 <h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>记<br>$$<br>h_\theta(x)\in \mathbb{R}^{K}{({h_\theta}(x))}_{i}={i}^{th} \text{output}<br>$$</p>
 <p>则：</p>
-<p>$<br>J(\Theta)=-\frac{1}{m}\left[\sum_{i=1}^{m} \sum_{k=1}^{k} y_{k}{ }^{(i)} \log \left(h_{\Theta}\left(x^{(i)}\right)\right)<em>{k}+\left(1-y</em>{k}^{(i)}\right) \log \left(1-\left(h_{\Theta}\left(x^{(i)}\right)\right)<em>{k}\right)\right]\<br>+\frac{\lambda}{2 m} \sum</em>{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}}\left(\Theta_{j i}^{(l)}\right)^{2}<br>$</p>
+<p>$$<br>J(\Theta)=-\frac{1}{m}\left[\sum_{i=1}^{m} \sum_{k=1}^{k} y_{k}{ }^{(i)} \log \left(h_{\Theta}\left(x^{(i)}\right)\right)<em>{k}+\left(1-y</em>{k}^{(i)}\right) \log \left(1-\left(h_{\Theta}\left(x^{(i)}\right)\right)_{k}\right)\right]<br>$$</p>
+<p>$$<br>+\frac{\lambda}{2 m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}}\left(\Theta_{j i}^{(l)}\right)^{2}<br>$$</p>
 <p>$h_\theta(x)$与真实值之间的距离为每个样本-每个类输出的加和，对参数进行<strong>regularization</strong>的<strong>bias</strong>项处理所有参数的平方和。</p>
  
       <!-- reward -->
