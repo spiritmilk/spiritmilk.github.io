@@ -92,6 +92,8 @@
 <p>比如可设置$\eta ^t=\eta / \sqrt{t+1}$</p>
 <p>注意，学习率不能一刀切，不同参数不同学习率不一定相同。</p>
 <p><strong>Adagrad算法：</strong></p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W4mDhQ.jpg"></p>
+<p>设置全局学习率之后，每次的学习率逐参数的除以历史梯度平方和的平方根，使得每个参数的学习率不同。</p>
 ]]></content>
   </entry>
   <entry>
