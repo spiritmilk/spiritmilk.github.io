@@ -91,6 +91,7 @@
 <p>每隔几代（epochs）就降低学习率</p>
 <p>比如可设置$\eta ^t=\eta / \sqrt{t+1}$</p>
 <p>注意，学习率不能一刀切，不同参数不同学习率不一定相同。</p>
+<p><strong>Adagrad算法：</strong></p>
 ]]></content>
   </entry>
   <entry>
