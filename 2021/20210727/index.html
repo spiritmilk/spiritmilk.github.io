@@ -86,14 +86,14 @@ var _hmt = _hmt || [];
      
     <div class="article-meta">
       <a href="/2021/20210727/" class="article-date">
-  <time datetime="2021-07-24T15:31:02.000Z" itemprop="datePublished">2021-07-24</time>
+  <time datetime="2021-07-27T04:45:43.000Z" itemprop="datePublished">2021-07-27</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">687</span>
+            <span class="post-count">783</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
@@ -122,26 +122,22 @@ var _hmt = _hmt || [];
 <p>1.深度学习简介（Introduction of Deep Learning）</p>
 <p>2.训练深度神经网络的技巧（ Tips for Training Deep Neural Network）</p>
 <p>3.神经网络的变体（Variants of Neural Network）</p>
-<p>4.深度学习趋势（Next Wave）</p>
+<p>4.深度学习下一股浪潮（Next Wave）</p>
 <span id="more"></span>
 
 <hr>
-<h5 id="一、"><a href="#一、" class="headerlink" title="一、"></a>一、</h5><p>（这一章前段主要讲述了神经网络的一些基本知识，不再赘述。）</p>
+<h4 id="一、"><a href="#一、" class="headerlink" title="一、"></a>一、</h4><p>（这一章前段主要讲述了神经网络的一些基本知识，不再赘述。）</p>
 <p>Universality Theorem告诉我们：任何连续函数$f:R^N \to R^M$都能通过具有一个隐藏层的神经网络实现（只要给定足够多的隐藏神经元）</p>
-<p>相关资料：[Reference for the reason](<a target="_blank" rel="noopener" href="http://neuralnetworksandde/">http://neuralnetworksandde</a> eplearning.com/chap4.html)</p>
+<p>相关资料：<a target="_blank" rel="noopener" href="http://neuralnetworksanddeeplearning.com/chap4.html">Reference for the reason</a></p>
 <p>那为什么我们选择使用深层（deep)神经网络而不是浅层但是更fat的神经网络呢？</p>
 <p>使用深层神经网络具有更少的感知机，也表现得更好。</p>
 <p>此外，深层也意味着模块化（Modularization）。比如一个人脸识别的神经网络，第一次可能是性别分类器，第二次可能是某某特征的分类器，诸如此类。模块化是从数据中自动学习的，无需手动设置。</p>
 <p>（另外，也可参考吴恩达《深度学习》课程中“Why deep representations?”部分）</p>
 <p>（接下来的后半段是Keras使用教程，不再赘述）</p>
-<h5 id="二、"><a href="#二、" class="headerlink" title="二、"></a>二、</h5><p>首先虽然过拟合是一个常见问题，但不要总是责怪过拟合，有可能是训练集数据的问题。</p>
-<p>深度学习的秘诀（Recipe of Deep Learning）</p>
-<p>1、选择合适的代价函数</p>
-<p>比如，当你使用softmax输出层时，请选择交叉熵（ cross entropy）</p>
-<p>2、使用Mini-batch</p>
-<p>Mini-batch相比原始的梯度下降法更快，但是不一定更准确，其核心思想其实就是并行计算。</p>
-<p>3、选择新的激活函数（activation function）</p>
-<p>更深的神经网络并不一定更好，可能面对梯度消失（Vanishing Gradient Problem）等问题。</p>
+<h4 id="二、"><a href="#二、" class="headerlink" title="二、"></a>二、</h4><p>首先虽然过拟合是一个常见问题，但不要总是责怪过拟合，有可能是训练集数据的问题。</p>
+<h5 id="深度学习的秘诀（Recipe-of-Deep-Learning）"><a href="#深度学习的秘诀（Recipe-of-Deep-Learning）" class="headerlink" title="深度学习的秘诀（Recipe of Deep Learning）"></a>深度学习的秘诀（Recipe of Deep Learning）</h5><h6 id="1、选择合适的代价函数"><a href="#1、选择合适的代价函数" class="headerlink" title="1、选择合适的代价函数"></a>1、选择合适的代价函数</h6><p>比如，当你使用softmax输出层时，请选择交叉熵（ cross entropy）</p>
+<h6 id="2、使用Mini-batch"><a href="#2、使用Mini-batch" class="headerlink" title="2、使用Mini-batch"></a>2、使用Mini-batch</h6><p>Mini-batch相比原始的梯度下降法更快，但是不一定更准确，其核心思想其实就是并行计算。</p>
+<h6 id="3、选择新的激活函数（activation-function）"><a href="#3、选择新的激活函数（activation-function）" class="headerlink" title="3、选择新的激活函数（activation function）"></a>3、选择新的激活函数（activation function）</h6><p>更深的神经网络并不一定更好，可能面对梯度消失（Vanishing Gradient Problem）等问题。</p>
 <p><img src="https://z3.ax1x.com/2021/07/27/W4V66x.jpg"></p>
 <p>2006年，人们普遍使用 RBM pre-training（Restricted Boltzmann Machine）。<br>2015年，更多的人使用ReLU。</p>
 <blockquote>
@@ -156,14 +152,29 @@ var _hmt = _hmt || [];
 <p>α也通过梯度下降法学习。</p>
 </blockquote>
 <p>此外还有Maxout，ReLU是Maxout的一个特例。</p>
-<p>4、自适应学习速率（Adaptive Learning Rate）</p>
-<p>一个流行且简单的想法是：</p>
+<h6 id="4、自适应学习速率（Adaptive-Learning-Rate）"><a href="#4、自适应学习速率（Adaptive-Learning-Rate）" class="headerlink" title="4、自适应学习速率（Adaptive Learning Rate）"></a>4、自适应学习速率（Adaptive Learning Rate）</h6><p>一个流行且简单的想法是：</p>
 <p>每隔几代（epochs）就降低学习率</p>
 <p>比如可设置$\eta ^t=\eta / \sqrt{t+1}$</p>
 <p>注意，学习率不能一刀切，不同参数不同学习率不一定相同。</p>
 <p><strong>Adagrad算法：</strong></p>
 <p><img src="https://z3.ax1x.com/2021/07/27/W4mDhQ.jpg"></p>
 <p>设置全局学习率之后，每次的学习率逐参数的除以历史梯度平方和的平方根，使得每个参数的学习率不同。</p>
+<p>当然还有其他算法。</p>
+<blockquote>
+<p>• Adagrad [John Duchi, JMLR’11] </p>
+<p>• RMSprop </p>
+<p>​    • <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=O3sxAc4hxZU">https://www.youtube.com/watch?v=O3sxAc4hxZU</a> </p>
+<p>• Adadelta [Matthew D. Zeiler, arXiv’12] </p>
+<p>• “No more pesky learning rates” [Tom Schaul, arXiv’12] </p>
+<p>• AdaSecant [Caglar Gulcehre, arXiv’14] </p>
+<p>• Adam[Diederik P. Kingma, ICLR’15] </p>
+<p>• Nadam </p>
+<p>​    • <a target="_blank" rel="noopener" href="http://cs229.stanford.edu/proj2015/054_report.pdf">http://cs229.stanford.edu/proj2015/054_report.pdf</a></p>
+</blockquote>
+<h6 id="5、动量方法（Momentum）"><a href="#5、动量方法（Momentum）" class="headerlink" title="5、动量方法（Momentum）"></a>5、动量方法（Momentum）</h6><p>模拟自然界中的物理过程。仍然不能保证一定达到全局最小值，但有一定希望。</p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W4K4N8.jpg"></p>
+<p><strong>Adam算法：</strong>RMSProp (Advanced Adagrad) + Momentum </p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W5vFKJ.jpg"></p>
  
       <!-- reward -->
       
@@ -227,19 +238,10 @@ var _hmt = _hmt || [];
    
   <nav class="article-nav">
     
+    
       <a href="/2021/20210724/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            如何只使用一个隐层，来实现包含n元输入的任意布尔函数？
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2021/20210722/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">《亲密关系》读书笔记</div>
+        <div class="article-nav-title">如何只使用一个隐层，来实现包含n元输入的任意布尔函数？</div>
       </a>
     
   </nav>
