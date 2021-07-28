@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Deep Learning Tutorial-李宏毅 |  小熊的小站
+    《一天学会深度学习》-李宏毅 |  小熊的小站
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -78,7 +78,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Deep Learning Tutorial-李宏毅
+  《一天学会深度学习》-李宏毅
 </h1>
  
 
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">783</span>
+            <span class="post-count">1.6k</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -117,7 +117,7 @@ var _hmt = _hmt || [];
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>此为李宏毅（Hung-yi Lee）的Deep Learning Tutorial笔记</p>
+  <p>此为李宏毅（Hung-yi Lee）的Understanding Deep Learning in One Day 课程的笔记。</p>
 <p>分为四个部分：</p>
 <p>1.深度学习简介（Introduction of Deep Learning）</p>
 <p>2.训练深度神经网络的技巧（ Tips for Training Deep Neural Network）</p>
@@ -126,7 +126,7 @@ var _hmt = _hmt || [];
 <span id="more"></span>
 
 <hr>
-<h4 id="一、"><a href="#一、" class="headerlink" title="一、"></a>一、</h4><p>（这一章前段主要讲述了神经网络的一些基本知识，不再赘述。）</p>
+<h4 id="一、深度学习简介"><a href="#一、深度学习简介" class="headerlink" title="一、深度学习简介"></a>一、深度学习简介</h4><p>（这一章前段主要讲述了神经网络的一些基本知识，不再赘述。）</p>
 <p>Universality Theorem告诉我们：任何连续函数$f:R^N \to R^M$都能通过具有一个隐藏层的神经网络实现（只要给定足够多的隐藏神经元）</p>
 <p>相关资料：<a target="_blank" rel="noopener" href="http://neuralnetworksanddeeplearning.com/chap4.html">Reference for the reason</a></p>
 <p>那为什么我们选择使用深层（deep)神经网络而不是浅层但是更fat的神经网络呢？</p>
@@ -134,7 +134,9 @@ var _hmt = _hmt || [];
 <p>此外，深层也意味着模块化（Modularization）。比如一个人脸识别的神经网络，第一次可能是性别分类器，第二次可能是某某特征的分类器，诸如此类。模块化是从数据中自动学习的，无需手动设置。</p>
 <p>（另外，也可参考吴恩达《深度学习》课程中“Why deep representations?”部分）</p>
 <p>（接下来的后半段是Keras使用教程，不再赘述）</p>
-<h4 id="二、"><a href="#二、" class="headerlink" title="二、"></a>二、</h4><p>首先虽然过拟合是一个常见问题，但不要总是责怪过拟合，有可能是训练集数据的问题。</p>
+<h4 id="二、训练深度神经网络的技巧"><a href="#二、训练深度神经网络的技巧" class="headerlink" title="二、训练深度神经网络的技巧"></a>二、训练深度神经网络的技巧</h4><p>首先虽然过拟合是一个常见问题，但不要总是责怪过拟合，有可能是训练集数据的问题。</p>
+<p>为了解决过拟合，我们可以主动获取更多训练集，并创建一些训练集样本（比如手写识别中，我们可以选择将训练样本旋转一定角度）</p>
+<p>作为实验，我们还会想测试集中添加噪声。</p>
 <h5 id="深度学习的秘诀（Recipe-of-Deep-Learning）"><a href="#深度学习的秘诀（Recipe-of-Deep-Learning）" class="headerlink" title="深度学习的秘诀（Recipe of Deep Learning）"></a>深度学习的秘诀（Recipe of Deep Learning）</h5><h6 id="1、选择合适的代价函数"><a href="#1、选择合适的代价函数" class="headerlink" title="1、选择合适的代价函数"></a>1、选择合适的代价函数</h6><p>比如，当你使用softmax输出层时，请选择交叉熵（ cross entropy）</p>
 <h6 id="2、使用Mini-batch"><a href="#2、使用Mini-batch" class="headerlink" title="2、使用Mini-batch"></a>2、使用Mini-batch</h6><p>Mini-batch相比原始的梯度下降法更快，但是不一定更准确，其核心思想其实就是并行计算。</p>
 <h6 id="3、选择新的激活函数（activation-function）"><a href="#3、选择新的激活函数（activation-function）" class="headerlink" title="3、选择新的激活函数（activation function）"></a>3、选择新的激活函数（activation function）</h6><p>更深的神经网络并不一定更好，可能面对梯度消失（Vanishing Gradient Problem）等问题。</p>
@@ -173,8 +175,76 @@ var _hmt = _hmt || [];
 </blockquote>
 <h6 id="5、动量方法（Momentum）"><a href="#5、动量方法（Momentum）" class="headerlink" title="5、动量方法（Momentum）"></a>5、动量方法（Momentum）</h6><p>模拟自然界中的物理过程。仍然不能保证一定达到全局最小值，但有一定希望。</p>
 <p><img src="https://z3.ax1x.com/2021/07/27/W4K4N8.jpg"></p>
-<p><strong>Adam算法：</strong>RMSProp (Advanced Adagrad) + Momentum </p>
+<p><strong>Adam算法：</strong></p>
+<p>相当于RMSProp (Advanced Adagrad) + Momentum </p>
 <p><img src="https://z3.ax1x.com/2021/07/27/W5vFKJ.jpg"></p>
+<h6 id="6、使用早停法（early-stopping）"><a href="#6、使用早停法（early-stopping）" class="headerlink" title="6、使用早停法（early stopping）"></a>6、使用早停法（early stopping）</h6><p><a target="_blank" rel="noopener" href="https://keras.io/getting_started/faq/#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore">keras关于早停的教程</a></p>
+<h6 id="7、权重衰减-weight-decay"><a href="#7、权重衰减-weight-decay" class="headerlink" title="7、权重衰减(weight decay)"></a>7、权重衰减(<em>weight</em> <em>decay</em>)</h6><p>我们的大脑会清除了神经元之间无用的联系。</p>
+<p>神经网络也应如此。</p>
+<p>权值衰减是正则化的一种技巧。</p>
+<p><img src="https://z3.ax1x.com/2021/07/28/WIXQC8.jpg"></p>
+<p><a target="_blank" rel="noopener" href="https://keras.io/api/layers/regularizers/">Keras关于权重衰减的部分</a></p>
+<h6 id="8、使用Dropout算法"><a href="#8、使用Dropout算法" class="headerlink" title="8、使用Dropout算法"></a>8、使用Dropout算法</h6><p><strong>Dropout流程：</strong></p>
+<p>每次更新参数前，每个神经元都有p%的可能性退出。</p>
+<p>所以，Dropout算法训练一堆不同结构的神经网络。</p>
+<p>那为什么Dropout会更好呢？</p>
+<p>直观理解：</p>
+<p>​    比如当团队合作时，如果每个人都希望其他partner来完成工作，那么最终什么也做不成。<br>​    然而，如果你知道你的partner会退出，你会做得更好。<br>​    在测试时，其实没有人中途退出，所以最终取得了不错的成绩。</p>
+<blockquote>
+<p> 更多资料：<br>• More reference for dropout [Nitish Srivastava, JMLR’14] [Pierre Baldi, NIPS’13][Geoffrey E. Hinton, arXiv’12] </p>
+<p>• Dropout works better with Maxout [Ian J. Goodfellow, ICML’13] </p>
+<p>• Dropconnect [Li Wan, ICML’13]<br>​    • Dropout delete neurons </p>
+<p>​    • Dropconnect deletes the connection between neurons </p>
+<p>• Annealed dropout [S.J. Rennie, SLT’14]     • Dropout rate decreases by epochs </p>
+<p>• Standout [J. Ba, NISP’13] </p>
+<p>​    • Each neural has different dropout rate</p>
+</blockquote>
+<h4 id="三、神经网络的变体"><a href="#三、神经网络的变体" class="headerlink" title="三、神经网络的变体"></a>三、神经网络的变体</h4><p>这一部分主要讲述CNN和RNN。</p>
+<h4 id="四、下一股浪潮"><a href="#四、下一股浪潮" class="headerlink" title="四、下一股浪潮"></a>四、下一股浪潮</h4><blockquote>
+<p> 本节提纲:</p>
+<p>•监督学习</p>
+<p>​    •超深层网络（Ultra Deep Network）</p>
+<p>​    •Attention Model</p>
+<p>•强化学习</p>
+<p>•无监督学习</p>
+<p>​    •图片:认识世界是什么样子</p>
+<p>​    •文本:理解词语的含义</p>
+<p>​    •音频:在没有监督的情况下学习人类语言</p>
+</blockquote>
+<h5 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h5><h6 id="超深网络"><a href="#超深网络" class="headerlink" title="超深网络:"></a>超深网络:</h6><p>近年来模型层数逐渐增加。</p>
+<p>AlexNet (2012) ：8层</p>
+<p>VGG (2014) ：19层</p>
+<p>GoogleNet (2014)：22层</p>
+<p>Residual Net (2015)：152层</p>
+<p>超深层网络是多种深层网络的集合。</p>
+<p>比如有篇论文：</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1605.06431">Residual Networks are Exponential Ensembles of Relatively Shallow Networks</a></p>
+<p>Highway Network也是一种流行的超深层网络。其能自动选取所需层数。</p>
+<h6 id="Attention-Model"><a href="#Attention-Model" class="headerlink" title="Attention Model"></a>Attention Model</h6><p><img src="https://z3.ax1x.com/2021/07/28/WoGm1P.jpg"><br><img src="https://z3.ax1x.com/2021/07/28/WoGept.jpg"></p>
+<p>（吴恩达的《深度学习》课程关于这部分讲得更具体，可参考）</p>
+<h5 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h5><p>强化学习是指智能体（Agent)以试错的方式进行学习。像Alpha Go就是监督学习+强化学习的产物。</p>
+<h6 id="强化学习的一些困难"><a href="#强化学习的一些困难" class="headerlink" title="强化学习的一些困难"></a>强化学习的一些困难</h6><p>1）为了获得更多的长期奖励，牺牲即时奖励可能会更好</p>
+<p>2）Agent的行为会影响它接收到的后续数据</p>
+<h6 id="一些应用"><a href="#一些应用" class="headerlink" title="一些应用"></a>一些应用</h6><p> • Alpha Go, Playing Video Games, Dialogue </p>
+<p>• Flying Helicopter </p>
+<p>​    • <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0JL04JJjocc">https://www.youtube.com/watch?v=0JL04JJjocc</a> </p>
+<p>• Driving </p>
+<p>​    • <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0xo1Ldx3L5Q">https://www.youtube.com/watch?v=0xo1Ldx3L5Q</a> </p>
+<p>• Google Cuts Its Giant Electricity Bill With DeepMind-Powered AI </p>
+<p>​    • <a target="_blank" rel="noopener" href="http://www.bloomberg.com/news/articles/2016-07-">http://www.bloomberg.com/news/articles/2016-07-</a> 19/google-cuts-its-giant-electricity-bill-with-deepmindpowered-ai</p>
+<h6 id="强化学习相关资料"><a href="#强化学习相关资料" class="headerlink" title="强化学习相关资料"></a>强化学习相关资料</h6><p>• Lectures of David Silver </p>
+<p>​    • <a target="_blank" rel="noopener" href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Te">http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Te</a> aching.html </p>
+<p>​    • 10 lectures (1:30 each) </p>
+<p>• Deep Reinforcement Learning </p>
+<p>​    • <a target="_blank" rel="noopener" href="http://videolectures.net/rldm2015_silver_reinfo">http://videolectures.net/rldm2015_silver_reinfo</a> rcement_learning/</p>
+<h5 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h5><h6 id="生成图像"><a href="#生成图像" class="headerlink" title="生成图像"></a>生成图像</h6><p>训练一个解码器来生成图像是无监督的。</p>
+<p><strong>相关方法：</strong></p>
+<p>• Variation Auto-encoder (VAE) </p>
+<p>​    • Ref: Auto-Encoding Variational Bayes, <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1312.6114">https://arxiv.org/abs/1312.6114</a> </p>
+<p>• Generative Adversarial Network (GAN) </p>
+<p>​    • Ref: Generative Adversarial Networks, <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1406.2661">http://arxiv.org/abs/1406.2661</a></p>
+<h6 id="机器阅读"><a href="#机器阅读" class="headerlink" title="机器阅读"></a>机器阅读</h6><p>机器在没有监督的情况下，通过阅读大量的文件来学习单词的意思。</p>
+<h6 id="声音学习"><a href="#声音学习" class="headerlink" title="声音学习"></a>声音学习</h6><p>相关模型：WaveNet (DeepMind)</p>
  
       <!-- reward -->
       
