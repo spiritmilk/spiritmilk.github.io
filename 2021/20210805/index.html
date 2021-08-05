@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives: 2021 |  小熊的小站
+    机器学习之建议与应用 |  小熊的小站
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -66,245 +66,177 @@ var _hmt = _hmt || [];
       
     <main class="content on">
       <section class="outer">
-  
-  <article class="articles">
+  <article
+  id="post-20210805"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">2021</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2021" class="archive-year">2021</a>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  机器学习之建议与应用
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/20210805/" class="article-date">
+  <time datetime="2021-08-05T09:21:50.000Z" itemprop="datePublished">2021-08-05</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">504</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">1 min</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210607/" class="archive-article-date">
-  <time datetime="2021-06-07T15:26:47.000Z" itemprop="datePublished">06/07</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210607/"
-    >2021新高考一卷压轴题</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210606/" class="archive-article-date">
-  <time datetime="2021-06-05T23:56:13.000Z" itemprop="datePublished">06/06</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210606/"
-    >机器学习之聚类算法</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210530/" class="archive-article-date">
-  <time datetime="2021-05-30T14:38:02.000Z" itemprop="datePublished">05/30</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210530/"
-    >机器学习之支持向量机</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
   
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210514/" class="archive-article-date">
-  <time datetime="2021-05-14T04:50:34.000Z" itemprop="datePublished">05/14</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210514/"
-    >辨析依概率收敛和以概率一收敛</a> 
-</h2>
- 
+  <p>面对模型的下一步操作：</p>
+<p>我们可以</p>
+<ol>
+<li><p>获得更多的训练样本——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。</p>
+</li>
+<li><p>尝试减少特征的数量</p>
+</li>
+<li><p>尝试获得更多的特征</p>
+</li>
+<li><p>尝试增加多项式特征</p>
+</li>
+<li><p>尝试减少正则化程度$\lambda$</p>
+</li>
+<li><p>尝试增加正则化程度$\lambda$</p>
+</li>
+</ol>
+<span id="more"></span>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210509/" class="archive-article-date">
-  <time datetime="2021-05-09T15:21:02.000Z" itemprop="datePublished">05/09</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210509/"
-    >机器学习之神经网络</a> 
-</h2>
+<p>我们该怎么选择呢？我们应该运用一些方法——被称为”机器学习诊断法”——来帮助我们知道上面哪些方法对我们的算法是有效的。</p>
+<p><strong>训练集与测试集：</strong></p>
+<p>为了检验算法是否过拟合，我们将数据分成训练集和测试集，通常用70%的数据作为训练集，用剩下30%的数据作为测试集。</p>
+<p>测试集评估在通过训练集让我们的模型学习得出其参数后，对测试集运用该模型。</p>
+<p><strong>模型选择：</strong></p>
+<p>假设我们要在10个不同次数的二项式模型之间进行选择：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/1b908480ad78ee54ba7129945015f87f.jpg" alt="img"></p>
+<p> 我们需要使用交叉验证集来帮助选择模型。 即：使用60%的数据作为训练集，使用 20%的数据作为交叉验证集，使用20%的数据作为测试集。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/7cf1cd9c123a72ca4137ca515871689d.png" alt="img"></p>
+<p>模型选择的方法为：</p>
+<ol>
+<li><p>使用训练集训练出10个模型</p>
+</li>
+<li><p>用10个模型分别对交叉验证集计算得出交叉验证误差（代价函数的值）</p>
+</li>
+<li><p>选取代价函数值最小的模型</p>
+</li>
+<li><p>用步骤3中选出的模型对测试集计算得出推广误差（代价函数的值）</p>
+<p><em><strong>Train/validation/test error</strong></em></p>
+<p><strong>Training error:</strong></p>
+</li>
+</ol>
+<p>$J _{train}(\theta)=\frac{1}{2m}\sum _\limits{i=1}^{m}(h _{\theta}(x^{(i)})-y^{(i)})^2$</p>
+<p><strong>Cross Validation error:</strong></p>
+<p>$J _{cv}(\theta)=\frac{1}{2m _{cv}}\sum _\limits{i=1}^{m}(h _{\theta}(x^{(i)} _{cv})-y^{(i)} _{cv})^2$</p>
+<p><strong>Test error:</strong></p>
+<p>$J _{test}(\theta)=\frac{1}{2m _{test}}\sum _\limits{i=1}^{m _{test}}(h _{\theta}(x^{(i)} _{cv})-y^{(i)} _{cv})^2$</p>
  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210415/" class="archive-article-date">
-  <time datetime="2021-04-15T14:47:21.000Z" itemprop="datePublished">04/15</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210415/"
-    >Wolfram Mathematica识别猫种</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210411/" class="archive-article-date">
-  <time datetime="2021-04-11T10:29:41.000Z" itemprop="datePublished">04/11</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210411/"
-    >机器学习之回归算法&amp;异常检测算法</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210410/" class="archive-article-date">
-  <time datetime="2021-04-10T08:23:17.000Z" itemprop="datePublished">04/10</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210410/"
-    >机器学习教程中文笔记——斯坦福大学2014（吴恩达）</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210405/" class="archive-article-date">
-  <time datetime="2021-04-05T14:54:35.000Z" itemprop="datePublished">04/05</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210405/"
-    >有趣的几道数院每日一题</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210331/" class="archive-article-date">
-  <time datetime="2021-03-31T14:26:24.000Z" itemprop="datePublished">03/31</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210331/"
-    >一些简单的串的模式匹配算法汇总</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/2021/">上一页</a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2021/page/3/">3</a><a class="extend next" rel="next" href="/archives/2021/page/3/">下一页</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.xyz/2021/20210805/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/20210727/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">《一天学会深度学习》-李宏毅</div>
+      </a>
+    
   </nav>
+
+   
+ 
+   
   
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -468,6 +400,23 @@ setInterval("createtime()",250);
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
