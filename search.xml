@@ -2621,6 +2621,8 @@
 <p>$R_2(f)=-\frac{(b-a)^5}{2880} f^{(4)}(\eta ),\eta \in [a,b].$</p>
 <p>即：</p>
 <p>$\int_{a}^{b} f(x) d x - \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right] \leq \frac{1}{90} \left(\frac{b-a}{2}\right)^5 \sup_{[a,b]} |f^{(4)}|.$</p>
+<p>证明：</p>
+<p>设$x=(a+b)/2,h=(b-a)/2$</p>
 ]]></content>
   </entry>
   <entry>
