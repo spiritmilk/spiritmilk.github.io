@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">243</span>
+            <span class="post-count">259</span>
         </span>
     </span>
 
@@ -126,12 +126,14 @@ var _hmt = _hmt || [];
 <p>$\int_{a}^{b} f(x) d x - \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right] \leq \frac{1}{90} \left(\frac{b-a}{2}\right)^5 \sup_{[a,b]} |f^{(4)}|.$</p>
 <p>证明：</p>
 <p>设$x=(a+b)/2,h=(b-a)/2$</p>
-<p>$\frac{6\int_{x-h}^{x+h}f(t)dt-2h(f(x+h)+4f(x)+f(x-h))}{h^5}$</p>
+<p>对$\frac{6\int_{x-h}^{x+h}f(t)dt-2h(f(x+h)+4f(x)+f(x-h))}{h^5}$</p>
 <p>反复使用柯西中值定理：</p>
 <p>$=\frac{4f(x+h_1)-8f(x)+4f(x-h_1)-2h_1(f’(x+h_1)-f’(x-h_1))}{5h_1^4} $</p>
 <p>$=\frac{2f’(x+h_2)-2f’(x-h_2)-2h_2(f’’(x+h_2)+f’’(x-h_2))}{20h_2^3} $</p>
 <p>$=\frac{2h_3(f’’’(x+h_3)-f’’’(x-h_3))}{60h_3^2}=\frac1{15}·\frac{f’’’(x+h_3)-f’’’(x-h_3)}{2h_3} $</p>
 <p>$=\frac1{15}·f^{(4)}(x+h_4) $</p>
+<p>其中$0&lt;h_4&lt;h_3&lt;h_2&lt;h_1&lt;h$</p>
+<p>证毕。</p>
  
       <!-- reward -->
       
