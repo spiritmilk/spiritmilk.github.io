@@ -26,7 +26,7 @@
 <p>设$f(x)$在[a,b]上具有连续的四阶导数，则辛普森公式的误差为</p>
 <p>$R_2(f)=-\frac{(b-a)^5}{2880} f^{(4)}(\eta ),\eta \in [a,b].$</p>
 <p>即：</p>
-<p>$\int_{a}^{b} f(x) d x - \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right] \leq \frac{1}{90} \left(\frac{b-a}{2}\right)^5 \sup_{[a,b]} |f^{(4)}|.$</p>
+<p>$| \int_{a}^{b} f(x) d x - \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right] | \leq \frac{1}{90} \left(\frac{b-a}{2}\right)^5 \sup_{[a,b]} |f^{(4)}|.$</p>
 <p>证明：</p>
 <p>设$x=(a+b)/2,h=(b-a)/2$</p>
 <p>对$\frac{6\int_{x-h}^{x+h}f(t)dt-2h(f(x+h)+4f(x)+f(x-h))}{h^5}$</p>
