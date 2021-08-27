@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">419</span>
+            <span class="post-count">594</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
@@ -121,23 +121,26 @@ var _hmt = _hmt || [];
 <hr>
 <p>前半部分：略</p>
 <p>后半部分：</p>
-<p>计算$I$并不算很困难，但由前半部分证明后半部分存在一定难度。</p>
+<p>计算$\int_{0}^{+\infty} \arctan x \cdot \ln \left(1+\frac{1}{x^{2}}\right) d x$并不算很困难，但由前半部分证明后半部分存在一定难度。</p>
 <blockquote>
 <p>相似的题：</p>
 <p>SEEMOUS 2016 problem 4:</p>
 <p> 整数$n \ge 1$。设$$I_n=\int_0^{\infty}\frac{\arctan x}{(1+x^2)^n} dx.$$<br>证明<br>a) $\sum_{n=1}^{\infty}\frac{I_n}{n}=\frac{\pi ^2}{6}$<br>b)$\int_0^{\infty}\arctan\cdot \ln(1+\frac{1}{x^2})dx=\frac{\pi ^2}{6}$</p>
 </blockquote>
-<p>$\int_0^\infty \arctan(x) \ln \left(1 + \frac{1}{x^2}\right) dx$<br>$=\int_0^\infty  \ln \left(1 + \frac{1}{x^2}\right) d(xarctanx-\frac{1}{2}ln(1+x^2))$<br>$= \int_0^\infty \left[\frac{2 \arctan{x}}{1+x^2} - \frac{\ln(1+x^2)}{x (1+x^2)}\right] dx $<br>$\hspace{-11pt}\stackrel{x = \sqrt{\mathrm{e}^t - 1}}{=} \frac{\pi^2}{4} - \frac{1}{2} \int \limits_0^\infty \frac{t}{\mathrm{e}^t - 1} , \mathrm{d} t $</p>
+<p>$\int_0^\infty \arctan(x) \ln \left(1 + \frac{1}{x^2}\right) dx$<br>$=\int_0^\infty  \ln \left(1 + \frac{1}{x^2}\right) d(xarctanx-\frac{1}{2}ln(1+x^2))$<br>$= \int_0^\infty \left[\frac{2 \arctan{x}}{1+x^2} - \frac{\ln(1+x^2)}{x (1+x^2)}\right] dx $<br>$\hspace{-11pt}\stackrel{x = \sqrt{\mathrm{e}^t - 1}}{=} \frac{\pi^2}{4} - \frac{1}{2} \int \limits_0^\infty \frac{t}{\mathrm{e}^t - 1} \mathrm{d} t $</p>
 <p>设:</p>
 <p>$I=\int_{0}^{\infty} \frac{x}{e^{x}-1} d x$</p>
 <p>则：</p>
-<p>$I=\int_{0}^{\infty} \frac{x}{e^{x}-1} d x=-\int_{-\infty}^{0} \frac{-y}{e^{-y}-1} d y=\int_{-\infty}^{0} \frac{y \cdot d^{y}}{y-1} d y=\int_{0}^{1} \frac{u \cdot \ln (u)}{u \cdot(u-1)} d u$<br>$I=\int_{0}^{1} \frac{\ln (u)}{u-1} d u=4 \int_{0}^{1} \frac{v \cdot \ln (v)}{v^{2}-1} d \nu=\int_{0}^{1} \frac{u \cdot \ln (u)}{u^{2}-1} d u+\int_{0}^{1} \frac{\ln (u)}{u^{2}-1} d u$</p>
+<p>$I=\int_{0}^{\infty} \frac{x}{e^{x}-1} d x=-\int_{-\infty}^{0} \frac{-y}{e^{-y}-1} d y=\int_{-\infty}^{0} \frac{y \cdot d^{y}}{y-1} d y=\int_{0}^{1} \frac{u \cdot \ln (u)}{u \cdot(u-1)} d u$<br>$I=\int_{0}^{1} \frac{\ln (u)}{u-1} d u=4 \int_{0}^{1} \frac{v \cdot \ln (v)}{v^{2}-1} d \nu=\int_{0}^{1} \frac{u \cdot \ln (u)}{u^{2}-1} d u+\int_{0}^{1} \frac{\ln (u)}{u^{2}-1} d u$ (1)</p>
 <p>由此说明：</p>
-<p>$\int_{0}^{1} \frac{\ln (x)}{x^{2}-1} d x=3\int_{0}^{1} \frac{x\ln (x)}{x^{2}-1} d x$ （*）</p>
+<p>$\int_{0}^{1} \frac{\ln (x)}{x^{2}-1} d x=3\int_{0}^{1} \frac{x\ln (x)}{x^{2}-1} d x$ （2）</p>
 <blockquote>
 <p>除此之外，还有一个有趣的等式：</p>
 <p>$ \int_{0}^{1} \frac{\ln (u)}{u^{2}-1} d u$<br>$=- \cdot \int_{\infty}^{1} \frac{\left(\frac{1}{w}\right)^{2} \cdot \ln \left(\frac{1}{w}\right)}{\left(\frac{1}{w}\right)^{2}-1} d w$<br>$= \int_{1}^{\infty} \frac{\ln (w)}{w^{2}-1} d v$<br>$= \int_{1}^{\infty} \frac{\ln (u)}{u^{2}-1} d u$</p>
 </blockquote>
+<p>设$J=\int_{0}^{1} \frac{\ln (x+1)}{x} d x$，由题意我们知道$J=\frac{\pi^{2}}{12}$.</p>
+<p>$J=\int_{0}^{1} \frac{\ln (x+1)}{x} d x=\ln (1) \cdot \ln (1+1)-\lim <em>{x \rightarrow 0^{+}} \ln (x) \ln (x+1)\right)-\int</em>{0}^{1} \frac{\ln (x)}{x+1} d x=-\int_{0}^{1} \frac{\ln (x)}{x+1} d x=-\int_{0}^{1} \frac{(x-1) \cdot \ln (x)}{(x-1) \cdot(x+1)} d x=\int_{0}^{1} \frac{\ln (x)}{x^{2}-1} d x-\int_{0}^{1} \frac{x \cdot \ln (x)}{x^{2}-1} d x$</p>
+<p>代入（2）得：<br>$\quad \int_{0}^{1} \frac{\ln (x)}{x^{2}-1} d x=\frac{\pi^{2}}{8} \quad \int_{0}^{1} \frac{x \ln (x)}{x^{2}-1} d x=\frac{\pi^{2}}{24}$<br>再代入（1）得:$I=\frac{\pi^{2}}{6}$</p>
  
       <!-- reward -->
       
@@ -221,7 +224,7 @@ var _hmt = _hmt || [];
 
 <ul>
       <li>
-    <i class="fas fa-chart-area"></i> <span class="post-count">本站总字数统计：75.4k</span>
+    <i class="fas fa-chart-area"></i> <span class="post-count">本站总字数统计：75.6k</span>
       </li>
     </ul>
 
