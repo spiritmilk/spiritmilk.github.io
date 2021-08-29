@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    机器学习之推荐系统 |  小熊的小站
+    numpy-100 |  小熊的小站
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -67,7 +67,7 @@ var _hmt = _hmt || [];
     <main class="content on">
       <section class="outer">
   <article
-  id="post-20210716"
+  id="post-20210829"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -78,22 +78,22 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  机器学习之推荐系统
+  numpy-100
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/20210716/" class="article-date">
-  <time datetime="2021-07-16T01:36:48.000Z" itemprop="datePublished">2021-07-16</time>
+      <a href="/2021/20210829/" class="article-date">
+  <time datetime="2021-08-29T00:42:32.000Z" itemprop="datePublished">2021-08-29</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.8k</span>
+            <span class="post-count">526</span>
         </span>
     </span>
 
@@ -102,127 +102,55 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">7 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>推荐系统是最重要的机器学习的应用之一。</p>
+  <p>以下<a target="_blank" rel="noopener" href="https://github.com/rougier/numpy-100">numpy-100</a>中涉及的一些知识点。</p>
 <span id="more"></span>
 
-<p>我们从电影打分系统来进入推荐系统的学习。</p>
-<p>假使我们是一个电影供应商，我们有 5 部电影和 4 个用户，我们要求用户为电影打分。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/c2822f2c28b343d7e6ade5bd40f3a1fc.png" alt="img"></p>
-<p>前三部电影是爱情片，后两部则是动作片，我们可以看出<strong>Alice</strong>和<strong>Bob</strong>似乎更倾向与爱情片， 而 <strong>Carol</strong> 和 <strong>Dave</strong> 似乎更倾向与动作片。并且没有一个用户给所有的电影都打过分。我们希望构建一个算法来预测他们每个人可能会给他们没看过的电影打多少分，并以此作为推荐的依据。</p>
-<p>下面引入一些标记：</p>
-<blockquote>
-<p> $n_u$ 代表用户的数量</p>
-<p>$n_m$ 代表电影的数量</p>
-<p>$r(i, j)$ 如果用户j给电影 $i$ 评过分则 $r(i,j)=1$</p>
-<p>$y^{(i, j)}$ 代表用户 $j$ 给电影$i$的评分</p>
-<p>$m_j$代表用户 $j$ 评过分的电影的总数</p>
-</blockquote>
-<h5 id="基于内容的推荐系统"><a href="#基于内容的推荐系统" class="headerlink" title="基于内容的推荐系统"></a>基于内容的推荐系统</h5><p>我们假设每部电影都有两个特征，如$x_1$代表电影的浪漫程度，$x_2$ 代表电影的动作程度。<br><img src="http://www.ai-start.com/ml2014/images/747c1fd6bff694c6034da1911aa3314b.png" alt="img"></p>
-<p>则每部电影都有一个特征向量，如$x^{(1)}$是第一部电影的特征向量为[0.9 0]。</p>
-<p>下面我们要基于这些特征来构建一个推荐系统算法。<br>假设我们采用线性回归模型，我们可以针对每一个用户都训练一个线性回归模型，如$\theta^{(1)}$是第一个用户的模型的参数。<br>于是，我们有：</p>
-<p>$\theta^{(j)}$用户$j$的参数向量</p>
-<p>$x^{(i)}$电影$i$的特征向量</p>
-<p>对于用户$j$和电影$i$，我们预测评分为:$(\theta^{(j)})^T x^{(i)}$</p>
-<p>代价函数</p>
-<p>针对用户$j$，该线性回归模型的代价为预测误差的平方和，加上正则化项：<br>$$<br>\min_{\theta (j)}\frac{1}{2}\sum_{i:r(i,j)=1}\left((\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\right)^2+\frac{\lambda}{2}\left(\theta_{k}^{(j)}\right)^2<br>$$</p>
-<p>其中 $i:r(i,j)$表示我们只计算那些用户 $j$ 评过分的电影。在一般的线性回归模型中，误差项和正则项应该都是乘以$1/2m$，在这里我们将$m$去掉。并且我们不对方差项$\theta_0$进行正则化处理。</p>
-<p>上面的代价函数只是针对一个用户的，为了学习所有用户，我们将所有用户的代价函数求和：<br>$$<br>\min_{\theta^{(1)},…,\theta^{(n_u)}} \frac{1}{2}\sum_{j=1}^{n_u}\sum_{i:r(i,j)=1}\left((\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\right)^2+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$<br>如果我们要用梯度下降法来求解最优解，我们计算代价函数的偏导数后得到梯度下降的更新公式为：</p>
-<p>$$<br>\theta_k^{(j)}:=\theta_k^{(j)}-\alpha\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(i)} \quad (\text{for} , k = 0)<br>$$</p>
-<p>$$<br>\theta_k^{(j)}:=\theta_k^{(j)}-\alpha\left(\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})x_k^{(i)}+\lambda\theta_k^{(j)}\right) \quad (\text{for} , k\neq 0)<br>$$</p>
-<h5 id="协同过滤："><a href="#协同过滤：" class="headerlink" title="协同过滤："></a>协同过滤：</h5><p>这两</p>
-<p>我们的优化目标便改为同时针对$x$和$\theta$进行。<br>$$<br>J(x^{(1)},…x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})=\frac{1}{2}\sum_{(i:j):r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}(x_k^{(j)})^2+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$</p>
-<p>对代价函数求偏导数的结果如下：</p>
-<p>$$<br>x_k^{(i)}:=x_k^{(i)}-\alpha\left(\sum_{j:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\theta_k^{j}+\lambda x_k^{(i)}\right)<br>$$</p>
-<p>$$<br>\theta_k^{(i)}:=\theta_k^{(i)}-\alpha\left(\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)}x_k^{(i)}+\lambda \theta_k^{(j)}\right)<br>$$</p>
-<p>注：在协同过滤从算法中，我们通常不使用方差项，如果需要的话，算法会自动学得。<br>协同过滤算法使用步骤如下：</p>
-<ol>
-<li><p>初始 $x^{(1)},x^{(1)},…x^{(nm)},\ \theta^{(1)},\theta^{(2)},…,\theta^{(n_u)}$为一些随机小值</p>
-</li>
-<li><p>使用梯度下降算法最小化代价函数</p>
-</li>
-<li><p>在训练完算法后，我们预测$(\theta^{(j)})^Tx^{(i)}$为用户 $j$ 给电影 $i$ 的评分</p>
-</li>
-</ol>
-<p>协同过滤优化目标：</p>
-<p>给定$x^{(1)},…,x^{(n_m)}$，估计$\theta^{(1)},…,\theta^{(n_u)}$：<br>$$<br>\min_{\theta^{(1)},…,\theta^{(n_u)}}\frac{1}{2}\sum_{j=1}^{n_u}\sum_{i:r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$</p>
-<p>给定$\theta^{(1)},…,\theta^{(n_u)}$，估计$x^{(1)},…,x^{(n_m)}$：</p>
-<p>同时最小化$x^{(1)},…,x^{(n_m)}$和$\theta^{(1)},…,\theta^{(n_u)}$：<br>$$<br>J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})=\frac{1}{2}\sum_{(i,j):r(i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum_{i=1}^{n_m}\sum_{k=1}^{n}(x_k^{(i)})^2+\frac{\lambda}{2}\sum_{j=1}^{n_u}\sum_{k=1}^{n}(\theta_k^{(j)})^2<br>$$</p>
-<p>$$<br>\min_{x^{(1)},…,x^{(n_m)} \\ \theta^{(1)},…,\theta^{(n_u)}}J(x^{(1)},…,x^{(n_m)},\theta^{(1)},…,\theta^{(n_u)})<br>$$</p>
-<h5 id="协同过滤算法的向量化实现"><a href="#协同过滤算法的向量化实现" class="headerlink" title="协同过滤算法的向量化实现"></a>协同过滤算法的向量化实现</h5><p>我们有关于五部电影的数据集，我将要做的是，将这些用户的电影评分，进行分组并存到一个矩阵中。</p>
-<p>我们有五部电影，以及四位用户，那么 这个矩阵 $Y$ 就是一个5行4列的矩阵，它将这些电影的用户评分数据都存在矩阵里：</p>
-<table>
-<thead>
-<tr>
-<th><strong>Movie</strong></th>
-<th><strong>Alice (1)</strong></th>
-<th><strong>Bob (2)</strong></th>
-<th><strong>Carol (3)</strong></th>
-<th><strong>Dave (4)</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Love at last</td>
-<td>5</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Romance forever</td>
-<td>5</td>
-<td>?</td>
-<td>?</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Cute puppies of love</td>
-<td>?</td>
-<td>4</td>
-<td>0</td>
-<td>?</td>
-</tr>
-<tr>
-<td>Nonstop car chases</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>4</td>
-</tr>
-<tr>
-<td>Swords vs. karate</td>
-<td>0</td>
-<td>0</td>
-<td>5</td>
-<td>?</td>
-</tr>
-</tbody></table>
-<p><img src="E:\geek\Coursera-ML-AndrewNg-Notes-master\Coursera-ML-AndrewNg-Notes-master\images\42a92e07b32b593bb826f8f6bc4d9eb3.png"></p>
-<p>推出评分：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/c905a6f02e201a4767d869b3791e8aeb.png" alt="img"></p>
-<p>找到相关影片：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/0a8b49da1ab852f2996a02afcaca2322.png" alt="img"></p>
-<p>现在既然你已经对特征参数向量进行了学习，那么我们就会有一个很方便的方法来度量两部电影之间的相似性。例如说：电影 $i$ 有一个特征向量$x^{(i)}$，你是否能找到一部不同的电影 $j$，保证两部电影的特征向量之间的距离$x^{(i)}$和$x^{(j)}$很小，那就能很有力地表明电影$i$和电影 $j$ 在某种程度上有相似，至少在某种意义上，某些人喜欢电影 $i$，或许更有可能也对电影 $j$ 感兴趣。总结一下，当用户在看某部电影 $i$ 的时候，如果你想找5部与电影非常相似的电影，为了能给用户推荐5部新电影，你需要做的是找出电影 $j$，在这些不同的电影中与我们要找的电影 $i$ 的距离最小，这样你就能给你的用户推荐几部不同的电影了。</p>
-<h5 id="均值归一化"><a href="#均值归一化" class="headerlink" title="均值归一化"></a>均值归一化</h5><p>让我们来看下面的用户评分数据：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/54b1f7c3131aed24f9834d62a6835642.png" alt="img"></p>
-<p>如果我们新增一个用户 <strong>Eve</strong>，并且 <strong>Eve</strong> 没有为任何电影评分，那么我们以什么为依据为<strong>Eve</strong>推荐电影呢？</p>
-<p>我们首先需要对结果 $Y $矩阵进行均值归一化处理，将每一个用户对某一部电影的评分减去所有用户对该电影评分的平均值：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/9ec5cb55e14bd1462183e104f8e02b80.png" alt="img"></p>
-<p>然后我们利用这个新的 $Y$ 矩阵来训练算法。<br>如果我们要用新训练出的算法来预测评分，则需要将平均值重新加回去，预测$(\theta^{(j)})^T x^{(i)}+\mu_i$，对于<strong>Eve</strong>，我们的新模型会认为她给每部电影的评分都是该电影的平均分。</p>
+<hr>
+<p><strong>np.version, np.show_config:</strong><br>获取numpy的版本和配置信息</p>
+<p><strong>np.info：</strong><br>获取说明文档<br>例：np.info(np.add)</p>
+<p><strong>np.pad：</strong><br>对数组填充<br><a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.pad.html">详细可见</a></p>
+<p><strong>np.nan：</strong><br>nan=not a number<br>故：<br>0 * np.nan                        nan<br>np.nan == np.nan                  False<br>np.inf &gt; np.nan                   False<br>np.nan - np.nan                   nan<br>0.3 == 3 * 0.1                    False</p>
+<p><strong>np.unravel_index:</strong><br>例子：考虑一个 (6,7,8) 形状的数组，其第100个元素的索引(x,y,z)是什么?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(np.unravel_index(<span class="number">100</span>,(<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)))</span><br></pre></td></tr></table></figure>
+
+<p> <strong>np.tile：</strong><br>将原矩阵横向、纵向地复制。<br>例子：用tile函数去创建一个 8x8的棋盘样式矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Z = np.tile( np.array([[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>]]), (<span class="number">4</span>,<span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(Z)</span><br></pre></td></tr></table></figure>
+
+<p><strong>np.dtype:</strong><br>查询属性。<br>此外，还有定义类型。<br>例 ：创建一个将颜色描述为(RGBA)四个无符号字节的自定义dtype？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">color = np.dtype([(<span class="string">&quot;r&quot;</span>, np.ubyte, <span class="number">1</span>),</span><br><span class="line">                  (<span class="string">&quot;g&quot;</span>, np.ubyte, <span class="number">1</span>),</span><br><span class="line">                  (<span class="string">&quot;b&quot;</span>, np.ubyte, <span class="number">1</span>),</span><br><span class="line">                  (<span class="string">&quot;a&quot;</span>, np.ubyte, <span class="number">1</span>)])</span><br></pre></td></tr></table></figure>
+
+<p><strong>np.copysign:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numpy.copysign(array1,array2)       将第二个数组中值得符号复制给第一个数组中值</span><br></pre></td></tr></table></figure>
+
+<p><strong>np.intersect1d：</strong><br>找到两个数组的交集。</p>
+<p><strong>时间操作功能：</strong><br>np.datetime64, np.timedelta64。<br>例：today = np.datetime64(‘today’, ‘D’)  查询今日日期<br>timedelta64数据类型用以补充datetime64。timedelta64的参数是一个数字，代表单位数，一个日期/时间单位，例如（D）ay，（M）onth，（Y）ear，（h）ours，（m）inutes或（s）其次。timedelta64数据类型还接受字符串“ NAT”代替“ Not A Time”值的数字。</p>
+<p><strong>取整：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> (np.floor(Z))</span><br><span class="line"><span class="built_in">print</span> (np.cell(Z)-<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span> (Z.astype(<span class="built_in">int</span>))</span><br><span class="line"><span class="built_in">print</span> (np.trunc(Z))</span><br></pre></td></tr></table></figure>
+
+<p><strong>np.ufunc.reduce:</strong><br>Reduces array’s dimension by one, by applying ufunc along one axis.<br>add.reduce()=sum(),且在小数组求和中前者更快。</p>
+<p><strong>np.allclose, np.array_equal：</strong><br>前者判断相近（相等），后者判断相等。</p>
+<p><strong>flags.writeable</strong>：<br>把数组变为只读。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Z = np.zeros(<span class="number">5</span>)</span><br><span class="line">Z.flags.writeable = <span class="literal">False</span> <span class="comment">#把数组变为只读。</span></span><br><span class="line">Z[<span class="number">0</span>] = <span class="number">1</span> <span class="comment">#报错</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>打印数组中所有的值：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.set_printoptions(threshold=np.nan)</span><br><span class="line">Z = np.zeros((<span class="number">16</span>,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(Z)</span><br></pre></td></tr></table></figure>
+
+<p><strong>np.meshgrid()：</strong><br>生成网格点坐标矩阵。</p>
+<p><strong>np.genfromtxt：</strong><br>读取txt。</p>
+<p><strong>数组索引：</strong><br>np.ndenumerate：返回一个迭代器，生成数组坐标和值对。<br>np.ndindex:索引数组的N维迭代器对象。</p>
  
       <!-- reward -->
       
@@ -275,7 +203,7 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.xyz/2021/20210716/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.xyz/2021/20210829/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -286,19 +214,10 @@ var _hmt = _hmt || [];
    
   <nav class="article-nav">
     
-      <a href="/2021/20210718/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            费用为k的生成树
-          
-        </div>
-      </a>
     
-    
-      <a href="/2021/20210710/" class="article-nav-link">
+      <a href="/2021/20210828/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">级数的若干反例</div>
+        <div class="article-nav-title">共产主义ABC</div>
       </a>
     
   </nav>
