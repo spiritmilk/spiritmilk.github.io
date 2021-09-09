@@ -2915,7 +2915,7 @@
     <title>Hello World</title>
     <url>/2019/hello-world/</url>
     <content><![CDATA[<p>测试mathjax:$x^2$ </p>
-<p>$\frac{sinx}{x}$</p>
+<p>$￥<br>$$<br>\frac{sinx}{x}<br>$$<br>$</p>
 <p>测试hexo-pdf</p>
 
 
