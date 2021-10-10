@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    机器学习之神经网络 |  小熊的小站
+    Archives: 2021/10 |  小熊的小站
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -66,171 +66,51 @@ var _hmt = _hmt || [];
       
     <main class="content on">
       <section class="outer">
-  <article
-  id="post-20210509"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
+  
+  <article class="articles">
     
-    <header class="article-header">
+    
+    <h1 class="page-type-title">2021/10</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2021" class="archive-year">2021</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2021/20211009/" class="archive-article-date">
+  <time datetime="2021-10-09T14:50:10.000Z" itemprop="datePublished">10/09</time>
+</a>
        
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  机器学习之神经网络
-</h1>
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2021/20211009/"
+    >《费尔巴哈和德国古典哲学的终结》</a> 
+</h2>
  
 
     </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210509/" class="article-date">
-  <time datetime="2021-05-09T15:21:02.000Z" itemprop="datePublished">2021-05-09</time>
-</a>   
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">609</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
-        </span>
-    </span>
-</div>
- 
-    </div>
-      
-    <div class="tocbot"></div>
-
-
-
-
-  
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
-<p>所以我们引入神经网络。</p>
-<span id="more"></span>
-
-<h5 id="一些神经网络术语"><a href="#一些神经网络术语" class="headerlink" title="一些神经网络术语"></a>一些神经网络术语</h5><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/WypJ74"><img src="https://z3.ax1x.com/2021/07/23/WypJ74.jpg" alt="WypJ74.jpg"></a></p>
-<p>上图为神经元，神经元处理信号后，通过激活函数处理以产生神经元的输出。（常用的有Sigmoid函数、阶跃函数等）</p>
-<p>下图为一个3层的神经网络，第一层成为输入层（<strong>Input Layer</strong>），最后一层称为输出层（<strong>Output Layer</strong>），中间一层成为隐藏层（<strong>Hidden Layers</strong>）。我们为每一层都增加一个偏差单位（<strong>bias unit</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/8293711e1d23414d0a03f6878f5a2d91.jpg" alt="img"></p>
-<h5 id="逻辑函数的一些例子"><a href="#逻辑函数的一些例子" class="headerlink" title="逻辑函数的一些例子"></a>逻辑函数的一些例子</h5><p>下图的神经元（三个权重分别为-30，20，20）可以被视为作用同于逻辑与（<strong>AND</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/57480b04956f1dc54ecfc64d68a6b357.jpg" alt="img"></p>
-<p>下图的神经元（三个权重分别为-10，20，20）可以被视为作用等同于逻辑或（<strong>OR</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/7527e61b1612dcf84dadbcf7a26a22fb.jpg" alt="img"></p>
-<p>下图的神经元（两个权重分别为 10，-20）可以被视为作用等同于逻辑非（<strong>NOT</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/1fd3017dfa554642a5e1805d6d2b1fa6.jpg" alt="img"></p>
-<p><strong>XNOR</strong>：</p>
-<p>我们可以利用神经元来组合成更为复杂的神经网络以实现更复杂的运算。例如我们要实现<strong>XNOR</strong> 功能（输入的两个值必须一样，均为1或均为0），即<br>$$<br>\text{XNOR}=( \text{x}_1, \text{AND}, \text{x}_2 ), \text{OR} ( ( \text{NOT}, \text{x}_1)\text{AND} ( \text{NOT}, \text{x}_2))<br>$$<br>首先构造一个能表达$( \text{NOT}, x_1 ) AND ( \text{NOT}, x_2 )$部分的神经元：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/4c44e69a12b48efdff2fe92a0a698768.jpg" alt="img"></p>
-<p>然后将表示 <strong>AND</strong> 的神经元和表示$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$的神经元以及表示 OR 的神经元进行组合：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/432c906875baca78031bd337fe0c8682.jpg" alt="img"></p>
-<h5 id="神经网络的一些定义"><a href="#神经网络的一些定义" class="headerlink" title="神经网络的一些定义"></a>神经网络的一些定义</h5><p>假设神经网络的训练样本有$m$个，每个包含一组输入$x$和一组输出信号$y$，$L$表示神经网络层数，$S_I$表示每层的<strong>neuron</strong>个数($S_l$表示输出层神经元个数)，$S_L$代表最后一层中处理单元的个数。</p>
-<p>将神经网络的分类定义为两种情况：二类分类和多类分类，</p>
-<p>二类分类：$S_L=0, y=0, or, 1$表示哪一类；</p>
-<p>$K$类分类：$S_L=k, y_i = 1$表示分到第$i$类；$(k&gt;2)$</p>
-<p><img src="http://www.ai-start.com/ml2014/images/8f7c28297fc9ed297f42942018441850.jpg" alt="img"></p>
-<h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>记<br>$$<br>h_\theta(x)\in \mathbb{R}^{K}{({h_\theta}(x))}_{i}={i}^{th} \text{output}<br>$$</p>
-<p>则：</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/WyKJb9"><img src="https://z3.ax1x.com/2021/07/23/WyKJb9.jpg" alt="WyKJb9.jpg"></a></p>
-<p>$h_\theta(x)$与真实值之间的距离为每个样本-每个类输出的加和，对参数进行<strong>regularization</strong>的<strong>bias</strong>项处理所有参数的平方和。</p>
- 
-      <!-- reward -->
-      
-    </div>
     
-
-    <!-- copyright -->
     
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
-      </div>
-</div>
-
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.xyz/2021/20210509/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div id="share-mask"></div>  
-    </footer>
   </div>
-
-   
-  <nav class="article-nav">
-    
-      <a href="/2021/20210514/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            辨析依概率收敛和以概率一收敛
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2021/20210415/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Wolfram Mathematica识别猫种</div>
-      </a>
-    
-  </nav>
-
-   
- 
-   
-  
 </article>
+      
+      
+    </div>
+  </div>
+  
+  
 
+  
 </section>
       <footer class="footer">
   <div class="outer">
@@ -407,23 +287,6 @@ setInterval("createtime()",250);
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
-
-
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: 'main',
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto'
-  });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
