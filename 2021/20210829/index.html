@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">685</span>
+            <span class="post-count">693</span>
         </span>
     </span>
 
@@ -122,7 +122,7 @@ var _hmt = _hmt || [];
 <p><strong>np.version, np.show_config:</strong><br>获取numpy的版本和配置信息</p>
 <p><strong>np.info：</strong><br>获取说明文档<br>例：np.info(np.add)</p>
 <p><strong>np.pad：</strong><br>对数组填充<br><a target="_blank" rel="noopener" href="https://numpy.org/doc/stable/reference/generated/numpy.pad.html">详细可见</a></p>
-<p><strong>np.nan：</strong><br>nan=not a number<br>故：<br>0 * np.nan                        nan<br>np.nan == np.nan                  False<br>np.inf &gt; np.nan                   False<br>np.nan - np.nan                   nan<br>0.3 == 3 * 0.1                    False</p>
+<p><strong>np.nan：</strong><br>nan=not a number<br>故：<br>|  输入  |输出  |<br>| —- | —- |<br>|0 * np.nan              |        nan |<br>|np.nan == np.nan         |      False |<br>|np.inf &gt; np.nan             |    False |<br>|np.nan - np.nan            |       nan |<br>|0.3 == 3 * 0.1               |     False |</p>
 <p><strong>np.unravel_index:</strong><br>例子：考虑一个 (6,7,8) 形状的数组，其第100个元素的索引(x,y,z)是什么?</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(np.unravel_index(<span class="number">100</span>,(<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)))</span><br></pre></td></tr></table></figure>
 
@@ -157,7 +157,7 @@ var _hmt = _hmt || [];
 <p><strong>np.unique:</strong><br>去除数组中的重复数字,并进行排序之后输出。</p>
 <p><strong>np.diag:</strong><br>当 np.diag(array) 中<br>array是一个1维数组时，结果形成一个以一维数组为对角线元素的矩阵。<br>array是一个二维矩阵时，结果输出矩阵的对角线元素。</p>
 <p><strong>多维切片之冒号和三个点：</strong><br>None代表新增加一个维度。<br>…代表所有的冒号。</p>
-<p><strong>np.repeats:</strong><br>将numpy数组重复。 numpy.repeat(a, repeats, axis=None)</p>
+<p><strong>np.repeat:</strong><br>将numpy数组重复。 numpy.repeat(a, repeats, axis=None)</p>
  
       <!-- reward -->
       
