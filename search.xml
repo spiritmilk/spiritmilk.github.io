@@ -293,7 +293,9 @@
 <p><strong>np.diag:</strong><br>当 np.diag(array) 中<br>array是一个1维数组时，结果形成一个以一维数组为对角线元素的矩阵。<br>array是一个二维矩阵时，结果输出矩阵的对角线元素。</p>
 <p><strong>多维切片之冒号和三个点：</strong><br>None代表新增加一个维度。<br>…代表所有的冒号。</p>
 <p><strong>np.repeat:</strong><br>将numpy数组重复。 numpy.repeat(a, repeats, axis=None)</p>
-<p><strong>np.cumsum:</strong><br>numpy.cumsum(a, axis=None, dtype=None, out=None)<br>返回沿着给定轴的元素的累积和。<br>axis=0，按照行累加。<br>axis=1，按照列累加。<br>axis不给定具体值，就把numpy数组当成一个一维数组。<br>注意：cumsum(b)[-1] 可能不等于 sum(b)</p>
+<p><strong>np.cumsum:</strong><br>numpy.cumsum(a, axis=None, dtype=None, out=None)<br>返回沿着给定轴的元素的累积和。<br>axis=0，按照行累加。<br>axis=1，按照列累加。<br>axis不给定具体值，就把numpy数组当成一个一维数组。</p>
+<p><strong>注意：</strong>cumsum(b)[-1] 可能不等于 sum(b)</p>
+<p>因为sum直接将每个数字单独加到结果上。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;	b = np.array([<span class="number">1</span>, <span class="number">2e-9</span>, <span class="number">3e-9</span>] * <span class="number">1000000</span>)</span><br><span class="line">&gt;&gt;&gt;	b.cumsum()[-<span class="number">1</span>]</span><br><span class="line"><span class="number">1000000.0050045159</span></span><br><span class="line">&gt;&gt;&gt;	b.<span class="built_in">sum</span>()                    </span><br><span class="line"><span class="number">1000000.0050000029</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
