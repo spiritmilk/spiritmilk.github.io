@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-     小熊的小站
+    BERT |  小熊的小站
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -65,607 +65,180 @@ var _hmt = _hmt || [];
     
       
     <main class="content on">
-      
-<section class="cover">
+      <section class="outer">
+  <article
+  id="post-20220119"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-  <div class="cover-frame">
-    <div class="bg-box">
-      <img src="/images/cover1.jpg" alt="image frame" />
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  BERT
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/20220119/" class="article-date">
+  <time datetime="2022-01-18T13:29:01.000Z" itemprop="datePublished">2022-01-18</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">481</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">1 min</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="cover-inner text-center text-white">
-      <h1><a href="/">小熊的小站</a></h1>
-      <div id="subtitle-box">
-        
-        <span id="subtitle"></span>
-        
-      </div>
-      <div>
-        
-      </div>
+      
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>论文：BERT:Pre-training of Deep Bidirectional Transformers for Language Understanding</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1810.04805?context=cs">https://arxiv.org/abs/1810.04805?context=cs</a></p>
+<span id="more"></span>
+
+<hr>
+<p>BERT=Bidirectional Encoder Representations from Transformers</p>
+<p>pre-trained language representations 两类策略：</p>
+<ul>
+<li><p>基于特征的ELMo (构建和每一个下游任务相关的 NN 架构；训练好的特征（作为额外的特征） 和 输入 一起放进模型)</p>
+</li>
+<li><p>基于微调参数的 GPT</p>
+</li>
+</ul>
+<p>ELMo 和 GPT 预训练时 使用 unidirectional langugage model，使用相同的目标函数</p>
+<p>语言模型是单向的、预测未来。不是给第 一句、第三句，预测第二句</p>
+<p>BERT 通过 MLM (带掩码的语言模型）作为预训练的目标，来减轻语言模型的单向约束。inspired by the Close task 1953 </p>
+<blockquote>
+<p>MLM：<br>每次随机选输入的词源 tokens, 然后 mask 它们，目标函数是预测被 masked 的词；类似挖空填词、完形填空。 </p>
+</blockquote>
+<p><strong>贡献：</strong></p>
+<p>1  bidirectional 双向信息的重要性</p>
+<p>2  BERT 首个 微调模型，在 sentence-level and token-level task效果好</p>
+<p>好的预训练模型，不用对特定任务做一些模型架构的改动</p>
+<p>3 BERT 开源，随便用 </p>
+<p><strong>算法：</strong></p>
+<p>预训练 + 微调</p>
+<p>pre-training: 使用 unlabeled data 训练 </p>
+<p>fine-tuning: 微调的 BERT 使用 预训练的参数 初始化，所有的权重参数通过 下游任务的 labeled data 进行微调。</p>
+<p>每一个下游任务会创建一个 新的 BERT 模型，（由预训练参数初始化），但每一个下游任务会根据自己任务的 labeled data 来微调自己的 BERT 模型。</p>
+<p>预训练和微调不是BERT的创新，CV里用的比较多。 </p>
+<p>模型调了 3 个参数：</p>
+<p>L: transform blocks的个数</p>
+<p>H: hidden size 隐藏层大小</p>
+<p>A: 自注意力机制 multi-head 中 head 头的个数</p>
+<p>分为 BERT_BASE （L=12,H=768,A=12,1亿参数）和 BERT_LARGE （L=24,H=1024,A=16,3.4亿参数） 两个模型。</p>
+<p>BERT_base 的参数选取 和 GPT 差不多，比较模型；BERT_large 刷榜。</p>
+<p>[待续]</p>
+ 
+      <!-- reward -->
+      
     </div>
-  </div>
-  <div class="cover-learn-more">
-    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
-  </div>
-</section>
+    
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
-
-
-<!-- Subtitle -->
-
-  <script>
-    try {
-      var typed = new Typed("#subtitle", {
-        strings: ['我本桀骜少年臣，不信鬼神不信人。', '', ''],
-        startDelay: 0,
-        typeSpeed: 200,
-        loop: false,
-        backSpeed: 200,
-        showCursor: true
-      });
-    } catch (err) {
-      console.log(err)
-    }
-  </script>
-  
-<div id="main">
-  <section class="outer">
-  
-  
-<div class="notice" style="margin-top:50px">
-    <i class="ri-heart-fill"></i>
-    <div class="notice-content">我还年轻，我仍豪放，我的刀尖而利，我的萧并不凄凉！</div>
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
 </div>
 
-
-<style>
-    .notice {
-        padding: 20px;
-        border: 1px dashed #e6e6e6;
-        color: #969696;
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        background: #fbfbfb50;
-        border-radius: 10px;
-    }
-
-    .notice i {
-        float: left;
-        color: #999;
-        font-size: 16px;
-        padding-right: 10px;
-        vertical-align: middle;
-        margin-top: -2px;
-    }
-
-    .notice-content {
-        display: initial;
-        vertical-align: middle;
-    }
-</style>
-  
-  <article class="articles">
-    
-    
-    
-    
-    <article
-  id="post-20210326"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210326/"
-    >我没有为你伤春悲秋不配有憾事</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210326/" class="article-date">
-  <time datetime="2021-03-26T02:20:41.000Z" itemprop="datePublished">2021-03-26</time>
-</a>    
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2022/20220119/" alt="微信分享二维码">
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>听了张敬轩的《春秋》，本想提笔写写自己的感受，奈何在知乎上看到了一个写得非常非常好的评论，有种”眼前有景道不得,崔颢提诗在上头“的感觉。</p> 
-      <a class="article-more-link" href="/2021/20210326/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
+</div>
 
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
+<div id="share-mask"></div>  
     </footer>
   </div>
 
-    
- 
    
-</article>
-
+  <nav class="article-nav">
     
-    <article
-  id="post-20210313"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
+      <a href="/2022/20220118/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            ResNet
+          
+        </div>
+      </a>
     
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210313/"
-    >怎么去拯救Ta们？</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210313/" class="article-date">
-  <time datetime="2021-03-13T10:39:42.000Z" itemprop="datePublished">2021-03-13</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>她低头看着湖水，黑暗中仿佛空无一物，只有黑幽幽的颜色，一片巨大的虚无在她脚下铺展开来。没关系的，她告诉自己，然后，她就跨出小船，走进水中。</p>
-<p>——《无声告白》</p> 
-      <a class="article-more-link" href="/2021/20210313/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
     
-
-    <!-- copyright -->
+      <a href="/2021/20211009/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">《费尔巴哈和德国古典哲学的终结》</div>
+      </a>
     
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20210309"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210309/"
-    >梯度下降法</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210309/" class="article-date">
-  <time datetime="2021-03-09T14:59:29.000Z" itemprop="datePublished">2021-03-09</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>梯度下降法是一种常见的无约束优化方法,其问题定义为<br>$$<br>min f(x),x\in R^n,f在R^n上连续可微<br>$$</p> 
-      <a class="article-more-link" href="/2021/20210309/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20210224"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210224/"
-    >《他者的消失》读书笔记</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210224/" class="article-date">
-  <time datetime="2021-02-24T14:28:26.000Z" itemprop="datePublished">2021-02-24</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>《他者的消失》由“德国哲学界的一颗新星” 韩炳哲所作，有多篇小短文构成，对“他者”进行了剖析，有些晦涩，但也不乏好句。</p> 
-      <a class="article-more-link" href="/2021/20210224/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20210122(1~5)"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210122(1~5)/"
-    >《概率导论》补充答案</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210122(1~5)/" class="article-date">
-  <time datetime="2021-01-22T10:20:39.000Z" itemprop="datePublished">2021-01-22</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>《概率导论》第二版答案补充，书上已给解答的不再赘述。</p> 
-      <a class="article-more-link" href="/2021/20210122(1~5)/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20210122"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210122/"
-    >《概率导论》学习笔记(持续更新中)</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210122/" class="article-date">
-  <time datetime="2021-01-22T10:19:39.000Z" itemprop="datePublished">2021-01-22</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>开始时间：2021/01/22</p> 
-      <a class="article-more-link" href="/2021/20210122/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20210115"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210115/"
-    >随记</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210115/" class="article-date">
-  <time datetime="2021-01-15T14:31:08.000Z" itemprop="datePublished">2021-01-15</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  没啥好看的. 
-      <a class="article-more-link" href="/2021/20210115/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20210107"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/20210107/"
-    >一道SYSU期末高数题</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/20210107/" class="article-date">
-  <time datetime="2021-01-07T10:02:55.000Z" itemprop="datePublished">2021-01-07</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>证明：当$x\in(0,\frac{\pi}{2})$, $\frac{tanx}{x}&gt; \frac{x}{sinx}$.</p> 
-      <a class="article-more-link" href="/2021/20210107/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20201231"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/20201231/"
-    >2020年度总结</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/20201231/" class="article-date">
-  <time datetime="2020-12-31T15:13:46.000Z" itemprop="datePublished">2020-12-31</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  年度总结而已，没啥好看的. 
-      <a class="article-more-link" href="/2020/20201231/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-20201221"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/20201221/"
-    >她</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/20201221/" class="article-date">
-  <time datetime="2020-12-21T15:02:28.000Z" itemprop="datePublished">2020-12-21</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  没啥好看的. 
-      <a class="article-more-link" href="/2020/20201221/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-  </article>
-  
-
-  
-  <nav class="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
   </nav>
-  
-</section>
-</div>
 
+   
+ 
+   
+  
+</article>
+
+</section>
       <footer class="footer">
   <div class="outer">
 
@@ -846,6 +419,23 @@ setInterval("createtime()",250);
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
