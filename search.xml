@@ -2,6 +2,15 @@
 <search>
   <entry>
     <title>图神经网络</title>
+    <url>/2022/20220222/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>今天是最多2的时刻 </p>
+<span id="more"></span>
+
+<p>略</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>图神经网络</title>
     <url>/2022/20220122/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自博客文章：A Gentle Introduction to Graph Neural Networks<br><a href="https://distill.pub/2021/gnn-intro/">https://distill.pub/2021/gnn-intro/</a></p>
 <p>作者都来自Google Research </p>
@@ -25,27 +34,96 @@
 ]]></content>
   </entry>
   <entry>
-    <title>图神经网络</title>
-    <url>/2022/20220222/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自博客文章：A Gentle Introduction to Graph Neural Networks<br><a href="https://distill.pub/2021/gnn-intro/">https://distill.pub/2021/gnn-intro/</a></p>
-<p>作者都来自Google Research </p>
-<p>发表在 distill 网站(博客相比论文写作更自由)。 </p>
+    <title>《正确写作美国大学生数学建模竞赛论文》笔记</title>
+    <url>/2022/20220201/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h5 id="写作规范："><a href="#写作规范：" class="headerlink" title="写作规范："></a>写作规范：</h5><h6 id="1-基本要求："><a href="#1-基本要求：" class="headerlink" title="1.基本要求："></a>1.基本要求：</h6><p>（1）使用第一人称复数代词</p>
+<p>（2）使用现在时态</p>
+<p>（3）使用主动语态</p>
 <span id="more"></span>
 
-<hr>
-<p><strong>一些符号：</strong></p>
-<p>V 顶点</p>
-<p>E 边</p>
-<p>U 全局信息，整个图 </p>
-<p>图可分为无向图和有向图。</p>
-<p><strong>图片如何表示成图？</strong></p>
-<p> 244 * 244 * 3通道，3维度的tensor</p>
-<p>把图片看作一张图，一个像素是一个点；一个像素跟我是连接关系的话，像素之间连一条边。</p>
-<h5 id="GNN"><a href="#GNN" class="headerlink" title="GNN"></a>GNN</h5><p>A GNN is  an optimizable transformation on all attributes of the graph (nodes, edges, global-contex ) that preserves graph symmetries (permuation invariance). </p>
-<p>本文使用message passing NN </p>
-<h5 id="GNN-对超参数比较敏感："><a href="#GNN-对超参数比较敏感：" class="headerlink" title="GNN 对超参数比较敏感："></a>GNN 对超参数比较敏感：</h5><p>多少层、attribute的embedding的维度、汇聚使用什么操作max average、怎样传递消息 </p>
-<h5 id="GNN的假设："><a href="#GNN的假设：" class="headerlink" title="GNN的假设："></a>GNN的假设：</h5><p>图的对称性</p>
-<h5 id="GCN（图卷积神经网络）"><a href="#GCN（图卷积神经网络）" class="headerlink" title="GCN（图卷积神经网络）"></a>GCN（图卷积神经网络）</h5><p>搜索</p>
+<p>例：</p>
+<p>The model produced a desirable conclusion.（√）</p>
+<p>A desirable conclusion was produced by the model. (x)</p>
+<p>（4）使用动词表示动作</p>
+<p>例：</p>
+<p>We give an analysis of the solution of the equation and arrive at the conclusion that our model is a good one.（x）</p>
+<p>After we solve the equation and analyze the result,we conclude that our model is a good one. (√)</p>
+<h6 id="2-段落和句子"><a href="#2-段落和句子" class="headerlink" title="2.段落和句子"></a>2.段落和句子</h6><p>（1）简短的段落</p>
+<p>（2）使用简单句，不免用多个从句表达多个意思</p>
+<p>（3）略去琐碎细节</p>
+<p>如公式的详细中间过程可省略。</p>
+<h6 id="3-单词和短语"><a href="#3-单词和短语" class="headerlink" title="3.单词和短语"></a>3.单词和短语</h6><p>（1）使用简单的单词和短语</p>
+<p>另外，assume 和suppose这两个词后面应该加that</p>
+<blockquote>
+<p>简化复杂的短语：</p>
+<p>at the present time -&gt; now</p>
+<p>concerning the issue -&gt;about</p>
+<p>currently -&gt; now</p>
+<p>due to the fact that -&gt;because</p>
+<p>for the purpose of -&gt; for</p>
+<p>has the ability to -&gt; can</p>
+<p>in the event that -&gt;if</p>
+</blockquote>
+<p>（2）使用有具体含义的词汇</p>
+<p>比如方程应该用equation而不是expression(表达式)</p>
+<p>（3）适当使用过渡词</p>
+<p>（4）使用并列短语强调相似性</p>
+<p>叙述相似的事件或相似的对象时，应该使用结构相似的句子。</p>
+<p>（5）避免单调重复</p>
+<p>First we solved an equation.Then we solved another equation.(X)</p>
+<p>First we solved an equation.The solution of the first equation allowed us to solve the second equation.(√)</p>
+<p>（6）避免使用同一词汇描述不同的对象</p>
+<p>（7）代词所指的名词必须清晰</p>
+<p>（8）正确使用that和which</p>
+<h6 id="4-视觉效果"><a href="#4-视觉效果" class="headerlink" title="4.视觉效果"></a>4.视觉效果</h6><p>（1）让论文看上去简单</p>
+<p>重要的论述和公式要看上去醒目。新定义的概念或词语应该用黑体字。重要的句子要放在段落开头。重要的公式以独行公式的形式展示。</p>
+<p>（2）正确使用列表</p>
+<p>一般不超过十项</p>
+<p>在列表前正确使用冒号——完整句子用冒号，否则不用</p>
+<p>（3）必要处使用表格</p>
+<p>（4）必要处使用图</p>
+<p>（5）不过分吹嘘论文结果，不用使用感叹号</p>
+<h6 id="5-论文排版"><a href="#5-论文排版" class="headerlink" title="5.论文排版"></a>5.论文排版</h6><p>正文11号或12号字，一般使用正体Times New Roman</p>
+<h5 id="论文写作"><a href="#论文写作" class="headerlink" title="论文写作"></a>论文写作</h5><h6 id="1-论文结构合理"><a href="#1-论文结构合理" class="headerlink" title="1.论文结构合理"></a>1.论文结构合理</h6><p>论文分为以下部分：</p>
+<ul>
+<li><p>摘要</p>
+</li>
+<li><p>问题重述</p>
+</li>
+<li><p>列出并解释所有的前提条件和假设</p>
+</li>
+<li><p>论证建模的合理性或给出建模的动机</p>
+</li>
+<li><p>模型设计</p>
+</li>
+<li><p>讨论如何检验模型，包括误差分析和稳定性测试（如对条件、敏感度等因素进行分析和测试）</p>
+</li>
+<li><p>模型的优缺点</p>
+</li>
+</ul>
+<h6 id="2-引言部分"><a href="#2-引言部分" class="headerlink" title="2.引言部分"></a>2.引言部分</h6><p>浅显易懂，避免使用数学表达式和术语</p>
+<h6 id="3-论文主体"><a href="#3-论文主体" class="headerlink" title="3.论文主体"></a>3.论文主体</h6><p>（1）假设条件和解释</p>
+<p>在论文中应明确列出所有用到的假设条件，并解释其合理性。</p>
+<p>（2）解释模型设计</p>
+<p>应该从简单模型开始，逐步加工、修改及完善。</p>
+<p>建模时，参赛小组应集中精力设计一个模型，或者最终能导出一个较好模型的一系列子模型。</p>
+<p>另外，高水平的论文通常会把赛题看成是一般问题的一个特例。</p>
+<p>（3）检验模型</p>
+<p>应讨论参数值的微小变化对模型和结论会造成什么样的影响。</p>
+<p>用简单的特例来验证模型的正确性。</p>
+<p>（4）讨论模型的优缺点</p>
+<p>缺点的根源肯来自：某些假设条件简化了问题，部分参数只是取近似值，甚至是估计出来的。</p>
+<p>模型的优点应该在论文中明确指出。若模型的正确性可在一些简单的情形下得到验证，可以说“用本文的模型得到的结果与常识和经验相符合”。</p>
+<p>若模型的某些优点虽然已经在前文提过，也应再次强调。</p>
+<p>由于竞赛时间有限和计算条件的限制，赛题中的不少问题参赛小组可能无法在竞赛期间解决。如果有充足的资源，参赛小组将能够解决这些问题的话，则应该在论文中明确地指出来。</p>
+<h6 id="4-摘要部分"><a href="#4-摘要部分" class="headerlink" title="4.摘要部分"></a>4.摘要部分</h6><p>第一句话尤其重要，应该用引人入胜的语言激发读者的兴趣。</p>
+<p>但是不要包含太多的数学内容。</p>
+<h5 id="如何撰写优胜论文"><a href="#如何撰写优胜论文" class="headerlink" title="如何撰写优胜论文"></a>如何撰写优胜论文</h5><h6 id="1-常见错误"><a href="#1-常见错误" class="headerlink" title="1.常见错误"></a>1.常见错误</h6><p>获奖不是唯一目的。</p>
+<p>参赛目的很多，比如：</p>
+<p>（1）获得经验</p>
+<p>（2）培养团队合作精神</p>
+<p>（3）完成竞赛后的成就感</p>
+<p>等等等等。</p>
 ]]></content>
   </entry>
   <entry>
