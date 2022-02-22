@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    条条大路通罗马，巧比大小多方法 |  小熊的小站
+    图神经网络 |  小熊的小站
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -67,7 +67,7 @@ var _hmt = _hmt || [];
     <main class="content on">
       <section class="outer">
   <article
-  id="post-20190815"
+  id="post-20220122"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -78,22 +78,22 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  条条大路通罗马，巧比大小多方法
+  图神经网络
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2019/20190815/" class="article-date">
-  <time datetime="2019-08-15T14:15:19.000Z" itemprop="datePublished">2019-08-15</time>
+      <a href="/2022/20220122/" class="article-date">
+  <time datetime="2022-01-22T13:03:34.000Z" itemprop="datePublished">2022-01-22</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">308</span>
+            <span class="post-count">205</span>
         </span>
     </span>
 
@@ -109,29 +109,33 @@ var _hmt = _hmt || [];
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（2014·湖北·22）<br>$\pi$为圆周率，e=2.71828…为自然对数的底数。<br>（1）求函数$f(x)=\frac{lnx}{x}$的单调区间<br>（2）将$e^3,3^e,3^{\pi},{\pi}^3,e^{\pi},{\pi}^e$这六个数按从小到大的顺序排列，并证明你的结论。</p>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自博客文章：A Gentle Introduction to Graph Neural Networks<br><a target="_blank" rel="noopener" href="https://distill.pub/2021/gnn-intro/">https://distill.pub/2021/gnn-intro/</a></p>
+<p>作者都来自Google Research </p>
+<p>发表在 distill 网站(博客相比论文写作更自由)。 </p>
 <span id="more"></span>
 
-<p>解：（3）本题的关键是比较$e^3$与${\pi}^e$、$e^{\pi}$与${\pi}^3$</p>
-<p>$\because  $9&gt;${\pi}e$</p>
-<p>$\therefore$ 只需证 ${\pi}^e$&gt;$e^3$，剩下的不言自明。</p>
-<p>这道题看似是“空中楼阁”，但好心的命题者设计了梯子（第一问） 。</p>
-<p>解法一：由（1）知，</p>
-<p>$f(x)&lt;f(e)=\frac{1}{e}$</p>
-<p>$f(\frac{e^2}{\pi})=\frac{ln{\frac{e^2}{\pi}}}{\frac{e^2}{\pi}}&lt;\frac{1}{e}$</p>
-<p>即$ln{\pi}&gt;2-\frac{e}{\pi}$</p>
-<p>$\therefore eln\pi&gt;e(2-\frac{e}{\pi})&gt;2.7(2-\frac{2.7}{3.14}) &gt;3$</p>
-<p>$ln{\pi^e}&gt;3=ln{e^3} $</p>
-<p>$\Rightarrow e^3 &lt;\pi ^e$</p>
-<p>事实上，这梯子不太容易攀爬，我们不妨舍弃该梯子，换一条道路直捣黄龙。<br>解法二：$e^3$&lt;$\pi^e$<br>$\Leftrightarrow {\pi}^{\frac{e}{3}}&gt;e$<br>而$\frac{e}{3}&gt;\frac{9}{10}$<br>$\therefore $只需证$ \pi^{\frac{9}{10}}&gt;e$<br>而 ${1+\frac{1}{x}}^{x+1}\geq e$<br>$\therefore $只需证 $\frac{\pi}{e}&gt;1+\frac{1}{8}$<br>即证$8\pi&gt;9e$</p>
-<p>而8x3.14&gt;9x2.72</p>
-<p>证毕。</p>
+<hr>
+<p><strong>一些符号：</strong></p>
+<p>V 顶点</p>
+<p>E 边</p>
+<p>U 全局信息，整个图 </p>
+<p>图可分为无向图和有向图。</p>
+<p><strong>图片如何表示成图？</strong></p>
+<p> 244 * 244 * 3通道，3维度的tensor</p>
+<p>把图片看作一张图，一个像素是一个点；一个像素跟我是连接关系的话，像素之间连一条边。</p>
+<h5 id="GNN"><a href="#GNN" class="headerlink" title="GNN"></a>GNN</h5><p>A GNN is  an optimizable transformation on all attributes of the graph (nodes, edges, global-contex ) that preserves graph symmetries (permuation invariance). </p>
+<p>本文使用message passing NN </p>
+<h5 id="GNN-对超参数比较敏感："><a href="#GNN-对超参数比较敏感：" class="headerlink" title="GNN 对超参数比较敏感："></a>GNN 对超参数比较敏感：</h5><p>多少层、attribute的embedding的维度、汇聚使用什么操作max average、怎样传递消息 </p>
+<h5 id="GNN的假设："><a href="#GNN的假设：" class="headerlink" title="GNN的假设："></a>GNN的假设：</h5><p>图的对称性</p>
+<h5 id="GCN（图卷积神经网络）"><a href="#GCN（图卷积神经网络）" class="headerlink" title="GCN（图卷积神经网络）"></a>GCN（图卷积神经网络）</h5><p>搜索</p>
  
       <!-- reward -->
       
@@ -184,7 +188,7 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2019/20190815/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2022/20220122/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -195,19 +199,10 @@ var _hmt = _hmt || [];
    
   <nav class="article-nav">
     
-      <a href="/2019/20190831/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            对数平均的一个上界
-          
-        </div>
-      </a>
     
-    
-      <a href="/2019/20190810/" class="article-nav-link">
+      <a href="/2022/20220222/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">巧妙曲线系，减少计算量</div>
+        <div class="article-nav-title">图神经网络</div>
       </a>
     
   </nav>

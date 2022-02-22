@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>图神经网络</title>
+    <url>/2022/20220122/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自博客文章：A Gentle Introduction to Graph Neural Networks<br><a href="https://distill.pub/2021/gnn-intro/">https://distill.pub/2021/gnn-intro/</a></p>
+<p>作者都来自Google Research </p>
+<p>发表在 distill 网站(博客相比论文写作更自由)。 </p>
+<span id="more"></span>
+
+<hr>
+<p><strong>一些符号：</strong></p>
+<p>V 顶点</p>
+<p>E 边</p>
+<p>U 全局信息，整个图 </p>
+<p>图可分为无向图和有向图。</p>
+<p><strong>图片如何表示成图？</strong></p>
+<p> 244 * 244 * 3通道，3维度的tensor</p>
+<p>把图片看作一张图，一个像素是一个点；一个像素跟我是连接关系的话，像素之间连一条边。</p>
+<h5 id="GNN"><a href="#GNN" class="headerlink" title="GNN"></a>GNN</h5><p>A GNN is  an optimizable transformation on all attributes of the graph (nodes, edges, global-contex ) that preserves graph symmetries (permuation invariance). </p>
+<p>本文使用message passing NN </p>
+<h5 id="GNN-对超参数比较敏感："><a href="#GNN-对超参数比较敏感：" class="headerlink" title="GNN 对超参数比较敏感："></a>GNN 对超参数比较敏感：</h5><p>多少层、attribute的embedding的维度、汇聚使用什么操作max average、怎样传递消息 </p>
+<h5 id="GNN的假设："><a href="#GNN的假设：" class="headerlink" title="GNN的假设："></a>GNN的假设：</h5><p>图的对称性</p>
+<h5 id="GCN（图卷积神经网络）"><a href="#GCN（图卷积神经网络）" class="headerlink" title="GCN（图卷积神经网络）"></a>GCN（图卷积神经网络）</h5><p>搜索</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>图神经网络</title>
+    <url>/2022/20220222/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自博客文章：A Gentle Introduction to Graph Neural Networks<br><a href="https://distill.pub/2021/gnn-intro/">https://distill.pub/2021/gnn-intro/</a></p>
+<p>作者都来自Google Research </p>
+<p>发表在 distill 网站(博客相比论文写作更自由)。 </p>
+<span id="more"></span>
+
+<hr>
+<p><strong>一些符号：</strong></p>
+<p>V 顶点</p>
+<p>E 边</p>
+<p>U 全局信息，整个图 </p>
+<p>图可分为无向图和有向图。</p>
+<p><strong>图片如何表示成图？</strong></p>
+<p> 244 * 244 * 3通道，3维度的tensor</p>
+<p>把图片看作一张图，一个像素是一个点；一个像素跟我是连接关系的话，像素之间连一条边。</p>
+<h5 id="GNN"><a href="#GNN" class="headerlink" title="GNN"></a>GNN</h5><p>A GNN is  an optimizable transformation on all attributes of the graph (nodes, edges, global-contex ) that preserves graph symmetries (permuation invariance). </p>
+<p>本文使用message passing NN </p>
+<h5 id="GNN-对超参数比较敏感："><a href="#GNN-对超参数比较敏感：" class="headerlink" title="GNN 对超参数比较敏感："></a>GNN 对超参数比较敏感：</h5><p>多少层、attribute的embedding的维度、汇聚使用什么操作max average、怎样传递消息 </p>
+<h5 id="GNN的假设："><a href="#GNN的假设：" class="headerlink" title="GNN的假设："></a>GNN的假设：</h5><p>图的对称性</p>
+<h5 id="GCN（图卷积神经网络）"><a href="#GCN（图卷积神经网络）" class="headerlink" title="GCN（图卷积神经网络）"></a>GCN（图卷积神经网络）</h5><p>搜索</p>
+]]></content>
+  </entry>
+  <entry>
     <title>AlexNet</title>
     <url>/2022/20220121/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>论文：</p>
