@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>图神经网络</title>
+    <title>《拖延症与摩托车维修技术》笔记</title>
+    <url>/2022/20220225/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><span id="more"></span>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>yolo三剑客</title>
+    <url>/2022/20220224/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>yolo=you only look once</p>
+<p>一个非常常用的目标检测算法</p>
+<p>现在有5个版本，前三个由yolo之父Joseph Redmon领衔的研究人员研发。yolov3提出后不久，Joseph Redmon宣布退出CV界。故后两个版本均有另外的人研发。</p>
+<span id="more"></span>
+
+<h3 id="yolov1"><a href="#yolov1" class="headerlink" title="yolov1"></a>yolov1</h3><h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><p><strong>优点：</strong></p>
+<p>1.速度快，性能优于其他检测方法，包括DPM和R-CNN。</p>
+<p>YOLO在训练和测试期间看到整个图像，因此它隐式地编码有关类及其外观的上下文信息。Fast  R-CNN是一种顶级检测方法[14]，它会将图像中的背景补丁误认为是物体，因为它看不到更大的背景。与Fast R-CNN相比，YOLO犯的背景错误不到一半。</p>
+<p><strong>缺点：</strong></p>
+<p>精确度不高，虽然它可以快速识别图像中的物体，但它很难精确定位某些物体，尤其是小物体。</p>
+<p>由于模型从数据中学习预测边界框，因此很难将其推广到具有新的或不寻常的长宽比或配置的对象</p>
+<h4 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a><strong>算法流程</strong></h4><p>算法将输入图像划分为S×S网格。如果物体的中心落入网格单元，该网格单元负责检测该物体。每个网格单元预测B个边界框和这些框的置信度分数。这些置信度分数反映了模型对盒子包含对象的置信度，以及它认为盒子预测的准确性。</p>
+<p>在形式上，我们将置信度定义为<br>$$<br>Pr(物体)*IOU^{truth}_{pred}<br>$$<br>每个边界框由5个预测组成：x、y、w、h和置信度。</p>
+<p>x，y坐标是预测框的中心坐标。w、h是预测框的宽度和高度。最后，置信度预测表示预测框和任何先验框之间的IOU。每个网格单元还预测C条件类概率$Pr（Class_i  | Object）$。这些概率取决于包含对象的网格单元。</p>
+<h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><p>网络结构基于 GoogLeNet。</p>
+<p>![屏幕截图 2022-02-24 191727](C:\Users\李\Pictures\屏幕截图 2022-02-24 191727.png)</p>
+<p>Fast YOLO使用的神经网络具有较少的卷积层（9层而不是24层）和较少的滤filter。除了网络的大小之外，YOLO和Fast  YOLO之间的所有训练和测试参数都是相同的。</p>
+<p>为了避免过拟合，使用了Dropout 和数据增强（原始图像20%的随机缩放和旋转、在HSV上将曝光度和饱和度乘以若干不高于1.5的倍数）</p>
+<h4 id="与其他目标检测算法的对比"><a href="#与其他目标检测算法的对比" class="headerlink" title="与其他目标检测算法的对比"></a>与其他目标检测算法的对比</h4><h3 id="yolov2"><a href="#yolov2" class="headerlink" title="yolov2"></a>yolov2</h3><p>又叫yolo9000，因为可以对9000个类别识别。</p>
+<h4 id="改进之处"><a href="#改进之处" class="headerlink" title="改进之处"></a>改进之处</h4><p><strong>增加了BN层</strong></p>
+<p><strong>增加了分辨率</strong></p>
+<h3 id="yolov3"><a href="#yolov3" class="headerlink" title="yolov3"></a>yolov3</h3>]]></content>
+  </entry>
+  <entry>
+    <title>love</title>
     <url>/2022/20220222/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>今天是最多2的时刻 </p>
 <span id="more"></span>
@@ -157,6 +190,27 @@
 <p>使用了学习率衰减（每过一段时间除以10），现在的学习率使用warmup策略。</p>
 <h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><p><strong>奇怪的现象：</strong></p>
 <p>GPU1学习到的东西和颜色无关，而GPU2学习到的东西和颜色有关。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>如何读论文——李沐</title>
+    <url>/2022/20220120/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>论文大致分为以下几个部分：</p>
+<p>1.title<br>2.abstract<br>3.introduction<br>4.method<br>5.experiments<br>6.conclusion</p>
+<p>论文读三遍。</p>
+<span id="more"></span>
+
+<h6 id="第一遍"><a href="#第一遍" class="headerlink" title="第一遍"></a>第一遍</h6><p>标题、摘要、结论。</p>
+<p>然后看一看方法和实验部分重要的图和表。这样可以花费十几分钟时间了解到论文结果怎么样，质量怎么样，是否适合你的研究方向。</p>
+<h6 id="第二遍"><a href="#第二遍" class="headerlink" title="第二遍"></a>第二遍</h6><p>确定论文值得读之后，可以快速的把整个论文过一遍，不需要知道所有的细节，需要了解重要的图和表，知道每一个部分在干什么，圈出相关文献。</p>
+<p>觉得文章太难，可以读引用的文献。</p>
+<p>如果觉得不需要了解那么就可以停止了。</p>
+<h6 id="第三遍"><a href="#第三遍" class="headerlink" title="第三遍"></a>第三遍</h6><p>每句话作者在干什么</p>
+<p>提出什么问题，用什么方法来解决这个问题。实验是怎么做的。如果是我来做怎么实现？能不能做得更好？</p>
+<p>合上文章，回忆每一个部分在讲什么</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>第一遍 做海选</p>
+<p>第二遍 做精选</p>
+<p>第三遍 重点研读</p>
 ]]></content>
   </entry>
   <entry>
