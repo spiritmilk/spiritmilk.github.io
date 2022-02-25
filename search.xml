@@ -30,10 +30,12 @@
 <p>![屏幕截图 2022-02-24 191727](C:\Users\李\Pictures\屏幕截图 2022-02-24 191727.png)</p>
 <p>Fast YOLO使用的神经网络具有较少的卷积层（9层而不是24层）和较少的滤filter。除了网络的大小之外，YOLO和Fast  YOLO之间的所有训练和测试参数都是相同的。</p>
 <p>为了避免过拟合，使用了Dropout 和数据增强（原始图像20%的随机缩放和旋转、在HSV上将曝光度和饱和度乘以若干不高于1.5的倍数）</p>
-<h4 id="与其他目标检测算法的对比"><a href="#与其他目标检测算法的对比" class="headerlink" title="与其他目标检测算法的对比"></a>与其他目标检测算法的对比</h4><h3 id="yolov2"><a href="#yolov2" class="headerlink" title="yolov2"></a>yolov2</h3><p>又叫yolo9000，因为可以对9000个类别识别。</p>
+<h4 id="与其他目标检测算法的对比"><a href="#与其他目标检测算法的对比" class="headerlink" title="与其他目标检测算法的对比"></a>与其他目标检测算法的对比</h4><p>*</p>
+<h3 id="yolov2"><a href="#yolov2" class="headerlink" title="yolov2"></a>yolov2</h3><p>又叫yolo9000，因为可以对9000个类别识别。</p>
 <h4 id="改进之处"><a href="#改进之处" class="headerlink" title="改进之处"></a>改进之处</h4><p><strong>增加了BN层</strong></p>
 <p><strong>增加了分辨率</strong></p>
-<h3 id="yolov3"><a href="#yolov3" class="headerlink" title="yolov3"></a>yolov3</h3>]]></content>
+<h3 id="yolov3"><a href="#yolov3" class="headerlink" title="yolov3"></a>yolov3</h3><p>*</p>
+]]></content>
   </entry>
   <entry>
     <title>love</title>
@@ -210,7 +212,7 @@
 <h6 id="第三遍"><a href="#第三遍" class="headerlink" title="第三遍"></a>第三遍</h6><p>每句话作者在干什么</p>
 <p>提出什么问题，用什么方法来解决这个问题。实验是怎么做的。如果是我来做怎么实现？能不能做得更好？</p>
 <p>合上文章，回忆每一个部分在讲什么</p>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>第一遍 做海选</p>
+<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><p>第一遍 做海选</p>
 <p>第二遍 做精选</p>
 <p>第三遍 重点研读</p>
 ]]></content>
