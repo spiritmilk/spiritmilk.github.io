@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>kaggle竞赛小技巧——为什么四舍五入能提高分数</title>
+    <url>/2022/20220311/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>  该观点由<a href="https://www.kaggle.com/c/tabular-playground-series-jan-2022">tabular-playground-series-jan-2022</a>的冠军<a href="https://www.kaggle.com/ambrosm">AmbrosM</a>提出。</p>
+<p>全文：<a href="https://www.kaggle.com/c/tabular-playground-series-jan-2022/discussion/301249">https://www.kaggle.com/c/tabular-playground-series-jan-2022/discussion/301249</a></p>
+<span id="more"></span>
+
+<hr>
+<p>这个观点基于三个假设：</p>
+<p>1）真实的标签都是整数</p>
+<p>2）比赛评分使用MAE（或SMAPE）</p>
+<p>3）预测误差是连续单峰函数，最大概率密度在0附近，如下图所示</p>
+<p><img src="https://i.imgur.com/gXC61uC.png" alt="density"></p>
+<p>绿色代表四舍五入减少误差，红色代表四舍五入增加误差。</p>
+<p>易证绿色的面积会比红色的面积大。</p>
+<p>虽然选择四舍五入会提高分数，但是四舍五入也会产生意想不到的效果：会引入不连续性，增加了结果的方差，使模型评估更加困难。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>《被讨厌的勇气》笔记</title>
     <url>/2022/20220228/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p> 《被讨厌的勇气》是由日本作家岸见一郎和古贺史健所著。以青年与哲人的对话呈现阿德勒心理学的思想与内容。</p>
