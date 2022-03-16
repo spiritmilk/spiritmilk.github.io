@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">803</span>
+            <span class="post-count">800</span>
         </span>
     </span>
 
@@ -132,7 +132,7 @@ var _hmt = _hmt || [];
 <p>在形式上，我们将置信度定义为<br>$$<br>Pr(物体)*IOU^{truth}_{pred}<br>$$<br>每个边界框由5个预测组成：x、y、w、h和置信度。</p>
 <p>x，y坐标是预测框的中心坐标。w、h是预测框的宽度和高度。最后，置信度预测表示预测框和任何实际框之间的IOU。每个网格单元还预测C条件类概率$Pr（Class_i  | Object）$。这些概率取决于包含对象的网格单元。</p>
 <h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><p>网络结构基于 GoogLeNet。</p>
-<p>![屏幕截图 2022-02-24 191727](C:\Users\李\Pictures\屏幕截图 2022-02-24 191727.png)</p>
+<p>![屏幕截图 2022-02-24 191727](/images/屏幕截图 2022-02-24 191727.png)</p>
 <p>Fast YOLO使用的神经网络具有较少的卷积层（9层而不是24层）和较少的滤filter。除了网络的大小之外，YOLO和Fast  YOLO之间的所有训练和测试参数都是相同的。</p>
 <p>为了避免过拟合，使用了Dropout 和数据增强（原始图像20%的随机缩放和旋转、在HSV上将曝光度和饱和度乘以若干不高于1.5的倍数）</p>
 <h4 id="与其他目标检测算法的对比"><a href="#与其他目标检测算法的对比" class="headerlink" title="与其他目标检测算法的对比"></a>与其他目标检测算法的对比</h4><p>*</p>
@@ -143,7 +143,7 @@ var _hmt = _hmt || [];
 <p><strong>使用Kmeans选择anchor</strong></p>
 <p>anchor的思想来自于Fast-RCNN。anchor是从数据集中统计得到的(Faster-RCNN中的Anchor的宽高和大小是手动挑选的)。</p>
 <h3 id="yolov3"><a href="#yolov3" class="headerlink" title="yolov3"></a>yolov3</h3><h4 id="改进之处-1"><a href="#改进之处-1" class="headerlink" title="改进之处"></a>改进之处</h4><p><strong>网络结构发生变化</strong></p>
-<p><img src="%5Cimages%5Cv2-085b6d95dc53894e5de4fe95d2249b06_b.jpg" alt="img"></p>
+<p><img src="/images/v2-085b6d95dc53894e5de4fe95d2249b06_b.jpg" alt="img"></p>
 <p><strong>softmax-&gt;交叉熵：</strong></p>
 <p>YOLO v3使用多标签分类，用多个独立的logistic分类器代替softmax函数，以计算输入属于特定标签的可能性。在计算分类损失进行训练时，YOLO v3对每个标签使用二元交叉熵损失。</p>
  
