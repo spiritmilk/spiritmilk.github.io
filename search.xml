@@ -4426,7 +4426,8 @@
 <p>故：</p>
 <p> $I(a) = 2\int_{0}^{\pi}\ln\left(a\ \frac{\sin(\gamma)}{\sin(\alpha)}\right)\ \text{d}\gamma \ = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma-2\int_{0}^{\pi}\ln\left(\sin(\alpha)\right)\ \text{d}\gamma $</p>
 <p> 又因为：$\gamma=\pi-\alpha-\beta$,$\text{d}\gamma=-\text{d}\alpha-\text{d}\beta$ </p>
-<p>当$\gamma\rightarrow 0:\alpha\rightarrow \pi,\beta\rightarrow 0$ 当$\gamma\rightarrow \pi:\alpha\rightarrow 0,\beta\rightarrow 0$ </p>
+<p>当$\gamma\rightarrow 0:\alpha\rightarrow \pi,\beta\rightarrow 0$ </p>
+<p>当$\gamma\rightarrow \pi:\alpha\rightarrow 0,\beta\rightarrow 0$ </p>
 <p>故 $I(a)  = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma\  -2\left[\int_{\pi}^{0}\ln\left(\sin(\alpha)\right)(-\text{d}\alpha)+\int_{0}^{0}\ln\left(\sin(\alpha)\right)(-\text{d}\beta)\right] \  = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma-2\int_{0}^{\pi}\ln\left(\sin(\alpha)\right)\ \text{d}\alpha  = 2\pi \ln(a)$</p>
 ]]></content>
       <tags>
