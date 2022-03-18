@@ -34,8 +34,8 @@
 <p>虽然选择四舍五入会提高分数，但是四舍五入也会产生意想不到的效果：会引入不连续性，增加了结果的方差，使模型评估更加困难。</p>
 ]]></content>
       <tags>
-        <tag>kaggle</tag>
         <tag>机器学习</tag>
+        <tag>kaggle</tag>
       </tags>
   </entry>
   <entry>
@@ -497,8 +497,8 @@
 <p>YOLO v3使用多标签分类，用多个独立的logistic分类器代替softmax函数，以计算输入属于特定标签的可能性。在计算分类损失进行训练时，YOLO v3对每个标签使用二元交叉熵损失。</p>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>笔记</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -643,8 +643,8 @@
 <h5 id="GCN（图卷积神经网络）"><a href="#GCN（图卷积神经网络）" class="headerlink" title="GCN（图卷积神经网络）"></a>GCN（图卷积神经网络）</h5><p>搜索</p>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>笔记</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -680,8 +680,8 @@
 <p>GPU1学习到的东西和颜色无关，而GPU2学习到的东西和颜色有关。</p>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>笔记</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -831,9 +831,9 @@
 <p>BERT 的引用率是 GPT 的 10 倍，影响力 ✔ </p>
 ]]></content>
       <tags>
+        <tag>笔记</tag>
         <tag>机器学习</tag>
         <tag>深度学习</tag>
-        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -888,8 +888,8 @@
 </ul>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>笔记</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1878,8 +1878,8 @@
 <p><img src="http://www.ai-start.com/ml2014/images/bc48a4b0c7257591643eb50f2bf46db6.jpg" alt="img"></p>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>笔记</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2015,9 +2015,9 @@
 <h6 id="声音学习"><a href="#声音学习" class="headerlink" title="声音学习"></a>声音学习</h6><p>相关模型：WaveNet (DeepMind)</p>
 ]]></content>
       <tags>
+        <tag>笔记</tag>
         <tag>机器学习</tag>
         <tag>深度学习</tag>
-        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -2049,8 +2049,8 @@
 <p>4.Setiono, R. (1997). On the solution of the parity problem by a single hidden layer feedforward neural network. Neurocomputing, 16(3), 225–235.</p>
 ]]></content>
       <tags>
-        <tag>深度学习</tag>
         <tag>数学</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2206,8 +2206,8 @@
 <p>然后我们利用这个新的 $Y$ 矩阵来训练算法。<br>如果我们要用新训练出的算法来预测评分，则需要将平均值重新加回去，预测$(\theta^{(j)})^T x^{(i)}+\mu_i$，对于<strong>Eve</strong>，我们的新模型会认为她给每部电影的评分都是该电影的平均分。</p>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>笔记</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2277,8 +2277,8 @@
 <p>我们经常不管三七二十一就将PCA算法归入我们的学习过程的一部分。吴恩达给出的建议是：当我们在使用PCA时要考虑不用PCA是否能达到我们的目标，只有做不到的时候采取考虑PCA算法。</p>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>笔记</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2408,8 +2408,8 @@
 </blockquote>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>笔记</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2463,8 +2463,8 @@
 <p>值得一提的是，神经网络在以上三种情况下都可能会有较好的表现，但是训练神经网络可能非常慢，选择支持向量机的原因主要在于它的代价函数是凸函数，不存在局部最小值。</p>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>笔记</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2771,8 +2771,8 @@
 </tbody></table>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>笔记</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2946,8 +2946,8 @@
 <hr>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>笔记</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3263,8 +3263,8 @@
 <p>Stephen Boyd ，Lieven Vandenberghe的《凸优化》</p>
 ]]></content>
       <tags>
-        <tag>机器学习</tag>
         <tag>算法</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -5502,8 +5502,8 @@
 </tbody></table>
 ]]></content>
       <tags>
-        <tag>生活</tag>
         <tag>阅读</tag>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
