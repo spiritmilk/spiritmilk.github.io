@@ -286,6 +286,167 @@
 <p><strong>undate</strong> instructor</p>
 <p><strong>set</strong> salary=salary*1.05s</p>
 </blockquote>
+<h3 id="第四章-中级SQL"><a href="#第四章-中级SQL" class="headerlink" title="第四章 中级SQL"></a>第四章 中级SQL</h3><h4 id="连接表达式"><a href="#连接表达式" class="headerlink" title="连接表达式"></a>连接表达式</h4><h5 id="连接条件"><a href="#连接条件" class="headerlink" title="连接条件"></a>连接条件</h5><p>前面介绍了<strong>join…using</strong>子句</p>
+<p>SQL还支持另外一种形式的连接。</p>
+<p><strong>on</strong>条件允许在参与连接的关系上设置统一的谓词。该谓词的写法与<strong>where</strong>子句谓词类似。</p>
+<blockquote>
+<p><strong>select</strong> *</p>
+<p><strong>from</strong> student <strong>join</strong> takes <strong>on</strong> student.ID =takes.ID;</p>
+</blockquote>
+<h5 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h5><p>外连接（outer join ）运算与我们已经学过的连接运算类似，但通过在结果中创建包含空值元组的方式，保留了那些在连接中丢失的元组。</p>
+<p>实际上有三种形式的外连接：</p>
+<ul>
+<li><strong>左外连接</strong>（left outer join）只保留出现在左外连接运算之前（左边）的关系中的元组。</li>
+<li><strong>右外连接</strong>（right outer join）只保留出现在右外连接运算之前（右边）的关系中的元组。</li>
+<li><strong>全外连接</strong>（full outer join）保留出现在两个关系中的元组。</li>
+</ul>
+<p>为了与外连接运算区分，前面我们学习的称为<strong>内连接</strong>。</p>
+<p>on子句可以和外连接一起使用。on和where在外连接中的表现时不同的。on条件是外连接声明的一部分，但where不是。</p>
+<p>outer join 的执行过程分为4步:</p>
+<p>1、先对两个表执行交叉连接(笛卡尔积)</p>
+<p>2、应用on筛选器</p>
+<p>3、添加外部行</p>
+<p>4、应用where筛选器</p>
+<h4 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h4><p>在前面的例子中，我们一直都在逻辑模型层操作。</p>
+<h5 id="视图定义"><a href="#视图定义" class="headerlink" title="视图定义"></a>视图定义</h5><p>我们在SQL中用<strong>create view</strong>命令定义视图。为了定义视图，我们必须给视图一个名称，并且必须提供计算视图的查询。</p>
+<p>格式：</p>
+<blockquote>
+<p><strong>create</strong> <strong>view</strong> v <strong>as</strong> <quert expression></p>
+</blockquote>
+<p>为了创建一个视图，列出Physics 系在2009年秋季学期所开设的所有课程段，以及每个课程段在哪栋建筑的哪个房间授课的信息，我们可以写出：</p>
+<blockquote>
+<p><strong>create</strong> <strong>view</strong> physics_fall_2019 <strong>as</strong></p>
+<p>​    <strong>select</strong> course.course_id,sec_id ,building,room_number</p>
+<p>​    <strong>from</strong> course,section</p>
+<p>​    <strong>where</strong> course.course_id =section.course_id</p>
+<p>​        <strong>and</strong> course.dept_name=’phy’</p>
+<p>​        <strong>and</strong> section.semester=’Fall’</p>
+<p>​        <strong>and</strong> section.year=’2009’ </p>
+</blockquote>
+<h5 id="SQL查询中使用视图"><a href="#SQL查询中使用视图" class="headerlink" title="SQL查询中使用视图"></a>SQL查询中使用视图</h5><p>一旦定义了一个视图，我们就可以用视图名指代该视图生成的虚关系。</p>
+<p>使用视图physics_fall_2009，我们可以这样查询</p>
+<blockquote>
+<p><strong>select</strong> cource_id</p>
+<p><strong>from</strong> physics_fall_2009</p>
+<p><strong>where</strong> building = ‘watson’</p>
+</blockquote>
+<p>视图的属性名可以按下列方式显式指定：</p>
+<blockquote>
+<p><strong>create</strong> <strong>view</strong> department_total_salary(dept_name,total_salary) <strong>as</strong></p>
+<p>​    <strong>select</strong> dept_name,<strong>sum</strong>(salary)</p>
+<p>​    <strong>from</strong> instructor</p>
+<p>​    <strong>group</strong> <strong>by</strong> dept_name; </p>
+</blockquote>
+<h5 id="物化视图"><a href="#物化视图" class="headerlink" title="物化视图"></a>物化视图</h5><p>特定数据库系统允许存储视图关系，但是它们保证：如果用于定义视图的实际关系改变，视图也跟着修改。这样的视图被称为物化视图（materialized view)。</p>
+<h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><p>事务（transaction）由查询和（或）更新语句的序列组成。SQL标准规定当一条SQL语句被执行，就隐式地开始了一个事务。下列SQL语句之一会结束一个事务：</p>
+<ul>
+<li>**Commit work:**提交当前事务，也就是将该事务所做的更新在数据库中持久保存。在事务被提交后，一个新的事务自动开始。</li>
+<li><strong>Rollback work</strong>：回退当前事务，即撤销改事务中所有SQL语句对数据库的更新。这样，数据库就恢复到执行该事务第一条语句之前的状态。</li>
+</ul>
+<h4 id="完整性约束"><a href="#完整性约束" class="headerlink" title="完整性约束"></a>完整性约束</h4><p>完整性约束保证授权用户对数据库的修改不会破坏数据的一致性。因此，完整性约束防止的是对数据的意外破坏。</p>
+<p>完整性约束的例子有：</p>
+<ul>
+<li>教师姓名不能为null</li>
+<li>任意两位教师不能有相同的教师标识</li>
+</ul>
+<p>完整性约束常被看作是数据库模式设计过程的一部分。也可以通过使用<strong>alter</strong> <strong>table</strong> table-name <strong>add</strong> constaint 命令施加到已有关系上。</p>
+<p><strong>create</strong> <strong>table</strong> 命令还可以包括完整性约束语句。</p>
+<p>除了主码约束之外，还有其他命令。</p>
+<p>比如：</p>
+<ul>
+<li>not null</li>
+<li>unique</li>
+<li>check(&lt;谓词&gt;)</li>
+</ul>
+<blockquote>
+<p> check (semester in (’Fall’, ’Winter’, ’Spring’, ’Summer’))</p>
+</blockquote>
+<ul>
+<li>初始值</li>
+</ul>
+<blockquote>
+<p> tot_cred      numeric(3,0) <strong>default</strong> <strong>0</strong></p>
+</blockquote>
+<h5 id="参照完整性"><a href="#参照完整性" class="headerlink" title="参照完整性"></a>参照完整性</h5><p>我们常常希望保证在一个关系上给定属性集上的取值中出现。这种情况称为<strong>参照完整性</strong>（referential integrity）。</p>
+<p>一般地，令关系r1和r2的属性集分别为R1和R2，主码分别为K1和K2。如果要求对r2中任意元组t2，均存在r1中元组使得t1.K1=t2.$\alpha$，我们称R2的子集$\alpha$为参照关系r1中K1的外码。</p>
+<p>这种要求称为<strong>参照完整性约束（referential-intergrity constraint)<strong>或</strong>子集依赖（subset dependency）</strong>。</p>
+<blockquote>
+<p>dept_name <strong>varchar</strong>(20) <strong>references</strong> department</p>
+</blockquote>
+<p>当违反参照完整性约束时，通常的处理是拒绝执行导致完整性破坏的操作（即镜像更新操作的事务被回滚）。</p>
+<p>但是也可在foreign key子句中指明：如果被参照关系上的删除或更新动作违反了约束，那么系统必须采取一些步骤通过修改参照关系中的元组来恢复完整性约束，而不是拒绝这样的动作。</p>
+<blockquote>
+<p><strong>create</strong> <strong>table</strong> course</p>
+<p>(…</p>
+<p><strong>foreign</strong> <strong>key</strong> (dept_name) <strong>reference</strong> department</p>
+<p>​        <strong>on</strong> <strong>delete</strong> <strong>cascade</strong></p>
+<p>​        <strong>on</strong> <strong>update</strong> <strong>cascade</strong>,</p>
+<p>…);</p>
+</blockquote>
+<p><strong>on delete cascade</strong> 子句 ：如果删除department 中的元组导致了此参照完整性约束被违反，则删除并不被系统拒绝，而是对course关系作“级联”删除，即删除参照了被删除系的元组。</p>
+<p><strong>on</strong> <strong>update</strong> <strong>cascade</strong> 子句：若果更新被参照字段时违反了约束，则更新操作并不被系统拒绝，而是将course中参照的元组的dept_name字段也改为新值。</p>
+<h5 id="事务中对完整性约束的违反"><a href="#事务中对完整性约束的违反" class="headerlink" title="事务中对完整性约束的违反"></a>事务中对完整性约束的违反</h5><p>事务可能包括几个步骤，在某一步之后完整性约束也许会暂时被违反，但是后面的某一步也许就会消除这个违反。例如，假设我们有一个主码name的person关系，还有一个属性时spouse，并且spouse是在person上的一个外码。也就是说，约束要求spouse属性必须包含在person表里出现的名字。</p>
+<p>为了处理“插入第一个元组违反外码约束，但是插入第二个元组后，外码约束又满足”的情况，SQL标准允许将<strong>initially</strong> <strong>deferred</strong> 子句加入到约束声明中；这样完整性约束不是在事务的中间步骤上检查，而是在事务结束的时候检查。</p>
+<blockquote>
+<p>create table person</p>
+<p>(name    char(15)     primary key,</p>
+<p>spouse    char(15),</p>
+<p>foreign key spouse references person (name) <strong>initially deferred</strong>)</p>
+</blockquote>
+<h5 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h5><p>断言(assertion)就是一个谓词，它表达了我们希望数据库总能满足的一个条件。域约束和参考完整性约束是断言的特殊形式。</p>
+<p>格式：</p>
+<blockquote>
+<p><strong>create</strong> <strong>assertion</strong> &lt; assertion-name &gt; <strong>check</strong> &lt; predicate &gt;;</p>
+</blockquote>
+<h4 id="SQL的数据类型与模式"><a href="#SQL的数据类型与模式" class="headerlink" title="SQL的数据类型与模式"></a>SQL的数据类型与模式</h4><h5 id="SQL中的日期和时间类型"><a href="#SQL中的日期和时间类型" class="headerlink" title="SQL中的日期和时间类型"></a>SQL中的日期和时间类型</h5><p>SQL除了前面介绍的基本数据类型以外，SQL标准还支持与日期和时间相关的几种数据类型：</p>
+<ul>
+<li><p><strong>date</strong>: 日历日期，包括年（四位）、月和日。</p>
+</li>
+<li><p><strong>time</strong>: 一天中的时间，包括小时、分和秒。可以用变量<strong>time</strong>(p)来表示秒的小数点后的数字位数（这里默认值为0）。通过指定<strong>time</strong> <strong>with</strong> <strong>timezone</strong>，还可以</p>
+</li>
+<li><p><strong>timestamp</strong>：<strong>date</strong> 和<strong>time</strong>的组合。可以用变量<strong>timestamp(p)<strong>来表示秒的小数点后的数字位数（这里默认值为6）。如果指定</strong>with timezone</strong>，则时区信息也会被存储。</p>
+</li>
+</ul>
+<h5 id="大对象类型"><a href="#大对象类型" class="headerlink" title="大对象类型"></a>大对象类型</h5><p>SQL提供字符数据的大对象数据类（clob）和二进制数据的大对象数据类型（blob）。</p>
+<h5 id="用户定义的类型"><a href="#用户定义的类型" class="headerlink" title="用户定义的类型"></a>用户定义的类型</h5><p>SQL支持两种形式的用户定义数据类型。第一种称为<strong>独特类型（distinct type)<strong>。另一种称为</strong>结构化数据类型</strong>（structured data type）。</p>
+<p>独特类型：</p>
+<p>使用**create type **子句来定义新类型</p>
+<blockquote>
+<p><strong>create type</strong> Dollars <strong>as numeric</strong> (12,2) <strong>final</strong></p>
+<p><strong>create type</strong> RMB **as numeric **(12,2) <strong>final</strong></p>
+</blockquote>
+<p>也可以使用cast命令强制转换</p>
+<blockquote>
+<p><strong>cast</strong> (department.budget  <strong>to</strong> numeric(12, 2))</p>
+</blockquote>
+<p>SQL提供了<strong>drop type</strong>和<strong>alter type</strong> 子句来删除或修改以前创建过的类型。</p>
+<p>SQL还有一个相似但稍有不同的概念：域（domain），它可以在基本类型上世家完整性约束。例如</p>
+<blockquote>
+<p><strong>create</strong> <strong>domain</strong> DDollars <strong>as</strong> <strong>numeric</strong>(12,2) <strong>not null</strong></p>
+</blockquote>
+<p>DDollars域可以用作属性类型。然而类型和域直接有两个重大的差别：</p>
+<p>1.在域上可以声明约束，例如not null，也可以为域类型变量定义默认值，然而在用户定义类型上不能声明约束或默认值。设计用户定义类型不仅是用它来指定属性类型，而且还将它用在不能施加约束的地方对SQL进行过程扩展。</p>
+<p>2.域并不是强类型的。因此一个域类型的值可以被赋给另一个域类型，只要他们的基本类型是相容的。</p>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><p>我们可能会给一个用户在数据库的某些部分授予几种形式的权限。对数据的授权包括：</p>
+<ul>
+<li>授权读取数据</li>
+<li>授权插入新数据</li>
+<li>授权更新数据</li>
+<li>授权删除数据</li>
+</ul>
+<p>我们使用grant语句来授予权限</p>
+<blockquote>
+<p>grant &lt; 权限列表 &gt;</p>
+<p>on &lt; 关系吗或视图名&gt;</p>
+<p>to &lt; 用户/角色列表&gt;</p>
+</blockquote>
+<h5 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h5><p>角色：一组用户</p>
+<p>在SQL创建角色如下所示：</p>
+<p><strong>create role</strong> instructor</p>
+<h5 id="权限的转移"><a href="#权限的转移" class="headerlink" title="权限的转移"></a>权限的转移</h5><p>默认方式下，被授予权限的用户/角色无权把得到的权限再授予给另外的用户/角色。如果我们在授权时允许接受者把得到的权限再传递给其他用户，我们可以在响应的grant命令后面附加with grant option子句。</p>
+<blockquote>
+<p><strong>grant</strong> <strong>select</strong> <strong>on</strong> department <strong>to</strong> Amit <strong>with grant option</strong></p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>笔记</tag>
@@ -306,6 +467,28 @@
       <tags>
         <tag>回忆</tag>
         <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>验证集loss下降，准确率却上升的问题</title>
+    <url>/2022/20220328/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>在做李宏毅的2022机器学习课程HW3时遇到了这个问题。</p>
+<span id="more"></span>
+
+<p>网上一搜，发现有很多人都遇到了这个问题。甚至有人在github专门开了一个<a href="https://github.com/thegregyang/LossUpAccUp">LossUpAccUp</a>项目讨论这一问题。</p>
+<p>LossUpAccUp项目还讨论了一些解决方法：</p>
+<p><strong>标准化</strong>。如果权重或者Logit标准化，可能不会出现这一问题。</p>
+<p>Guo等人[2]认为这是一个错误的校准问题，即神经网络对其错误分类的输入变得过度自信。</p>
+<p>Takashi Ishida等人提出了一个新的损失函数，来避免出现这一问题。（关键代码只有一行就能发顶会就很厉害。）</p>
+<p>设原来的损失函数是$\mathcal{L}(\theta)$，现在改为$ \tilde{\mathcal{L}}(\theta)=|\mathcal{L}(\theta)-b|+b$。其中b为预先设定的阈值。从而能使损失函数二次下降。</p>
+<p>参考资料：</p>
+<p>1.<a href="https://github.com/thegregyang/LossUpAccUp">LossUpAccUp</a></p>
+<p>2.<a href="https://arxiv.org/abs/1706.04599">On Calibration of Modern Neural Networks</a></p>
+<p>3.<a href="https://arxiv.org/pdf/2002.08709.pdf">Do We Need Zero Training Loss After Achieving Zero Training Error?</a></p>
+<p>4.<a href="https://kexue.fm/archives/7643">我们真的需要把训练集的损失降低到零吗？</a></p>
+]]></content>
+      <tags>
+        <tag>人工智能</tag>
       </tags>
   </entry>
   <entry>
