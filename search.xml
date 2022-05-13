@@ -489,26 +489,9 @@
 
 <p>下</p>
 
-        <div id="aplayer-nrZlgQVK" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
-            <pre class="aplayer-lrc-content"></pre>
-        </div>
-        <script>
-          var ap = new APlayer({
-            element: document.getElementById("aplayer-nrZlgQVK"),
-            narrow: false,
-            autoplay: false,
-            showlrc: false,
-            music: {
-              title: "”银河修理员“",
-              author: "”Dear",
-              url: "Jane“",
-              pic: "/music/银河修理员.mp3",
-              lrc: ""
-            }
-          });
-          window.aplayers || (window.aplayers = []);
-          window.aplayers.push(ap);
-        </script>
+			<script>
+				console.error("Error: [hexo-tag-aplayer] Specified asset file not found (lijianxiong.work/music/银河修理员.mp3)");
+			</script>
 
 <p>上</p>
 ]]></content>
