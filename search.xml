@@ -619,6 +619,24 @@
       </tags>
   </entry>
   <entry>
+    <title>误差传播定律</title>
+    <url>/2022/20220531/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>在统计学中，误差传播是指变量的不确定性（或误差，更具体地说是随机误差）对基于它们的函数的不确定性的影响。</p>
+<span id="more"></span>
+
+<p>设$\vec{Y}=f(\vec{X})$。</p>
+<p>而$\sigma_y=\frac{d(f(x))}{dx}\sigma_x$</p>
+<p>我们通过一阶泰勒公式进行线性化：<br>$$<br>\vec{Y}=f(\vec{X})\mathop\approx\limits^{\vec{X}=\vec{\mu_X}} f(\mu_X)+f_x(\vec{X})(X-\vec{\mu_X})<br>$$<br>计算协方差有：<br>$$<br>cov(\vec{Y})=cov(f(\vec{X}))=cov(h(\mu_X))+cov(f_x(\vec{X})(X-\vec{\mu_X}))<br>\=0+cov(f_x(\vec{X})(\vec{X}-\vec{\mu_X}))<br>\=f_x(\vec{X})Cov(\vec{X})f_x(\vec{X})^T<br>$$</p>
+<p>而$f_x(\vec{X})$其实就是雅克比矩阵J。</p>
+<p>故进一步简化为:$\Sigma^\vec{Y}=J\Sigma^\vec{X}J^T$</p>
+<p>以上就是误差传播定律。</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>粤语三部曲</title>
     <url>/2022/20220528/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>月球三部曲：陈奕迅《月球上的人》、杨千嬅《捞月亮的人》、李幸倪《月球下的人》</p>

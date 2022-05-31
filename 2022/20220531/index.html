@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>回顾二十年 |  小熊的小站</title>
+      <title>误差传播定律 |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -76,7 +76,7 @@ var _hmt = _hmt || [];
     <main class="content on">
       <section class="outer">
   <article
-  id="post-20220627"
+  id="post-20220531"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  回顾二十年
+  误差传播定律
 </h1>
  
 
@@ -95,15 +95,15 @@ var _hmt = _hmt || [];
     </header>
      
     <div class="article-meta">
-      <a href="/2022/20220627/" class="article-date">
-  <time datetime="2022-06-26T16:00:00.000Z" itemprop="datePublished">2022-06-27</time>
+      <a href="/2022/20220531/" class="article-date">
+  <time datetime="2022-05-31T15:06:55.000Z" itemprop="datePublished">2022-05-31</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">114</span>
+            <span class="post-count">178</span>
         </span>
     </span>
 
@@ -125,13 +125,15 @@ var _hmt = _hmt || [];
   
     <div class="article-entry" itemprop="articleBody">
        
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>emo后突然想写篇文章记录自己的二十年。</p>
-<p>不管是快乐的经历也好还是不快乐的经历也好。</p>
-<p>我一直觉得剖析自己是一件极痛苦的事情，我向来是不喜欢写日记的，虽然我现在断断续续地在写。</p>
-<p>在这里立个flag。</p>
-<hr>
-<p>不想写了，搞得像写自传一样，谁年轻的时候写自传啊（笑</p>
-<p>又不是弥留之际</p>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>在统计学中，误差传播是指变量的不确定性（或误差，更具体地说是随机误差）对基于它们的函数的不确定性的影响。</p>
+<span id="more"></span>
+
+<p>设$\vec{Y}=f(\vec{X})$。</p>
+<p>而$\sigma_y=\frac{d(f(x))}{dx}\sigma_x$</p>
+<p>我们通过一阶泰勒公式进行线性化：<br>$$<br>\vec{Y}=f(\vec{X})\mathop\approx\limits^{\vec{X}=\vec{\mu_X}} f(\mu_X)+f_x(\vec{X})(X-\vec{\mu_X})<br>$$<br>计算协方差有：<br>$$<br>cov(\vec{Y})=cov(f(\vec{X}))=cov(h(\mu_X))+cov(f_x(\vec{X})(X-\vec{\mu_X}))<br>\=0+cov(f_x(\vec{X})(\vec{X}-\vec{\mu_X}))<br>\=f_x(\vec{X})Cov(\vec{X})f_x(\vec{X})^T<br>$$</p>
+<p>而$f_x(\vec{X})$其实就是雅克比矩阵J。</p>
+<p>故进一步简化为:$\Sigma^\vec{Y}=J\Sigma^\vec{X}J^T$</p>
+<p>以上就是误差传播定律。</p>
  
       <!-- reward -->
       
@@ -184,12 +186,12 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2022/20220627/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2022/20220531/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%9E%E5%BF%86/" rel="tag">回忆</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
 
     </footer>
   </div>
@@ -197,10 +199,19 @@ var _hmt = _hmt || [];
    
   <nav class="article-nav">
     
+      <a href="/2022/20220627/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            回顾二十年
+          
+        </div>
+      </a>
     
-      <a href="/2022/20220531/" class="article-nav-link">
+    
+      <a href="/2022/20220528/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">误差传播定律</div>
+        <div class="article-nav-title">粤语三部曲</div>
       </a>
     
   </nav>
