@@ -70,110 +70,17 @@
       </tags>
   </entry>
   <entry>
-    <title>《一小时漫画基金实战法》笔记</title>
-    <url>/2022/20220817/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于管鹏的《一小时漫画基金实战法》书籍</p>
-<p>比较入门的一本书，比较浅显，定投部分没什么价值。</p>
-<hr>
-<h3 id="一些基金知识"><a href="#一些基金知识" class="headerlink" title="一些基金知识"></a>一些基金知识</h3><h4 id="如何选择基金经理（笼统方法）"><a href="#如何选择基金经理（笼统方法）" class="headerlink" title="如何选择基金经理（笼统方法）"></a>如何选择基金经理（笼统方法）</h4><p>（1）经验筛选，选择5年以上从业经验的</p>
-<p>（2）收益筛选，过去五年能在基金经理排行榜排前20%，近两年内能排进前30%</p>
-<p>（3）另外，还可以看经历了几轮牛熊、师承何处、风格如何、获奖如何。</p>
+    <title>kaggle小技巧之指数加权ensemble</title>
+    <url>/2022/20220815/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/jbomitchell/exponentially-weighted-ensemble-spaceship-titanic">JOHN MITCHELL</a></p>
+<p>权重=$ e^{b*(x-s)}$</p>
 <span id="more"></span>
 
-<p>注意，基金经理也只有一两个特别擅长的行业与领域，往往不能做到基金收益百花齐放，而是一枝独秀。</p>
-<h4 id="基金指标"><a href="#基金指标" class="headerlink" title="基金指标"></a>基金指标</h4><p><strong>（1）收益类指标</strong></p>
-<p>净值增长率</p>
-<p>持有胜率（它是指购买基金并持有一定时期后盈利的概率，即基金取得正收益的周期占比。）</p>
-<p><strong>（2）风险类指标</strong></p>
-<p>波动率</p>
-<p>最大回撤率（一段时间内基金从净值最高点到最低点的跌幅，用于衡量投资后可能出现的最坏情况。）</p>
-<p><strong>（3）综合指标</strong></p>
-<p><strong>夏普比率</strong></p>
-<p>夏普比率越高，说明在风险一定时，收益较高；或者在收益一定时，风险较低。总之，这个比率是越高越好。</p>
-<p><strong>贝塔系数</strong></p>
-<p>反映基金和基金评价基准关系的指标，大多数基金都喜欢对标沪深300指数，所以贝塔系数也可以理解为基金相对于整个大盘的波动情况。</p>
-<p>虽然贝塔系数越小，说明基金的稳定性越好，但在牛市中，人们更喜欢贝塔系数高的基金，因为它能超过市场平均收益，而在熊市中，贝塔系数则越小越好，负数更佳。</p>
-<p><strong>阿尔法系数</strong></p>
-<p>阿尔法系数是指基金的绝对回报与按照贝塔系数计算的预期风险回报之间的差额。</p>
-<p>阿尔法系数=绝对回报-预期回报</p>
-<p>其中绝对回报也叫超额回报，可以衡量基金经理的投资技术。无风险投资收益在我国就是1年期银行定期存款利率或者十年期国债利率。</p>
-<h4 id="别踩排名的坑"><a href="#别踩排名的坑" class="headerlink" title="别踩排名的坑"></a>别踩排名的坑</h4><p> 如果一只基金只追求排名，那他肯定会无限放大风险，无异于将投资者的资金置于悬崖之上</p>
-<h3 id="基金分类"><a href="#基金分类" class="headerlink" title="基金分类"></a>基金分类</h3><h4 id="按投资对象分类"><a href="#按投资对象分类" class="headerlink" title="按投资对象分类"></a>按投资对象分类</h4><p><strong>（1）货币型基金</strong></p>
-<p>看名字也知道，货币型基金就是只投资货币市场的基金，比如现金、银行定期存款、大额存单、短期国债、债券逆回购、央行票据等，差不多可以理解为投资于“钱”。</p>
-<p>比如余额宝。</p>
-<p>可以作为生活备用金。不要选择小规模基金。</p>
-<p><strong>（2）债券型基金</strong></p>
-<p>尽量选择国家发行或者有政府背书的利率债，谨慎选择风险更大的信用债——即使信用债往往会给出更高的利率作为风险补偿。</p>
-<p><strong>（3） 股票型基金</strong></p>
-<p><strong>（4）混合型基金</strong></p>
-<p>混合型基金一般混合持有股票和债券，有时候也混点货币，并且根据配置不同，分为偏股型基金、偏债型基金、平衡型基金和配置型基金。</p>
-<p>可转债基金在一定程度上也属于混合基金。这就要从可转债的性质说起。可转债是指持有者可以在一定时期内按一定比例或价格将之转换成另一种证券的债券，说白了就是可以把债券换成股票，从当债主变成当股东。</p>
-<p><strong>（5)特种基金</strong></p>
-<p>特种基金就是募集资金，买入房地产、黄金等资产，可以将流行性较低的、非证券形式的资产，直接转化为资本市场上的证券资产，以方便交易。</p>
-<h4 id="开放与封闭"><a href="#开放与封闭" class="headerlink" title="开放与封闭"></a>开放与封闭</h4><p>基金根据设立方式的不同，分为开放式基金与封闭式基金。</p>
-<p>开放式基金，投资者可以随时申购和赎回。</p>
-<p>封闭式基金则在发行之前已经确定份额，并且在发行完毕后的规定期限内处于封闭状态，不能再进行申购和赎回。虽然在封闭期不能赎回，但是封闭式基金经常会有大比例的分红。</p>
-<h4 id="私募与公募"><a href="#私募与公募" class="headerlink" title="私募与公募"></a>私募与公募</h4><p>公募基金，也就是以公开方式向社会公众投资者募集资金的基金。</p>
-<p>私募基金，是以非公开方式向特定投资者募集资金。</p>
-<p>私募基金的投资基本不受限制，可以投资股票、债券，也可以投资非标债券、股权和经营项目等，是以收益为最大追求，所以风险和波动比较大。私募基金的基金经理一般不收取管理费，只收取业绩报酬，一切全靠业绩说话。因为风险较大，私募基金对投资的要求也比较高。高门槛，比如100万元起购。</p>
-<h4 id="A与B与C"><a href="#A与B与C" class="headerlink" title="A与B与C"></a>A与B与C</h4><p>很多基金分为A类、B类和C类，基金代码不同，但实际上却是由同一个基金经理管理的同一只基金。字母表示的只是它们收费方式的不同，A类表示前端收费，也就是申购的时候一次性收取申购费，赎回的时候根据持有的时间收费，甚至可能不收费。C类表示后端收费，不收取申购费，但根据持有的期限收取赎回费，以及服务费。</p>
-<p>B常见于货币型基金，一般需要500万元起投，收益也比A类货币型基金要高。</p>
-<p>从收取费用上来看，对于打算短期持有的基金，我们适合申购C类，不然钱都花在买入和卖出手续费上了；对于打算长期持有的基金，我们可以申购A类，只交一次申购和赎回费就行，不用一直交服务费。</p>
-<h3 id="基金定投"><a href="#基金定投" class="headerlink" title="基金定投"></a>基金定投</h3><p>智能定投</p>
-<p>所谓智能定投，也是一笔一笔地投入，但是不定期也不定额，讲究低位时多投、高位时少投，以实现利润最大化。</p>
-<p>比如设定规则：画一条蓝线，价格在蓝线上方时，正常投入；价格在蓝线下方时，翻倍投入。</p>
-<h4 id="指数基金定投"><a href="#指数基金定投" class="headerlink" title="指数基金定投"></a>指数基金定投</h4><h5 id="一、选指数"><a href="#一、选指数" class="headerlink" title="一、选指数"></a>一、选指数</h5><p><strong>（1）排除法</strong></p>
-<p>所以，跟踪不能生长的指数的基金，最好不要买，可以先排除掉。我们看一下上证指数，它是上证所有公司的加权平均，不管一家公司好不好，都要计算进去，只是权重不同而已。</p>
-<p><strong>（2）比较法</strong></p>
-<p>因为指数实在太多，我们挑3个大众点儿的指数来比较一下，重点是讲方法。先说明一下，中证全指和上证综指一样，应该在上一轮使用排除法时就被删除了，能出现在这一轮，完全是作为参考数据。</p>
-<p>综合来看，中证500是一个非常不错的指数，懒得动脑的朋友可以直接选它。如果想保守一点，可以将中证500和沪深300搭配投资，能冲、能抗、效果更佳。</p>
-<p><strong>（3）特例分析法</strong></p>
-<h5 id="二、选基金"><a href="#二、选基金" class="headerlink" title="二、选基金"></a>二、选基金</h5><p>为了简单快捷，建议直接选ETF联接基金。</p>
-<p>购买指数型基金的本意就是购买指数。</p>
-<h3 id="什么时候卖"><a href="#什么时候卖" class="headerlink" title="什么时候卖"></a>什么时候卖</h3><p>答案是永远都不用卖，当你觉得钱太多了，每年的被动收入都花不完的时候，倒是可以停止定投了。</p>
+<p>x是每个模型的LB分数。得分越大越好，因此权重随着x的增加而变大，随着x的减少而变小（模型越好，权重越大）。<br>b是模型的一个可调参数，b越大，权重衰减越快，分数越低。S是一个校准参数，其定义如下：如果S设置为最佳单模型分数，则最高非标准化权重exp（b*（x-S））为1.0，这是方便的，但不是必需的。</p>
+<p>最后还要归一化。</p>
 ]]></content>
       <tags>
-        <tag>笔记</tag>
-        <tag>理财</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>训练自己称为天才的五种方法</title>
-    <url>/2022/20220809/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://www.bilibili.com/video/BV1YV4y1J7T8?spm_id_from=333.337.search-card.all.click">训练自己称为天才的五种方法</a><br>5 Ways to Train Yourself to Be a Genius (3 Short-term, 2 Long-term)<br>演讲者是训练教练</p>
-<span id="more"></span>
-
-<hr>
-<p><strong>当我们谈起天才时指的是什么特性？</strong></p>
-<p>（1）记忆力好  -&gt;正确快速编码信息</p>
-<p>（2）有深刻理解  </p>
-<p><strong>学习的四个主要阶段</strong></p>
-<p>第一阶：priority/judeements </p>
-<p>第二阶：relationship/group和其他知识的关系</p>
-<p>第三阶：applied/related</p>
-<p>第四阶：isolation</p>
-<p><strong>具体步骤</strong></p>
-<p>要先了解：</p>
-<p>弄清楚你的学习水平</p>
-<p>大部分时间花在哪一阶级</p>
-<p><strong>短期策略</strong>：</p>
-<p>（1）不可操之过急，要一步一步来</p>
-<p>（2）prestudy structure-&gt;根据Topic 选择3-4个idea弄清楚直接的联系</p>
-<p>prestudy 就是如何让接下来的学习（讲座、课堂等）效果更好</p>
-<p>lay out a basic organisational structure  搞个知识基本骨架</p>
-<p>（3）延迟做笔记</p>
-<p>（4）make it make sense to you</p>
-<p><strong>长期策略：</strong></p>
-<p>（1）提高认知负荷容忍度</p>
-<p>像肌肉一样不断锻炼大脑</p>
-<p>如何提高呢：不断应用短期策略中提到的</p>
-<p>（2）批判性反思</p>
-<p>检查哪些是真正起作用的学习技术，哪些没有</p>
-<hr>
-<p>说实话感觉这个视频就是说一些众所周知的东西，有点食之无味</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
+        <tag>kaggle</tag>
         <tag>学习</tag>
       </tags>
   </entry>
