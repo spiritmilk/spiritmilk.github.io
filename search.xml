@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>利用金星凌日、火星冲、小行星冲等天象测定太阳赤道地平视差的方法</title>
+    <url>/2022/20221009/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>如何利用金星凌日、火星冲、小行星冲等天象测定太阳赤道地平视差的方法?</p>
+<p>（来自《天文学基础》作业四）</p>
+<hr>
+<p>太阳赤道地平视差也被称为<a href="https://zh.m.wikipedia.org/zh-sg/%E8%A7%86%E5%B7%AE">太阳视差</a>。爱德蒙·哈雷在1716年提出来了利用进行凌日来测量日地距离。尽管使用金星凌日会因为黑滴现象产生一定的误差，但其方法仍是一个比较不错的方法。</p>
+<span id="more"></span>
+
+<p>我们可以参考其方法来利用金星凌日、火星冲、小行星冲等天象测定太阳赤道地平视差。</p>
+<p>设地球上有两位观测者P、P’（不同维度），P点的观测者看到金星从A点穿过太阳到B点。</p>
+<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1a.gif" alt="Track of Venus across the Sun"></p>
+<p>金星的轨道平面和地球的轨道平面非常接近，通常被称为黄道平面(很接近，但不完全相同——如果是，每次金星超过地球都会发生凌日)。<br>因此AB线几乎与天球上标记黄道的线平行，也就是黄道平面与我们看到的天空相交的那条线。</p>
+<p>如果我们测量AB和A’ B ‘之间的距离D，原则上我们可以应用一些简单的三角函数，利用金地距离或其他相关数据等来推导出日地平均距离（AU)，进一步得到太阳视差。</p>
+<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1b.gif" alt="Geometry of the Transit"></p>
+<p>开始我们的推导过程，符号由图所示，其中A、B两点为金星内切太阳平面时的中心，所以到太阳中心的距离为R-r。</p>
+<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus4.gif" alt="Variables used in the calculation"></p>
+<p>$h=(R-r)cos\theta$</p>
+<p>由于过境时间T正比于距离AB，故$T=k·AB=2k(R-r)cos\theta$</p>
+<p>我们设A’B’的角为$\theta+\delta$，则：</p>
+<p>$h’=(R-r)cos(\theta+\delta)=(R-r)(cos\theta cos\delta-sin\theta sin\delta)$</p>
+<p>由于$\delta$是一个比较小的角，所以我们可以把$cos\delta$近似为1。</p>
+<p>进一步的，$cos\delta=(1-sin^2\delta)^{\frac{1}{2}} \sim 1-\frac{1}{2}sin^2\delta $，我们把cos近似化，而不对sin近似化，其影响也是比较小的。</p>
+<p>故$h’= (R-r)(cos\theta -sin\theta sin\delta)$</p>
+<p>$D=h-h’=(R-r)sin\theta sin\delta$</p>
+<p>类似的：</p>
+<p>$T’=2k(R-r)sin(\theta+\delta)\=2k(R-r)(sin\theta+cos\theta sin\delta)\=T+2k(R-r)cos\theta sin\delta$</p>
+<p>故$\Delta T/T=\frac{T’-T}{T}=\frac{cos\theta sin\delta}{sin\theta}$</p>
+<p>$sin\delta =\frac{T’sin\theta}{Tcos\theta}$</p>
+<p>故$D=\frac{(R-r)\Delta Tsin^2\theta}{Tcos\theta}$</p>
+<p>我们可以根据观测数据来获得$T、θ$等数据。</p>
+<p>参考资料:</p>
+<p>[1]<a href="https://pwg.gsfc.nasa.gov/stargaze/Svenus1.htm">https://pwg.gsfc.nasa.gov/stargaze/Svenus1.htm</a></p>
+]]></content>
+      <tags>
+        <tag>天文</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Typora 1.3.8破解</title>
     <url>/2022/20220819/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>破解过程：</p>
