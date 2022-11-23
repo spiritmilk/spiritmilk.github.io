@@ -6,6 +6,7 @@
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/sslp23/predicting-fifa-2022-world-cup-with-ml/notebook">Predicting FIFA 2022 World Cup with ML</a>。</p>
 <p>预测出来的结果是巴西夺冠。</p>
 <p>当然事在人为，最终谁夺的冠军还是让我们来期待一下。</p>
+<p>根据历年数据计算的准确率只有不到70的准确率，AUC为0.75。</p>
 <span id="more"></span>
 
 <hr>
@@ -74,7 +75,7 @@
 <p>丹麦 ： 7 </p>
 <p>突尼斯 ： 1 </p>
 <p>澳大利亚 ： 1</p>
-<h5 id="E组"><a href="#E组" class="headerlink" title="E组"></a>E组</h5><p>德国 胜 日本</p>
+<h5 id="E组"><a href="#E组" class="headerlink" title="E组"></a>E组</h5><p>德国 胜 日本 【不准】</p>
 <p>西班牙 胜 哥斯达黎加</p>
 <p>日本 平 哥斯达黎加</p>
 <p>西班牙 平 德国</p>
@@ -118,7 +119,6 @@
 <p>乌拉圭 ： 7 </p>
 <p>韩国 ： 3 </p>
 <p>加纳 ： 0</p>
-<h4 id="16强赛及其后"><a href="#16强赛及其后" class="headerlink" title="16强赛及其后"></a>16强赛及其后</h4><p><img src="https://www.kaggleusercontent.com/kf/111479915/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..JuLoBYNUMmPAnuedvkWhVg.RqVbttoL2UC-_3MmQX0R0fCSLEbZnm3XAcbx7yUKRrOFtLL-kTIqvaC6hDtRER0tutrtEZh9tLsemmJkOIQ8wlS7DltIp-PWS9Cro2JB_YTEb6ZxFFWRMBjqC-Bnuv4Kys1YovPF0XINYzDhBvBBIOUiofm6mcarmhC-p7IIG0Xbr8bBLm31nz1xTTgIHNex76HaejBnyv-Xik8Z6g45L73Fgcsa4xFjIGl8_n7_vXqkH58aET9Np7BsxCl76WKQe0J2lo6i5iTrX3LOdXxLrNzcvHqVcpTegNL6OChPdatyX6gXLTcDWpTIDn2se5cUZLNKHBxpfHrzyra1Ew5bkvxNCe_HVmSuXt7wj2yNs5ZXvCDTtzr3g7oPfCHaKvtPxufuJ5Wqw5ySW-pJO0pBsV2BzO3wnvtZ62KF6rfO3FLZzssGgM2RqUgv3Bs5oB2YhjOHweprl-pmJcHRZHJ5BqOiHU9Jc6ao9nZOBIn1e5dU6SHui6x1eDLIaqhoft8hOmNNcJ0STMA67dWrz59bnAwKu4MO86XrUF2HWCpjum0J3ySbu1G6QkZk4nA1-g8Fqogu8xynWUsZMHAAzyhD0Ydn5DLmm6kl6b7kK0fz0ATe2nwmBKdPvfybLklTNcuBBj_Bn4KXl1WJZB27kD9j6A1uB1miqsgyBQGoN2ckPCt9wEO3x7dWJGvE4670P_48.NCrDeQRVGRWprnvcWHrrxg/__results___files/__results___116_0.png"></p>
 <h3 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h3><p>机器学习计算出来的胜率最高也知道70%+，一般都在50%<del>60</del>左右徘徊，差距是不大的，正所谓足球是圆的，发生什么都有可能，比如2014年格策的绝杀等都是机器无法预测的。现有的机器也不过是统计学习罢了，事在人为。</p>
 ]]></content>
       <tags>
