@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.3k</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -131,6 +131,7 @@ var _hmt = _hmt || [];
 <p>预测出来的结果是巴西夺冠。</p>
 <p>当然事在人为，最终谁夺的冠军还是让我们来期待一下。</p>
 <p>根据历年数据计算的准确率只有不到70的准确率，AUC为0.75。</p>
+<p>现在预测准确率17/27</p>
 <span id="more"></span>
 
 <hr>
@@ -157,8 +158,8 @@ var _hmt = _hmt || [];
 <h3 id="模拟结果"><a href="#模拟结果" class="headerlink" title="模拟结果"></a>模拟结果</h3><p>AI并没有给出胜或负的肯定的结果，只有胜负概率，下面的取最高赢球概率的为胜方。</p>
 <h4 id="小组赛"><a href="#小组赛" class="headerlink" title="小组赛"></a>小组赛</h4><h5 id="A组："><a href="#A组：" class="headerlink" title="A组："></a>A组：</h5><p>卡塔尔 败 厄瓜多尔  【准】</p>
 <p>塞内加尔 败 荷兰  【准】</p>
-<p>卡塔尔 败 塞内加尔</p>
-<p>荷兰 胜 厄瓜多尔</p>
+<p>卡塔尔 败 塞内加尔【准】</p>
+<p>荷兰 胜 厄瓜多尔 【准】</p>
 <p>厄瓜多尔 胜 塞内加尔</p>
 <p>荷兰 胜 卡塔尔</p>
 <p>最终</p>
@@ -168,8 +169,8 @@ var _hmt = _hmt || [];
 <p>卡塔尔 ： 0</p>
 <h5 id="B组"><a href="#B组" class="headerlink" title="B组"></a>B组</h5><p>英格兰 胜 伊朗 【准】</p>
 <p>美国 平 威尔士 【准】</p>
-<p>威尔士 胜 伊朗 </p>
-<p>英格兰 胜 美国</p>
+<p>威尔士 胜 伊朗  【不准】</p>
+<p>英格兰 胜 美国 【不准】</p>
 <p>威尔士 败 英格兰</p>
 <p>伊朗 败 美国</p>
 <p>最终积分：</p>
@@ -179,8 +180,8 @@ var _hmt = _hmt || [];
 <p>伊朗 ： 0</p>
 <h5 id="C组"><a href="#C组" class="headerlink" title="C组"></a>C组</h5><p>阿根廷 胜 沙特阿拉伯 【不准】</p>
 <p>墨西哥 平 波兰 【准】</p>
-<p>波兰 胜 沙特阿拉伯</p>
-<p>阿根廷 胜 墨西哥</p>
+<p>波兰 胜 沙特阿拉伯 【准】</p>
+<p>阿根廷 胜 墨西哥 【准】</p>
 <p>波兰 败 阿根廷</p>
 <p>沙特阿拉伯 败 墨西哥</p>
 <p>最终积分：</p>
@@ -190,8 +191,8 @@ var _hmt = _hmt || [];
 <p>沙特阿拉伯 ： 0</p>
 <h5 id="D组"><a href="#D组" class="headerlink" title="D组"></a>D组</h5><p>丹麦 胜 突尼斯 【不准】</p>
 <p>法国 胜 澳大利亚 【准】</p>
-<p>突尼斯 平 澳大利亚</p>
-<p>法国 平 丹麦</p>
+<p>突尼斯 平 澳大利亚 【不准】</p>
+<p>法国 平 丹麦 【不准】</p>
 <p>澳大利亚 败 丹麦</p>
 <p>突尼斯 败 法国 </p>
 <p>最终积分: </p>
@@ -200,9 +201,9 @@ var _hmt = _hmt || [];
 <p>突尼斯 ： 1 </p>
 <p>澳大利亚 ： 1</p>
 <h5 id="E组"><a href="#E组" class="headerlink" title="E组"></a>E组</h5><p>德国 胜 日本 【不准】</p>
-<p>西班牙 胜 哥斯达黎加</p>
-<p>日本 平 哥斯达黎加</p>
-<p>西班牙 平 德国</p>
+<p>西班牙 胜 哥斯达黎加 【准】</p>
+<p>日本 平 哥斯达黎加 【不准】</p>
+<p>西班牙 平 德国 【准】</p>
 <p>日本 败 西班牙</p>
 <p>哥斯达黎加 败 德国</p>
 <p>最终积分: </p>
@@ -211,9 +212,9 @@ var _hmt = _hmt || [];
 <p>日本 ： 1 </p>
 <p>哥斯达黎加 ： 1</p>
 <h5 id="F组"><a href="#F组" class="headerlink" title="F组"></a>F组</h5><p>摩洛哥 败 克罗地亚  【不准】</p>
-<p>比利时 胜 加拿大</p>
-<p>比利时 胜 摩洛哥</p>
-<p>克罗地亚 胜 加拿大</p>
+<p>比利时 胜 加拿大 【准】</p>
+<p>比利时 胜 摩洛哥 【不准】</p>
+<p>克罗地亚 胜 加拿大 【准】</p>
 <p>克罗地亚 败 比利时</p>
 <p>加拿大 平 摩洛哥:</p>
 <p>最终积分</p>
@@ -221,8 +222,8 @@ var _hmt = _hmt || [];
 <p>克罗地亚 ： 6 </p>
 <p>摩洛哥 ： 1 </p>
 <p>加拿大 ： 1</p>
-<h5 id="G组"><a href="#G组" class="headerlink" title="G组"></a>G组</h5><p>瑞士 胜 喀麦隆</p>
-<p>巴西 胜 塞尔维亚</p>
+<h5 id="G组"><a href="#G组" class="headerlink" title="G组"></a>G组</h5><p>瑞士 胜 喀麦隆 【准】</p>
+<p>巴西 胜 塞尔维亚 【准】</p>
 <p>喀麦隆 败 塞尔维亚</p>
 <p>巴西 平 瑞士</p>
 <p>塞尔维亚 败 瑞士</p>
@@ -232,8 +233,8 @@ var _hmt = _hmt || [];
 <p>瑞士 ： 7 </p>
 <p>塞尔维亚 ： 3 </p>
 <p>喀麦隆 ： 0</p>
-<h5 id="H组"><a href="#H组" class="headerlink" title="H组"></a>H组</h5><p>乌拉圭 胜韩国:</p>
-<p>葡萄牙 胜 加纳:</p>
+<h5 id="H组"><a href="#H组" class="headerlink" title="H组"></a>H组</h5><p>乌拉圭 胜韩国 【不准】</p>
+<p>葡萄牙 胜 加纳: 【准】</p>
 <p>韩国 胜 加纳</p>
 <p>葡萄牙 平 乌拉圭</p>
 <p>加纳 败 乌拉圭</p>
@@ -308,6 +309,15 @@ var _hmt = _hmt || [];
 
    
   <nav class="article-nav">
+    
+      <a href="/2022/20221128/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            人工智能辅助的超分辨率宇宙学模拟
+          
+        </div>
+      </a>
     
     
       <a href="/2022/20221013/" class="article-nav-link">

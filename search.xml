@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>人工智能辅助的超分辨率宇宙学模拟</title>
+    <url>/2022/20221128/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>传统“星系形成”的宇宙学模拟受到了有限计算资源的限制，而这篇论文试图借助深度学习来解决这个问题。具体来说，通过生成 512 倍数以上的粒子并预测它们从初始位置的位移来提高模拟的分辨率。该方法的结果可以被视为是模拟实现的本身，而不是对其密度场的投影。由于生成过程是随机的，使得我们能够对大尺度环境下的小尺度模式进行采样。值得一提的是，该模型仅从16 对低分辨率 - 高分辨率的模拟中学习，就能够生成超分辨率的模拟。将模型进一步部署在比训练模拟框大 1000 倍的模拟中，该实验同样表明该模型可以快速生成高分辨率的模拟。由此，我们可以得出结论，人工智能辅助有可能彻底改变大型宇宙学体积中小规模星系形成物理学的建模。</p>
+<p>参考：<a href="https://www.bilibili.com/video/BV1bg411i7Nv/">【沈向洋带你读论文】人工智能辅助的超分辨率宇宙学模拟【StyleGAN2】【天文宇宙学】【超分辨率】</a></p>
+<span id="more"></span>
+
+<h2 id="AI-天文在研究什么"><a href="#AI-天文在研究什么" class="headerlink" title="AI 天文在研究什么"></a>AI 天文在研究什么</h2><p>有大量的天文观测数据，成指数增长，他也有自己的摩尔定律，已经增长到必须使用深度学习方法来处理的程度了。</p>
+<p>从分论上来看，大概有：</p>
+<p>（1）天文学图像</p>
+<p>（2）光变曲线，就是光强随时间变化的这么一个函数。</p>
+<p>可以用时间序列分析的各种，比如说 Neural ODE 和 Neural SDE 的方法来解决</p>
+<p>（3）天文学光谱，光强随波长这么一个分布</p>
+<p>可以用PCA 或者是非负矩阵分解，然后再用神经网络的方法来处理。</p>
+<p>这些海量的数据使 AI for Astronomy 变得非常的 promising。有可能在将来从这些数据中发现现在未知的一些物理规律以及天文现象。</p>
+<h2 id="论文中的方法"><a href="#论文中的方法" class="headerlink" title="论文中的方法"></a>论文中的方法</h2><p>利用超分辨率的方法来超分辨率化数字模拟。</p>
+<p><img src="./20221128/1.jpg"></p>
+<p>由于我们宇宙一开始是非常均匀的，所以它的初始条件，我们可以把它放在一个格点上<br>然后从这个每个格点出发<br>指向他们现在所在的位置<br>就是一个矢量<br>就是它的位移<br>然后把这些位移排在格点上<br>它就是一个矢量场<br>如果我们分开来看<br>每一个分量的话<br>就可以把它们分别列为<br>三维图像的三个channel<br>就像RGB一样<br>然后这样做有一个好处就是<br>它对于每个粒子这样做之后<br>我们确保了宇宙中的物质的质量是手衡的<br>因为我们的粒子不会变多<br>也不会变少<br>其次我们对于结果<br>可以同样把它处理为一个simulation的结果<br>就是说它与正常的 simulation 的结果<br>看上去没有任何的不同<br>在此基础上<br>我们还可以加入速度的信息<br>比如说除了位移之外<br>我们还可以预测每个粒子的速度<br>从而得到整个相关间的物质反驳</p>
+]]></content>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习预测世界杯胜负</title>
     <url>/2022/20221122/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/sslp23/predicting-fifa-2022-world-cup-with-ml/notebook">Predicting FIFA 2022 World Cup with ML</a>。</p>
 <p>预测出来的结果是巴西夺冠。</p>
 <p>当然事在人为，最终谁夺的冠军还是让我们来期待一下。</p>
 <p>根据历年数据计算的准确率只有不到70的准确率，AUC为0.75。</p>
+<p>现在预测准确率17/27</p>
 <span id="more"></span>
 
 <hr>
@@ -33,8 +58,8 @@
 <h3 id="模拟结果"><a href="#模拟结果" class="headerlink" title="模拟结果"></a>模拟结果</h3><p>AI并没有给出胜或负的肯定的结果，只有胜负概率，下面的取最高赢球概率的为胜方。</p>
 <h4 id="小组赛"><a href="#小组赛" class="headerlink" title="小组赛"></a>小组赛</h4><h5 id="A组："><a href="#A组：" class="headerlink" title="A组："></a>A组：</h5><p>卡塔尔 败 厄瓜多尔  【准】</p>
 <p>塞内加尔 败 荷兰  【准】</p>
-<p>卡塔尔 败 塞内加尔</p>
-<p>荷兰 胜 厄瓜多尔</p>
+<p>卡塔尔 败 塞内加尔【准】</p>
+<p>荷兰 胜 厄瓜多尔 【准】</p>
 <p>厄瓜多尔 胜 塞内加尔</p>
 <p>荷兰 胜 卡塔尔</p>
 <p>最终</p>
@@ -44,8 +69,8 @@
 <p>卡塔尔 ： 0</p>
 <h5 id="B组"><a href="#B组" class="headerlink" title="B组"></a>B组</h5><p>英格兰 胜 伊朗 【准】</p>
 <p>美国 平 威尔士 【准】</p>
-<p>威尔士 胜 伊朗 </p>
-<p>英格兰 胜 美国</p>
+<p>威尔士 胜 伊朗  【不准】</p>
+<p>英格兰 胜 美国 【不准】</p>
 <p>威尔士 败 英格兰</p>
 <p>伊朗 败 美国</p>
 <p>最终积分：</p>
@@ -55,8 +80,8 @@
 <p>伊朗 ： 0</p>
 <h5 id="C组"><a href="#C组" class="headerlink" title="C组"></a>C组</h5><p>阿根廷 胜 沙特阿拉伯 【不准】</p>
 <p>墨西哥 平 波兰 【准】</p>
-<p>波兰 胜 沙特阿拉伯</p>
-<p>阿根廷 胜 墨西哥</p>
+<p>波兰 胜 沙特阿拉伯 【准】</p>
+<p>阿根廷 胜 墨西哥 【准】</p>
 <p>波兰 败 阿根廷</p>
 <p>沙特阿拉伯 败 墨西哥</p>
 <p>最终积分：</p>
@@ -66,8 +91,8 @@
 <p>沙特阿拉伯 ： 0</p>
 <h5 id="D组"><a href="#D组" class="headerlink" title="D组"></a>D组</h5><p>丹麦 胜 突尼斯 【不准】</p>
 <p>法国 胜 澳大利亚 【准】</p>
-<p>突尼斯 平 澳大利亚</p>
-<p>法国 平 丹麦</p>
+<p>突尼斯 平 澳大利亚 【不准】</p>
+<p>法国 平 丹麦 【不准】</p>
 <p>澳大利亚 败 丹麦</p>
 <p>突尼斯 败 法国 </p>
 <p>最终积分: </p>
@@ -76,9 +101,9 @@
 <p>突尼斯 ： 1 </p>
 <p>澳大利亚 ： 1</p>
 <h5 id="E组"><a href="#E组" class="headerlink" title="E组"></a>E组</h5><p>德国 胜 日本 【不准】</p>
-<p>西班牙 胜 哥斯达黎加</p>
-<p>日本 平 哥斯达黎加</p>
-<p>西班牙 平 德国</p>
+<p>西班牙 胜 哥斯达黎加 【准】</p>
+<p>日本 平 哥斯达黎加 【不准】</p>
+<p>西班牙 平 德国 【准】</p>
 <p>日本 败 西班牙</p>
 <p>哥斯达黎加 败 德国</p>
 <p>最终积分: </p>
@@ -87,9 +112,9 @@
 <p>日本 ： 1 </p>
 <p>哥斯达黎加 ： 1</p>
 <h5 id="F组"><a href="#F组" class="headerlink" title="F组"></a>F组</h5><p>摩洛哥 败 克罗地亚  【不准】</p>
-<p>比利时 胜 加拿大</p>
-<p>比利时 胜 摩洛哥</p>
-<p>克罗地亚 胜 加拿大</p>
+<p>比利时 胜 加拿大 【准】</p>
+<p>比利时 胜 摩洛哥 【不准】</p>
+<p>克罗地亚 胜 加拿大 【准】</p>
 <p>克罗地亚 败 比利时</p>
 <p>加拿大 平 摩洛哥:</p>
 <p>最终积分</p>
@@ -97,8 +122,8 @@
 <p>克罗地亚 ： 6 </p>
 <p>摩洛哥 ： 1 </p>
 <p>加拿大 ： 1</p>
-<h5 id="G组"><a href="#G组" class="headerlink" title="G组"></a>G组</h5><p>瑞士 胜 喀麦隆</p>
-<p>巴西 胜 塞尔维亚</p>
+<h5 id="G组"><a href="#G组" class="headerlink" title="G组"></a>G组</h5><p>瑞士 胜 喀麦隆 【准】</p>
+<p>巴西 胜 塞尔维亚 【准】</p>
 <p>喀麦隆 败 塞尔维亚</p>
 <p>巴西 平 瑞士</p>
 <p>塞尔维亚 败 瑞士</p>
@@ -108,8 +133,8 @@
 <p>瑞士 ： 7 </p>
 <p>塞尔维亚 ： 3 </p>
 <p>喀麦隆 ： 0</p>
-<h5 id="H组"><a href="#H组" class="headerlink" title="H组"></a>H组</h5><p>乌拉圭 胜韩国:</p>
-<p>葡萄牙 胜 加纳:</p>
+<h5 id="H组"><a href="#H组" class="headerlink" title="H组"></a>H组</h5><p>乌拉圭 胜韩国 【不准】</p>
+<p>葡萄牙 胜 加纳: 【准】</p>
 <p>韩国 胜 加纳</p>
 <p>葡萄牙 平 乌拉圭</p>
 <p>加纳 败 乌拉圭</p>
