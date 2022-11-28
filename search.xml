@@ -29,14 +29,16 @@
 <h4 id="（3）一对多映射"><a href="#（3）一对多映射" class="headerlink" title="（3）一对多映射"></a>（3）一对多映射</h4><p>超分辨率是一个映射，而我们需要的映射不是个一对一的映射，需要它是一个一对多的映射。因为我们的高分辨率模拟中它的初始条件包含了低分辨率模拟中不存在的一些信息。这些高频的信息其实是随机的，而它有无穷多种可能性，所以这种映射其实是从一到无穷多的一个映射。</p>
 <h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p><img src="model.jpg" alt="model"></p>
 <p>具体模型结合了stylegan2的架构。</p>
-<p><img src="stru.jpg" alt="model"></p>
+<p><img src="stru.jpg"></p>
 <p>StyleGAN2本身是用来做图像合成的,不是用来做超分辨率的，作者利用其中的一部分，然后把低分辨率输入作为 StyleGaN2 Generator 的输入，经过层层的上采样，然后就形成了超分辨率的这么一个结果，其中最重要的就是左边这个要不停的加入 noise，来形成更精细的结构。而 discriminator 的架构就是比较经典的ResNet。</p>
 <p>训练数据采用了 16 对小体积的数值模拟，其中我们的低分辨率和高分辨率模拟之间，它的分辨率差了 512 倍。</p>
-<h3 id="实验效果"><a href="#实验效果" class="headerlink" title="实验效果"></a>实验效果</h3><h4 id="猜猜猜"><a href="#猜猜猜" class="headerlink" title="猜猜猜"></a>猜猜猜</h4><p>下图中有三张图片是生成的，只有一张是真的，猜猜哪个是真的？</p>
-<p><img src="guess.jpg" alt="model"></p>
+<h3 id="实验效果"><a href="#实验效果" class="headerlink" title="实验效果"></a>实验效果</h3><h4 id="一些专有定义"><a href="#一些专有定义" class="headerlink" title="一些专有定义"></a>一些专有定义</h4><p>展现实验结果前先介绍文中经常出现的z的定义。</p>
+<p>李寅老师的回答：z通常表示红移（redshift），过去天体所发射光子的波长随着宇宙的膨胀而变长，因在可见光波段表现为变红而被称为红移。因此红移越大表明当时的宇宙越小，在越久远的过去。宇宙的大小相对今天大小的比率称为scale factor，用符号a表示，也就是a = 宇宙某时刻大小 / 宇宙现在的大小。a与z的关系是a = 1 / (1+z)，也就是z=2时的宇宙是今天的1/3大小。</p>
+<h4 id="猜猜猜"><a href="#猜猜猜" class="headerlink" title="猜猜猜"></a>猜猜猜</h4><p>下图中有三张图片是生成的，只有一张是真的，猜猜哪个是真的？</p>
+<p><img src="guess.jpg"></p>
 <p>（答案是A）</p>
-<h4 id="功率谱比较"><a href="#功率谱比较" class="headerlink" title="功率谱比较"></a>功率谱比较</h4><p><img src="power.jpg" alt="model"></p>
-<p><img src="power1.jpg" alt="model"></p>
+<h4 id="功率谱比较"><a href="#功率谱比较" class="headerlink" title="功率谱比较"></a>功率谱比较</h4><p><img src="power.jpg"></p>
+<p><img src="power1.jpg"></p>
 <p>功率谱其实是傅里叶空间的两点关联函数，它刻画了不同尺度上物质的密度分布的一个涨落大小。我们可以看到在小尺度上面,超分别率和高分别率混合得非常好。</p>
 <h4 id="有趣的发现"><a href="#有趣的发现" class="headerlink" title="有趣的发现"></a>有趣的发现</h4><p>将超分别率模型应用到更大的体积中，体积是训练模拟体积的1000倍，结果出现了训练数据中不存在的暗物质晕。</p>
 <h2 id="宇宙线模拟综述推荐"><a href="#宇宙线模拟综述推荐" class="headerlink" title="宇宙线模拟综述推荐"></a>宇宙线模拟综述推荐</h2><p><a href="https://readpaper.com/paper/4568278127084576769?channel=harryreadpaper">Large-scale dark matter simulations</a></p>
@@ -45,16 +47,17 @@
       <tags>
         <tag>机器学习</tag>
         <tag>人工智能</tag>
+        <tag>天文</tag>
       </tags>
   </entry>
   <entry>
     <title>机器学习预测世界杯胜负</title>
     <url>/2022/20221122/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a href="https://www.kaggle.com/code/sslp23/predicting-fifa-2022-world-cup-with-ml/notebook">Predicting FIFA 2022 World Cup with ML</a>。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/sslp23/predicting-fifa-2022-world-cup-with-ml/notebook">Predicting FIFA 2022 World Cup with ML</a>。</p>
 <p>预测出来的结果是巴西夺冠。</p>
 <p>当然事在人为，最终谁夺的冠军还是让我们来期待一下。</p>
 <p>根据历年数据计算的准确率只有不到70的准确率，AUC为0.75。</p>
-<p>现在预测准确率17/27</p>
+<p>现在预测准确率17/28</p>
 <span id="more"></span>
 
 <hr>
@@ -147,7 +150,7 @@
 <p>加拿大 ： 1</p>
 <h5 id="G组"><a href="#G组" class="headerlink" title="G组"></a>G组</h5><p>瑞士 胜 喀麦隆 【准】</p>
 <p>巴西 胜 塞尔维亚 【准】</p>
-<p>喀麦隆 败 塞尔维亚</p>
+<p>喀麦隆 败 塞尔维亚 【不准】</p>
 <p>巴西 平 瑞士</p>
 <p>塞尔维亚 败 瑞士</p>
 <p>喀麦隆 败 巴西</p>
