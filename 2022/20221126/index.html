@@ -143,7 +143,7 @@ var _hmt = _hmt || [];
 <li><p>语言模型的输入是一道数学题连接一个字符串“The answer is”，然后让语言模型进行续写</p>
 </li>
 </ul>
-<p><img src="D:\hexo\blog\source_posts\20221126\zeroshot.png" alt="zeroshot"></p>
+<p><img src="zeroshot.png" alt="zeroshot"></p>
 <h4 id="CoT"><a href="#CoT" class="headerlink" title="CoT"></a>CoT</h4><ul>
 <li><p>比如输入问题并提示Let’s think step by step</p>
 </li>
@@ -152,7 +152,7 @@ var _hmt = _hmt || [];
 <li><p>这种情况下，语言模型会续写出中间推理步骤，并最终生成答案</p>
 </li>
 </ul>
-<p><img src="D:\hexo\blog\source_posts\20221126\zeroshot.png" alt="zeroshot"></p>
+<p><img src="zeroshot.png" alt="zeroshot"></p>
 <h4 id="Manual-CoT"><a href="#Manual-CoT" class="headerlink" title="Manual-CoT"></a>Manual-CoT</h4><p> 一种few shot方法，所以构造了一些模板Q&amp;A（模板A中也有Let’s think step by step），然后再给出问题并提示Let’s think step by step。</p>
 <ul>
 <li>文献：Chain of Thought Prompting Elicits Reasoning in Large Language Models（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903%EF%BC%89">https://arxiv.org/abs/2201.11903）</a></li>
@@ -161,7 +161,7 @@ var _hmt = _hmt || [];
 <li>这里少样本训练中的问题和答案的样例都需要人为构造并手动设计，因此为了和第四种自动 CoT 做区分，这里称为 Manual-CoT</li>
 <li>Manual-CoT 比 Zero-Shot-CoT 的性能要好，因为它采用的是 few shot ，在输入中提供了一些问题、中间推理步骤以及答案的样例给语言模型进行参考。但是，提供这些样例需要进行人工设计，这就需要一定的人工成本</li>
 </ul>
-<p><img src="D:\hexo\blog\source_posts\20221126\zeroshot.png" alt="zeroshot"></p>
+<p><img src="zeroshot.png" alt="zeroshot"></p>
 <h4 id="Auto-CoT"><a href="#Auto-CoT" class="headerlink" title="Auto-CoT"></a>Auto-CoT</h4><p>采样多个问题，每个问题提示Let’s think step by step，让模型给出答案。然后拼接所有生成的Q&amp;A并给出最终问题，并提示Let’s think step by step。</p>
 <ul>
 <li>文献：Automatic Chain of thought Prompting in Large Language Models（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03493%EF%BC%89">https://arxiv.org/abs/2210.03493）</a></li>
@@ -180,7 +180,7 @@ var _hmt = _hmt || [];
 <li><p>在 Auto-CoT 中，其实也是用到了很多个“Let’s think step by step”对每个采样的问题分别触发中间推理步骤和答案，这也是为什么叫它“Let’s think not just step by step but also one by one”，也就是AI需要多鼓励几次</p>
 </li>
 </ul>
-<p><img src="D:\hexo\blog\source_posts\20221126\autocot.png" alt="autocot"></p>
+<p><img src="autocot.png" alt="autocot"></p>
  
       <!-- reward -->
       
