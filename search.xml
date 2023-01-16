@@ -42,6 +42,33 @@
       </tags>
   </entry>
   <entry>
+    <title></title>
+    <url>/2023/20230116/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>具体代码见：<a href="https://colab.research.google.com/drive/1I4RCsJ6N1pONdKHvx6KD-whJAz_z6Voj?usp=sharing#scrollTo=qdAMTEAwR3en">colab</a></p>
+<p>众所周知，像GPT-3等大学语言模型善于few-shot learning。</p>
+<p>那能不能在图像上发挥作用呢？</p>
+<p>研究者将图像翻译成ASCII来让语言模型理解图像。</p>
+<p><img src="fungpt.jpg"></p>
+<p>prompt模板：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Input: [flattened_ascii_image]  </span><br><span class="line">Output: [class_label]  </span><br><span class="line">###</span><br><span class="line">Input: [flattened_ascii_image]  </span><br><span class="line">Output: [class_label]  </span><br><span class="line">###</span><br><span class="line">...</span><br><span class="line">Input: [flattened_ascii_image]  </span><br><span class="line">Output:</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>MNIST的总体准确率达到了20/30≈66%，勉勉强强，而且样本也较少。</p>
+<p>研究者还在CIFAR-10进行了测试，准确率只有50%，比瞎猜还是好一点的。</p>
+<hr>
+<p>这个想法是挺有趣的，就是缺乏大量和广泛的样本测试。</p>
+<p>openai是用了大量的语言数据进行测试，但是我并不觉得ASCII字谜在openai的训练数据内。</p>
+<p>分类效果尽管偏低，但是还是让人眼前一亮的。这种few-shot learning让我想起了最近流行的chatgpt的扫雷prompt。</p>
+<p>CV和NLP是否能大一统？</p>
+<p>但是，也正如研究者所说：<strong>But the world is not just all natural language!</strong> </p>
+]]></content>
+      <tags>
+        <tag>人工智能</tag>
+        <tag>自然语言处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算神经科学能否成为未来人工智能的发展方向？</title>
     <url>/2023/20230101/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>我个人认为计算神经科学对AI的帮助是微乎其微的，过去没有，未来十年也难以有，就算现在AI可能正面对瓶颈期，我也并不觉得计算神经科学是有效的破瓶器。大二上学院开设有一门神经科学，在相对悲观的态度下，我也没有选这门课。以下来自知乎用户周鹏程的<a href="https://www.zhihu.com/question/304574109/answer/2728729351">回答</a>，我觉得值得一看。</p>
