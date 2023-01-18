@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">127</span>
+            <span class="post-count">242</span>
         </span>
     </span>
 
@@ -128,16 +128,19 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
        
   <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。</p>
+<span id="more"></span>
+
 <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>self-attention是XXXX</p>
 <p><img src="sat-1.jpg"></p>
 <h2 id="不会起名"><a href="#不会起名" class="headerlink" title="不会起名"></a>不会起名</h2><p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
 <h3 id="local-attention-truncated-attention"><a href="#local-attention-truncated-attention" class="headerlink" title="local attention/truncated attention"></a>local attention/truncated attention</h3><p>在self attention如果我们只看邻居，那我们就能把很远的地方的值设为0。</p>
 <p>缺点：只能看到小范围的数值，跟CNN很像。</p>
 <p><img src="local-attention.jpg"></p>
-<h3 id="stride-attention"><a href="#stride-attention" class="headerlink" title="stride attention"></a>stride attention</h3><p>pass</p>
-<h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><span id="more"></span>
-
-<p>帕森斯</p>
+<h3 id="stride-attention"><a href="#stride-attention" class="headerlink" title="stride attention"></a>stride attention</h3><p>类似于local-attention，但是间隔更大。</p>
+<p><img src="stride-attention.jpg"></p>
+<h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><p>以上都是以某个位置为中心看左右的事情，如果我们关心整个sequence，那么我们可以用global attention。我们可以加入一个特殊token到原始的sequence里面。在这里，global attention会做两件事情：</p>
+<p>（1）每个特殊的token都加入每一个token，收集全局信息。<br>（2）每个特殊的token都被其他所有的token加入，以用来获取全局信息。</p>
+<p><img src="global-attention.jpg"></p>
  
       <!-- reward -->
       
