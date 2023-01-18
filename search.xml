@@ -44,7 +44,8 @@
   <entry>
     <title>各式各样的self-attention</title>
     <url>/2023/20230118/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>参考李宏毅老师的</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>参考：李宏毅老师的<a href="https://www.bilibili.com/video/BV1FG411K7n5">各式各样的Attention</a></p>
+<hr>
 <p>self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。</p>
 <span id="more"></span>
 
