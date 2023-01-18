@@ -44,12 +44,17 @@
   <entry>
     <title>各式各样的self-attention</title>
     <url>/2023/20230118/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>参考李宏毅老师的</p>
+<p>self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。</p>
 <span id="more"></span>
 
-<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>self-attention是XXXX</p>
+<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>一个长度为N的句子，会得到N个key和N个query。</p>
+<p>然后两两做dot-product，得到attention matrix。</p>
+<p>然后再用attention matrix对value做weight sum。</p>
+<p>痛点在于计算这个N×N的attention matrix计算量可能会非常惊人。</p>
+<p>所以有一系列方法加速这个计算过程。</p>
 <p><img src="sat-1.jpg"></p>
-<h2 id="不会起名"><a href="#不会起名" class="headerlink" title="不会起名"></a>不会起名</h2><p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
+<h2 id="人为设定优化"><a href="#人为设定优化" class="headerlink" title="人为设定优化"></a>人为设定优化</h2><p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
 <h3 id="local-attention-truncated-attention"><a href="#local-attention-truncated-attention" class="headerlink" title="local attention/truncated attention"></a>local attention/truncated attention</h3><p>在self attention如果我们只看邻居，那我们就能把很远的地方的值设为0。</p>
 <p>缺点：只能看到小范围的数值，跟CNN很像。</p>
 <p><img src="local-attention.jpg"></p>
@@ -58,6 +63,9 @@
 <h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><p>以上都是以某个位置为中心看左右的事情，如果我们关心整个sequence，那么我们可以用global attention。我们可以加入一个特殊token到原始的sequence里面。在这里，global attention会做两件事情：</p>
 <p>（1）每个特殊的token都加入每一个token，收集全局信息。<br>（2）每个特殊的token都被其他所有的token加入，以用来获取全局信息。</p>
 <p><img src="global-attention.jpg"></p>
+<h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><p>上面提到了三种选择，我们选择哪一种呢？小孩子才做选择，我们都选择。</p>
+<p><img src="mix.jpg"></p>
+<h2 id="自动设定优化"><a href="#自动设定优化" class="headerlink" title="自动设定优化"></a>自动设定优化</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2><p><strong>linformer</strong></p>
 ]]></content>
       <tags>
         <tag>人工智能</tag>
