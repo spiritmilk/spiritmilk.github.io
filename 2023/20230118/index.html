@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">942</span>
+            <span class="post-count">1k</span>
         </span>
     </span>
 
@@ -173,7 +173,13 @@ var _hmt = _hmt || [];
 <h4 id="如何挑选代表性的keys"><a href="#如何挑选代表性的keys" class="headerlink" title="如何挑选代表性的keys"></a>如何挑选代表性的keys</h4><p><img src="reduce-key.jpg"></p>
 <p>Compressed Attention是用CNN扫过整个句子，得到较短的output当作有代表性的keys。</p>
 <p>Linformer是直接乘上N×K矩阵，做线性变化。</p>
-<h2 id="加速attention计算"><a href="#加速attention计算" class="headerlink" title="加速attention计算"></a>加速attention计算</h2> 
+<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg"></p>
+<p>将上面的运算过程变成下面的运算过程。</p>
+<p>上面的运算过程乘法次数为$（d+d’）N^2$</p>
+<p>下面的运算过程乘法次数为$2d’dN$</p>
+<p>我们再把softmax放回。</p>
+<p><img src="acc_sat_cal_3.jpg"></p>
+ 
       <!-- reward -->
       
     </div>
