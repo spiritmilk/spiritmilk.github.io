@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">367</span>
+            <span class="post-count">709</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -149,8 +149,22 @@ var _hmt = _hmt || [];
 <p><img src="global-attention.jpg"></p>
 <h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><p>上面提到了三种选择，我们选择哪一种呢？小孩子才做选择，我们都选择。</p>
 <p><img src="mix.jpg"></p>
-<h2 id="自动设定优化"><a href="#自动设定优化" class="headerlink" title="自动设定优化"></a>自动设定优化</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2><p><strong>linformer</strong></p>
- 
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="data-driven方式"><a href="#data-driven方式" class="headerlink" title="data-driven方式"></a>data-driven方式</h2><h3 id="将较小值取0"><a href="#将较小值取0" class="headerlink" title="将较小值取0"></a>将较小值取0</h3><p><img src="zero.jpg"></p>
+<h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><p>Reformer和routing transformer用了类似的方法。</p>
+<p>第一步先把query和key聚类。</p>
+<p>聚类的计算可以用近似（approximate）但快速（fast）的方式，从而加快计算。Reformer和routing transformer就采用了不同的clustering方式来加速计算。</p>
+<p>聚类完后，我们只计算归为同一个类别的query和key之间的attention score，其他位置的attention score直接设置为0。</p>
+<p><img src="cluster.jpg"></p>
+<p><img src="cluster2.jpg"></p>
+<h2 id="自动设定优化"><a href="#自动设定优化" class="headerlink" title="自动设定优化"></a>自动设定优化</h2><p>我们能不能学习attention matrix哪块需要，哪块不需要吗？或者说能不能学习attention weight呢？</p>
+<h2 id="Sinkhorn-Sorting-Network"><a href="#Sinkhorn-Sorting-Network" class="headerlink" title="Sinkhorn Sorting Network"></a>Sinkhorn Sorting Network</h2><p><img src="learnable.jpg"></p>
+<p>Sinkhorn Sorting Network做法是learn另外一个network来决定这个1-0矩阵。</p>
+<p>新的network会input一个sequence，sequence中每个位置的vector都输出一个跟sequence长度一致的vector。Sequence中每个位置都产生一个vector，拼起来就产生一个N×N的矩阵。然后将这个矩阵通过某种计算变成一个1-0矩阵，并且保证这个计算过程可以微分。</p>
+<p>产生1-0矩阵的计算和整个self-attention是jointly learned的。</p>
+<p>当然也可以选择top-k方法，而不是top-1。</p>
+<p>疑问：用了一个NN，真的比不用NN直接计算所有矩阵运算量小吗？</p>
+<p>答：不一定的。所以Sinkhorn Sorting Network会将输入的向量划分为几个部分，各个部分共用一个经过NN产生的向量。</p>
+<h3 id="linformer"><a href="#linformer" class="headerlink" title="linformer"></a>linformer</h3><h2 id="加速attention计算"><a href="#加速attention计算" class="headerlink" title="加速attention计算"></a>加速attention计算</h2> 
       <!-- reward -->
       
     </div>
