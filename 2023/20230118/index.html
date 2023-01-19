@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1k</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -173,15 +173,25 @@ var _hmt = _hmt || [];
 <h4 id="如何挑选代表性的keys"><a href="#如何挑选代表性的keys" class="headerlink" title="如何挑选代表性的keys"></a>如何挑选代表性的keys</h4><p><img src="reduce-key.jpg"></p>
 <p>Compressed Attention是用CNN扫过整个句子，得到较短的output当作有代表性的keys。</p>
 <p>Linformer是直接乘上N×K矩阵，做线性变化。</p>
-<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg"></p>
+<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><p><img src="acc_sat_cal_0.jpg"></p>
+<p>我们暂时忽略softmax后，输出O可以当成是三个矩阵相乘。</p>
+<h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg"></p>
 <p>将上面的运算过程变成下面的运算过程。</p>
 <p>上面的运算过程乘法次数为$（d+d’）N^2$</p>
 <p>下面的运算过程乘法次数为$2d’dN$</p>
 <p>我们再把softmax放回。</p>
 <p><img src="acc_sat_cal_3.jpg"></p>
+<p>上图为原先的。</p>
 <p> <img src="acc_sat_cal_4.jpg"></p>
+<p>上图为变换顺序后的。</p>
 <h4 id="phi-的确定"><a href="#phi-的确定" class="headerlink" title="$\phi$的确定"></a>$\phi$的确定</h4><p> <img src="phi.jpg"></p>
-<h3 id="sy"><a href="#sy" class="headerlink" title="sy"></a>sy</h3> 
+<h2 id="Synthesizer"><a href="#Synthesizer" class="headerlink" title="Synthesizer"></a>Synthesizer</h2><p>不用q和v，直接学attention matrix</p>
+<p><img src="synthesizer.jpg"></p>
+<p>把它当成网络里的参数</p>
+<h2 id="丢掉self-attention"><a href="#丢掉self-attention" class="headerlink" title="丢掉self-attention"></a>丢掉self-attention</h2><p><img src="att_free.jpg"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>LRA score表示方法越好，圈圈的大小代表需要用的memory大小</p>
+<p><img src="summary.jpg"></p>
+ 
       <!-- reward -->
       
     </div>
