@@ -101,6 +101,8 @@
 <p>上图为原先的。</p>
 <p> <img src="acc_sat_cal_4.jpg"></p>
 <p>上图为变换顺序后的。</p>
+<p>其中$exp(\mathbf{q}·\mathbf{k})\approx\phi(\mathbf{q})·\phi(\mathbf{k})$</p>
+<p>具体数学推导见李宏毅原视频。</p>
 <h4 id="phi-的确定"><a href="#phi-的确定" class="headerlink" title="$\phi$的确定"></a>$\phi$的确定</h4><p> <img src="phi.jpg"></p>
 <h2 id="Synthesizer"><a href="#Synthesizer" class="headerlink" title="Synthesizer"></a>Synthesizer</h2><p>不用q和v，直接学attention matrix</p>
 <p><img src="synthesizer.jpg"></p>
@@ -110,6 +112,7 @@
 <p><img src="summary.jpg"></p>
 ]]></content>
       <tags>
+        <tag>深度学习</tag>
         <tag>人工智能</tag>
       </tags>
   </entry>
