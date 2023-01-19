@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">709</span>
+            <span class="post-count">758</span>
         </span>
     </span>
 
@@ -164,7 +164,11 @@ var _hmt = _hmt || [];
 <p>当然也可以选择top-k方法，而不是top-1。</p>
 <p>疑问：用了一个NN，真的比不用NN直接计算所有矩阵运算量小吗？</p>
 <p>答：不一定的。所以Sinkhorn Sorting Network会将输入的向量划分为几个部分，各个部分共用一个经过NN产生的向量。</p>
-<h3 id="linformer"><a href="#linformer" class="headerlink" title="linformer"></a>linformer</h3><h2 id="加速attention计算"><a href="#加速attention计算" class="headerlink" title="加速attention计算"></a>加速attention计算</h2> 
+<h3 id="linformer"><a href="#linformer" class="headerlink" title="linformer"></a>linformer</h3><p>attention matrix有很多redundant columns ，研究者计算attention matrix的rank发现是低rank的（低秩的）。</p>
+<p>那我们能不能去掉重复，产生小的attention matrix，加快attention的速度呢？</p>
+<p><img src="linformer.jpg"></p>
+<p><strong>具体做法：</strong></p>
+<h2 id="加速attention计算"><a href="#加速attention计算" class="headerlink" title="加速attention计算"></a>加速attention计算</h2> 
       <!-- reward -->
       
     </div>
