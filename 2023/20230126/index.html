@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">15.5k</span>
+            <span class="post-count">15.7k</span>
         </span>
     </span>
 
@@ -127,16 +127,14 @@ var _hmt = _hmt || [];
   
     <div class="article-entry" itemprop="articleBody">
        
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h1 id="Deep-Learning-Tuning-Playbook"><a href="#Deep-Learning-Tuning-Playbook" class="headerlink" title="Deep Learning Tuning Playbook"></a>Deep Learning Tuning Playbook</h1><p><em>This is not an officially supported Google product.</em></p>
-<p><strong>Varun Godbole<sup>&dagger;</sup>, George E. Dahl<sup>&dagger;</sup>, Justin Gilmer<sup>&dagger;</sup>, Christopher J. Shallue<sup>&Dagger;</sup>, Zachary Nado<sup>&dagger;</sup></strong></p>
-<p>&dagger; Google Research, Brain Team</p>
-<p>&Dagger; Harvard University</p>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p><em>非官方支持的Google产品</em></p>
+<p>由Google Research和Harvard University研究人员联合出品。</p>
 <span id="more"></span>
 
 <h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
-<li>  <a href="#who-is-this-document-for">Who is this document for?</a></li>
+<li>  <a href="#%E8%BF%99%E4%B8%AA%E6%96%87%E6%A1%A3%E6%98%AF%E4%B8%BA%E8%B0%81%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F">这个文档是为谁设计的？</a></li>
 <li>  <a href="#why-a-tuning-playbook">Why a tuning playbook?</a></li>
-<li><a href="#guide-for-starting-a-new-project">Guide for starting a new project</a><ul>
+<li><a href="#%E5%BC%80%E5%A7%8B%E6%96%B0%E9%A1%B9%E7%9B%AE%E5%89%8D%E7%9A%84%E6%8C%87%E5%8D%97">开始新项目前的指南</a><ul>
 <li>  <a href="#choosing-a-model-architecture">Choosing the model architecture</a></li>
 <li>  <a href="#choosing-the-optimizer">Choosing the optimizer</a></li>
 <li>  <a href="#choosing-the-batch-size">Choosing the batch size</a></li>
@@ -171,22 +169,22 @@ var _hmt = _hmt || [];
 <li>  <a href="#citing">Citing</a></li>
 <li>  <a href="#contributing">Contributing</a></li>
 </ul>
-<h2 id="Who-is-this-document-for"><a href="#Who-is-this-document-for" class="headerlink" title="Who is this document for?"></a>Who is this document for?</h2><p>This document is for engineers and researchers (both individuals and teams)<br>interested in <strong>maximizing the performance of deep learning models</strong>. We assume<br>basic knowledge of machine learning and deep learning concepts.</p>
-<p>Our emphasis is on the <strong>process of hyperparameter tuning</strong>. We touch on other<br>aspects of deep learning training, such as pipeline implementation and<br>optimization, but our treatment of those aspects is not intended to be complete.</p>
-<p>We assume the machine learning problem is a supervised learning problem or<br>something that looks a lot like one (e.g. self-supervised). That said, some of<br>the prescriptions in this document may also apply to other types of problems.</p>
+<h2 id="这个文档是为谁设计的？"><a href="#这个文档是为谁设计的？" class="headerlink" title="这个文档是为谁设计的？"></a>这个文档是为谁设计的？</h2><p>本文档面向对深度学习<strong>模型性能最优化</strong>感兴趣的工程师和研究人员（个人和团队）。我们假设你已经掌握了机器学习和深度学习概念的基本知识。</p>
+<p>我们的重点是超参数调参过程。我们触及了深度学习培训的其他方面，例如pipeline应用和优化，但是我们对这些方面的处理并不完整。</p>
+<p>我们假设机器学习问题是一个有监督的学习问题或类似的问题（例如自监督）。尽管如此，本文档中的一些规定也可能适用于其他类型的问题。</p>
 <h2 id="Why-a-tuning-playbook"><a href="#Why-a-tuning-playbook" class="headerlink" title="Why a tuning playbook?"></a>Why a tuning playbook?</h2><p>Currently, there is an astonishing amount of toil and guesswork involved in<br>actually getting deep neural networks to work well in practice. Even worse, the<br>actual recipes people use to get good results with deep learning are rarely<br>documented. Papers gloss over the process that led to their final results in<br>order to present a cleaner story, and machine learning engineers working on<br>commercial problems rarely have time to take a step back and generalize their<br>process. Textbooks tend to eschew practical guidance and prioritize fundamental<br>principles, even if their authors have the necessary experience in applied work<br>to provide useful advice. When preparing to create this document, we couldn’t<br>find any comprehensive attempt to actually explain <em>how to get good results with<br>deep learning</em>. Instead, we found snippets of advice in blog posts and on social<br>media, tricks peeking out of the appendix of research papers, occasional case<br>studies about one particular project or pipeline, and a lot of confusion. There<br>is a vast gulf between the results achieved by deep learning experts and less<br>skilled practitioners using superficially similar methods. At the same time,<br>these very experts readily admit some of what they do might not be<br>well-justified. As deep learning matures and has a larger impact on the world,<br>the community needs more resources covering useful recipes, including all the<br>practical details that can be so critical for obtaining good results.</p>
 <p>We are a team of five researchers and engineers who have worked in deep learning<br>for many years, some of us since as early as 2006. We have applied deep learning<br>to problems in everything from speech recognition to astronomy, and learned a<br>lot along the way. This document grew out of our own experience training neural<br>networks, teaching new machine learning engineers, and advising our colleagues<br>on the practice of deep learning. Although it has been gratifying to see deep<br>learning go from a machine learning approach practiced by a handful of academic<br>labs to a technology powering products used by billions of people, deep learning<br>is still in its infancy as an engineering discipline and we hope this document<br>encourages others to help systematize the field’s experimental protocols.</p>
 <p>This document came about as we tried to crystalize our own approach to deep<br>learning and thus it represents the opinions of the authors at the time of<br>writing, not any sort of objective truth. Our own struggles with hyperparameter<br>tuning made it a particular focus of our guidance, but we also cover other<br>important issues we have encountered in our work (or seen go wrong). Our<br>intention is for this work to be a living document that grows and evolves as our<br>beliefs change. For example, the material on debugging and mitigating training<br>failures would not have been possible for us to write two years ago since it is<br>based on recent results and ongoing investigations. Inevitably, some of our<br>advice will need to be updated to account for new results and improved<br>workflows. We do not know the <em>optimal</em> deep learning recipe, but until the<br>community starts writing down and debating different procedures, we cannot hope<br>to find it. To that end, we would encourage readers who find issues with our<br>advice to produce alternative recommendations, along with convincing evidence,<br>so we can update the playbook. We would also love to see alternative guides and<br>playbooks that might have different recommendations so we can work towards best<br>practices as a community. Finally, any sections marked with a 🤖 emoji are places<br>we would like to do more research. Only after trying to write this playbook did<br>it become completely clear how many interesting and neglected research questions<br>can be found in the deep learning practitioner’s workflow.</p>
-<h2 id="Guide-for-starting-a-new-project"><a href="#Guide-for-starting-a-new-project" class="headerlink" title="Guide for starting a new project"></a>Guide for starting a new project</h2><p>Many of the decisions we make over the course of tuning can be made once at the<br>beginning of a project and only occasionally revisited when circumstances<br>change.</p>
-<p>Our guidance below makes the following assumptions:</p>
+<h2 id="开始新项目前的指南"><a href="#开始新项目前的指南" class="headerlink" title="开始新项目前的指南"></a>开始新项目前的指南</h2><p>我们在调参过程中做出的许多决定可以在项目开始时做，只有在情况发生变化时偶尔会重新审视。</p>
+<p>我们的指南提出了以下假设:</p>
 <ul>
-<li>Enough of the essential work of problem formulation, data cleaning, etc. has<br>  already been done that spending time on the model architecture and training<br>  configuration makes sense.</li>
-<li>There is already a pipeline set up that does training and evaluation, and it<br>  is easy to execute training and prediction jobs for various models of<br>  interest.</li>
-<li>The appropriate metrics have been selected and implemented. These should be<br>  as representative as possible of what would be measured in the deployed<br>  environment.</li>
+<li>  已经完成了足够的问题制定（problem formulation），数据清洁等的基本工作，以使在模型架构和训练配置上花费时间是有意义的。</li>
+<li>  已经有了一个pipeline,可以进行训练和评估。并容易为各种感兴趣的模型进行训练和预测。</li>
+<li>  选定并应用了合适的metrics。这些应该尽可能地代表将在部署环境中测量的内容。</li>
 </ul>
-<h3 id="Choosing-the-model-architecture"><a href="#Choosing-the-model-architecture" class="headerlink" title="Choosing the model architecture"></a>Choosing the model architecture</h3><p><em><strong>Summary:</strong></em> <em>When starting a new project, try to reuse a model that already<br>works.</em></p>
+<h3 id="选择模型架构"><a href="#选择模型架构" class="headerlink" title="选择模型架构"></a>选择模型架构</h3><p><em><strong>摘要:</strong></em> <em>当开始一个新项目时，请尝试使用已经work的模型。</em></p>
 <ul>
-<li>Choose a well established, commonly used model architecture to get working<br>  first. It is always possible to build a custom model later.</li>
+<li>  选择一个成熟的、广泛使用的模型架构。 。It is always possible to build a custom model later.</li>
 <li>Model architectures typically have various hyperparameters that determine<br>  the model’s size and other details (e.g. number of layers, layer width, type<br>  of activation function).<ul>
 <li>Thus, choosing the architecture really means choosing a family of<br>  different models (one for each setting of the model hyperparameters).</li>
 <li>We will consider the problem of choosing the model hyperparameters in<br>  <a href="#choosing-the-initial-configuration">Choosing the initial configuration</a><br>  and<br>  <a href="#a-scientific-approach-to-improving-model-performance">A scientific approach to improving model performance</a>.</li>
