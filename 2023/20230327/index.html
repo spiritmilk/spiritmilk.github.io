@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+  <html lang="en">
+    
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>《大型语言模型的意义和理解需要感官基础吗?是的!》 |  小熊的小站</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-228563528-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?71ee62302f36ca8f840077a641705255";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-20230327"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  《大型语言模型的意义和理解需要感官基础吗?是的!》
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/20230327/" class="article-date">
+  <time datetime="2023-03-27T03:28:30.000Z" itemprop="datePublished">2023-03-27</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自Yann LeCun的<a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1BU5bV3X5w65DwSMapKcsr0ZvrMRU_Nbi/view">Do large language models need sensory grounding for meaning and understanding? Spoiler: YES!</a></p>
+<hr>
+<h2 id="机器学习糟透了"><a href="#机器学习糟透了" class="headerlink" title="机器学习糟透了!"></a>机器学习糟透了!</h2><ul>
+<li>(与人类和动物相比)监督学习(SL)需要大量的标记样本。</li>
+<li>强化学习(RL)需要大量的试验。</li>
+<li>自监督学习(SSL)需要大量的未标记样本。</li>
+<li>目前大多数基于ml的人工智能系统:犯愚蠢的错误，不推理也不计划</li>
+<li>动物和人类:<ul>
+<li>可以很快学习新任务。</li>
+<li>知道世界如何运行</li>
+<li>能够推理和计划</li>
+</ul>
+</li>
+<li>人类和动物有常识，而机器却没有那么多常识(这很肤浅)。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="自我监督学习-学会填空"><a href="#自我监督学习-学会填空" class="headerlink" title="自我监督学习=学会填空"></a>自我监督学习=学会填空</h2><h2 id="自回归大型语言模型-AR-LLMs"><a href="#自回归大型语言模型-AR-LLMs" class="headerlink" title="自回归大型语言模型(AR-LLMs)"></a>自回归大型语言模型(AR-LLMs)</h2><ul>
+<li><p>Auto-Regressive Large Language Models (AR-LLMs)</p>
+</li>
+<li><p>token可以表示单词或子单词</p>
+</li>
+<li><p>编码器/预测器是一个transformer架构</p>
+</li>
+<li><p>表现惊人，但是会犯愚蠢的错误</p>
+<ul>
+<li>事实错误、逻辑错误、前后矛盾、推理有限、毒性……</li>
+</ul>
+</li>
+<li><p><strong>LLM不了解潜在的现实，他们没有常识&amp;他们不能计划他们的答案</strong></p>
+</li>
+</ul>
+<h3 id="关于AR-LLMs的不受欢迎的观点"><a href="#关于AR-LLMs的不受欢迎的观点" class="headerlink" title="关于AR-LLMs的不受欢迎的观点"></a>关于AR-LLMs的不受欢迎的观点</h3><ul>
+<li>Auto-Regressive LLMs are <strong>doomed.</strong></li>
+<li>它们不可能是真实的、无毒的等等。</li>
+<li>设任何生成的令牌将我们带出正确答案集合之外的概率为$e$，则$P(correct)=(1-e)^n$。</li>
+<li>这是指数增长的，这是不可修复的。</li>
+</ul>
+<h3 id="自回归生成模型太烂了"><a href="#自回归生成模型太烂了" class="headerlink" title="自回归生成模型太烂了!"></a>自回归生成模型太烂了!</h3><ul>
+<li>AR-LLMs<ul>
+<li>在输入和输出之间有一个常数的计算步骤。微弱的代表性力量（Weak representational power.）。</li>
+<li>没有真正的推理和计划。</li>
+</ul>
+</li>
+<li>人和大多数动物<ul>
+<li>理解世界如何运行</li>
+<li>能预测动作序列</li>
+<li>可以执行无限步骤的推理链。</li>
+<li>能通过将复杂任务分解为子任务序列来计划它。</li>
+</ul>
+</li>
+</ul>
+<h2 id="人工智能和机器学习面临的三大挑战"><a href="#人工智能和机器学习面临的三大挑战" class="headerlink" title="人工智能和机器学习面临的三大挑战"></a>人工智能和机器学习面临的三大挑战</h2><p>1.学习世界的表征和预测模型</p>
+<ul>
+<li>监督学习和强化学习需要太多的样本/试验</li>
+<li>自我监督学习/学习依赖/填补空白<ul>
+<li>学习以非特定于任务的方式来表示世界</li>
+<li>学习用于计划和控制的预测模型</li>
+</ul>
+</li>
+</ul>
+<p>2.学会推理，像Daniel Kahneman的“System 2”</p>
+<ul>
+<li>Beyond feed-forward, System 1 subconscious computation.</li>
+<li>使推理与学习相容。<ul>
+<li>Reasoning and planning as energy minimization.</li>
+</ul>
+</li>
+</ul>
+<p>3.学习计划复杂的动作序列</p>
+<ul>
+<li>Learning hierarchical representations of action plans</li>
+</ul>
+<h2 id="能够推理和计划的认知架构"><a href="#能够推理和计划的认知架构" class="headerlink" title="能够推理和计划的认知架构"></a>能够推理和计划的认知架构</h2><p>​    立场论文：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=BZ5a1r-kVsf">“A path towards autonomous machine intelligence”</a></p>
+<p>Longer talk见 YouTube上的“LeCun Berkeley” 。</p>
+<h3 id="自主人工智能的模块化架构"><a href="#自主人工智能的模块化架构" class="headerlink" title="自主人工智能的模块化架构"></a>自主人工智能的模块化架构</h3><ul>
+<li>Configurator<ul>
+<li>为任务配置其他模块</li>
+</ul>
+</li>
+<li>Perception<ul>
+<li>Estimates state of the world</li>
+</ul>
+</li>
+<li>World Model<ul>
+<li>Predicts future world states</li>
+</ul>
+</li>
+<li>Cost<ul>
+<li>Compute “discomfort”</li>
+</ul>
+</li>
+<li>Actor<ul>
+<li>Find optimal action sequences</li>
+</ul>
+</li>
+<li>Short-Term Memory<ul>
+<li>Stores state-cost episodes</li>
+</ul>
+</li>
+</ul>
+<p><img src="mode1.jpg"></p>
+<p><img src="mode2.jpg"></p>
+<p><img src="mode3.jpg"></p>
+<h3 id="建立和训练World-Model"><a href="#建立和训练World-Model" class="headerlink" title="建立和训练World Model"></a>建立和训练World Model</h3><p>——基于能源模型的联合嵌入体系结构</p>
+<p>我们如何表示预测中的不确定性?</p>
+<ul>
+<li>世界只有部分是可预测的</li>
+<li>一个预测模型如何能表示多个预测?</li>
+<li>概率模型在连续域是难以处理的。</li>
+<li>生成模型必须预测世界的每一个细节</li>
+<li>我的解决方案：Joint-Embedding Predictive Architecture</li>
+</ul>
+<h4 id="世界模型的体系结构-JEPA"><a href="#世界模型的体系结构-JEPA" class="headerlink" title="世界模型的体系结构:JEPA"></a>世界模型的体系结构:JEPA</h4><p><img src="JEPA.jpg"></p>
+<h4 id="架构-Generative-vs-Joint-Embedding"><a href="#架构-Generative-vs-Joint-Embedding" class="headerlink" title="架构:Generative vs Joint Embedding"></a>架构:Generative vs Joint Embedding</h4><p><img src="JEPA_art.jpg"></p>
+<h3 id="Energy-Based-Models"><a href="#Energy-Based-Models" class="headerlink" title="Energy-Based Models:"></a>Energy-Based Models:</h3><p><img src="EB_model.jpg"></p>
+<p><img src="EBM_train.jpg"></p>
+<h3 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h3><ul>
+<li>放弃生成模型<ul>
+<li>偏向joint-embedding architectures</li>
+<li>抛弃Auto-Regressive generation</li>
+</ul>
+</li>
+<li>抛弃概率模型<ul>
+<li>偏向energy-based models</li>
+</ul>
+</li>
+<li>抛弃对比方法<ul>
+<li>偏向regularized methods</li>
+</ul>
+</li>
+<li>抛弃强化学习<ul>
+<li>偏向model-predictive control</li>
+<li>只有当计划不能产生预期结果时，才使用RL来调整世界模型或critic。</li>
+</ul>
+</li>
+</ul>
+<h3 id="非对比学习地训练JEPA"><a href="#非对比学习地训练JEPA" class="headerlink" title="非对比学习地训练JEPA"></a>非对比学习地训练JEPA</h3><p><img src="JEPA_TRAIN.jpg"></p>
+<h3 id="VICReg-Variance-Invariance-Covariance-Regularization"><a href="#VICReg-Variance-Invariance-Covariance-Regularization" class="headerlink" title="VICReg: Variance, Invariance, Covariance Regularization"></a>VICReg: Variance, Invariance, Covariance Regularization</h3><p><img src="VICReg.jpg"></p>
+<h3 id="VICRegL"><a href="#VICRegL" class="headerlink" title="VICRegL"></a>VICRegL</h3><p><img src="VICRegL.jpg"></p>
+<h3 id="MC-JEPA-Motion-amp-Content-JEPA"><a href="#MC-JEPA-Motion-amp-Content-JEPA" class="headerlink" title="MC-JEPA: Motion &amp; Content JEPA"></a>MC-JEPA: Motion &amp; Content JEPA</h3><p><img src="MC-JEPA.JPG"></p>
+<p><img src="MC-JEPA1.JPG"></p>
+<p><img src="MC-JEPA2.JPG"></p>
+<h3 id="Image-JEPA"><a href="#Image-JEPA" class="headerlink" title="Image-JEPA"></a>Image-JEPA</h3><p><img src="IJEPA.jpg"></p>
+<h3 id="Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels"><a href="#Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels" class="headerlink" title="Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels"></a>Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels</h3><p><img src="HPMTA.jpg"></p>
+<h2 id="Hierarchical-Planning-with-Uncertainty"><a href="#Hierarchical-Planning-with-Uncertainty" class="headerlink" title="Hierarchical Planning with Uncertainty"></a>Hierarchical Planning with Uncertainty</h2><ul>
+<li>Hierarchical world model</li>
+<li>Hierarchical world model</li>
+<li>An <strong>action</strong> at level k specifies an <strong>objective</strong> for level k-1</li>
+<li>Prediction in higher levels are more <strong>abstract</strong> and <strong>longer-range</strong>.</li>
+<li>这种通过最小化“行动”变量的成本来进行规划/推理的类型是当前架构所缺少的</li>
+<li>包括AR-LLMs，多模态系统，学习机器人，…</li>
+</ul>
+<h2 id="迈向自主人工智能系统的步骤"><a href="#迈向自主人工智能系统的步骤" class="headerlink" title="迈向自主人工智能系统的步骤"></a>迈向自主人工智能系统的步骤</h2><ul>
+<li>自监督学习<ul>
+<li>学习世界的表象</li>
+<li>学习世界的预测模型</li>
+</ul>
+</li>
+<li>处理预测中的不确定性<ul>
+<li>Joint-embedding predictive architectures</li>
+<li>Energy-Based Model framework</li>
+</ul>
+</li>
+<li>从观察中学习世界模型<ul>
+<li>像动物或者人类婴儿一样？</li>
+</ul>
+</li>
+<li>推理和计划<ul>
+<li>这与基于梯度的学习是兼容的</li>
+<li>没有符号，没有逻辑→向量和连续函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="立场-猜想"><a href="#立场-猜想" class="headerlink" title="立场/猜想"></a>立场/猜想</h2><ul>
+<li><p>预测是智力的本质</p>
+<ul>
+<li>学习世界的预测模型是常识的基础</li>
+</ul>
+<p>几乎所有的东西都是通过自我监督学习学到的</p>
+<ul>
+<li>低级特征、空间、对象、物理、抽象表现……</li>
+<li>通过强化、监督或模仿几乎学不到任何东西</li>
+</ul>
+</li>
+<li><p>推理==模拟/预测+目标优化</p>
+<ul>
+<li>计算上比auto-regressive generation更强大。</li>
+</ul>
+</li>
+<li><p>H-JEPA和非对比训练才是关键</p>
+<ul>
+<li>概率生成模型和对比方法注定要失败。</li>
+</ul>
+</li>
+<li><p>情感是自主智力的必要条件</p>
+<ul>
+<li>评论家或世界模型+内在成本对结果的预期。</li>
+</ul>
+</li>
+</ul>
+<h2 id="AI研究的挑战"><a href="#AI研究的挑战" class="headerlink" title="AI研究的挑战"></a>AI研究的挑战</h2><ul>
+<li>为从视频、图像、音频、文本中训练基于层次联合嵌入体系结构的世界模型寻找一个通用的方法。</li>
+<li>设计替代成本以驱动H-JEPA学习相关表示(预测只是其中之一)</li>
+<li>将H-JEPA集成到一个能够规划/推理的代理中</li>
+<li>在不确定性存在的情况下设计层次规划的推理程序(基于梯度的方法，束搜索，MCTS，….)</li>
+<li>在模型或评论家不准确并导致不可预见的结果的情况下，尽量减少RL的使用。</li>
+<li>Scaling</li>
+</ul>
+<hr>
+
+
+	<div class="row">
+    <embed src="/pdf/lecun-20230324-nyuphil.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2023/20230327/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" rel="tag">自然语言处理</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/20230320/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Prompt Engineering By Lil&#39;Log</div>
+      </a>
+    
+  </nav>
+
+   
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2023
+        <i class="ri-heart-fill heart_icon"></i> LJX
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="小熊的小站"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于本站</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about_me">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">人间烟火</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://act18l.github.io/">欧拉计划</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+ 
+    
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.css">
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.js"></script>
+        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/contrib/auto-render.min.js"></script>
+        
+    
+ 
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
