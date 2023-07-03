@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Archives |  小熊的小站</title>
+      <title>Voice Conversion With Just Nearest Neighbors |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -75,246 +75,156 @@ var _hmt = _hmt || [];
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-20230629"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">Archives</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2021" class="archive-year">2021</a>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Voice Conversion With Just Nearest Neighbors
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/20230629/" class="article-date">
+  <time datetime="2023-06-29T07:42:11.000Z" itemprop="datePublished">2023-06-29</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">478</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">1 min</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210708/" class="archive-article-date">
-  <time datetime="2021-07-08T15:13:39.000Z" itemprop="datePublished">07/08</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210708/"
-    >巧用对称化三重积分为三次</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210614/" class="archive-article-date">
-  <time datetime="2021-06-14T14:06:29.000Z" itemprop="datePublished">06/14</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210614/"
-    >机器学习之降维算法</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210612/" class="archive-article-date">
-  <time datetime="2021-06-12T09:07:25.000Z" itemprop="datePublished">06/12</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210612/"
-    >京都大学 2021 年入学試験問題（理系数学）部分解答</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
   
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210608/" class="archive-article-date">
-  <time datetime="2021-06-07T22:08:31.000Z" itemprop="datePublished">06/08</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210608/"
-    >世另我（一）</a> 
-</h2>
- 
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.18975">《Voice Conversion With Just Nearest Neighbors》</a></p>
+<p>demo地址：<a target="_blank" rel="noopener" href="https://bshall.github.io/knn-vc/">https://bshall.github.io/knn-vc/</a></p>
+<p>代码地址：<a target="_blank" rel="noopener" href="https://github.com/bshall/knn-vc">https://github.com/bshall/knn-vc</a></p>
+<p>简介：任意语音转换旨在将源语音转换为目标语音，仅以目标说话者的几个例子为参考。最近的方法产生了令人信服的转换，但代价是增加了复杂性——使结果难以复制和构建。相反，我们保持简单。我们提出了k近邻语音转换（kNN-VC）：一种简单而有效的任意到任意转换方法。首先，我们提取源语音和参考语音的自监督表示。为了转换为目标说话者，我们将源表示的每个帧替换为其在参考中的最近邻居。最后，预训练的声码器从转换后的表示中合成音频。客观和主观评价表明，kNN-VC以与现有方法相似的可懂度分数提高了说话人的相似性。</p>
+<p><img src="model.jpg"></p>
+<span id="more"></span>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210607/" class="archive-article-date">
-  <time datetime="2021-06-07T15:26:47.000Z" itemprop="datePublished">06/07</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210607/"
-    >2021新高考一卷压轴题</a> 
-</h2>
+<p>模型架构：源话语和参考话语被编码为来自预训练的WavLM模型的自监督特征[6]。每个源特征被分配给来自参考的k个最接近特征的平均值。然后使用HiFi GAN对得到的特征序列进行声码，以获得转换后的波形输出。</p>
+<blockquote>
+<p> 原理非常简单，不过个人怀疑需要的声音量可能是别的模型的几倍，由于是相当于直接利用embedding</p>
+</blockquote>
+<p>对于我们所有的实验，我们用均匀的加权设置k=4，并使用余弦距离来比较特征。在初步实验中，我们发现kNN-VC在k=4左右的值范围内是相当稳健的。也就是说，当有更多的参考音频可用时（例如≥10分钟），甚至可以通过使用更大的k值（按k=20的顺序）来提高转换质量。</p>
  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210606/" class="archive-article-date">
-  <time datetime="2021-06-05T23:56:13.000Z" itemprop="datePublished">06/06</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210606/"
-    >机器学习之聚类算法</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210530/" class="archive-article-date">
-  <time datetime="2021-05-30T14:38:02.000Z" itemprop="datePublished">05/30</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210530/"
-    >机器学习之支持向量机</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210514/" class="archive-article-date">
-  <time datetime="2021-05-14T04:50:34.000Z" itemprop="datePublished">05/14</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210514/"
-    >辨析依概率收敛和以概率一收敛</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210509/" class="archive-article-date">
-  <time datetime="2021-05-09T15:21:02.000Z" itemprop="datePublished">05/09</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210509/"
-    >机器学习之神经网络</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210415/" class="archive-article-date">
-  <time datetime="2021-04-15T14:47:21.000Z" itemprop="datePublished">04/15</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210415/"
-    >Wolfram Mathematica识别猫种</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/page/8/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/7/">7</a><a class="page-number" href="/archives/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/archives/page/10/">10</a><a class="page-number" href="/archives/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/13/">13</a><a class="extend next" rel="next" href="/archives/page/10/">下一页</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2023/20230629/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" rel="tag">自然语言处理</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2023/20230701/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            天文学神经网络的历史、入门和展望
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2023/20230622/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">CVPR历年best student award</div>
+      </a>
+    
   </nav>
-  
+
+   
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -457,6 +367,22 @@ var _hmt = _hmt || [];
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
