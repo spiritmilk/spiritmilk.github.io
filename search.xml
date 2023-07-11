@@ -85,6 +85,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Boosting Text-to-Image Diffusion Models with Fine-Grained Semantic Rewards</title>
+    <url>/2023/20230705/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>该论文来自同级的fga同学。</p>
+<p>地址：<a href="https://arxiv.org/abs/2305.19599">https://arxiv.org/abs/2305.19599</a></p>
+<p>共同一作：fga和来自穆罕默德·本·扎耶德人工智能大学（MBZUAI）的Zutao Jiang</p>
+<p>其他作者还包括来自华为诺言方舟实验室的几位和梁晓丹老师。</p>
+<p>不知道这篇论文会在哪里发表（目前还是arxiv)，也不能断定这篇论文是否具有较大的学术阅读价值，但我认为阅读这篇论文能让我见识一下自己与别人的差距。</p>
+<hr>
+<p>这篇论文中，作者提出了FineRewards，通过引入两种新的细粒度语义奖励：caption奖励和SAM奖励，来改善文本到图像扩散模型中文本和图像之间的对齐。</p>
+<p>此外，还采用了集合奖励排序学习策略，使多个奖励函数能够集成，以共同指导模型训练。</p>
+<hr>
+<h2 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图"></a>模型示意图</h2><p><img src="model.png"></p>
+<p>diffusion模型结合了2021年Lora和2023年的SAM</p>
+<span id="more"></span>
+
+<p><strong>Caption Reward</strong>:这里用的是BLIP-2模型，计算分数为余弦相似度。</p>
+<p><strong>SAM Reward:</strong></p>
+<p>具体来说，我们首先使用Grounded SAM生成的图像，并获得每个掩码的语义类别标签$L=^n_i=1$，其中n表示掩码/标签的数量。然后使用大型语言模型，即Vicuna-7B，基于所提供的提示来评估所描述的场景，并基于每个类别标签出现在场景中的可能性为每个掩码分配奖励分数。每个mask $s_i$的奖励分数根据以下标准确定：</p>
+<p><img src="maskscore.png"></p>
+<p>最后：<br>$$<br>R_{sam}=\frac{1}{n}\sum^n_{i=1}s_i<br>$$<br>使用的prompt:</p>
+<p>Please assess the described scene based on the provided prompt and determine the likelihood of each tag appearing in the scene. Assign a score to each tag according to the following criteria:  If a tag is certain to appear, assign a score of 3. If a tag may appear, assign a score of 2. If a tag is unlikely to appear, assign a score of 1.</p>
+<blockquote>
+<p>额…..其实有点奇怪….为啥这里要用LLM….这感觉就是个文本相似度判定…..</p>
+</blockquote>
+<p><strong>选择图像：</strong>在后续的选择中使用排名相加而不是两个reward相加</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一些博士生对超大型语言模型时代NLP研究的看法</title>
     <url>/2023/20230703/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://arxiv.org/abs/2305.12544">《A PhD Student’s Perspective on Research in NLP in the Era of Very Large Language Models》</a></p>
