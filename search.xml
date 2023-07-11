@@ -87,7 +87,7 @@
   <entry>
     <title>Boosting Text-to-Image Diffusion Models with Fine-Grained Semantic Rewards</title>
     <url>/2023/20230705/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>该论文来自同级的fga同学。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的fga同学。</p>
 <p>地址：<a href="https://arxiv.org/abs/2305.19599">https://arxiv.org/abs/2305.19599</a></p>
 <p>共同一作：fga和来自穆罕默德·本·扎耶德人工智能大学（MBZUAI）的Zutao Jiang</p>
 <p>其他作者还包括来自华为诺言方舟实验室的几位和梁晓丹老师。</p>
@@ -110,6 +110,11 @@
 <p>额…..其实有点奇怪….为啥这里要用LLM….这感觉就是个文本相似度判定…..</p>
 </blockquote>
 <p><strong>选择图像：</strong>在后续的选择中使用排名相加而不是两个reward相加</p>
+<hr>
+<p><strong>想法：</strong></p>
+<p>1.使用Vicuna有种杀鸡用牛刀的感觉</p>
+<p>2.文中的选择图像的方法也就是Assemble Reward-Ranked Learning，使用排名相加其实也感觉由于分数相加，但感觉不如gaussrank相加。</p>
+<p>3.文中的caption由BLIP-2生成，但是BLIP生成的比较简短，且不一定贴近prompt，是不是使用一些更先进的方法效果还能进一步提升呢？<a href="https://www.kaggle.com/competitions/stable-diffusion-image-to-prompts/">比如</a>。但是注意到SAM生成的tag其实很简短，那是不是使用BLIP实际上是可行的呢，还是说引入更相似能增加模型的泛化性呢？</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
