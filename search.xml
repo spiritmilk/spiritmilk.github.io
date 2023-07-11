@@ -95,11 +95,11 @@
 <hr>
 <p>这篇论文中，作者提出了FineRewards，通过引入两种新的细粒度语义奖励：caption奖励和SAM奖励，来改善文本到图像扩散模型中文本和图像之间的对齐。</p>
 <p>此外，还采用了集合奖励排序学习策略，使多个奖励函数能够集成，以共同指导模型训练。</p>
+<span id="more"></span>
+
 <hr>
 <h2 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图"></a>模型示意图</h2><p><img src="model.png"></p>
 <p>diffusion模型结合了2021年Lora和2023年的SAM</p>
-<span id="more"></span>
-
 <p><strong>Caption Reward</strong>:这里用的是BLIP-2模型，计算分数为余弦相似度。</p>
 <p><strong>SAM Reward:</strong></p>
 <p>具体来说，我们首先使用Grounded SAM生成的图像，并获得每个掩码的语义类别标签$L=^n_i=1$，其中n表示掩码/标签的数量。然后使用大型语言模型，即Vicuna-7B，基于所提供的提示来评估所描述的场景，并基于每个类别标签出现在场景中的可能性为每个掩码分配奖励分数。每个mask $s_i$的奖励分数根据以下标准确定：</p>
