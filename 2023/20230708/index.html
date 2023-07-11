@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Tag: 深度学习 |  小熊的小站</title>
+      <title>华为预测天气大模型 |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -75,222 +75,168 @@ var _hmt = _hmt || [];
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-20230708"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">#&nbsp深度学习</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2022" class="archive-year">2022</a>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  华为预测天气大模型
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/20230708/" class="article-date">
+  <time datetime="2023-07-08T15:43:48.000Z" itemprop="datePublished">2023-07-08</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">995</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/20220224/" class="archive-article-date">
-  <time datetime="2022-02-24T03:50:33.000Z" itemprop="datePublished">02/24</time>
-</a>
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/20220224/"
-    >yolo三剑客</a> 
-</h2>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41586-023-06185-3">华为发表于nature的《Accurate medium-range global weather forecasting with 3D neural networks》</a>。</p>
+<hr>
+<p>现阶段，AI 气象预报模型精度不足主要有两个原因：</p>
+<ul>
+<li>第一，现有的 AI 气象预报模型都是基于 2D 神经网络，无法很好地处理不均匀的 3D 气象数据。</li>
+<li>第二，AI 方法缺少数学物理机理约束，因此在迭代过程中会不断积累迭代误差。</li>
+</ul>
+<p>为了解决上述问题，来自华为云的研究人员提出了一种新的高分辨率全球 AI 气象预报系统：盘古气象（Pangu-Weather）大模型。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>天气预报对于科学和社会都很重要。目前，最准确的预报系统是数值天气预报（NWP）方法，该方法将大气状态表示为离散网格，并数值求解描述这些状态之间转变的偏微分方程<a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41586-023-06185-3#ref-CR1">1</a>。然而，这个过程的计算成本很高。最近，基于人工智能的方法<a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41586-023-06185-3#ref-CR2">2</a>已经显示出将天气预报加速几个数量级的潜力，但预报精度仍然明显低于 NWP 方法。</p>
+<p>作者证明，配备地球特定先验的三维深度网络可以有效处理天气数据中的复杂模式，并且分层时间聚合策略可以减少中期预测中的累积误差。经过 39 年的全球数据训练，盘古天气程序与世界上最好的 NWP 系统（欧洲中期天气中心的业务综合预报系统）相比，对所有测试变量的再分析数据获得了更强的确定性预报结果预测 (ECMWF)<a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41586-023-06185-3#ref-CR3">3</a> . 方法也适用于极端天气预报和集合预报。当用再分析数据初始化时，跟踪热带气旋的精度也高于ECMWF-HRES。</p>
+<h2 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h2><p>首先，将高度信息整合到一个新的维度中，以便深度神经网络的输入和输出可以在三个维度上概念化。</p>
+<p>作者进一步设计了一个三维（3D）地球特定变压器（3DEST）架构，将地球特定先验注入深层网络。实验表明，3D 模型通过将高度表达为单独的维度，能够捕获不同压力水平下大气状态之间的关系，从而产生显着的精度增益 </p>
+<p>其次，作者应用了分层时间聚合算法，该算法涉及训练一系列具有增加的预测提前期的模型。因此，在测试阶段，中期天气预报所需的迭代次数大大减少，累积预报误差也得到缓解。第五代ECMWF再分析（ERA5）数据的实验验证了盘古天气在确定性预报和极端天气预报方面的优势，同时速度比业务IFS快10000倍以上。</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="model.png"></p>
+<h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><p>（1）盘古天气是根据再分析数据进行训练和测试的，但现实世界的预报系统是在观测数据上工作的。这些数据来源之间存在差异</p>
+<p>（2）其次，本文没有研究降水等一些天气变量。忽略这些因素可能会导致当前模型缺乏一些能力，例如利用降水数据来准确预测小规模极端天气事件，例如龙卷风爆发。</p>
+<p>（3）基于人工智能的方法产生更平滑的预测结果，增加了低估极端天气事件严重程度的风险。我们研究了一个特殊情况，即气旋跟踪，但还有很多工作要做。</p>
+<p>（4）使用不同提前期的模型可能会引入时间不一致。这是一个具有挑战性的话题，值得进一步研究。</p>
+<h2 id="哈哈哈"><a href="#哈哈哈" class="headerlink" title="哈哈哈"></a>哈哈哈</h2><p>论文多次提到了”要是能拥有更强大的集群和更大的GPU内存，就能更进一步“的意思，大家都缺卡吗，哈哈哈。</p>
  
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/20220122/" class="archive-article-date">
-  <time datetime="2022-01-22T13:03:34.000Z" itemprop="datePublished">01/22</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/20220122/"
-    >图神经网络</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/20220121/" class="archive-article-date">
-  <time datetime="2022-01-21T12:58:46.000Z" itemprop="datePublished">01/21</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/20220121/"
-    >AlexNet</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/20220119/" class="archive-article-date">
-  <time datetime="2022-01-19T13:29:01.000Z" itemprop="datePublished">01/19</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/20220119/"
-    >BERT</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2022/20220118/" class="archive-article-date">
-  <time datetime="2022-01-18T13:43:24.000Z" itemprop="datePublished">01/18</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2022/20220118/"
-    >ResNet</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-  
-  </div>
-  </div>
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2021" class="archive-year">2021</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210727/" class="archive-article-date">
-  <time datetime="2021-07-27T04:45:43.000Z" itemprop="datePublished">07/27</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210727/"
-    >《一天学会深度学习》-李宏毅</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li></ul>
-
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210724/" class="archive-article-date">
-  <time datetime="2021-07-24T15:31:02.000Z" itemprop="datePublished">07/24</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210724/"
-    >如何只使用一个隐层，来实现包含n元输入的任意布尔函数？</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
-
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">上一页</a><a class="page-number" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">1</a><span class="page-number current">2</span>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2023/20230708/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2023/20230711/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            机器学习科研的十年——陈天奇
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2023/20230703/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">一些博士生对超大型语言模型时代NLP研究的看法</div>
+      </a>
+    
   </nav>
-  
+
+   
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -433,6 +379,22 @@ var _hmt = _hmt || [];
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
