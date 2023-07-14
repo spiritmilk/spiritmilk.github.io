@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Frozen Language Model Helps ECG Zero-Shot Learning</title>
+    <url>/2023/20230714/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的lj同学。一位将去哈佛的大佬。</p>
+<p>论文地址：<a href="https://openreview.net/forum?id=UAr59yTUWR2">https://openreview.net/forum?id=UAr59yTUWR2</a></p>
+<p>共同一作：lj和来自伦敦帝国理工学院地球科学与工程系的Che liu</p>
+<p>发表自MIDL（The International Conference on Medical Imaging with Deep Learning）是一个非常年轻的<strong>医学图像</strong>方向的会议。</p>
+<hr>
+<p><strong>评价：</strong>ECG版CLIP</p>
+<span id="more"></span>
+
+<p>模型：</p>
+<p><img src="model.png"></p>
+<p>prompt: The report of the ECG is Short Title that {text}</p>
+<p>使用一个大型临床语言模型。</p>
+<p>ECG编码器基于ResNet1d-18</p>
+<p>本研究得到了国家自然科学基金（No.621008）的资助。</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>世另我（三）</title>
     <url>/2023/me3/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="密码错误.提示：无." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容">

@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>一生中要做的浪漫的事 |  小熊的小站</title>
+      <title>Frozen Language Model Helps ECG Zero-Shot Learning |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -76,8 +76,8 @@ var _hmt = _hmt || [];
     <main class="content on">
       <section class="outer">
   <article
-  id="page-"
-  class="article article-type-page"
+  id="post-20230714"
+  class="article article-type-post"
   itemscope
   itemprop="blogPost"
   data-scroll-reveal
@@ -87,27 +87,58 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  一生中要做的浪漫的事
+  Frozen Language Model Helps ECG Zero-Shot Learning
 </h1>
  
 
       
     </header>
-       
+     
+    <div class="article-meta">
+      <a href="/2023/20230714/" class="article-date">
+  <time datetime="2023-07-14T02:27:50.000Z" itemprop="datePublished">2023-07-14</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">141</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">1 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+
+
+
+  
     <div class="article-entry" itemprop="articleBody">
        
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><blockquote>
-<p>不浪漫人类怎飞行<br>——《人类不易飞行》</p>
-</blockquote>
-<p>不想搞bucker list，不如搞个浪漫清单</p>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>该论文来自同级的lj同学。一位将去哈佛的大佬。</p>
+<p>论文地址：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=UAr59yTUWR2">https://openreview.net/forum?id=UAr59yTUWR2</a></p>
+<p>共同一作：lj和来自伦敦帝国理工学院地球科学与工程系的Che liu</p>
+<p>发表自MIDL（The International Conference on Medical Imaging with Deep Learning）是一个非常年轻的<strong>医学图像</strong>方向的会议。</p>
 <hr>
-<ul>
-<li><input disabled="" type="checkbox"> 一天看五次日落</li>
-<li><input disabled="" type="checkbox"> 和喜欢的人在初雪的时候踏雪</li>
-<li><input disabled="" type="checkbox"> 给喜欢的人扎一百种发型</li>
-<li><input disabled="" type="checkbox"> 躺着大草原看流星雨</li>
-<li><input disabled="" type="checkbox"> 半夜在海边看星星，看大海</li>
-</ul>
+<p><strong>评价：</strong>ECG版CLIP</p>
+<span id="more"></span>
+
+<p>模型：</p>
+<p><img src="model.png"></p>
+<p>prompt: The report of the ECG is Short Title that {text}</p>
+<p>使用一个大型临床语言模型。</p>
+<p>ECG编码器基于ResNet1d-18</p>
+<p>本研究得到了国家自然科学基金（No.621008）的资助。</p>
  
       <!-- reward -->
       
@@ -160,18 +191,31 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/romantic/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2023/20230714/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
     </footer>
   </div>
 
    
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/me3/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">世另我（三）</div>
+      </a>
+    
+  </nav>
+
    
  
-    
+   
+     
 </article>
 
 </section>
@@ -316,6 +360,22 @@ var _hmt = _hmt || [];
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
