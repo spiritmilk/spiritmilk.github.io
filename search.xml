@@ -1,6 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SC-NAFSSR</title>
+    <url>/2023/20230802/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的qzd同学。</p>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2023W/NTIRE/html/Qiu_SC-NAFSSR_Perceptual-Oriented_Stereo_Image_Super-Resolution_Using_Stereo_Consistency_Guided_NAFSSR_CVPRW_2023_paper.html">论文地址</a></p>
+<p>指导老师为金枝老师，发表于CVPR的wordshop论文。为CVPR的NTIRE 2023双目图像超分辨率挑战赛的第二名解决方案。</p>
+<hr>
+<span id="more"></span>
+
+<p>模型架构：</p>
+<p><img src="model.png"></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LLaMA2</title>
+    <url>/2023/20230719/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
+<span id="more"></span>
+
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>是否改动</th>
+<th>LLaMA</th>
+<th>LLaMA2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模型整体构架</td>
+<td>无</td>
+<td>transformer</td>
+<td>transformer</td>
+</tr>
+<tr>
+<td>规范化函数</td>
+<td>无</td>
+<td>RMSNorm</td>
+<td>RMSNorm</td>
+</tr>
+<tr>
+<td>位置编码</td>
+<td>无</td>
+<td>RoPE</td>
+<td>RoPE</td>
+</tr>
+<tr>
+<td>激活函数</td>
+<td>无</td>
+<td>SiLU</td>
+<td>SiLU</td>
+</tr>
+<tr>
+<td>注意力机制</td>
+<td>有</td>
+<td>多头注意力机制</td>
+<td>分组查询多头注意力机制</td>
+</tr>
+<tr>
+<td>前馈函数</td>
+<td>无</td>
+<td>逐元素前馈函数</td>
+<td>逐元素前馈函数</td>
+</tr>
+<tr>
+<td>连接</td>
+<td>无</td>
+<td>残差连接</td>
+<td>残差连接</td>
+</tr>
+<tr>
+<td>掩码</td>
+<td>无</td>
+<td>因果掩码</td>
+<td>因果掩码</td>
+</tr>
+<tr>
+<td>推理</td>
+<td>有</td>
+<td>自回归推理</td>
+<td>自回归推理</td>
+</tr>
+</tbody></table>
+<p>RoPE由苏神提出，通过绝对位置编码的方式实现相对位置编码，是一种可用于线性Attention的相对位置编码。</p>
+<p>SiLU：$y=x*sigmoid(x)$</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Frozen Language Model Helps ECG Zero-Shot Learning</title>
     <url>/2023/20230714/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的lj同学。一位将去哈佛的大佬。</p>
@@ -16,7 +113,7 @@
 <p>prompt: The report of the ECG is Short Title that {text}</p>
 <p>使用一个大型临床语言模型。</p>
 <p>ECG编码器基于ResNet1d-18</p>
-<p>本研究得到了国家自然科学基金（No.621008）的资助。</p>
+<p>本研究得到了国家自然科学基金（No.621008）的资助。o</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
