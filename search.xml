@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Self-Supervision is All You Need for Solving Rubik’s Cube</title>
+    <url>/2024/20240113/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>该论文使用NN来解魔法，耳目一新的方法。<a href="https://arxiv.org/pdf/2106.03157.pdf">论文地址</a></p>
+<p>TMLR 2023.</p>
+<hr>
+<span id="more"></span>
+
+<p>我们方法的核心是DNN，它经过训练，可以预测应用于给定状态的最后一次随机移动。我们通过从混乱状态顺序反转预测的移动来找到解决方案路径。我们的方法假设并利用了源于目标的随机扰频的固有偏差，即最优性。图2中的微型示例说明了我们提出的方法在训练和推理过程中的操作。</p>
+<p>在训练DNN时，我们的方法用目标状态初始化目标问题，并应用一系列随机移动对其进行加扰。在每一步，DNN都会根据当前状态的模式来预测最后一次应用的移动。作为训练损失，我们计算最后一步的实际概率分布和预测概率分布之间的分类交叉熵。算法1概述了训练过程，图1展示了魔方上的一个示例数据点。</p>
+<p><img src="1.png"></p>
+<p>我们通过顺序反转DNN预测的移动来搜索追溯到目标状态的解决方案路径。我们采用最佳优先搜索算法，并对最有希望的候选路径进行优先排序，我们根据其所有组成移动的概率的累积乘积对其进行评估。累积乘积可以表示为$\prod_{i=1} \hat p_i$，其中$\prod$表示第$i$次移动是朝向目标的反向移动的预测概率。</p>
+<p>我们的方法利用了组合搜索的一个基本特性：路径越短，随机发生的可能性就越大。这意味着随机训练争夺的累积概率随着移动次数的减少而增加：$1/|M|^N$，其中M表示移动集，N表示路径长度。</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SC-NAFSSR</title>
     <url>/2023/20230802/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的qzd等同学。<a href="https://openaccess.thecvf.com/content/CVPR2023W/NTIRE/html/Qiu_SC-NAFSSR_Perceptual-Oriented_Stereo_Image_Super-Resolution_Using_Stereo_Consistency_Guided_NAFSSR_CVPRW_2023_paper.html">论文地址</a></p>
