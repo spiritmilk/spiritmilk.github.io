@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">2.3k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">4 min</span>
+            <span class="post-count">8 min</span>
         </span>
     </span>
 </div>
@@ -170,6 +170,27 @@ var _hmt = _hmt || [];
 <p><img src="S6.png"></p>
 <p>其中</p>
 <p><img src="LTI.png"></p>
+<p>模型从时不变变成了<strong>时可变</strong>。</p>
+<p>由于失去了LTI的性质，不能像之前的S4一样通过FFT来训练了。本文提出了<strong>IO-aware</strong>的parallel scan（一种memory bounded算子）算法来进行高效训练，<strong>降低整体的读写量</strong>从而提高wall-time efficiency。上面提到的outer product的参数化方式也对降低整体读写量很有帮助（大致思路是 (A¯,B¯)(\bar{A}, \bar{B})(\bar{A}, \bar{B}) 在SRAM里面on-the-fly算出来，避免<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=materialization&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22661237120%22%7D">materialization</a>带来的读写开销）</p>
+<h3 id="简化的-SSM-架构"><a href="#简化的-SSM-架构" class="headerlink" title="简化的 SSM 架构"></a>简化的 SSM 架构</h3><p><img src="model.png"></p>
+<p>本文的简化区块设计结合了 H3 区块（大多数 SSM 架构的基础）和现代神经网络中无处不在的 MLP 区块。这只是简单地重复 Mamba 模块，而不是交错使用这两个模块。与 H3 模块相比，Mamba 用激活函数取代了第一个乘法门。与 MLP 模块相比，Mamba 在主分支上增加了一个 SSM。对于 $\sigma$ ，使用 SiLU / Swish 激活。</p>
+<p>Mamba架构通过一个可控的扩展因子 E 来扩大模型维度 D。在每个块中，大部分参数（3ED^2）用于线性投影（2ED^2用于输入投影，ED^2用于输出投影）。与线性投影相比，SSM的参数（Δ, B, C 的投影和矩阵 A）数量要少得多。通过重复这个块，并与标准的归一化和残差连接交错，构成了Mamba架构。</p>
+<p> 在实验中，扩展因子 E 总是固定为2，使用两层堆叠的块来匹配Transformer的交错多头注意力（Multi-Head Attention, MHA）和MLP块的 12D^2 参数。采用SiLU/Swish激活函数，使得Gated MLP成为流行的“SwiGLU”变体。最后，受到RetNet在类似位置使用归一化层的启发，还使用了一个可选的归一化层（选择了LayerNorm）。</p>
+<h3 id="参数的影响"><a href="#参数的影响" class="headerlink" title="参数的影响"></a>参数的影响</h3><ol>
+<li><strong>参数Δ的作用</strong>： 它<strong>控制着模型对当前输入 x_t 的关注程度，以及应该保留多少历史状态信息</strong>。调节 Δ 的大小，可以模拟不同的系统行为，从完全关注当前输入到完全保留历史状态，实现对输入的选择性关注。Δ 在SSMs中起着类似于RNN门控信号的作用，如在定理1中提到的 g_t，但在SSMs的框架下提供了一种更一般化的形式。 当 Δ 很大时，模型会重置状态 h，这相当于让模型更多地关注当前的输入 x，而非之前的状态。当 Δ 很小时，模型保持现有状态 h 的持久性，对当前的输入 x 给予较少的关注，从而忽略它。 SSMs 可以被看作是一个连续系统通过时间步长 Δ 离散化后的结果。在这个离散化的连续系统中，大的 Δ（趋向于无穷）意味着系统在较长时间内专注于当前输入，相当于“选择”了当前输入并忘记了当前状态。相反，小的 Δ（趋向于零）意味着当前输入是短暂的，可以被忽略。</li>
+<li><strong>参数A的作用</strong>：  虽然理论上 A 也可以具备选择性，但 A 对模型的主要影响是通过它与 Δ 的相互作用来实现的（通过离散化公式 A=exp(ΔA) ）。作者认为，只要 Δ 具有选择性，就可以保证整个模型的选择性，而且 Δ 是提高模型性能的关键。为了保持模型的简洁性，作者选择不让 A 参数具备选择性。</li>
+<li><strong>参数 B 和 C 的作用</strong>：  选择性最重要的特性是<strong>过滤掉无关信息</strong>，从而将序列模型的上下文<strong>压缩</strong>成有效的状态。在 SSM 中，修改 B 和 C 使其具有选择性，可以使模型能够更精细地控制输入和状态的流动。  </li>
+</ol>
+<ul>
+<li>B 控制着输入 x_t 是否被引入到状态 h_t  中，即选择性地决定哪些输入对状态的更新至关重要。</li>
+<li>C 影响着状态 h_t 如何转化为输出 y_t，即如何基于当前的状态信息生成最终的输出。</li>
+</ul>
+<p>这意味着，SSM可以基于当前处理的数据内容以及已经编码在隐藏状态中的上下文信息，来动态地调整其内部状态的更新方式和输出。这增加了模型处理序列数据时的灵活性和有效性，因为它可以根据数据的具体特征和任务需求来优化信息流。</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="SL2048.png"></p>
+<p><img src="SL8192.png"></p>
+<p>其中Transformer++指的是带有Rope和SwiGLU的版本（i.e., LLaMa用的）。</p>
+<p>结果中也有国人研发的号称取代transformer的RWKV。</p>
+<p>而这些模型只能匹敌普通的transformer，只有mamba才能与transformer++匹敌。</p>
  
       <!-- reward -->
       
