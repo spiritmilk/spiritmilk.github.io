@@ -648,7 +648,7 @@ window.onload = function(){
 
 				if(STAGE==3 && CURRENT_LEVEL==3){
 					var framesLeft = (rewindLevel.frames.length-rewindFrame) + levelObjects[2].frames.length+levelObjects[3].frames.length+levelObjects[4].frames.length;
-					if(framesLeft<333){
+					if(framesLeft<370){
 						window.HAS_PLAYED_JAZZ = true;
 						createjs.Sound.play("ldh");
 					}
@@ -779,7 +779,7 @@ function iHeartYou(){
 	if(window.location.hash){
 		vtext.textContent = encryptString(decodeURIComponent(window.location.hash).substring(1));
 	}else{
-		vtext.innerHTML = "祝越——新年快乐！！！<br>永远开开心心！！！";
+		vtext.innerHTML = "祝越——新年快乐！！！<br>永远开开心心！！！<br>跟所有的烦恼和不安说拜拜！<br>BFF";
 
 		
 	}
@@ -883,7 +883,7 @@ window.LEVEL_CONFIG = [
 		circles: [
 			{x:0,y:150,radius:100},
             {x:0,y:300,radius:50},
-			{x:300,y:0,radius:170},
+			{x:300,y:0,radius:52},
 		],
 		countdown:200
 	},
