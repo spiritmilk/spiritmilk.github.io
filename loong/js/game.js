@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>Math.TAU = Math.PI*2;
+Math.TAU = Math.PI*2;
 
 ///// LOAD IMAGES /////
 
@@ -241,7 +241,7 @@ function Clock(countdown,level){
 		// THIS IS TOTALLY A HACK, JUST FOR LEVEL 2
 		// SUBTLY CHEAT - IT'S IMPOSSIBLE TO SOLVE IT THE WRONG WAY
 
-		if(CURRENT_LEVEL==1){
+		if(CURRENT_LEVEL==4){
 			if(level.keyCollected){
 				if(!exitSide && Math.abs(level.player.x-150)>30){
 					exitSide = (level.player.x<150) ? "left" : "right";
@@ -254,6 +254,39 @@ function Clock(countdown,level){
 			if(exitSide && enterSide){
 				if(exitSide == enterSide){
 					self.frame += self.framePerTick*1.8;
+				}
+			}
+		}
+
+                if(CURRENT_LEVEL==1){
+			if(level.keyCollected){
+				if(!exitSide && level.player.y<160){
+					exitSide = (level.player.x<150) ? "left" : "right";
+				}
+			}else{
+				if(!enterSide && level.player.y>180){
+					enterSide = (level.player.x<150) ? "left" : "right";
+				}
+			}
+			if(exitSide && enterSide){
+				if(exitSide == enterSide){
+					self.frame += self.framePerTick*4.0;
+				}
+			}
+		}
+                if(CURRENT_LEVEL==3){
+			if(level.keyCollected){
+				if(!exitSide && level.player.x<200){
+					exitSide = (level.player.y<55) ? "up" : "down";
+				}
+			}else{
+				if(!enterSide && level.player.x>230){
+					enterSide = (level.player.y<55) ? "up" : "down";
+				}
+			}
+			if(exitSide && enterSide){
+				if(exitSide == enterSide){
+					self.frame += self.framePerTick*4.0;
 				}
 			}
 		}
@@ -583,7 +616,8 @@ window.onload = function(){
 	createjs.Sound.alternateExtensions = ["ogg"];
 	addSound("ding","audio/ding.mp3");
 	addSound("rewind","audio/rewind.mp3");
-	addSound("jazz","audio/jazz.mp3");
+	addSound("ldh","audio/ldhfix.mp3");
+        addSound("jazz","audio/jazz.mp3");
 	addSound("step","audio/step.mp3");
 	addSound("unlock","audio/unlock.mp3");
 	addSound("error","audio/error.mp3");
@@ -612,11 +646,11 @@ window.onload = function(){
 
 			if(STAGE==3 && !window.HAS_PLAYED_JAZZ){
 
-				if(STAGE==3 && CURRENT_LEVEL==1){
-					var framesLeft = (rewindLevel.frames.length-rewindFrame) + levelObjects[2].frames.length+levelObjects[3].frames.length;
-					if(framesLeft<135){
+				if(STAGE==3 && CURRENT_LEVEL==3){
+					var framesLeft = (rewindLevel.frames.length-rewindFrame) + levelObjects[2].frames.length+levelObjects[3].frames.length+levelObjects[4].frames.length;
+					if(framesLeft<333){
 						window.HAS_PLAYED_JAZZ = true;
-						createjs.Sound.play("jazz");
+						createjs.Sound.play("ldh");
 					}
 				}
 
@@ -658,7 +692,7 @@ window.onload = function(){
 				rewindFrame++;
 				if(rewindFrame>=rewindLevel.frames.length){
 					CURRENT_LEVEL++;
-					if(CURRENT_LEVEL<3){
+					if(CURRENT_LEVEL<5){
 						startPlayback();
 					}else{
 
@@ -709,11 +743,11 @@ function next(){
 	}else{
 		level = null;
 		STAGE = 2;
-		CURRENT_LEVEL = 2;
+		CURRENT_LEVEL = 4;
 		startRewind();
 
 
-		var totalFrames = levelObjects[0].frames.length + levelObjects[1].frames.length + levelObjects[2].frames.length;
+		var totalFrames = levelObjects[0].frames.length + levelObjects[1].frames.length + levelObjects[2].frames.length+levelObjects[3].frames.length;
 		var totalRewindTime = totalFrames/60;
 		var extraTime = 6600 - totalRewindTime*1000;
 		if(extraTime<0){
@@ -728,10 +762,12 @@ function next(){
 }
 
 function iHeartYou(){
-	
-	for(var i=0; i<levelObjects.length; i++) {
+	setTimeout(function() {
+        for(var i=0; i<levelObjects.length; i++) {
 		levelObjects[i].onlyPath();
 	}
+        }, 3600); // 1000毫秒等于1秒
+	
 
 	document.getElementById("canvas_container").style.backgroundPosition = "0px -390px";
 	document.getElementById("screen_two").style.background = "#000";
@@ -743,10 +779,49 @@ function iHeartYou(){
 	if(window.location.hash){
 		vtext.textContent = encryptString(decodeURIComponent(window.location.hash).substring(1));
 	}else{
-		vtext.textContent = "a lovely message from me to you <3";
-	}
+		vtext.innerHTML = "祝越——新年快乐！！！<br>永远开开心心！！！";
 
+		
+	}
+   
+
+	setTimeout(function() {
+        releaseFireworks();
+        }, 7000); // 1000毫秒等于1秒
 	
+	// 实现releaseFireworks函数
+	function releaseFireworks() {
+		// 创建一个新的烟花效果实例
+		var fireworks = new Fireworks.default(document.getElementById("screen_two"));
+	
+		// 设置烟花的配置选项
+		var config = {
+			// 配置烟花的位置，这里设置为画布的中心
+			x: document.getElementById("screen_two").width / 2,
+			y: document.getElementById("screen_two").height / 2,
+			// 其他配置选项可以根据需要进行调整
+			// 例如，可以设置不同的颜色、大小、速度等
+			color: "#ff0000",
+			size: 5,
+			speed: 3,
+			acceleration: 1.05,
+			friction: 0.95,
+			gravity: 0.1,
+			// 可以根据需要设置烟花的爆炸形状和效果
+			// 例如，可以使用不同的爆炸粒子数量、颜色、大小等
+			explosion: {
+				particles: 100,
+				color: "#ffffff",
+				size: 3,
+				speed: 5,
+				gravity: 0.2,
+				lifespan: 80
+			}
+		};
+	
+		// 发射烟花
+		fireworks.start(config);
+	}
 
 }
 
@@ -799,7 +874,7 @@ window.INTRO_LEVEL = {
 
 window.LEVEL_CONFIG = [
 
-	// I
+	// 2
 	{
 		canvas:document.getElementById("canvas_1"),
 		player:{ x:30, y:45 },
@@ -807,33 +882,59 @@ window.LEVEL_CONFIG = [
 		key:{ x:20, y:250 },
 		circles: [
 			{x:0,y:150,radius:100},
-                        {x:0,y:300,radius:50},
+            {x:0,y:300,radius:50},
+			{x:300,y:0,radius:170},
 		],
 		countdown:200
 	},
 
-	// HEART
+	// 0
+	{
+		canvas:document.getElementById("canvas_1.5"),
+		player:{ x:150, y:50 },
+		door:{ x:150, y:50 },
+		key:{ x:150, y:255 },
+		circles: [
+			{x:150,y:150,radius:100}
+		],
+		countdown: 180
+	},
+
+	// 2
 	{
 		canvas:document.getElementById("canvas_2"),
-		player:{ x:150, y:250 },
-		door:{ x:150, y:249 },
-		key:{ x:150, y:75 },
+		player:{ x:30, y:45 },
+		door:{ x:200, y:250 },
+		key:{ x:20, y:250 },
 		circles: [
-			{x:100,y:100,radius:50},
-			{x:200,y:100,radius:50},
-			{x:150,y:100,radius:10,invisible:true},
-			{x:0,y:300,radius:145},
-			{x:300,y:300,radius:145}
+			{x:0,y:150,radius:100},
+            {x:0,y:300,radius:50},
+			{x:250,y:100,radius:70},
 		],
-		// SUPER HACK - for level 2, change timer so it's impossible to beat if you go BACKWARDS.
-		countdown: 200
+		countdown:200
 	},
 
-	// HEART
+       // 4
 	{
 		canvas:document.getElementById("canvas_2.5"),
+		player:{ x:30, y:30 },
+		door:{ x:150, y:265 },
+		key:{ x:245, y:55 },
+		circles: [
+			{x:200,y:50,radius:35},
+			{x:75,y:10,radius:70},
+			{x:280,y:170,radius:80},
+                        {x:0,y:240,radius:120}
+		],
+		// SUPER HACK - for level 2, change timer so it's impossible to beat if you go BACKWARDS.
+		countdown: 200
+	},
+
+	// heart
+	{
+		canvas:document.getElementById("canvas_3"),
 		player:{ x:150, y:250 },
-		door:{ x:150, y:249 },
+		door:{ x:150, y:245 },
 		key:{ x:150, y:75 },
 		circles: [
 			{x:100,y:100,radius:50},
@@ -844,18 +945,6 @@ window.LEVEL_CONFIG = [
 		],
 		// SUPER HACK - for level 2, change timer so it's impossible to beat if you go BACKWARDS.
 		countdown: 200
-	},
-
-	// U
-	{
-		canvas:document.getElementById("canvas_3"),
-		player:{ x:30, y:75 },
-		door:{ x:270, y:75 },
-		key:{ x:150, y:270 },
-		circles: [
-			{x:150,y:150,radius:115}
-		],
-		countdown: 130
 	}
 
 ];

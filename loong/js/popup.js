@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>// Some services provide a share form that can conveniently be displayed in a popup.
+// Some services provide a share form that can conveniently be displayed in a popup.
 // This event handler opens such a popup when attached to the click event of a share link:
 function sharePopup (event, config) {
 	"use strict";
