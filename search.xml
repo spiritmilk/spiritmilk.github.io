@@ -191,7 +191,7 @@
   <entry>
     <title>Self-Supervision is All You Need for Solving Rubik’s Cube</title>
     <url>/2024/20240113/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文使用NN来解魔法，耳目一新的方法。<a href="https://arxiv.org/pdf/2106.03157.pdf">论文地址</a></p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文使用NN来解魔方，耳目一新的方法。<a href="https://arxiv.org/pdf/2106.03157.pdf">论文地址</a></p>
 <p>TMLR 2023.</p>
 <hr>
 <p>简单来说，该方法利用了组合搜索的一个基本特性：等概率的情况下路径越短，随机发生的可能性就越大。这意味着随机训练争夺的累积概率随着移动次数的减少而增加：$1/\mathbb{M}^N$，其中$\mathbb{M}$表示移动集，N表示路径长度。</p>
@@ -224,6 +224,8 @@
       <tags>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
+        <tag>计算机视觉</tag>
+        <tag>peer</tag>
       </tags>
   </entry>
   <entry>
@@ -304,6 +306,7 @@
       <tags>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
+        <tag>自然语言处理</tag>
       </tags>
   </entry>
   <entry>
@@ -327,6 +330,8 @@
       <tags>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
+        <tag>peer</tag>
+        <tag>医学图像</tag>
       </tags>
   </entry>
   <entry>
@@ -397,6 +402,7 @@
 <p>科研从来不是一个人的事情，对于我来说特别是如此。我在交大的时候和一群年轻的同学一起摸索推荐系统的算法，而在博士期间搭建的每一个系统都包含了很多合作者一起的努力。也正是大家一起的努力才带来了现在的成果。我个人在这十年间受到了不少老师，同学，家人的鼓励和帮助，感谢他们他们给予了我这无比珍贵的十年时光。</p>
 ]]></content>
       <tags>
+        <tag>机器学习</tag>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
       </tags>
@@ -467,6 +473,8 @@
       <tags>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
+        <tag>自然语言处理</tag>
+        <tag>peer</tag>
       </tags>
   </entry>
   <entry>
@@ -3514,8 +3522,9 @@ scale).">
 <p><img src="autocot.png" alt="autocot"></p>
 ]]></content>
       <tags>
+        <tag>深度学习</tag>
         <tag>人工智能</tag>
-        <tag>机器学</tag>
+        <tag>自然语言处理</tag>
       </tags>
   </entry>
   <entry>
@@ -3895,8 +3904,6 @@ scale).">
     <url>/2022/20220815/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/jbomitchell/exponentially-weighted-ensemble-spaceship-titanic">JOHN MITCHELL</a></p>
 <p>权重=$ e^{b*(x-s)}$</p>
-<span id="more"></span>
-
 <p>x是每个模型的LB分数。得分越大越好，因此权重随着x的增加而变大，随着x的减少而变小（模型越好，权重越大）。<br>b是模型的一个可调参数，b越大，权重衰减越快，分数越低。S是一个校准参数，其定义如下：如果S设置为最佳单模型分数，则最高非标准化权重exp（b*（x-S））为1.0，这是方便的，但不是必需的。</p>
 <p>最后还要归一化。</p>
 ]]></content>
@@ -10392,7 +10399,7 @@ scale).">
   <entry>
     <title>LTE引理[中文版]</title>
     <url>/2019/20190727/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Lifting The Exponent Lemma是求解指数丢番图方程(不定方程)的有效<br>方法。它在奥林匹克民间传说中非常有名（例如，参见[3]），尽管其起源<br>很难追溯。在数学上，它是数论中经典Hensel引理（见[2]）的近亲（在证<br>明的陈述和观点中）。在本文中，我们分析了这种方法并介绍了它的一些<br>应用。<span id="more"></span><br>在涉及指数方程的许多问题中，我们可以使用Lifting The Exponent<br>Lemma（这是一个长名称，我们称之为LTE！）,特别是我们可以找到某些<br>质因子的时候。有时LTE引理甚至能秒杀一道题。这个引理显示了如何找<br>到素数p的最大幂 —— 通常≥3 —— a^n ±b^n型——本文中定理和引理<br>的证明没有任何复杂难理解之处，所有这些都使用了初等数学。理解定理<br>的用法及其含义对于你来说比记住它的详细证明更重要。 </p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Lifting The Exponent Lemma是求解指数丢番图方程(不定方程)的有效方法。它在奥林匹克民间传说中非常有名（例如，参见[3]），尽管其起源很难追溯。在数学上，它是数论中经典Hensel引理（见[2]）的近亲（在证明的陈述和观点中）。在本文中，我们分析了这种方法并介绍了它的一些应用。<span id="more"></span><br>在涉及指数方程的许多问题中，我们可以使用Lifting The ExponentLemma（这是一个长名称，我们称之为LTE！）,特别是我们可以找到某些质因子的时候。有时LTE引理甚至能秒杀一道题。这个引理显示了如何找到素数p的最大幂 —— 通常≥3 —— a^n ±b^n型——本文中定理和引理的证明没有任何复杂难理解之处，所有这些都使用了初等数学。理解定理的用法及其含义对于你来说比记住它的详细证明更重要。 </p>
 <p>….</p>
 <p>英文版来自<a href="https://artofproblemsolving.com/community/c6h393335p2186092">AOPS社区</a> </p>
 <p>本人精心翻译</p>

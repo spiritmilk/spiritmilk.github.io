@@ -191,12 +191,11 @@ var _hmt = _hmt || [];
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>来自<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/jbomitchell/exponentially-weighted-ensemble-spaceship-titanic">JOHN MITCHELL</a></p>
-<p>权重=$ e^{b*(x-s)}$</p> 
-      <a class="article-more-link" href="/2022/20220815/"
-        >阅读更多...</a
-      >
-       
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/jbomitchell/exponentially-weighted-ensemble-spaceship-titanic">JOHN MITCHELL</a></p>
+<p>权重=$ e^{b*(x-s)}$</p>
+<p>x是每个模型的LB分数。得分越大越好，因此权重随着x的增加而变大，随着x的减少而变小（模型越好，权重越大）。<br>b是模型的一个可调参数，b越大，权重衰减越快，分数越低。S是一个校准参数，其定义如下：如果S设置为最佳单模型分数，则最高非标准化权重exp（b*（x-S））为1.0，这是方便的，但不是必需的。</p>
+<p>最后还要归一化。</p>
+ 
       <!-- reward -->
       
     </div>
