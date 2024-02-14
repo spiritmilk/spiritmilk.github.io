@@ -36,6 +36,21 @@
 <h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="result.png"><br>最好的结果用粗体突出显示，transformer的最好结果用下划线突出显示。因此，与基于transformers的模型的结果相比，线性模型的结果是最好的。</p>
 <p>现有的基于Transformer的TSF方法对于时间关系提取并不是很有效，DLinear是长期预测任务的强大基线。 FEDformer实现了相对较高的预测精度，可能是因为FEDformer不太依赖Transformer中的自注意力机制，相反，它采用了经典的时间序列分析技术，如傅里叶变换，这在时间特征提取中起着重要作用。</p>
 <h2 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h2><p><strong>问题一</strong>：现有的ltsf-transformer能否很好地从较长的输入序列中提取时间关系?</p>
+<p>一般来说，一个强大的TSF模型，具有较强的时间关系提取能力，应该能够在更大的look back窗口尺寸下获得更好的结果。</p>
+<p>现有的基于transformer的模型的性能随着回看窗口大小的增加而恶化或保持稳定。相比之下，所有LTSF-Linear的性能都随着回看窗口大小的增加而显著提高。因此，如果给定较长的序列，现有的解决方案倾向于过拟合时间噪声而不是提取时间信息，并且输入大小为96正好适用于大多数变压器。</p>
+<p><img src="bigwindow.png"></p>
+<p><strong>问题二</strong>：我们可以从长期预测中学到什么</p>
+<p><strong>问题三</strong>：self-attention 对LTSF是否一直有效?</p>
+<p><strong>问题四：</strong>现有的Ltsf-Trasformer能很好地保持时间顺序吗?</p>
+<p><strong>问题五：</strong>不同的embedding策略效果如何?</p>
+<p><img src="embedding.png"></p>
+<p>在表中，没有位置嵌入(wo/Pos.)， Informer的预测误差大大增加。没有时间戳嵌入(wo/Temp.)会随着预测长度的增加而逐渐损害Informer的性能。由于Informer对每个令牌使用单个时间步长，因此有必要在令牌中引入时态信息。</p>
+<p>FEDformer和Autoformer不是在每个令牌中使用单个时间步长，而是输入一系列时间戳来嵌入时间信息。因此，它们可以在没有固定位置嵌入的情况下获得相当甚至更好的性能。然而，如果没有时间戳嵌入，由于全局时间信息的丢失，自耦器的性能会迅速下降。相反，由于FEDformer中提出的频率增强模块引入了时间感应偏置，因此移除任何位置/时间戳嵌入的影响较小。</p>
+<p><strong>问题六：</strong>训练数据大小是现有ltsftransformer的限制因素吗?</p>
+<p>完整数据集 (17,544*0.7 hours), 命名为Ori., </p>
+<p>短一些的数据集(8,760 hours, i.e., 1 year)</p>
+<p><img src="p6.png"></p>
+<p>我们可以看出数据集变小甚至还使一部分性能变好了。</p>
 <h2 id="相关评价"><a href="#相关评价" class="headerlink" title="相关评价"></a>相关评价</h2><p><strong>知乎用户brightnova</strong>：我在自己的数据集上亲测，这篇论文的DLinear方法效果远远不如informer算法效果。</p>
 <p><strong>知乎用户蛋壳儿</strong>回复以上：算法和数据 是息息相关的，他这个算法 在周期性强的数据集上有很好的效果，和Autoformer一样.<br>Informer关注突变的关键数据，仔细看看注意力机制就知道了。</p>
 <p><strong>知乎用户stupidboys</strong>：我们的论文发现了在时间序列上正确使用transformer的方式，效果超越DLinear和其他formers，欢迎指正：A Time Series is Worth 64 Words: Long-term Forecasting with Transformers</p>
