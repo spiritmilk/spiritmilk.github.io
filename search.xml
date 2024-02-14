@@ -35,6 +35,7 @@
 <p><img src="Efficiency.png"></p>
 <h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="result.png"><br>最好的结果用粗体突出显示，transformer的最好结果用下划线突出显示。因此，与基于transformers的模型的结果相比，线性模型的结果是最好的。</p>
 <p>现有的基于Transformer的TSF方法对于时间关系提取并不是很有效，DLinear是长期预测任务的强大基线。 FEDformer实现了相对较高的预测精度，可能是因为FEDformer不太依赖Transformer中的自注意力机制，相反，它采用了经典的时间序列分析技术，如傅里叶变换，这在时间特征提取中起着重要作用。</p>
+<h2 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h2><p><strong>问题一</strong>：现有的ltsf-transformer能否很好地从较长的输入序列中提取时间关系?</p>
 <h2 id="相关评价"><a href="#相关评价" class="headerlink" title="相关评价"></a>相关评价</h2><p><strong>知乎用户brightnova</strong>：我在自己的数据集上亲测，这篇论文的DLinear方法效果远远不如informer算法效果。</p>
 <p><strong>知乎用户蛋壳儿</strong>回复以上：算法和数据 是息息相关的，他这个算法 在周期性强的数据集上有很好的效果，和Autoformer一样.<br>Informer关注突变的关键数据，仔细看看注意力机制就知道了。</p>
 <p><strong>知乎用户stupidboys</strong>：我们的论文发现了在时间序列上正确使用transformer的方式，效果超越DLinear和其他formers，欢迎指正：A Time Series is Worth 64 Words: Long-term Forecasting with Transformers</p>
@@ -159,6 +160,7 @@
       <tags>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
+        <tag>自然语言处理</tag>
       </tags>
   </entry>
   <entry>
@@ -180,8 +182,10 @@
 <h2 id="Periodic-activation-functions"><a href="#Periodic-activation-functions" class="headerlink" title="Periodic activation functions"></a>Periodic activation functions</h2><p><img src="paf.png"></p>
 ]]></content>
       <tags>
+        <tag>机器学习</tag>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
+        <tag>tabular data</tag>
       </tags>
   </entry>
   <entry>
