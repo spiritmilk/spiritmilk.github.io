@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">521</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -131,8 +131,35 @@ var _hmt = _hmt || [];
 <p><a target="_blank" rel="noopener" href="https://github.com/cure-lab/LTSF-Linear">源代码</a>。出自AAAI 2023</p>
 <span id="more"></span>
 
-<p>Transformer的主要工作动力来自于它的多头自注意机制，它具有显著的提取长序列元素之间语义相关性的能力(例如，文本中的单词或图像中的二维补丁)。然而，自我注意在一定程度上具有排列不变性和“反序性”。虽然使用各种类型的位置编码技术可以保留一些有序信息，但在其上加上自注意后，仍然不可避免地存在时间信息丢失。对于语义丰富的应用程序，如自然语言中，这通常不是一个严重的问题。例如，即使我们重新排序其中的一些单词，句子的语义也会在很大程度上保留下来。然而，在分析时间序列数据时，通常数值数据本身缺乏语义，我们主要感兴趣的是对连续点之间的时间变化进行建模。也就是说，顺序本身起着最关键的作用。因此，我们提出了以下有趣的问题:变形金刚对长期时间序列预测真的有效吗?</p>
-<h2 id="基于Transformer的长时间序列预测方法"><a href="#基于Transformer的长时间序列预测方法" class="headerlink" title="基于Transformer的长时间序列预测方法"></a>基于Transformer的长时间序列预测方法</h2><h2 id="DLinear模型"><a href="#DLinear模型" class="headerlink" title="DLinear模型"></a>DLinear模型</h2><h2 id="相关评价"><a href="#相关评价" class="headerlink" title="相关评价"></a>相关评价</h2><p><strong>知乎用户brightnova</strong>：我在自己的数据集上亲测，这篇论文的DLinear方法效果远远不如informer算法效果。</p>
+<h2 id="时间序列问题"><a href="#时间序列问题" class="headerlink" title="时间序列问题"></a>时间序列问题</h2><p>对于历史数据L的序列，我们可以往后预测T个未来时间序列长度。</p>
+<p>当T&gt;1时，可以通过迭代单步预测来获得多步预测，也可以直接优化多步预测目标，前者称为iterated multi-step (IMS) forecasting，后者称为direct multi-step (DMS) forecasting。IMS会受到误差累积的影响。</p>
+<h2 id="Transformer的-有效性"><a href="#Transformer的-有效性" class="headerlink" title="Transformer的 有效性"></a>Transformer的 有效性</h2><p>Transformer的主要工作动力来自于它的多头自注意机制，它具有显著的提取长序列元素之间语义相关性的能力(例如，文本中的单词或图像中的二维补丁)。然而，自我注意在一定程度上具有排列不变性和“反序性”。虽然使用各种类型的位置编码技术可以保留一些有序信息，但在其上加上自注意后，仍然不可避免地存在时间信息丢失。对于语义丰富的应用程序，如自然语言中，这通常不是一个严重的问题。例如，即使我们重新排序其中的一些单词，句子的语义也会在很大程度上保留下来。然而，在分析时间序列数据时，通常数值数据本身缺乏语义，我们主要感兴趣的是对连续点之间的时间变化进行建模。也就是说，顺序本身起着最关键的作用。因此，我们提出了以下有趣的问题:变形金刚对长期时间序列预测真的有效吗?</p>
+<h2 id="基于Transformer的长时间序列预测方法"><a href="#基于Transformer的长时间序列预测方法" class="headerlink" title="基于Transformer的长时间序列预测方法"></a>基于Transformer的长时间序列预测方法</h2><p><img src="transformer.png"></p>
+<h2 id="DLinear模型"><a href="#DLinear模型" class="headerlink" title="DLinear模型"></a>DLinear模型</h2><p>DLinear模型首先将历史时间序列数据分解为趋势(Trend)数据$X_t\in \mathbb{R}^{L\times C}$ 和剩余(Remainder)数据$X_s=X-X_t$两部分，然后对分解得到的两个序列分别应用单层线性网络：</p>
+<p>$$<br>H_s=W_sX_s\in\mathbb{R}^{T\times C},W_s\in \mathbb{R}^{T\times L}\<br>H_t=W_tX_t\in\mathbb{R}^{T\times C},W_t\in \mathbb{R}^{T\times L}<br>$$</p>
+<p>最终的输出为，两个单层线性网络的输出结果相加：$\hat{X}=H_s+H_t$</p>
+<p>另外，如果数据集的变量具有不同的特征，即不同的季节性和趋势，那么在不同变量之间共享权重可能表现不好。所以，文章设计了两种DLinear：</p>
+<p>DLinear-S：每个变量共享相同的线性层；<br>DLinear-I：每个变量拥有独立的线性层。</p>
+<h2 id="模型代码"><a href="#模型代码" class="headerlink" title="模型代码"></a>模型代码</h2><p>占位</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="数据集设置"><a href="#数据集设置" class="headerlink" title="数据集设置"></a>数据集设置</h3><p>使用的数据集涉及交通、电力、天气、汇率等多个领域，均为多元时间序列。</p>
+<p><img src="dataset.png"></p>
+<p>Mean Squared Error (MSE) 和 Mean Absolute Error (MAE)</p>
+<h3 id="对比模型"><a href="#对比模型" class="headerlink" title="对比模型"></a><strong>对比模型</strong></h3><p>六种Transformer-based方法： </p>
+<p>（1）FEDformer（阿里达摩院出品，ICML 2022）</p>
+<p>（2）Autoformer（NIPS 2021）</p>
+<p><img src="Autoformer1.png"></p>
+<p><img src="Autoformer2.png"></p>
+<p>（3）Informer（AAAI 2021 Best Paper）</p>
+<p><img src="Informer1.png"></p>
+<p><img src="Informer2.png"></p>
+<p>（4）Pyraformer（ICLR 2022）</p>
+<p>（5）LogTrans（NIPS 2019）</p>
+<p>（6）Reformer（ ICLR 2020）</p>
+<p>朴素的DMS方法：Closest Repeat (Repeat-C)。即 repeats the last value in the look-back window</p>
+<p><img src="Efficiency.png"></p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="result.png"><br>最好的结果用粗体突出显示，transformer的最好结果用下划线突出显示。因此，与基于transformers的模型的结果相比，线性模型的结果是最好的。</p>
+<p>现有的基于Transformer的TSF方法对于时间关系提取并不是很有效，DLinear是长期预测任务的强大基线。 FEDformer实现了相对较高的预测精度，可能是因为FEDformer不太依赖Transformer中的自注意力机制，相反，它采用了经典的时间序列分析技术，如傅里叶变换，这在时间特征提取中起着重要作用。</p>
+<h2 id="相关评价"><a href="#相关评价" class="headerlink" title="相关评价"></a>相关评价</h2><p><strong>知乎用户brightnova</strong>：我在自己的数据集上亲测，这篇论文的DLinear方法效果远远不如informer算法效果。</p>
 <p><strong>知乎用户蛋壳儿</strong>回复以上：算法和数据 是息息相关的，他这个算法 在周期性强的数据集上有很好的效果，和Autoformer一样.<br>Informer关注突变的关键数据，仔细看看注意力机制就知道了。</p>
 <p><strong>知乎用户stupidboys</strong>：我们的论文发现了在时间序列上正确使用transformer的方式，效果超越DLinear和其他formers，欢迎指正：A Time Series is Worth 64 Words: Long-term Forecasting with Transformers</p>
  
