@@ -3,7 +3,7 @@
   <entry>
     <title>DLinear-Are Transformers Effective for Time Forecasting</title>
     <url>/2024/20240214/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>这篇论文使用一个简单的线性层模型超过了众多Transformer系列复杂模型。不仅让人疑问：时序预测中Transformer的发展是否真的有效？</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>这篇论文使用一个简单的线性层模型超过了众多Transformer系列复杂模型。不仅让人疑问：时序预测中Transformer的发展是否真的有效？</p>
 <p><a href="https://github.com/cure-lab/LTSF-Linear">源代码</a>。出自AAAI 2023</p>
 <span id="more"></span>
 
@@ -37,11 +37,21 @@
 <p>现有的基于Transformer的TSF方法对于时间关系提取并不是很有效，DLinear是长期预测任务的强大基线。 FEDformer实现了相对较高的预测精度，可能是因为FEDformer不太依赖Transformer中的自注意力机制，相反，它采用了经典的时间序列分析技术，如傅里叶变换，这在时间特征提取中起着重要作用。</p>
 <h2 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h2><p><strong>问题一</strong>：现有的ltsf-transformer能否很好地从较长的输入序列中提取时间关系?</p>
 <p>一般来说，一个强大的TSF模型，具有较强的时间关系提取能力，应该能够在更大的look back窗口尺寸下获得更好的结果。</p>
-<p>现有的基于transformer的模型的性能随着回看窗口大小的增加而恶化或保持稳定。相比之下，所有LTSF-Linear的性能都随着回看窗口大小的增加而显著提高。因此，如果给定较长的序列，现有的解决方案倾向于过拟合时间噪声而不是提取时间信息，并且输入大小为96正好适用于大多数变压器。</p>
+<p>现有的基于transformer的模型的性能随着回看窗口大小的增加而恶化或保持稳定。相比之下，所有LTSF-Linear的性能都随着回看窗口大小的增加而显著提高。因此，如果给定较长的序列，现有的解决方案倾向于过拟合时间噪声而不是提取时间信息，并且输入大小为96正好适用于大多数transformer。</p>
 <p><img src="bigwindow.png"></p>
 <p><strong>问题二</strong>：我们可以从长期预测中学到什么</p>
+<p>虽然回顾窗口中的时间动态对短期时间序列预测的准确性有显著影响，但我们假设长期预测仅取决于模型是否能够很好地捕捉趋势和周期性。也就是说，预测范围越远，回顾窗口本身的影响就越小。</p>
+<p>为了验证上述假设，在表中，我们比较了来自两个不同回顾窗口的数据对相同未来720时间步的预测精度:(i)原始输入L=96设置(称为Close)和(ii)原始96时间步之前的远输入L=96设置(称为far)。</p>
+<p><img src="whatlong.png"></p>
+<p>从实验结果来看，SOTAtransformer的性能略有下降，表明这些模型仅从相邻的时间序列序列中捕获相似的时间信息。由于捕获数据集的内在特征通常不需要大量的参数，例如。一个参数可以表示周期性。使用太多的参数甚至会导致过拟合，这部分解释了为什么LSTF-linear比基于transformer的方法表现得更好</p>
 <p><strong>问题三</strong>：self-attention 对LTSF是否一直有效?</p>
+<p>我们验证现有Transformer(例如，Informer)中的这些复杂设计是否必要。在表4中，我们逐步将Informer转换为Linear。首先，我们将每个自注意层替换为一个线性层，称为Att .- linear，因为自注意层可以被视为一个权值动态变化的全连接层。<br>此外，我们在Informer中抛弃了其他辅助设计(例如FFN)，留下嵌入层和线性层，称为Embed + linear。最后，我们将模型简化为一个线性层。令人惊讶的是，Informer的性能随着逐渐简化而增长，这表明至少对于现有的LTSF基准测试来说，自关注方案和其他复杂模块是不必要的。</p>
+<p><img src="p3.png"></p>
 <p><strong>问题四：</strong>现有的Ltsf-Trasformer能很好地保持时间顺序吗?</p>
+<p>总所周知自注意力是全局性的，不在乎顺序的。</p>
+<p>然而，在时间序列预测中，序列顺序往往起着至关重要的作用。我们认为，即使使用位置和时间嵌入，现有的基于transformer的方法仍然遭受时间信息丢失。</p>
+<p>在表中，我们在嵌入策略之前对原始输入进行洗牌。提出了两种洗牌策略:洗牌;随机洗牌整个输入序列和Half-Ex（将输入序列的前半部分与后半部分交换。）有趣的是，与Exchange Rate的原始设置(Ori.)相比，即使在随机打乱输入序列时，所有基于transformer的方法的性能也不会波动。相反，LTSF-Linear的性能会受到严重损害。这表明具有不同位置和时间嵌入的ltsf - transformer保留了相当有限的时间关系，并且容易对有噪声的金融数据进行过拟合，而LTSF-Linear可以自然地对顺序进行建模，并避免使用较少的参数进行过拟合。</p>
+<p><img src="ex.png"></p>
 <p><strong>问题五：</strong>不同的embedding策略效果如何?</p>
 <p><img src="embedding.png"></p>
 <p>在表中，没有位置嵌入(wo/Pos.)， Informer的预测误差大大增加。没有时间戳嵌入(wo/Temp.)会随着预测长度的增加而逐渐损害Informer的性能。由于Informer对每个令牌使用单个时间步长，因此有必要在令牌中引入时态信息。</p>
