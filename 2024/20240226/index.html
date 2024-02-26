@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">588</span>
+            <span class="post-count">789</span>
         </span>
     </span>
 
@@ -137,8 +137,11 @@ var _hmt = _hmt || [];
 <p><img src="LLaVA-1.5.png"></p>
 <p>在训练方面，许多其他多模态模型都经历了多步训练过程。图像编码器通常与LLM分开训练，通常使用对比训练目标，这可能很复杂。必须决定何时冻结各个组件的权重。有些模型甚至包括额外的高分辨率图像训练阶段，以确保能够处理高分辨率图像。</p>
 <p>当决定如何按比例扩展这些模型的各个组件时，会面临一些挑战。例如，需要决定在编码器和解码器之间分配额外的参数，以及在训练过程中如何分配计算资源。然而，Adept提出的模型避开了这些复杂性。</p>
-<p>从架构上来看，Fuyu是一个简单的、仅包含解码器的Transformer，其规格与Persimmon-8B相同，没有专用的图像编码器。图像块被直接投影到Transformer的第一层，绕过了嵌入查找。这种方法将传统的Transformer解码器视为图像Transformer，尽管没有池化操作。</p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><table>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p>从架构上来看，Fuyu是一个简单的、仅包含解码器的Transformer，其规格与Persimmon-8B相同，没有专用的图像编码器。图像块被直接投影到Transformer的第一层，绕过了嵌入查找。这种方法将传统的Transformer解码器视为图像Transformer，尽管没有池化操作。</p>
+<p><img src="architecture.png"></p>
+<p>其能够支持任意图像分辨率。为了实现这一点，只需将图像标记序列视为文本标记序列即可。模型删除了特定于图像的位置嵌入，并按光栅扫描顺序输入所需数量的图像标记。为了告诉模型何时截断，我们只需使用一个特殊的图像换行符。该模型可以使用其现有的位置嵌入来推理不同的图像大小，并且我们可以在训练时使用任意大小的图像，从而无需单独的高分辨率和低分辨率训练阶段。</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>VQAv2和OKVQA是自然图像问答数据集，COCO是字幕数据集，AI2D是涉及科学图表的多项选择数据集。</p>
+<table>
 <thead>
 <tr>
 <th>Eval Task</th>
