@@ -71,6 +71,27 @@
 <td>n/a</td>
 </tr>
 </tbody></table>
+<h3 id="问答基准缺陷"><a href="#问答基准缺陷" class="headerlink" title="问答基准缺陷"></a><strong>问答基准缺陷</strong></h3><p>问答数据集存在很大缺陷——它们使用复杂的评分机制，要求您以特定格式进行回答，并且通常注释不正确。</p>
+<p>考虑以下两个图像：</p>
+<p><img src="defeat.png"></p>
+<p>对于 OKVQA 数据集左侧的图像，当被问到“玩具熊正在演奏什么乐器？”时，模型回答“军鼓”——这显然是正确的！然而，它的得分为 0，因为所有参考答案都只是“鼓”。同样，对于右侧的 VQAv2 图像，当询问“图像中的食物类型是什么？”时，模型正确地回答“鱼，胡萝卜”，但它也得到 0 分，因为参考解决方案列表没有包含这些词。</p>
+<h3 id="文档理解"><a href="#文档理解" class="headerlink" title="文档理解"></a>文档理解</h3><p>Fuyu 还可以理解文档——包括复杂的信息图表和旧的 PDF：</p>
+<p><img src="jobs.png"></p>
+<blockquote>
+<p>Question:  “Which is the metro in California that has a good job Outlook?”</p>
+<p>Fuyu’s answer:  “Los Angeles”</p>
+</blockquote>
+<p><img src="pack_spinner.png"></p>
+<blockquote>
+<p>Question:   “What was the pack spinner capacity?”</p>
+<p>Fuyu’s answer:  “118 packs.”</p>
+</blockquote>
+<h3 id="图表理解"><a href="#图表理解" class="headerlink" title="图表理解"></a>图表理解</h3><p>最后，该模型可以理解有关科学图表的复杂关系查询：</p>
+<p><img src="red_tree_vole.png"></p>
+<blockquote>
+<p>Question:  “If in the food web shown in the diagram, Douglas fir tree needles are absent, which organism would starve?”</p>
+<p>Fuyu’s answer:   “Red tree vole”</p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
