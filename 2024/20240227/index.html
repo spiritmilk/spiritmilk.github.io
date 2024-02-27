@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Fuyu |  小熊的小站</title>
+      <title>Pure Noise to the Rescue of Insufficient Data |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -76,7 +76,7 @@ var _hmt = _hmt || [];
     <main class="content on">
       <section class="outer">
   <article
-  id="post-20240226"
+  id="post-20240227"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Fuyu
+  Pure Noise to the Rescue of Insufficient Data
 </h1>
  
 
@@ -95,15 +95,15 @@ var _hmt = _hmt || [];
     </header>
      
     <div class="article-meta">
-      <a href="/2024/20240226/" class="article-date">
-  <time datetime="2024-02-26T03:44:12.000Z" itemprop="datePublished">2024-02-26</time>
+      <a href="/2024/20240227/" class="article-date">
+  <time datetime="2024-02-27T14:10:12.000Z" itemprop="datePublished">2024-02-27</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">2.9k</span>
         </span>
     </span>
 
@@ -112,110 +112,139 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">4 min</span>
+            <span class="post-count">10 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Transformer一作Ashish Vaswani所在的AI公司Adept，发布了Fuyu-8B，是一个多模态模型的小版本，目前唯一一个以像素patch作为图像输入的多模态模型，利用这种方式实现了任意分辨率的无损input。</p>
-<p><a target="_blank" rel="noopener" href="https://huggingface.co/spaces/adept/fuyu-8b-demo">体验地址</a></p>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p><strong>Q</strong>: 这篇论文试图解决什么问题？</p>
+<p><strong>A</strong>: 这篇论文试图解决的问题是深度神经网络在处理不平衡数据集时的性能问题。在现实世界的数据集中，某些类别的样本可能比其他类别稀少，这导致模型在训练过程中容易偏向于多数类，从而在少数类上表现不佳，这种现象称为类别不平衡（class imbalance）。为了解决这个问题，论文提出了一种名为Oversampling with Pure Noise Images (OPeN)的新方法，旨在通过在训练过程中引入纯噪声图像来改善模型对少数类（minority class）的泛化能力。此外，论文还提出了一种新的批量归一化层（Distribution Aware Routing Batch Normalization, DAR-BN），用于分别归一化噪声图像和自然图像，以进一步提高模型性能。</p>
 <span id="more"></span>
 
-<hr>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在最新一代基础模型中，多模态模型通常共享一个共同的结构。它们通常包括一个独立的图像编码器，其输出通过交叉注意力机制或适配器集成到大型语言模型（LLM）中。这一模式已经得到广泛应用，如PALM-e、PALI-X、QWEN-VL、LLaVA 1.5和Flamingo等模型都采用了这种方式。这些模型通常以固定的图像分辨率进行操作。在推断过程中，超出此分辨率的图像必须被缩小，而具有不同宽高比的图像则需要进行填充或扭曲。</p>
-<p><strong>LLaVA-1.5:</strong></p>
-<p><img src="LLaVA-1.5.png"></p>
-<p>在训练方面，许多其他多模态模型都经历了多步训练过程。图像编码器通常与LLM分开训练，通常使用对比训练目标，这可能很复杂。必须决定何时冻结各个组件的权重。有些模型甚至包括额外的高分辨率图像训练阶段，以确保能够处理高分辨率图像。</p>
-<p>当决定如何按比例扩展这些模型的各个组件时，会面临一些挑战。例如，需要决定在编码器和解码器之间分配额外的参数，以及在训练过程中如何分配计算资源。然而，Adept提出的模型避开了这些复杂性。</p>
-<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p>从架构上来看，Fuyu是一个简单的、仅包含解码器的Transformer，其规格与Persimmon-8B相同，没有专用的图像编码器。图像块被直接投影到Transformer的第一层，绕过了嵌入查找。这种方法将传统的Transformer解码器视为图像Transformer，尽管没有池化操作。</p>
-<p><img src="architecture.png"></p>
-<p>其能够支持任意图像分辨率。为了实现这一点，只需将图像标记序列视为文本标记序列即可。模型删除了特定于图像的位置嵌入，并按光栅扫描顺序输入所需数量的图像标记。为了告诉模型何时截断，我们只需使用一个特殊的图像换行符。该模型可以使用其现有的位置嵌入来推理不同的图像大小，并且我们可以在训练时使用任意大小的图像，从而无需单独的高分辨率和低分辨率训练阶段。</p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>VQAv2和OKVQA是自然图像问答数据集，COCO是字幕数据集，AI2D是涉及科学图表的多项选择数据集。</p>
-<table>
-<thead>
-<tr>
-<th>Eval Task</th>
-<th>Fuyu-8B</th>
-<th>Fuyu-Medium</th>
-<th>LLaVA 1.5 (13.5B)</th>
-<th>QWEN-VL (10B)</th>
-<th>PALI-X (55B)</th>
-<th>PALM-e-12B</th>
-<th>PALM-e-562B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>VQAv2</td>
-<td>74.2</td>
-<td>77.4</td>
-<td>80</td>
-<td>79.5</td>
-<td>86.1</td>
-<td>76.2</td>
-<td>80.0</td>
-</tr>
-<tr>
-<td>OKVQA</td>
-<td>60.6</td>
-<td>63.1</td>
-<td>n/a</td>
-<td>58.6</td>
-<td>66.1</td>
-<td>55.5</td>
-<td>66.1</td>
-</tr>
-<tr>
-<td>COCO Captions</td>
-<td>141</td>
-<td>138</td>
-<td>n/a</td>
-<td>n/a</td>
-<td>149</td>
-<td>135</td>
-<td>138</td>
-</tr>
-<tr>
-<td>AI2D</td>
-<td>64.5</td>
-<td>73.7</td>
-<td>n/a</td>
-<td>62.3</td>
-<td>81.2</td>
-<td>n/a</td>
-<td>n/a</td>
-</tr>
-</tbody></table>
-<h3 id="问答基准缺陷"><a href="#问答基准缺陷" class="headerlink" title="问答基准缺陷"></a><strong>问答基准缺陷</strong></h3><p>问答数据集存在很大缺陷——它们使用复杂的评分机制，要求您以特定格式进行回答，并且通常注释不正确。</p>
-<p>考虑以下两个图像：</p>
-<p><img src="defeat.png"></p>
-<p>对于 OKVQA 数据集左侧的图像，当被问到“玩具熊正在演奏什么乐器？”时，模型回答“军鼓”——这显然是正确的！然而，它的得分为 0，因为所有参考答案都只是“鼓”。同样，对于右侧的 VQAv2 图像，当询问“图像中的食物类型是什么？”时，模型正确地回答“鱼，胡萝卜”，但它也得到 0 分，因为参考解决方案列表没有包含这些词。</p>
-<h3 id="文档理解"><a href="#文档理解" class="headerlink" title="文档理解"></a>文档理解</h3><p>Fuyu 还可以理解文档——包括复杂的信息图表和旧的 PDF：</p>
-<p><img src="jobs.png"></p>
-<blockquote>
-<p>Question:  “Which is the metro in California that has a good job Outlook?”</p>
-<p>Fuyu’s answer:  “Los Angeles”</p>
-</blockquote>
-<p><img src="pack_spinner.png"></p>
-<blockquote>
-<p>Question:   “What was the pack spinner capacity?”</p>
-<p>Fuyu’s answer:  “118 packs.”</p>
-</blockquote>
-<h3 id="图表理解"><a href="#图表理解" class="headerlink" title="图表理解"></a>图表理解</h3><p>最后，该模型可以理解有关科学图表的复杂关系查询：</p>
-<p><img src="red_tree_vole.png"></p>
-<blockquote>
-<p>Question:  “If in the food web shown in the diagram, Douglas fir tree needles are absent, which organism would starve?”</p>
-<p>Fuyu’s answer:   “Red tree vole”</p>
-</blockquote>
+<p><strong>Q</strong>: 有哪些相关研究？</p>
+<p><strong>A</strong>: 相关研究主要集中在解决类别不平衡问题，提高模型在少数类上的分类性能。以下是一些与本论文相关的研究：</p>
+<ol>
+<li><strong>类别不平衡问题的研究</strong>：<ul>
+<li><strong>重采样技术</strong>：通过增加少数类的样本数量或减少多数类的样本数量来平衡数据集。</li>
+<li><strong>损失函数调整</strong>：例如，使用加权损失函数，为少数类分配更高的权重，以减少模型对多数类的偏好。</li>
+</ul>
+</li>
+<li><strong>数据增强方法</strong>：<ul>
+<li><strong>Cutout</strong>：通过随机裁剪图像的一部分并将其置为零，增加模型的鲁棒性。</li>
+<li><strong>SimCLR</strong>：一种对比学习框架，通过随机变换图像来学习图像的表示。</li>
+</ul>
+</li>
+<li><strong>批量归一化（Batch Normalization, BN）的改进</strong>：<ul>
+<li><strong>Instance Normalization</strong>：对每个样本进行归一化，而不是整个批次。</li>
+<li><strong>Group Normalization</strong>：将批次分成多个组，并对每个组进行归一化。</li>
+</ul>
+</li>
+<li><strong>特定于不平衡数据集的网络架构</strong>：<ul>
+<li><strong>WideResNet</strong>：一种深度残差网络，通过增加宽度来提高模型性能。</li>
+<li><strong>ResNet</strong>：一种深度残差网络，通过引入残差连接来解决深度网络训练中的退化问题。</li>
+</ul>
+</li>
+<li><strong>对抗性训练</strong>：<ul>
+<li><strong>Adversarial Examples</strong>：通过生成对抗性样本来提高模型的鲁棒性。</li>
+</ul>
+</li>
+<li><strong>自适应数据增强策略</strong>：<ul>
+<li><strong>AutoAugment</strong>：一种自动学习数据增强策略的方法，通过搜索算法找到最优的数据增强策略。</li>
+</ul>
+</li>
+</ol>
+<p>这些研究为解决类别不平衡问题提供了多种方法和思路，本论文提出的OPeN方法和DAR-BN层则是在这些研究基础上的进一步探索。</p>
+<p><strong>Q</strong>: 论文如何解决这个问题？</p>
+<p><strong>A</strong>: 论文提出了一种名为Oversampling with Pure Noise Images (OPeN)的方法来解决类别不平衡问题，具体步骤如下：</p>
+<ol>
+<li><strong>纯噪声图像生成</strong>：在训练过程中，OPeN会在每个mini-batch中随机替换一部分图像为纯噪声图像。这些噪声图像是完全随机生成的，与数据集中的任何真实图像都无关。替换的概率与类别的频率成反比，即少数类图像被替换的概率更高。</li>
+<li><strong>分布感知路由批量归一化（DAR-BN）</strong>：由于传统的批量归一化（BN）假设输入数据来自单一分布，而OPeN方法中同时存在自然图像和噪声图像，这违反了BN的假设。为了解决这个问题，论文提出了DAR-BN，它通过学习自然图像的激活映射的仿射参数来归一化噪声图像，从而允许模型分别处理这两种类型的输入。</li>
+<li><strong>训练策略</strong>：OPeN方法在训练的后期阶段开始引入噪声图像，这种策略称为延迟过采样（Deferred Resampling）。这样做的目的是让模型在训练初期专注于学习数据的真实分布，而在后期通过引入噪声图像来鼓励模型泛化。</li>
+<li><strong>数据增强的鲁棒性</strong>：论文还展示了OPeN方法在不同数据增强策略下的性能，包括随机水平翻转、随机裁剪、Cutout和SimCLR等，证明了OPeN方法在各种数据增强条件下都能提高模型性能。</li>
+<li><strong>在平衡数据集上的应用</strong>：除了在不平衡数据集上的应用，论文还探讨了在平衡数据集上添加纯噪声图像作为数据增强的可能性，并发现这种方法也能提高模型的分类性能。</li>
+</ol>
+<p>通过这些方法，论文旨在提高模型对少数类图像的识别能力，同时保持对多数类图像的识别准确性，从而在类别不平衡的数据集上实现更好的泛化性能。</p>
+<p><strong>Q</strong>: 论文做了哪些实验？</p>
+<p><strong>A</strong>: 论文中进行了一系列的实验来验证OPeN方法的有效性，具体包括：</p>
+<ol>
+<li><strong>主实验</strong>：<ul>
+<li>使用CIFAR-10-LT和CIFAR-100-LT数据集，这些数据集是CIFAR-10和CIFAR-100的长尾变体，具有类别不平衡特性。</li>
+<li>对比了四种不同的过采样策略：Empirical Risk Minimization (ERM)、Resampling (RS)、Deferred Resampling (DRS)和OPeN。</li>
+<li>测量了不同策略在验证集上的准确率，特别是针对少数类的性能。</li>
+</ul>
+</li>
+<li><strong>批量归一化层的比较</strong>：<ul>
+<li>在CIFAR-10-LT和CIFAR-100-LT数据集上，比较了标准批量归一化（Standard BN）、辅助批量归一化（Auxiliary BN）和分布感知路由批量归一化（DAR-BN）的性能。</li>
+<li>验证了DAR-BN在OPeN方法中的重要性。</li>
+</ul>
+</li>
+<li><strong>数据增强方法的鲁棒性测试</strong>：<ul>
+<li>在CIFAR-10-LT数据集上，使用不同强度的数据增强方法（如随机水平翻转、裁剪、Cutout和SimCLR），并比较了ERM、DRS和OPeN的性能。</li>
+</ul>
+</li>
+<li><strong>在平衡数据集上的应用</strong>：<ul>
+<li>在完整的CIFAR-10数据集上，添加纯噪声图像作为数据增强，并测量了模型性能的提升。</li>
+</ul>
+</li>
+<li><strong>额外实验</strong>：<ul>
+<li>在CIFAR-10-LT（IR=50）和CIFAR-100-LT（IR=100, 50）数据集上评估OPeN的性能。</li>
+<li>对输入归一化值进行了超参数搜索，以确定最佳的均值和标准差。</li>
+<li>对批量大小和噪声比例进行了超参数搜索，以找到最优的模型性能。</li>
+</ul>
+</li>
+<li><strong>模型架构的比较</strong>：<ul>
+<li>使用ResNet-32网络架构重复OPeN实验，并与WideResNet-28-10的结果进行比较。</li>
+</ul>
+</li>
+<li><strong>随机种子对数据集生成的影响</strong>：<ul>
+<li>分析了不同随机种子对CIFAR-10-LT数据集生成的影响，并比较了在不同数据集上训练的模型性能。</li>
+</ul>
+</li>
+<li><strong>模型先验的分析</strong>：<ul>
+<li>使用t-SNE可视化模型嵌入，分析OPeN是否改变了模型对噪声和分布外（OOD）图像的分类倾向。</li>
+</ul>
+</li>
+</ol>
+<p>这些实验旨在全面评估OPeN方法在不同条件下的性能，以及其对模型泛化能力的影响。</p>
+<p><strong>Q</strong>: 有什么可以进一步探索的点？</p>
+<p><strong>A</strong>: 尽管论文已经对OPeN方法进行了深入的研究，但仍有一些潜在的探索点可以进一步研究：</p>
+<ol>
+<li><strong>不同数据集的泛化性</strong>：在其他类型的不平衡数据集上测试OPeN方法，例如医学图像、自然语言处理或音频数据，以验证其泛化能力。</li>
+<li><strong>模型架构的敏感性</strong>：研究不同深度学习架构（如ResNet、DenseNet、EfficientNet等）对OPeN方法的响应，以及如何调整这些架构以最大化OPeN的性能。</li>
+<li><strong>噪声图像的生成策略</strong>：探索不同的噪声图像生成策略，例如使用条件生成对抗网络（cGAN）生成与少数类图像风格相似的噪声图像。</li>
+<li><strong>噪声比例的优化</strong>：系统地研究不同噪声比例对模型性能的影响，以及是否存在最优的噪声比例。</li>
+<li><strong>训练策略的改进</strong>：研究不同的训练策略，如动态调整噪声比例、引入噪声的时机（例如在训练的早期阶段）等。</li>
+<li><strong>模型解释性</strong>：研究OPeN方法如何影响模型的可解释性，以及是否可以通过可视化技术来理解模型是如何利用噪声图像进行学习的。</li>
+<li><strong>对抗性攻击的鲁棒性</strong>：评估OPeN训练的模型在面对对抗性攻击时的鲁棒性。</li>
+<li><strong>长期记忆和遗忘</strong>：研究OPeN方法是否会影响模型的长期记忆能力，以及如何平衡新信息的学习和旧信息的保留。</li>
+<li><strong>跨领域应用</strong>：探索OPeN方法在跨领域任务中的应用，例如迁移学习或多任务学习。</li>
+<li><strong>理论分析</strong>：从理论上分析OPeN方法的工作原理，以及它如何影响模型的学习过程。</li>
+</ol>
+<p>这些探索点可以帮助我们更深入地理解OPeN方法的工作原理，以及如何将其应用于更广泛的领域和任务。</p>
+<p><strong>Q</strong>: 总结一下论文的主要内容</p>
+<p><strong>A</strong>: 这篇论文的主要内容可以总结如下：</p>
+<ol>
+<li><strong>问题背景</strong>：现实世界的数据集往往存在类别不平衡问题，即某些类别的样本数量远少于其他类别。这导致深度学习模型在训练时容易偏向于多数类，从而在少数类上表现不佳，影响模型的泛化能力。</li>
+<li><strong>提出方法</strong>：为了解决这一问题，论文提出了一种名为Oversampling with Pure Noise Images (OPeN)的新方法。OPeN通过在训练过程中引入纯噪声图像来鼓励模型对少数类进行更好的泛化。同时，论文还提出了一种新的批量归一化层（DAR-BN），用于分别处理噪声图像和自然图像，以提高模型性能。</li>
+<li><strong>实验设计</strong>：论文在CIFAR-10-LT和CIFAR-100-LT这两个长尾数据集上进行了实验，对比了不同的过采样策略，包括ERM、RS、DRS和OPeN，并评估了这些策略在验证集上的准确率。</li>
+<li><strong>实验结果</strong>：<ul>
+<li>OPeN方法在提高少数类准确率方面表现出色，从而提高了整体的分类准确率。</li>
+<li>DAR-BN在与OPeN结合使用时，相较于其他批量归一化方法，显著提升了模型性能。</li>
+<li>OPeN方法在不同数据增强策略下均表现出鲁棒性，且在平衡数据集上也能通过添加纯噪声图像来提高分类性能。</li>
+</ul>
+</li>
+<li><strong>额外探索</strong>：论文还进行了额外的实验，包括在不同数据集和不平衡程度上评估OPeN，以及在ResNet架构上的应用。此外，还探讨了随机种子对数据集生成的影响，以及模型先验对OPeN性能的影响。</li>
+<li><strong>讨论与挑战</strong>：论文讨论了OPeN方法的有效性，并指出其性能提升可能与更大的网络架构或更复杂的数据增强策略有关。同时，论文也指出了在复现过程中遇到的挑战，如代码的可用性、数据集的一致性以及超参数的选择。</li>
+<li><strong>结论</strong>：论文得出结论，OPeN方法能够有效地改善不平衡数据集上的模型性能，特别是在提高少数类准确率方面。DAR-BN层对于OPeN方法的成功至关重要。此外，论文还提出了未来研究的方向，如在更广泛的数据集和任务上应用OPeN方法，以及进一步探索其背后的理论机制。</li>
+</ol>
  
       <!-- reward -->
       
@@ -268,32 +297,21 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240226/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240227/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" rel="tag">多模态</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
-
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/2024/20240227/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Pure Noise to the Rescue of Insufficient Data
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/20240219/" class="article-nav-link">
+      <a href="/2024/20240226/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Sora</div>
+        <div class="article-nav-title">Fuyu</div>
       </a>
     
   </nav>
