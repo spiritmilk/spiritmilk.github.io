@@ -8,6 +8,9 @@
 <span id="more"></span>
 
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="BitNet"><a href="#BitNet" class="headerlink" title="BitNet"></a>BitNet</h3><p>BitNet是之前的工作，《<a href="https://arxiv.org/abs/2310.11453">Scaling 1-bit Transformers for Large Language Models</a>》，每个参数都是二元并取值为 {-1,  1}.</p>
+<p><img src="BitLinear.png"></p>
+<h4 id="BitLinear"><a href="#BitLinear" class="headerlink" title="BitLinear"></a>BitLinear</h4><p>我们首先用sgn函数将权值二值化为+1或- 1。我们在二值化之前将权重集中为零均值，以在有限的数值范围内增加容量。在二值化后使用一个比例因子β来减小实值和二值化后的权重之间的l2误差。权W∈Rn×m的二值化可以表示为:</p>
+<p><img src="BitLinear1.png"></p>
 <h3 id="BitNet-b1-58"><a href="#BitNet-b1-58" class="headerlink" title="BitNet b1.58"></a>BitNet b1.58</h3><p>BitNet b1.58 基于 BitNet 架构，并且用 BitLinear 替代 nn.Linear 的 Transformer。BitNet b1.58 是从头开始训练的，具有 1.58 bit 权重和 8 bit 激活。与原始 BitNet 架构相比，它引入了一些修改，总结为如下：</p>
 <p><img src="bitnet.png"></p>
 <p>用于激活的量化函数与 BitNet 中的实现相同，只是该研究没有将非线性函数之前的激活缩放到 [0, Q_b] 范围。相反，每个 token 的激活范围为 [−Q_b, Q_b]，从而消除零点量化。</p>
