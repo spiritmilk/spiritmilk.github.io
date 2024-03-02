@@ -107,6 +107,7 @@ var _hmt = _hmt || [];
 <li><a href="#%E5%AD%A6%E4%B9%A0%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93">学习知识总结</a><ul>
 <li><a href="#c">C++</a><ul>
 <li><a href="#auto-%E5%8F%98%E9%87%8F"><strong>auto 变量</strong>:</a></li>
+<li><a href="#priority_queue">priority_queue</a></li>
 </ul>
 </li>
 </ul>
@@ -132,10 +133,21 @@ var _hmt = _hmt || [];
 <p>看小红书上尽可能不要说0 offer，而是说“如有”，大概就是说“有一两个，在谈薪资”，不能说太多，表现地很海王。</p>
 </blockquote>
 <p>面试后要求了项目的github地址和成绩单。</p>
-<h2 id="学习知识总结"><a href="#学习知识总结" class="headerlink" title="学习知识总结"></a>学习知识总结</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><h4 id="auto-变量"><a href="#auto-变量" class="headerlink" title="auto 变量:"></a><strong>auto 变量</strong>:</h4><p>auto可以在声明变量的时候根据变量初始值的类型自动为此变量选择匹配的类型：</p>
+<h2 id="学习知识总结"><a href="#学习知识总结" class="headerlink" title="学习知识总结"></a>学习知识总结</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><h4 id="auto-变量"><a href="#auto-变量" class="headerlink" title="auto 变量:"></a><strong>auto 变量</strong>:</h4><p><strong>1）</strong></p>
+<p>auto可以在声明变量的时候根据变量初始值的类型自动为此变量选择匹配的类型：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto i =100;  // i 是 int </span><br><span class="line">auto p = new A();  // p 是 A* </span><br><span class="line">auto k = 34343LL;  // k 是 long long</span><br></pre></td></tr></table></figure>
 
 <p>auto的自动类型推断发生在编译期，所以使用auto并不会造成程序运行时效率的降低。</p>
+<p><strong>2）当然是少写 N 多的字符</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 获取迭代器的类型</span><br><span class="line">typename std::iterator_traits&lt;It&gt;::value_type currValue = *b; //C++98写法</span><br><span class="line">auto currValue = *b; //C++11写法，可以看到简练很多</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3）避免未初始化的变量</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int x1; // 未初始化</span><br><span class="line">auto x2; // 编译错误！使用auto必须初始化</span><br><span class="line">auto x3 = 0; // 正确！</span><br></pre></td></tr></table></figure>
+
+<p><strong>4）auto利于代码重构</strong></p>
+<h4 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h4><p>大小根堆</p>
  
       <!-- reward -->
       
