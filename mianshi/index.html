@@ -115,7 +115,12 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="面试复盘"><a href="#面试复盘" class="headerlink" title="面试复盘"></a>面试复盘</h2><h3 id="谷尚-python-初级工程师"><a href="#谷尚-python-初级工程师" class="headerlink" title="谷尚 python 初级工程师"></a>谷尚 python 初级工程师</h3><p>（2024年2月27日）</p>
 <blockquote>
-<p>岗位要求：<br>熟悉基本的python语法<br>熟悉基本的数据处理numpy,opencv,pyqt5,深度学习框架<br>主要工作内容：<br>1，完成公司内部模型验证和测试。<br>2，维护公司内部数据标注软件和深度学习训练工具。<br>3. 负责智能硬件平台上的python应用开发工作<br>4. 参与服务器api接口pyton自动化测试的分析讨论<br>5. 项目难度不是很大，但需要认真和负责。</p>
+<p>岗位要求：<br>熟悉基本的python语法<br>熟悉基本的数据处理numpy,opencv,pyqt5,深度学习框架<br>主要工作内容：<br>1，完成公司内部模型验证和测试。<br>2，维护公司内部数据标注软件和深度学习训练工具。</p>
+<ol start="3">
+<li>负责智能硬件平台上的python应用开发工作</li>
+<li>参与服务器api接口pyton自动化测试的分析讨论</li>
+<li>项目难度不是很大，但需要认真和负责。</li>
+</ol>
 </blockquote>
 <p>未读无回复。</p>
 <h3 id="湾影科技-软件研发实习生"><a href="#湾影科技-软件研发实习生" class="headerlink" title="湾影科技 软件研发实习生"></a>湾影科技 软件研发实习生</h3><p>（2024年2月27日）</p>
@@ -147,8 +152,25 @@ var _hmt = _hmt || [];
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int x1; // 未初始化</span><br><span class="line">auto x2; // 编译错误！使用auto必须初始化</span><br><span class="line">auto x3 = 0; // 正确！</span><br></pre></td></tr></table></figure>
 
 <p><strong>4）auto利于代码重构</strong></p>
-<h4 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h4><p>大小根堆</p>
- 
+<h4 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h4><p>既然是队列那么先要包含头文件<code>#include &lt;queue&gt;</code>, 他和<code>queue</code>不同的就在于我们可以自定义其中数据的优先级, 让优先级高的排在队列前面,优先出队</p>
+<p>优先队列具有队列的所有特性，包括基本操作，只是在这基础上添加了内部的一个排序，它本质是一个堆实现的。</p>
+<p>和队列基本操作相同:</p>
+<ul>
+<li>top 访问队头元素</li>
+<li>empty 队列是否为空</li>
+<li>size 返回队列内元素个数</li>
+<li>push 插入元素到队尾 (并排序)</li>
+<li>emplace 原地构造一个元素并插入队列</li>
+<li>pop 弹出队头元素</li>
+<li>swap 交换内容</li>
+</ul>
+<p>定义：priority_queue&lt;Type, Container, Functional&gt;<br>Type 就是数据类型，Container 就是容器类型（Container必须是用数组实现的容器，比如vector,deque等等，但不能用 list。STL里面默认用的是vector），Functional 就是比较的方式，当需要用自定义的数据类型时才需要传入这三个参数，使用基本数据类型时，只需要传入数据类型，默认是大顶堆<br>一般是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//升序队列</span><br><span class="line">priority_queue &lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q;</span><br><span class="line">//降序队列</span><br><span class="line">priority_queue &lt;int,vector&lt;int&gt;,less&lt;int&gt; &gt;q;</span><br><span class="line"></span><br><span class="line">//greater和less是std实现的两个仿函数（就是使一个类的使用看上去像一个函数。其实现就是类中实现一个operator()，这个类就有了类似函数的行为，就是一个仿函数类了）</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>基本类型例子：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//对于基础类型 默认是大顶堆    </span><br><span class="line"></span><br><span class="line">priority_queue&lt;int&gt; a;     </span><br><span class="line"></span><br><span class="line">//等同于 priority_queue&lt;int, vector&lt;int&gt;, less&lt;int&gt; &gt; a;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
