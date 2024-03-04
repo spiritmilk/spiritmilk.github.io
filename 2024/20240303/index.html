@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>Archives |  小熊的小站</title>
+      <title>RNNS ARE NOT TRANSFORMERS (YET) |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -75,246 +75,185 @@ var _hmt = _hmt || [];
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-20240303"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">Archives</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2021" class="archive-year">2021</a>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  RNNS ARE NOT TRANSFORMERS (YET)
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/20240303/" class="article-date">
+  <time datetime="2024-03-03T12:51:37.000Z" itemprop="datePublished">2024-03-03</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210514/" class="archive-article-date">
-  <time datetime="2021-05-14T04:50:34.000Z" itemprop="datePublished">05/14</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210514/"
-    >辨析依概率收敛和以概率一收敛</a> 
-</h2>
- 
+    <div class="tocbot"></div>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210509/" class="archive-article-date">
-  <time datetime="2021-05-09T15:21:02.000Z" itemprop="datePublished">05/09</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210509/"
-    >机器学习之神经网络</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210415/" class="archive-article-date">
-  <time datetime="2021-04-15T14:47:21.000Z" itemprop="datePublished">04/15</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210415/"
-    >Wolfram Mathematica识别猫种</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210411/" class="archive-article-date">
-  <time datetime="2021-04-11T10:29:41.000Z" itemprop="datePublished">04/11</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210411/"
-    >机器学习之回归算法&amp;异常检测算法</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
   
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210410/" class="archive-article-date">
-  <time datetime="2021-04-10T08:23:17.000Z" itemprop="datePublished">04/10</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210410/"
-    >机器学习教程中文笔记——斯坦福大学2014（吴恩达）</a> 
-</h2>
- 
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>论文：RNNS ARE NOT TRANSFORMERS (YET) -THE KEY BOTTLENECK ON IN-CONTEXT RETRIEVAL</p>
+<p>本文研究了递归神经网络(rnn)和transformer在解决算法问题方面的表示能力差距。理论分析表明，CoT改善了rnn，但不足以缩小与transformer的差距。</p>
+<p>我们证明，采用技术来增强 RNN 的上下文检索能力，包括检索增强生成（RAG）和添加单个 Transformer 层，可以使 RNN 能够通过 CoT 解决所有多项式时间可解决的问题，从而缩小了与transformer的代表性差距。</p>
+<hr>
+<span id="more"></span>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210405/" class="archive-article-date">
-  <time datetime="2021-04-05T14:54:35.000Z" itemprop="datePublished">04/05</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210405/"
-    >有趣的几道数院每日一题</a> 
-</h2>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现代的RNN得到了一系列的发展，包括RWKV、RetNet和Mamba。</p>
+<p>过去有许多研究证明了RNN不如Transformrt。比如2024年的《Repeat after me: Transformers are better than state space models at copying》证明常量记忆 RNN 没有足够的表示能力来解决对给定的输入向量子集进行平均的任务（q稀疏平均）和重复输入序列（复制），而存在可以解决这些任务的浅层 Transformer。</p>
+<p>然而，上述结果并不排除通过额外的提示技术或微小的架构改变来增强 RNN 可能缩小与 Transformer 差距的可能性。事实上，Transformer 本身也不完美，可能需要在推理时使用额外的技术才能在某些任务上表现良好。作为一个著名的例子， 思想链 （CoT）  是一种提示技术，要求模型在给出最终答案之前生成一系列中间标记，众所周知，它对于 Transformers 在需要数学或算法推理的任务上表现良好至关重要。部分研究者从表示能力的角度解释了这一点：变压器本身没有足够的表示能力来解决超出特定电路复杂性类别的问题（$TC^0$)，但通过 CoT，他们甚至可以模拟任何多项式时间图灵机。</p>
+<p>CoT 在 Transformers 上的有效性自然会引发以下问题：</p>
+<p><strong>类似的增强（例如采用 CoT）能否改进 RNN，使其与 Transformer 相媲美？</strong></p>
+<h3 id="本文贡献"><a href="#本文贡献" class="headerlink" title="本文贡献"></a>本文贡献</h3><p>本文通过研究各种方法来缩小 RNN 和 Transformer 在算法问题上的表示能力上的差距，从理论上回答了上述问题。通过一系列下限和上限结果，我们表明 CoT 提高了 RNN 的表示能力，但为了缩小与 Transformer 的差距，仅 CoT 不足以克服 RNN 的一个关键瓶颈：它们无法从上下文中检索信息，我们简称为上下文检索。</p>
+<p>我们进一步说明，解决上下文检索瓶颈足以弥补这一差距：如果采用增强上下文检索能力的技术，包括涉及检索增强生成（RAG）和附加， RNN 可以解决所有多项式时间可解决的问题单个 Transformer 层。我们的主要贡献如下：</p>
+<p>1.<strong>CoT 改进了 RNN，但无法缩小与 Transformer 的表示差距。</strong></p>
+<ul>
+<li><p>从积极的一面来看，CoT 使 RNN 严格具有更强的表达能力。</p>
+</li>
+<li><p>从消极的一面来看，我们表明采用 CoT 不足以缩小 RNN 和Transformer 之间的表示差距：RNN 的内存效率从根本上限制了它们执行上下文检索的能力，即使使用 CoT 也是如此。通过证明带有 CoT 的 RNN 无法解决一组直接要求上下文检索（包括联想召回）的基本算法问题，这一点得到了具体体现。通过证明 RNN 无法解决确定图是否是树的经典问题，我们进一步举例说明了在看似不相关的任务中隐含地需要上下文检索。</p>
+</li>
+<li><p>另一方面，我们证明 Transformers 具有轻松解决上述许多任务的表征能力，包括判断是否是树。此外，具有 CoT 的 Transformers 甚至可以有效地模拟具有 CoT 的 RNN，而参数数量只需要很小的乘法因子。</p>
+</li>
+</ul>
+<ol start="2">
+<li><strong>增强 RNN 的上下文检索能力可以缩小表示差距</strong></li>
+</ol>
+<ul>
+<li><p>我们证明，允许 RNN 调用函数调用来执行特定的上下文检索原语，足以提高其表示能力，以解决 CoT 的所有多项式时间可解问题，从而缩小RNN 和 Transformer 之间的表示差距。</p>
+</li>
+<li><p>另外，由于一层 Transformer 足以执行许多上下文检索操作，因此我们证明，通过在架构末尾添加一个 Transformer 层来隐式增强 RNN 的上下文检索能力也足以缩小差距</p>
+</li>
+</ul>
+<h2 id="CoT-能否提高-RNN-的表示能力？"><a href="#CoT-能否提高-RNN-的表示能力？" class="headerlink" title="CoT 能否提高 RNN 的表示能力？"></a>CoT 能否提高 RNN 的表示能力？</h2><p>在本节中，我们的目标是了解带有 CoT 的 RNN 的表示能力。</p>
+<p>我们首先展示了积极的结果，即带有 CoT 的 RNN 可以解决在没有 CoT 固定状态大小的情况下 RNN 无法完成的任务。然后我们继续了解 CoT 是否可以使 RNN 具有像 Transformer 一样的表现力。</p>
+<p>我们表明，即使使用 CoT，RNN 仍然难以解决明确需要上下文检索的问题，并且这种表示差距会传播到看似与检索无关的推理任务，例如 IsTree。最后，我们表明这种差距确实是单方面的：只存在 Transformer 需要的参数比 RNN 指数少的任务，但反之则不然。</p>
+<h3 id="CoT-严格改进-RNN"><a href="#CoT-严格改进-RNN" class="headerlink" title="CoT 严格改进 RNN"></a>CoT 严格改进 RNN</h3><p><img src="Theorem41.png"></p>
+<h3 id="CoT-无法缩小与-Transformer-的代表性差距"><a href="#CoT-无法缩小与-Transformer-的代表性差距" class="headerlink" title="CoT 无法缩小与 Transformer 的代表性差距"></a>CoT 无法缩小与 Transformer 的代表性差距</h3><h4 id="上下文检索的简单问题"><a href="#上下文检索的简单问题" class="headerlink" title="上下文检索的简单问题"></a>上下文检索的简单问题</h4><p>首先，我们证明 RNN 在解决几个直接测试上下文检索能力的简单算法问题时与 Transformer 存在显着的表示差距。</p>
+<p><img src="Theorem46.png"></p>
+<p>对于上限，我们证明 Transformer 可以通过利用称为“注意力机制”的注意力机制来解决问题匹配，它接受查询令牌并关注与某些预定义坐标上的查询令牌相匹配的先前键。这种机制允许Transformer像键值字典一样读取其上下文窗口，从而可以完美解决问题。对于计数问题，我们另外使用数数注意力机制，通过均匀地关注查询标记的每次出现来计算查询标记的出现次数。</p>
+<h4 id="了解-RNN-超越简单上下文检索问题的表示能力"><a href="#了解-RNN-超越简单上下文检索问题的表示能力" class="headerlink" title="了解 RNN 超越简单上下文检索问题的表示能力"></a>了解 RNN 超越简单上下文检索问题的表示能力</h4><p>一个自然的问题是，如果算法问题不直接测试上下文检索能力，我们是否可以希望 RNN 具有解决它的表示能力？</p>
+<p>在这种情况下，RNN 和 Transformer 是否具有相同的表示能力？</p>
+<p>我们表明，RNN 中有限的内存大小仍然可能成为解决算法问题的瓶颈。即使检索能力没有在算法问题中显式测试，在推理答案时仍然可能隐式地需要它。</p>
+<p>我们通过一个最小的算法问题示例（称为IsTree)：</p>
+<p>给定一个无向图G的n节点，判断是否是一棵树，即每一对节点是否都由一条简单路径连接。 IsTree 的经典解决方案是运行深度优先搜索 (DFS)，它需要O(n)时间。</p>
+<p><img src="Theorem47.png"></p>
+<h4 id="Transformer-明显比-RNN-更具表现力"><a href="#Transformer-明显比-RNN-更具表现力" class="headerlink" title="Transformer 明显比 RNN 更具表现力"></a>Transformer 明显比 RNN 更具表现力</h4><p>上述定理表明，存在一些任务，其中 Transformer 所需的内存比 RNN 少得多。</p>
+<p>然而，他们并没有排除是否存在相应任务，这种任务其中 Transformer 会比 RNN 更加冗余并且需要指数级更多的参数。</p>
+<p>然而，以下定理证实了常规 RNN 不存在这样的任务。</p>
+<p><img src="Theorem48.png"></p>
  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210331/" class="archive-article-date">
-  <time datetime="2021-03-31T14:26:24.000Z" itemprop="datePublished">03/31</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210331/"
-    >一些简单的串的模式匹配算法汇总</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210326/" class="archive-article-date">
-  <time datetime="2021-03-26T02:20:41.000Z" itemprop="datePublished">03/26</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210326/"
-    >我没有为你伤春悲秋不配有憾事</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210313/" class="archive-article-date">
-  <time datetime="2021-03-13T10:39:42.000Z" itemprop="datePublished">03/13</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210313/"
-    >怎么去拯救Ta们？</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/20210309/" class="archive-article-date">
-  <time datetime="2021-03-09T14:59:29.000Z" itemprop="datePublished">03/09</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2021/20210309/"
-    >梯度下降法</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/page/10/">上一页</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="page-number" href="/archives/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/archives/page/12/">12</a><a class="page-number" href="/archives/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/15/">15</a><a class="extend next" rel="next" href="/archives/page/12/">下一页</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240303/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/20240229/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">BitNet b1.58</div>
+      </a>
+    
   </nav>
-  
+
+   
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -457,6 +396,22 @@ var _hmt = _hmt || [];
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
