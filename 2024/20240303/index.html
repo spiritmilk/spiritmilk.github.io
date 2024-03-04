@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.9k</span>
+            <span class="post-count">2.4k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">6 min</span>
+            <span class="post-count">8 min</span>
         </span>
     </span>
 </div>
@@ -175,6 +175,22 @@ var _hmt = _hmt || [];
 <p>然而，他们并没有排除是否存在相应任务，这种任务其中 Transformer 会比 RNN 更加冗余并且需要指数级更多的参数。</p>
 <p>然而，以下定理证实了常规 RNN 不存在这样的任务。</p>
 <p><img src="Theorem48.png"></p>
+<h2 id="增强上下文检索能力缩小表征差距"><a href="#增强上下文检索能力缩小表征差距" class="headerlink" title="增强上下文检索能力缩小表征差距"></a>增强上下文检索能力缩小表征差距</h2><p>在 前面 中，我们表明 RNN 在上下文检索方面存在缺陷，因此导致与Transformer 的表示存在显着差距。</p>
+<p>在本节中，我们的目标是了解：如果我们增强RNN 的上下文检索能力，RNN 与 Transformer 是否仍然存在表示差距？</p>
+<p>我们通过考虑显式和隐式方法来增强上下文检索能力来回答这个问题，并表明这两种方法都可以缩小 RNN 和 Transformer 在解决算法问题时的表示差距。</p>
+<p><img src="Incontextrag.png"></p>
+<h3 id="Explicit-Retrieval-Through-Regular-Expression"><a href="#Explicit-Retrieval-Through-Regular-Expression" class="headerlink" title="Explicit Retrieval Through Regular Expression"></a>Explicit Retrieval Through Regular Expression</h3><p>首先，我们探索 RNN 与检索增强生成 (RAG) 的强大功能，它使 LM 能够检索相关信息以协助生成。在我们的上下文中，我们特别感兴趣的是允许 LM 调用函数从其上下文中检索信息，我们将其称为In-context Retrieval Augmented Generation (In-context RAG).</p>
+<p><img src="Theorem51.png"></p>
+<h3 id="通过仅附加一层-Transformer-层进行隐式检索"><a href="#通过仅附加一层-Transformer-层进行隐式检索" class="headerlink" title="通过仅附加一层 Transformer 层进行隐式检索"></a>通过仅附加一层 Transformer 层进行隐式检索</h3><p>我们在本节中正式表明，这种形式的隐式检索可以缩小 RNN 和 Transformer 在解决算法问题时的表示差距。我们考虑以下混合架构，它通过将单个 Transformer 层附加到 RNN 输出来组合 RNN 和 Transformer。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="fig5.png"></p>
+<p>训练了三种不同的架构：</p>
+<p>（1）LLaMa</p>
+<p>（2）Mamba</p>
+<p>（3） Mamba with one additional layer of LLaMA block representing hybrid architectures.</p>
+<p>图中可观察到：</p>
+<p>1.CoT 提高了 Transformer 和 RNN 的性能。然而，随着图尺寸的增加，RNN 的性能急剧下降，并且 Transformer 的性能始终优于 RNN。这与我们的理论一致，即 CoT 可以提高 RNN 模型的表达能力，但表达能力仍然不足以解决 IsTree 任务</p>
+<p>2.通过正则表达式的检索增强使所有模型达到近乎完美的准确性。这与我们的理论一致，即通过正则表达式进行检索增强可以提高 RNN 模型解决算法任务的表达能力</p>
+<p>3.混合模型显示了所有模型中最好的性能，即使没有 CoT 或显式检索增强也能达到近乎完美的精度，这也反映在理论结果中。</p>
  
       <!-- reward -->
       
