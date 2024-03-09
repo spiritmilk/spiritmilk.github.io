@@ -3,7 +3,7 @@
   <entry>
     <title>残差结构的讨论</title>
     <url>/2024/20240308/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文主要围绕《<a href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文主要围绕《<a href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
 <p>在深度学习中，乃至当今很火的transformer，残差是一个很重要的部分。</p>
 <p>残差结构的讨论也是老生常谈的话题了，比如transformer中应该选择Pre Norm与Post Norm呢。</p>
 <span id="more"></span>
@@ -23,6 +23,10 @@
 <p><img src="shortcutexp.png"></p>
 <p>不同的激活函数放置：</p>
 <p><img src="diffact.png"></p>
+<p><strong>图(b) vs 图(a)：</strong>(b)中将BN层也放到了identity mapping支路中来，进一步改变了该支路的信息流，导致信息传播更为阻塞. 这也是为什么，这个结构的结果比baseline更差.</p>
+<p><strong>图(c) vs 图(a)：</strong>(c)将identity mapping分支的ReLU激活函数前移在了residual分支中，因此residual分支的输出永远是大于等于0的，这意味着模型在前向传播的过程中，数值只会单调递增，这无疑会影响模型的表征能力. 这也是为什么，这个结构的结果比baseline更差. 【residual分支其输出应该要保证在(-∞, +∞)】</p>
+<p><strong>图(d) vs 图(a)：</strong>(d)将identity mapping分支的ReLU激活函数放在了residual分支的第一个卷积前.</p>
+<p><strong>图(e) vs 图(a)：</strong>在上图(d)的基础上，(e)又将residual分支的BN进行了前移. ResNet V2将BN和ReLU统称为activation，图(e)相当于是在图(a)baseline的基础上做了一个pre-activation. 具体转换也可以见下图. 前移之后的结构既保证了identity mapping分支“clean”，也获得更优的模型效果.</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
