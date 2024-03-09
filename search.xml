@@ -3,16 +3,26 @@
   <entry>
     <title>残差结构的讨论</title>
     <url>/2024/20240308/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文主要围绕《<a href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文主要围绕《<a href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
 <p>在深度学习中，乃至当今很火的transformer，残差是一个很重要的部分。</p>
 <p>残差结构的讨论也是老生常谈的话题了，比如transformer中应该选择Pre Norm与Post Norm呢。</p>
 <span id="more"></span>
 
 <p>关于Pre Norm与Post Norm，苏神的博客“<a href="https://kexue.fm/archives/9009">为什么Pre Norm的效果不如Post Norm？</a>”有更多的讨论。</p>
-<h2 id="双残差"><a href="#双残差" class="headerlink" title="双残差"></a>双残差</h2><p>《ResiDual: Transformer with Dual Residual Connections》结合Pre Norm与Post Norm，提出了ResiDual。</p>
+<h2 id="双残差"><a href="#双残差" class="headerlink" title="双残差"></a>双残差</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>《ResiDual: Transformer with Dual Residual Connections》结合Pre Norm与Post Norm，提出了ResiDual。</p>
 <p><img src="ResiDual.png"></p>
 <p>ResiDual吸收两者之长，避两者之短，没有了Post-LN的Gradient Vanish，也没有了Pre-LN的Representation Collapse。</p>
 <p><img src="Analysis.png"></p>
+<h3 id="实验结果："><a href="#实验结果：" class="headerlink" title="实验结果："></a>实验结果：</h3><p><img src="experiment.png"></p>
+<h2 id="残差块的有效性和改进"><a href="#残差块的有效性和改进" class="headerlink" title="残差块的有效性和改进"></a>残差块的有效性和改进</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>何恺明提出的《Identity Mappings in Deep Residual Networks》针对残差块为什么有效，以及如何改进进行了一系列实验，最终得出一个结论：identity mapping支路应该要保证“clean”，也就是不应该在该支路后做ReLU激活函数，这才能保证前向传播和反向传播过程中的信息畅通无阻. 基于此，文章提出了新的残差块，其结构如下图：</p>
+<p><img src="resnetv2.png"></p>
+<p>对于ResNet V2来说，identity mapping支路没有ReLU激活函数，在前向传播和后向传播时都能够畅通无阻，真正实现了恒等映射. ResNet V2的“最终呈现结果”也比较简单，就是把原先residual block中的卷积、BN和ReLU调换了顺序。</p>
+<h3 id="实验结果：-1"><a href="#实验结果：-1" class="headerlink" title="实验结果："></a>实验结果：</h3><p>文章更大的篇幅都在实验证明各种结构的效果。</p>
+<p>下图是不同顺序的残差块结构和实验结果，指标是分类错误率:</p>
+<p><img src="shortcut.png"></p>
+<p><img src="shortcutexp.png"></p>
+<p>不同的激活函数放置：</p>
+<p><img src="diffact.png"></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
