@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>残差结构的讨论 |  小熊的小站</title>
+      <title>每个人都应该掌握的快速调研法 |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -76,7 +76,7 @@ var _hmt = _hmt || [];
     <main class="content on">
       <section class="outer">
   <article
-  id="post-20240308"
+  id="post-20240403"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  残差结构的讨论
+  每个人都应该掌握的快速调研法
 </h1>
  
 
@@ -95,15 +95,15 @@ var _hmt = _hmt || [];
     </header>
      
     <div class="article-meta">
-      <a href="/2024/20240308/" class="article-date">
-  <time datetime="2024-03-08T02:23:10.000Z" itemprop="datePublished">2024-03-08</time>
+      <a href="/2024/20240403/" class="article-date">
+  <time datetime="2024-04-03T12:36:32.000Z" itemprop="datePublished">2024-04-03</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">693</span>
+            <span class="post-count">933</span>
         </span>
     </span>
 
@@ -112,45 +112,60 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文主要围绕《<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
-<p>在深度学习中，乃至当今很火的transformer，残差是一个很重要的部分。</p>
-<p>残差结构的讨论也是老生常谈的话题了，比如transformer中应该选择Pre Norm与Post Norm呢。</p>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来着Up主老蒋巨靠谱的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pF411f7yD/">《面试必备！每个人都应该掌握的快速调研法》</a></p>
+<hr>
 <span id="more"></span>
 
-<p>关于Pre Norm与Post Norm，苏神的博客“<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9009">为什么Pre Norm的效果不如Post Norm？</a>”有更多的讨论。</p>
-<h2 id="双残差"><a href="#双残差" class="headerlink" title="双残差"></a>双残差</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>《ResiDual: Transformer with Dual Residual Connections》结合Pre Norm与Post Norm，提出了ResiDual。</p>
-<p><img src="ResiDual.png"></p>
-<p>ResiDual吸收两者之长，避两者之短，没有了Post-LN的Gradient Vanish，也没有了Pre-LN的Representation Collapse。</p>
-<p><img src="Analysis.png"></p>
-<h3 id="实验结果："><a href="#实验结果：" class="headerlink" title="实验结果："></a>实验结果：</h3><p><img src="experiment.png"></p>
-<h2 id="残差块的有效性和改进"><a href="#残差块的有效性和改进" class="headerlink" title="残差块的有效性和改进"></a>残差块的有效性和改进</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>何恺明提出的《Identity Mappings in Deep Residual Networks》针对残差块为什么有效，以及如何改进进行了一系列实验，最终得出一个结论：identity mapping支路应该要保证“clean”，也就是不应该在该支路后做ReLU激活函数，这才能保证前向传播和反向传播过程中的信息畅通无阻. 基于此，文章提出了新的残差块，其结构如下图：</p>
-<p><img src="resnetv2.png"></p>
-<p>对于ResNet V2来说，identity mapping支路没有ReLU激活函数，在前向传播和后向传播时都能够畅通无阻，真正实现了恒等映射. ResNet V2的“最终呈现结果”也比较简单，就是把原先residual block中的卷积、BN和ReLU调换了顺序。</p>
-<h3 id="实验结果：-1"><a href="#实验结果：-1" class="headerlink" title="实验结果："></a>实验结果：</h3><p>文章更大的篇幅都在实验证明各种结构的效果。</p>
-<p>下图是不同顺序的残差块结构和实验结果，指标是分类错误率:</p>
-<p><img src="shortcut.png"></p>
-<p><img src="shortcutexp.png"></p>
-<p>不同的激活函数放置：</p>
-<p><img src="diffact.png"></p>
-<p><strong>图(b) vs 图(a)：</strong>(b)中将BN层也放到了identity mapping支路中来，进一步改变了该支路的信息流，导致信息传播更为阻塞. 这也是为什么，这个结构的结果比baseline更差.</p>
-<p><strong>图(c) vs 图(a)：</strong>(c)将identity mapping分支的ReLU激活函数前移在了residual分支中，因此residual分支的输出永远是大于等于0的，这意味着模型在前向传播的过程中，数值只会单调递增，这无疑会影响模型的表征能力. 这也是为什么，这个结构的结果比baseline更差. 【residual分支其输出应该要保证在(-∞, +∞)】</p>
-<p><strong>图(d) vs 图(a)：</strong>(d)将identity mapping分支的ReLU激活函数放在了residual分支的第一个卷积前.</p>
-<p><strong>图(e) vs 图(a)：</strong>在上图(d)的基础上，(e)又将residual分支的BN进行了前移. ResNet V2将BN和ReLU统称为activation，图(e)相当于是在图(a)baseline的基础上做了一个pre-activation. 具体转换也可以见下图. 前移之后的结构既保证了identity mapping分支“clean”，也获得更优的模型效果.</p>
+<p><strong>问题1：</strong>如何获取目标信息。（如何筛选靠谱的高质量的信息源）</p>
+<p><strong>问题2：</strong>如何问对问题。（从信息海中抽取什么样的信息）</p>
+<p><strong>问题3：</strong>如何进行归纳分析</p>
+<p>————————————————————</p>
+<p>针对互联网搜素展开的调研步骤</p>
+<p><strong>步骤一：提出问题</strong></p>
+<p>调研之前先尝试提出问题，明确我们通过调研想解答哪些问题。（从调研动机中去寻找问题）</p>
+<p><strong>步骤二：初步搜索</strong></p>
+<p>搜索的渠道（搜索引擎、微信搜索里搜索关键词、知乎、行研报告、播客、chatgpt）</p>
+<p><strong>步骤三：深度搜索，以搜养搜。用搜索结果扩充自己的搜索关键词。</strong></p>
+<p>笔记本左侧记录信息散点，右侧记录看到这些信息散点后脑子中出现的衍生关键词以及衍生的新问题。</p>
+<p>举例子：</p>
+<p><strong>信息散点：</strong></p>
+<p>香调类型公认科学的分类法是香调轮盘</p>
+<p>调香师是香水行业的关键岗位，主要集中在香精公司。</p>
+<p>中国香水行业市场规模300-500亿人民币。</p>
+<p><strong>衍生问题：</strong></p>
+<p>香调轮盘</p>
+<p>知名调香师</p>
+<p>调香师工资</p>
+<p>为什么香水公司不养调香师</p>
+<p>增长率、</p>
+<p>中国品牌</p>
+<p>过去几年资本动作</p>
+<p><strong>步骤四：整理归纳</strong></p>
+<p>左侧的信息散点复盘一遍，分门别类按照一种逻辑去捋下来，分成几个模块，把散落在各处的信息分门别类装进这几个模块里，从而得到一个框架。</p>
+<p>商业领域的框架一般来说分成：市场情况、上下游从业者情况、技术和工业工艺相关信息、中国市场的特点、行业发展史。</p>
+<p>社会问题的调研一般来说分成：事件或者热点的timeline梳理、各参与方的信息归因逻辑、解决方法。</p>
+<p><strong>步骤五：通过调研回答一些最基本直达本源的综合的高级问题。</strong></p>
+<p>可以试着回到第一步，回顾初心，能否给出答案，比如香水行业的问题：香水是不是智商税、香水品牌之间竞争的核心壁垒是什么、香水到底能满足人们什么样的需求也就是这个行业为什么存在。</p>
+<p>————————————————————</p>
+<p><strong>非搜索调研方法</strong></p>
+<p><strong>专家调研：</strong></p>
+<p>与该领域的资深从业者进行直接一对一的聊天，需要具备逻辑能力，能够不断的提出正确的问题一步一步深入某个领域。</p>
+<p><strong>学术性调研：</strong></p>
+<p>适用于某个学科领域中的启蒙学习，比如学习经济学以及人口学，需要看论文看书，通过论文的参考书目，通过自媒体的文章、通过京东书籍页面搜索、咨询熟人，找到一本合格的启蒙书，然后点开这个书的豆瓣页面或者微信读书页面，找到下方该书籍归属于的书单，能发现想要深入了解领域的书，如果据此没有找到靠谱的书单，很可能是这本启蒙书质量一般。可以重复这个过程，最终找到很好的阅读list，在这个阅读list里面摘要出工人比较好的3-5本启蒙书，都读一遍，就可以超越多数人在这个领域内的认知了。</p>
+<p>在较大的领域，可以找中国最好的研究生院校这个系，找到该系导师推荐的考研参考书目，里面有靠谱的教材。</p>
  
       <!-- reward -->
       
@@ -203,32 +218,21 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240308/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240403/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
-
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/2024/20240403/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            每个人都应该掌握的快速调研法
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/20240303/" class="article-nav-link">
+      <a href="/2024/20240308/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">RNNS ARE NOT TRANSFORMERS (YET)</div>
+        <div class="article-nav-title">残差结构的讨论</div>
       </a>
     
   </nav>

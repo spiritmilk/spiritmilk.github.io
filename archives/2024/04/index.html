@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>残差结构的讨论 |  小熊的小站</title>
+      <title>Archives: 2024/4 |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -75,170 +75,52 @@ var _hmt = _hmt || [];
       
     <main class="content on">
       <section class="outer">
-  <article
-  id="post-20240308"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
+  
+  
+  <article class="articles">
     
-    <header class="article-header">
-       
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  残差结构的讨论
-</h1>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/20240308/" class="article-date">
-  <time datetime="2024-03-08T02:23:10.000Z" itemprop="datePublished">2024-03-08</time>
-</a>   
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">693</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
-        </span>
-    </span>
-</div>
- 
+    
+    <h1 class="page-type-title">2024/4</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2024" class="archive-year">2024</a>
     </div>
+    <div class="archives">
       
-    <div class="tocbot"></div>
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2024/20240403/" class="archive-article-date">
+  <time datetime="2024-04-03T12:36:32.000Z" itemprop="datePublished">04/03</time>
+</a>
+       
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2024/20240403/"
+    >每个人都应该掌握的快速调研法</a> 
+</h2>
+ 
 
-
-
+    </header>
+    
+    
+  </div>
+</article>
+      
+      
+    </div>
+  </div>
+  
+  
 
   
-    <div class="article-entry" itemprop="articleBody">
-       
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文主要围绕《<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
-<p>在深度学习中，乃至当今很火的transformer，残差是一个很重要的部分。</p>
-<p>残差结构的讨论也是老生常谈的话题了，比如transformer中应该选择Pre Norm与Post Norm呢。</p>
-<span id="more"></span>
-
-<p>关于Pre Norm与Post Norm，苏神的博客“<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9009">为什么Pre Norm的效果不如Post Norm？</a>”有更多的讨论。</p>
-<h2 id="双残差"><a href="#双残差" class="headerlink" title="双残差"></a>双残差</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>《ResiDual: Transformer with Dual Residual Connections》结合Pre Norm与Post Norm，提出了ResiDual。</p>
-<p><img src="ResiDual.png"></p>
-<p>ResiDual吸收两者之长，避两者之短，没有了Post-LN的Gradient Vanish，也没有了Pre-LN的Representation Collapse。</p>
-<p><img src="Analysis.png"></p>
-<h3 id="实验结果："><a href="#实验结果：" class="headerlink" title="实验结果："></a>实验结果：</h3><p><img src="experiment.png"></p>
-<h2 id="残差块的有效性和改进"><a href="#残差块的有效性和改进" class="headerlink" title="残差块的有效性和改进"></a>残差块的有效性和改进</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>何恺明提出的《Identity Mappings in Deep Residual Networks》针对残差块为什么有效，以及如何改进进行了一系列实验，最终得出一个结论：identity mapping支路应该要保证“clean”，也就是不应该在该支路后做ReLU激活函数，这才能保证前向传播和反向传播过程中的信息畅通无阻. 基于此，文章提出了新的残差块，其结构如下图：</p>
-<p><img src="resnetv2.png"></p>
-<p>对于ResNet V2来说，identity mapping支路没有ReLU激活函数，在前向传播和后向传播时都能够畅通无阻，真正实现了恒等映射. ResNet V2的“最终呈现结果”也比较简单，就是把原先residual block中的卷积、BN和ReLU调换了顺序。</p>
-<h3 id="实验结果：-1"><a href="#实验结果：-1" class="headerlink" title="实验结果："></a>实验结果：</h3><p>文章更大的篇幅都在实验证明各种结构的效果。</p>
-<p>下图是不同顺序的残差块结构和实验结果，指标是分类错误率:</p>
-<p><img src="shortcut.png"></p>
-<p><img src="shortcutexp.png"></p>
-<p>不同的激活函数放置：</p>
-<p><img src="diffact.png"></p>
-<p><strong>图(b) vs 图(a)：</strong>(b)中将BN层也放到了identity mapping支路中来，进一步改变了该支路的信息流，导致信息传播更为阻塞. 这也是为什么，这个结构的结果比baseline更差.</p>
-<p><strong>图(c) vs 图(a)：</strong>(c)将identity mapping分支的ReLU激活函数前移在了residual分支中，因此residual分支的输出永远是大于等于0的，这意味着模型在前向传播的过程中，数值只会单调递增，这无疑会影响模型的表征能力. 这也是为什么，这个结构的结果比baseline更差. 【residual分支其输出应该要保证在(-∞, +∞)】</p>
-<p><strong>图(d) vs 图(a)：</strong>(d)将identity mapping分支的ReLU激活函数放在了residual分支的第一个卷积前.</p>
-<p><strong>图(e) vs 图(a)：</strong>在上图(d)的基础上，(e)又将residual分支的BN进行了前移. ResNet V2将BN和ReLU统称为activation，图(e)相当于是在图(a)baseline的基础上做了一个pre-activation. 具体转换也可以见下图. 前移之后的结构既保证了identity mapping分支“clean”，也获得更优的模型效果.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
-      </div>
-</div>
-
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240308/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-  <nav class="article-nav">
-    
-      <a href="/2024/20240403/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            每个人都应该掌握的快速调研法
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2024/20240303/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">RNNS ARE NOT TRANSFORMERS (YET)</div>
-      </a>
-    
-  </nav>
-
-   
- 
-   
-     
-</article>
-
 </section>
       <footer class="footer">
   <div class="outer">
@@ -381,22 +263,6 @@ var _hmt = _hmt || [];
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
- 
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: ".tocbot",
-    contentSelector: ".article-entry",
-    headingSelector: "h1, h2, h3, h4, h5, h6",
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: "main",
-    positionFixedSelector: ".tocbot",
-    positionFixedClass: "is-position-fixed",
-    fixedSidebarOffset: "auto",
-  });
-</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
