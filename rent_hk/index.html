@@ -110,8 +110,10 @@ var _hmt = _hmt || [];
         // 获取链接容器元素
         const linkContainer = document.getElementById('linkContainer');
         
-        // 遍历每一行数据
-        rows.forEach(row => {
+        // 从第二行开始遍历数据
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          
           // 按逗号分割每一行的数据
           const [text, url] = row.split(',');
           
@@ -127,7 +129,7 @@ var _hmt = _hmt || [];
           
           // 将链接容器添加到页面中
           linkContainer.appendChild(linkWrapper);
-        });
+        }
       })
       .catch(error => {
         console.error('读取CSV文件时出错:', error);
