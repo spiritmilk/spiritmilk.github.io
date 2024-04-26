@@ -97,9 +97,24 @@ var _hmt = _hmt || [];
   </style>
 </head>
 <body>
+  <div id="textContainer"></div>
   <div id="linkContainer"></div>
 
   <script>
+    // 读取文本文件
+    fetch('1.txt')
+      .then(response => response.text())
+      .then(data => {
+        // 获取文本容器元素
+        const textContainer = document.getElementById('textContainer');
+        
+        // 将文本内容添加到文本容器中
+        textContainer.textContent = data;
+      })
+      .catch(error => {
+        console.error('读取文本文件时出错:', error);
+      });
+
     // 读取CSV文件
     fetch('1.csv')
       .then(response => response.text())
