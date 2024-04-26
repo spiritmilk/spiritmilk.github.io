@@ -89,96 +89,49 @@ var _hmt = _hmt || [];
   <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><!DOCTYPE html>
 <html>
 <head>
-  <title>CSV数据展示</title>
+  <title>CSV文本链接</title>
   <style>
-    table {
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
+    .link-container {
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <table id="csvTable">
-    <thead>
-      <tr>
-        <th>文本</th>
-        <th>网址</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- 表格内容将在JavaScript中生成 -->
-    </tbody>
-  </table>
+  <div id="linkContainer"></div>
 
   <script>
     // 读取CSV文件
-    function readCSV() {
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = '.csv';
-
-      fileInput.addEventListener('change', function (e) {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function (event) {
-          const contents = event.target.result;
-          const lines = contents.split('\n');
-
-          // 生成表格内容
-          generateTable(lines);
-        };
-
-        reader.readAsText(file);
+    fetch('1.csv')
+      .then(response => response.text())
+      .then(data => {
+        // 将CSV数据按行分割
+        const rows = data.split('\n');
+        
+        // 获取链接容器元素
+        const linkContainer = document.getElementById('linkContainer');
+        
+        // 遍历每一行数据
+        rows.forEach(row => {
+          // 按逗号分割每一行的数据
+          const [text, url] = row.split(',');
+          
+          // 创建链接元素
+          const link = document.createElement('a');
+          link.textContent = text;
+          link.href = url;
+          
+          // 创建链接容器元素
+          const linkWrapper = document.createElement('div');
+          linkWrapper.className = 'link-container';
+          linkWrapper.appendChild(link);
+          
+          // 将链接容器添加到页面中
+          linkContainer.appendChild(linkWrapper);
+        });
+      })
+      .catch(error => {
+        console.error('读取CSV文件时出错:', error);
       });
-
-      fileInput.click();
-    }
-
-    // 生成表格内容
-    function generateTable(lines) {
-      const tableBody = document.querySelector('#csvTable tbody');
-
-      // 清空表格内容
-      tableBody.innerHTML = '';
-
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-
-        if (line) {
-          const columns = line.split(',');
-
-          if (columns.length >= 2) {
-            const text = columns[0].trim();
-            const url = columns[1].trim();
-
-            const row = document.createElement('tr');
-            const textCell = document.createElement('td');
-            const urlCell = document.createElement('td');
-            const link = document.createElement('a');
-
-            textCell.textContent = text;
-            link.textContent = url;
-            link.href = url;
-
-            urlCell.appendChild(link);
-            row.appendChild(textCell);
-            row.appendChild(urlCell);
-            tableBody.appendChild(row);
-          }
-        }
-      }
-    }
-
-    // 初始化页面
-    function init() {
-      readCSV();
-    }
-
-    init();
   </script>
 </body>
 </html> 
