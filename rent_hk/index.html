@@ -87,77 +87,99 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
        
   <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>CSV Display</title>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 5px;
-            text-align: left;
-        }
-    </style>
+  <title>CSV数据展示</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+  </style>
 </head>
 <body>
-
-<h2>CSV Data Display</h2>
-<table id="csvTable">
+  <table id="csvTable">
     <thead>
-        <tr>
-            <!-- CSV列名将在这里动态显示 -->
-        </tr>
+      <tr>
+        <th>文本</th>
+        <th>网址</th>
+      </tr>
     </thead>
     <tbody>
-        <!-- CSV数据将在这里动态显示 -->
+      <!-- 表格内容将在JavaScript中生成 -->
     </tbody>
-</table>
+  </table>
 
-<script>
-    // 获取CSV文件的路径
-    const csvFilePath = '1.csv';
+  <script>
+    // 读取CSV文件
+    function readCSV() {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.csv';
 
-    // 使用fetch API读取CSV文件
-    fetch(csvFilePath)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+      fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+          const contents = event.target.result;
+          const lines = contents.split('\n');
+
+          // 生成表格内容
+          generateTable(lines);
+        };
+
+        reader.readAsText(file);
+      });
+
+      fileInput.click();
+    }
+
+    // 生成表格内容
+    function generateTable(lines) {
+      const tableBody = document.querySelector('#csvTable tbody');
+
+      // 清空表格内容
+      tableBody.innerHTML = '';
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+
+        if (line) {
+          const columns = line.split(',');
+
+          if (columns.length >= 2) {
+            const text = columns[0].trim();
+            const url = columns[1].trim();
+
+            const row = document.createElement('tr');
+            const textCell = document.createElement('td');
+            const urlCell = document.createElement('td');
+            const link = document.createElement('a');
+
+            textCell.textContent = text;
+            link.textContent = url;
+            link.href = url;
+
+            urlCell.appendChild(link);
+            row.appendChild(textCell);
+            row.appendChild(urlCell);
+            tableBody.appendChild(row);
+          }
         }
-        return response.text();
-    })
-    .then(data => {
-        // 使用正则表达式解析CSV数据
-        const rows = data.split(/\r\n|\n/);
-        const headers = rows[0].split(',');
+      }
+    }
 
-        // 创建表头
-        const table = document.getElementById('csvTable');
-        const thead = table.createTHead();
-        const headerRow = thead.insertRow();
-        for (let header of headers) {
-            let th = document.createElement('th');
-            th.textContent = header.trim();
-            headerRow.appendChild(th);
-        }
+    // 初始化页面
+    function init() {
+      readCSV();
+    }
 
-        // 创建表格数据行
-        rows.slice(1).forEach((row, index) => {
-            const rowData = row.split(',');
-            const tr = table.insertRow(-1);
-            rowData.forEach((cell, cellIndex) => {
-                let td = tr.insertCell(cellIndex);
-                td.textContent = cell.trim();
-            });
-        });
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
-</script>
-
+    init();
+  </script>
 </body>
 </html> 
       <!-- reward -->
