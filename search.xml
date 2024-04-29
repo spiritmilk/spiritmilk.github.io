@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>prompt压缩</title>
+    <url>/2024/20240429/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>prompt压缩技术可以减少输入prompt的长度，同时保持各种任务的性能。</p>
+<span id="more"></span>
+
+<h2 id="Selective-Context"><a href="#Selective-Context" class="headerlink" title="Selective Context"></a>Selective Context</h2><p>出自《<a href="https://arxiv.org/abs/2310.06201">Compressing Context to Enhance Inference Efficiency of Large Language Models</a>》-EMNLP 2023。使用了一个很简单但有效的方法。</p>
+<h3 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h3><p>作者提出了self-information的概念，用来衡量了一段文本相对与一个language model所蕴含的信息。</p>
+<p>self-information计算也极其简单。<br>$$<br>I(x) = -log(P(x))<br>$$<br>P指语言模型，但不需要是大模型本体，可以是小号的LLMs，例如1.3b的OPT和OpenAI-Curie(6.3b)。</p>
+<p>prompt压缩的整体过程十分简单。</p>
+<ul>
+<li>首先计算文本中每个短语的self-informaiton。</li>
+<li>再根据想要的压缩比设置百分位数，得到阈值。</li>
+<li>最后删去低于阈值的短语。</li>
+</ul>
+<p>我们也可以直接上代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_get_self_info_via_gpt2</span>(<span class="params">self, text: <span class="built_in">str</span></span>) -&gt; <span class="type">Tuple</span>[<span class="type">List</span>[<span class="built_in">str</span>], <span class="type">List</span>[<span class="built_in">float</span>]]:</span></span><br><span class="line">        <span class="keyword">if</span> self.lang == <span class="string">&#x27;en&#x27;</span>:</span><br><span class="line">            text = <span class="string">f&quot;&lt;|endoftext|&gt;<span class="subst">&#123;text&#125;</span>&quot;</span></span><br><span class="line">        <span class="keyword">elif</span> self.lang == <span class="string">&#x27;zh&#x27;</span>:</span><br><span class="line">            text = <span class="string">f&quot;[CLS]<span class="subst">&#123;text&#125;</span>&quot;</span></span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            encoding = self.tokenizer(text, add_special_tokens=<span class="literal">False</span>, return_tensors=<span class="string">&#x27;pt&#x27;</span>)</span><br><span class="line">            encoding = encoding.to(self.device)</span><br><span class="line">            outputs = self.model(**encoding)</span><br><span class="line">            logits = outputs.logits</span><br><span class="line">            probs = torch.softmax(logits, dim=-<span class="number">1</span>)</span><br><span class="line">            self_info = -torch.log(probs)</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        input_ids = encoding[<span class="string">&#x27;input_ids&#x27;</span>]</span><br><span class="line">        input_ids_expaned = input_ids[:, <span class="number">1</span>:].unsqueeze(-<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">        tokens = [self.tokenizer.decode(token_) <span class="keyword">for</span> token_ <span class="keyword">in</span> input_ids.squeeze().tolist()[<span class="number">1</span>:]]</span><br><span class="line">        <span class="keyword">return</span> tokens, self_info[:, :-<span class="number">1</span>].gather(-<span class="number">1</span>, input_ids_expaned).squeeze(-<span class="number">1</span>).squeeze(<span class="number">0</span>).tolist()</span><br></pre></td></tr></table></figure>
+
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>使用了<strong>以下三个数据源</strong>作为测试数据：</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=http://ShareGPT.com">http://ShareGPT.com</a>：收集用户与ChatGPT对话记录的网站</li>
+<li>Arxiv</li>
+<li>BBC News</li>
+</ul>
+<p><img src="exp1.png"></p>
+<h2 id="LLMLingua"><a href="#LLMLingua" class="headerlink" title="LLMLingua"></a>LLMLingua</h2><p>LLMLingua是Huiqiang Jiang, Qianhui Wu, Xufang Luo等出自微软的研究者提出的一系列prompt压缩算法。</p>
+<h3 id="LLMLingua-1"><a href="#LLMLingua-1" class="headerlink" title="LLMLingua"></a>LLMLingua</h3><p>占位</p>
+<h3 id="LongLLMLingua"><a href="#LongLLMLingua" class="headerlink" title="LongLLMLingua"></a>LongLLMLingua</h3><p>zhanw</p>
+<h3 id="LLMLinguav2"><a href="#LLMLinguav2" class="headerlink" title="LLMLinguav2"></a>LLMLinguav2</h3><p>暂无</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>自然语言处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>每个人都应该掌握的快速调研法</title>
     <url>/2024/20240403/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来着Up主老蒋巨靠谱的<a href="https://www.bilibili.com/video/BV1pF411f7yD/">《面试必备！每个人都应该掌握的快速调研法》</a></p>
