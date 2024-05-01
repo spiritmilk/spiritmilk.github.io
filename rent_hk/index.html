@@ -124,7 +124,7 @@ var _hmt = _hmt || [];
       var houseList = document.getElementById("houseList");
       houseList.innerHTML = "";
       
-      fetch('1.csv')
+      fetch('tst.csv')
         .then(response => response.text())
         .then(data => {
           var rows = data.split('\n');
@@ -138,22 +138,22 @@ var _hmt = _hmt || [];
               
               var rentBadge = document.createElement('span');
               rentBadge.className = "badge badge-primary";
-              rentBadge.textContent = "租金: " + columns[1];
+              rentBadge.textContent = "租金: " + columns[0];
               badge.appendChild(rentBadge);
               
               var descBadge = document.createElement('span');
               descBadge.className = "badge badge-secondary";
-              descBadge.textContent = "描述: " + columns[0];
+              descBadge.textContent = "描述: " + columns[1];
               badge.appendChild(descBadge);
               
               var urlBadge = document.createElement('span');
               urlBadge.className = "badge badge-info";
-              urlBadge.textContent = "网址: " + columns[3];
+              urlBadge.textContent = "网址: " + columns[2];
               badge.appendChild(urlBadge);
               
               var typeBadge = document.createElement('span');
               typeBadge.className = "badge badge-success";
-              typeBadge.textContent = "类型: " + columns[2];
+              typeBadge.textContent = "类型: " + columns[3];
               badge.appendChild(typeBadge);
               
               houseList.appendChild(badge);
