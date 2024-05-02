@@ -95,9 +95,14 @@ var _hmt = _hmt || [];
     .house-info {
       margin-bottom: 10px;
     }
+    .link-container {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
+  <div id="textContainer"></div>
+  <div id="linkContainer"></div>
   <div class="container">
     <h1>房屋租赁信息</h1>
     
@@ -128,6 +133,7 @@ var _hmt = _hmt || [];
         .then(response => response.text())
         .then(data => {
           var rows = data.split('\n');
+          const linkContainer = document.getElementById('linkContainer');
           rows.forEach(row => {
             var columns = row.split(',');
             var rent = parseInt(columns[1]);
@@ -136,6 +142,12 @@ var _hmt = _hmt || [];
               var badge = document.createElement('div');
               badge.className = "house-info";
               
+              const link = document.createElement('a');
+              link.textContent = columns[15];
+              link.href = columns[16];
+              badge.appendChild(link);
+
+
               var rentBadge = document.createElement('span');
               rentBadge.className = "badge badge-primary";
               rentBadge.textContent = "租金: " + columns[0];
