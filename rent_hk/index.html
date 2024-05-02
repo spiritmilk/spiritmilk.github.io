@@ -177,6 +177,17 @@ var _hmt = _hmt || [];
           break;
         }
       }
+
+      var selectElement = document.getElementById('school');
+      var defaultValue = 'cuhk'; // 你可以根据需要设置这个值
+      var options = selectElement.options;
+
+      for (var i = 0; i < options.length; i++) {
+        if (options[i].value === defaultValue) {
+          options[i].selected = true;
+          break;
+        }
+      }
     });
     function filterHouses() {
      
