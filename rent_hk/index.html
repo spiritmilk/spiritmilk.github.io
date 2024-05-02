@@ -92,10 +92,10 @@ var _hmt = _hmt || [];
   <title>房屋租赁信息</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    .house-info {
-      margin-bottom: 20px;
+    * {
+      font-size: 16px;
     }
-    .link-container {
+    .house-info {
       margin-bottom: 20px;
     }
   </style>
@@ -145,7 +145,6 @@ var _hmt = _hmt || [];
               const link = document.createElement('a');
               link.textContent = columns[14];
               link.href = columns[15];
-              link.style.fontSize = '16px'; // 根据需要设置合适的字体大小
               badge.appendChild(link);
 
 
