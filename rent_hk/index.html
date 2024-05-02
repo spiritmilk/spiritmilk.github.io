@@ -150,23 +150,29 @@ var _hmt = _hmt || [];
 
               var rentBadge = document.createElement('span');
               rentBadge.className = "badge badge-primary";
-              rentBadge.textContent = "租金: " + columns[0];
+              rentBadge.textContent = "出租方式: " + columns[0];
               badge.appendChild(rentBadge);
               
               var descBadge = document.createElement('span');
               descBadge.className = "badge badge-secondary";
-              descBadge.textContent = "描述: " + columns[1];
+              descBadge.textContent = "月租/港币: " + columns[1];
               badge.appendChild(descBadge);
               
               var urlBadge = document.createElement('span');
               urlBadge.className = "badge badge-info";
-              urlBadge.textContent = "网址: " + columns[2];
+              urlBadge.textContent = "房屋类型: " + columns[2];
               badge.appendChild(urlBadge);
               
-              var typeBadge = document.createElement('span');
-              typeBadge.className = "badge badge-success";
-              typeBadge.textContent = "类型: " + columns[3];
-              badge.appendChild(typeBadge);
+
+              var addrBadge = document.createElement('span');
+              addrBadge.className = "badge badge-success";
+              addrBadge.textContent = "具体地址: " + columns[6];
+              badge.appendChild(addrBadge);
+
+              var sexBadge = document.createElement('span');
+              sexBadge.className = "badge badge-success";
+              sexBadge.textContent = "性别要求: " + columns[7];
+              badge.appendChild(sexBadge);
               
               houseList.appendChild(badge);
             }
