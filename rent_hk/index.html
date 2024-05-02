@@ -123,6 +123,20 @@ var _hmt = _hmt || [];
 
   <script>
     function filterHouses() {
+      // 读取文本文件
+      fetch('1.txt')
+        .then(response => response.text())
+        .then(data => {
+          // 获取文本容器元素
+          const textContainer = document.getElementById('textContainer');
+          
+          // 将文本内容添加到文本容器中
+          textContainer.textContent = data;
+        })
+        .catch(error => {
+          console.error('读取文本文件时出错:', error);
+        });
+
       var minRent = document.getElementById("minRent").value;
       var maxRent = document.getElementById("maxRent").value;
       
