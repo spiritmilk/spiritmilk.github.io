@@ -151,8 +151,7 @@ var _hmt = _hmt || [];
           const textContainer = document.getElementById('textContainer');
           
           // 将文本内容添加到文本容器中
-          textContainer.textContent = "这是第一行。\n这是第二行。";//data.replace(/\n/g, '<br>');
-          textContainer.innerHTML.replace(/\n/g, '<br>\n');
+          textContainer.innerHTML = data.replace(/\n/g, '<br>');
         })
         .catch(error => {
           console.error('读取文本文件时出错:', error);
