@@ -112,18 +112,6 @@ var _hmt = _hmt || [];
 
     <div class="form-group">
       <label for="minRent">最低租金:</label>
-      <select id="minRent" name="minRent" class="form-control">
-        <option value="">请选择</option>
-        <option value="500">500元以下</option>
-        <option value="500-1000">500元至1000元</option>
-        <option value="1000-1500">1000元至1500元</option>
-        <option value="1500-2000">1500元至2000元</option>
-        <option value="2000+">2000元以上</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="minRent">最低租金:</label>
       <input type="number" id="minRent" name="minRent" class="form-control">
     </div>
     
@@ -155,11 +143,12 @@ var _hmt = _hmt || [];
           const textContainer = document.getElementById('textContainer');
           
           // 将文本内容添加到文本容器中
-          textContainer.textContent = data;
+          textContainer.textContent = data.replace(/\n/g, '<br>');;
         })
         .catch(error => {
           console.error('读取文本文件时出错:', error);
         });
+
     document.addEventListener('DOMContentLoaded', function() {
       var selectElement = document.getElementById('sex');
       var defaultValue = '女性'; // 你可以根据需要设置这个值
