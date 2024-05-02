@@ -145,6 +145,7 @@ var _hmt = _hmt || [];
               const link = document.createElement('a');
               link.textContent = columns[14];
               link.href = columns[15];
+              link.style.fontSize = '16px'; // 根据需要设置合适的字体大小
               badge.appendChild(link);
 
 
@@ -170,7 +171,7 @@ var _hmt = _hmt || [];
               badge.appendChild(addrBadge);
 
               var sexBadge = document.createElement('span');
-              sexBadge.className = "badge badge-success";
+              sexBadge.className = "badge badge-danger";
               sexBadge.textContent = "性别要求: " + columns[7];
               badge.appendChild(sexBadge);
               
