@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
             var columns = row.split(',');
             var rent = parseInt(columns[1]);
             var sex_select = columns[7];
-            var sol_select = columns[0].substring(5, 7);
+            var sol_select = columns[0];
             console.log(sol_select);
             
             if ((!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
