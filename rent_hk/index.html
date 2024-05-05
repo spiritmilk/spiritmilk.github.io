@@ -166,35 +166,36 @@ var _hmt = _hmt || [];
           console.error('读取文本文件时出错:', error);
         });
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var selectElement = document.getElementById('sex');
-      var defaultValue = 'female'; // 你可以根据需要设置这个值
-      var options = selectElement.options;
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   var selectElement = document.getElementById('sex');
+    //   var defaultValue = 'female'; // 你可以根据需要设置这个值
+    //   var options = selectElement.options;
 
-      for (var i = 0; i < options.length; i++) {
-        if (options[i].value === defaultValue) {
-          options[i].selected = true;
-          break;
-        }
-      }
+    //   for (var i = 0; i < options.length; i++) {
+    //     if (options[i].value === defaultValue) {
+    //       options[i].selected = true;
+    //       break;
+    //     }
+    //   }
 
-      var selectElement = document.getElementById('school');
-      var defaultValue = 'cuhk'; // 你可以根据需要设置这个值
-      var options = selectElement.options;
+    //   var selectElement = document.getElementById('school');
+    //   var defaultValue = 'cuhk'; // 你可以根据需要设置这个值
+    //   var options = selectElement.options;
 
-      for (var i = 0; i < options.length; i++) {
-        if (options[i].value === defaultValue) {
-          options[i].selected = true;
-          break;
-        }
-      }
-    });
+    //   for (var i = 0; i < options.length; i++) {
+    //     if (options[i].value === defaultValue) {
+    //       options[i].selected = true;
+    //       break;
+    //     }
+    //   }
+    // });
     function filterHouses() {
      
 
       var minRent = document.getElementById("minRent").value;
       var maxRent = document.getElementById("maxRent").value;
-      
+      var sexTmp = document.getElementById("sex").value;
+
       var houseList = document.getElementById("houseList");
       houseList.innerHTML = "";
       
@@ -203,11 +204,20 @@ var _hmt = _hmt || [];
         .then(data => {
           var rows = data.split('\n');
           const linkContainer = document.getElementById('linkContainer');
+
+          // 用户选择的筛选条件
+          const columnFilters = {
+            female: "女性",
+            male: "男性",
+            all: "男女皆可"
+          };
+
           rows.forEach(row => {
             var columns = row.split(',');
             var rent = parseInt(columns[1]);
+            var sex_select = columns[7];
             
-            if (rent >= minRent && rent <= maxRent) {
+            if (sex_select== columnFilters[sexTmp]&& rent >= minRent && rent <= maxRent) {
               var badge = document.createElement('div');
               badge.className = "house-info";
               
