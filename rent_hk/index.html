@@ -119,11 +119,11 @@ var _hmt = _hmt || [];
     </div>
 
     <div class="form-group">
-      <label for="rentmethod">整租/合租:（施工中）</label>
+      <label for="rentmethod">整租/合租:</label>
       <select id="rentmethod" name="rentmethod" class="form-control">
         <option value="">请选择</option>
-        <option value="cuhk">整租</option>
-        <option value="cuhk">合租</option>
+        <option value="sol">整租</option>
+        <option value="nsol">合租</option>
       </select>
     </div>
 
@@ -138,7 +138,7 @@ var _hmt = _hmt || [];
     </div>
 
     <div class="form-group">
-      <label for="sex">性别要求:（施工中）</label>
+      <label for="sex">性别要求:</label>
       <select id="sex" name="sex" class="form-control">
         <option value="">请选择</option>
         <option value="female">女性</option>
@@ -195,6 +195,7 @@ var _hmt = _hmt || [];
       var minRent = document.getElementById("minRent").value;
       var maxRent = document.getElementById("maxRent").value;
       var sexTmp = document.getElementById("sex").value;
+      var solTmp = document.getElementById("rentmethod").value;
 
       var houseList = document.getElementById("houseList");
       houseList.innerHTML = "";
@@ -206,18 +207,24 @@ var _hmt = _hmt || [];
           const linkContainer = document.getElementById('linkContainer');
 
           // 用户选择的筛选条件
-          const columnFilters = {
+          const sexFilters = {
             female: "女性",
             male: "男性",
             all: "男女皆可"
+          };
+
+          const solFilters = {
+            sol: "整租",
+            nsol: "合租",
           };
 
           rows.forEach(row => {
             var columns = row.split(',');
             var rent = parseInt(columns[1]);
             var sex_select = columns[7];
+            var sol_select = columns[0];
             
-            if ((!sexTmp ? true : sex_select== columnFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
+            if ((!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               var badge = document.createElement('div');
               badge.className = "house-info";
               
