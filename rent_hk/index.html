@@ -217,7 +217,7 @@ var _hmt = _hmt || [];
             var rent = parseInt(columns[1]);
             var sex_select = columns[7];
             
-            if (sex_select== columnFilters[sexTmp]&& rent >= minRent && rent <= maxRent) {
+            if ((!sexTmp ? true : sex_select== columnFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               var badge = document.createElement('div');
               badge.className = "house-info";
               
