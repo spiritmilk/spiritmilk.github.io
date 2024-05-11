@@ -199,9 +199,16 @@ var _hmt = _hmt || [];
     //     }
     //   }
     // });
+    function parseDateString(dateString) {
+      var parts = dateString.match(/(\d+)-(\d+)-(\d+)/);
+      if (parts) {
+        return new Date(parts[1], parts[2] - 1, parts[3]);
+      }
+      return null;
+    }
     function isWithinPeriod(dateStr, periodInMonths) {
         // 将字符串转换为Date对象
-        const targetDate = new Date(dateStr);
+        const targetDate = parseDateString(dateStr);
         // 获取当前日期
         const currentDate = new Date();
         
