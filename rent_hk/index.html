@@ -262,6 +262,11 @@ var _hmt = _hmt || [];
               sexBadge.className = "badge badge-danger";
               sexBadge.textContent = "性别要求: " + columns[2];
               badge.appendChild(sexBadge);
+
+              var typeBadge = document.createElement('span');
+              typeBadge.className = "badge badge-dark";
+              typeBadge.textContent = "房源: " + columns[10];
+              badge.appendChild(typeBadge);
               
               houseList.appendChild(badge);
             }
