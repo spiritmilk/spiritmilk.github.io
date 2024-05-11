@@ -203,7 +203,7 @@ var _hmt = _hmt || [];
       var houseList = document.getElementById("houseList");
       houseList.innerHTML = "";
       
-      fetch('tst.csv')
+      fetch('0511.csv')
         .then(response => response.text())
         .then(data => {
           var rows = data.split('\n');
@@ -223,45 +223,44 @@ var _hmt = _hmt || [];
 
           rows.forEach(row => {
             var columns = row.split(',');
-            var rent = parseInt(columns[1]);
-            var sex_select = columns[7];
-            var sol_select = columns[0].substring(0, 2);
-            console.log(sol_select);
+            var rent = parseInt(columns[6]);
+            var sex_select = columns[2];
+            var sol_select = columns[4]//.substring(0, 2);
             
             if ((!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               var badge = document.createElement('div');
               badge.className = "house-info";
               
               const link = document.createElement('a');
-              link.textContent = columns[14];
-              link.href = columns[15];
+              link.textContent = columns[0];
+              link.href = columns[1];
               badge.appendChild(link);
 
 
               var rentBadge = document.createElement('span');
               rentBadge.className = "badge badge-primary";
-              rentBadge.textContent = "出租方式: " + columns[0];
+              rentBadge.textContent = "出租方式: " + columns[4];
               badge.appendChild(rentBadge);
               
               var descBadge = document.createElement('span');
               descBadge.className = "badge badge-secondary";
-              descBadge.textContent = "月租/港币: " + columns[1];
+              descBadge.textContent = "月租/港币: " + columns[6];
               badge.appendChild(descBadge);
               
               var urlBadge = document.createElement('span');
               urlBadge.className = "badge badge-info";
-              urlBadge.textContent = "房屋类型: " + columns[2];
+              urlBadge.textContent = "房屋类型: " + columns[3];
               badge.appendChild(urlBadge);
               
 
               var addrBadge = document.createElement('span');
               addrBadge.className = "badge badge-success";
-              addrBadge.textContent = "具体地址: " + columns[6];
+              addrBadge.textContent = "地址: " + columns[5];
               badge.appendChild(addrBadge);
 
               var sexBadge = document.createElement('span');
               sexBadge.className = "badge badge-danger";
-              sexBadge.textContent = "性别要求: " + columns[7];
+              sexBadge.textContent = "性别要求: " + columns[2];
               badge.appendChild(sexBadge);
               
               houseList.appendChild(badge);
