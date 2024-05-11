@@ -202,15 +202,18 @@ var _hmt = _hmt || [];
     function isWithinPeriod(dateStr, periodInMonths) {
         // 将字符串转换为Date对象
         const targetDate = new Date(dateStr);
-        
         // 获取当前日期
         const currentDate = new Date();
         
-        // 计算两个日期之间的月份差
-        const monthsDiff = ((currentDate.getFullYear() - targetDate.getFullYear()) * 12) + (currentDate.getMonth() - targetDate.getMonth());
+        // 计算两个日期的时间差（毫秒）
+        const timeDiff = targetDate - currentDate;
         
+        // 计算时间差所代表的月数，这里我们用30天作为一个月的平均天数
+        const monthDiff = timeDiff / (1000 * 60 * 60 * 24 * 30);
+
         // 检查是否在指定的月份范围内
-        return monthsDiff >= -periodInMonths && monthsDiff <= 0;
+        // 如果是正数或零，表示日期在当前时间之前或相同，我们需要确保它在指定的月份范围内
+        return monthDiff >= -periodInMonths;
     }
 
     function filterHouses() {
@@ -253,7 +256,7 @@ var _hmt = _hmt || [];
             var time_select = columns[8];
             var sol_select = columns[4]//.substring(0, 2);
             
-            if ((!solTmp ? true : isWithinPeriod(,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
+            if ((!solTmp ? true : isWithinPeriod(time_select,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               var badge = document.createElement('div');
               badge.className = "house-info";
               
