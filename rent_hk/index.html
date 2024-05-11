@@ -147,6 +147,16 @@ var _hmt = _hmt || [];
       </select>
     </div>
     
+    <div class="form-group">
+      <label for="time">时间要求:</label>
+      <select id="time" name="time" class="form-control">
+        <option value="">请选择</option>
+        <option value="1">一个月内</option>
+        <option value="3">三个月内</option>
+        <option value="6">半年内</option>
+      </select>
+    </div>
+
     <button onclick="filterHouses()" class="btn btn-primary">筛选</button>
     
     <div id="houseList"></div>
@@ -189,6 +199,20 @@ var _hmt = _hmt || [];
     //     }
     //   }
     // });
+    function isWithinPeriod(dateStr, periodInMonths) {
+        // 将字符串转换为Date对象
+        const targetDate = new Date(dateStr);
+        
+        // 获取当前日期
+        const currentDate = new Date();
+        
+        // 计算两个日期之间的月份差
+        const monthsDiff = ((currentDate.getFullYear() - targetDate.getFullYear()) * 12) + (currentDate.getMonth() - targetDate.getMonth());
+        
+        // 检查是否在指定的月份范围内
+        return monthsDiff >= -periodInMonths && monthsDiff <= 0;
+    }
+
     function filterHouses() {
      
 
@@ -198,6 +222,7 @@ var _hmt = _hmt || [];
         maxRent=999999;
       }
       var sexTmp = document.getElementById("sex").value;
+      var timeTmp = document.getElementById("time").value;
       var solTmp = document.getElementById("rentmethod").value;
 
       var houseList = document.getElementById("houseList");
@@ -225,9 +250,10 @@ var _hmt = _hmt || [];
             var columns = row.split(',');
             var rent = parseInt(columns[6]);
             var sex_select = columns[2];
+            var time_select = columns[8];
             var sol_select = columns[4]//.substring(0, 2);
             
-            if ((!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
+            if ((!solTmp ? true : isWithinPeriod(,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               var badge = document.createElement('div');
               badge.className = "house-info";
               
@@ -264,7 +290,7 @@ var _hmt = _hmt || [];
               badge.appendChild(sexBadge);
 
               var typeBadge = document.createElement('span');
-              typeBadge.className = "badge badge-dark";
+              typeBadge.className = "badge badge-light";
               typeBadge.textContent = "房源: " + columns[10];
               badge.appendChild(typeBadge);
               
