@@ -226,6 +226,7 @@ var _hmt = _hmt || [];
       }
       var sexTmp = document.getElementById("sex").value;
       var timeTmp = document.getElementById("time").value;
+      var schTmp = document.getElementById("school").value;
       var solTmp = document.getElementById("rentmethod").value;
 
       var houseList = document.getElementById("houseList");
@@ -248,15 +249,19 @@ var _hmt = _hmt || [];
             sol: "整租",
             nsol: "合租",
           };
+          const schFilters = {
+            cuhk: "港中文",
+          };
 
           rows.forEach(row => {
             var columns = row.split(',');
             var rent = parseInt(columns[6]);
             var sex_select = columns[2];
+            var school_select = columns[2];
             var time_select = columns[8];
             var sol_select = columns[4]//.substring(0, 2);
             
-            if ((!solTmp ? true : isWithinPeriod(time_select,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
+            if ((!schTmp ? true : school_select== schFilters[schTmp])&& (!solTmp ? true : isWithinPeriod(time_select,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               var badge = document.createElement('div');
               badge.className = "house-info";
               
@@ -294,7 +299,7 @@ var _hmt = _hmt || [];
 
               var typeBadge = document.createElement('span');
               typeBadge.className = "badge badge-light";
-              typeBadge.textContent = "房源: " + columns[10];
+              typeBadge.textContent = "房源: " + columns[11];
               badge.appendChild(typeBadge);
               
               houseList.appendChild(badge);
