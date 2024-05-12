@@ -265,7 +265,7 @@ var _hmt = _hmt || [];
             var time_select = columns[8];
             var sol_select = columns[4]//.substring(0, 2);
             
-            if ((!schTmp ? true : school_select== schFilters[schTmp])&& (!solTmp ? true : isWithinPeriod(time_select,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
+            if ((!schTmp ? true : school_select== schFilters[schTmp])&& (!timeTmp ? true : isWithinPeriod(time_select,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               console.log(time_select);
               console.log(timeTmp);
               console.log(Date());
