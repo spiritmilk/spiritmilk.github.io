@@ -268,6 +268,7 @@ var _hmt = _hmt || [];
             if ((!schTmp ? true : school_select== schFilters[schTmp])&& (!solTmp ? true : isWithinPeriod(time_select,timeTmp))&& (!solTmp ? true : sol_select== solFilters[solTmp])&& (!sexTmp ? true : sex_select== sexFilters[sexTmp])&& rent >= minRent && rent <= maxRent) {
               console.log(time_select);
               console.log(timeTmp);
+              console.log(Date());
               console.log(isWithinPeriod(time_select,timeTmp));
               var badge = document.createElement('div');
               badge.className = "house-info";
