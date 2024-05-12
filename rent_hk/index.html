@@ -211,13 +211,10 @@ var _hmt = _hmt || [];
         const targetDate = parseDateString(dateStr);
         // 获取当前日期
         const currentDate = new Date();
-        
         // 计算两个日期的时间差（毫秒）
         const timeDiff = targetDate - currentDate;
-        
         // 计算时间差所代表的月数，这里我们用30天作为一个月的平均天数
         const monthDiff = timeDiff / (1000 * 60 * 60 * 24 * 30);
-
         // 检查是否在指定的月份范围内
         // 如果是正数或零，表示日期在当前时间之前或相同，我们需要确保它在指定的月份范围内
         return monthDiff >= -periodInMonths;
