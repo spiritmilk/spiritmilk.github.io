@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>RNN与注意力</title>
+    <url>/2024/20240512/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>两篇都出自deepmind。</p>
+<p><a href="https://arxiv.org/pdf/1412.7755">《MULTIPLE OBJECT RECOGNITION WITH VISUAL ATTENTION》</a>ICLR 2015</p>
+<p>《<a href="https://arxiv.org/pdf/1502.04623">DRAW: A Recurrent Neural Network For Image Generation</a>》</p>
+<span id="more"></span>
+
+<p>RNN 学习读取门牌号。</p>
+<p><img src="house_read.gif"></p>
+<p>RNN 学习绘制门牌号。</p>
+<p><img src="house_generate.gif"></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>注意力</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>prompt压缩</title>
     <url>/2024/20240429/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>prompt压缩技术可以减少输入prompt的长度，同时保持各种任务的性能。</p>
