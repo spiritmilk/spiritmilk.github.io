@@ -4,6 +4,7 @@
     <title>RNN与注意力</title>
     <url>/2024/20240512/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中首先将注意力其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制大成。</p>
+<p>除去耳熟能详的，也有一些主动去学习注意区域的网络算法。</p>
 <p>两篇都出自deepmind。</p>
 <p><a href="https://arxiv.org/pdf/1412.7755">《MULTIPLE OBJECT RECOGNITION WITH VISUAL ATTENTION》</a>ICLR 2015</p>
 <p>《<a href="https://arxiv.org/pdf/1502.04623">DRAW: A Recurrent Neural Network For Image Generation</a>》</p>
@@ -13,10 +14,13 @@
 <p><img src="house_read.gif"></p>
 <p>RNN 学习绘制门牌号。</p>
 <p><img src="house_generate.gif"></p>
-<div align="center">
+<center>
+<figure>
     <img src="house_read.gif" alt="RNN 学习读取门牌号" width="35%" style="max-width: 300px;">
     <img src="house_generate.gif" alt="RNN 学习绘制门牌号" width="35%" style="max-width: 300px;">
-</div>
+</figure>
+</center>
+
 ]]></content>
       <tags>
         <tag>深度学习</tag>
