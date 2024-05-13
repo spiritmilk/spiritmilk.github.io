@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">118</span>
+            <span class="post-count">922</span>
         </span>
     </span>
 
@@ -112,13 +112,15 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
@@ -139,8 +141,19 @@ var _hmt = _hmt || [];
 </figure>
 </center>
 
-<p>模型架构：</p>
+<h2 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a>DRAM</h2><p>模型架构：</p>
 <p><img src="model.png"></p>
+<h3 id="Glimpse-Network"><a href="#Glimpse-Network" class="headerlink" title="Glimpse Network**"></a>Glimpse Network**</h3><p>该网络是一种非线性函数，接收当前输入的图像patch或者说是glimpse,$x_n$,以及其位置序列$l_n$,其中$l_n=(x_n,y_n)$作为输入，输出一个向量$g_{n}$。</p>
+<p>Glimpse Network 的工作就是从原始图像中从位置$l_{n}$附近提取一组有用的特征。利用$G_{image}(x_n|W_{image})$来表示函数$G_{image}(\dot)$的输出向量$G_{image}(\dot)$的输入是图像patch $x_n$,然后以权重$W_image${参 数 化 }，$G_{image}( \dot )$ 通常由三个卷积隐层构成，没有pooling layer,然后紧跟着一个全连接层。</p>
+<p>另外，$G_{loc}(l_{n}|W_{loc})$利用全连接的隐层来映射出位置元组，$G_{loc}(l_{n}|W_{loc})$ 和$G_{image}(x_n|W_{image})$拥有相同的维度。</p>
+<p>我们将这两个向量进行点乘操作得到最终的 glimpse feature vector $g_n:$<br>$$g_{n}=G_{image}(x_{n}|W_{image})G_{loc}(l_n|W_{loc}).$$</p>
+<h3 id="Recurrent-Network"><a href="#Recurrent-Network" class="headerlink" title="Recurrent Network"></a><strong>Recurrent Network</strong></h3><p>RN汇聚从每一个glimpse上提取的信息，并且以一种 coherent manner组合起来以保存空间信息。</p>
+<p>从 glimpse Network 得到的glimpse feature vector $g_n$作为每一个时刻 RN的输入。RN 由两个循环层和非线性函数$R_{recur}$构成，定义两个 recurrent layer的输出为$r^{(1)}$ and $r^{(2)}:$<br>$$r^{(1)}=R_{recur}(g_n,r_{n-1}^{(1)}|W_{r1})\r^{(2)}=R_{recur}(g_n,r_{n-1}^{(2)}|W_{r2})$$</p>
+<p>我们用LSTN单元来处理非线性$R_{recur}$,因为其具有学习长期依赖(long-range dependencies)和稳定的学习动态(stable learning dynamics)的能力。</p>
+<h3 id="Emission-Network"><a href="#Emission-Network" class="headerlink" title="Emission Network"></a><strong>Emission Network</strong></h3><p>该网络将RN当前的状态作为输入，然后预测出 glimpse network 应该向何处提取图像patch。这个就像一个指挥中心，从 RN 中基于当前的内部状态，控制着attention。由一个全连接隐层构成，将feature vector $r_n^{(2)}$从recurrent layer的顶部映射成坐标元组$l_{n+1}:$<br>$$\hat{l}_{n+1}=E(r_n^{(2)}|W_e)$$</p>
+<h3 id="Context-Network"><a href="#Context-Network" class="headerlink" title="Context Network"></a><strong>Context Network</strong></h3><p>Context Network 提供了RN的输出状态，其输出用于 emission Network 来预测第一个glimpse的位置。Context Network $C(*)$ 将下采样的图像 $I_{coarse}$作为输入，并且出书一个固定长度的向量$c_I$。该结构信息提供了一个可见的提示，即：所给图像潜在的感兴趣区域的位置。采用三个卷积层将粗糙的图像$I_{coarse}$映射成特征向量作为 RN 的top recurrrent layer $r^2$ 的初始状态。底层 $r^{1}$初始化为零向量，原因后面会具体介绍。</p>
+<h3 id="Classification-Network"><a href="#Classification-Network" class="headerlink" title="Classification Network"></a><strong>Classification Network</strong></h3><p>分类网络基于底层RN的最终的特征向量 $r_{N}^{(1)}$预测出一个类别标签y。由一个全</p>
+<p>连接隐层和softmax 输出层构成：<br>$$P(y|I)=O(r_n^1|W_o)$$<br>理想情况下，深度循环attention model 应该学习去寻找对分类物体相关的位置。Contextual information的存在，提供了一个”short cut”的解决方案，使得模型通过组合不同glimpse的信息从而更加容易学习到Contextudl information。我们阻止如此不想要的行为，通过锥接 context network and classification network 到不同的 recurrent layer。所以，最终使得contextual information 不能被直接用<br>于 classification network,然后只影响模型产生的glimpse locations序列。</p>
  
       <!-- reward -->
       
