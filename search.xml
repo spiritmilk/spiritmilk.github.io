@@ -80,9 +80,34 @@
       </tags>
   </entry>
   <entry>
-    <title>20240511</title>
+    <title>FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS</title>
     <url>/2024/20240511/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《<a href="https://openreview.net/pdf?id=FcBmz8nLnq">FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS </a>》ICLR 2024</p>
+<span id="more"></span>
+
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h3 id="Graph-Lottery-Ticket-Hypothesis"><a href="#Graph-Lottery-Ticket-Hypothesis" class="headerlink" title="Graph Lottery Ticket Hypothesis"></a>Graph Lottery Ticket Hypothesis</h3><h4 id="The-Lottery-Ticket-Hypothesis"><a href="#The-Lottery-Ticket-Hypothesis" class="headerlink" title="The Lottery Ticket Hypothesis"></a>The Lottery Ticket Hypothesis</h4><p>该论文首先提到了ICLR 2019最佳论文:The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks。该论文提出了彩票假说：密集的、随机初始化的、前馈网络包含子网络（中奖票），这些子网络在孤立地训练时，在类似数量的迭代中达到与原始网络相当的测试精度。</p>
+<p>具体而言，他的训练策略如下：</p>
+<p><img src="LTH.png"></p>
+<p><a href="https://arxiv.org/abs/1905.01067">《Deconstructing Lottery Tickets: Zeros, Signs, and the Supermask》</a>也有类似的内容。展示了为什么将权重设置为零很重要，如何使用符号来进行重新初始化的网络训练，以及为什么掩蔽的行为类似于训练。最后，我们发现了超级掩码的存在，这些掩码可以应用于未经训练的随机初始化网络，以生成性能远远优于偶然的模型（MNIST 上为 86%，CIFAR-10 上为 41%）。</p>
+<p>ICLR2020 的《<a href="http://proceedings.mlr.press/v119/malach20a/malach20a.pdf">Proving the Lottery Ticket Hypothesis: Pruning is All You Need</a>宣称证明了The Lottery Ticket Hypothesis。一句话概括：只要对随机初始化的神经网络做个好剪枝，不怎么训练也能有个好效果。</p>
+<p>Pruning is All You Need！</p>
+<p>该文证明的结论是：</p>
+<p>Fix some target fully-connected ReLU-network F of width k, depth d and input dimension n.Fix$\delta&gt;0$.Then,arandomly-initialized network $G$ of width $poly(d,n,k,1/\epsilon,\log(1/\delta))$ and depth 2d, has w.p. $\geq1-\delta$ a subnetwork $\tilde{G}$ that approximates F up to $\epsilon.$</p>
+<p>简单的说，给定一个深度为d的Relu目标网络。那么一个深度为2d，且足够宽的随机网络里，必然可以找到一个可以逼近目标网络的子网络。</p>
+<p>具体证明可见刘斯坦的<a href="https://www.zhihu.com/question/473365094/answer/2044032805">解答</a></p>
+<h4 id="In-Graph"><a href="#In-Graph" class="headerlink" title="In Graph"></a>In Graph</h4><p>《<a href="https://arxiv.org/abs/2102.06790">A Unified Lottery Ticket Hypothesis for Graph Neural Networks</a>》一文将LTH应用在了GNN上。</p>
+<p>具体而言，在端到端训练过程中，UGS分别对邻接矩阵和GNN模型权值应用两个可微二元掩模张量。训练完成后，移除最小大小的元素，将相应的掩码位置更新为0，分别从邻接矩阵和GNN中去除低评分的边和权重。然后将稀疏GNN权重参数倒绕到其原始初始化。（类似于原始的LTH）</p>
+<p>实验结果表明，UGS可以在不影响预测精度的前提下显著降低推理计算成本。在这项工作中，我们的目标是为受到对抗性扰动的数据集找到glt。当我们将UGS算法直接应用于摄动图时，glt的性能精度与干净的glt相比明显较低，这需要开发新的优化方法来寻找对抗鲁棒的glt。</p>
+<h2 id="分析对抗性攻击对图属性的影响"><a href="#分析对抗性攻击对图属性的影响" class="headerlink" title="分析对抗性攻击对图属性的影响"></a>分析对抗性攻击对图属性的影响</h2><p><img src="impact.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>总所周知，两层的GCN可以表示为<br>$$<br>Z=f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta})=\mathcal{S}(\hat{\boldsymbol{A}}\sigma(\boldsymbol{\hat{A}}\boldsymbol{X}\boldsymbol{W}<em>{(0)})\boldsymbol{W}</em>{(1)}),<br>$$<br>设计了一个transductive semi-supervised node classification (SSNC) loss：<br>$$<br>\mathcal{L}<em>0(f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta}))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^C\boldsymbol{Y}<em>{l_j}\log(\boldsymbol{Z}</em>{l_j}),<br>$$<br>其中$\mathcal{Y}_{TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
+<p>posion 攻击者的目标是找到一个最优的扰动A ‘，欺骗GNN做出错误的预测。这可以表述为一个双层优化问题(Zugner et al.， 2018;zugner &amp; gunnemann, 2019):<br>$$<br>\begin{aligned}&amp;\arg\max\mathcal{L}<em>{atk}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}^{<em>}))\&amp;\boldsymbol{A}^{‘}\in\Phi(\boldsymbol{A})\&amp;\mathrm{s.t.}\quad\boldsymbol{\Theta}^{</em>}=\arg\min</em>{\boldsymbol{\Theta}}\mathcal{L}<em>{0}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}))\end{aligned}<br>$$<br>其中$\Phi(A)$是满足$\frac{|A^{‘}-A|{0}}{|A|{0}}\leq\Delta$的领接矩阵。$\mathcal{L}</em>{atk}$是攻击loss函数，$\Delta$是 perturbation rate，${\Theta}^{*}$是摄动图上GNN的最优参数。</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="UGS.png"></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>图神经网络</tag>
+      </tags>
   </entry>
   <entry>
     <title>prompt压缩</title>
