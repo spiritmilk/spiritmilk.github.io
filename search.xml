@@ -11670,7 +11670,7 @@ scale).">
   <entry>
     <title>FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS</title>
     <url>/2024/20240511/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>《<a href="https://openreview.net/pdf?id=FcBmz8nLnq">FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS </a>》ICLR 2024</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《<a href="https://openreview.net/pdf?id=FcBmz8nLnq">FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS </a>》ICLR 2024</p>
 <span id="more"></span>
 
 <h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h3 id="Graph-Lottery-Ticket-Hypothesis"><a href="#Graph-Lottery-Ticket-Hypothesis" class="headerlink" title="Graph Lottery Ticket Hypothesis"></a>Graph Lottery Ticket Hypothesis</h3><h4 id="The-Lottery-Ticket-Hypothesis"><a href="#The-Lottery-Ticket-Hypothesis" class="headerlink" title="The Lottery Ticket Hypothesis"></a>The Lottery Ticket Hypothesis</h4><p>该论文首先提到了ICLR 2019最佳论文:The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks。该论文提出了彩票假说：密集的、随机初始化的、前馈网络包含子网络（中奖票），这些子网络在孤立地训练时，在类似数量的迭代中达到与原始网络相当的测试精度。</p>
@@ -11711,6 +11711,7 @@ scale).">
 <p><img src="algo.png"></p>
 <h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="UGS.png"></p>
 <p><img src="result.png"></p>
+<p>Inference MACs（Multiply-Accumulate Operations）是指推断过程中的乘累加操作数量。</p>
 <p><img src="vsother.png"></p>
 <p>在大规模图数据集中：</p>
 <p><img src="biggraph.png"></p>
