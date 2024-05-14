@@ -151,7 +151,7 @@ var _hmt = _hmt || [];
 <p>为了帮助消除对抗边和鼓励特征平滑，对于homophilic graphs：<br>$$<br>\mathcal{L}<em>{fs}(A^{‘},X)=\frac{1}{2}\sum</em>{i,j=1}A_{ij}^{‘}(x_{i}-x_{j})^2<br>$$<br>对于heterophilic graphs：<br>$$<br>\mathcal{L}<em>{fs}(A’)=\frac{1}{2}\sum</em>{i,j=1}A_{ij}^{‘}(y_{i}-y_{j})^{2}<br>$$</p>
 <blockquote>
 <p>以上有点像<em>dirichlet</em> energy。</p>
-<p><em>dirichlet</em> energy：<br>$$<br>tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _{i,j} W<a href="x%5Bj%5D-x%5Bi%5D">i,j</a>^2<br>$$<br>进一步归一化：<br>$$<br>tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _{i,j} W<a href="%5Cfrac%7Bx%5Bj%5D%7D%7B%5Csqrt%7B1+d_j%7D%7D-%5Cfrac%7Bx%5Bi%5D%7D%7B%5Csqrt%7B1+d_i%7D%7D">i,j</a>^2<br>$$<br>（上式来自《<a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2021/file/b6417f112bd27848533e54885b66c288-Paper.pdf">Dirichlet Energy Constrained Learning for Deep Graph Neural Networks</a>》）</p>
+<p><em>dirichlet</em> energy：<br>$$<br>tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _{i,j}W<a href="x%5Bj%5D-x%5Bi%5D">i,j</a>^2<br>$$<br>进一步归一化：<br>$$<br>tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _{i,j}W<a href="%5Cfrac%7Bx%5Bj%5D%7D%7B%5Csqrt%7B1+d_j%7D%7D-%5Cfrac%7Bx%5Bi%5D%7D%7B%5Csqrt%7B1+d_i%7D%7D">i,j</a>^2<br>$$<br>（上式来自《<a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2021/file/b6417f112bd27848533e54885b66c288-Paper.pdf">Dirichlet Energy Constrained Learning for Deep Graph Neural Networks</a>》）</p>
 <p>或<br>$$<br>tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{4}\sum _{i,j}W[i,j]|\frac{x[j]}{\sqrt{d_j}}-\frac{x[i]}{\sqrt{d_i}}|_2^2<br>$$<br>（上式来自《<a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=kS7ED7eE74">A Fractional Graph Laplacian Approach to Oversmoothing</a>》）</p>
 <p>其中d为节点的度。</p>
 </blockquote>
