@@ -147,23 +147,23 @@ var _hmt = _hmt || [];
 <p><img src="impact.png"></p>
 <p>图a和图b描述了受PGD攻击的homophilic和 heterophilic图数据集中连接节点属性特征差的密度分布。在同态图中，攻击倾向于连接属性特征差异较大的节点。防御技术可以潜在地利用这些信息来区分图中的良性和敌对边缘。然而，这不是 heterophilic图的情况。相反，我们利用节点的位置特征，使用像DeepWalk这样的位置编码技术(Perozzi等人，2014)。有趣的是，从图c中我们可以看到，在heterophilic图中，攻击倾向于连接位置特征差较大的节点。ARGS使用这些图的属性来迭代地从homophilic和 heterophilic图中修剪对抗性边。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>总所周知，两层的GCN可以表示为</p>
-<p>$$<br>Z=f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta})=\mathcal{S}(\hat{\boldsymbol{A}}\sigma(\boldsymbol{\hat{A}}\boldsymbol{X}\boldsymbol{W}<em>{(0)})\boldsymbol{W}</em>{(1)})<br>$$</p>
+<p>$$Z=f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta})=\mathcal{S}(\hat{\boldsymbol{A}}\sigma(\boldsymbol{\hat{A}}\boldsymbol{X}\boldsymbol{W}<em>{(0)})\boldsymbol{W}</em>{(1)})$$</p>
 <p>设计了一个transductive semi-supervised node classification (SSNC) loss：</p>
-<p>$$<br>\mathcal{L}<em>0(f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta}))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^C\boldsymbol{Y}<em>{l_j}\log(\boldsymbol{Z}</em>{l_j}),<br>$$</p>
+<p>$$\mathcal{L}<em>0(f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta}))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^C\boldsymbol{Y}<em>{l_j}\log(\boldsymbol{Z}</em>{l_j})$$</p>
 <p>其中$\mathcal{Y}_{TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
 <p>posion 攻击者的目标是找到一个最优的扰动A ‘，欺骗GNN做出错误的预测。这可以表述为一个双层优化问题(Zugner et al.， 2018;zugner &amp; gunnemann, 2019):</p>
-<p>$$<br>\arg\max\mathcal{L}<em>{atk}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}^{<em>}))\<br>\boldsymbol{A}^{‘}\in\Phi(\boldsymbol{A})\<br>\mathrm{s.t.}\quad\boldsymbol{\Theta}^{</em>}=\arg\min</em>{\boldsymbol{\Theta}}\mathcal{L}_{0}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}))<br>$$</p>
+<p>$$\arg\max\mathcal{L}<em>{atk}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}^{<em>}))\<br>\boldsymbol{A}^{‘}\in\Phi(\boldsymbol{A})\<br>\mathrm{s.t.}\quad\boldsymbol{\Theta}^{</em>}=\arg\min</em>{\boldsymbol{\Theta}}\mathcal{L}_{0}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}))$$</p>
 <p>其中$\Phi(A)$是满足$\frac{|A^{‘}-A|{0}}{|A|{0}}\leq\Delta$的领接矩阵。$\mathcal{L}_{atk}$ 是攻击loss函数，$\Delta$是 perturbation rate，${\Theta}^{*}$是摄动图上GNN的最优参数。</p>
 <p>为了帮助消除对抗边和鼓励特征平滑，对于homophilic graphs：</p>
-<p>$$<br>\mathcal{L}<em>{fs}(\boldsymbol{A}^{‘},\boldsymbol{X})=\frac{1}{2}\sum</em>{i,j=1}\boldsymbol{A}<em>{ij}^{‘}(\boldsymbol{x}</em>{\boldsymbol{i}}-\boldsymbol{x}_{\boldsymbol{j}})^2<br>$$</p>
+<p>$$\mathcal{L}<em>{fs}(\boldsymbol{A}^{‘},\boldsymbol{X})=\frac{1}{2}\sum</em>{i,j=1}\boldsymbol{A}<em>{ij}^{‘}(\boldsymbol{x}</em>{\boldsymbol{i}}-\boldsymbol{x}_{\boldsymbol{j}})^2$$</p>
 <p>对于heterophilic graphs：</p>
-<p>$$<br>\mathcal{L}<em>{fs}(\boldsymbol{A}’)=\frac{1}{2}\sum</em>{i,j=1}\boldsymbol{A}<em>{ij}^{‘}(\boldsymbol{y}</em>{\boldsymbol{i}}-\boldsymbol{y}_{\boldsymbol{j}})^{2},<br>$$</p>
+<p>$$\mathcal{L}<em>{fs}(\boldsymbol{A}’)=\frac{1}{2}\sum</em>{i,j=1}\boldsymbol{A}<em>{ij}^{‘}(\boldsymbol{y}</em>{\boldsymbol{i}}-\boldsymbol{y}_{\boldsymbol{j}})^{2}$$</p>
 <p>其中yi∈R P为输入图G上运行DeepWalk算法(Perozzi et al.， 2014)得到的节点i, j的位置特征，P为节点位置特征个数。</p>
 <p>另外，作者还训练了一个简单的两层MLP。mlp只使用节点特征进行训练。然后我们使用训练好的MLP来预测测试节点的标签。称这些标签为伪标签。最后，利用MLP预测置信度较高的测试节点计算测试节点CE损失项。</p>
 <p>设$Y_{P L}$为MLP预测置信度较高的测试节点集，$Y_{mlp}$为MLP的预测值。CE损失为：</p>
-<p>$$<br>\mathcal{L}<em>1(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^C\boldsymbol{Y}<em>{mlp</em>{l_j}}\log(\boldsymbol{Z}_{l_j})<br>$$</p>
+<p>$$\mathcal{L}<em>1(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^C\boldsymbol{Y}<em>{mlp</em>{l_j}}\log(\boldsymbol{Z}_{l_j})$$</p>
 <p>最终loss为：</p>
-<p>$$<br>\mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({\boldsymbol{m}<em>{g}\odot\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{m}</em>{\theta}\odot\boldsymbol{\Theta}))+\beta\mathcal{L}<em>{fs}(\boldsymbol{m}</em>{g}\odot\boldsymbol{A}^{‘},\boldsymbol{X})\+\gamma\mathcal{L}<em>{1}(f({\boldsymbol{m}</em>{g}\odot\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{m}<em>{\theta}\odot\boldsymbol{\Theta}))+\lambda</em>{1}||\boldsymbol{m}<em>{g}||</em>{1}+\lambda_{2}||\boldsymbol{m}<em>{\theta}||</em>{1}<br>$$</p>
+<p>$$\mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({\boldsymbol{m}<em>{g}\odot\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{m}</em>{\theta}\odot\boldsymbol{\Theta}))+\beta\mathcal{L}<em>{fs}(\boldsymbol{m}</em>{g}\odot\boldsymbol{A}^{‘},\boldsymbol{X})\+\gamma\mathcal{L}<em>{1}(f({\boldsymbol{m}</em>{g}\odot\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{m}<em>{\theta}\odot\boldsymbol{\Theta}))+\lambda</em>{1}||\boldsymbol{m}<em>{g}||</em>{1}+\lambda_{2}||\boldsymbol{m}<em>{\theta}||</em>{1}$$</p>
 <p>其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m_\theta$用于模型权重。</p>
 <p><img src="algo.png"></p>
 <h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="UGS.png"></p>
