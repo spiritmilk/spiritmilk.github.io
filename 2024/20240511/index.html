@@ -153,7 +153,7 @@ var _hmt = _hmt || [];
 <p>其中$\mathcal{Y}_{TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
 <p>posion 攻击者的目标是找到一个最优的扰动A ‘，欺骗GNN做出错误的预测。这可以表述为一个双层优化问题(Zugner et al.， 2018;zugner &amp; gunnemann, 2019):</p>
 <p>$$<br>\arg\max\mathcal{L}<em>{atk}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}^{<em>}))\<br>\boldsymbol{A}^{‘}\in\Phi(\boldsymbol{A})\<br>\mathrm{s.t.}\quad\boldsymbol{\Theta}^{</em>}=\arg\min</em>{\boldsymbol{\Theta}}\mathcal{L}_{0}(f({\boldsymbol{A}^{‘},\boldsymbol{X}},\boldsymbol{\Theta}))<br>$$</p>
-<p>其中$\Phi(A)$是满足$\frac{|A^{‘}-A|{0}}{|A|{0}}\leq\Delta$的领接矩阵。$\mathcal{L}_{atk}$是攻击loss函数，$\Delta$是 perturbation rate，${\Theta}^{*}$是摄动图上GNN的最优参数。</p>
+<p>其中$\Phi(A)$是满足$\frac{|A^{‘}-A|{0}}{|A|{0}}\leq\Delta$的领接矩阵。$\mathcal{L}_{atk}$ 是攻击loss函数，$\Delta$是 perturbation rate，${\Theta}^{*}$是摄动图上GNN的最优参数。</p>
 <p>为了帮助消除对抗边和鼓励特征平滑，对于homophilic graphs：</p>
 <p>$$<br>\mathcal{L}<em>{fs}(\boldsymbol{A}^{‘},\boldsymbol{X})=\frac{1}{2}\sum</em>{i,j=1}\boldsymbol{A}<em>{ij}^{‘}(\boldsymbol{x}</em>{\boldsymbol{i}}-\boldsymbol{x}_{\boldsymbol{j}})^2<br>$$</p>
 <p>对于heterophilic graphs：</p>
