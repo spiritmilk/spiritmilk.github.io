@@ -147,7 +147,7 @@ var _hmt = _hmt || [];
 <p><img src="impact.png"></p>
 <p>图a和图b描述了受PGD攻击的homophilic和 heterophilic图数据集中连接节点属性特征差的密度分布。在同态图中，攻击倾向于连接属性特征差异较大的节点。防御技术可以潜在地利用这些信息来区分图中的良性和敌对边缘。然而，这不是 heterophilic图的情况。相反，我们利用节点的位置特征，使用像DeepWalk这样的位置编码技术(Perozzi等人，2014)。有趣的是，从图c中我们可以看到，在heterophilic图中，攻击倾向于连接位置特征差较大的节点。ARGS使用这些图的属性来迭代地从homophilic和 heterophilic图中修剪对抗性边。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>总所周知，两层的GCN可以表示为</p>
-<p>$$Z=f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta})=\mathcal{S}(\hat{\boldsymbol{A}}\sigma(\boldsymbol{\hat{A}}\boldsymbol{X}\boldsymbol{W}<em>{(0)})\boldsymbol{W}</em>{(1)})$$</p>
+<p>$$<br>Z=f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta})=\mathcal{S}(\hat{\boldsymbol{A}}\sigma(\boldsymbol{\hat{A}}\boldsymbol{X}\boldsymbol{W}<em>{(0)})\boldsymbol{W}</em>{(1)})<br>$$</p>
 <p>设计了一个transductive semi-supervised node classification (SSNC) loss：</p>
 <p>$$\mathcal{L}<em>0(f({\boldsymbol{A},\boldsymbol{X}},\boldsymbol{\Theta}))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^C\boldsymbol{Y}<em>{l_j}\log(\boldsymbol{Z}</em>{l_j})$$</p>
 <p>其中$\mathcal{Y}_{TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
