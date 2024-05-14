@@ -157,7 +157,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <p>其中yi∈R P为输入图G上运行DeepWalk算法(Perozzi et al.， 2014)得到的节点i, j的位置特征，P为节点位置特征个数。</p>
 <p>另外，作者还训练了一个简单的两层MLP。mlp只使用节点特征进行训练。然后我们使用训练好的MLP来预测测试节点的标签。称这些标签为伪标签。最后，利用MLP预测置信度较高的测试节点计算测试节点CE损失项。</p>
-<p>设$Y_{P L}$为MLP预测置信度较高的测试节点集，$Y_{mlp}$为MLP的预测值。CE损失为：<br>$$<br>\mathcal{L}<em>1(f({A’},X},\Theta))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^CY_{mlp_{l_j}}\log(Z_{l_j})<br>$$<br>最终loss为：<br>$$<br>\mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\beta\mathcal{L}<em>{fs}(m</em>{g}\odot A’,X)\+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))+\lambda_{1}||m_{g}||<em>{1}+\lambda</em>{2}||m_{\theta}||_{1}<br>$$<br>其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m_\theta$用于模型权重。</p>
+<p>设$Y_{P L}$为MLP预测置信度较高的测试节点集，$Y_{mlp}$为MLP的预测值。CE损失为：<br>$$<br>\mathcal{L}<em>1(f({A’,X},\Theta))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^CY_{mlp_{l_j}}\log(Z_{l_j})<br>$$<br>最终loss为：<br>$$<br>\mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\beta\mathcal{L}<em>{fs}(m</em>{g}\odot A’,X)\+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))+\lambda_{1}||m_{g}||<em>{1}+\lambda</em>{2}||m_{\theta}||_{1}<br>$$<br>其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m_\theta$用于模型权重。</p>
 <p><img src="algo.png"></p>
 <h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="UGS.png"></p>
 <p><img src="result.png"></p>
