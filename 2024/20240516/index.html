@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">785</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -143,6 +143,13 @@ var _hmt = _hmt || [];
 <h3 id="视觉识别任务的序列是否很长"><a href="#视觉识别任务的序列是否很长" class="headerlink" title="视觉识别任务的序列是否很长"></a>视觉识别任务的序列是否很长</h3><p>对于ImageNet上的图像分类，典型的输入图像大小为 224$^{2}$,从而产生块大小为 16$^{2}$的 14$^{2}=196$标记。显然，196 远小于$\tau_\mathrm{small}$和$\tau_\mathrm{base}$ ,表明 ImageNet 上的图像分类不符合长序列任务的条件。</p>
 <p>对于 COCO 上的对象检测和实例分割，推理图像大小为$800\times1280$,对于 ADE2oK 上的语义分割，推理图像大小为$512\times2048$ ,令牌数量约为4K，给定补丁大小$16^2$。从$4K&gt;\tau_\mathrm{small}$和$4K\approx\tau_\mathrm{base}$开始，COCO上的检测和ADE2oK上的分割都可以被认为是长序列任务。</p>
 <h3 id="视觉识别任务需要因果标记混合模式吗"><a href="#视觉识别任务需要因果标记混合模式吗" class="headerlink" title="视觉识别任务需要因果标记混合模式吗"></a>视觉识别任务需要因果标记混合模式吗</h3><p>作者指出，完全可见的令牌混合模式允许不受限制的混合范围，而因果模式则限制当前令牌只能访问先前令牌的信息。视觉识别被归类为理解任务，其中模型可以立即看到整个图像，从而消除了对令牌混合的限制。对令牌混合施加额外的限制可能会降低模型性能。</p>
+<h2 id="实验验证"><a href="#实验验证" class="headerlink" title="实验验证"></a>实验验证</h2><p><img src="x6.png"></p>
+<p>Gated CNN 块的算法的PyTorch 代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GatedCNNBlock</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, dim, expension_ratio=<span class="number">8</span>/<span class="number">3</span>, kernel_size=<span class="number">7</span>, conv_ratio=<span class="number">1.0</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">norm_layer=partial(<span class="params">nn.LayerNorm,eps=<span class="number">1e-6</span></span>),</span></span></span><br><span class="line"><span class="params"><span class="function">act_layer=nn.GELU,</span></span></span><br><span class="line"><span class="params"><span class="function">drop_path=<span class="number">0.</span></span>):</span></span><br><span class="line"><span class="built_in">super</span>().__init__()</span><br><span class="line">self.norm = norm_layer(dim)</span><br><span class="line">hidden = <span class="built_in">int</span>(expension_ratio * dim)</span><br><span class="line">self.fc1 = nn.Linear(dim, hidden * <span class="number">2</span>)</span><br><span class="line">self.act = act_layer()</span><br><span class="line">conv_channels = <span class="built_in">int</span>(conv_ratio * dim)</span><br><span class="line">self.split_indices = (hidden, hidden - conv_channels, conv_channels)</span><br><span class="line">self.conv = nn.Conv2d(conv_channels, conv_channels, kernel_size=kernel_size, padding=kernel_size//<span class="number">2</span>, groups=conv_channels)</span><br><span class="line">self.fc2 = nn.Linear(hidden, dim)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">shortcut = x <span class="comment"># [B, H, W, C] = x.shape</span></span><br><span class="line">x = self.norm(x)</span><br><span class="line">g, i, c = torch.split(self.fc1(x), self.split_indices, dim=-<span class="number">1</span>)</span><br><span class="line">c = c.permute(<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>) <span class="comment"># [B, H, W, C] -&gt; [B, C, H, W]</span></span><br><span class="line">c = self.conv(c)</span><br><span class="line">c = c.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>) <span class="comment"># [B, C, H, W] -&gt; [B, H, W, C]</span></span><br><span class="line">x = self.fc2(self.act(g) * torch.cat((i, c), dim=-<span class="number">1</span>))</span><br><span class="line"><span class="keyword">return</span> x + shortcut</span><br></pre></td></tr></table></figure>
+
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>下表显示了224*224分辨率下模型在ImageNet上的性能。我们的MambaOut模型采用gate CNN块[60]。Mamba区块源自Gated CNN区块，包含了一个额外的SSM(状态空间模型)。很明显，视觉mamba模型不如MambaOut的性能，更不用说超越最先进的卷积或卷积注意力混合模型了。注意，vmamba9将mamba块的元架构修改为MetaFormer，不同于其他可视化mamba模型和MambaOut</p>
+<p><img src="imagenet.jpg"></p>
+<h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p><img src="seg1.jpg"></p>
  
       <!-- reward -->
       
