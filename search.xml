@@ -3,15 +3,14 @@
   <entry>
     <title>MambaOut-Do We Really Need Mamba for Vision?</title>
     <url>/2024/20240516/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>mamba是继transformer之后大火的结构之一。也涌现了各种mamba，各种领域的mamba。本博客之前也介绍了这一算法。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>mamba是继transformer之后大火的结构之一。也涌现了各种mamba，各种领域的mamba。本博客<a href="../20240131/">之前</a>也介绍了这一算法。</p>
 <p>出自NUS的Weihao Yu, Xinchao Wang等人提出了纯卷积的mamaout意图打败mamba。</p>
 <p>MambaOut 模型在 ImageNet 图像分类上超越了所有视觉 Mamba 模型，表明 Mamba 对于该任务确实是不必要的。至于检测和分割，MambaOut 无法与最先进的视觉 Mamba 模型的性能相媲美，这展示了 Mamba 在长序列视觉任务中的潜力。</p>
 <p>论文：<a href="https://arxiv.org/abs/2405.07992">arxiv</a></p>
 <p>代码：<a href="https://github.com/yuweihao/MambaOut">github</a></p>
-<p><a href="../20240131/">点击这里查看目标文件</a></p>
 <span id="more"></span>
 
-<p>aaa</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="mambaout.png"></p>
 ]]></content>
   </entry>
   <entry>
