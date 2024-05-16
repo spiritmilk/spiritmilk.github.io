@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MambaOut-Do We Really Need Mamba for Vision?</title>
+    <url>/2024/20240516/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>mamba是继transformer之后大火的结构之一。也涌现了各种mamba，各种领域的mamba。本博客之前也介绍了这一算法。</p>
+<p>出自NUS的Weihao Yu, Xinchao Wang等人提出了纯卷积的mamaout意图打败mamba。</p>
+<p>MambaOut 模型在 ImageNet 图像分类上超越了所有视觉 Mamba 模型，表明 Mamba 对于该任务确实是不必要的。至于检测和分割，MambaOut 无法与最先进的视觉 Mamba 模型的性能相媲美，这展示了 Mamba 在长序列视觉任务中的潜力。</p>
+<p>论文：<a href="https://arxiv.org/abs/2405.07992">arxiv</a></p>
+<p>代码：<a href="https://github.com/yuweihao/MambaOut">github</a></p>
+<p><a href="../20240131/">点击这里查看目标文件</a></p>
+<span id="more"></span>
+
+<p>aaa</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Graph-MLP- Node Classification without Message Passing in Graph</title>
     <url>/2024/20240513/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《<a href="https://arxiv.org/abs/2106.04051">Graph-MLP: Node Classification without Message Passing in Graph</a>》【arxiv 2021】</p>
@@ -82,7 +96,7 @@
   <entry>
     <title>FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS</title>
     <url>/2024/20240511/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《<a href="https://openreview.net/pdf?id=FcBmz8nLnq">FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS </a>》ICLR 2024</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《<a href="https://openreview.net/pdf?id=FcBmz8nLnq">FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS </a>》NeurIPS 2023&amp;ICLR 2024</p>
 <span id="more"></span>
 
 <h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h3 id="Graph-Lottery-Ticket-Hypothesis"><a href="#Graph-Lottery-Ticket-Hypothesis" class="headerlink" title="Graph Lottery Ticket Hypothesis"></a>Graph Lottery Ticket Hypothesis</h3><h4 id="The-Lottery-Ticket-Hypothesis"><a href="#The-Lottery-Ticket-Hypothesis" class="headerlink" title="The Lottery Ticket Hypothesis"></a>The Lottery Ticket Hypothesis</h4><p>该论文首先提到了ICLR 2019最佳论文:The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks。该论文提出了彩票假说：密集的、随机初始化的、前馈网络包含子网络（中奖票），这些子网络在孤立地训练时，在类似数量的迭代中达到与原始网络相当的测试精度。</p>
