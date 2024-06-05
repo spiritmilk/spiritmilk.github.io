@@ -176,7 +176,7 @@ var _hmt = _hmt || [];
        
 <h2 itemprop="name">
   <a class="article-title" href="/2024/20240605/"
-    >20240605</a> 
+    >Softmax Linear Units Softmax</a> 
 </h2>
  
 
@@ -192,7 +192,8 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
        
   <p>出自Anthropic’s transformer circuits thread</p>
-<p><a target="_blank" rel="noopener" href="https://transformer-circuits.pub/2022/solu/index.html">占位</a></p> 
+<p><a target="_blank" rel="noopener" href="https://transformer-circuits.pub/2022/solu/index.html">Softmax Linear Units Softmax</a></p>
+<p>在本文中，我们报告了一种架构变化，该变化似乎大大增加了看起来“可解释”的 MLP 神经元的比例（即响应输入的可表达属性），而对 ML 性能的影响很小甚至没有。具体来说，我们用 softmax 线性单元（我们称之为 SoLU）替换激活函数，并表明这显着增加了 MLP 层中神经元的比例，这些神经元在快速调查中似乎对应于人类容易理解的概念、短语或类别，通过随机和盲法实验测量。然后，我们研究 SoLU 模型，并使用它们来获得有关 Transformer 中信息如何处理的一些新见解。然而，我们也发现了一些证据，证明叠加假设是正确的，并且天下没有免费的午餐：SoLU 可能通过“隐藏”其他特征来使某些特征更容易解释，从而使它们更加难以解释。尽管如此，SoLU 似乎仍然是一个净胜利，因为实际上它大大增加了我们能够理解的神经元的比例。</p> 
       <a class="article-more-link" href="/2024/20240605/"
         >阅读更多...</a
       >

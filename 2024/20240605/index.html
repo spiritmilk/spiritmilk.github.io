@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>20240605 |  小熊的小站</title>
+      <title>Softmax Linear Units Softmax |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  20240605
+  Softmax Linear Units Softmax
 </h1>
  
 
@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">720</span>
+            <span class="post-count">1.5k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">5 min</span>
         </span>
     </span>
 </div>
@@ -128,7 +128,8 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
        
   <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>出自Anthropic’s transformer circuits thread</p>
-<p><a target="_blank" rel="noopener" href="https://transformer-circuits.pub/2022/solu/index.html">占位</a></p>
+<p><a target="_blank" rel="noopener" href="https://transformer-circuits.pub/2022/solu/index.html">Softmax Linear Units Softmax</a></p>
+<p>在本文中，我们报告了一种架构变化，该变化似乎大大增加了看起来“可解释”的 MLP 神经元的比例（即响应输入的可表达属性），而对 ML 性能的影响很小甚至没有。具体来说，我们用 softmax 线性单元（我们称之为 SoLU）替换激活函数，并表明这显着增加了 MLP 层中神经元的比例，这些神经元在快速调查中似乎对应于人类容易理解的概念、短语或类别，通过随机和盲法实验测量。然后，我们研究 SoLU 模型，并使用它们来获得有关 Transformer 中信息如何处理的一些新见解。然而，我们也发现了一些证据，证明叠加假设是正确的，并且天下没有免费的午餐：SoLU 可能通过“隐藏”其他特征来使某些特征更容易解释，从而使它们更加难以解释。尽管如此，SoLU 似乎仍然是一个净胜利，因为实际上它大大增加了我们能够理解的神经元的比例。</p>
 <span id="more"></span>
 
 <h2 id="SOLU的提出"><a href="#SOLU的提出" class="headerlink" title="SOLU的提出"></a>SOLU的提出</h2><p>GeLU是一种现代transformer常用的激活函数</p>
@@ -153,6 +154,12 @@ var _hmt = _hmt || [];
 <p><img src="downstream.png"></p>
 <p>上图为下游任务的性能。由于SoLU 使用基线的一系列超参数，并且 SoLU 的最佳超参数可能与基线模型的最佳超参数不同。但表明 SoLU 至少与基线一样好。</p>
 <p>总的来说，我们得出的结论是，与标准 Transformer 相比，带有 LayerNorm 的 SoLU 似乎实现了有竞争力的 ML 和训练性能。</p>
+<h2 id="可解释性"><a href="#可解释性" class="headerlink" title="可解释性"></a>可解释性</h2><h3 id="定量结果"><a href="#定量结果" class="headerlink" title="定量结果"></a>定量结果</h3><p>我们关于哪些部分的神经元可以初步解释的实验结果如下图 4所示。对于从 1 层到 40 层的模型，SoLU 模型的神经元比基线的神经元更具可解释性，增加了大约 25 个绝对百分点，从约 35% 可解释到约 60% 可解释。  这将可解释神经元的比例增加了 1.7 倍。  尽管效果大小适中，但样本量、一致的间隙和一致的可解释神经元绝对率表明 SoLU 模型具有真实且持久的效果。</p>
+<p><img src="fraction.png"></p>
+<p> 蓝线显示了标记为初步表明基线变换器中模型大小范围从 1 到 64 层的解释的神经元分数。  红线显示了标记为初步暗示 SoLU 转换器中的解释的神经元部分。  绿点显示了标记为初步表明 16 层模型中带有额外层范数但不带有 SoLU 的解释的神经元的分数。  总体而言，在 1 层到 40 层的模型中，SoLU 将可解释神经元的比例增加了约 25%，而在 64 层模型中，增益要小得多。</p>
+<p>我们不知道为什么 64L 模型从 SoLU 中受益较少，但一种可能的理论是，随着模型变得更大，它们的神经元代表更复杂的概念并且变得更难以理解。这表明神经元仍然是可解释的，但不再“容易解释”。</p>
+<h3 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h3><p><img src="1layer.png"></p>
+<p>1 层 SoLU 模型中的神经元似乎对 Base64 编码的文本进行触发（左）。神经元对 logits 的扩展权重（右）增加了混合情况下很少出现在单词中的一堆标记的概率，同时降低了代表英语单词的多个标记的概率，这一事实证实了这一点。可以将其理解为一个可解释的规则，即在 Base64 文本上，下一个标记更有可能也是 Base64。</p>
  
       <!-- reward -->
       
