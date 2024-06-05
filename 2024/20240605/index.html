@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">123</span>
+            <span class="post-count">720</span>
         </span>
     </span>
 
@@ -112,13 +112,15 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
@@ -129,14 +131,28 @@ var _hmt = _hmt || [];
 <p><a target="_blank" rel="noopener" href="https://transformer-circuits.pub/2022/solu/index.html">占位</a></p>
 <span id="more"></span>
 
-<p>GeLU是一种现代transformer常用的激活函数</p>
+<h2 id="SOLU的提出"><a href="#SOLU的提出" class="headerlink" title="SOLU的提出"></a>SOLU的提出</h2><p>GeLU是一种现代transformer常用的激活函数</p>
 <p>$\mathrm{GELU}(x)=xP(X\leq x)=x\Phi(x)=x\cdot\frac{1}{2}\left[1+\mathrm{erf}(x/\sqrt{2})\right]$</p>
 <p>一种近似版本：</p>
 <p>$0.5x\Big(1+\tanh\Big[\sqrt{2/\pi}\Big(x+0.044715x^{3}\Big)\Big]\Big)$ 或$x\sigma(1.702x)$</p>
 <p>于是Anthropic研究者们考虑了将sigmoid换为softmax。</p>
 <p>将此激活函数称为“softmax 线性单元”或 SoLU：</p>
 <p>SoLU(x)=x*softmax(x)</p>
+<p>当 SoLU 应用于大值和小值的向量时，大值将抑制较小值：</p>
 <p>SoLU(4,1,4,1)=（1.9051, 0.0237, 1.9051, 0.0237）≈(2, 0, 2, 0)</p>
+<p>也许更重要的是，保留了大的基础对齐向量，而跨多个维度分布的特征将被抑制到较小的量级：</p>
+<p>SoLU(4,0,0,0) ≈ (4,0,0,0)</p>
+<p>SoLU(1,1,1,1) ≈ ($\frac{1}{4}$, $\frac{1}{4}$, $\frac{1}{4}$, $\frac{1}{4}$)</p>
+<p>初步实验发现，简单地使用 SoLU 激活函数似乎可以使神经元更容易解释，但会付出很大的性能代价。一般来说，没有任何其他改变的 SoLU 模型的性能相当于比实际尺寸小 30-50% 的模型，较大的模型受到的影响更大。  如果叠加假设成立，这正是我们所期望看到的——我们可以减少多语义性，但这样做会损害网络的机器学习性能。</p>
+<p>然而，我们凭经验发现，通过在 SoLU 之后应用额外的 LayerNorm（类似于 </p>
+<p>[25]</p>
+<p> ），可以修复这种性能损失，同时保留可解释性增益。这极大地提高了 ML 性能，因此对于我们的大多数实验，我们实际应用的函数是 2 但请注意，我们尝试解释的激活是在额外层规范之前，而不是之后：<br>$$<br>f(x)=LN(SoLU(x))=LN(x*softmax(x))<br>$$</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><strong>“请注意，以任意性能代价来构建提高可解释性的架构既微不足道又无趣。”</strong></p>
+<p><img src="train_curve.png"></p>
+<p> 如图所示，SoLU 大致相当于所有模型大小的基线，始终落在模型大小的 1.05 倍和 0.95 倍乘数之间（与大多数情况下相比，大致相当于 ±0.01 纳特的损失变化）总共损失 1.6-3 纳特）。  尽管所有差异都很小并且更有可能是随机噪声（在 50B 模型上，SoLU 相当于将模型大小增加 1.01 倍），但在大模型尺寸下，SoLU 的性能可能会比基线稍好一些。 ）。</p>
+<p><img src="downstream.png"></p>
+<p>上图为下游任务的性能。由于SoLU 使用基线的一系列超参数，并且 SoLU 的最佳超参数可能与基线模型的最佳超参数不同。但表明 SoLU 至少与基线一样好。</p>
+<p>总的来说，我们得出的结论是，与标准 Transformer 相比，带有 LayerNorm 的 SoLU 似乎实现了有竞争力的 ML 和训练性能。</p>
  
       <!-- reward -->
       
