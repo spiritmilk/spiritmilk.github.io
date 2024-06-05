@@ -138,7 +138,7 @@ var _hmt = _hmt || [];
 <span id="more"></span>
 
 <h3 id="本文"><a href="#本文" class="headerlink" title="本文"></a>本文</h3><p>本文这项工作不仅是第一个将 LTH 推广到 GNN 的工作，而且也是第一个将 LTH 从简化模型扩展到新的数据模型联合简化前景的工作。</p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518120157877.png" alt="image-20240518120157877"></p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><img src="image-20240518120157877.png" alt="image-20240518120157877"></p>
 <h5 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><p>GLT 的推理时间复杂度为$o(\mathcal{L}\times\left|\boldsymbol{m}_g\odot\boldsymbol{A}\right|_0\times\mathcal{F}+\mathcal{L}\times\left|\boldsymbol{m}_\theta\right|_0\times\left|\mathcal{V}\right|\times\mathcal{F}^2)$,其中 L 是层数，$\left|\boldsymbol{m}_g\odot\boldsymbol{A}\right|_0$是稀疏图中剩余边的数量，F是节点特征的维度，$\left|\mathcal{V}\right|$是节点的数量。内存复杂度为$o(\mathcal{L}\times\left|\mathcal{V}\right|\times\mathcal{F}+\mathcal{L}\times\left|m_\theta\right|_0\times\mathcal{F}^2)$。在我们的实现中，剪枝的边将从$\varepsilon$ （边集合）中删除，并且不会参与下一轮的计算。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a><strong>代码</strong></h4><p>我们来直接看<a target="_blank" rel="noopener" href="https://github.com/VITA-Group/Unified-LTH-GNN/blob/main/NodeClassification/main_pruning_imp.py">代码</a>：</p>
 <h5 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h5><p>主函数中：</p>
@@ -172,7 +172,7 @@ var _hmt = _hmt || [];
 <p>算法</p>
 <p>DiffPool+mask+GIR（Gradually Increased Regularization）</p>
 <p>它的mask矩阵只作用在领接矩阵上。</p>
-<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518184812842.png" alt="image-20240518184812842"></p>
+<p><img src="image-20240518184812842.png" alt="image-20240518184812842"></p>
 <p>整体算法逻辑为：</p>
 <p>1.DiffPool模型训练+GIR</p>
 <p>2.one_shot_prune</p>
@@ -181,10 +181,10 @@ var _hmt = _hmt || [];
 
 <h3 id="DiffPool"><a href="#DiffPool" class="headerlink" title="DiffPool"></a>DiffPool</h3><p>这部分该论文的代码和dgl库的Diffpool完全一样，该论文加了个mask。</p>
 <p>例如下图所示，多了红框处的代码。</p>
-<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518185703168.png" alt="image-20240518185703168"></p>
+<p><img src="image-20240518185703168.png" alt="image-20240518185703168"></p>
 <p>该论文出自NeurIPS 2018，它是一种可微图池化模块，可以生成图的层次表示，并可以以端到端的方式与各种图神经网络架构相结合。</p>
 <p>模型框架：</p>
-<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518185452420.png" alt="image-20240518185452420"></p>
+<p><img src="image-20240518185452420.png" alt="image-20240518185452420"></p>
 <p>DIFFPOOL 可以表达为 :</p>
 <p>$\text{}\left(A^{(l+1)},X^{(l+1)}\right)=\mathrm{DiFF~POOL}\left(A^{(l)},Z^{(l)}\right)$</p>
 <p>即<br>$$<br>\begin{aligned}&amp;X^{(l+1)}=S^{(l)^{T}}Z^{(l)}\in\mathbb{R}^{n_{l+1}\times d}\quad(3)\&amp;A^{(l+1)}=S^{(l)^{T}}A^{(l)}S^{(l)}\in\mathbb{R}^{n_{l+1}\times n_{l+1}}\quad(4)\end{aligned}<br>$$<br>Z称为嵌入矩阵，S称为分配矩阵。</p>
@@ -207,7 +207,7 @@ var _hmt = _hmt || [];
 <p>loss = model.loss(ypred, graph_labels)<br>reg_loss = Regularization(model, weight_decays[int(count / 10)], masks, p=2)<br>pool_loss = cau_loss(mask, model, weight_decays[int(count / 10)])<br>my_reg = reg_loss(model)<br>loss = loss + my_reg + pool_loss</p>
 </blockquote>
 <p>即对应论文的</p>
-<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518191841521.png" alt="image-20240518191841521"></p>
+<p><img src="image-20240518191841521.png" alt="image-20240518191841521"></p>
 <p>由于正则项的系数会发生递增变化，也就是Gradually Increased Regularization。</p>
 <p>我们仔细看下去</p>
 <p>对于cau_loss，他是对mask进行正则项的计算，对应上式的第2部分：</p>
@@ -236,16 +236,16 @@ var _hmt = _hmt || [];
 <p>然而，图上的剪枝可能会降低模型的泛化性，因为 GNN 与深度学习网络（例如卷积神经网络）一样需要大量数据。</p>
 <p>此外，《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2206.08684">Sparse Double Descent: Where Network Pruning Aggravates Overfitting</a>》（ICML2022）揭示了一个相反的现象——网络剪枝有时甚至会在超稀疏和某些中度稀疏现象下恶化泛化性。该文是第一个报告稀疏双下降现象的工作。更具体地说，证明高模型稀疏度可以显着减轻过度拟合，而中等模型稀疏度可能导致更严重的过度拟合。极端的模型稀疏性 ( →100% ) 往往会丢失所有学到的信息。另外，还得到了和 <em>lottery ticket hypothesis</em> 的相反的结论，从原始初始化重新训练稀疏模型可能不会始终获胜。例如，在某些情况下，随机重新初始化的修剪模型可以在很大程度上超越在某些稀疏度下具有原始初始化的模型。</p>
 <p>这个意外问题使 GLT 在具有不同样本和实例的实际应用程序中的使用变得复杂。</p>
-<h3 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h3><p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518123750349.png" alt="image-20240518123750349"></p>
+<h3 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h3><p><img src="image-20240518123750349.png" alt="image-20240518123750349"></p>
 <p>首先，我们执行鲁棒彩票搜索（LoRS）来生成稀疏网络和图的组合。在每次迭代中，我们根据边和权重的大小来修剪边和权重，然后重新激活具有前 k 个梯度的边和权重。然后，我们在核心子图上利用 Lottery Graph Intervention (LoGI) 来推断测试分布，并将增强图传递到剪枝模型以进行下一轮训练。在最后几轮中，我们进行模型平均以进一步提高模型的泛化性。值得注意的是，LoRS 可以独立运行来发现鲁棒图彩票和我们的 LoGI，而 LoGI 算法依赖于 LoRS 识别的核心子图。我们提出的两种算法协同工作，有助于大规模 GNN 应用的落地。</p>
 <h4 id="Formulation"><a href="#Formulation" class="headerlink" title="Formulation"></a>Formulation</h4><p>本文意图解决一个更有挑战性的问题，</p>
 <p>提高模型的泛化能力。假设 $S\text{ 是环境 }^{1}$的支持（support of the environments，？），$f(·)$ 是预测函数，我们的目标是最小化不同数据分布下的经验风险：<br>$$\min\limits_{f}\max\limits_{e\in\mathcal{S}}\mathbb{E}_{(\mathcal{G},Y)\sim p(\mathcal{G},Y|e)}:[\mathcal{L}\left(f\left(\mathcal{G}\right),Y\right)|e]$$</p>
 <blockquote>
 <p>我的理解是类似于最小化$L^\infty$距离</p>
 </blockquote>
-<h4 id="Robust-Lottery-Searching-LoRS"><a href="#Robust-Lottery-Searching-LoRS" class="headerlink" title="Robust Lottery Searching (LoRS)"></a>Robust Lottery Searching (LoRS)</h4><p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518125402298.png" alt="image-20240518125402298"></p>
+<h4 id="Robust-Lottery-Searching-LoRS"><a href="#Robust-Lottery-Searching-LoRS" class="headerlink" title="Robust Lottery Searching (LoRS)"></a>Robust Lottery Searching (LoRS)</h4><p><img src="image-20240518125402298.png" alt="image-20240518125402298"></p>
 <p>前面的步骤和UGS类似，多了一步，将丢弃的边中梯度最大的若干个恢复，代码如右图红框所示。</p>
-<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518195611405.png" alt="image-20240518195611405"></p>
+<p><img src="image-20240518195611405.png" alt="image-20240518195611405"></p>
 <h4 id="lottery-Graph-Intervention-LoGI"><a href="#lottery-Graph-Intervention-LoGI" class="headerlink" title="lottery Graph Intervention (LoGI)"></a>lottery Graph Intervention (LoGI)</h4><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p>基于UGS的代码，有大量相同的地方。</p>
 <p>和UGS一样，主函数也是包括</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> .....</span><br><span class="line">	run_get_mask</span><br><span class="line">    XXXX<span class="comment">###从final_mask_dict中保存mask到rewind_weight，剪枝但保持其他权重和初始化一样</span></span><br><span class="line">    run_fix_mask</span><br></pre></td></tr></table></figure>
@@ -256,7 +256,7 @@ var _hmt = _hmt || [];
 <h2 id="《Analyzing-Adversarial-Vulnerabilities-of-Graph-Lottery-Tickets-ICASSP2024-pdf》"><a href="#《Analyzing-Adversarial-Vulnerabilities-of-Graph-Lottery-Tickets-ICASSP2024-pdf》" class="headerlink" title="《Analyzing_Adversarial_Vulnerabilities_of_Graph_Lottery_Tickets(ICASSP2024).pdf》"></a>《Analyzing_Adversarial_Vulnerabilities_of_Graph_Lottery_Tickets(ICASSP2024).pdf》</h2><p>和finding_adversarially_robust_graph lottery tickets原作者，内容基本一样。</p>
 <p>除了少了平滑项。</p>
 <h3 id="实验-2"><a href="#实验-2" class="headerlink" title="实验"></a>实验</h3><p>pass</p>
-<h2 id="《finding-adversarially-robust-graph-lottery-tickets-under-review-pdf》"><a href="#《finding-adversarially-robust-graph-lottery-tickets-under-review-pdf》" class="headerlink" title="《finding_adversarially_robust_graph lottery tickets(under review).pdf》"></a>《finding_adversarially_robust_graph lottery tickets(under review).pdf》</h2><p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240520164219825.png" alt="image-20240520164219825">被拒了。</p>
+<h2 id="《finding-adversarially-robust-graph-lottery-tickets-under-review-pdf》"><a href="#《finding-adversarially-robust-graph-lottery-tickets-under-review-pdf》" class="headerlink" title="《finding_adversarially_robust_graph lottery tickets(under review).pdf》"></a>《finding_adversarially_robust_graph lottery tickets(under review).pdf》</h2><p><img src="image-20240520164219825.png" alt="image-20240520164219825">被拒了。</p>
 <p>AC拒稿理由：</p>
 <p>本文提出了一种减少图彩票对图结构的对抗性扰动的脆弱性的技术。结果似乎对这个问题相当有效。审稿人提出了一些担忧，包括设置本身（结构扰动真的是正确的威胁模型吗？关注这一点是否依赖于其他方面不受攻击？）、方法本身的复杂性（超参数太多）以及大小正在研究的图表的数量（它们足够大吗？）。我同意第一个担忧：这真的是一个重要问题吗？如果对图彩票的对抗性攻击是一个重要问题，那么这些类型的攻击在实践中是否重要？我对接受持矛盾态度，并且基于所研究问题的重要性，我倾向于拒绝。对于这个特定问题来说，这似乎是一个合理的贡献，但问题本身却非常小众。</p>
 <h3 id="相关工作-1"><a href="#相关工作-1" class="headerlink" title="相关工作"></a>相关工作</h3><p>pass</p>
@@ -295,7 +295,7 @@ var _hmt = _hmt || [];
 <p>2)对每条边单独应用掩码只能提供对边缘的局部理解，而不是整个图的全局视图(例如，在节点分类中)或多个图(例如，在图分类中)</p>
 <p>此外，创建可训练边缘掩模的方式会使gnn的参数加倍，这在某种程度上违背了修剪的目的。</p>
 <p>因此，这些边缘掩模可能是次优的，以指导修剪。(3)不理想的图剪枝会对模型权值的剪枝产生负面影响。更糟糕的是，低质量的权值剪枝会反过来放大边缘掩模的误导信号。它们相互影响，形成恶性循环。我们将所有这些UGS的局限性归因于它的转导性质。因此，在归纳设置中进行组合修剪对于高质量中奖彩票至关重要。</p>
-<h3 id="算法-3"><a href="#算法-3" class="headerlink" title="算法"></a>算法</h3><p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518132924951.png" alt="image-20240518132924951"></p>
+<h3 id="算法-3"><a href="#算法-3" class="headerlink" title="算法"></a>算法</h3><p><img src="image-20240518132924951.png" alt="image-20240518132924951"></p>
 <p>本文提出了一个AutoMasker，具体而言，他设计了一套网络用来生成mask的选择。</p>
 <p>它使用一个GNN $g(·)$来获取每个节点的 representations。</p>
 <p>$H=g(A,X)$</p>
@@ -303,7 +303,7 @@ var _hmt = _hmt || [];
 <p>对于图，我们采用AutoMasker来预测每个图的所有边的重要性。然后根据掩码值对某图的边进行排序，对最小值为5%的边进行剪接，得到二值图掩码mG。</p>
 <p>对于GNN，我们根据权重量级对参数进行排序，并对最低量级的参数进行20%的修剪，得到二值模型掩码mΘ。在当前的稀疏度水平下，我们现在成功地得到了模型的稀疏化图g0 = (mG A, X)和稀疏化掩码mΘ。</p>
 <p>最后，我们需要检查稀疏性是否满足我们的条件。如果满足稀疏性，则算法完成;如果没有，我们需要重用找到的GLT来更新原始图和GNN模型，并迭代使用步骤1和步骤2(图1中虚线箭头)，直到满足条件。</p>
-<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20240518133345382.png" alt="image-20240518133345382"></p>
+<p><img src="image-20240518133345382.png" alt="image-20240518133345382"></p>
 <h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><h4 id="模型代码"><a href="#模型代码" class="headerlink" title="模型代码"></a>模型代码</h4><p>GAT:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GATNet</span>(<span class="params">torch.nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, train_dataset</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(GATNet, self).__init__()</span><br><span class="line">        self.conv1 = GATConv(train_dataset.num_features, <span class="number">256</span>, heads=<span class="number">4</span>)</span><br><span class="line">        self.lin1 = torch.nn.Linear(train_dataset.num_features, <span class="number">4</span> * <span class="number">256</span>)</span><br><span class="line">        self.conv2 = GATConv(<span class="number">4</span> * <span class="number">256</span>, <span class="number">256</span>, heads=<span class="number">4</span>)</span><br><span class="line">        self.lin2 = torch.nn.Linear(<span class="number">4</span> * <span class="number">256</span>, <span class="number">4</span> * <span class="number">256</span>)</span><br><span class="line">        self.conv3 = GATConv(<span class="number">4</span> * <span class="number">256</span>, train_dataset.num_classes, heads=<span class="number">6</span>, concat=<span class="literal">False</span>)</span><br><span class="line">        self.lin3 = torch.nn.Linear(<span class="number">4</span> * <span class="number">256</span>, train_dataset.num_classes)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x, edge_index, data_mask=<span class="literal">None</span></span>):</span></span><br><span class="line">        x = F.elu(self.conv1(x, edge_index, edge_weight=data_mask) + self.lin1(x))</span><br><span class="line">        x = F.elu(self.conv2(x, edge_index, edge_weight=data_mask) + self.lin2(x))</span><br><span class="line">        x = self.conv3(x, edge_index, edge_weight=data_mask) + self.lin3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
 
