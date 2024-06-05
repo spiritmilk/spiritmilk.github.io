@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.1k</span>
+            <span class="post-count">2.4k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">7 min</span>
+            <span class="post-count">8 min</span>
         </span>
     </span>
 </div>
@@ -171,6 +171,15 @@ var _hmt = _hmt || [];
 </ul>
 <h4 id="较大模型中的后层神经元（“RE-TOKENIZATION”）"><a href="#较大模型中的后层神经元（“RE-TOKENIZATION”）" class="headerlink" title="较大模型中的后层神经元（“RE-TOKENIZATION”）"></a>较大模型中的后层神经元（“RE-TOKENIZATION”）</h4><p>后期层神经元（靠近网络输出的神经元）通常会做与早期层神经元相反的事情：它们介导单词或上下文标记返回文字标记的转换。例如，最后一层中的一个神经元会触发标记“st”，同时增加后续标记是“rag”的可能性；本质上，这是一种将单词“stragglers”的表示形式逐个转换或指示为其组成标记以进行输出的方法。类似地，“nappies”输出神经元在标记“n”上触发，并增加标记“app”帮助写入“nappies”的概率。这些神经元本质上模拟了一个额外的输出词汇项，该词汇项仅在前面的标记满足某些条件时才可用。</p>
 <p><img src="retoken.png"></p>
+<h4 id="较大模型中的中间层神经元"><a href="#较大模型中的中间层神经元" class="headerlink" title="较大模型中的中间层神经元"></a>较大模型中的中间层神经元</h4><p>中间层的神经元通常代表更复杂、抽象的想法。例如，当且仅当数字涉及多个人时，有一个神经元似乎代表数字：</p>
+<p><img src="number.png"></p>
+<p>在这些层中可以发现各种各样有趣的神经元。我们观察到的一些常见类别包括：</p>
+<ul>
+<li>对特定类型的描述性从句激发的神经元：对描述声音的从句激发的神经元、对描述服装的从句激发的神经元、对音乐描述性从句激发的神经元（例如“C 大调”）、对从句激发的神经元描述写在物体上的文字，…</li>
+<li>对话语标记做出反应的神经元：对强调某件事的重要性的标记做出反应的神经元（例如“令人惊奇的是”），对对冲做出反应的神经元（例如“在我看来……”），……</li>
+<li>消除对标记的特殊解释的歧义的神经元：当用作成绩时对 A/B/C/D 做出响应的神经元，对日期的“日”部分做出响应的神经元，对数字进行响应的神经元是菜谱中的一个数量，一个响应字符串中 C 风格格式说明符（例如“%s”或“%d”）的神经元，……</li>
+</ul>
+<p>但是有很多神经元很难归入这些类别，例如似乎有助于解析 ASCII 表列的神经元。</p>
  
       <!-- reward -->
       
