@@ -219,6 +219,64 @@ var _hmt = _hmt || [];
 
     
     <article
+  id="post-20240521"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/20240521/"
+    >图彩票</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/20240521/" class="article-date">
+  <time datetime="2024-05-21T07:42:47.000Z" itemprop="datePublished">2024-05-21</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文将介绍一系列的图彩票论文。</p>
+<hr>
+<h2 id="《a-unified-lottery-ticket-hypothesis-for-graph-neural-networks-2021ICML-pdf》"><a href="#《a-unified-lottery-ticket-hypothesis-for-graph-neural-networks-2021ICML-pdf》" class="headerlink" title="《a unified lottery ticket hypothesis for graph neural networks(2021ICML).pdf》"></a>《a unified lottery ticket hypothesis for graph neural networks(2021ICML).pdf》</h2><h3 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h3><h4 id="Lottery-Ticket-Hypothesis"><a href="#Lottery-Ticket-Hypothesis" class="headerlink" title="Lottery Ticket Hypothesis"></a>Lottery Ticket Hypothesis</h4><p>该论文首先提到了ICLR 2019最佳论文:The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks。该论文提出了彩票假说：密集的、随机初始化的、前馈网络包含子网络（中奖票），这些子网络在孤立地训练时，在类似数量的迭代中达到与原始网络相当的测试精度。</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1905.01067">《Deconstructing Lottery Tickets: Zeros, Signs, and the Supermask》</a>也有类似的内容。展示了为什么将权重设置为零很重要，如何使用符号来进行重新初始化的网络训练，以及为什么掩蔽的行为类似于训练。最后，我们发现了超级掩码的存在，这些掩码可以应用于未经训练的随机初始化网络，以生成性能远远优于偶然的模型（MNIST 上为 86%，CIFAR-10 上为 41%）。</p>
+<p>ICLR2020 的《<a target="_blank" rel="noopener" href="http://proceedings.mlr.press/v119/malach20a/malach20a.pdf">Proving the Lottery Ticket Hypothesis: Pruning is All You Need</a>宣称证明了The Lottery Ticket Hypothesis。一句话概括：只要对随机初始化的神经网络做个好剪枝，不怎么训练也能有个好效果。</p>
+<p>该文证明了：</p>
+<p>Fix some target fully-connected ReLU-network F of width k, depth d and input dimension n.Fix$\delta&gt;0$.Then,arandomly-initialized network $G$ of width $poly(d,n,k,1/\epsilon,\log(1/\delta))$ and depth 2d, has w.p. $\geq1-\delta$ a subnetwork $\tilde{G}$ that approximates F up to $\epsilon.$</p>
+<p>简单的说，给定一个深度为d的Relu目标网络。那么一个深度为2d，且足够宽的随机网络里，必然可以找到一个可以逼近目标网络的子网络。</p> 
+      <a class="article-more-link" href="/2024/20240521/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-20240516"
   class="article article-type-post"
   itemscope
@@ -643,63 +701,6 @@ var _hmt = _hmt || [];
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-20240229"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/20240229/"
-    >BitNet b1.58</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/20240229/" class="article-date">
-  <time datetime="2024-02-29T04:29:26.000Z" itemprop="datePublished">2024-02-29</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>微软研究院、国科大同一团队（作者部分变化）的研究者推出了 BitNet 的重要 1-bit 变体，即 BitNet b1.58，其中每个参数都是三元并取值为 {-1, 0, 1}。他们在原来的 1-bit 上添加了一个附加值 0，得到二进制系统中的 1.58 bits。</p>
-<blockquote>
-<p> log_2(3)=1.58</p>
-</blockquote>
-<p>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.17764.pdf">The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits</a></p> 
-      <a class="article-more-link" href="/2024/20240229/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" rel="tag">自然语言处理</a></li></ul>
 
     </footer>
   </div>
