@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.5k</span>
+            <span class="post-count">2.1k</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">5 min</span>
+            <span class="post-count">7 min</span>
         </span>
     </span>
 </div>
@@ -158,8 +158,19 @@ var _hmt = _hmt || [];
 <p><img src="fraction.png"></p>
 <p> 蓝线显示了标记为初步表明基线变换器中模型大小范围从 1 到 64 层的解释的神经元分数。  红线显示了标记为初步暗示 SoLU 转换器中的解释的神经元部分。  绿点显示了标记为初步表明 16 层模型中带有额外层范数但不带有 SoLU 的解释的神经元的分数。  总体而言，在 1 层到 40 层的模型中，SoLU 将可解释神经元的比例增加了约 25%，而在 64 层模型中，增益要小得多。</p>
 <p>我们不知道为什么 64L 模型从 SoLU 中受益较少，但一种可能的理论是，随着模型变得更大，它们的神经元代表更复杂的概念并且变得更难以理解。这表明神经元仍然是可解释的，但不再“容易解释”。</p>
-<h3 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h3><p><img src="1layer.png"></p>
+<h3 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h3><h4 id="一层模型神经元"><a href="#一层模型神经元" class="headerlink" title="一层模型神经元"></a>一层模型神经元</h4><p><img src="1layer.png"></p>
 <p>1 层 SoLU 模型中的神经元似乎对 Base64 编码的文本进行触发（左）。神经元对 logits 的扩展权重（右）增加了混合情况下很少出现在单词中的一堆标记的概率，同时降低了代表英语单词的多个标记的概率，这一事实证实了这一点。可以将其理解为一个可解释的规则，即在 Base64 文本上，下一个标记更有可能也是 Base64。</p>
+<h4 id="较大模型中的前面的神经元（”DE-TOKENIZATION”）"><a href="#较大模型中的前面的神经元（”DE-TOKENIZATION”）" class="headerlink" title="较大模型中的前面的神经元（”DE-TOKENIZATION”）"></a>较大模型中的前面的神经元（”DE-TOKENIZATION”）</h4><p>接下来我们将探索转向更大的型号——我们剩下的示例将来自 16L、24L、40L 和 64L 型号的混合。  我们最有趣的发现之一是，大型网络的早期、中期和晚期层的神经元往往扮演着非常不同类型的角色，就像已知的卷积网络视觉模型不同深度的特征是不同的一样。  我们将在各自的部分中讨论每个神经元，从前面层的神经元开始。</p>
+<p>前面层神经元似乎经常参与将标记的“人工”结构映射到更自然、语义上有意义的表示。</p>
+<ul>
+<li><strong>神经元对被分成多个标记的特定单词做出反应：</strong>“银行”、“措辞”、“胆固醇”、“自由主义者”、“平民”、“上海”、“尽管如此”……</li>
+<li><strong>神经元对名人的名字做出反应：</strong>“马丁·路德·金”、“唐纳德·特朗普”、“林登·约翰逊”、“乔治·奥威尔”、“欧内斯特·海明威”、“穆罕默德·阿里”、“奥普拉·温弗瑞”……（参见 [17] ）</li>
+<li><strong>神经元对其他名词做出反应：</strong>“人权观察”、“国际货币基金组织”、“马修飓风”、“皇家马德里”……</li>
+<li><strong>神经元对复合词做出反应：</strong>“读书俱乐部”、“社会保障”、“计算机视觉”、“有组织犯罪”、“生日聚会”、“心脏病发作”……</li>
+<li><strong>神经元响应 LaTeX“\”命令：</strong>“\left”、“\frac{”、“\begin”…</li>
+</ul>
+<h4 id="较大模型中的后层神经元（“RE-TOKENIZATION”）"><a href="#较大模型中的后层神经元（“RE-TOKENIZATION”）" class="headerlink" title="较大模型中的后层神经元（“RE-TOKENIZATION”）"></a>较大模型中的后层神经元（“RE-TOKENIZATION”）</h4><p>后期层神经元（靠近网络输出的神经元）通常会做与早期层神经元相反的事情：它们介导单词或上下文标记返回文字标记的转换。例如，最后一层中的一个神经元会触发标记“st”，同时增加后续标记是“rag”的可能性；本质上，这是一种将单词“stragglers”的表示形式逐个转换或指示为其组成标记以进行输出的方法。类似地，“nappies”输出神经元在标记“n”上触发，并增加标记“app”帮助写入“nappies”的概率。这些神经元本质上模拟了一个额外的输出词汇项，该词汇项仅在前面的标记满足某些条件时才可用。</p>
+<p><img src="retoken.png"></p>
  
       <!-- reward -->
       
