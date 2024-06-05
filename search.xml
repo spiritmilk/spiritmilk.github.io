@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>20240605</title>
+    <url>/2024/20240605/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>出自Anthropic’s transformer circuits thread</p>
+<p><a href="https://transformer-circuits.pub/2022/solu/index.html">占位</a></p>
+<span id="more"></span>
+
+<p>GeLU是一种现代transformer常用的激活函数</p>
+<p>$\mathrm{GELU}(x)=xP(X\leq x)=x\Phi(x)=x\cdot\frac{1}{2}\left[1+\mathrm{erf}(x/\sqrt{2})\right]$</p>
+<p>一种近似版本：</p>
+<p>$0.5x\Big(1+\tanh\Big[\sqrt{2/\pi}\Big(x+0.044715x^{3}\Big)\Big]\Big)$ 或$x\sigma(1.702x)$</p>
+<p>于是Anthropic研究者们考虑了将sigmoid换为softmax。</p>
+<p>将此激活函数称为“softmax 线性单元”或 SoLU：</p>
+<p>SoLU(x)=x*softmax(x)</p>
+<p>SoLU(4,1,4,1)=（1.9051, 0.0237, 1.9051, 0.0237）≈(2, 0, 2, 0)</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>可解释性</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MambaOut-Do We Really Need Mamba for Vision?</title>
     <url>/2024/20240516/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>mamba是继transformer之后大火的结构之一。也涌现了各种mamba，各种领域的mamba。本博客<a href="../20240131/">之前</a>也介绍了这一算法。</p>
