@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</title>
+    <url>/2024/20240811/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>[CAAFE](https ://arxiv.org/abs/2305.03403)这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森林而不是逻辑回归所实现的改进。此外，CAAFE 可以通过为每个生成的特征提供文本解释来解释。 CAAFE 为数据科学任务中更广泛的半自动化铺平了道路，并强调了上下文感知解决方案的重要性。</p>
+<p>Team AGA等人使用该方法同autogluon结合，获得了<a href="https://www.kaggle.com/competitions/playground-series-s4e8/discussion/524752">TPS S4E8 automl比赛</a>的第二名</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><img src="motivation.png"></p>
+<p>上下文信息可以极大地简化任务。在左侧，图中没有添加任何上下文信息，并且很难预测绿色查询点的标签。在右侧添加了上下文信息，并派生出有用的附加特征（周末或工作日），从中可以找到从特征到目标的映射。</p>
+]]></content>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>深度学习</tag>
+        <tag>表格学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ariel Data Challenge 2023 冠军方案</title>
     <url>/2024/20240803/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="arxiv.org/abs/2309.09337">《Simulation-based Inference for Exoplanet Atmospheric Retrieval: Insights from winning the Ariel Data Challenge 2023 using Normalizing Flows》</a></p>
@@ -8,7 +25,8 @@
 <hr>
 <span id="more"></span>
 
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>数据集的生成依赖于 TauREx3 辐射传输代码[ <a href="https://ar5iv.labs.arxiv.org/html/2309.09337?_immersive_translate_auto_translate=1#bib.bib2">2</a> ] ，并遵循用于 2022 年数据集[ <a href="https://ar5iv.labs.arxiv.org/html/2309.09337?_immersive_translate_auto_translate=1#bib.bib8">8</a> ]的类似程序。目标参数空间包含7个维度：系外行星半径、温度、H 2 O、CO 2 、CO、CH 4和NH 3的丰度。为了预测这些参数的分布，我们可以访问光谱（红外域中 52 个箱的强度和噪声），以及行星及其宿主恒星的辅助变量（恒星距离、质量、半径和温度，以及行星的质量、轨道周期、距恒星的距离和表面重力）。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>数据集的生成依赖于 TauREx3 辐射传输代码，并遵循用于 2022 年数据集的类似程序。目标参数空间包含7个维度：系外行星半径、温度、H 2 O、CO 2 、CO、CH 4和NH 3的丰度。为了预测这些参数的分布，我们可以访问光谱（红外域中 52 个箱的强度和噪声），以及行星及其宿主恒星的辅助变量（恒星距离、质量、半径和温度，以及行星的质量、轨道周期、距恒星的距离和表面重力）。</p>
+<p>我们有两组不同的目标参数可供训练：1) 输入参数（即提供给 TauREx 正向模型以生成频谱的参数），稍后称为输入参数或 2) 一组样本，权重，通过使用前向模型运行嵌套采样 (NS) 获得，稍后称为NS 样本集。我们还可以访问四分位数表（即 16 个参数的每个单独参数的值） 16th , 50 th 和 84 th的 NS 样本的百分位数，在每个光谱上），但在这项工作中没有使用，因为它们只是 NS 样本数据的摘要。</p>
 ]]></content>
   </entry>
   <entry>
