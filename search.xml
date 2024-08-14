@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>RW-NSGCN：通过负采样进行结构性攻击的稳健方法</title>
+    <url>/2024/20240814/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
+<span id="more"></span>
+
+<p>ss</p>
+]]></content>
+  </entry>
+  <entry>
     <title>CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</title>
     <url>/2024/20240811/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>[CAAFE](https ://arxiv.org/abs/2305.03403)这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森林而不是逻辑回归所实现的改进。此外，CAAFE 可以通过为每个生成的特征提供文本解释来解释。 CAAFE 为数据科学任务中更广泛的半自动化铺平了道路，并强调了上下文感知解决方案的重要性。</p>

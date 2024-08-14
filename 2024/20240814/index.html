@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合 |  小熊的小站</title>
+      <title>RW-NSGCN：通过负采样进行结构性攻击的稳健方法 |  小熊的小站</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -76,7 +76,7 @@ var _hmt = _hmt || [];
     <main class="content on">
       <section class="outer">
   <article
-  id="post-20240811"
+  id="post-20240814"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -87,7 +87,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合
+  RW-NSGCN：通过负采样进行结构性攻击的稳健方法
 </h1>
  
 
@@ -95,15 +95,15 @@ var _hmt = _hmt || [];
     </header>
      
     <div class="article-meta">
-      <a href="/2024/20240811/" class="article-date">
-  <time datetime="2024-08-11T02:30:14.000Z" itemprop="datePublished">2024-08-11</time>
+      <a href="/2024/20240814/" class="article-date">
+  <time datetime="2024-08-14T09:13:12.000Z" itemprop="datePublished">2024-08-14</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">507</span>
+            <span class="post-count">1</span>
         </span>
     </span>
 
@@ -119,25 +119,16 @@ var _hmt = _hmt || [];
  
     </div>
       
-    <div class="tocbot"></div>
-
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>[CAAFE](https ://arxiv.org/abs/2305.03403)这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森林而不是逻辑回归所实现的改进。此外，CAAFE 可以通过为每个生成的特征提供文本解释来解释。 CAAFE 为数据科学任务中更广泛的半自动化铺平了道路，并强调了上下文感知解决方案的重要性。</p>
-<p>Team AGA等人使用该方法同autogluon结合，获得了<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s4e8/discussion/524752">TPS S4E8 automl比赛</a>的第二名</p>
+  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><hr>
 <span id="more"></span>
 
-<hr>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><img src="motivation.png"></p>
-<p>上下文信息可以极大地简化任务。在左侧，图中没有添加任何上下文信息，并且很难预测绿色查询点的标签。在右侧添加了上下文信息，并派生出有用的附加特征（周末或工作日），从中可以找到从特征到目标的映射。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="fig4.png"></p>
-<p>上图显示了CAAFE在Tic-Tac-Toe Endgame数据集上的示例运行。用户生成的输入以蓝色显示，ml分类器生成的数据以红色显示，LLM生成的代码以语法高亮显示。生成的代码包含每个生成的特性的注释，该注释遵循我们提示中提供的模板(特性名称、有用性描述、生成代码中使用的特性以及这些特性的样例值)。在这次运行中，CAAFE在两次特征工程迭代中将验证数据集上的ROC AUC从0.888提高到1.0。</p>
-<p><img src="full.png"></p>
-<p>上图显示了CMC dataset的完整prompt。</p>
+<p>ss</p>
  
       <!-- reward -->
       
@@ -190,32 +181,21 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240811/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2024/20240814/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A1%A8%E6%A0%BC%E5%AD%A6%E4%B9%A0/" rel="tag">表格学习</a></li></ul>
-
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/2024/20240814/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            RW-NSGCN：通过负采样进行结构性攻击的稳健方法
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/20240803/" class="article-nav-link">
+      <a href="/2024/20240811/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Ariel Data Challenge 2023 冠军方案</div>
+        <div class="article-nav-title">CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</div>
       </a>
     
   </nav>
