@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.7k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -153,6 +153,7 @@ var _hmt = _hmt || [];
 <p>构建DPP核矩阵L后 ，进行采样，保证所选节点样本具有足够的代表性和多样性，避免节点选择出现偏差和过度集中。</p>
 <p>DPP得到的负样本主要用在GCN消息传递阶段：</p>
 <p>$$x_{\mathrm{pos}}^{(l+1)}=\mathrm{ReLU}\Big(:\mathbf{W}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D},\mathbf{A})\Big)$$<br>$$x_{\mathrm{neg}}^{(l+1)}=\mathrm{ReLU}\left(\mathbf{W}<em>{\mathrm{DPP}}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D}</em>{\mathrm{DPP}},\mathbf{A}<em>{\mathrm{DPP}})\right.$$<br>$$x^{(l+1)}=x</em>{\mathrm{pos}}^{(l+1)}-\lambda\cdot x_{\mathrm{neg}}^{(l+1)}$$</p>
+<p>$$x_{\mathrm{pos}}^{(l+1)}=\mathrm{ReLU}\Big(:\mathbf{W}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D},\mathbf{A})\Big)$$<br>$$x_{\mathrm{neg}}^{(l+1)}=\mathrm{ReLU}\left(\mathbf{W}<em>{\mathrm{DPP}}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D}</em>{\mathrm{DPP}},\mathbf{A}<em>{\mathrm{DPP}})\right)$$<br>$$x^{(l+1)}=x</em>{\mathrm{pos}}^{(l+1)}-\lambda\cdot x_{\mathrm{neg}}^{(l+1)}$$</p>
 <p>首先，我们使用标准的GCN卷积来传播正样本的特征，捕获正常行为的特征。接下来，我们介绍 DPP 采样机制来选择负样本节点并传播其特征。最后，通过减去负样本的特征（乘以平衡系数）来更新节点表示 $\lambda$）来自阳性样本。这种方法保证了所选节点子集在特征空间中是离散的，允许选择彼此不太相似的节点，从而避免冗余信息选择，有效防止过拟合，增强对图结构中异常行为的敏感性。</p>
  
       <!-- reward -->
