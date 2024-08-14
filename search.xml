@@ -3,16 +3,24 @@
   <entry>
     <title>RW-NSGCN：通过负采样进行结构性攻击的稳健方法</title>
     <url>/2024/20240814/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://arxiv.org/abs/2408.06665">论文地址</a></p>
+<p>图结构网络通常包含拓扑扰动和权重扰动形式的潜在噪声和攻击，这可能导致 GNN 的分类性能下降。为了提高模型的鲁棒性，该论文提出了一种新方法：随机游走负采样图卷积网络（RW-NSGCN）。具体来说，RW-NSGCN 集成了用于负采样的随机游走（RWR）和 PageRank（PGR）算法，并采用基于行列式点过程（DPP）的 GCN 进行卷积运算。 RWR 利用全局和局部信息来管理噪声和局部变化，而 PGR 评估节点重要性以稳定拓扑结构。基于 DPP 的 GCN 确保负样本之间的多样性，并聚合其特征以产生鲁棒的节点嵌入，从而提高分类性能。</p>
+<hr>
 <span id="more"></span>
 
-<p>ss</p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>目前的方法主要集中于聚合来自邻居的数据风险评估和模式识别的节点，其忽略来自非相邻节点的信息，这会间接影响网络的整体流量和权重分布。这种局部视角限制了它们响应拓扑变化和重量分布波动的能力。因此，理解非邻居节点之间复杂的关系对于开发更准确的分类模型至关重要。</p>
+<p>一些研究，如SDGCN [ <a href="https://arxiv.org/html/2408.06665v1#bib.bib25">25</a> ] ，引入了负采样机制，但其随机负采样方法未能充分利用节点和全局结构信息的重要性。因此，这些方法捕获非相邻节点之间复杂关系的能力有限，阻碍了对网络内节点全局影响力的准确评估。这反过来又影响节点表示和模型的整体稳定性。</p>
 ]]></content>
+      <tags>
+        <tag>人工智能</tag>
+        <tag>图神经网络</tag>
+        <tag>图学习</tag>
+      </tags>
   </entry>
   <entry>
     <title>CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</title>
     <url>/2024/20240811/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>[CAAFE](https ://arxiv.org/abs/2305.03403)这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森林而不是逻辑回归所实现的改进。此外，CAAFE 可以通过为每个生成的特征提供文本解释来解释。 CAAFE 为数据科学任务中更广泛的半自动化铺平了道路，并强调了上下文感知解决方案的重要性。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://arxiv.org/abs/2305.03403">CAAFE</a>这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森林而不是逻辑回归所实现的改进。此外，CAAFE 可以通过为每个生成的特征提供文本解释来解释。 CAAFE 为数据科学任务中更广泛的半自动化铺平了道路，并强调了上下文感知解决方案的重要性。</p>
 <p>Team AGA等人使用该方法同autogluon结合，获得了<a href="https://www.kaggle.com/competitions/playground-series-s4e8/discussion/524752">TPS S4E8 automl比赛</a>的第二名</p>
 <span id="more"></span>
 
