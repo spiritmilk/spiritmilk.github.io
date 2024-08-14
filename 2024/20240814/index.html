@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">430</span>
+            <span class="post-count">596</span>
         </span>
     </span>
 
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -134,6 +134,10 @@ var _hmt = _hmt || [];
 
 <h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>目前的方法主要集中于聚合来自邻居的数据风险评估和模式识别的节点，其忽略来自非相邻节点的信息，这会间接影响网络的整体流量和权重分布。这种局部视角限制了它们响应拓扑变化和重量分布波动的能力。因此，理解非邻居节点之间复杂的关系对于开发更准确的分类模型至关重要。</p>
 <p>一些研究，如SDGCN [ <a target="_blank" rel="noopener" href="https://arxiv.org/html/2408.06665v1#bib.bib25">25</a> ] ，引入了负采样机制，但其随机负采样方法未能充分利用节点和全局结构信息的重要性。因此，这些方法捕获非相邻节点之间复杂关系的能力有限，阻碍了对网络内节点全局影响力的准确评估。这反过来又影响节点表示和模型的整体稳定性。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="负样本的选取"><a href="#负样本的选取" class="headerlink" title="负样本的选取"></a>负样本的选取</h3><p>首先，通过计算最短路径长度$d(v_i,v_j)$在节点对之间，我们可以确定两个节点之间的关系链长度。然后，我们为每个节点生成一组可达节点$v_i$在不同的路径长度$l:$<br>$$\mathcal{N}<em>{l}(v</em>{i})={v_{j}|d(v_{i},v_{j})=l}$$<br>此步骤有助于识别与节点具有特定路径关系的节点集。</p>
+<p><img src="method1.png"></p>
+<p>$$s_{ij}=\beta\cdot(1-\alpha)\left[(\mathbf{I}-\alpha\mathbf{P})^{-1}\mathbf{e}_i\right]_j+(1-\beta)\left[\alpha\mathbf{P}(\alpha\mathbf{P}\mathbf{p}+(1-\alpha)\mathbf{e})+(1-\alpha)\mathbf{e}\right]_j\quad\forall v_j\in\mathcal{N}_l(v_i),$$</p>
+<p>其中$\mathbf{P}=\mathbf{D}^{-1}\mathbf{A}$ </p>
  
       <!-- reward -->
       
