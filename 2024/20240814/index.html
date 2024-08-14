@@ -103,7 +103,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">596</span>
+            <span class="post-count">673</span>
         </span>
     </span>
 
@@ -137,7 +137,9 @@ var _hmt = _hmt || [];
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="负样本的选取"><a href="#负样本的选取" class="headerlink" title="负样本的选取"></a>负样本的选取</h3><p>首先，通过计算最短路径长度$d(v_i,v_j)$在节点对之间，我们可以确定两个节点之间的关系链长度。然后，我们为每个节点生成一组可达节点$v_i$在不同的路径长度$l:$<br>$$\mathcal{N}<em>{l}(v</em>{i})={v_{j}|d(v_{i},v_{j})=l}$$<br>此步骤有助于识别与节点具有特定路径关系的节点集。</p>
 <p><img src="method1.png"></p>
 <p>$$s_{ij}=\beta\cdot(1-\alpha)\left[(\mathbf{I}-\alpha\mathbf{P})^{-1}\mathbf{e}_i\right]_j+(1-\beta)\left[\alpha\mathbf{P}(\alpha\mathbf{P}\mathbf{p}+(1-\alpha)\mathbf{e})+(1-\alpha)\mathbf{e}\right]_j\quad\forall v_j\in\mathcal{N}_l(v_i),$$</p>
-<p>其中$\mathbf{P}=\mathbf{D}^{-1}\mathbf{A}$ </p>
+<p>其中$\mathbf{P}=\mathbf{D}^{-1}\mathbf{A}$ 是转移矩阵，$\alpha$是重启概率，$\beta$是RWR和PGR的权重参数。</p>
+<p>基于这些综合评分向量，我们从不同路径长度的节点集中选择得分最高的节点作为候选节点：</p>
+<p>$$\text{candidates}(v_i)=\bigcup\limits_{l = 1}^{L}\operatorname{top}({s_{ij}|v_j\in\mathcal{N}_l(v_i)})$$</p>
  
       <!-- reward -->
       
