@@ -22,6 +22,8 @@
 <h2 id="基于带有-DPP-采样的标签传播的-GCN"><a href="#基于带有-DPP-采样的标签传播的-GCN" class="headerlink" title="基于带有 DPP 采样的标签传播的 GCN"></a>基于带有 DPP 采样的标签传播的 GCN</h2><p>通过将行列式点过程（DPP）与图卷积网络（GCN）相结合，我们在保证节点多样性的同时，有效捕获节点和社区之间的特征关联，从而提高防御能力。</p>
 <p>首先，模型使用DPP核矩阵来衡量节点对之间的关联强度，定义如下：<br>$$L=Q\cdot(S_{com}\cdot S_{com}^{T})\cdot exp(S_{node}-1)\cdot Q^{T}$$</p>
 <p>在此背景下，L表示 DPP核矩阵，其中每个元素$(\mathbf{L})<em>{ij}$表示节点之间的关联强度$v_i$和$v_j$ ,均选自candidates$(v)$。这$s$矩阵由三种类型的相似度矩阵组成：<br>$$(\mathbf{S}</em>{node})<em>{ij}=cos(\mathbf{x}</em>{i},\mathbf{x}<em>{j})=\frac{\mathbf{x}<em>i\cdot\mathbf{x}<em>j}{|\mathbf{x}</em>{i}||\mathbf{x}</em>{j}|}$$<br>$$(\mathbf{S}</em>{com})<em>{ij}=\cos(\mathbf{f}</em>{i},\mathbf{f}<em>{j})=\frac{\mathbf{f}</em>{i}\cdot\mathbf{f}<em>{j}}{||\mathbf{f}</em>{i}|||||\mathbf{f}<em>{j}||}$$<br>$$\mathbf{Q}</em>{ij}=\cos(\mathbf{c}<em>{i},\mathbf{f}</em>{j})=\frac{\mathbf{c}<em>{i}\cdot\mathbf{f}</em>{j}}{|\mathbf{c}<em>{i}||\mathbf{f}</em>{j}|}$$</p>
+<hr>
+<p>$v_i$ 和 $v_j$ 均选自 candidates$(v)$。这 $s$ 矩阵由三种类型的相似度矩阵组成：<br>$$(S_{node})<em>{ij} = \cos(x_i, x_j) = \frac{x_i \cdot x_j}{|x_i||x_j|}$$<br>$$(S</em>{com})<em>{ij} = \cos(f_i, f_j) = \frac{f_i \cdot f_j}{|f_i||f_j|}$$<br>$$Q</em>{ij} = \cos(c_i, f_j) = \frac{c_i \cdot f_j}{|c_i||f_j|}$$</p>
 <p>第一条公式量化了特征空间内节点的相似度。</p>
 <p>第二条公式衡量了社区特征之间的相似度。</p>
 <p>第三条公式表示中心节点和社区特征之间的相似度。</p>
