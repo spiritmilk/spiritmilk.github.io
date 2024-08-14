@@ -24,6 +24,10 @@
 <p>第二条公式衡量了社区特征之间的相似度。</p>
 <p>第三条公式表示中心节点和社区特征之间的相似度。</p>
 <p>上述步骤旨在有效捕获节点和社区之间的特征关系，获取节点和社区之间丰富的信息。</p>
+<p>构建DPP核矩阵L后 ，进行采样，保证所选节点样本具有足够的代表性和多样性，避免节点选择出现偏差和过度集中。</p>
+<p>DPP得到的负样本主要用在GCN消息传递阶段：</p>
+<p>$$x_{\mathrm{pos}}^{(l+1)}=\mathrm{ReLU}\Big(:\mathbf{W}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D},\mathbf{A})\Big)$$<br>$$x_{\mathrm{neg}}^{(l+1)}=\mathrm{ReLU}\left(\mathbf{W}<em>{\mathrm{DPP}}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D}</em>{\mathrm{DPP}},\mathbf{A}<em>{\mathrm{DPP}})\right.$$<br>$$x^{(l+1)}=x</em>{\mathrm{pos}}^{(l+1)}-\lambda\cdot x_{\mathrm{neg}}^{(l+1)}$$</p>
+<p>首先，我们使用标准的GCN卷积来传播正样本的特征，捕获正常行为的特征。接下来，我们介绍 DPP 采样机制来选择负样本节点并传播其特征。最后，通过减去负样本的特征（乘以平衡系数）来更新节点表示 $\lambda$）来自阳性样本。这种方法保证了所选节点子集在特征空间中是离散的，允许选择彼此不太相似的节点，从而避免冗余信息选择，有效防止过拟合，增强对图结构中异常行为的敏感性。</p>
 ]]></content>
       <tags>
         <tag>人工智能</tag>
