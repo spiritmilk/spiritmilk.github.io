@@ -136,7 +136,7 @@ var _hmt = _hmt || [];
 <p>一些研究，如SDGCN [ <a target="_blank" rel="noopener" href="https://arxiv.org/html/2408.06665v1#bib.bib25">25</a> ] ，引入了负采样机制，但其随机负采样方法未能充分利用节点和全局结构信息的重要性。因此，这些方法捕获非相邻节点之间复杂关系的能力有限，阻碍了对网络内节点全局影响力的准确评估。这反过来又影响节点表示和模型的整体稳定性。</p>
 <p><strong>拓扑扰动：</strong>这种攻击有选择地删除关键边缘，加剧图网络内自然发生的拓扑变化。它模拟极端情况下可能发生的碎片化和连接中断，旨在评估模型在面临重大结构扰动时的表现，并评估其处理现实网络复杂变化的能力。</p>
 <p><strong>权重扰动：</strong>这种攻击会修改边权重或引入随机噪声，以放大图中边权重的现有波动。该方法通过模拟极端权重扰动，评估模型处理信息流路径变化和节点影响力变化的鲁棒性，保证模型在动态环境下的可靠性。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="负样本的选取"><a href="#负样本的选取" class="headerlink" title="负样本的选取"></a>负样本的选取</h3><p>首先，通过计算最短路径长度$d(v_i,v_j)$在节点对之间，我们可以确定两个节点之间的关系链长度。然后，我们为每个节点生成一组可达节点$v_i$在不同的路径长度$l:$<br>$$\mathcal{N}<em>{l}(v</em>{i})={v_{j}|d(v_{i},v_{j})=l}$$<br>此步骤有助于识别与节点具有特定路径关系的节点集。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="负样本的选取"><a href="#负样本的选取" class="headerlink" title="负样本的选取"></a>负样本的选取</h3><p>首先，通过计算最短路径长度$d(v_i,v_j)$在节点对之间，我们可以确定两个节点之间的关系链长度。然后，我们为每个节点生成一组可达节点$v_i$在不同的路径长度$l:$<br>$$N_l(v_{i})={v_{j}|d(v_{i},v_{j})=l}$$<br>此步骤有助于识别与节点具有特定路径关系的节点集。</p>
 <p><img src="method1.png"></p>
 <p>$$s_{ij}=\beta\cdot(1-\alpha)\left[(\mathbf{I}-\alpha\mathbf{P})^{-1}\mathbf{e}_i\right]_j+(1-\beta)\left[\alpha\mathbf{P}(\alpha\mathbf{P}\mathbf{p}+(1-\alpha)\mathbf{e})+(1-\alpha)\mathbf{e}\right]_j\quad\forall v_j\in\mathcal{N}_l(v_i),$$</p>
 <p>其中$\mathbf{P}=\mathbf{D}^{-1}\mathbf{A}$ 是转移矩阵，$\alpha$是重启概率，$\beta$是RWR和PGR的权重参数。</p>
@@ -157,7 +157,7 @@ var _hmt = _hmt || [];
 <p>构建DPP核矩阵L后 ，进行采样，保证所选节点样本具有足够的代表性和多样性，避免节点选择出现偏差和过度集中。</p>
 <p>DPP得到的负样本主要用在GCN消息传递阶段：</p>
 <p>$$x_{\mathrm{pos}}^{(l+1)}=\mathrm{ReLU}\Big(\mathbf{W}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D},\mathbf{A})\Big)$$</p>
-<p>$$x_{\mathrm{neg}}^{(l+1)}=\mathrm{ReLU}(\mathbf{W}<em>{\mathrm{DPP}}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D}</em>{\mathrm{DPP}},\mathbf{A}_{\mathrm{DPP}}))$$</p>
+<p>$$x_{\mathrm{neg}}^{(l+1)}=\mathrm{ReLU}(W_{\mathrm{DPP}}^{(l)}\cdot\mathrm{normalize}(x^{(l)},D_{\mathrm{DPP}},A_{\mathrm{DPP}}))$$</p>
 <p>$$x^{(l+1)}=x_{\mathrm{pos}}^{(l+1)}-\lambda\cdot x_{\mathrm{neg}}^{(l+1)}$$</p>
 <p>首先，我们使用标准的GCN卷积来传播正样本的特征，捕获正常行为的特征。接下来，我们介绍 DPP 采样机制来选择负样本节点并传播其特征。最后，通过减去负样本的特征（乘以平衡系数）来更新节点表示 $\lambda$）来自阳性样本。这种方法保证了所选节点子集在特征空间中是离散的，允许选择彼此不太相似的节点，从而避免冗余信息选择，有效防止过拟合，增强对图结构中异常行为的敏感性。</p>
  
