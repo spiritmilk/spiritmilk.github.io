@@ -1,133 +1,299 @@
+
+
 <!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
-  <html lang="en">
-    
 
-    <head>
-      <meta charset="utf-8" />
-        
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1"
-      />
-      <title>天文学神经网络的历史、入门和展望 |  小熊的小站</title>
-  <meta name="generator" content="hexo-theme-ayer">
-      
-      <link rel="shortcut icon" href="/favicon.ico" />
-       
-<link rel="stylesheet" href="/dist/main.css">
+<head>
+  <meta charset="UTF-8">
 
-      
-<link rel="stylesheet" href="/css/fonts/remixicon.css">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
 
-      
-<link rel="stylesheet" href="/css/custom.css">
- 
-      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
-       
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="来自发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？ 个人评价： 大致算是讲述了人工智能的历史，没有很好的讲述人工智能在天文学的特殊性，生硬的讲述人工智能+天文学，简单的1+1-2，没有看到想要看到的1+1&gt;2。 让我印象最深的是文中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天文学神经网络的历史、入门和展望">
+<meta property="og:url" content="https://lijianxiong.work/2023/20230701/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="来自发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？ 个人评价： 大致算是讲述了人工智能的历史，没有很好的讲述人工智能在天文学的特殊性，生硬的讲述人工智能+天文学，简单的1+1-2，没有看到想要看到的1+1&gt;2。 让我印象最深的是文中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/90b9eaa0-e734-4b61-a8d5-2e5927f08300/rsos221454f01.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/93422bc3-b9a5-4d4e-9050-3886362723cb/rsos221454f02.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/40dcc939-01dd-4d46-b6b8-6be55850457a/rsos221454f07.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/c1f2d96d-144d-4e06-8f46-77c19d5f354b/rsos221454f35.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/66e23b08-fa55-4363-8d1a-4538eb8a8676/rsos221454f10.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/f36adb52-507c-4dcd-b1b1-5eb92f412fe0/rsos221454f16.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/1ad572f7-b10e-4d1c-bdde-945675eda404/rsos221454f17.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/0955c95a-d19f-4d38-8a11-8d340024b6d9/rsos221454f24.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/81cee15a-9f23-4689-9f6a-b03ffd828d3f/rsos221454f25.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/1fcd5843-5bef-4a27-8e3a-413263ee8586/rsos221454f26.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/115230be-9fee-4b9d-87b0-00ee1e061c71/rsos221454f27.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/b8526010-8ace-4a72-a2ce-e552b892f6e8/rsos221454f28.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/d8c452eb-f47c-44eb-b46d-e50684589244/rsos221454f29.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/e0b8cdf3-3dc9-42f6-9585-9fe2aa146f52/rsos221454f32.gif">
+<meta property="article:published_time" content="2023-07-01T13:48:19.000Z">
+<meta property="article:modified_time" content="2024-02-12T14:38:51.383Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="天文">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://royalsocietypublishing.org/cms/asset/90b9eaa0-e734-4b61-a8d5-2e5927f08300/rsos221454f01.gif">
+  
+  
+  
+  <title>天文学神经网络的历史、入门和展望 - 小熊的小站</title>
 
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', '454934039', 'auto');
-ga('send', 'pageview');
-
-</script>
-
-
- 
-<script>
-var _hmt = _hmt || [];
-(function() {
-	var hm = document.createElement("script");
-	hm.src = "https://hm.baidu.com/hm.js?71ee62302f36ca8f840077a641705255";
-	var s = document.getElementsByTagName("script")[0]; 
-	s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
-      />
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
-
-      <!-- mermaid -->
-      
-      <style>
-        .swal2-styled.swal2-confirm {
-          font-size: 1.6rem;
-        }
-      </style>
-    </head>
-  </html>
-</html>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
-<body>
-  <div id="app">
-    
-      
-    <main class="content on">
-      <section class="outer">
-  <article
-  id="post-20230701"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  天文学神经网络的历史、入门和展望
-</h1>
- 
 
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/20230701/" class="article-date">
-  <time datetime="2023-07-01T13:48:19.000Z" itemprop="datePublished">2023-07-01</time>
-</a>   
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">23.4k</span>
-        </span>
-    </span>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">81 min</span>
-        </span>
-    </span>
-</div>
- 
-    </div>
-      
-    <div class="tocbot"></div>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
 
 
   
-    <div class="article-entry" itemprop="articleBody">
-       
-  <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#">发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？</a></p>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="天文学神经网络的历史、入门和展望"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-01 21:48" pubdate>
+          2023年7月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          23k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          194 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">天文学神经网络的历史、入门和展望</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#">发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？</a></p>
 <p>个人评价：</p>
 <p>大致算是讲述了人工智能的历史，没有很好的讲述人工智能在天文学的特殊性，生硬的讲述人工智能+天文学，简单的1+1-2，没有看到想要看到的1+1&gt;2。</p>
 <p>让我印象最深的是文中提到居然只有三篇天文学的论文用了diffusion，是数据集的问题？</p>
@@ -139,14 +305,14 @@ var _hmt = _hmt || [];
 <p>可以公平地说，人工智能的根源甚至可以追溯到启发莱布尼茨的 Llull 中世纪哲学 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C2">2</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C3">3</a> ]。然而，如果我们现在认为人工智能是一门真正的科学学科，那么这个学科显然是在二十世纪战后几年出现的，遵循图灵的简单问题“机器能思考吗？” [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C4">4</a>]。从本质上讲，图灵在 1950 年提出的问题简洁地阐明了人工智能的雄心，但从具体细节的角度来看，从图灵提出第一个人工智能程序（即所谓的“逻辑理论家”）的问题起，又花了 5 年时间。由艾伦·纽厄尔 (Allen Newell)、克里夫·肖 (Cliff Shaw) 和赫伯特·西蒙 (Herbert Simon) 开发。逻辑理论家由研究与开发（兰德）公司资助，其设计部分是为了模仿人类数学家的角色，因为它可以自动证明数学定理。这是计算机科学领域的一项突破，《逻辑理论家》在 1956 年开创性的达特茅斯人工智能夏季研究项目 (DSRPAI) 会议上提出，现在被视为人工智能领域的真正诞生。的确，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C5">5</a>].</p>
 <p>来自迪克的《机器人会梦见<em>电子羊吗？</em>克莱顿的<em>《西部世界》</em>、<em>《终结者》的《天网》</em>等等。伊恩·M·班克斯（Iain M. Banks）的银河文明被称为“文化”，想象了一个由强大的“思想”统治的社会，其智力和智慧远远超过人类，并且具有同等感知能力的生物和机器通常和平、合作和公平地共存。尽管有科幻小说，但如果这些梦想成为可能，我们距离一台能够真正独立思考的机器还需要很多年的时间 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C6">6</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C7">7</a>]。然而，如何在数学上（和算法上）对生物神经元（神经网络）的工作和相互关系进行建模，以及随后探索它们如何在数据分析师研讨会中找到作为工具的实用性的问题，才是真正被提及的问题。今天大多数人使用“人工智能”这个词。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN1">1</a>虽然我们必须时刻警惕炒作和流行语，但正是神经网络的<em>应用以及解决迄今为止棘手问题的可能性，才为包括天文学在内的许多不同领域的研究提供了令人兴奋的真正理由。</em></p>
 <p>天文学家使用人工神经网络（ANN）已有三十多年了。1994 年，早期开拓者 Ofer Lahav 讽刺地指出了“神经怀疑论者”——那些抵制在严肃的天体物理学研究中使用此类技术的人——并认为人工神经网络“应该被视为一个通用的统计框架，而不是一个深奥的方法”[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C8">8</a> ]。不幸的是，这种怀疑一直存在。尽管最近神经网络（以及一般机器学习）在该领域的使用激增，如图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F1">1</a>所示。这种怀疑也与天文学领域的成就相反，如果不使用人工神经网络就不可能取得这些成就，例如光度红移估计（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C9">9</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C10">10</a>]）、大规模天文物体识别和聚类（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C11">11</a> ]）以及完全数据驱动的模拟（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C12">12</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C13">13</a> ]）。大多数对机器学习技术和深度学习的批评<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN2">2</a>特别是针对该方法论的“黑匣子”性质。在这篇综述中，我们提供了关于如何构建深度神经网络以及控制其学习的数学规则的入门知识，我们希望这将为神经怀疑论者提供有用的资源。尽管如此，我们必须认识到，关于深度神经网络如何工作的统一理论图景尚不存在。即使在深度学习社区中，这仍然是一个争论点。例如，Yann LeCun 在第 31 届神经信息处理系统 (NIPS) 会议上回应 Ali Rahimi 的“Test of Time”获奖演讲时说道：</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/90b9eaa0-e734-4b61-a8d5-2e5927f08300/rsos221454f01.gif" alt="Figure 1. "></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/90b9eaa0-e734-4b61-a8d5-2e5927f08300/rsos221454f01.gif" srcset="/img/loading.gif" lazyload alt="Figure 1. "></p>
 <p>图 1.这里我们看到每月 arXiv:astro-ph 提交的摘要或标题包含一个或多个字符串的数量：“机器学习”、“ML”、“人工智能”、“AI”、“深度”学习”或“神经网络”。原始数据属于公共领域，可在<a target="_blank" rel="noopener" href="https://www.kaggle.com/Cornell-University/arxiv%E4%B8%8A%E8%8E%B7%E5%8F%96%E3%80%82&gt;">https://www.kaggle.com/Cornell-University/arxiv上获取。&gt;</a> </p>
 <blockquote>
 <p> Ali发表了一次有趣且精彩的演讲。但我从根本上不同意这个消息。从本质上讲，主要信息是当前的机器学习实践类似于“炼金术”（他的原话）。这是侮辱性的，是的。但不要介意：这是错误的！Ali 抱怨说，人们对目前 ML 中使用的许多方法缺乏（理论）理解，尤其是在深度学习中……仅仅因为可以对其进行理论研究而坚持使用一组方法，而忽略了一组经验上的方法仅仅因为您（还）不理解它们就可以更好地工作，理论上类似于在路灯下寻找丢失的车钥匙，但知道您在其他地方丢失了它们。是的，我们需要更好地理解我们的方法。但正确的态度是尝试解决问题，不要因为尚未成功解决问题而侮辱整个社区。这就像批评詹姆斯·瓦特不是卡诺或亥姆霍兹一样[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C14">14</a>]. </p>
 </blockquote>
 <p>抛开哲学问题不谈，LeCun 的基本观点是深度学习“有效”，因此我们应该使用它，即使我们不完全理解它。如果一个人不仁慈，我们可以对这个问题提出类似的论点。LL清洁发展机制范式。</p>
 <p>显然，在深度学习渗透的每个领域，我们都看到专业知识的使用减少，取而代之的是从数据中自动获取的知识。我们已经看到这个过程在许多“应用深度学习”领域中发挥作用，例如计算机围棋[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C15">15</a> ]、蛋白质折叠[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C16">16</a> ]、自然语言处理[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> ]和计算机视觉[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> ]。我们认为，天文学的数据丰富性使其走上了一条与其他应用深度学习领域所走过的道路没有什么不同的道路。这种丰富并不是一个短暂的阶段；而是一个阶段。天文数据总量已经很大，并将在未来几年呈指数级增长。我们在<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F2">图 2中对此进行了说明</a>，其中我们展示了一系列天文调查及其在其生命周期内的估计数据量输出[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C19">19</a> ]。这甚至没有考虑与更大、更详细的数值模拟相关的数据（例如[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C22"> </a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C20">20-22</a>]）。目前的数据量规模已经给天文学带来了一个问题，因为许多经典方法依赖于人类监督和专业知识，而不断增加的数据量将使通过传统的人类监督和半监督方式探索和利用这些调查成为一个棘手的问题。令人严重关切的是，我们有可能错过——或大大延迟——有趣和重要的发现，仅仅是因为我们无法准确、一致地大规模询问天文数据。深度学习在各种数据密集型领域的自动化信息提取方面显示出了巨大的前景，因此非常适合作为处理超大规模天文数据挑战的解决方案。但我们不需要就此止步。这篇评论的展望更进一步，</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/93422bc3-b9a5-4d4e-9050-3886362723cb/rsos221454f02.gif" alt="Figure 2. "></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/93422bc3-b9a5-4d4e-9050-3886362723cb/rsos221454f02.gif" srcset="/img/loading.gif" lazyload alt="Figure 2. "></p>
 <p>图 2.一系列天文调查在其生命周期内的数据量输出。我们可以看到天文调查数据量每16个月就会翻一番。数据取自Zhang 和Zhao [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C19">19</a> ]。</p>
 <p>自天文学联结主义<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C25">在20 世纪 80 年代末的</a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN3">3 个</a>不起眼的开端以来，关于人工神经网络在天文学中的应用已经有许多优秀的评论（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C23">23-25</a> ]）。我们对之前的文献综述采取了另一种方法，对这一领域进行了全面的调查，试图描绘出天文联结主义的“大图景”。虽然我们不可能将所有作品都纳入天文学联结论中，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN4">4</a>我们希望这篇评论能够作为天文学日益自动化的联结论“三波”的历史背景，并提供神经网络的一般入门知识，以帮助那些寻求探索的人这个有趣的话题还是第一次。</p>
 <p>在§§2和§§3中，我们探索了天文学中多层感知器的初步工作，其中模型需要手动选择涌现属性作为输入。在第 4 节和第 5 节中，我们探讨了第二波浪潮，它与卷积神经网络和循环神经网络的传播相一致，在这些模型中，多层感知器的手动选择的输入被原始数据摄取所取代。在现在正在发生的第三次浪潮中，我们看到人类监督的消除与深度学习方法直接从数据中推断标签和知识有关，我们将在第 6-8 节中探讨这一浪潮。最后，在第 9 节中，我们展望未来并预测我们将很快进入天文联结主义的第四次浪潮。我们认为，如果天文学遵循其他应用深度学习领域的模式，我们将看到精心设计的深度学习模型被移除，取而代之的是经过微调的包罗万象的“基础”模型。作为第四波浪潮的一部分，我们主张天文学和联结主义之间的共生，这种共生基于天文学的相对数据财富和深度学习永不满足的数据胃口。机器学习中的许多超大型数据集都是专有的或质量较差，因此天文学家作为一个社区有机会开发和提供高质量的多模式公共数据集。反过来，该数据集可用于训练天文基础模型，以服务于最先进的下游任务。由于基础模型对数据和计算的渴望，单个天文学研究小组无法单独建立这样的模型。因此，我们得出的结论是，天文学作为一门学科，跟上大型科技巨头设定的研究步伐的机会很小——也就是说，除非我们效仿 EleutherAI 和 HuggingFace 的例子，并以草根开源的方式集中我们的资源。</p>
@@ -165,17 +331,17 @@ var _hmt = _hmt || [];
 <p>当然，MLP 在天文回归任务中得到了更广泛的应用。在这里，我们将挑选一些研究来展示 MLP 的早期使用广度。太阳黑子极大值预测是由 Koons &amp; Gorney 进行的[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C82">82</a> ]。他们发现，基于 MLP 的方法在接受先前周期的训练时能够预测太阳黑子的数量。拜勒-琼斯<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C83">83</a> ]从恒星的光谱中预测了恒星的有效温度。奥尔德<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C84">84</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C85">85</a> ]将MLP应用于宇宙学，证明在给定一组宇宙学参数时，MLP能够预测宇宙微波背景功率谱和物质功率谱。诺加德-尼尔森和约根森 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C86">86</a>] 使用 MLP 去除微波温度图中的前景。从本节讨论的研究中，我们可以看到，当给定专家指南提取的重要参数时，MLP 是天文数据的有效回归器。</p>
 <h3 id="4-当代监督深度学习"><a href="#4-当代监督深度学习" class="headerlink" title="4.当代监督深度学习"></a>4.当代监督深度学习</h3><p>MLP 存在一些问题。主要是它们不能很好地扩展到高维数据集。例如，如果我们的数据集由 128 × 128 像素的图像组成，则仅 MLP 的输入层就需要 16 384 个神经元！当我们进入隐藏层时，这种缩放问题只会变得更糟。此外，由于 MLP 必须将展开的图像作为输入，因此它们会忽略训练图像的任何空间属性，因此要么需要大量的训练数据来分类或生成大图像，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN12">12</a>或专家在预处理步骤中从数据中提取描述性特征。我们可以在上一节中看到这个问题 - 第 3 节中描述的大多数 MLP 应用程序都需要专家从网络数据中提取特征，然后进行训练！这个缺点并不理想；如果原始数据中存在这些精心挑选的统计数据中不存在的特征怎么办？在这种情况下，最好让神经网络将原始数据作为输入，然后学习哪些特征最具描述性。在本节中，我们将讨论同时解决 MLP 缩放问题和专家依赖问题的神经网络架构。在我们总体探索了这些架构之后，我们将在第 5 节中讨论它们在天文问题中的应用。</p>
 <h4 id="4-1-卷积神经网络"><a href="#4-1-卷积神经网络" class="headerlink" title="4.1. 卷积神经网络"></a>4.1. 卷积神经网络</h4><p>与上一节中描述的 MLP 不同，卷积神经网络（CNN；在 Fukushima [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C46">46</a> ] 中引入，并在 LeCun<em>等人</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C93">93</a> ] 中首次与反向传播相结合）并不完全由全连接层组成，其中每个神经元都连接到前一层和后一层中的每个神经元。相反，CNN（如图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F7">7</a>所示）使用卷积层代替大部分（或全部）密集层。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/40dcc939-01dd-4d46-b6b8-6be55850457a/rsos221454f07.gif" alt="图 7."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/40dcc939-01dd-4d46-b6b8-6be55850457a/rsos221454f07.gif" srcset="/img/loading.gif" lazyload alt="图 7."></p>
 <p>图 7.对螺旋星系图像进行分类的卷积神经网络。</p>
 <h4 id="4-2-循环神经网络"><a href="#4-2-循环神经网络" class="headerlink" title="4.2. 循环神经网络"></a>4.2. 循环神经网络</h4><p>标准前馈神经网络（例如 MLP（第 2.2 节）和 CNN（第 4.1 节））会在给定固定大小输入的情况下生成固定大小的向量。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN15">15</a>但是，如果我们想要分类或生成可变大小的向量怎么办？例如，我们可能想根据星系的旋转曲线对其形态进行分类。旋转曲线描述了星系可见恒星的速度与它们距星系中心的距离的关系。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F8">图8</a>显示了 Messier 81 可能的旋转曲线。旋转曲线的长度取决于其星系的大小，并且由于长度可变，以及 MLP 采用固定大小的输入这一事实，我们无法轻松使用 MLP 进行分类。然而，循环神经网络 (RNN) 可以采用可变长度输入并产生可变长度输出。RNN 与前馈 MLP 的不同之处在于它有一个隐藏状态，充当先前看到的信息的“记忆”存储。当 RNN 遇到新数据时，其权重通过时间反向传播算法（BPTT；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C97">97</a> ]和其中的参考文献。另见脚注 9）进行改变。</p>
 <h4 id="4-3-解决梯度消失问题"><a href="#4-3-解决梯度消失问题" class="headerlink" title="4.3. 解决梯度消失问题"></a>4.3. 解决梯度消失问题</h4><p>20 世纪 90 年代初，研究人员发现了通过反向传播训练深度神经网络的一个主要问题。Hochreiter 在他们的毕业论文中首次正式研究了“梯度消失”问题（Hochreiter [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C98">98</a> ]，另请参阅 Bengio<em>等人</em>后来的工作[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C99">99</a> ]）。由于梯度消失问题，人们普遍认为通过反向传播从头开始训练非常深的人工神经网络是不可能的。在本节中，我们将探讨什么是梯度消失问题，以及当代端到端训练的神经网络如何回避这个问题。</p>
 <p>随着我们深入网络，通过反向传播的学习速度会减慢。这个问题再次导致人们对联结主义模型失去信心，迎来第二个人工智能冬天。直到2012年，新的繁荣才开始。在下面的三个小节中，我们将探讨一些针对梯度消失问题提出的部分解决方案，并展示它们如何结合在一起为当前的深度学习热潮做出贡献。</p>
 <h5 id="4-3-1-非饱和激活函数"><a href="#4-3-1-非饱和激活函数" class="headerlink" title="4.3.1. 非饱和激活函数"></a>4.3.1. 非饱和激活函数</h5><p>我们可以从方程（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M4x8">4.8</a>）和（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M4x7">4.7</a>）中看到，如果 φ′ = 1，那么乘积项不会自动趋于零或无穷大。如果是这样的话，为什么不简单地围绕这个属性设计我们的激活函数呢？修正线性单元 (ReLU; [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C46">46</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C47">47</a> ]) 是一个激活函数，它正是执行此操作，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN17">17</a></p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/c1f2d96d-144d-4e06-8f46-77c19d5f354b/rsos221454f35.gif" alt="显示公式"></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/c1f2d96d-144d-4e06-8f46-77c19d5f354b/rsos221454f35.gif" srcset="/img/loading.gif" lazyload alt="显示公式"></p>
 <p>如果输入大于零，则 ReLU 的梯度为 1，这正是我们缓解梯度消失问题所需的属性。类似的非饱和激活函数也共享 ReLU 梯度的有用属性，例如参见<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F6">图 6</a>中的指数线性单元、Swish 和 Mish 函数。</p>
 <h5 id="4-3-2-图形处理单元加速"><a href="#4-3-2-图形处理单元加速" class="headerlink" title="4.3.2. 图形处理单元加速"></a>4.3.2. 图形处理单元加速</h5><p>如果我们可以加快训练速度，我们就可以运行低效算法（例如通过饱和激活进行反向传播）以在更短的时间内完成训练。加速训练的一种方法是使用专门适合神经网络训练的硬件。图形处理单元 (GPU) 最初是为了渲染视频游戏和其他密集型图形处理任务而开发的。这些渲染任务需要具有大规模并行能力的处理器。我们在前面的章节中已经看到，通过反向传播训练的神经网络也需要许多小的权重更新计算。考虑到这一点，尝试使用 GPU 加速深度神经网络就很自然了。</p>
 <p>2004 年，Oh &amp; Jung [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C102">102</a> ] 率先使用 GPU 加速 MLP 模型，报告使用“ATI RADEON 9700 PRO”GPU 加速神经网络的推理性能提高了 20 倍。不久之后，Steinkrau<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C103">103</a> ]表明反向传播也可以受益于 GPU 加速，报告称训练和推理的性能提高了三倍。这两项突破之后，该领域开展了一系列活动（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C104">104</a> - <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C107">107</a> ]），最终在 ImageNet 2012 上 GPU 加速神经网络取得了里程碑式的胜利。AlexNet [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C108">108</a> ]赢得了 ImageNet 分类和本地化挑战[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C109">109 ]</a>]，取得了前所未有的 top-5 分类错误 16.4%，单个目标定位错误 34.2%。在这两项挑战中，AlexNet 的得分都比第二名的模型高出了 10% 以上。Sutskever 和 Hinton 的获胜网络是通过反向传播 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C40">40</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C93">93</a> ] 训练的CNN [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C46">46</a> ] ，并使用 ReLU 激活 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C47">47</a> ] 和 dropout [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C110">110</a> ] 作为正则化器。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN18">18</a>GPU 加速训练带来的性能提升使网络能够在合理的时间内通过反向传播从头开始训练。发现可以使用现成的硬件从头开始训练神经网络，最终导致了联结主义第二个冬天的结束，并迎来了 2010 年代中后期和 2020 年代的寒武纪式深度学习爆炸（图 10 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F10">）</a>）。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/66e23b08-fa55-4363-8d1a-4538eb8a8676/rsos221454f10.gif" alt="图 10."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/66e23b08-fa55-4363-8d1a-4538eb8a8676/rsos221454f10.gif" srcset="/img/loading.gif" lazyload alt="图 10."></p>
 <p>图 10.如果我们绘制训练神经网络模型所需的浮点运算 (FLOP) 总数，并将其与模型的发布日期进行比较，我们可以看到 2012 年左右的趋势变化。这对应于GPU 加速的超深度神经网络训练，2012 年标志着人工智能的“深度学习时代”和天文学第二波联结主义的开始（§5）。数据取自 Sevilla<em>等人。</em></p>
 <h5 id="4-3-3-门控循环神经网络和残差网络"><a href="#4-3-3-门控循环神经网络和残差网络" class="headerlink" title="4.3.3. 门控循环神经网络和残差网络"></a>4.3.3. 门控循环神经网络和残差网络</h5><p style="color:#FF0000;">略过关于resnet和GRU的介绍</p>
 
@@ -190,10 +356,10 @@ var _hmt = _hmt || [];
 <h4 id="5-3-变压器应用"><a href="#5-3-变压器应用" class="headerlink" title="5.3. 变压器应用"></a>5.3. 变压器应用</h4><p><em>虽然 Transformer 最初用于自然语言，但也已被 Parmar等人</em>首先应用于图像。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C168">168</a> ]，以及 Dosovitskiy<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> ]。据我们所知，变形金刚尚未应用于天文图像，但它们已开始在时间序列天文学中得到应用。多诺索-奥利瓦<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a> ]使用BERT[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C123">123</a> ]以自监督的方式生成光变曲线的表示空间。莫万<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C170">170</a> ]使用编码变压器对凌日系外行星勘测卫星（TESS，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C171">171]</a>]）并表明去噪代理任务会产生一个富有表现力的嵌入空间。潘<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C172">172</a> ]还使用变压器模型来分析系外行星的光变曲线。Transformer 席卷了自然语言处理和计算机视觉领域（§9），因此，如果我们从其他领域的趋势推断，我们预计在不久的将来会看到更多 Transformer 应用于天文用例的示例。[我们将在第 9 节中在基础模型（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C173"> 173</a> ]和其中的参考文献）及其未来可能的天文应用的背景下重新审视变压器架构。</p>
 <h4 id="5-4-监督学习的一个问题"><a href="#5-4-监督学习的一个问题" class="headerlink" title="5.4. 监督学习的一个问题"></a>5.4. 监督学习的一个问题</h4><p>监督学习需要高质量的标记数据集来训练神经网络。反过来，这些数据集需要费力的人工干预才能创建，因此监督数据供不应求。人们可以通过促使深度学习模型从完全未标记的数据中收集语义信息来避免这一问题。然后可以通过隐藏的描述性“潜在空间”访问学到的语义信息，然后用于数据生成、分类和回归等下游任务。事实上，本综述之前描述的所有网络都可以重新用于非监督任务，并且在第 6 节和第 7 节中，我们将探索一些不需要监督的深度学习框架。</p>
 <h3 id="6-深度生成建模"><a href="#6-深度生成建模" class="headerlink" title="6.深度生成建模"></a>6.深度生成建模</h3><p>在本节中，我们将讨论天文学背景下的生成建模。与判别模型不同，生成模型显式学习数据集中类的分布（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F16">图 16</a>）。一旦我们了解了数据的分布，我们就可以利用这些知识来生成类似于训练数据集中的新合成数据。在以下小节中，我们将详细探讨深度生成模型的三种流行形式：变分自动编码器（第 6.1 节）、生成对抗网络（第 6.2 节）和基于分数（或扩散）模型系列（第 6.3 节） 。最后，在第 8 节中，我们讨论深度生成模型在天文学中的应用。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/f36adb52-507c-4dcd-b1b1-5eb92f412fe0/rsos221454f16.gif" alt="图 16."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/f36adb52-507c-4dcd-b1b1-5eb92f412fe0/rsos221454f16.gif" srcset="/img/loading.gif" lazyload alt="图 16."></p>
 <p>图 16。这里我们展示了一组星系和一组恒星的可能潜在空间表示。潜在（或嵌入）空间是一组对象的压缩表示，其中相似的对象比不相似的对象聚集得更近。虽然这个空间通常是高维的，但这里我们将潜在空间投影到二维上以实现可视化目的。在（<em>a</em>）中，我们看到一个生成模型试图学习包含一组星系和一组恒星的数据集的潜在表示的概率分布。在（<em>b</em>）中，我们看到一个判别模型试图学习区分恒星和星系类型的边界</p>
 <h4 id="6-1-（变分）自动编码器"><a href="#6-1-（变分）自动编码器" class="headerlink" title="6.1. （变分）自动编码器"></a>6.1. （变分）自动编码器</h4><p>自动编码器长期以来一直是神经网络架构的主要内容。<em>在反向传播普及者 Rumelhart等人</em>的姐妹论文中。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C174">174</a> ]演示了自动编码器内的反向传播。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F17">图 17</a>演示了基本的神经网络自动编码器架构。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/1ad572f7-b10e-4d1c-bdde-945675eda404/rsos221454f17.gif" alt="图 17."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/1ad572f7-b10e-4d1c-bdde-945675eda404/rsos221454f17.gif" srcset="/img/loading.gif" lazyload alt="图 17."></p>
 <p>图 17.自动编码器 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C174">174</a> ] 处理黑洞图像。<strong>z</strong>是潜在向量，<strong>x</strong>是训练集中的样本。编码器<em>q</em>学习将输入数据编码为潜在向量，而解码器<em>p将</em><strong>z</strong>作为输入并尝试重新创建<strong>x</strong>。</p>
 <p>天真地，人们会认为一旦训练完毕，就可以“仅仅”采样一个新的潜在向量，并通过解码神经网络产生新的图像</p>
 <p>$p (\hat{x}|z)$。我们不能这样做，因为纯粹通过重建损失训练的自动编码器没有动力产生平滑可插值的潜在空间。这意味着我们可以使用标准自动编码器来嵌入和检索训练集中包含的数据，但不能使用标准自动编码器来生成新数据。为了生成新数据，我们需要一个平滑的潜在空间，这是变分自动编码器（VAE，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F18">图 18</a>）通过设计产生的[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C175">175</a> ]。</p>
@@ -209,7 +375,7 @@ var _hmt = _hmt || [];
 
 <h4 id="7-2-通过代理任务学习表征"><a href="#7-2-通过代理任务学习表征" class="headerlink" title="7.2. 通过代理任务学习表征"></a>7.2. 通过代理任务学习表征</h4><p>人们还可以通过代理任务来学习表征。代理任务是与网络最终使用无关的任何任务。然而，在学习执行代理任务的过程中，网络会了解训练集中的数据什么是重要的，什么是不重要的。然后可以以学习表示的形式提取该信息。如果代理任务足够通用，这些表示将包含有关数据集中项目的有用语义信息，然后可用于下游应用程序。</p>
 <p>让我们通过回顾之前在第 4.2 节中讨论的示例来具体化这个过程。让我们想象一下，我们有一大组星系旋转曲线，我们想要从中提取嵌入。我们可以训练一个 LSTM 模型（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F24">图 24</a>）来预测旋转曲线中的下一个项目，该模型只能访问配置文件中的前一个项目。一旦 LSTM 模型接受了此任务的训练，我们就可以输入完整的新旋转曲线，并将最终隐藏状态重新用作代表性嵌入。请注意，此设置不依赖于任何外部标签，仅依赖于旋转曲线本身。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN33">33</a></p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/0955c95a-d19f-4d38-8a11-8d340024b6d9/rsos221454f24.gif" alt="图 24."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/0955c95a-d19f-4d38-8a11-8d340024b6d9/rsos221454f24.gif" srcset="/img/loading.gif" lazyload alt="图 24."></p>
 <p>图 24.显示了用于提取旋转曲线表示的假设代理任务。{ <em>x</em> 0 , …, <em>x</em> <em>N</em> } 是星系旋转曲线的一组观测值，按距星系中心的径向距离的顺序排列。{ <em>p</em> 1 , …, <em>p</em> <em>N</em> } 是 LSTM 对应的 { <em>x</em> 1 , …, <em>x</em> <em>N</em> } 预测集。<strong>h</strong>是 LSTM 隐藏状态向量。有关 LSTM 内部工作原理的更多信息，请参见图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F11">11 。</a>( <em>a</em> ) 在训练时，我们输入星系旋转曲线，并预测其序列中的下一个观测结果。( <em>b</em>）在推断时，我们输入完整的星系旋转曲线，并提取 LSTM 隐藏状态作为曲线的压缩表示嵌入。否则，我们会忽略LSTM 生成的任何输出</p>
 <p>我们可以通过自动编码任务生成嵌入。再次，让我们使用一个天文示例来指定这一点，并说我们想要从一组星系观测中提取嵌入。我们可以为此重新调整变分自动编码器的用途，按照第 6.1 节中所述的正常方式对其进行训练。然而，一旦模型训练完毕，我们将放弃网络的解码部分，只考虑编码器。为了生成嵌入，我们只需将星系图像传递给经过训练的编码器。GAN 可以执行相同的过程（第 6.2 节）。在 GAN 的情况下，我们会在训练后丢弃生成器，并使用鉴别器的倒数第二层输出作为我们的嵌入。</p>
 <p>监督网络也可用于生成嵌入。如果网络经过监督方式训练来对数据进行分类或回归，它将了解该数据的一些属性，以帮助其执行任务。我们可以通过将经过训练的网络的倒数第二层的输出作为嵌入来访问这些学习到的表示。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN34">34</a></p>
@@ -229,12 +395,12 @@ var _hmt = _hmt || [];
 <p>我们看到这一原则通过深度学习的新范式转变再次发挥作用，甚至底层的神经网络架构也不再重要。此前，神经网络通过研究人员注入的归纳偏差来适应特定领域，例如计算机视觉的卷积和语言处理的递归。现在我们看到 Transformer 网络（参见第 4.4 节和 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C117">117</a> ]）在所有应用或其他深度学习领域中展开竞争<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN41">41</a>[ ：从语言处理 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17"> 17</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C123">123</a> ] <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN42">42</a>到计算机视觉 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C168">168</a> ] 到图形学习 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C267">267</a> ]蛋白质折叠[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C16">16</a> ]到天文学[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a>,<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C170">170</a>,<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C172">172</a>]。Transformer 的多功能性使我们能够采用针对一项任务训练的模型，并将其应用于类似但不同的任务，这一过程称为迁移学习。例如，我们可以在预测序列中下一个单词的“代理”任务上训练模型，然后将该模型应用于预测地理问题答案的类似但不同的任务。在此示例中，第一个模型称为“基础”模型，下游模型从中派生。这种设置带来了一些有用的优势。例如，如果基础模型得到改进，所有下游任务也会得到改进。因此，只需要一种模型就可以让研究人员以一种在资源分配给多个项目时不可能实现的方式集中精力。</p>
 <p>为了训练基础模型，我们首先需要定义一个代理任务。由于标记数据集价格昂贵，而原始数据相对便宜，因此最简单且最具可扩展性的方法是通过自我监督学习。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN43">43</a>自监督学习不需要人类提供用于训练的标记数据集。相反，监控信号是根据原始数据自动生成的。例如，在天文学的背景下，此任务可以预测变星光曲线中的掩蔽值[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a> ]。另一项任务可能是使用自动编码器（§6.1）来复制星系观测[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C177">177</a>]。进一步的任务可以是在自我监督框架内进行培训，例如对比学习（§7.1）。自监督学习的重要一点是它不需要带注释的数据。这意味着我们可以利用大量的原始数据（例如教科书、抓取的互联网文本、原始图像等）。</p>
 <p>经过大量数据训练的大型模型表现出了令人惊讶的突发行为。例如，GPT-3 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> ] 是一个 1750 亿 (B) 参数模型，可以“提示”执行新任务（有关提示基础模型的更多信息，请参阅<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F25">图 25 ）。</a>这种能力在 GPT-3 的较旧、较小的 1.5B 参数兄弟中根本没有表现出来 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C122">122</a> ]。<em>此外，Wei等人</em>描述的一项荟萃研究。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C269">269</a> ]发现，较大的模型一旦达到一定规模，就会突然“解锁”算术、翻译和修辞格理解等能力。这些发现表明，除了扩展之外，无需进行架构更改即可执行自然语言处理中的许多任务[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C92">92</a>，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C270">270</a> ]。在<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F25">图 25中，我们看到了 Alayrac</a><em>等人</em>的一些结果。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C268">268</a> ]，一个包含LLM和图像编码器的模型。在此图中，我们可以看到该模型能够算术、阅读、计数，并且具有艺术、地理和动物学 44 以及文学的广泛知识（尽管不是“理解” <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN44">）</a>。该模型包含用于编码图像的 ResNet 变体 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C119">119</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C272">272</a> ] 和用于编码和生成文本的 Chinchilla LLM [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a> ]。Chinchilla（以及 Flamingo）接受了预测文本序列中下一个单词的代理任务的训练，因此上述的紧急属性都没有被明确优化。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/81cee15a-9f23-4689-9f6a-b03ffd828d3f/rsos221454f25.gif" alt="图 25."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/81cee15a-9f23-4689-9f6a-b03ffd828d3f/rsos221454f25.gif" srcset="/img/loading.gif" lazyload alt="图 25."></p>
 <p>图 25.Flamingo是一个基础模型，能够理解自然语言背景下的图像。在这里，我们看到了火烈鸟新兴能力的一些例子。该图改编自图。1 在 Alayrac<em>等人中。</em></p>
 <p>在下一小节中，我们将陈述并解释天文学基础模型的必要性，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN45">45</a>不仅是为了天文学，也是为了深度学习研究的开放性。</p>
 <h4 id="9-2-扩展法则和数据护城河"><a href="#9-2-扩展法则和数据护城河" class="headerlink" title="9.2. 扩展法则和数据护城河"></a>9.2. 扩展法则和数据护城河</h4><p>霍夫曼<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273 ]建议对 Kaplan</a><em>等人</em>首次提出的基础模型缩放定律进行更新。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C275">275</a> ]。他们的缩放定律方程将神经网络模型的大小和训练数据集的大小与可实现的最小损失联系起来。从数学上来说，方程是<br>$$<br>\mathcal{L_min}(N,D)=\frac{A}{N^\alpha}+\frac{B}{D^\beta}+E<br>$$<br>其中<em>E</em>是一个常数，表示给定特定训练数据集时的最低可能损失。<em>N</em>是神经网络中可训练参数的数量，<em>D</em>是以标记为单位的数据集大小（有关标记化的更多信息，请参阅第 4.4 节）。我们可以看到，当我们在无限大数据集（即<em>N</em> = <em>D</em> = ∞）上训练无限大模型时，剩下的唯一项是“数据集熵”常数<em>E</em>。因此，我们只能通过增加模型的大小或训练集的大小来减少损失。</p>
 <p>拟合上述方程后，Hoffmann<em>等人发现：<br>$$<br>\mathcal{L_min}(N,D)=\frac{406.4}{N^{0.34}}+\frac{410.7}{D^{0.28}}+.69<br>$$<br>如果我们随后插入</em>N<em>和</em>D*以选择真实的基础模型，我们将得到<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">图 26</a>。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">我们可以在图 26</a>中看到，真实基础模型的模型大小项远低于数据集大小项。这意味着数据集大小的增加有可能比更大的模型减少更多的最小损失。因此，进一步改进这些基础模型的下一步显然是增加其数据集大小。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/1fcd5843-5bef-4a27-8e3a-413263ee8586/rsos221454f26.gif" alt="图 26."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/1fcd5843-5bef-4a27-8e3a-413263ee8586/rsos221454f26.gif" srcset="/img/loading.gif" lazyload alt="图 26."></p>
 <p>图 26.所选基础模型的最小损失之间的比较。上表显示了模型中参数的数量 ( <em>N</em> )、模型训练集中的标记数量 ( <em>D )，以及从方程 (</em> <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M9x1">9.1</a> )中计算出的相应的涌现项。这里我们使用 Hoffmann<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a> ] 获取<em>A</em>、<em>α</em>、<em>B</em>和<em>β</em>的源值。</p>
 <p><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">图 26</a>所示的比较中最大的数据集（MassiveText-English；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a> ]）总计 1.4 万亿 (T) 个令牌。然而，该数据集是专有的，仅供谷歌雇用的研究人员使用。在撰写本文时，最大的公共文本数据集是 The Pile [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C279">279</a> ]，总大小约为 260B 个令牌。我们可以通过无限期地从表面网络中抓取文本数据来增加这些数据集的大小，但这些数据往往质量较低。此外，我们已经耗尽了一些重要的高质量数据储备，例如基础研究论文和开源代码[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C280">280</a>]。我们还必须问自己：当生成模型开始大量创建数据并将其不加区别地转储到互联网上时会发生什么？如果从互联网上抓取的数据集中很大一部分文本是通过法学硕士生成的，则对其进行训练将导致不可预见的问题，并可能最终导致模型性能较差。因此，我们必须确保数据不是由深度生成模型生成的。除此之外，学院和广大公众将永远无法访问由字节跳动、谷歌、Meta、微软和其他科技巨头管理的深层网络中包含的大量数据。出于所有这些原因，如果我们想挖掘新的高质量数据，我们就需要跳出框框思考。</p>
 <p>输入多模式基础模型。里德<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C124">124</a> ] <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN46">46</a>证明大型 Transformer 神经网络能够学习许多任务，从玩 Atari 游戏、为图像添加字幕、聊天到操作真正的机器人手臂。该模型在所有任务之间共享权重，并在推理时根据上下文决定要预测哪个任务。重要的是，里德<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C124">124</a> ]发现他们的模型遵循与其他基础模型相同的缩放法则，因此多模态基础模型对数据具有与我们在<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">图 26</a>中看到的相同的渴望。更令人惊讶的是，Aghajanyan<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C282">282]</a>]发现一旦神经网络达到一定规模，在连接的独立数据集上训练的基础模型显着优于单独训练的单峰模型。因此，我们可以使用高质量、公开的天文数据来扩充我们的文本数据集。</p>
@@ -242,10 +408,10 @@ var _hmt = _hmt || [];
 <p>一旦数据集编译完毕，我们训练所需的只是一些自我监督的替代任务，供我们的“天文基础”模型尝试。这些任务可能包括预测变星时间序列中的下一次观测、预测星系的低表面亮度剖面、预测星系的形态参数或简单地生成一系列观测中的下一次观测。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN48">48</a>正如我们将在下一小节中探讨的那样，这些代理任务根本不需要与我们最终将使用模型的下游任务相关。经过训练后，我们的 astrofoundation 模型将继承法学硕士享有的所有有趣属性，例如少样本到零样本生成和其他突发行为。</p>
 <h4 id="9-3-天文基础模型的实际意义和用途"><a href="#9-3-天文基础模型的实际意义和用途" class="headerlink" title="9.3. 天文基础模型的实际意义和用途"></a>9.3. 天文基础模型的实际意义和用途</h4><p>本节探讨假设的天体基础模型（第 9.3.1 节）的更广泛含义，以及一些实际的天文学用途（第 9.3.2 节）。在§9.3.3中，我们强调了一项可能对天文学有用的下游任务；天文模拟的条件生成模型。</p>
 <h5 id="9-3-1-基金会模式民主化"><a href="#9-3-1-基金会模式民主化" class="headerlink" title="9.3.1. 基金会模式民主化"></a>9.3.1. 基金会模式民主化</h5><p>2023 年春天<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN49">49</a>随之而来的是全球时代精神的注意力转向基础模型，特别是大型语言模型的 GPT 系列。领先的是 OpenAI 的 ChatGPT，它的发布已成为大型语言模型所拥有能力的公开广告（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F27">图 27</a>）。虽然很有影响力，但我们注意到 ChatGPT “只是”GPT-3 和 GPT-4 版本的 Web 界面包装器，这些版本已使用人类反馈进行了微调 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C292">291 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C291">,</a> 292 []</a>]。因此，ChatGPT 的受欢迎程度表明，人们对深度学习和基础模型有很多潜在的普遍兴趣，并且这种兴趣可以通过令人信服的公开演示来实现。这些模型的完全开放开发和传播也许是最公开的演示。我们确实看到开源基础模型的发布导致了创新和兴趣的爆发。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN50">50</a>一个特殊的例子是“Meta AI 的大型语言模型”的发布和影响（LLaMA；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C293">293</a> ]）。LLaMA 是开源 LLM 的集合，最大的 LLaMA 具有与 GPT-3 相当的性能。自从 LLaMA 发布以来，整个项目生态系统已经兴起，以创新和有趣的方式使用该模型（例如 [<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C294">294</a> – <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C297">297</a> ]）。类似的故事发生在 2022 年，当时 StabilityAI 发布了基于潜在扩散的开放文本到图像扩散模型 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C94">94</a> ]。[接下来的一系列活动远远超过了 OpenAI 与其竞争的闭源 DALL-E 2 模型 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C203"> 203</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C298">298</a> ]所取得的进展。我们相信，如果开放的天文学基础模型得到有效开发和营销，天文学将会出现与 LLaMA 和稳定扩散模型发布类似的创新爆炸式增长。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/115230be-9fee-4b9d-87b0-00ee1e061c71/rsos221454f27.gif" alt="图 27."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/115230be-9fee-4b9d-87b0-00ee1e061c71/rsos221454f27.gif" srcset="/img/loading.gif" lazyload alt="图 27."></p>
 <p>图 27.这里我们显示了术语“GPT”在 Google 搜索中的相对流行度。当 ChatGPT 模型推出供公众使用时，我们可以看到 GPT 的搜索量大幅增加（令人惊讶的是，当 GPT-1、GPT-2 和 GPT-3 论文发布时，搜索量几乎没有增加！） [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C26">26</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C122">122</a>，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C290">290</a> ]。这些数据取自 Google 趋势 ( <a target="_blank" rel="noopener" href="https://trends.google.co.uk/">https://trends.google.co.uk/</a> )。</p>
 <p>3月中旬GPT-4发布了[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C26">26</a> ]。其随附的“技术报告”不包含有关模型架构、训练集大小或训练例程的详细信息。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN51">51</a>对于一个历史上建立在开源和开放研究基础上的领域来说，无耻地发布封闭模型是一个相当令人担忧的发展。最令人担忧的是，该领域的行业参与者关闭了商店，作为对 OpenAI 设定的开放/封闭模型囚徒困境的反应。如图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F28">28</a>表明，自 2010 年代中期以来，工业界已经产生了大部分有影响力的深度学习模型；如果未来的发展由于商业压力而被隐藏，我们将看到人才和创新的集中被锁在行业的大门后面。此外，基础建模的最新发展有可能通过普遍的自动化对全球经济和劳动力产生重大影响 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C173">173</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C300">300</a>]。随着自动化程度的提高，大型工业参与者的权力、专业知识和经济影响力的集中将削弱那些无法获得这些技术的人的经济讨价还价地位。这可能会导致社会平衡，获得经济和社会机会的人越来越少。这是一种被 Brynjolfsson [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C301">301</a> ] 模因地称为“图灵陷阱”的平衡：</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/b8526010-8ace-4a72-a2ce-e552b892f6e8/rsos221454f28.gif" alt="图 28."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/b8526010-8ace-4a72-a2ce-e552b892f6e8/rsos221454f28.gif" srcset="/img/loading.gif" lazyload alt="图 28."></p>
 <p>图 28.这里我们显示了学术界和工业界每年产生的被高度引用、最先进或具有历史意义的作品的数量。这些数据来自 Sevilla<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C299">299</a> ]。</p>
 <blockquote>
 <p>原则上，完全自动化的经济可以被构建为广泛地重新分配生产的利益，甚至分配给那些不再严格需要创造价值的人。然而，受益人在阻止分配变化方面处于弱势讨价还价地位，而这种变化使他们几乎一无所有。他们将不稳定地依赖于那些控制技术的人的决定。这为财富和权力的进一步集中打开了大门。</p>
@@ -261,7 +427,7 @@ var _hmt = _hmt || [];
 <p>自主代理不再是科幻小说；而是现实。当仅由人类操作员给出高级提示时，由基础模型的拟像驱动的任务驱动的自主代理能够解决非常一般的任务[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C305">305</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C306">306]</a>]。因此，人们可以想象一个半自动化的研究管道，其中具有天文知识的自主代理可以通过 API 访问一组天文数据。代理将被提示一个高级研究目标（例如“在这个数据集中找到一些有趣和令人惊讶的东西”），然后将采取措施来完成此任务。这些步骤可能包括查询研究论文以进行文献综述、搜索大型多模态天文数据集以查找支持理论的数据、用额外的拟像来唤起和讨论其发现，或者旋转模拟来检验假设[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C307">307</a>]。当代理在后台运行时，人类研究人员将能够对结果提供高水平的解释，并且将成为为更一般的研究方向提供指导和完善的稳定之手。通过这种方式，天文学基础模型将提供工具，使所有天文学家成为他们自己强大的“人工智能实验室”的首席研究员。</p>
 <h5 id="9-3-3-一类新的模拟"><a href="#9-3-3-一类新的模拟" class="headerlink" title="9.3.3. 一类新的模拟"></a>9.3.3. 一类新的模拟</h5><p>我们希望以我们假设的天体基础模型的实际应用来结束本小节；本着最近文本到图像建模工作的精神（即[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C94">94</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C308">308</a> ]），天文模拟的条件生成模型。如果我们训练无条件生成模型，我们无法在推理时控制其输出。如果我们想要生成特定类别的观测来训练下游任务（例如红移</p>
 <p>作为一个思想实验，让我们考虑一下 Google 最近的“Imagen”模型，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN53">53</a>并想象如何将其重新用于天文用例（图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F29">29</a>和<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F30">30</a>，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C308">308</a> ]）。Imagen 是冻结的 LLM（特别是 T5-XXL；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C310">310</a> ]）和级联扩散模型（[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C309">309</a>]，另见§6.3）。LLM 充当语言编码器，然后将其生成的潜在空间表示作为条件向量传递到扩散模型上。如果我们用“天文基础”模型取代冻结的法学硕士（参见第 9.1 和 9.2 节），我们就可以利用天文学本质上的多模态性质。例如，如果我们的 astrofoundation 模型经过训练来理解 Galaxy Zoo 2 (GZ2) 形态分类 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C311">311</a> ]，我们可以将 GZ2 描述符作为<strong>y</strong>，将它们相应的星系对作为<strong>x</strong>并对其进行训练。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/d8c452eb-f47c-44eb-b46d-e50684589244/rsos221454f29.gif" alt="图 29."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/d8c452eb-f47c-44eb-b46d-e50684589244/rsos221454f29.gif" srcset="/img/loading.gif" lazyload alt="图 29."></p>
 <p>图 29.选择从文本输入生成的 1024 × 1024 Imagen 样本。每个图像下方是其相应的条件文本。图改编自图。[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C308"> 308</a> ]中的A.2 。</p>
 <p>经过训练后，我们的天文 Imagen 模型可以生成类似于其所训练的真实星系观测结果的合成星系。然而，与无条件天文模拟器不同，该模型能够生成与共享 GZ2 参数调节集的真实星系特别相似的星系！</p>
 <p><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M9x2">与方程（ 9.2</a> ）描述的条件模型不同，天文基础型模型允许我们对条件向量进行创造性的处理。例如，我们可以反向运行模型来生成引用非常具体的天文物体的表示，然后生成该“类”的更多物体，并注入卫星遮挡、特定仪器响应函数、特定红移等特征，等（参见 Gal<em>等人</em>关于“文本倒置”的工作。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C312">312</a>]）。这些模拟将使研究人员能够为各种研究目的创建定制的数据集，例如研究特定的星系类型、形态或宇宙学现象。我们甚至可以创建一个“银河动物园”类型的数据集，要求公民科学家通过自然语言描述星系形态（§9.3.2）。这是可能的，因为编码基础模型从根本上并不关心标题采用哪种形式。由于自然语言固有的直观性，这种方法将减少公民科学家的培训成本。此外，由于推理时间生成相对便宜，因此像本节中描述的模型将允许天文学家比使用经典模拟更快地探索和测试假设和场景。</p>
@@ -277,491 +443,359 @@ var _hmt = _hmt || [];
 <p>从 70 年的人工智能研究中可以学到的最大教训是，利用计算的通用方法最终是最有效的，而且效率很高。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C91">91</a> ]</p>
 </blockquote>
 <p>没有理由相信天文学有根本上的不同。事实上，在这篇评论中，我们看到了指向这一结论的叙述（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F32">图 32</a>）。天文学中 MLP 的初始工作需要手动选择涌现属性作为输入（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C53">53</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C75">75</a> ]）。随着 CNN 和 RNN 的出现，这些手动选择的输入让位于原始数据摄取（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C131">131</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C155">155</a> ]）。现在，我们看到深度学习方法直接从数据中推断标签和知识，从而消除了人类监督（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C170">170</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C177">177</a>]）。最终，如果天文学追随其他应用深度学习领域的脚步，我们将看到精心设计的深度学习模型被移除，取而代之的是经过微调的包罗万象的“基础”模型<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C173">173 []</a>。这个过程绝不是一件坏事；在天文发现过程中消除人类偏见使我们能够通过机缘巧合找到“未知的未知数”[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C261">261</a> ]。同样，利用数据的能力使我们能够直接生成和询问真实且综合的观察结果，从而避免了昂贵且脆弱的经典模拟的需要[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C13">13</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C239">239</a> ]。</p>
-<p><img src="https://royalsocietypublishing.org/cms/asset/e0b8cdf3-3dc9-42f6-9585-9fe2aa146f52/rsos221454f32.gif" alt="图 32."></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/e0b8cdf3-3dc9-42f6-9585-9fe2aa146f52/rsos221454f32.gif" srcset="/img/loading.gif" lazyload alt="图 32."></p>
 <p>图 32.这里我们看到标题或摘要与图例中给出的术语匹配的 arXiv:astro-ph 提交的数量。我们可以看到三个不同的“波浪”。第一个对应于使用 MLP 的研究 (§§2.1–3)，第二个对应于使用注入原始数据的“深度学习”方法的研究 (§§4.1–5)，第三个对应于使用生成或自我生成的研究-监督模型（§§6–8）。原始数据属于公共领域，可在<a target="_blank" rel="noopener" href="https://www.kaggle.com/Cornell-University/arxiv">https://www.kaggle.com/Cornell-University/arxiv</a>             </p>
 <p>上获取。</p>
 <p>天文学的相对数据财富使我们有机会与深度学习研究的前沿形成共生关系，这是一个日益需要数据的领域[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C92">92</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C280">280</a> ]。机器学习中的许多超大型数据集都是专有的，因此天文学界有机会介入并提供高质量的多模态公共数据集。反过来，该数据集可用于训练天文“基础”模型，该模型可用于最先进的下游任务（例如天文模拟，请参阅§9.3.3）。最后，根据联结主义的最新发展 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a>] 大多数天文学家缺乏训练该领域前沿模型的资源。如果天文学想要有机会跟上大型科技巨头的步伐，我们必须效仿 EleutherAI 和 HuggingFace 的例子，并以草根式的开源方式集中我们的资源（§9）。我们将此作为对社区的挑战。</p>
- 
-      <!-- reward -->
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E5%A4%A9%E6%96%87/" class="print-no-link">#天文</a>
       
     </div>
-    
+  
+</div>
 
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>天文学神经网络的历史、入门和展望</div>
+      <div>https://lijianxiong.work/2023/20230701/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/20230703/" title="一些博士生对超大型语言模型时代NLP研究的看法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一些博士生对超大型语言模型时代NLP研究的看法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/20230629/" title="Voice Conversion With Just Nearest Neighbors">
+                        <span class="hidden-mobile">Voice Conversion With Just Nearest Neighbors</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
-</div>
-
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lijianxiong.work/2023/20230701/" alt="微信分享二维码">
     </div>
-</div>
 
-<div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A9%E6%96%87/" rel="tag">天文</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-  <nav class="article-nav">
-    
-      <a href="/2023/20230703/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            一些博士生对超大型语言模型时代NLP研究的看法
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2023/20230629/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Voice Conversion With Just Nearest Neighbors</div>
-      </a>
-    
-  </nav>
-
-   
- 
-   
-     
-</article>
-
-</section>
-      <footer class="footer">
-  <div class="outer">
-    <ul>
-      <li>
-        Copyrights &copy;
-        2019-2024
-        <i class="ri-heart-fill heart_icon"></i> LJX
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
-        
-        
-        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
-        <span class="division">|</span>
-        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
-        
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
-        
-        <span>
-  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
-  <span class="division">|</span>
-  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
-</span>
-        
-      </li>
-    </ul>
-    <ul>
+    <div class="side-col d-none d-lg-block col-lg-2">
       
-    </ul>
-    <ul>
-      
-    </ul>
-    <ul>
-      <li>
-        <!-- cnzz统计 -->
-        
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
-        
-      </li>
-    </ul>
-  </div>
-</footer>    
-    </main>
-    <div class="float_btns">
-      <div class="totop" id="totop">
-  <i class="ri-arrow-up-line"></i>
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
 
-<div class="todark" id="todark">
-  <i class="ri-moon-line"></i>
-</div>
+
+
+  </aside>
+
 
     </div>
-    <aside class="sidebar on">
-      <button class="navbar-toggle"></button>
-<nav class="navbar">
+  </div>
+</div>
+
+
+
+
+
   
-  <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="小熊的小站"></a>
-  </div>
+
+
+
   
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">主页</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives">目录</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/about">关于本站</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/about_me">关于我</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/photos">人间烟火</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" target="_blank" rel="noopener" href="https://act18l.github.io/">欧拉计划</a>
-    </li>
-    
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      
-      <a class="nav-item-link nav-item-search"  title="Search">
-        <i class="ri-search-line"></i>
-      </a>
-      
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-    </aside>
-    <div id="mask"></div>
 
-<!-- #reward -->
-<div id="reward">
-  <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
-  <div class="reward-box">
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
     
-    <div class="reward-item">
-      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
-      <span class="reward-type">支付宝</span>
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
-    
-    
-    <div class="reward-item">
-      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
-      <span class="reward-type">微信</span>
-    </div>
-    
   </div>
 </div>
+
     
-<script src="/js/jquery-3.6.0.min.js"></script>
- 
-<script src="/js/lazyload.min.js"></script>
 
-<!-- Tocbot -->
- 
-<script src="/js/tocbot.min.js"></script>
+    
+  </main>
 
-<script>
-  tocbot.init({
-    tocSelector: ".tocbot",
-    contentSelector: ".article-entry",
-    headingSelector: "h1, h2, h3, h4, h5, h6",
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: "main",
-    positionFixedSelector: ".tocbot",
-    positionFixedClass: "is-position-fixed",
-    fixedSidebarOffset: "auto",
-  });
-</script>
-
-<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
-<link
-  rel="stylesheet"
-  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
-/>
-<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
-
-<script src="/dist/main.js"></script>
-
-<!-- ImageViewer -->
- <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-
+  
+  
+  
 </div>
 
-<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
-<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
-<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+  </footer>
 
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
 <script>
-    function viewer_init() {
-        let pswpElement = document.querySelectorAll('.pswp')[0];
-        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
-        $imgArr.forEach(($em, i) => {
-            $em.onclick = () => {
-                // slider展开状态
-                // todo: 这样不好，后面改成状态
-                if (document.querySelector('.left-col.show')) return
-                let items = []
-                $imgArr.forEach(($em2, i2) => {
-                    let img = $em2.getAttribute('data-idx', i2)
-                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
-                    let title = $em2.getAttribute('alt')
-                    // 获得原图尺寸
-                    const image = new Image()
-                    image.src = src
-                    items.push({
-                        src: src,
-                        w: image.width || $em2.width,
-                        h: image.height || $em2.height,
-                        title: title
-                    })
-                })
-                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
-                    index: parseInt(i)
-                });
-                gallery.init()
-            }
-        })
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
-    viewer_init()
-</script> 
-<!-- MathJax -->
- <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-      tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-  });
 
-  MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-      for(i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-
-<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
-<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
-<script>
-  var ayerConfig = {
-    mathjax: true,
-  };
-</script>
-
-<!-- Katex -->
- 
-    
-        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.css">
-        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/katex.min.js"></script>
-        <script src="https://cdn.staticfile.org/KaTeX/0.15.1/contrib/auto-render.min.js"></script>
-        
-    
- 
-<!-- busuanzi  -->
- 
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
- 
-<!-- ClickLove -->
-
-<!-- ClickBoom1 -->
-
-<!-- ClickBoom2 -->
-
-<!-- CodeCopy -->
- 
-<link rel="stylesheet" href="/css/clipboard.css">
- <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
         }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('ri-file-copy-2-line');
-        $icon.addClass('ri-checkbox-circle-line');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('ri-checkbox-circle-line');
-          $icon.addClass('ri-file-copy-2-line');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('ri-file-copy-2-line');
-        $icon.addClass('ri-time-line');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('ri-time-line');
-          $icon.addClass('ri-file-copy-2-line');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
 </script>
- 
-<!-- CanvasBackground -->
- 
-<script src="/js/dz.js"></script>
- 
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
 <script>
-  if (window.mermaid) {
-    mermaid.initialize({ theme: "forest" });
-  }
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
 </script>
 
 
-    
-    
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
 
-  </div>
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
-
 </html>
