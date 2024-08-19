@@ -15,6 +15,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
@@ -84,7 +86,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -1272,7 +1274,16 @@ trained on ImageNet.">
 <li>Running different numbers of trials in parallel versus sequentially will<br> not produce statistically different results when using quasi-random<br> search (or other non-adaptive search algorithms), unlike with adaptive<br> algorithms.</li>
 <li>More sophisticated search algorithms may not always handle infeasible<br> points correctly, especially if they aren’t designed with neural network<br> hyperparameter tuning in mind.</li>
 <li>Quasi-random search is simple and works especially well when many tuning<br> trials will be running in parallel.<ul>
-<li>Anecdotally[^3], it is very hard for an adaptive algorithm to beat a<br>  quasi-random search that has 2X its budget, especially when many<br>  trials need to be run in parallel (and thus there are very few<br>  chances to make use of previous trial results when launching new<br>  trials).</li>
+<li>Anecdotally<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ben Recht and Kevin Jamieson
+[pointed out](http://www.argmin.net/2016/06/20/hypertuning/) how strong
+2X-budget random search is as a baseline (the
+[Hyperband paper](https://jmlr.org/papers/volume18/16-558/16-558.pdf)
+makes similar arguments), but it is certainly possible to find search
+spaces and problems where state-of-the-art Bayesian optimization
+techniques crush random search that has 2X the budget. However, in our
+experience beating 2X-budget random search gets much harder in the
+high-parallelism regime since Bayesian optimization has no opportunity to
+observe the results of previous trials.">[3]</span></a></sup>, it is very hard for an adaptive algorithm to beat a<br>  quasi-random search that has 2X its budget, especially when many<br>  trials need to be run in parallel (and thus there are very few<br>  chances to make use of previous trial results when launching new<br>  trials).</li>
 <li>Without expertise in Bayesian optimization and other advanced black<br>  box optimization methods, we might not achieve the benefits they<br>  are, in principle, capable of providing. It is hard to benchmark<br>  advanced black box optimization algorithms in realistic deep<br>  learning tuning conditions. They are a very active area of current<br>  research, and the more sophisticated algorithms come with their own<br>  pitfalls for inexperienced users. Experts in these methods are able<br>  to get good results, but in high-parallelism conditions the search<br>  space and budget tend to matter a lot more.</li>
 </ul>
 </li>
@@ -1280,7 +1291,6 @@ trained on ImageNet.">
 </li>
 <li>That said, if our computational resources only allow a small number of<br>  trials to run in parallel and we can afford to run many trials in sequence,<br>  Bayesian optimization becomes much more attractive despite making our tuning<br>  results harder to interpret.</li>
 </ul>
-<p>[^3]: Ben Recht and Kevin Jamieson<br>    <a target="_blank" rel="noopener" href="http://www.argmin.net/2016/06/20/hypertuning/">pointed out</a> how strong<br>    2X-budget random search is as a baseline (the<br>    <a target="_blank" rel="noopener" href="https://jmlr.org/papers/volume18/16-558/16-558.pdf">Hyperband paper</a><br>    makes similar arguments), but it is certainly possible to find search<br>    spaces and problems where state-of-the-art Bayesian optimization<br>    techniques crush random search that has 2X the budget. However, in our<br>    experience beating 2X-budget random search gets much harder in the<br>    high-parallelism regime since Bayesian optimization has no opportunity to<br>    observe the results of previous trials.</p>
 </details>
 
 <h3 id="Where-can-I-find-an-implementation-of-quasi-random-search"><a href="#Where-can-I-find-an-implementation-of-quasi-random-search" class="headerlink" title="Where can I find an implementation of quasi-random search?"></a>Where can I find an implementation of quasi-random search?</h3><details><summary><em>[Click to expand]</em></summary>
@@ -1514,7 +1524,7 @@ scale).">
 <li>  我们要感谢Will Chen在文档的介绍中的宝贵建议。</li>
 <li>  We would also like to thank Rohan Anil for useful discussions.</li>
 </ul>
-<h2 id="Citing"><a href="#Citing" class="headerlink" title="Citing"></a>Citing</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@misc&#123;tuningplaybookgithub,</span><br><span class="line">  author = &#123;Varun Godbole and George E. Dahl and Justin Gilmer and Christopher J. Shallue and Zachary Nado&#125;,</span><br><span class="line">  title = &#123;Deep Learning Tuning Playbook&#125;,</span><br><span class="line">  url = &#123;http://github.com/google/tuning_playbook&#125;,</span><br><span class="line">  year = &#123;2023&#125;,</span><br><span class="line">  note = &#123;Version 1.0&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Citing"><a href="#Citing" class="headerlink" title="Citing"></a>Citing</h2><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-comment">@misc&#123;tuningplaybookgithub,</span><br>  author = &#123;Varun Godbole <span class="hljs-keyword">and</span> George E. Dahl <span class="hljs-keyword">and</span> Justin Gilmer <span class="hljs-keyword">and</span> Christopher J. Shallue <span class="hljs-keyword">and</span> Zachary Nado&#125;,<br>  title = &#123;Deep Learning Tuning Playbook&#125;,<br>  url = &#123;http:<span class="hljs-comment">//github.com/google/tuning_playbook&#125;,</span><br>  year = &#123;<span class="hljs-number">2023</span>&#125;,<br>  note = &#123;Version <span class="hljs-number">1</span>.<span class="hljs-number">0</span>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><ul>
 <li><p>  This is not an officially supported Google product.</p>
@@ -1534,7 +1544,8 @@ scale).">
 <p>You generally only need to submit a CLA once, so if you’ve already submitted one<br>(even if it was for a different project), you probably don’t need to do it<br>again.</p>
 <h3 id="Code-Reviews"><a href="#Code-Reviews" class="headerlink" title="Code Reviews"></a>Code Reviews</h3><p>All submissions, including submissions by project members, require review. We<br>use GitHub pull requests for this purpose. Consult<br><a target="_blank" rel="noopener" href="https://help.github.com/articles/about-pull-requests/">GitHub Help</a> for more<br>information on using pull requests.</p>
 <h3 id="Community-Guidelines"><a href="#Community-Guidelines" class="headerlink" title="Community Guidelines"></a>Community Guidelines</h3><p>This project follows<br><a target="_blank" rel="noopener" href="https://opensource.google/conduct/">Google’s Open Source Community Guidelines</a>.</p>
-
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:3" class="footnote-text"><span>Ben Recht and Kevin Jamieson    <a target="_blank" rel="noopener" href="http://www.argmin.net/2016/06/20/hypertuning/">pointed out</a> how strong    2X-budget random search is as a baseline (the    <a target="_blank" rel="noopener" href="https://jmlr.org/papers/volume18/16-558/16-558.pdf">Hyperband paper</a>    makes similar arguments), but it is certainly possible to find search    spaces and problems where state-of-the-art Bayesian optimization    techniques crush random search that has 2X the budget. However, in our    experience beating 2X-budget random search gets much harder in the    high-parallelism regime since Bayesian optimization has no opportunity to    observe the results of previous trials.
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             

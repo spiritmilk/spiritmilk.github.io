@@ -15,6 +15,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
@@ -76,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -297,7 +299,7 @@
 </li>
 <li><p>并发访问异常（concurrent-access anomaly）</p>
 <p>Concurrent access by multiple users<br>Uncontrolled concurrent accesses may lead to inconsistencies<br>Example:  (a1) A =  account</p>
-<pre><code>                 (a2) A = A – 100
+<pre><code class="hljs">                 (a2) A = A – 100
                                 (b1) B =  account
                  (a3) account = A
                                 (b2) B = B – 100
@@ -423,7 +425,7 @@
 <li><strong>real,double precision</strong>：浮点数与双精度浮点数，精度与机器相关。</li>
 <li>**float(n)**：精度至少为n位的浮点数。</li>
 </ul>
-<h5 id="3-1-2-基本模式定义"><a href="#3-1-2-基本模式定义" class="headerlink" title="3.1.2 基本模式定义"></a>3.1.2 基本模式定义</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> r</span><br><span class="line">	(A1 D1,</span><br><span class="line">     A2 D2,</span><br><span class="line">     ...,</span><br><span class="line">     An Dn,</span><br><span class="line">     <span class="operator">&lt;</span>完整性约束<span class="number">1</span><span class="operator">&gt;</span>,</span><br><span class="line">     ...,</span><br><span class="line">     <span class="operator">&lt;</span>完整性约束k<span class="operator">&gt;</span>);</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+<h5 id="3-1-2-基本模式定义"><a href="#3-1-2-基本模式定义" class="headerlink" title="3.1.2 基本模式定义"></a>3.1.2 基本模式定义</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> r<br>	(A1 D1,<br>     A2 D2,<br>     ...,<br>     An Dn,<br>     <span class="hljs-operator">&lt;</span>完整性约束<span class="hljs-number">1</span><span class="hljs-operator">&gt;</span>,<br>     ...,<br>     <span class="hljs-operator">&lt;</span>完整性约束k<span class="hljs-operator">&gt;</span>);<br>	<br></code></pre></td></tr></table></figure>
 
 <p>SQL支持许多不同的完整性约束。</p>
 <ul>
