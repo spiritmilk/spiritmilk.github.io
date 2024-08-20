@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>一个美妙的不等式</title>
-    <url>/2019/20190323/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近在Aops论坛上发现了这个美妙的不等式，由Pirkuliyev Rovsen提出并被我加强。</p>
-<p>$\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$</p>
-<span id="more"></span>
-
-<p>证明：</p>
-<p>不等式右边：</p>
-<p>$\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$<br>$\Leftarrow \frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}-\ln \sqrt{\frac{n+1}{2}}$    </p>
-<p>这个等价于对数平均不等式。</p>
-<p>不等式左边(来自Aniv的证明)：</p>
-<p>即证$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}+\frac{1}{2 n+5}$<br>$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}} \Longleftrightarrow \ln \left(\frac{n+1}{n+2}\right)+\frac{1}{\left(n+\frac{5}{2}\right)}&gt;0$<br>设 $f(x)=\ln (x+1)-\ln (x+2)+\frac{1}{x+\frac{5}{2}}$<br>则 $f^{\prime}(x)=\frac{1}{(x+1)(x+2)}-\frac{1}{\left(x+\frac{5}{2}\right)^{2}}&gt;0, \forall x \geq 1$<br>所以 $f(x) \geq f(1)&gt;0, \forall x \geq 1$<br>所以 $\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}, \forall n \geq 1$<br>证毕.</p>
-<p>这个不等式精度很高，ln2的值只相差了大约千分之一。</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>1000 days</title>
     <url>/2021/1000/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>　　很高兴你能来到这里。<br>　　今天正好是博客诞生的1000天。（其实是把最早有准确时间记录的日子作为初始日，创立博客可能可以追溯到18年五月甚至更前）。很高兴你与我能共同见证这一时刻。</p>
@@ -233,6 +214,25 @@
       <tags>
         <tag>纪念</tag>
         <tag>回忆</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一个美妙的不等式</title>
+    <url>/2019/20190323/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近在Aops论坛上发现了这个美妙的不等式，由Pirkuliyev Rovsen提出并被我加强。</p>
+<p>$\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$</p>
+<span id="more"></span>
+
+<p>证明：</p>
+<p>不等式右边：</p>
+<p>$\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$<br>$\Leftarrow \frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}-\ln \sqrt{\frac{n+1}{2}}$    </p>
+<p>这个等价于对数平均不等式。</p>
+<p>不等式左边(来自Aniv的证明)：</p>
+<p>即证$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}+\frac{1}{2 n+5}$<br>$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}} \Longleftrightarrow \ln \left(\frac{n+1}{n+2}\right)+\frac{1}{\left(n+\frac{5}{2}\right)}&gt;0$<br>设 $f(x)=\ln (x+1)-\ln (x+2)+\frac{1}{x+\frac{5}{2}}$<br>则 $f^{\prime}(x)=\frac{1}{(x+1)(x+2)}-\frac{1}{\left(x+\frac{5}{2}\right)^{2}}&gt;0, \forall x \geq 1$<br>所以 $f(x) \geq f(1)&gt;0, \forall x \geq 1$<br>所以 $\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}, \forall n \geq 1$<br>证毕.</p>
+<p>这个不等式精度很高，ln2的值只相差了大约千分之一。</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1229,6 +1229,16 @@
       </tags>
   </entry>
   <entry>
+    <title>读《西西弗神话》有感</title>
+    <url>/2020/20201026/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>我们都是生活中的西西弗，重复着日复一日地习惯和循环的链条。神话故事中的西西弗亦是如此，被迫接受了无法抗争的命运，重复着滚石头的动作，荒谬且痛苦。<span id="more"></span><br>初读《西西弗神话》，本以为加缪同齐奥朗一般的虚无主义者，将以一种彻底虚无的文字敲击我们的心灵。然而并非如此，在加缪的文字中，我看到更多的是积极反抗，不消极避世或是像犬儒主义者般消极入世。<br>在《西西弗神话》中，加缪首先探讨了荒谬与自杀的关联。我们被时间裹挟着向前，未来的确定与不确定使我们染上了陌生和诡异感，进而感受到非常痛苦的抵抗，荒谬感。<br>加缪将荒谬人分为三种。一是生理自杀者，无法忍受生活的荒缪与无意义，选择了结自己的生命。二是哲学自杀者，通过神（上帝）和宗教屏蔽自己的感知，不去感受荒谬，像把头埋在沙里的鸵鸟，掩耳盗铃。三是被加缪称赞的反抗者，荒谬英雄。重复着每天痛苦而不终止的悲剧。无法拒绝命运，那我就为现在而活，欣然坦然接受自己的命运，将巨石徒劳无功地一次次推上山顶，不作荒谬的逃避者，清醒地体验生活的荒谬感，以激情的态度向前、向前、向前，在无意义、荒谬的工作中，找到属于自己的意义，找到自己的存在。<br>罗曼罗兰曾言：世界上只有一种英雄主义,就是看清生活的真相之后依然热爱生活。西西弗正是这样的英雄，这样的“荒谬英雄”。生命本身是荒谬的，是毫无意义的，但我们要觅寻到属于我们的命运，属于我们的某种意义，在心中坚守一生。也正如《德米安》中所言：其他的路都是不完整的，是人的逃避方式，是随波逐流，是对内心的恐惧。</p>
+<p>我也曾切身体会生活中的荒谬感，我也不争气地成为过哲学自杀者，也曾主动“拥抱“上帝，也略有涉猎等宗教书籍，但发现这并不是我的道路。偏激的我甚至转向了神的对立面，阅读了一些渎神之作。但这无济于事，于事无补，我变得更加虚无，犬儒，消极，一词以蔽之就是——丧。我很感谢我能遇上这本书还有许许多多给予我希望，”拯救“了我的书。</p>
+]]></content>
+      <tags>
+        <tag>阅读</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一道三角函数极限计算的一题多解</title>
     <url>/2020/20201115/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>求极限$\lim_{x\rightarrow 0}\frac{\tan(\tan x)-\sin(\sin x)}{\tan x-\sin x}$ </p>
@@ -1261,16 +1271,6 @@
 ]]></content>
       <tags>
         <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>读《西西弗神话》有感</title>
-    <url>/2020/20201026/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>我们都是生活中的西西弗，重复着日复一日地习惯和循环的链条。神话故事中的西西弗亦是如此，被迫接受了无法抗争的命运，重复着滚石头的动作，荒谬且痛苦。<span id="more"></span><br>初读《西西弗神话》，本以为加缪同齐奥朗一般的虚无主义者，将以一种彻底虚无的文字敲击我们的心灵。然而并非如此，在加缪的文字中，我看到更多的是积极反抗，不消极避世或是像犬儒主义者般消极入世。<br>在《西西弗神话》中，加缪首先探讨了荒谬与自杀的关联。我们被时间裹挟着向前，未来的确定与不确定使我们染上了陌生和诡异感，进而感受到非常痛苦的抵抗，荒谬感。<br>加缪将荒谬人分为三种。一是生理自杀者，无法忍受生活的荒缪与无意义，选择了结自己的生命。二是哲学自杀者，通过神（上帝）和宗教屏蔽自己的感知，不去感受荒谬，像把头埋在沙里的鸵鸟，掩耳盗铃。三是被加缪称赞的反抗者，荒谬英雄。重复着每天痛苦而不终止的悲剧。无法拒绝命运，那我就为现在而活，欣然坦然接受自己的命运，将巨石徒劳无功地一次次推上山顶，不作荒谬的逃避者，清醒地体验生活的荒谬感，以激情的态度向前、向前、向前，在无意义、荒谬的工作中，找到属于自己的意义，找到自己的存在。<br>罗曼罗兰曾言：世界上只有一种英雄主义,就是看清生活的真相之后依然热爱生活。西西弗正是这样的英雄，这样的“荒谬英雄”。生命本身是荒谬的，是毫无意义的，但我们要觅寻到属于我们的命运，属于我们的某种意义，在心中坚守一生。也正如《德米安》中所言：其他的路都是不完整的，是人的逃避方式，是随波逐流，是对内心的恐惧。</p>
-<p>我也曾切身体会生活中的荒谬感，我也不争气地成为过哲学自杀者，也曾主动“拥抱“上帝，也略有涉猎等宗教书籍，但发现这并不是我的道路。偏激的我甚至转向了神的对立面，阅读了一些渎神之作。但这无济于事，于事无补，我变得更加虚无，犬儒，消极，一词以蔽之就是——丧。我很感谢我能遇上这本书还有许许多多给予我希望，”拯救“了我的书。</p>
-]]></content>
-      <tags>
-        <tag>阅读</tag>
       </tags>
   </entry>
   <entry>
@@ -1382,6 +1382,23 @@
       </tags>
   </entry>
   <entry>
+    <title>一道SYSU期末高数题</title>
+    <url>/2021/20210107/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>证明：当$x\in(0,\frac{\pi}{2})$, $\frac{tanx}{x}&gt; \frac{x}{sinx}$.</p>
+<span id="more"></span>
+
+<p>证法一：<br>$\sqrt{ \sin x \tan x } \geq \frac{2} { \frac{1} {\sin x} + \frac{ 1}{ \tan x} } = \frac{2 \sin x} { 1 + \cos x } = 2 \tan \frac{x}{2} \geq x$</p>
+<p>证法二：<br>$\frac{\sin x}{x}=\int_0^1 \cos(t x)dt$,</p>
+<p>$\frac{\tan x}{x}=\int_0^1\frac{1}{\cos^2(tx)}dt(0&lt;x&lt;\frac{\pi}{2}).$</p>
+<p>根据Cauchy–Schwarz不等式有：<br>$\frac{\sin x}{x}\frac{\tan x}{x} $</p>
+<p>$\geq (\int_0^1\frac{1}{\sqrt{\cos(tx)}}dt)^2&gt;1(0&lt;x&lt;\frac{\pi}{2}).$</p>
+<p>证法三：<br>即证$f(x)=sinxtanx-x^2&gt;0$<br>而$f(0)=f’(0)=f’’(0)=0$<br>$f’’’(x)=sinx(5sec^2x-1)+bsin^3xsec^4x&gt;0$<br>故$f(x)&gt;0$</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020年度总结</title>
     <url>/2020/20201231/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="密码错误." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容">
@@ -1401,23 +1418,6 @@
       </tags>
   </entry>
   <entry>
-    <title>一道SYSU期末高数题</title>
-    <url>/2021/20210107/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>证明：当$x\in(0,\frac{\pi}{2})$, $\frac{tanx}{x}&gt; \frac{x}{sinx}$.</p>
-<span id="more"></span>
-
-<p>证法一：<br>$\sqrt{ \sin x \tan x } \geq \frac{2} { \frac{1} {\sin x} + \frac{ 1}{ \tan x} } = \frac{2 \sin x} { 1 + \cos x } = 2 \tan \frac{x}{2} \geq x$</p>
-<p>证法二：<br>$\frac{\sin x}{x}=\int_0^1 \cos(t x)dt$,</p>
-<p>$\frac{\tan x}{x}=\int_0^1\frac{1}{\cos^2(tx)}dt(0&lt;x&lt;\frac{\pi}{2}).$</p>
-<p>根据Cauchy–Schwarz不等式有：<br>$\frac{\sin x}{x}\frac{\tan x}{x} $</p>
-<p>$\geq (\int_0^1\frac{1}{\sqrt{\cos(tx)}}dt)^2&gt;1(0&lt;x&lt;\frac{\pi}{2}).$</p>
-<p>证法三：<br>即证$f(x)=sinxtanx-x^2&gt;0$<br>而$f(0)=f’(0)=f’’(0)=0$<br>$f’’’(x)=sinx(5sec^2x-1)+bsin^3xsec^4x&gt;0$<br>故$f(x)&gt;0$</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>随记</title>
     <url>/2021/20210115/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="密码错误." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容">
@@ -1434,6 +1434,381 @@
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <tags>
         <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《概率导论》学习笔记(持续更新中)</title>
+    <url>/2021/20210122/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>开始时间：2021/01/22</p>
+<span id="more"></span>
+
+<h3 id="第一章-样本空间与概率"><a href="#第一章-样本空间与概率" class="headerlink" title="第一章 样本空间与概率"></a>第一章 样本空间与概率</h3><p>**样本空间$\Omega$**：这是一个试验的所有可能结果的集合.</p>
+<p><strong>概率律</strong>：概率律为试验结果的集合$A$(称为<strong>事件</strong>)确定一个非负数$P(A)$(称为事件$A$的概率).</p>
+<p>概率律满足以下几条公理(<strong>概率公理</strong>)：</p>
+<blockquote>
+<p>(1)**(非负性)<strong>对一切事件$A$,满足$P(A)\geq 0$.<br>(2)</strong>(可加性)<strong>设$A$和$B$为两个互不相交的集合(概率论中称为互不相容的事件),则它们的并满足$P(A\cup B)=P(A)+P(B)$.<br>(3)</strong>(归一化)**整个样本空间$\Omega$(称为必然事件)的概率为1,即$P(\Omega)=1$.</p>
+</blockquote>
+<p>由概率公理可导出处许多性质,下面为部分性质</p>
+<blockquote>
+<p><strong>概率论的若干性质：</strong><br>考虑一个概率律,令$A、B、C$为事件.<br>(a)若$A\subset B$,则$P(A)\leq P(B)$.<br>(b)$P(A\cup B)=P(A)+P(B)-P(A\cap B)$.<br>(c)$P(A\cup B)\leq P(A)+P(B)$.<br>(d)$P(A\cup B\cup C)=P(A)+P(A^c\cap B)+P(A^c\cap B\cap C)$.</p>
+</blockquote>
+<p>条件概率：给定的事件$B$发生了,另一个给定的事件$A$发生的概率,记为$P(A \mid B)=\frac{P(A\cap B)}{P(B)}$.<br>显然地,条件概率是一个概率律,其满足概率律的三条公理.</p>
+<p><strong>相关定理:</strong></p>
+<blockquote>
+<p><strong>乘法法则：</strong><br>假定所有涉及的条件概率都是正的,我们有:</p>
+<p>$$<br>P(\cap _{i=1}^n A_i)=<br>P(A_1)P(A_2 \mid A_1)P(A_3 \mid A_1\cap A_2)…P(A_n \mid \cap _{i=1}^{n-1} A_i)<br>$$</p>
+</blockquote>
+<blockquote>
+<p><strong>全概率定理：</strong><br>设$A_1,A_2,…A_n$是一组互不相容的事件,形成样本空间的一个分割(每一个试验结果必定使得其中一个发生).又假定对每一个$i$,$P(A_i)&gt;0$.则对于任何事件$B$,下列公式成立<br>$$<br>P(B)=P(A_1\cap B)+…+P(A_n\cap B)</p>
+<p>=P(A_1)P(B \mid A_1)+…+P(A_n)P(B \mid A_n).<br>$$</p>
+</blockquote>
+<blockquote>
+<p><strong>关于条件概率的全概率公式：</strong><br>设$C_1,C_2,…C_n$是一组互不相容的事件,形成样本空间的一个分割(每一个试验结果必定使得其中一个发生).令A和B是两个事件，满足$P(B\cap C_i)&gt;0$对一切$i$成立，则：<br>$$<br>P(A\mid B)=\sum_{i=1}^n P(C_i\cap B)+…+P(A\mid B\cap C_i)<br>$$</p>
+</blockquote>
+<blockquote>
+<p><strong>贝叶斯准则</strong><br>设$A_1,A_2,…A_n$是一组互不相容的事件,形成样本空间的一个分割(每一个试验结果必定使得其中一个事件发生).又假定对每一个$i$,$P(A_i)&gt;0.$则对于任何事件$B$,只要它满足$P(B)&gt;0$,下列公式成立:<br>$$<br>P(A_i \mid B)=\frac{P(A_i)P(B \mid A_i)}{P(B)}<br>$$</p>
+<p>$$<br>=\frac{P(A_i)P(B \mid A_i)}{P(A_1)P(B \mid A_1)+…+P(A_n)P(B \mid A_n)}.<br>$$</p>
+<p>$=\frac{P(A_i)P(B \mid A_i)}{P(A_1)P(B \mid A_1)+…+P(A_n)P(B \mid A_n)}$.</p>
+</blockquote>
+<p><strong>独立性:</strong></p>
+<ul>
+<li><p>当等式$P(A\cap B)=P(A)P(B)$成立时,我们称$A$和$B$是相互独立的事件.<br>若$B$还满足$P(B)&gt;0$,则独立性等价于$P(A \mid B)=P(A)$.</p>
+</li>
+<li><p>$A$与$B$相互独立,则$A$与$B^c$也相互独立</p>
+</li>
+<li><p>设事件$C$满足$P(C)&gt;0$,两个事件$A$和$B$称为给定$C$的条件下条件独立,如果它们满足$P(A\cap B \mid C)=P(A \mid C)P(B \mid C)$.<br>若进一步假定$P(B\cap C)&gt;0$,则$A$和$B$在给定$C$的条件下的条件独立性和以下条件是等价的：$P(A \mid B\cap C)=P(A \mid C)$.</p>
+</li>
+<li><p>独立性并不蕴含条件独立性,反之亦然.</p>
+</li>
+<li><p><strong>几个事件的相互独立性的定义</strong>：<br>设$A_1,…A_n$为n个事件,<br>若它们满足<br>:<br>$$<br>P(\cup_{i\in S}A_i)=\prod_{i\in S}P(A_i)对{1,2,3…n}的任意子集S成立<br>$$<br>则称$A_1,…A_n$为相互独立的事件.</p>
+</li>
+</ul>
+<p><strong>德摩根公式：</strong>  $(A\cup B)^c=A^c\cap B^c,(A\cap B)^c=A^c\cup B^c$<br><strong>邦费罗尼不等式(Bonferroni’s inequality):</strong><br>$$<br>P(A\cap B)\geq P(A)+P(B)-1<br>$$<br>可推广到n个事件$A_1,A_2…A_n$的情况：<br>$$<br>P(A\cap B\cap…\cap A_n)\geq P(A)+P(B)+…+P(A_n)-(n-1)<br>$$</p>
+<p><strong>容斥原理：</strong><br>设$A_1,A_2…A_n$为n个事件.记$S_1=\left{i\mid 1\geq i\geq n\right},S_2=\left{(i_1,i_2)\mid 1\leq i_1\leq  i_2 &lt; n\right}$…<br>$$<br>P(\cup_{k=1}^n)<br>=\sum_{i\in S_1}P(A_i)-\sum_{(i_1,i_2)\in S_2}P(A_{i_1}\cap A_{i_2})<br>+\sum_{(i_1,i_2,i_3)\in S_3}P(A_{i_1}\cap A_{i_2}\cap A_{i_3})<br>-…+(-1)^{n-1}P(\cap_{k=1}^n A_k)<br>$$</p>
+<h3 id="第二章-离散随机变量"><a href="#第二章-离散随机变量" class="headerlink" title="第二章 离散随机变量"></a>第二章 离散随机变量</h3><p><strong>与随机变量相关的主要概念</strong></p>
+<p>在一个试验的概率模型之下：</p>
+<ul>
+<li><p><strong>随机变量</strong>是试验结果的实值函数；</p>
+</li>
+<li><p><strong>随机变量的函数</strong>定义了另一个随机函数；</p>
+</li>
+<li><p>对于一个随机变量,我们可以定义一些平均量,例如<strong>均值</strong>和<strong>方差</strong>；</p>
+</li>
+<li><p>可以在某事件或某随机变量的<strong>条件</strong>之下定义一个随机变量；</p>
+</li>
+<li><p>存在一个随机变量与某事件或某随机变量相互<strong>独立</strong>的概念；</p>
+</li>
+</ul>
+<p><strong>与离散随机变量相关的主要概念</strong></p>
+<p>在一个试验的概率模型之下：</p>
+<ul>
+<li><p><strong>离散随机变量</strong>是试验结果的一个实值函数,但是它的取值范围只能是有限多个值或可数无限多个值；</p>
+</li>
+<li><p>一个离散随机变量有一个<strong>分布列</strong>,它对于随机变量的每一个取值,给出一个概率；</p>
+</li>
+<li><p><strong>离散随机变量的函数</strong>也是一个离散随机变量,它的分布列可以从原随机变量的分布列得到.</p>
+</li>
+</ul>
+<p><strong>一些分布列：</strong></p>
+<blockquote>
+<p><strong>二项随机变量</strong>:将一枚硬币抛掷n次,每次抛掷,正面出现概率为p,反面出现的概率为1-p,而且每次抛掷是相互独立的.令X为n次抛掷得到正面的次数.我们称X为<strong>二项随机变量</strong>.<br>$$<br>P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},k=0,1,…n.<br>$$<br><strong>几何随机变量：</strong>在上述抛硬币试验中,令X为连续地抛掷一枚硬币,直到第一次正面所需要抛掷的次数.<br>$$<br>P(X=k)=(1-p)^{k-1}p,k=1,2…<br>$$<br><strong>泊松随机变量：</strong>设随机变量X的分布列由下式给出：</p>
+<p>$$<br>P(X=k)=e^{-\lambda }\frac{\lambda ^k}{k!},k=0,1,2…<br>$$</p>
+</blockquote>
+<p><strong>期望:</strong></p>
+<p>设随机变量X的分布列为p{X},X的<strong>期望值</strong>(也称<strong>期望</strong>或<strong>均值</strong>)由下式给出：<br>$$<br>E[X]=\sum_{x} xp_{X}(x).<br>$$<br><strong>方差：</strong>(记作$var(X)$)</p>
+<p>随机变量$X$的方差由下列公式所定义：</p>
+<p>$$<br>var(X)=E[(X-E[x])^2].<br>$$<br>并且可以用下式进行计算：</p>
+<p>$$<br>var(X)=\sum_{x}(x-E[X])^2p_{X}(x)<br>$$</p>
+<p>$$<br>var(X)=E[X^2]-(E[X])^2<br>$$</p>
+<p>它是非负的,其平方根称为<strong>标准差</strong></p>
+<p><strong>随机变量的线性函数的均值与方差：</strong></p>
+<p>设$X$为随机变量,令$Y=aX+b$,其中a和b为给定的常数,则</p>
+<p>$$<br>E[Y]=aE[X]+b,var(Y)=a^2var(X)<br>$$</p>
+<p><strong>某些常用的随机变量的均值及方差：</strong></p>
+<blockquote>
+<p><strong>伯努利随机变量：</strong>$E[X]=p$.$var(X)=p(1-p)$</p>
+<p><strong>泊松随机变量：</strong>$E[X]=\lambda$.$var(X)=\lambda$.</p>
+</blockquote>
+<p><strong>关于联合分布列：</strong></p>
+<p>设$X$和$Y$为在某个试验中的随机变量.</p>
+<ul>
+<li>$X$和$Y$的联合分布列$p_{X,Y}$由下式定义：</li>
+</ul>
+<p>$$<br>p_{X,Y}(x,y)=P(X=x,Y=y)<br>$$</p>
+<ul>
+<li>$X$和$Y$的边缘分布列可由下式得到：</li>
+</ul>
+<p>$$<br>p_{X}(x)=\sum_{y} p_{X,Y}(x,y) , p_{Y}(y)=\sum_{x} p_{X,Y}(x,y).<br>$$</p>
+<ul>
+<li>$X$和$Y$的函数$g(X,Y)$是一个随机变量,并且</li>
+</ul>
+<p>$$<br>E[g(X,Y)]=\sum_x \sum_y g(x,y)p_{X,Y}(x,y)<br>$$</p>
+<p>若g是线性的,且$g=aX+bY+x$,则<br>$$<br>E[aX+bY+c]=aE[X]+bE[Y]+c.<br>$$<br>.</p>
+<ul>
+<li>上面的结论可以类似地自然地推广到两个以上的随机变量的情况.</li>
+</ul>
+<p><strong>关于条件分布列</strong></p>
+<p>设$X$和$Y$为某一试验中的两个随机变量.</p>
+<ul>
+<li><p>条件分布列与之前所学的无条件分布列完全相似,其差别只是前者是在已知某事件发生的条件下的随机变量的分布列.、</p>
+</li>
+<li><p>设A为某事件,$P(A)&gt;0$.随机变量X在给定A发生的条件下的条件分布列为：</p>
+</li>
+</ul>
+<p>$$<br>p_{X \mid A}(x)=P(X=x \mid A)<br>$$</p>
+<p>并且满足<br>$$<br>\sum_{x}p_{X \mid A}(x)=1 .<br>$$</p>
+<ul>
+<li>设$A_1,…,A_n$是一组互不相容的事件,并且形成样本空间的一个分割,进一步假定$p(A_i)&gt;0$,则<br>$$<br>p_{X}(x)=\sum_{i=1}^{n}P(A_i)p_{X \mid A_i}(x)<br>$$</li>
+</ul>
+<p>(这是全概率定理的一种特殊情况.)进一步假定事件B满足对一切$i$,$P(A_i\cap B)&gt;0$.则</p>
+<p>$$<br>p_{X \mid B}(x)=\sum_{i=1}^n P(A_i \mid b)p_{X \mid A_i \cap B}(x)<br>$$</p>
+<ul>
+<li>给定$Y =y$ 的条件下 $X$ 的条件分布列与联合分布列之间有下列关系:</li>
+</ul>
+<p>$$<br>p_{X, Y}(x, y)=p_{Y}(y) p_{X \mid Y}(x \mid y)<br>$$</p>
+<ul>
+<li>给定 $Y$ 之下的 $X$ 的条件分布列可以通过以下公式计算 $X$ 的边缘分布列:<br>$$<br>p_{X}(x)=\sum_{y} p_{Y}(y) p_{X \mid Y}(x \mid y)<br>$$</li>
+<li>同样地,上面的结论可以自然推广到两个以上的随机变量的情况.</li>
+</ul>
+<p><strong>关于条件期望：</strong></p>
+<p>设$X$ 和 $Y$ 为某一试验中的两个随机变量.</p>
+<ul>
+<li><p>设A为某事件,$P(A)&gt;0$.随机变量X在给定A发生的条件下的条件期望为<br>$$<br>E [X \mid A]=\sum_{\infty} x p_{X \mid A}(x)<br>$$<br>对于函数数 $g(X)$. 我们有<br>$$<br>E [g(X) \mid A]=\sum_{x} g(x) p_{X \mid A}(x)<br>$$</p>
+</li>
+<li><p>给定 $Y=y$ 的条件下 $X$ 的条件期望由下式定义<br>$$<br>E [X \mid Y=y]=\sum_{x} x p_{X \mid Y}(x \mid y)<br>$$</p>
+</li>
+<li><p>设$A_1,…,A_n$ 是互不相容的事件并且形成样本空间的一个分割.</p>
+<p>假定$P(A_{i})&gt;0 \text{ 对一切 } i$ 成立. 则<br>$$<br>E [X]=\sum_{i=1}^{n} P \left(A_{i}\right) E \left[X \mid A_{i}\right]<br>$$<br>进一步假定事件 $B$ 满足对一切 $i$, $P (A_{i} \cap B)&gt;0,$ 则<br>$$<br>E [X \mid B]=\sum_{i=1}^{n} P \left(A_{ i } \mid B\right) E \left[X \mid A_{i} \cap B\right]<br>$$</p>
+</li>
+<li><p>我们有</p>
+</li>
+</ul>
+<p>$$<br>E [X]=\sum_{y} p_{Y}(y) E [X \mid Y=y]<br>$$</p>
+<p><strong>关于独立随机变量：</strong><br>设在某一试验中,A是一个时间段,满足条件$P(A)&gt;0$,又设X和Y是在同一试验中的两个随机变量.</p>
+<ul>
+<li>称X为相对于事件A独立,如果满足</li>
+</ul>
+<p>$$<br>p_{ X \mid A}(x)=p_{X}(x) \text { 对一切 } x \text { 成立 }<br>$$<br>即对一切x,事件${X=x}$与A相互独立.</p>
+<ul>
+<li>称$X$和$Y$为相互独立的随机变量,如果对一切可能的数对(x,y),事件${X=x}$ 和 ${Y=y}$ 相互独立, 或等价地</li>
+</ul>
+<p>$$<br>p_{X, Y}(x, y)=p_{X}(x) p_{Y}(y) \text { 对一切 } x \text { 和 } y \text { 成立 }<br>$$</p>
+<ul>
+<li>若 $X$ 和 $Y$ 相互独立, 则<br>$$<br>E [X Y]= E [X] E [Y]<br>$$<br>进一步地,对于任意函数$g$和$h$,随机变量$g(X)$和$h(Y)$也是相互独立的,并且<br>$$<br>E [g(X) h(Y)]= E [g(X)] E [h(Y)]<br>$$</li>
+<li>若 $X$ 和 $Y$ 相互独立, 则<br>$$<br>var(X+Y)=var(X)+var(Y)<br>$$</li>
+</ul>
+<h3 id="第三章-一般随机变量"><a href="#第三章-一般随机变量" class="headerlink" title="第三章 一般随机变量"></a>第三章 一般随机变量</h3><p><strong>关于概率密度函数(PDF)：</strong></p>
+<p>对于随机变量X,若存在一个非负函数$f_X$,使得<br>$$<br>P(X\in B)=\int <em>B f</em>{X}(x)dx<br>$$<br>对每一个实数轴上的集合B都成立,则称X为连续的随机变量,函数$f_X$就称为X的概率密度函数,或简称PDF.</p>
+<ul>
+<li><p>$f_{X}(x) \geq 0$ 对一切 $x$ 成立</p>
+</li>
+<li><p>归一化$ \int_{-\infty}^{\infty} f_{X}(x) d x=1 $</p>
+</li>
+<li><p>设 $ \delta $ 是一个充分小的正数, 则 $P ([x, x+ \delta ]) \approx f_{X}(x) \cdot \delta .$</p>
+<blockquote>
+<p>注：由于$f_X(x)$是概率律而非某一事件的概率,故其可以取任意大的值,例如：<br>$$<br>f_{X}(x)=\left{\begin{array}{ll}\frac{1}{2\sqrt{x}}, \text{若}0&lt;x\leq 1 \<br>0, \text { 其他 }<br>\end{array}\right.<br>$$<br>在$x$趋于0时,$f_X(x)$可以任意的大</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>连续随机变量的期望：</strong></p>
+<p>记$X$为连续随机变量,其相应的PDF为$f_{X}x$.</p>
+<ul>
+<li><p>X的期望由下式定义：<br>$$<br>E[X]=\int_{-\infty}^{\infty} xf_{X}(x)dx.<br>$$</p>
+</li>
+<li><p>关于随机变量$g(X)$的期望规则为：<br>$$<br>E[g(X)]=\int_{-\infty}^{\infty} g(x)f_{X}(x) d x<br>$$</p>
+</li>
+<li><p>X的方差由下式给出：<br>$$<br>var(X)=E[(X-E[X])^2]=\int_{-\infty}^{\infty} (X-E[X])^2f_{X}(x) d x<br>$$</p>
+</li>
+<li><p>关于方差,下列公式成立：<br>$$<br>0\leq var(X)=E[X^2]-(E[X])^2.<br>$$</p>
+</li>
+<li><p>设$Y=aX+b$,其中a和b为常数,则<br>$$<br>E[Y]=aE[X]+b,var(Y)=a^2var(X)<br>$$</p>
+</li>
+</ul>
+<p><strong>$分布函数(CDF)$ 的性质:</strong></p>
+<p>随机变量$X$的$CDF$ $F_X$由下式定义<br>$$<br>\text { 对每一个 } x, F_{X}(x)= P (X \leqslant x)<br>$$<br>并且 $F_{X}$ 具有下列性质._</p>
+<ul>
+<li> $F_{X}$ 是单调非减函数:</li>
+</ul>
+<p>$$<br>\text { 若 } x \leqslant y, \quad \text { 则 } F_{X}(x) \leqslant F_{X}(y) .<br>$$</p>
+<ul>
+<li><p>当 $x \rightarrow-\infty$ 的时侯, $F_{X}(x)$ 趋于 0 . 当 $x \rightarrow \infty$ 的时侯, $F_{X}(x)$ 趋于 1 .</p>
+</li>
+<li><p> 当 $X$ 是离散随机变量的时候,$F_{X}(x)$为$x$的阶梯函数.</p>
+</li>
+<li><p> 当 $X$ 是连续随机变量的时候,$F_{X}(x)$为$x$的连续函数.</p>
+</li>
+<li><p>当 $X$ 是离散随机变量并且取整数值的时,分布函数和分布列可以利用求和或差分互求:</p>
+</li>
+</ul>
+<p>$$<br>\begin{array}{c}<br>F_{X}(k)=\sum_{i=-\infty}^{k} p_{X}(i) \<br>p_X(k)=P(X \leqslant k)- P (X \leqslant k-1)=F_{X}(k)-F_{X}(k-1),<br>\end{array}<br>$$<br>其中 $k$ 可以是任意整数.</p>
+<ul>
+<li>当$X$是连续随机变量的时候,分布函数和概率密度函数可以利用积分或微分互求：<br>$$<br>F_X(x)=\int ^x_{-\infty}f_{X}(t)dt,f_{X}(t)=\frac{dF_X}{dx}(x).<br>$$<br>(第二个等式只在分布函数可微的那些点上成立.)</li>
+</ul>
+<p><strong>正态随机变量：</strong></p>
+<p>一个连续随机变量X称为正态的或高斯的,若它的概率密度函数具有下列形式：<br>$$<br>f_{X}(x)=\frac{1}{\sqrt{2 \pi} \sigma} e ^{-(x-\mu)^{2} /\left(2 \sigma^{2}\right)}<br>$$<br>其中$\mu、\sigma$是概率密度的两个参数,其中$\sigma $还必须是正数.<br>其均值及方差：<br>$$<br>E [ X ]=\mu, \quad \operatorname{var}(X)=\sigma^{2}<br>$$</p>
+<blockquote>
+<p>线性变换下($Y=aX+b$)随机变量的正态性保持不变.</p>
+<p>其均值和方差由下式给出：<br>$$<br>E[Y]=a\mu+b,var(Y)=a^2{\sigma}^2<br>$$</p>
+</blockquote>
+<p><strong>多元连续随机变量性质：</strong></p>
+<p>令X和Y为联合连续随机变量,其联合概率密度函数为$f_{X,Y}$</p>
+<ul>
+<li>利用<strong>联合概率密度函数</strong>可以进行概率计算：</li>
+</ul>
+<p>$$<br>P ((X, Y) \in B)=\int_{(x, y) \in B} \int f_{X, Y}(x, y) d x d y<br>$$</p>
+<ul>
+<li>X和Y的边缘概率密度函数可利用联合概率密度函数进行计算得到：</li>
+</ul>
+<p>$$<br>f_{X}(x)=\int_{-\infty}^{\infty} f_{(X, Y)}(x, y) d y, \quad f_{Y}(y)=\int_{-\infty}^{\infty} f_{(X, Y)}(x, y) d x<br>$$</p>
+<ul>
+<li><strong>联合分布函数</strong>由公式$F_{X,Y}(x,y)=P(X\leq x,Y\leq y)$定义,并且,在联合概率密度函数的连续点上,下面的公式成立：</li>
+</ul>
+<p>$$<br>f_{X, Y}(x, y)=\frac{\partial^{2} F_{X, Y}}{\partial x \partial y}(x, y)<br>$$</p>
+<ul>
+<li>X和Y的函数$g(X,Y)$定义了一个新的随机变量,并且</li>
+</ul>
+<p>$$<br>E [g(X, Y)]=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) f_{X, Y}(x, y) d x d y<br>$$</p>
+<ul>
+<li>若g是一个线性函数$aX+bY+c$,则</li>
+</ul>
+<p>$$<br>E[a X+b Y+c]=a B[X]+b E[Y]+c<br>$$</p>
+<ul>
+<li>上面的结论能够很自然地推广到多于两个随机变量的情况.</li>
+</ul>
+<p><strong>以事件为条件的条件概率密度函数：</strong></p>
+<ul>
+<li>对于给定的事件$A(P(A)&gt;0)$,连续随机变量X的条件概率密度函数$f_{X|A}$是满足下列条件的函数：</li>
+</ul>
+<p>$$<br>P (X \in B \mid A)=\left.\int_{B} f_{X}\right|<em>{A}(x) d x<br>$$<br>其中 $B$ 是实数轴上的任意集合.<br>$$<br>f</em>{X \mid{X \in A}}(x)=\left{\begin{array}{ll}<br>\frac{f_{X}(x)}{P(X \in A)}, &amp; \text { 若 } x \in A, \<br>0, &amp; \text { 其他. }<br>\end{array}\right.<br>$$</p>
+<ul>
+<li>设$A_1,A_2,…,A_n$为互不相容的n个事件,对每个$i$,$P(A_i)&gt;0$,并且这些事件形成样本空间的一个分割.则</li>
+</ul>
+<p>$$<br>f_{X}(x)=\sum_{i=1}^{n} P\left(A_{i}\right) f_{X \mid A_{i}}(x)<br>$$<br>(全概率定理的一种变形).</p>
+<p><strong>以另一个随机变量为条件的条件概率密度函数：</strong><br>设X和Y为联合连续随机变量,其联合概率密度函数为$f_{X,Y}$.</p>
+<ul>
+<li>X和Y的联合、边缘和条件概率密度函数是相互关联的.它们的关系用下面的公式表示：</li>
+</ul>
+<p>$$<br>\begin{aligned}<br>f_{X, Y}(x, y) &amp;=f_{Y}(y) f_{X \mid Y}(x \mid y) \<br>f_{X}(x) &amp;=\int_{-\infty}^{\infty} f_{Y}(y) f_{X \mid Y}(x \mid y) d y .<br>\end{aligned}<br>$$<br>条件概率密度函数$f_{X|Y}(x|y)$只在集合${y|f_Y(y)&gt;0}$上有定义.</p>
+<ul>
+<li>关于条件概率我们有<br>$$<br>P(X\in A \mid Y=y)=\int_{A} f_{X\mid Y}(x\mid y)dx<br>$$</li>
+</ul>
+<p><strong>条件期望性质：</strong></p>
+<p>记 $X$ 和 $Y$ 为联合连续随机变量, $A$ 是满足 $P (A)&gt;0$ 的事件.</p>
+<ul>
+<li>$X$ 在给定事件$A$ 之下的条件期望由下式定义</li>
+</ul>
+<p>$$<br>E [X \mid A]=\int_{-\infty}^{\infty} x f_{X \mid A}(x) d x<br>$$<br>给定 $Y=y$ 之下的条件期望由下式定义<br>$$<br>E[X \mid Y=y]=\int_{-\infty}^{\infty} x f_{X \mid Y}(x \mid y) d x<br>$$</p>
+<ul>
+<li><strong>期望规则</strong>仍然有效:</li>
+</ul>
+<p>$$<br>\begin{array}{c}<br>E [g(X) \mid A]=\int_{-\infty}^{\infty} g(x) f_{X \mid A}(x) d x \<br>E [g(X) \mid Y=y]=\int_{-\infty}^{\infty} g(x) f_{X \mid Y}(x \mid y) d x<br>\end{array}<br>$$</p>
+<ul>
+<li><strong>全期望定理：</strong>设$A_1,A_2,…,A_n$为互不相容的n个事件,对每个$i$,$P(A_i)&gt;0$,并且这些事件形成样本空间的一个分割,则</li>
+</ul>
+<p>$$<br>E (X]=\sum_{i=1}^{n} P \left( A <em>{i}\right) E \left[X \mid A</em>{i}\right]<br>$$<br>相似地,<br>$$<br>E [X]=\int_{-\infty}^{\infty} E \left[X|Y=y| f_{Y}(y) d y\right.<br>$$</p>
+<ul>
+<li><p>涉及几个随机变量的函数的情况,具有完全相似的结果,例如：<br>$$<br>E \left[g\left(X,Y\right)|Y=y|\right.=\int g(x, y) f_{X \mid Y}(x \mid y) d x \</p>
+<p>E[g(X, Y) \mid=\int E [g(X, Y) \mid Y=y] f_{Y}(y) d y<br>$$<br><strong>连续随机变量的相互独立性</strong></p>
+<p>令X和Y为联合连续随机变量.</p>
+</li>
+<li><p>若</p>
+<p>$$<br>f_{X, Y}(x, y)=f_{X}(x) f_{Y}(y) \quad \text { 对一切 }x\text{和}y\text{成立}<br>$$</p>
+<p>则 $X$ 和 $Y$ 相互独立.</p>
+</li>
+<li><p>若X 和 $Y$ 相互独立, 则</p>
+<p>$$<br>E [X Y]= E [X] E [Y]<br>$$<br>进一步,对于任意函数$g$和$h$,随机变量$g(X)$和$h(Y)$也是相互独立的, 于是<br>$$<br>E [g(X) h(Y)]= E [g(X)] E [h(Y)]<br>$$</p>
+</li>
+<li><p>若 $X$ 和 $Y$ 相互独立,则</p>
+<p>$$<br>\operatorname{var}(X+Y)=\operatorname{var}(X)+\operatorname{var}(Y)<br>$$</p>
+</li>
+</ul>
+<p><strong>连续随机变量的贝叶斯准则:</strong></p>
+<p>令Y为连续随机变量.</p>
+<ul>
+<li>若X为连续随机变量,我们有</li>
+</ul>
+<p>$$<br>\begin{array}{c}<br>f_{X} y(x \mid y) f_{Y}(y)=f_{X}(x) f_{Y \mid X}(y \mid x) \<br>\end{array}<br>$$</p>
+<p>和<br>$$<br>\begin{array}{c}<br>f_{X \mid Y}(x \mid y)=\frac{f_{X}(x) f_{Y \mid X}(y \mid x)}{f_{Y}(y)}=\frac{f_{X}(x) f_{Y \mid X}(y \mid x)}{\int_{-\infty}^{\infty} f_{X}(t) f_{Y} x(y \mid t) d t}<br>\end{array}<br>$$</p>
+<ul>
+<li>若N为离散随机变量,我们有</li>
+</ul>
+<p>$$<br>f_{Y}(y) P (N=n \mid Y=y)=p_{N}(n) f_{Y \mid N}(y \mid n)<br>$$<br>得到的贝叶斯公式为<br>$$<br>P ( N =n \mid Y=y)=\frac{p_{ N }(n) f_{Y \mid N}(y \mid n)}{f_{Y}(y)}=\frac{p_{N}(n) f_{Y} \mid N(y \mid n)}{\left.\sum_{i} p_{N}(\hat{i}) f_{Y}\right|<em>{N}(u \mid i)}<br>$$<br>和<br>$$<br>f</em>{Y \mid N}(y \mid n)=\frac{f_{Y}(y) P (N=n \mid Y=y)}{p_{N}(n)}=\frac{f_{Y}(y) P(N=n Y=y)}{\int_{-\infty}^{\infty} f_{Y}(t) P (N=n \mid Y=t) d t}<br>$$</p>
+<ul>
+<li>对于事件A,关于$P(A\mid Y=y)$和$f_{Y\mid A}(y)$具有类似的贝叶斯公式.</li>
+</ul>
+<h3 id="第四章-随机变量的深入内容"><a href="#第四章-随机变量的深入内容" class="headerlink" title="第四章 随机变量的深入内容"></a>第四章 随机变量的深入内容</h3><p><strong>计算连续随机变量X的函数$Y=g(X)$的概率密度函数(PDF)：</strong></p>
+<p>(1)使用如下公式计算Y的概率函数(CDF)$F_Y$<br>$$<br>F_{Y}(y)=P(g(X)\leq y)=\int_{x\mid g(x)\leq y}f_X(x)dx.<br>$$<br>(2)对$F_Y$求导,得到Y的PDF：<br>$$<br>f_{Y}(y)=\frac{dF_{Y}}{dy}(y)<br>$$<br><strong>随机变量X的线性函数的概率密度函数：</strong></p>
+<p>假设X是连续随机变量,概率密度函数为$f_X$,a和b是实数且$a\neq 0$,如果<br>$$<br>Y=aX+b<br>$$<br>则<br>$$<br>f_Y(y)=\frac{1}{\mid X\mid}f_X(\frac{y-b}{a}).<br>$$</p>
+<p><strong>连续随机变量X的严格单调函数$Y=g(x)$的概率密度函数计算公式：</strong></p>
+<p>假设g是严格单调函数,其逆函数h满足：对X的取值空间内任意一点$x$,$Y=g(x) \quad$ 当且仅当 $\quad x=h(y)$,<br>而且函数 $h$ 是可微的,则 $Y$ 在支撑集$y \mid f_{Y}(y)&gt;0$内的概率密度函数是<br>$$<br>f_{Y}(y)=f_{X}(h(y))\left|\frac{ d h}{ d y}(y)\right|<br>$$<br><strong>卷积：</strong></p>
+<p>定义：设X和Y是两个独立的随机变量考虑他们的和Z=X+Y的分布.<br>$$<br>p_Z(z)=P(X+Y=z)<br>$$<br>分布列$p_Z$称为X和Y的分布列的卷积.</p>
+<p><strong>卷积公式：</strong></p>
+<p>变量$Z=X+Y$的概率密度函数为<br>$$<br>f_Z(z)=\int_{-\infty}^{\infty} f_X(x)f_Y(z-x)dx<br>$$<br><strong>协方差和相关：</strong></p>
+<p><strong>协方差：</strong>X和Y的协方差记为cov(X,Y),其定义如下：$cov(X,Y)=E[(X-E(X))(Y-E(Y))]$.当cov(X,Y)=0时,我们说X和Y不相关的.</p>
+<p>另一种表达为$cov(X,Y)=E[XY]-E[X]E[Y]$.</p>
+<blockquote>
+<p><strong>一些性质：</strong></p>
+<p>$cov(X,X)=var(X)$</p>
+<p>$cov(X,aY+b)=a*cov(X,Y)$</p>
+<p>$cov(X,Y+Z)=cov(X,Y)+cov(X,Z)$</p>
+</blockquote>
+<p>注：X和Y是相互独立的,则E[XY]=E[X]E[Y],故cov(X,Y)=0,它们是不相关的,但是逆命题并不成立.</p>
+<p>有下列结论：</p>
+<blockquote>
+<p>假设$E[X\mid Y=y]=E[X]$ 对任意的y成立,则如果X和Y是离散变量时,E[XY]=E[X]E[Y].(在连续的情形下依然成立.)</p>
+</blockquote>
+<p><strong>相关系数：</strong></p>
+<p>两个方差非零的随机变量X和Y的相关系数$\rho (X,Y)$定义如下：<br>$$<br>\rho (X,Y)=\frac{cov(X,Y)}{\sqrt{var(X)var(Y)}}<br>$$<br>易证$\rho\in [-1,1]$</p>
+<p><strong>随机变量和的方差：</strong></p>
+<p>协方差可以用于计算多个随机变量(不必独立)之和的方差.特别地,设随机变量$X_1…X_n$具有有限的方差,则<br>$$<br>var(X_1+X_2)=var(X_1)+var(X_2)+2cov(X1,X2)<br>$$<br>更一般的结论是<br>$$<br>var(\sum_{i=1}^n X_i)=\sum_{i=1}^n var(X_i)+\sum_{\left{ (i,j)\mid i\neq j\right} } cov(X_i,X_j).<br>$$<br><strong>条件期望和条件方差的性质</strong>：</p>
+<ul>
+<li>$E[X\mid Y=y]$的值依赖于y.</li>
+<li>$E[X\mid Y]$是随机变量Y的函数,因此它也是一个随机变量.当Y的值为y时,它的值就等于$E[X\mid Y=y]$</li>
+<li>$E[E[X\mid Y]]=E[X]$ (<strong>重期望法则</strong>)</li>
+<li>$E[X\mid Y=y]$可视为已知Y=y时对X的估计.相应的估计误差$E[X\mid Y]-X$是一个零均值的随机变量,且与$E[X\mid Y]$是不相关的.</li>
+<li>$var(X)=E[var(X\mid Y)]+var(E[X\mid Y])$ (<strong>全方差法则</strong>)</li>
+</ul>
+<p><strong>矩母函数：</strong></p>
+<p>一个与随机变量X相关的矩母函数是参数s的函数$M_X(s)$,定义如下:<br>$$<br>M_X(s)=E[e^{sX}]<br>$$<br>当X是离散随机变量,相关矩母函数为$M(s)=\sum _x e^{sx}p_X(x)$.</p>
+<p>当X是连续随机变量,相关矩母函数为$M(s)=\int_{-\infty}^{\infty} e^{sx}f_X(x)dx$.</p>
+<blockquote>
+<p><strong>利用矩母函数计算随机变量的各阶矩：</strong><br>$$<br>M_X(0)=1,\ \ \ \ \ \frac{d}{ds}M_X(s) \bigg|<em>{s=0}=E[X], \ \ \  \frac{d^n}{ds^n}M_X(s)\bigg|</em>{s=0}=E[X^n].<br>$$</p>
+</blockquote>
+<p>若$Y=aX+b$,则$M_Y(s)=e^{sb}M_X(as)$.</p>
+<p>若X和Y相互独立,则$M_{X+Y}(s)=M_X(s)M_Y{s}$.</p>
+<p><strong>常见的离散随机变量的矩母函数：</strong></p>
+<ul>
+<li><p>参数为p的伯努利分布(k=0,1)<br>$$<br>p_X(k)=\left{\begin{array}{}<br>p, &amp; \text{若}k=1,<br>\1-p,&amp;  \text { 若k=0, }<br>\end{array}\right.<br>M_X(s)=1-p+pe^s.<br>$$</p>
+</li>
+<li><p>参数为(n,p)的二项分布(k=0,1,…,n)<br>$$<br>p_X(k)=\binom{n}{k}p^k(1-p)^{n-k},M_X(s)=(1-p+pe^s)^n.<br>$$</p>
+</li>
+<li><p>参数为 $p$ 的几何分布 $(k=1,2 \ldots)$<br>$$<br>p_{X}(k)=p(1-p)^{k-1}, \quad M_{X}(s)=\frac{p e^{s}}{1-(1-p) e^{s}}<br>$$</p>
+</li>
+<li><p>参数为$\lambda$的泊松分布 $(k=1,2 \ldots)$<br>$$<br>p_{X}(k)=\frac{e^{-\lambda} \lambda^{k}}{k !}, \quad M_{X}(s)=e^{\lambda\left(e^{s}-1\right)}<br>$$<br>$\bullet(a, b)$ 上的均匀分布 $(k=a, a+1, \cdots, b)$<br>$$<br>p x(k)=\frac{1}{b-a+1}, \quad M_{X}(s)=\frac{e^{a s}}{b-a+1} \cdot \frac{e^{(b-a+1) s}-1}{e^{s}-1}<br>$$</p>
+</li>
+</ul>
+<p><strong>常见连续随机变量的矩母函数：</strong></p>
+<ul>
+<li><p>$(a, b)$ 上的均匀分布 $(a \leqslant x \leqslant b)$<br>$$<br>f_{X}(x)=\frac{1}{b-a},<br>M_{X}(s)=\frac{1}{b-a} \cdot \frac{e^{s b}-e^{s a}}{s}<br>$$</p>
+</li>
+<li><p>参数为$\lambda$的指数分布$(x\geq 0)$<br>$$<br>f_{X}(x)=\lambda e^{\lambda x}<br>,<br>M_{X}(s)=\frac{\lambda}{\lambda-s}, (s&lt;\lambda)<br>$$</p>
+</li>
+<li><p>参数为$(\lambda,\mu)$的正态分布$(-\infty&lt;x\infty)$<br>$$<br>f_{X}(x)=\frac{1}{\sqrt{2 \pi} \sigma} e ^{-(x-\mu)^{2} / 2 \sigma^{2}}, \quad M_{X}(s)= e ^{\left(\sigma^{2} s^{2} / 2\right)+\mu s}<br>$$</p>
+</li>
+</ul>
+<h3 id="第五章-极限理论"><a href="#第五章-极限理论" class="headerlink" title="第五章 极限理论"></a>第五章 极限理论</h3><p><strong>马尔科夫不等式:</strong></p>
+<p>设随机变量$X$只取非负值，则对任意$a&gt;0$，<br>$$<br>P(X\geq a)\leq \frac{E[X]}{a}<br>$$<br><strong>切尔雪夫不等式：</strong></p>
+<p>设随机变量$X$的均值为$\mu$,方差为$\sigma ^2$，则对任意$c&gt;0$，<br>$$<br>P(|X-\mu|\geq c)\leq \frac{\sigma ^2 }{c^2}<br>$$<br><strong>弱大数定律：</strong></p>
+<p>设$X _1,…,X _n$独立同分布, 其分布的均值为$\mu$, </p>
+<p>则对任意的$\epsilon&gt;0$, 当$n \rightarrow \infty$ 时,<br>$$<br>P \left(\left|M_{n}-\mu\right| \geqslant \epsilon\right)= P \left(\left|\frac{X_{1}+\cdots+X_{n}}{n}-\mu\right| \geqslant \epsilon\right) \rightarrow 0<br>$$<br><strong>中心极限定理：</strong><br>设$X _1, X _2 …$是独立同分布的随机变量序列，序列的每一项的均值为$\mu$, 方差为$\sigma^2$.<br>记<br>$$<br>Z _n=\frac{X _1+…+X _n-n \mu}{\sqrt{n} \sigma}<br>$$</p>
+<p>则$Z _n$的分布函数的极限分布为标准正态分布函数：</p>
+<p>$$<br>\Phi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^xe^{-z^2/2}dz<br>$$</p>
+<p>即<br>$$<br>\lim _{n \rightarrow \infty} P \left(Z _n \leqslant x\right)=\Phi(x), \text { 对任意的 } x \text { 成立. }<br>$$<br><strong>强大数定律：</strong><br>设$X_1,$ $X _{2}, \cdots, X _{n}$是均值为$\mu$ 的独立同分布随机变量序列, 则样本均值$M _{n}=(X _{1}+X _{2}+…+X _{n}) / n$以概率 1 收敛于$\mu$, 即</p>
+<p>$$<br>P \left(\lim _{n \rightarrow \infty} \frac{X _1+X _2+\cdots+X _n}{n}=\mu\right)=1<br>$$</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>概率论</tag>
       </tags>
   </entry>
   <entry>
@@ -2095,381 +2470,6 @@
       <tags>
         <tag>阅读</tag>
         <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《概率导论》学习笔记(持续更新中)</title>
-    <url>/2021/20210122/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>开始时间：2021/01/22</p>
-<span id="more"></span>
-
-<h3 id="第一章-样本空间与概率"><a href="#第一章-样本空间与概率" class="headerlink" title="第一章 样本空间与概率"></a>第一章 样本空间与概率</h3><p>**样本空间$\Omega$**：这是一个试验的所有可能结果的集合.</p>
-<p><strong>概率律</strong>：概率律为试验结果的集合$A$(称为<strong>事件</strong>)确定一个非负数$P(A)$(称为事件$A$的概率).</p>
-<p>概率律满足以下几条公理(<strong>概率公理</strong>)：</p>
-<blockquote>
-<p>(1)**(非负性)<strong>对一切事件$A$,满足$P(A)\geq 0$.<br>(2)</strong>(可加性)<strong>设$A$和$B$为两个互不相交的集合(概率论中称为互不相容的事件),则它们的并满足$P(A\cup B)=P(A)+P(B)$.<br>(3)</strong>(归一化)**整个样本空间$\Omega$(称为必然事件)的概率为1,即$P(\Omega)=1$.</p>
-</blockquote>
-<p>由概率公理可导出处许多性质,下面为部分性质</p>
-<blockquote>
-<p><strong>概率论的若干性质：</strong><br>考虑一个概率律,令$A、B、C$为事件.<br>(a)若$A\subset B$,则$P(A)\leq P(B)$.<br>(b)$P(A\cup B)=P(A)+P(B)-P(A\cap B)$.<br>(c)$P(A\cup B)\leq P(A)+P(B)$.<br>(d)$P(A\cup B\cup C)=P(A)+P(A^c\cap B)+P(A^c\cap B\cap C)$.</p>
-</blockquote>
-<p>条件概率：给定的事件$B$发生了,另一个给定的事件$A$发生的概率,记为$P(A \mid B)=\frac{P(A\cap B)}{P(B)}$.<br>显然地,条件概率是一个概率律,其满足概率律的三条公理.</p>
-<p><strong>相关定理:</strong></p>
-<blockquote>
-<p><strong>乘法法则：</strong><br>假定所有涉及的条件概率都是正的,我们有:</p>
-<p>$$<br>P(\cap _{i=1}^n A_i)=<br>P(A_1)P(A_2 \mid A_1)P(A_3 \mid A_1\cap A_2)…P(A_n \mid \cap _{i=1}^{n-1} A_i)<br>$$</p>
-</blockquote>
-<blockquote>
-<p><strong>全概率定理：</strong><br>设$A_1,A_2,…A_n$是一组互不相容的事件,形成样本空间的一个分割(每一个试验结果必定使得其中一个发生).又假定对每一个$i$,$P(A_i)&gt;0$.则对于任何事件$B$,下列公式成立<br>$$<br>P(B)=P(A_1\cap B)+…+P(A_n\cap B)</p>
-<p>=P(A_1)P(B \mid A_1)+…+P(A_n)P(B \mid A_n).<br>$$</p>
-</blockquote>
-<blockquote>
-<p><strong>关于条件概率的全概率公式：</strong><br>设$C_1,C_2,…C_n$是一组互不相容的事件,形成样本空间的一个分割(每一个试验结果必定使得其中一个发生).令A和B是两个事件，满足$P(B\cap C_i)&gt;0$对一切$i$成立，则：<br>$$<br>P(A\mid B)=\sum_{i=1}^n P(C_i\cap B)+…+P(A\mid B\cap C_i)<br>$$</p>
-</blockquote>
-<blockquote>
-<p><strong>贝叶斯准则</strong><br>设$A_1,A_2,…A_n$是一组互不相容的事件,形成样本空间的一个分割(每一个试验结果必定使得其中一个事件发生).又假定对每一个$i$,$P(A_i)&gt;0.$则对于任何事件$B$,只要它满足$P(B)&gt;0$,下列公式成立:<br>$$<br>P(A_i \mid B)=\frac{P(A_i)P(B \mid A_i)}{P(B)}<br>$$</p>
-<p>$$<br>=\frac{P(A_i)P(B \mid A_i)}{P(A_1)P(B \mid A_1)+…+P(A_n)P(B \mid A_n)}.<br>$$</p>
-<p>$=\frac{P(A_i)P(B \mid A_i)}{P(A_1)P(B \mid A_1)+…+P(A_n)P(B \mid A_n)}$.</p>
-</blockquote>
-<p><strong>独立性:</strong></p>
-<ul>
-<li><p>当等式$P(A\cap B)=P(A)P(B)$成立时,我们称$A$和$B$是相互独立的事件.<br>若$B$还满足$P(B)&gt;0$,则独立性等价于$P(A \mid B)=P(A)$.</p>
-</li>
-<li><p>$A$与$B$相互独立,则$A$与$B^c$也相互独立</p>
-</li>
-<li><p>设事件$C$满足$P(C)&gt;0$,两个事件$A$和$B$称为给定$C$的条件下条件独立,如果它们满足$P(A\cap B \mid C)=P(A \mid C)P(B \mid C)$.<br>若进一步假定$P(B\cap C)&gt;0$,则$A$和$B$在给定$C$的条件下的条件独立性和以下条件是等价的：$P(A \mid B\cap C)=P(A \mid C)$.</p>
-</li>
-<li><p>独立性并不蕴含条件独立性,反之亦然.</p>
-</li>
-<li><p><strong>几个事件的相互独立性的定义</strong>：<br>设$A_1,…A_n$为n个事件,<br>若它们满足<br>:<br>$$<br>P(\cup_{i\in S}A_i)=\prod_{i\in S}P(A_i)对{1,2,3…n}的任意子集S成立<br>$$<br>则称$A_1,…A_n$为相互独立的事件.</p>
-</li>
-</ul>
-<p><strong>德摩根公式：</strong>  $(A\cup B)^c=A^c\cap B^c,(A\cap B)^c=A^c\cup B^c$<br><strong>邦费罗尼不等式(Bonferroni’s inequality):</strong><br>$$<br>P(A\cap B)\geq P(A)+P(B)-1<br>$$<br>可推广到n个事件$A_1,A_2…A_n$的情况：<br>$$<br>P(A\cap B\cap…\cap A_n)\geq P(A)+P(B)+…+P(A_n)-(n-1)<br>$$</p>
-<p><strong>容斥原理：</strong><br>设$A_1,A_2…A_n$为n个事件.记$S_1=\left{i\mid 1\geq i\geq n\right},S_2=\left{(i_1,i_2)\mid 1\leq i_1\leq  i_2 &lt; n\right}$…<br>$$<br>P(\cup_{k=1}^n)<br>=\sum_{i\in S_1}P(A_i)-\sum_{(i_1,i_2)\in S_2}P(A_{i_1}\cap A_{i_2})<br>+\sum_{(i_1,i_2,i_3)\in S_3}P(A_{i_1}\cap A_{i_2}\cap A_{i_3})<br>-…+(-1)^{n-1}P(\cap_{k=1}^n A_k)<br>$$</p>
-<h3 id="第二章-离散随机变量"><a href="#第二章-离散随机变量" class="headerlink" title="第二章 离散随机变量"></a>第二章 离散随机变量</h3><p><strong>与随机变量相关的主要概念</strong></p>
-<p>在一个试验的概率模型之下：</p>
-<ul>
-<li><p><strong>随机变量</strong>是试验结果的实值函数；</p>
-</li>
-<li><p><strong>随机变量的函数</strong>定义了另一个随机函数；</p>
-</li>
-<li><p>对于一个随机变量,我们可以定义一些平均量,例如<strong>均值</strong>和<strong>方差</strong>；</p>
-</li>
-<li><p>可以在某事件或某随机变量的<strong>条件</strong>之下定义一个随机变量；</p>
-</li>
-<li><p>存在一个随机变量与某事件或某随机变量相互<strong>独立</strong>的概念；</p>
-</li>
-</ul>
-<p><strong>与离散随机变量相关的主要概念</strong></p>
-<p>在一个试验的概率模型之下：</p>
-<ul>
-<li><p><strong>离散随机变量</strong>是试验结果的一个实值函数,但是它的取值范围只能是有限多个值或可数无限多个值；</p>
-</li>
-<li><p>一个离散随机变量有一个<strong>分布列</strong>,它对于随机变量的每一个取值,给出一个概率；</p>
-</li>
-<li><p><strong>离散随机变量的函数</strong>也是一个离散随机变量,它的分布列可以从原随机变量的分布列得到.</p>
-</li>
-</ul>
-<p><strong>一些分布列：</strong></p>
-<blockquote>
-<p><strong>二项随机变量</strong>:将一枚硬币抛掷n次,每次抛掷,正面出现概率为p,反面出现的概率为1-p,而且每次抛掷是相互独立的.令X为n次抛掷得到正面的次数.我们称X为<strong>二项随机变量</strong>.<br>$$<br>P(X=k)=\binom{n}{k}p^k(1-p)^{n-k},k=0,1,…n.<br>$$<br><strong>几何随机变量：</strong>在上述抛硬币试验中,令X为连续地抛掷一枚硬币,直到第一次正面所需要抛掷的次数.<br>$$<br>P(X=k)=(1-p)^{k-1}p,k=1,2…<br>$$<br><strong>泊松随机变量：</strong>设随机变量X的分布列由下式给出：</p>
-<p>$$<br>P(X=k)=e^{-\lambda }\frac{\lambda ^k}{k!},k=0,1,2…<br>$$</p>
-</blockquote>
-<p><strong>期望:</strong></p>
-<p>设随机变量X的分布列为p{X},X的<strong>期望值</strong>(也称<strong>期望</strong>或<strong>均值</strong>)由下式给出：<br>$$<br>E[X]=\sum_{x} xp_{X}(x).<br>$$<br><strong>方差：</strong>(记作$var(X)$)</p>
-<p>随机变量$X$的方差由下列公式所定义：</p>
-<p>$$<br>var(X)=E[(X-E[x])^2].<br>$$<br>并且可以用下式进行计算：</p>
-<p>$$<br>var(X)=\sum_{x}(x-E[X])^2p_{X}(x)<br>$$</p>
-<p>$$<br>var(X)=E[X^2]-(E[X])^2<br>$$</p>
-<p>它是非负的,其平方根称为<strong>标准差</strong></p>
-<p><strong>随机变量的线性函数的均值与方差：</strong></p>
-<p>设$X$为随机变量,令$Y=aX+b$,其中a和b为给定的常数,则</p>
-<p>$$<br>E[Y]=aE[X]+b,var(Y)=a^2var(X)<br>$$</p>
-<p><strong>某些常用的随机变量的均值及方差：</strong></p>
-<blockquote>
-<p><strong>伯努利随机变量：</strong>$E[X]=p$.$var(X)=p(1-p)$</p>
-<p><strong>泊松随机变量：</strong>$E[X]=\lambda$.$var(X)=\lambda$.</p>
-</blockquote>
-<p><strong>关于联合分布列：</strong></p>
-<p>设$X$和$Y$为在某个试验中的随机变量.</p>
-<ul>
-<li>$X$和$Y$的联合分布列$p_{X,Y}$由下式定义：</li>
-</ul>
-<p>$$<br>p_{X,Y}(x,y)=P(X=x,Y=y)<br>$$</p>
-<ul>
-<li>$X$和$Y$的边缘分布列可由下式得到：</li>
-</ul>
-<p>$$<br>p_{X}(x)=\sum_{y} p_{X,Y}(x,y) , p_{Y}(y)=\sum_{x} p_{X,Y}(x,y).<br>$$</p>
-<ul>
-<li>$X$和$Y$的函数$g(X,Y)$是一个随机变量,并且</li>
-</ul>
-<p>$$<br>E[g(X,Y)]=\sum_x \sum_y g(x,y)p_{X,Y}(x,y)<br>$$</p>
-<p>若g是线性的,且$g=aX+bY+x$,则<br>$$<br>E[aX+bY+c]=aE[X]+bE[Y]+c.<br>$$<br>.</p>
-<ul>
-<li>上面的结论可以类似地自然地推广到两个以上的随机变量的情况.</li>
-</ul>
-<p><strong>关于条件分布列</strong></p>
-<p>设$X$和$Y$为某一试验中的两个随机变量.</p>
-<ul>
-<li><p>条件分布列与之前所学的无条件分布列完全相似,其差别只是前者是在已知某事件发生的条件下的随机变量的分布列.、</p>
-</li>
-<li><p>设A为某事件,$P(A)&gt;0$.随机变量X在给定A发生的条件下的条件分布列为：</p>
-</li>
-</ul>
-<p>$$<br>p_{X \mid A}(x)=P(X=x \mid A)<br>$$</p>
-<p>并且满足<br>$$<br>\sum_{x}p_{X \mid A}(x)=1 .<br>$$</p>
-<ul>
-<li>设$A_1,…,A_n$是一组互不相容的事件,并且形成样本空间的一个分割,进一步假定$p(A_i)&gt;0$,则<br>$$<br>p_{X}(x)=\sum_{i=1}^{n}P(A_i)p_{X \mid A_i}(x)<br>$$</li>
-</ul>
-<p>(这是全概率定理的一种特殊情况.)进一步假定事件B满足对一切$i$,$P(A_i\cap B)&gt;0$.则</p>
-<p>$$<br>p_{X \mid B}(x)=\sum_{i=1}^n P(A_i \mid b)p_{X \mid A_i \cap B}(x)<br>$$</p>
-<ul>
-<li>给定$Y =y$ 的条件下 $X$ 的条件分布列与联合分布列之间有下列关系:</li>
-</ul>
-<p>$$<br>p_{X, Y}(x, y)=p_{Y}(y) p_{X \mid Y}(x \mid y)<br>$$</p>
-<ul>
-<li>给定 $Y$ 之下的 $X$ 的条件分布列可以通过以下公式计算 $X$ 的边缘分布列:<br>$$<br>p_{X}(x)=\sum_{y} p_{Y}(y) p_{X \mid Y}(x \mid y)<br>$$</li>
-<li>同样地,上面的结论可以自然推广到两个以上的随机变量的情况.</li>
-</ul>
-<p><strong>关于条件期望：</strong></p>
-<p>设$X$ 和 $Y$ 为某一试验中的两个随机变量.</p>
-<ul>
-<li><p>设A为某事件,$P(A)&gt;0$.随机变量X在给定A发生的条件下的条件期望为<br>$$<br>E [X \mid A]=\sum_{\infty} x p_{X \mid A}(x)<br>$$<br>对于函数数 $g(X)$. 我们有<br>$$<br>E [g(X) \mid A]=\sum_{x} g(x) p_{X \mid A}(x)<br>$$</p>
-</li>
-<li><p>给定 $Y=y$ 的条件下 $X$ 的条件期望由下式定义<br>$$<br>E [X \mid Y=y]=\sum_{x} x p_{X \mid Y}(x \mid y)<br>$$</p>
-</li>
-<li><p>设$A_1,…,A_n$ 是互不相容的事件并且形成样本空间的一个分割.</p>
-<p>假定$P(A_{i})&gt;0 \text{ 对一切 } i$ 成立. 则<br>$$<br>E [X]=\sum_{i=1}^{n} P \left(A_{i}\right) E \left[X \mid A_{i}\right]<br>$$<br>进一步假定事件 $B$ 满足对一切 $i$, $P (A_{i} \cap B)&gt;0,$ 则<br>$$<br>E [X \mid B]=\sum_{i=1}^{n} P \left(A_{ i } \mid B\right) E \left[X \mid A_{i} \cap B\right]<br>$$</p>
-</li>
-<li><p>我们有</p>
-</li>
-</ul>
-<p>$$<br>E [X]=\sum_{y} p_{Y}(y) E [X \mid Y=y]<br>$$</p>
-<p><strong>关于独立随机变量：</strong><br>设在某一试验中,A是一个时间段,满足条件$P(A)&gt;0$,又设X和Y是在同一试验中的两个随机变量.</p>
-<ul>
-<li>称X为相对于事件A独立,如果满足</li>
-</ul>
-<p>$$<br>p_{ X \mid A}(x)=p_{X}(x) \text { 对一切 } x \text { 成立 }<br>$$<br>即对一切x,事件${X=x}$与A相互独立.</p>
-<ul>
-<li>称$X$和$Y$为相互独立的随机变量,如果对一切可能的数对(x,y),事件${X=x}$ 和 ${Y=y}$ 相互独立, 或等价地</li>
-</ul>
-<p>$$<br>p_{X, Y}(x, y)=p_{X}(x) p_{Y}(y) \text { 对一切 } x \text { 和 } y \text { 成立 }<br>$$</p>
-<ul>
-<li>若 $X$ 和 $Y$ 相互独立, 则<br>$$<br>E [X Y]= E [X] E [Y]<br>$$<br>进一步地,对于任意函数$g$和$h$,随机变量$g(X)$和$h(Y)$也是相互独立的,并且<br>$$<br>E [g(X) h(Y)]= E [g(X)] E [h(Y)]<br>$$</li>
-<li>若 $X$ 和 $Y$ 相互独立, 则<br>$$<br>var(X+Y)=var(X)+var(Y)<br>$$</li>
-</ul>
-<h3 id="第三章-一般随机变量"><a href="#第三章-一般随机变量" class="headerlink" title="第三章 一般随机变量"></a>第三章 一般随机变量</h3><p><strong>关于概率密度函数(PDF)：</strong></p>
-<p>对于随机变量X,若存在一个非负函数$f_X$,使得<br>$$<br>P(X\in B)=\int <em>B f</em>{X}(x)dx<br>$$<br>对每一个实数轴上的集合B都成立,则称X为连续的随机变量,函数$f_X$就称为X的概率密度函数,或简称PDF.</p>
-<ul>
-<li><p>$f_{X}(x) \geq 0$ 对一切 $x$ 成立</p>
-</li>
-<li><p>归一化$ \int_{-\infty}^{\infty} f_{X}(x) d x=1 $</p>
-</li>
-<li><p>设 $ \delta $ 是一个充分小的正数, 则 $P ([x, x+ \delta ]) \approx f_{X}(x) \cdot \delta .$</p>
-<blockquote>
-<p>注：由于$f_X(x)$是概率律而非某一事件的概率,故其可以取任意大的值,例如：<br>$$<br>f_{X}(x)=\left{\begin{array}{ll}\frac{1}{2\sqrt{x}}, \text{若}0&lt;x\leq 1 \<br>0, \text { 其他 }<br>\end{array}\right.<br>$$<br>在$x$趋于0时,$f_X(x)$可以任意的大</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>连续随机变量的期望：</strong></p>
-<p>记$X$为连续随机变量,其相应的PDF为$f_{X}x$.</p>
-<ul>
-<li><p>X的期望由下式定义：<br>$$<br>E[X]=\int_{-\infty}^{\infty} xf_{X}(x)dx.<br>$$</p>
-</li>
-<li><p>关于随机变量$g(X)$的期望规则为：<br>$$<br>E[g(X)]=\int_{-\infty}^{\infty} g(x)f_{X}(x) d x<br>$$</p>
-</li>
-<li><p>X的方差由下式给出：<br>$$<br>var(X)=E[(X-E[X])^2]=\int_{-\infty}^{\infty} (X-E[X])^2f_{X}(x) d x<br>$$</p>
-</li>
-<li><p>关于方差,下列公式成立：<br>$$<br>0\leq var(X)=E[X^2]-(E[X])^2.<br>$$</p>
-</li>
-<li><p>设$Y=aX+b$,其中a和b为常数,则<br>$$<br>E[Y]=aE[X]+b,var(Y)=a^2var(X)<br>$$</p>
-</li>
-</ul>
-<p><strong>$分布函数(CDF)$ 的性质:</strong></p>
-<p>随机变量$X$的$CDF$ $F_X$由下式定义<br>$$<br>\text { 对每一个 } x, F_{X}(x)= P (X \leqslant x)<br>$$<br>并且 $F_{X}$ 具有下列性质._</p>
-<ul>
-<li> $F_{X}$ 是单调非减函数:</li>
-</ul>
-<p>$$<br>\text { 若 } x \leqslant y, \quad \text { 则 } F_{X}(x) \leqslant F_{X}(y) .<br>$$</p>
-<ul>
-<li><p>当 $x \rightarrow-\infty$ 的时侯, $F_{X}(x)$ 趋于 0 . 当 $x \rightarrow \infty$ 的时侯, $F_{X}(x)$ 趋于 1 .</p>
-</li>
-<li><p> 当 $X$ 是离散随机变量的时候,$F_{X}(x)$为$x$的阶梯函数.</p>
-</li>
-<li><p> 当 $X$ 是连续随机变量的时候,$F_{X}(x)$为$x$的连续函数.</p>
-</li>
-<li><p>当 $X$ 是离散随机变量并且取整数值的时,分布函数和分布列可以利用求和或差分互求:</p>
-</li>
-</ul>
-<p>$$<br>\begin{array}{c}<br>F_{X}(k)=\sum_{i=-\infty}^{k} p_{X}(i) \<br>p_X(k)=P(X \leqslant k)- P (X \leqslant k-1)=F_{X}(k)-F_{X}(k-1),<br>\end{array}<br>$$<br>其中 $k$ 可以是任意整数.</p>
-<ul>
-<li>当$X$是连续随机变量的时候,分布函数和概率密度函数可以利用积分或微分互求：<br>$$<br>F_X(x)=\int ^x_{-\infty}f_{X}(t)dt,f_{X}(t)=\frac{dF_X}{dx}(x).<br>$$<br>(第二个等式只在分布函数可微的那些点上成立.)</li>
-</ul>
-<p><strong>正态随机变量：</strong></p>
-<p>一个连续随机变量X称为正态的或高斯的,若它的概率密度函数具有下列形式：<br>$$<br>f_{X}(x)=\frac{1}{\sqrt{2 \pi} \sigma} e ^{-(x-\mu)^{2} /\left(2 \sigma^{2}\right)}<br>$$<br>其中$\mu、\sigma$是概率密度的两个参数,其中$\sigma $还必须是正数.<br>其均值及方差：<br>$$<br>E [ X ]=\mu, \quad \operatorname{var}(X)=\sigma^{2}<br>$$</p>
-<blockquote>
-<p>线性变换下($Y=aX+b$)随机变量的正态性保持不变.</p>
-<p>其均值和方差由下式给出：<br>$$<br>E[Y]=a\mu+b,var(Y)=a^2{\sigma}^2<br>$$</p>
-</blockquote>
-<p><strong>多元连续随机变量性质：</strong></p>
-<p>令X和Y为联合连续随机变量,其联合概率密度函数为$f_{X,Y}$</p>
-<ul>
-<li>利用<strong>联合概率密度函数</strong>可以进行概率计算：</li>
-</ul>
-<p>$$<br>P ((X, Y) \in B)=\int_{(x, y) \in B} \int f_{X, Y}(x, y) d x d y<br>$$</p>
-<ul>
-<li>X和Y的边缘概率密度函数可利用联合概率密度函数进行计算得到：</li>
-</ul>
-<p>$$<br>f_{X}(x)=\int_{-\infty}^{\infty} f_{(X, Y)}(x, y) d y, \quad f_{Y}(y)=\int_{-\infty}^{\infty} f_{(X, Y)}(x, y) d x<br>$$</p>
-<ul>
-<li><strong>联合分布函数</strong>由公式$F_{X,Y}(x,y)=P(X\leq x,Y\leq y)$定义,并且,在联合概率密度函数的连续点上,下面的公式成立：</li>
-</ul>
-<p>$$<br>f_{X, Y}(x, y)=\frac{\partial^{2} F_{X, Y}}{\partial x \partial y}(x, y)<br>$$</p>
-<ul>
-<li>X和Y的函数$g(X,Y)$定义了一个新的随机变量,并且</li>
-</ul>
-<p>$$<br>E [g(X, Y)]=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) f_{X, Y}(x, y) d x d y<br>$$</p>
-<ul>
-<li>若g是一个线性函数$aX+bY+c$,则</li>
-</ul>
-<p>$$<br>E[a X+b Y+c]=a B[X]+b E[Y]+c<br>$$</p>
-<ul>
-<li>上面的结论能够很自然地推广到多于两个随机变量的情况.</li>
-</ul>
-<p><strong>以事件为条件的条件概率密度函数：</strong></p>
-<ul>
-<li>对于给定的事件$A(P(A)&gt;0)$,连续随机变量X的条件概率密度函数$f_{X|A}$是满足下列条件的函数：</li>
-</ul>
-<p>$$<br>P (X \in B \mid A)=\left.\int_{B} f_{X}\right|<em>{A}(x) d x<br>$$<br>其中 $B$ 是实数轴上的任意集合.<br>$$<br>f</em>{X \mid{X \in A}}(x)=\left{\begin{array}{ll}<br>\frac{f_{X}(x)}{P(X \in A)}, &amp; \text { 若 } x \in A, \<br>0, &amp; \text { 其他. }<br>\end{array}\right.<br>$$</p>
-<ul>
-<li>设$A_1,A_2,…,A_n$为互不相容的n个事件,对每个$i$,$P(A_i)&gt;0$,并且这些事件形成样本空间的一个分割.则</li>
-</ul>
-<p>$$<br>f_{X}(x)=\sum_{i=1}^{n} P\left(A_{i}\right) f_{X \mid A_{i}}(x)<br>$$<br>(全概率定理的一种变形).</p>
-<p><strong>以另一个随机变量为条件的条件概率密度函数：</strong><br>设X和Y为联合连续随机变量,其联合概率密度函数为$f_{X,Y}$.</p>
-<ul>
-<li>X和Y的联合、边缘和条件概率密度函数是相互关联的.它们的关系用下面的公式表示：</li>
-</ul>
-<p>$$<br>\begin{aligned}<br>f_{X, Y}(x, y) &amp;=f_{Y}(y) f_{X \mid Y}(x \mid y) \<br>f_{X}(x) &amp;=\int_{-\infty}^{\infty} f_{Y}(y) f_{X \mid Y}(x \mid y) d y .<br>\end{aligned}<br>$$<br>条件概率密度函数$f_{X|Y}(x|y)$只在集合${y|f_Y(y)&gt;0}$上有定义.</p>
-<ul>
-<li>关于条件概率我们有<br>$$<br>P(X\in A \mid Y=y)=\int_{A} f_{X\mid Y}(x\mid y)dx<br>$$</li>
-</ul>
-<p><strong>条件期望性质：</strong></p>
-<p>记 $X$ 和 $Y$ 为联合连续随机变量, $A$ 是满足 $P (A)&gt;0$ 的事件.</p>
-<ul>
-<li>$X$ 在给定事件$A$ 之下的条件期望由下式定义</li>
-</ul>
-<p>$$<br>E [X \mid A]=\int_{-\infty}^{\infty} x f_{X \mid A}(x) d x<br>$$<br>给定 $Y=y$ 之下的条件期望由下式定义<br>$$<br>E[X \mid Y=y]=\int_{-\infty}^{\infty} x f_{X \mid Y}(x \mid y) d x<br>$$</p>
-<ul>
-<li><strong>期望规则</strong>仍然有效:</li>
-</ul>
-<p>$$<br>\begin{array}{c}<br>E [g(X) \mid A]=\int_{-\infty}^{\infty} g(x) f_{X \mid A}(x) d x \<br>E [g(X) \mid Y=y]=\int_{-\infty}^{\infty} g(x) f_{X \mid Y}(x \mid y) d x<br>\end{array}<br>$$</p>
-<ul>
-<li><strong>全期望定理：</strong>设$A_1,A_2,…,A_n$为互不相容的n个事件,对每个$i$,$P(A_i)&gt;0$,并且这些事件形成样本空间的一个分割,则</li>
-</ul>
-<p>$$<br>E (X]=\sum_{i=1}^{n} P \left( A <em>{i}\right) E \left[X \mid A</em>{i}\right]<br>$$<br>相似地,<br>$$<br>E [X]=\int_{-\infty}^{\infty} E \left[X|Y=y| f_{Y}(y) d y\right.<br>$$</p>
-<ul>
-<li><p>涉及几个随机变量的函数的情况,具有完全相似的结果,例如：<br>$$<br>E \left[g\left(X,Y\right)|Y=y|\right.=\int g(x, y) f_{X \mid Y}(x \mid y) d x \</p>
-<p>E[g(X, Y) \mid=\int E [g(X, Y) \mid Y=y] f_{Y}(y) d y<br>$$<br><strong>连续随机变量的相互独立性</strong></p>
-<p>令X和Y为联合连续随机变量.</p>
-</li>
-<li><p>若</p>
-<p>$$<br>f_{X, Y}(x, y)=f_{X}(x) f_{Y}(y) \quad \text { 对一切 }x\text{和}y\text{成立}<br>$$</p>
-<p>则 $X$ 和 $Y$ 相互独立.</p>
-</li>
-<li><p>若X 和 $Y$ 相互独立, 则</p>
-<p>$$<br>E [X Y]= E [X] E [Y]<br>$$<br>进一步,对于任意函数$g$和$h$,随机变量$g(X)$和$h(Y)$也是相互独立的, 于是<br>$$<br>E [g(X) h(Y)]= E [g(X)] E [h(Y)]<br>$$</p>
-</li>
-<li><p>若 $X$ 和 $Y$ 相互独立,则</p>
-<p>$$<br>\operatorname{var}(X+Y)=\operatorname{var}(X)+\operatorname{var}(Y)<br>$$</p>
-</li>
-</ul>
-<p><strong>连续随机变量的贝叶斯准则:</strong></p>
-<p>令Y为连续随机变量.</p>
-<ul>
-<li>若X为连续随机变量,我们有</li>
-</ul>
-<p>$$<br>\begin{array}{c}<br>f_{X} y(x \mid y) f_{Y}(y)=f_{X}(x) f_{Y \mid X}(y \mid x) \<br>\end{array}<br>$$</p>
-<p>和<br>$$<br>\begin{array}{c}<br>f_{X \mid Y}(x \mid y)=\frac{f_{X}(x) f_{Y \mid X}(y \mid x)}{f_{Y}(y)}=\frac{f_{X}(x) f_{Y \mid X}(y \mid x)}{\int_{-\infty}^{\infty} f_{X}(t) f_{Y} x(y \mid t) d t}<br>\end{array}<br>$$</p>
-<ul>
-<li>若N为离散随机变量,我们有</li>
-</ul>
-<p>$$<br>f_{Y}(y) P (N=n \mid Y=y)=p_{N}(n) f_{Y \mid N}(y \mid n)<br>$$<br>得到的贝叶斯公式为<br>$$<br>P ( N =n \mid Y=y)=\frac{p_{ N }(n) f_{Y \mid N}(y \mid n)}{f_{Y}(y)}=\frac{p_{N}(n) f_{Y} \mid N(y \mid n)}{\left.\sum_{i} p_{N}(\hat{i}) f_{Y}\right|<em>{N}(u \mid i)}<br>$$<br>和<br>$$<br>f</em>{Y \mid N}(y \mid n)=\frac{f_{Y}(y) P (N=n \mid Y=y)}{p_{N}(n)}=\frac{f_{Y}(y) P(N=n Y=y)}{\int_{-\infty}^{\infty} f_{Y}(t) P (N=n \mid Y=t) d t}<br>$$</p>
-<ul>
-<li>对于事件A,关于$P(A\mid Y=y)$和$f_{Y\mid A}(y)$具有类似的贝叶斯公式.</li>
-</ul>
-<h3 id="第四章-随机变量的深入内容"><a href="#第四章-随机变量的深入内容" class="headerlink" title="第四章 随机变量的深入内容"></a>第四章 随机变量的深入内容</h3><p><strong>计算连续随机变量X的函数$Y=g(X)$的概率密度函数(PDF)：</strong></p>
-<p>(1)使用如下公式计算Y的概率函数(CDF)$F_Y$<br>$$<br>F_{Y}(y)=P(g(X)\leq y)=\int_{x\mid g(x)\leq y}f_X(x)dx.<br>$$<br>(2)对$F_Y$求导,得到Y的PDF：<br>$$<br>f_{Y}(y)=\frac{dF_{Y}}{dy}(y)<br>$$<br><strong>随机变量X的线性函数的概率密度函数：</strong></p>
-<p>假设X是连续随机变量,概率密度函数为$f_X$,a和b是实数且$a\neq 0$,如果<br>$$<br>Y=aX+b<br>$$<br>则<br>$$<br>f_Y(y)=\frac{1}{\mid X\mid}f_X(\frac{y-b}{a}).<br>$$</p>
-<p><strong>连续随机变量X的严格单调函数$Y=g(x)$的概率密度函数计算公式：</strong></p>
-<p>假设g是严格单调函数,其逆函数h满足：对X的取值空间内任意一点$x$,$Y=g(x) \quad$ 当且仅当 $\quad x=h(y)$,<br>而且函数 $h$ 是可微的,则 $Y$ 在支撑集$y \mid f_{Y}(y)&gt;0$内的概率密度函数是<br>$$<br>f_{Y}(y)=f_{X}(h(y))\left|\frac{ d h}{ d y}(y)\right|<br>$$<br><strong>卷积：</strong></p>
-<p>定义：设X和Y是两个独立的随机变量考虑他们的和Z=X+Y的分布.<br>$$<br>p_Z(z)=P(X+Y=z)<br>$$<br>分布列$p_Z$称为X和Y的分布列的卷积.</p>
-<p><strong>卷积公式：</strong></p>
-<p>变量$Z=X+Y$的概率密度函数为<br>$$<br>f_Z(z)=\int_{-\infty}^{\infty} f_X(x)f_Y(z-x)dx<br>$$<br><strong>协方差和相关：</strong></p>
-<p><strong>协方差：</strong>X和Y的协方差记为cov(X,Y),其定义如下：$cov(X,Y)=E[(X-E(X))(Y-E(Y))]$.当cov(X,Y)=0时,我们说X和Y不相关的.</p>
-<p>另一种表达为$cov(X,Y)=E[XY]-E[X]E[Y]$.</p>
-<blockquote>
-<p><strong>一些性质：</strong></p>
-<p>$cov(X,X)=var(X)$</p>
-<p>$cov(X,aY+b)=a*cov(X,Y)$</p>
-<p>$cov(X,Y+Z)=cov(X,Y)+cov(X,Z)$</p>
-</blockquote>
-<p>注：X和Y是相互独立的,则E[XY]=E[X]E[Y],故cov(X,Y)=0,它们是不相关的,但是逆命题并不成立.</p>
-<p>有下列结论：</p>
-<blockquote>
-<p>假设$E[X\mid Y=y]=E[X]$ 对任意的y成立,则如果X和Y是离散变量时,E[XY]=E[X]E[Y].(在连续的情形下依然成立.)</p>
-</blockquote>
-<p><strong>相关系数：</strong></p>
-<p>两个方差非零的随机变量X和Y的相关系数$\rho (X,Y)$定义如下：<br>$$<br>\rho (X,Y)=\frac{cov(X,Y)}{\sqrt{var(X)var(Y)}}<br>$$<br>易证$\rho\in [-1,1]$</p>
-<p><strong>随机变量和的方差：</strong></p>
-<p>协方差可以用于计算多个随机变量(不必独立)之和的方差.特别地,设随机变量$X_1…X_n$具有有限的方差,则<br>$$<br>var(X_1+X_2)=var(X_1)+var(X_2)+2cov(X1,X2)<br>$$<br>更一般的结论是<br>$$<br>var(\sum_{i=1}^n X_i)=\sum_{i=1}^n var(X_i)+\sum_{\left{ (i,j)\mid i\neq j\right} } cov(X_i,X_j).<br>$$<br><strong>条件期望和条件方差的性质</strong>：</p>
-<ul>
-<li>$E[X\mid Y=y]$的值依赖于y.</li>
-<li>$E[X\mid Y]$是随机变量Y的函数,因此它也是一个随机变量.当Y的值为y时,它的值就等于$E[X\mid Y=y]$</li>
-<li>$E[E[X\mid Y]]=E[X]$ (<strong>重期望法则</strong>)</li>
-<li>$E[X\mid Y=y]$可视为已知Y=y时对X的估计.相应的估计误差$E[X\mid Y]-X$是一个零均值的随机变量,且与$E[X\mid Y]$是不相关的.</li>
-<li>$var(X)=E[var(X\mid Y)]+var(E[X\mid Y])$ (<strong>全方差法则</strong>)</li>
-</ul>
-<p><strong>矩母函数：</strong></p>
-<p>一个与随机变量X相关的矩母函数是参数s的函数$M_X(s)$,定义如下:<br>$$<br>M_X(s)=E[e^{sX}]<br>$$<br>当X是离散随机变量,相关矩母函数为$M(s)=\sum _x e^{sx}p_X(x)$.</p>
-<p>当X是连续随机变量,相关矩母函数为$M(s)=\int_{-\infty}^{\infty} e^{sx}f_X(x)dx$.</p>
-<blockquote>
-<p><strong>利用矩母函数计算随机变量的各阶矩：</strong><br>$$<br>M_X(0)=1,\ \ \ \ \ \frac{d}{ds}M_X(s) \bigg|<em>{s=0}=E[X], \ \ \  \frac{d^n}{ds^n}M_X(s)\bigg|</em>{s=0}=E[X^n].<br>$$</p>
-</blockquote>
-<p>若$Y=aX+b$,则$M_Y(s)=e^{sb}M_X(as)$.</p>
-<p>若X和Y相互独立,则$M_{X+Y}(s)=M_X(s)M_Y{s}$.</p>
-<p><strong>常见的离散随机变量的矩母函数：</strong></p>
-<ul>
-<li><p>参数为p的伯努利分布(k=0,1)<br>$$<br>p_X(k)=\left{\begin{array}{}<br>p, &amp; \text{若}k=1,<br>\1-p,&amp;  \text { 若k=0, }<br>\end{array}\right.<br>M_X(s)=1-p+pe^s.<br>$$</p>
-</li>
-<li><p>参数为(n,p)的二项分布(k=0,1,…,n)<br>$$<br>p_X(k)=\binom{n}{k}p^k(1-p)^{n-k},M_X(s)=(1-p+pe^s)^n.<br>$$</p>
-</li>
-<li><p>参数为 $p$ 的几何分布 $(k=1,2 \ldots)$<br>$$<br>p_{X}(k)=p(1-p)^{k-1}, \quad M_{X}(s)=\frac{p e^{s}}{1-(1-p) e^{s}}<br>$$</p>
-</li>
-<li><p>参数为$\lambda$的泊松分布 $(k=1,2 \ldots)$<br>$$<br>p_{X}(k)=\frac{e^{-\lambda} \lambda^{k}}{k !}, \quad M_{X}(s)=e^{\lambda\left(e^{s}-1\right)}<br>$$<br>$\bullet(a, b)$ 上的均匀分布 $(k=a, a+1, \cdots, b)$<br>$$<br>p x(k)=\frac{1}{b-a+1}, \quad M_{X}(s)=\frac{e^{a s}}{b-a+1} \cdot \frac{e^{(b-a+1) s}-1}{e^{s}-1}<br>$$</p>
-</li>
-</ul>
-<p><strong>常见连续随机变量的矩母函数：</strong></p>
-<ul>
-<li><p>$(a, b)$ 上的均匀分布 $(a \leqslant x \leqslant b)$<br>$$<br>f_{X}(x)=\frac{1}{b-a},<br>M_{X}(s)=\frac{1}{b-a} \cdot \frac{e^{s b}-e^{s a}}{s}<br>$$</p>
-</li>
-<li><p>参数为$\lambda$的指数分布$(x\geq 0)$<br>$$<br>f_{X}(x)=\lambda e^{\lambda x}<br>,<br>M_{X}(s)=\frac{\lambda}{\lambda-s}, (s&lt;\lambda)<br>$$</p>
-</li>
-<li><p>参数为$(\lambda,\mu)$的正态分布$(-\infty&lt;x\infty)$<br>$$<br>f_{X}(x)=\frac{1}{\sqrt{2 \pi} \sigma} e ^{-(x-\mu)^{2} / 2 \sigma^{2}}, \quad M_{X}(s)= e ^{\left(\sigma^{2} s^{2} / 2\right)+\mu s}<br>$$</p>
-</li>
-</ul>
-<h3 id="第五章-极限理论"><a href="#第五章-极限理论" class="headerlink" title="第五章 极限理论"></a>第五章 极限理论</h3><p><strong>马尔科夫不等式:</strong></p>
-<p>设随机变量$X$只取非负值，则对任意$a&gt;0$，<br>$$<br>P(X\geq a)\leq \frac{E[X]}{a}<br>$$<br><strong>切尔雪夫不等式：</strong></p>
-<p>设随机变量$X$的均值为$\mu$,方差为$\sigma ^2$，则对任意$c&gt;0$，<br>$$<br>P(|X-\mu|\geq c)\leq \frac{\sigma ^2 }{c^2}<br>$$<br><strong>弱大数定律：</strong></p>
-<p>设$X _1,…,X _n$独立同分布, 其分布的均值为$\mu$, </p>
-<p>则对任意的$\epsilon&gt;0$, 当$n \rightarrow \infty$ 时,<br>$$<br>P \left(\left|M_{n}-\mu\right| \geqslant \epsilon\right)= P \left(\left|\frac{X_{1}+\cdots+X_{n}}{n}-\mu\right| \geqslant \epsilon\right) \rightarrow 0<br>$$<br><strong>中心极限定理：</strong><br>设$X _1, X _2 …$是独立同分布的随机变量序列，序列的每一项的均值为$\mu$, 方差为$\sigma^2$.<br>记<br>$$<br>Z _n=\frac{X _1+…+X _n-n \mu}{\sqrt{n} \sigma}<br>$$</p>
-<p>则$Z _n$的分布函数的极限分布为标准正态分布函数：</p>
-<p>$$<br>\Phi(x)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^xe^{-z^2/2}dz<br>$$</p>
-<p>即<br>$$<br>\lim _{n \rightarrow \infty} P \left(Z _n \leqslant x\right)=\Phi(x), \text { 对任意的 } x \text { 成立. }<br>$$<br><strong>强大数定律：</strong><br>设$X_1,$ $X _{2}, \cdots, X _{n}$是均值为$\mu$ 的独立同分布随机变量序列, 则样本均值$M _{n}=(X _{1}+X _{2}+…+X _{n}) / n$以概率 1 收敛于$\mu$, 即</p>
-<p>$$<br>P \left(\lim _{n \rightarrow \infty} \frac{X _1+X _2+\cdots+X _n}{n}=\mu\right)=1<br>$$</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-        <tag>概率论</tag>
       </tags>
   </entry>
   <entry>
@@ -3212,31 +3212,6 @@
       </tags>
   </entry>
   <entry>
-    <title>辨析依概率收敛和以概率一收敛</title>
-    <url>/2021/20210514/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>依概率收敛和以概率一收敛是常见的收敛定义。但不易分清。</p>
-<span id="more"></span>
-
-<p>往往其常见的定义比较含糊。</p>
-<p>可以转换一下，变得更加清晰。</p>
-<p>定义如下：</p>
-<p>Xn是一个随机变量序列，X是随机变量，对于任意自然数ε&gt;0</p>
-<p>都有：</p>
-<p><strong>依概率收敛：</strong></p>
-<p>$$<br>\lim_{n\to\infty}P({\omega:|X_n(\omega)-X_0(\omega)|\geqε})=0<br>$$<br><strong>以概率一收敛（几乎处处收敛）：</strong></p>
-<p>$$<br>\lim_{n\to\infty}P({\omega:\sup_{m&gt;n}|X_m(\omega)-X_0(\omega)|\geqε})=0<br>$$</p>
-<hr>
-<p>我们以一个图示来更加清晰地说明，我们把差值$|x_n-x|$绘成n的函数。为简单起见，把序列画成了曲线。于是曲线表示一特定的序列$|x_n(\xi )-x(\xi )|$。依概率收敛表示对于特定的$n&gt;n_o$，仅有一小部分曲线的坐标超过ε(图(a))。当然，对于每一个$n&gt;n_0$，可能甚至没有一条曲线始终小于ε,另一方面，几乎处处收敛则要求大多数曲线对每个$n&gt;n_0$都低于ε(图(b))。</p>
-<p><img src="https://ae01.alicdn.com/kf/U06ed9e75205341088b128eac35fd404bt.jpg" alt="1"></p>
-<p>阅读材料：</p>
-<p>1.<a href="http://www.themattsimpson.com/2013/08/22/im-almost-sure-its-probably-converging-wait-what/">Matt Simpson-I’m Almost Sure it’s Probably Converging… Wait, What?</a></p>
-<p>2.Papoulis A,Pillai S.U.《概率、随机变量与随机过程》</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>机器学习之神经网络</title>
     <url>/2021/20210509/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
@@ -3269,6 +3244,86 @@
 <p>$h_\theta(x)$与真实值之间的距离为每个样本-每个类输出的加和，对参数进行<strong>regularization</strong>的<strong>bias</strong>项处理所有参数的平方和。</p>
 ]]></content>
       <tags>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>辨析依概率收敛和以概率一收敛</title>
+    <url>/2021/20210514/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>依概率收敛和以概率一收敛是常见的收敛定义。但不易分清。</p>
+<span id="more"></span>
+
+<p>往往其常见的定义比较含糊。</p>
+<p>可以转换一下，变得更加清晰。</p>
+<p>定义如下：</p>
+<p>Xn是一个随机变量序列，X是随机变量，对于任意自然数ε&gt;0</p>
+<p>都有：</p>
+<p><strong>依概率收敛：</strong></p>
+<p>$$<br>\lim_{n\to\infty}P({\omega:|X_n(\omega)-X_0(\omega)|\geqε})=0<br>$$<br><strong>以概率一收敛（几乎处处收敛）：</strong></p>
+<p>$$<br>\lim_{n\to\infty}P({\omega:\sup_{m&gt;n}|X_m(\omega)-X_0(\omega)|\geqε})=0<br>$$</p>
+<hr>
+<p>我们以一个图示来更加清晰地说明，我们把差值$|x_n-x|$绘成n的函数。为简单起见，把序列画成了曲线。于是曲线表示一特定的序列$|x_n(\xi )-x(\xi )|$。依概率收敛表示对于特定的$n&gt;n_o$，仅有一小部分曲线的坐标超过ε(图(a))。当然，对于每一个$n&gt;n_0$，可能甚至没有一条曲线始终小于ε,另一方面，几乎处处收敛则要求大多数曲线对每个$n&gt;n_0$都低于ε(图(b))。</p>
+<p><img src="https://ae01.alicdn.com/kf/U06ed9e75205341088b128eac35fd404bt.jpg" alt="1"></p>
+<p>阅读材料：</p>
+<p>1.<a href="http://www.themattsimpson.com/2013/08/22/im-almost-sure-its-probably-converging-wait-what/">Matt Simpson-I’m Almost Sure it’s Probably Converging… Wait, What?</a></p>
+<p>2.Papoulis A,Pillai S.U.《概率、随机变量与随机过程》</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习之支持向量机</title>
+    <url>/2021/20210530/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>支持向量机（support vector machines,SVM)是一种二类分类模型。</p>
+<span id="more"></span>
+
+<h5 id="代价函数："><a href="#代价函数：" class="headerlink" title="代价函数："></a>代价函数：</h5><p>我们回忆一下逻辑回归。其代价函数如下：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/66facb7fa8eddc3a860e420588c981d5.png" alt="img"></p>
+<p>我们要实现我们的目标，就要把$-\log(1-\frac{1}{1+e^{-z}})$一点一点修改，修改为下两图的紫色直线函数，左边的函数，称之为${\cos}t_1{(z)}$，同时，右边函数称它为${\cos}t_0{(z)}$。</p>
+<p>最后SVM代价函数变为：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/5a63e35db410fdb57c76de97ea888278.png" alt="img"></p>
+<p>最后有别于逻辑回归输出的概率。在这里，我们的代价函数，当最小化代价函数，获得参数$\theta $时，支持向量机所做的是它来直接预测$y$的值等于1，还是等于0。因此，这个假设函数会预测1。当$\theta^Tx$大于或者等于0时，或者等于0时，所以学习参数$\theta $就是支持向量机假设函数的形式。</p>
+<h5 id="大间距分类器"><a href="#大间距分类器" class="headerlink" title="大间距分类器:"></a>大间距分类器:</h5><p>支持向量机的目标是找到一个能正确划分数据集且间隔最大的超平面。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/e68e6ca3275f433330a7981971eb4f16.png" alt="img"></p>
+<p>如该图所示，黑线比红线有着更大的距离。</p>
+<h5 id="核函数："><a href="#核函数：" class="headerlink" title="核函数："></a>核函数：</h5><p>核函数可以看成是判断近似程度的函数。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/529b6dbc07c9f39f5266bd0b3f628545.png" alt="img"></p>
+<p>为了获得上图所示的判定边界，我们的模型可能是<br>$$<br>\theta _0+\theta _1x_1+\theta _2x_2+\theta _3x_1x_2+\theta _4x_1^2+\theta _5x_2^2+\cdots<br>$$<br>的形式。</p>
+<p>我们可以用一系列的新的特征$f$来替换模型中的每一项。例如令：<br>$$<br>f_1=x_1,f_2=x_2,f_3=x_1x_2,f_4=x_1^2,f_5=x_2^2<br>$$</p>
+<p>…得到:<br>$$<br>h_θ(x)=\theta _1f_1+\theta _2f_2+…+\theta _nf_n<br>$$<br>。然而，除了对原有的特征进行组合以外，有没有更好的方法来构造$f_1,f_2,f_3$？我们可以利用核函数来计算出新的特征。</p>
+<p>给定一个训练样本$x$，我们利用$x$的各个特征与我们预先选定的<strong>地标</strong>(<strong>landmarks</strong>)$l^{(1)},l^{(2)},l^{(3)}$的近似程度来选取新的特征$f_1,f_2,f_3$</p>
+<p><img src="http://www.ai-start.com/ml2014/images/2516821097bda5dfaf0b94e55de851e0.png" alt="img"></p>
+<p>例如：<br>$$<br>f_1=similarity(x,l^{(1)})=e(-\frac{\left| x-l^{(1)} \right|^2}{2\sigma^2})<br>\<br>其中:\left| x-l^{(1)}\right|^2=\sum{_{j=1}^{n}}{(x_j-l_j^{(1)})^2}<br>$$<br>上例中的$similarity(x,l^{(1)})$就是核函数，具体而言，这里是一个<strong>高斯核函数</strong>(<strong>Gaussian Kernel</strong>)。 <strong>注：这个函数与正态分布没什么实际上的关系，只是看上去像而已。</strong></p>
+<p>这些地标的作用是什么？如果一个训练样本$x$与地标$l$之间的距离近似于0，则新特征 $f$近似于$e^{-0}=1$，如果训练样本$x$与地标$l$之间距离较远，则$f$近似于$e^{-(一个较大的数)}=0$。</p>
+<h5 id="支持向量机参数的影响："><a href="#支持向量机参数的影响：" class="headerlink" title="支持向量机参数的影响："></a>支持向量机参数的影响：</h5><p>两个参数$C$和$\sigma$的影响：</p>
+<blockquote>
+<p>$C=1/\lambda$</p>
+<p>$C$ 较大时，相当于$\lambda$较小，可能会导致过拟合，高方差；</p>
+<p>$C$ 较小时，相当于$\lambda$较大，可能会导致低拟合，高偏差；</p>
+<p>$\sigma$较大时，可能会导致低方差，高偏差；</p>
+<p>$\sigma$较小时，可能会导致低偏差，高方差。</p>
+</blockquote>
+<p>另外，支持向量机也可以不使用核函数，不使用核函数又称为<strong>线性核函数</strong>(<strong>linear kernel</strong>)，当我们不采用非常复杂的函数，或者我们的训练集特征非常多而样本非常少的时候，可以采用这种不带核函数的支持向量机。</p>
+<h5 id="一些核函数"><a href="#一些核函数" class="headerlink" title="一些核函数"></a>一些核函数</h5><p>除了上文提到的高斯核函数外还有：</p>
+<p>多项式核函数（<strong>Polynomial Kerne</strong>l）</p>
+<p>字符串核函数（<strong>String kernel</strong>）</p>
+<p>卡方核函数（ <strong>chi-square kernel</strong>）</p>
+<p>直方图交集核函数（<strong>histogram intersection kernel</strong>）</p>
+<h5 id="一些软件库和好的软件包"><a href="#一些软件库和好的软件包" class="headerlink" title="一些软件库和好的软件包"></a>一些软件库和好的软件包</h5><p>吴恩达推荐：<strong>liblinear</strong>和<strong>libsvm</strong></p>
+<h5 id="多类分类问题："><a href="#多类分类问题：" class="headerlink" title="多类分类问题："></a>多类分类问题：</h5><p>我们同样也可以训练个支持向量机来解决多类分类问题。但是大多数支持向量机软件包都有内置的多类分类功能，我们只要直接使用即可。</p>
+<p>尽管你不去写你自己的<strong>SVM</strong>的优化软件，但是你也需要做几件事：</p>
+<p>1、是提出参数的选择。我们在之前的视频中讨论过误差/方差在这方面的性质。</p>
+<p>2、你也需要选择内核参数或你想要使用的相似函数，其中一个选择是：我们选择不需要任何内核参数，没有内核参数的理念，也叫线性核函数。因此，如果有人说他使用了线性核的<strong>SVM</strong>（支持向量机），这就意味这他使用了不带有核函数的<strong>SVM</strong>（支持向量机）</p>
+<p><strong>一些普遍使用的准则：</strong></p>
+<p>$n$为特征数，$m$为训练样本数。</p>
+<p>(1)如果相较于$m$而言，$n$要大许多，即训练集数据量不够支持我们训练一个复杂的非线性模型，我们选用逻辑回归模型或者不带核函数的支持向量机。</p>
+<p>(2)如果$n$较小，而且$m$大小中等，例如$n$在 1-1000 之间，而$m$在10-10000之间，使用高斯核函数的支持向量机。</p>
+<p>(3)如果$n$较小，而$m$较大，例如$n$在1-1000之间，而$m$大于50000，则使用支持向量机会非常慢，解决方案是创造、增加更多的特征，然后使用逻辑回归或不带核函数的支持向量机。</p>
+<p>值得一提的是，神经网络在以上三种情况下都可能会有较好的表现，但是训练神经网络可能非常慢，选择支持向量机的原因主要在于它的代价函数是凸函数，不存在局部最小值。</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
         <tag>机器学习</tag>
       </tags>
   </entry>
@@ -3358,61 +3413,6 @@
 ]]></content>
       <tags>
         <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习之支持向量机</title>
-    <url>/2021/20210530/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>支持向量机（support vector machines,SVM)是一种二类分类模型。</p>
-<span id="more"></span>
-
-<h5 id="代价函数："><a href="#代价函数：" class="headerlink" title="代价函数："></a>代价函数：</h5><p>我们回忆一下逻辑回归。其代价函数如下：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/66facb7fa8eddc3a860e420588c981d5.png" alt="img"></p>
-<p>我们要实现我们的目标，就要把$-\log(1-\frac{1}{1+e^{-z}})$一点一点修改，修改为下两图的紫色直线函数，左边的函数，称之为${\cos}t_1{(z)}$，同时，右边函数称它为${\cos}t_0{(z)}$。</p>
-<p>最后SVM代价函数变为：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/5a63e35db410fdb57c76de97ea888278.png" alt="img"></p>
-<p>最后有别于逻辑回归输出的概率。在这里，我们的代价函数，当最小化代价函数，获得参数$\theta $时，支持向量机所做的是它来直接预测$y$的值等于1，还是等于0。因此，这个假设函数会预测1。当$\theta^Tx$大于或者等于0时，或者等于0时，所以学习参数$\theta $就是支持向量机假设函数的形式。</p>
-<h5 id="大间距分类器"><a href="#大间距分类器" class="headerlink" title="大间距分类器:"></a>大间距分类器:</h5><p>支持向量机的目标是找到一个能正确划分数据集且间隔最大的超平面。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/e68e6ca3275f433330a7981971eb4f16.png" alt="img"></p>
-<p>如该图所示，黑线比红线有着更大的距离。</p>
-<h5 id="核函数："><a href="#核函数：" class="headerlink" title="核函数："></a>核函数：</h5><p>核函数可以看成是判断近似程度的函数。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/529b6dbc07c9f39f5266bd0b3f628545.png" alt="img"></p>
-<p>为了获得上图所示的判定边界，我们的模型可能是<br>$$<br>\theta _0+\theta _1x_1+\theta _2x_2+\theta _3x_1x_2+\theta _4x_1^2+\theta _5x_2^2+\cdots<br>$$<br>的形式。</p>
-<p>我们可以用一系列的新的特征$f$来替换模型中的每一项。例如令：<br>$$<br>f_1=x_1,f_2=x_2,f_3=x_1x_2,f_4=x_1^2,f_5=x_2^2<br>$$</p>
-<p>…得到:<br>$$<br>h_θ(x)=\theta _1f_1+\theta _2f_2+…+\theta _nf_n<br>$$<br>。然而，除了对原有的特征进行组合以外，有没有更好的方法来构造$f_1,f_2,f_3$？我们可以利用核函数来计算出新的特征。</p>
-<p>给定一个训练样本$x$，我们利用$x$的各个特征与我们预先选定的<strong>地标</strong>(<strong>landmarks</strong>)$l^{(1)},l^{(2)},l^{(3)}$的近似程度来选取新的特征$f_1,f_2,f_3$</p>
-<p><img src="http://www.ai-start.com/ml2014/images/2516821097bda5dfaf0b94e55de851e0.png" alt="img"></p>
-<p>例如：<br>$$<br>f_1=similarity(x,l^{(1)})=e(-\frac{\left| x-l^{(1)} \right|^2}{2\sigma^2})<br>\<br>其中:\left| x-l^{(1)}\right|^2=\sum{_{j=1}^{n}}{(x_j-l_j^{(1)})^2}<br>$$<br>上例中的$similarity(x,l^{(1)})$就是核函数，具体而言，这里是一个<strong>高斯核函数</strong>(<strong>Gaussian Kernel</strong>)。 <strong>注：这个函数与正态分布没什么实际上的关系，只是看上去像而已。</strong></p>
-<p>这些地标的作用是什么？如果一个训练样本$x$与地标$l$之间的距离近似于0，则新特征 $f$近似于$e^{-0}=1$，如果训练样本$x$与地标$l$之间距离较远，则$f$近似于$e^{-(一个较大的数)}=0$。</p>
-<h5 id="支持向量机参数的影响："><a href="#支持向量机参数的影响：" class="headerlink" title="支持向量机参数的影响："></a>支持向量机参数的影响：</h5><p>两个参数$C$和$\sigma$的影响：</p>
-<blockquote>
-<p>$C=1/\lambda$</p>
-<p>$C$ 较大时，相当于$\lambda$较小，可能会导致过拟合，高方差；</p>
-<p>$C$ 较小时，相当于$\lambda$较大，可能会导致低拟合，高偏差；</p>
-<p>$\sigma$较大时，可能会导致低方差，高偏差；</p>
-<p>$\sigma$较小时，可能会导致低偏差，高方差。</p>
-</blockquote>
-<p>另外，支持向量机也可以不使用核函数，不使用核函数又称为<strong>线性核函数</strong>(<strong>linear kernel</strong>)，当我们不采用非常复杂的函数，或者我们的训练集特征非常多而样本非常少的时候，可以采用这种不带核函数的支持向量机。</p>
-<h5 id="一些核函数"><a href="#一些核函数" class="headerlink" title="一些核函数"></a>一些核函数</h5><p>除了上文提到的高斯核函数外还有：</p>
-<p>多项式核函数（<strong>Polynomial Kerne</strong>l）</p>
-<p>字符串核函数（<strong>String kernel</strong>）</p>
-<p>卡方核函数（ <strong>chi-square kernel</strong>）</p>
-<p>直方图交集核函数（<strong>histogram intersection kernel</strong>）</p>
-<h5 id="一些软件库和好的软件包"><a href="#一些软件库和好的软件包" class="headerlink" title="一些软件库和好的软件包"></a>一些软件库和好的软件包</h5><p>吴恩达推荐：<strong>liblinear</strong>和<strong>libsvm</strong></p>
-<h5 id="多类分类问题："><a href="#多类分类问题：" class="headerlink" title="多类分类问题："></a>多类分类问题：</h5><p>我们同样也可以训练个支持向量机来解决多类分类问题。但是大多数支持向量机软件包都有内置的多类分类功能，我们只要直接使用即可。</p>
-<p>尽管你不去写你自己的<strong>SVM</strong>的优化软件，但是你也需要做几件事：</p>
-<p>1、是提出参数的选择。我们在之前的视频中讨论过误差/方差在这方面的性质。</p>
-<p>2、你也需要选择内核参数或你想要使用的相似函数，其中一个选择是：我们选择不需要任何内核参数，没有内核参数的理念，也叫线性核函数。因此，如果有人说他使用了线性核的<strong>SVM</strong>（支持向量机），这就意味这他使用了不带有核函数的<strong>SVM</strong>（支持向量机）</p>
-<p><strong>一些普遍使用的准则：</strong></p>
-<p>$n$为特征数，$m$为训练样本数。</p>
-<p>(1)如果相较于$m$而言，$n$要大许多，即训练集数据量不够支持我们训练一个复杂的非线性模型，我们选用逻辑回归模型或者不带核函数的支持向量机。</p>
-<p>(2)如果$n$较小，而且$m$大小中等，例如$n$在 1-1000 之间，而$m$在10-10000之间，使用高斯核函数的支持向量机。</p>
-<p>(3)如果$n$较小，而$m$较大，例如$n$在1-1000之间，而$m$大于50000，则使用支持向量机会非常慢，解决方案是创造、增加更多的特征，然后使用逻辑回归或不带核函数的支持向量机。</p>
-<p>值得一提的是，神经网络在以上三种情况下都可能会有较好的表现，但是训练神经网络可能非常慢，选择支持向量机的原因主要在于它的代价函数是凸函数，不存在局部最小值。</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -4197,6 +4197,52 @@
       </tags>
   </entry>
   <entry>
+    <title>《中县干部》</title>
+    <url>/2021/20210919/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
+<span id="more"></span>
+
+<p>**主要是研究下面一些问题： **</p>
+<p>1．中县县乡领导干部的基本特征 </p>
+<p>2．中县领导干部的来源，他们进入党政机关的方式和机制 </p>
+<p>3．领导干部的政治轨迹和生涯模式 </p>
+<p>4．多出干部的机构和岗位 </p>
+<p>5．政绩和领导干部的仕途 </p>
+<p>6．关系和领导干部的仕途</p>
+<p>中县副科级以上男女干部比例严重不对等，特别是女正科级一把手和女县领导。女干部除了自身的素质和能力之外，她们之所以能够脱颖而出，与 她们的家庭背景所拥有的政治资源息息相关。这其中有父辈的庇护，有丈夫的援助，也有组织部门的较早发现和刻意培养；或者几种因素兼而有之。忘掉性别，成为 男性丛林的一部分，这既是一些女干部的成长经验，也是一些女干部的成长之忧。</p>
+<p>1978 年以来，中县领导干部获得干部身份主要有三个途径：大中专毕业生分配、军队转业安置， 以及各种形式的吸收录用。吸收录用机制是领导干部阶层安排子女就业的一种途径，是封闭的自我繁殖的机制，打上了深深的权力庇护的烙印。</p>
+<p>有两个现象比较突出：一是单位系统自繁殖现象，无论好的和差的单位，系统内部子弟安排都比较普遍。二是关系资源的运作，无论自身人力资本如何， 都需要找关系、托门子，以获得工作安排。从这也可以看出，阶层自繁殖是一种基本的本能，而这 必然会导致阶层的劣化和腐朽。</p>
+<p>没有市场化改革的国税所自繁殖现 象更加突出，但也有大中专毕业生分配和关系安排。而进行市场化改革的邮政所，基本通过招录来 补充工作人员，基本上根绝了自繁殖现象和关系安排，这说明，“逢进必考”、“公开招录”这些 市场化竞争机制是改变单位自繁殖和关系安排的两大制度设计。</p>
+<p>从中县的现实来看，人力资本和 社会资本越雄厚，越是到好单位；人力资本和社会资本越稀薄，越是到坏单位。</p>
+<p>中县官场存在“年轻”效应，即越年轻成为领导干部，优 势越大，晋升也可能越快。</p>
+<p>是党务部门挤压了政府部门和事业单位的晋升空间，这同时也说明党务部门是 权力资源的集大成者，是干部资源的高地，也是执政党地位的一种体现。党管干部和党务部门向其 它部门输送干部是一脉相承的。</p>
+<p>组织部为什么多出干部？</p>
+<p>1．部门优势</p>
+<p>2．高进高出。组织部进人也是再筛选机制，甄补干部比较严格。</p>
+<p>农林、教育职能部门为什么产出干部相对较多？</p>
+<p>1．院校分布和专业分配。其它系统则没有或者缺乏相应的精英学校</p>
+<p>2．学历干部聚集。农林和教育系统是知识分子聚集的地方，是知识型干部扎堆的地方。</p>
+<p>3．地方需要。</p>
+<p>地位显赫的财政局、人劳局和计生委为什么出干部不多？</p>
+<p>这是因为这些局权力和资源多，在县里地位高，待遇好，干部一旦进入，都不愿意出来，结果 导致干部积压，进步反而慢了。</p>
+<p>有 59%的县领导，77%的乡镇领导，53%的县直领导，具有乡镇工作经历。乡镇为什么多出干部？</p>
+<p>主要因素有：</p>
+<p>1．组织部门用人导向。组织部门一直都有很明确的用人导向，就是从基层，从一线提拔干部。</p>
+<p>2．乡镇职位多。</p>
+<p>3．乡镇干部资源相对较少，积压也较少。</p>
+<p>4．乡镇工作特点。乡镇是综合全面工作，可以使干部得到全方面的锻炼。乡镇直接面对群众， 经常面对急事、难事和麻烦事。</p>
+<p>为什么秘书岗位多出干部？主要因素有：</p>
+<p>1．多层筛选。质量有保障。</p>
+<p>2．学历因素。</p>
+<p>3．岗位特点。“秘书的快速晋升优势不仅在于其和首长亲近的关系纽带，还在于他们拥有适合中国政治系统 特性的技能。”（Li Wei and Pye,1992:928）</p>
+<p>4．服务领导。也就是中县人所说的“大人手下长大人”，秘书是领导身边的人，一方面领导会 有意识的传授，另一方面秘书在日常服务中也会不断学习和感悟。同时，秘书和领导往往形成一种 庇护性关系，领导因为了解秘书，同时感念其服务的辛苦，往往会为秘书的提拔和晋升多多考虑和 筹划。</p>
+]]></content>
+      <tags>
+        <tag>社会</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>numpy-100知识点</title>
     <url>/2021/20210829/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>以下<a href="https://github.com/rougier/numpy-100">numpy-100题</a>中涉及的一些知识点。</p>
@@ -4251,108 +4297,6 @@
 ]]></content>
       <tags>
         <tag>numpy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《中县干部》</title>
-    <url>/2021/20210919/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
-<span id="more"></span>
-
-<p>**主要是研究下面一些问题： **</p>
-<p>1．中县县乡领导干部的基本特征 </p>
-<p>2．中县领导干部的来源，他们进入党政机关的方式和机制 </p>
-<p>3．领导干部的政治轨迹和生涯模式 </p>
-<p>4．多出干部的机构和岗位 </p>
-<p>5．政绩和领导干部的仕途 </p>
-<p>6．关系和领导干部的仕途</p>
-<p>中县副科级以上男女干部比例严重不对等，特别是女正科级一把手和女县领导。女干部除了自身的素质和能力之外，她们之所以能够脱颖而出，与 她们的家庭背景所拥有的政治资源息息相关。这其中有父辈的庇护，有丈夫的援助，也有组织部门的较早发现和刻意培养；或者几种因素兼而有之。忘掉性别，成为 男性丛林的一部分，这既是一些女干部的成长经验，也是一些女干部的成长之忧。</p>
-<p>1978 年以来，中县领导干部获得干部身份主要有三个途径：大中专毕业生分配、军队转业安置， 以及各种形式的吸收录用。吸收录用机制是领导干部阶层安排子女就业的一种途径，是封闭的自我繁殖的机制，打上了深深的权力庇护的烙印。</p>
-<p>有两个现象比较突出：一是单位系统自繁殖现象，无论好的和差的单位，系统内部子弟安排都比较普遍。二是关系资源的运作，无论自身人力资本如何， 都需要找关系、托门子，以获得工作安排。从这也可以看出，阶层自繁殖是一种基本的本能，而这 必然会导致阶层的劣化和腐朽。</p>
-<p>没有市场化改革的国税所自繁殖现 象更加突出，但也有大中专毕业生分配和关系安排。而进行市场化改革的邮政所，基本通过招录来 补充工作人员，基本上根绝了自繁殖现象和关系安排，这说明，“逢进必考”、“公开招录”这些 市场化竞争机制是改变单位自繁殖和关系安排的两大制度设计。</p>
-<p>从中县的现实来看，人力资本和 社会资本越雄厚，越是到好单位；人力资本和社会资本越稀薄，越是到坏单位。</p>
-<p>中县官场存在“年轻”效应，即越年轻成为领导干部，优 势越大，晋升也可能越快。</p>
-<p>是党务部门挤压了政府部门和事业单位的晋升空间，这同时也说明党务部门是 权力资源的集大成者，是干部资源的高地，也是执政党地位的一种体现。党管干部和党务部门向其 它部门输送干部是一脉相承的。</p>
-<p>组织部为什么多出干部？</p>
-<p>1．部门优势</p>
-<p>2．高进高出。组织部进人也是再筛选机制，甄补干部比较严格。</p>
-<p>农林、教育职能部门为什么产出干部相对较多？</p>
-<p>1．院校分布和专业分配。其它系统则没有或者缺乏相应的精英学校</p>
-<p>2．学历干部聚集。农林和教育系统是知识分子聚集的地方，是知识型干部扎堆的地方。</p>
-<p>3．地方需要。</p>
-<p>地位显赫的财政局、人劳局和计生委为什么出干部不多？</p>
-<p>这是因为这些局权力和资源多，在县里地位高，待遇好，干部一旦进入，都不愿意出来，结果 导致干部积压，进步反而慢了。</p>
-<p>有 59%的县领导，77%的乡镇领导，53%的县直领导，具有乡镇工作经历。乡镇为什么多出干部？</p>
-<p>主要因素有：</p>
-<p>1．组织部门用人导向。组织部门一直都有很明确的用人导向，就是从基层，从一线提拔干部。</p>
-<p>2．乡镇职位多。</p>
-<p>3．乡镇干部资源相对较少，积压也较少。</p>
-<p>4．乡镇工作特点。乡镇是综合全面工作，可以使干部得到全方面的锻炼。乡镇直接面对群众， 经常面对急事、难事和麻烦事。</p>
-<p>为什么秘书岗位多出干部？主要因素有：</p>
-<p>1．多层筛选。质量有保障。</p>
-<p>2．学历因素。</p>
-<p>3．岗位特点。“秘书的快速晋升优势不仅在于其和首长亲近的关系纽带，还在于他们拥有适合中国政治系统 特性的技能。”（Li Wei and Pye,1992:928）</p>
-<p>4．服务领导。也就是中县人所说的“大人手下长大人”，秘书是领导身边的人，一方面领导会 有意识的传授，另一方面秘书在日常服务中也会不断学习和感悟。同时，秘书和领导往往形成一种 庇护性关系，领导因为了解秘书，同时感念其服务的辛苦，往往会为秘书的提拔和晋升多多考虑和 筹划。</p>
-]]></content>
-      <tags>
-        <tag>社会</tag>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ResNet</title>
-    <url>/2022/20220118/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文：何恺明等 - Deep Residual Learning for Image Recognition</p>
-<span id="more"></span>
-
-<hr>
-<p>更深的网络可能面临误差变高的问题，但并不是过拟合（过拟合是训练误差变低，但测试误差变高，而更深的网络面临的问题是训练误差也变低。）</p>
-<p>本文提出了一种框架（deep residual learning framework)来避免浅层神经网络到深度神经网络出现的这种情况。</p>
-<p>要学的东西叫做H（x），假设现在已经有了一个浅的神经网络，他的输出是x，然后要在这个浅的神经网络上面再新加一些层，让它变得更深。新加的那些层不要直接去学H（x），而是应该去学H（x）-x，x是原始的浅层神经网络已经学到的一些东西，新加的层不要重新去学习，而是去学习学到的东西和真实的东西之间的残差，最后整个神经网络的输出等价于浅层神经网络的输出x和新加的神经网络学习残差的输出之和，将优化目标从H（x）转变成为了$F(x)=H(x)-x $</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118222138438.jpg" alt="360截图20220118222138438"></p>
-<p>残差使用了Shortcut Connection等先人的技术。</p>
-<p><strong>应用：</strong></p>
-<p>残差连接如何处理输入和输出的形状是不同的情况：</p>
-<p>第一个方案是在输入和输出上分别添加一些额外的0，使得这两个形状能够对应起来然后可以相加<br>第二个方案是之前提到过的全连接怎么做投影，做到卷积上，是通过一个叫做1<em>1的卷积层，这个卷积层的特点是在空间维度上不做任何东西，主要是在通道维度上做改变。所以只要选取一个1</em>1的卷积使得输出通道是输入通道的两倍，这样就能将残差连接的输入和输出进行对比了。在ResNet中，如果把输出通道数翻了两倍，那么输入的高和宽通常都会被减半，所以在做1*1的卷积的时候，同样也会使步幅为2，这样的话使得高宽和通道上都能够匹配上</p>
-<p>图像处理：</p>
-<p>短边随机裁剪到[256,480]。pre-pixel取均值。增强图像。</p>
-<p>神经网络使用引用论文[13]（其实就是作者之前自己写的）的权重。</p>
-<p>minibatch=256,学习率0.1,当错误率不显著下降时每次除10。</p>
-<p>训练了$60 *10^4$代。</p>
-<p>没有使用dropout,因为没有全连接层。</p>
-<p>测试的时候，使用了10-crop testing（就是给定一张测试图片，会在里面随机的或者是按照一定规则的去采样10个图片出来，然后再每个子图上面做预测，最后将结果做平均）。这样的好处是因为训练的时候每次是随机把图片拿出来，测试的时候也大概进行模拟这个过程，另外做10次预测能够降低方差。</p>
-<p>在不同的分辨率上去做采样，工作量较大，一般不这么做。</p>
-<p><strong>实验：</strong></p>
-<p>神经网络架构。<img src="/images/360%E6%88%AA%E5%9B%BE20220118223707645.jpg" alt="360截图20220118223707645"></p>
-<p>结果图：</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224259087.jpg" alt="360截图20220118224259087"></p>
-<p>图中的误差急剧下降是因为学习率*0.1。</p>
-<p>输入输出形状不一样的时候怎样做残差连接：</p>
-<ul>
-<li><p>A:填零</p>
-</li>
-<li><p>B:投影</p>
-</li>
-<li><p>C:所有的连接都做投影：就算输入输出的形状是一样的，一样可以在连接的时候做个1*1的卷积，但是输入和输出通道数是一样的，做一次投影</p>
-</li>
-</ul>
-<p>B和C虽然差不多，但是计算复杂度更高，B对计算量的增加比较少，作者采用了B</p>
-<p>bottleneck 设计：</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224930682.jpg" alt="360截图20220118224930682"></p>
-<p><strong>为什么好：</strong></p>
-<p>与没加残差相比，梯度能保证够大，保证能训练。</p>
-<p>设浅层神经网络为$g(x)$，则深层神经网络可以看成f(g(x))</p>
-<p>求导$\frac{\partial  f(g(x))}{\partial x}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}$</p>
-<p>残差：$\frac{\partial  (f(g(x))+g(x))}{\partial g(x))}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}+\frac{\partial  g(x)}{\partial x}$</p>
-<p><strong>另外：</strong><br>这篇文章的residual和gradient boosting是不一样的</p>
-<ul>
-<li>gradient boosting是在标号上做residual</li>
-<li>这篇文章是在feature维度上</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -4637,28 +4581,59 @@
       </tags>
   </entry>
   <entry>
-    <title>如何读论文——李沐</title>
-    <url>/2022/20220120/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文大致分为以下几个部分：</p>
-<p>1.title<br>2.abstract<br>3.introduction<br>4.method<br>5.experiments<br>6.conclusion</p>
-<p>论文读三遍。</p>
+    <title>ResNet</title>
+    <url>/2022/20220118/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文：何恺明等 - Deep Residual Learning for Image Recognition</p>
 <span id="more"></span>
 
-<h6 id="第一遍"><a href="#第一遍" class="headerlink" title="第一遍"></a>第一遍</h6><p>标题、摘要、结论。</p>
-<p>然后看一看方法和实验部分重要的图和表。这样可以花费十几分钟时间了解到论文结果怎么样，质量怎么样，是否适合你的研究方向。</p>
-<h6 id="第二遍"><a href="#第二遍" class="headerlink" title="第二遍"></a>第二遍</h6><p>确定论文值得读之后，可以快速的把整个论文过一遍，不需要知道所有的细节，需要了解重要的图和表，知道每一个部分在干什么，圈出相关文献。</p>
-<p>觉得文章太难，可以读引用的文献。</p>
-<p>如果觉得不需要了解那么就可以停止了。</p>
-<h6 id="第三遍"><a href="#第三遍" class="headerlink" title="第三遍"></a>第三遍</h6><p>每句话作者在干什么</p>
-<p>提出什么问题，用什么方法来解决这个问题。实验是怎么做的。如果是我来做怎么实现？能不能做得更好？</p>
-<p>合上文章，回忆每一个部分在讲什么</p>
-<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><p>第一遍 做海选</p>
-<p>第二遍 做精选</p>
-<p>第三遍 重点研读</p>
+<hr>
+<p>更深的网络可能面临误差变高的问题，但并不是过拟合（过拟合是训练误差变低，但测试误差变高，而更深的网络面临的问题是训练误差也变低。）</p>
+<p>本文提出了一种框架（deep residual learning framework)来避免浅层神经网络到深度神经网络出现的这种情况。</p>
+<p>要学的东西叫做H（x），假设现在已经有了一个浅的神经网络，他的输出是x，然后要在这个浅的神经网络上面再新加一些层，让它变得更深。新加的那些层不要直接去学H（x），而是应该去学H（x）-x，x是原始的浅层神经网络已经学到的一些东西，新加的层不要重新去学习，而是去学习学到的东西和真实的东西之间的残差，最后整个神经网络的输出等价于浅层神经网络的输出x和新加的神经网络学习残差的输出之和，将优化目标从H（x）转变成为了$F(x)=H(x)-x $</p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118222138438.jpg" alt="360截图20220118222138438"></p>
+<p>残差使用了Shortcut Connection等先人的技术。</p>
+<p><strong>应用：</strong></p>
+<p>残差连接如何处理输入和输出的形状是不同的情况：</p>
+<p>第一个方案是在输入和输出上分别添加一些额外的0，使得这两个形状能够对应起来然后可以相加<br>第二个方案是之前提到过的全连接怎么做投影，做到卷积上，是通过一个叫做1<em>1的卷积层，这个卷积层的特点是在空间维度上不做任何东西，主要是在通道维度上做改变。所以只要选取一个1</em>1的卷积使得输出通道是输入通道的两倍，这样就能将残差连接的输入和输出进行对比了。在ResNet中，如果把输出通道数翻了两倍，那么输入的高和宽通常都会被减半，所以在做1*1的卷积的时候，同样也会使步幅为2，这样的话使得高宽和通道上都能够匹配上</p>
+<p>图像处理：</p>
+<p>短边随机裁剪到[256,480]。pre-pixel取均值。增强图像。</p>
+<p>神经网络使用引用论文[13]（其实就是作者之前自己写的）的权重。</p>
+<p>minibatch=256,学习率0.1,当错误率不显著下降时每次除10。</p>
+<p>训练了$60 *10^4$代。</p>
+<p>没有使用dropout,因为没有全连接层。</p>
+<p>测试的时候，使用了10-crop testing（就是给定一张测试图片，会在里面随机的或者是按照一定规则的去采样10个图片出来，然后再每个子图上面做预测，最后将结果做平均）。这样的好处是因为训练的时候每次是随机把图片拿出来，测试的时候也大概进行模拟这个过程，另外做10次预测能够降低方差。</p>
+<p>在不同的分辨率上去做采样，工作量较大，一般不这么做。</p>
+<p><strong>实验：</strong></p>
+<p>神经网络架构。<img src="/images/360%E6%88%AA%E5%9B%BE20220118223707645.jpg" alt="360截图20220118223707645"></p>
+<p>结果图：</p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224259087.jpg" alt="360截图20220118224259087"></p>
+<p>图中的误差急剧下降是因为学习率*0.1。</p>
+<p>输入输出形状不一样的时候怎样做残差连接：</p>
+<ul>
+<li><p>A:填零</p>
+</li>
+<li><p>B:投影</p>
+</li>
+<li><p>C:所有的连接都做投影：就算输入输出的形状是一样的，一样可以在连接的时候做个1*1的卷积，但是输入和输出通道数是一样的，做一次投影</p>
+</li>
+</ul>
+<p>B和C虽然差不多，但是计算复杂度更高，B对计算量的增加比较少，作者采用了B</p>
+<p>bottleneck 设计：</p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224930682.jpg" alt="360截图20220118224930682"></p>
+<p><strong>为什么好：</strong></p>
+<p>与没加残差相比，梯度能保证够大，保证能训练。</p>
+<p>设浅层神经网络为$g(x)$，则深层神经网络可以看成f(g(x))</p>
+<p>求导$\frac{\partial  f(g(x))}{\partial x}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}$</p>
+<p>残差：$\frac{\partial  (f(g(x))+g(x))}{\partial g(x))}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}+\frac{\partial  g(x)}{\partial x}$</p>
+<p><strong>另外：</strong><br>这篇文章的residual和gradient boosting是不一样的</p>
+<ul>
+<li>gradient boosting是在标号上做residual</li>
+<li>这篇文章是在feature维度上</li>
+</ul>
 ]]></content>
       <tags>
         <tag>笔记</tag>
-        <tag>论文</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -4823,6 +4798,31 @@
       <tags>
         <tag>笔记</tag>
         <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何读论文——李沐</title>
+    <url>/2022/20220120/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文大致分为以下几个部分：</p>
+<p>1.title<br>2.abstract<br>3.introduction<br>4.method<br>5.experiments<br>6.conclusion</p>
+<p>论文读三遍。</p>
+<span id="more"></span>
+
+<h6 id="第一遍"><a href="#第一遍" class="headerlink" title="第一遍"></a>第一遍</h6><p>标题、摘要、结论。</p>
+<p>然后看一看方法和实验部分重要的图和表。这样可以花费十几分钟时间了解到论文结果怎么样，质量怎么样，是否适合你的研究方向。</p>
+<h6 id="第二遍"><a href="#第二遍" class="headerlink" title="第二遍"></a>第二遍</h6><p>确定论文值得读之后，可以快速的把整个论文过一遍，不需要知道所有的细节，需要了解重要的图和表，知道每一个部分在干什么，圈出相关文献。</p>
+<p>觉得文章太难，可以读引用的文献。</p>
+<p>如果觉得不需要了解那么就可以停止了。</p>
+<h6 id="第三遍"><a href="#第三遍" class="headerlink" title="第三遍"></a>第三遍</h6><p>每句话作者在干什么</p>
+<p>提出什么问题，用什么方法来解决这个问题。实验是怎么做的。如果是我来做怎么实现？能不能做得更好？</p>
+<p>合上文章，回忆每一个部分在讲什么</p>
+<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><p>第一遍 做海选</p>
+<p>第二遍 做精选</p>
+<p>第三遍 重点研读</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>论文</tag>
       </tags>
   </entry>
   <entry>
@@ -6238,7 +6238,7 @@
     <title>银河修理员</title>
     <url>/2022/20220509/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​                                </p>
-<div id="aplayer-zlnjhbcw" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+<div id="aplayer-JMJbJecx" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
 				<pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文
 [00:01.000] 作曲 : Howie@Dear Jane
 [00:02.14]编曲 : Dear Jane
@@ -6289,7 +6289,7 @@
 			</div>
 			<script>
 				var ap = new APlayer({
-					element: document.getElementById("aplayer-zlnjhbcw"),
+					element: document.getElementById("aplayer-JMJbJecx"),
 					narrow: false,
 					autoplay: false,
 					showlrc: 2,
@@ -7211,6 +7211,77 @@
       </tags>
   </entry>
   <entry>
+    <title>自恋与爱情</title>
+    <url>/2022/20220818/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于B站《<a href="https://www.bilibili.com/video/BV1sv4y1c7iD?vd_source=2bbaa5483ec5f3b54f583580af154a76">EP149 你不是在爱 而是自恋！心理学 霍妮&amp;弗洛姆</a>》</p>
+<p>卡伦·霍妮和弗洛姆都是我比较喜欢的心理学家，像霍妮的《我们时代的神经症人格》、《我们内心的冲突》，弗洛姆的《逃避自由》、《爱的艺术》、《为自己的人》等都是很有价值、值得一读的心理学著作。</p>
+<hr>
+<p> 恋爱当中的人该有怎样的内在品质， 才能开启段合格的爱情 ，这里先给出精神分析学派的答案： 那就是克服自恋。</p>
+<span id="more"></span>
+
+<p>自人出生以来， 时刻就处在个体化与孤独感的矛盾之中 ，仍迫切需要和外界建立联系以便克服自己的孤独。</p>
+<p>心理学家弗洛姆说道：（人 为了解决孤独这一焦虑)，一种是在人际交往中通过真正爱的方式来应对孤独 而另一种都是通过消极的自恋方式来应对孤独。</p>
+<p>简单来说，很多在亲密关系中的人，你以为自己在爱对方，其实你只是在自恋而已。没有对对方人格上的共情力和积极关心的能力 他只是为了自私总想着加油对方、支配对方 。极端的情况下还会引发pua和施虐。 他会因为害怕失去你而变成顺从， 表面上看上去他对你百依百顺 ，很无私。但这也是自恋而已。</p>
+<p>其实我们可以分为显性自恋和隐性自恋两种，不管是显性自恋， 还是那种看似无私的隐性自恋，精神分析学家霍尼都一针见血的指出：“自恋的人他都有一种神经质，他在生活中会表现出一种执念，一种对权力、美貌、名望和财富等等的病态追求和执念，而且他对自己身上任何一点软弱无能都十分的敏感，比如说一个男人总觉得自己必须要有很多钱才能配得上自己心爱的人。一个女人总觉得自己必须要很漂亮才能获得相应的爱， 一旦自己没钱、不漂亮的时候 ，她们就会极其的焦虑和高度的敏感。以及他们在生活中遇到一点点的问题 ，比如工作 、学习创业 、人际交往中遇到了挫折，一次失败，别人的一个抱怨、一个批评， 他相比于其他人来说 ，也更加的敏感 ，他总觉得自己受到了屈辱 ，受到了侮辱。”</p>
+<p> 首先 ，我们说这种显性自恋的人 ，他们在亲密关系中也是如此。既希望控制自己， 也希望控制对方。 但凡只要不是他同意的 、他发起的， 他都不希望发生，同时也希望自己永远是正确的 。一旦被证明自己出了错 ，他们就会变得恼怒。 </p>
+<p>他们这种人对控制的追求也可以用一种淡化的方式，他有意识的允许恋人享有充分的自由 ，但他却要坚持知道对方所做的一切。一旦对方有什么对他隐瞒的 他都会柏然大陆以及他总是设法逃避接受猎人的指导劝告和帮助，他在遇到问题 遇到双方争论时都是充耳不闻 他会理解为这是屈辱 还想反过来控制对方。</p>
+<p>霍尼老师解释道， 他其实是觉得自己不应该有软弱无能的表现， 他其实也不是诚心想反对对方， 想控制对方， 而只是对自己软弱无能的反抗罢了。他如果越是感到自己的软弱无能 ，他就越焦虑 ，越想逃避一切看起来和软弱相关的东西。所以 他会继续投入到权利、名望、 财富、 美貌等等东西 ，而不想让对方看到自己这一焦虑。</p>
+<p>他觉得自己能够驾驭一切 ，无论是多么困难的处境， 他自己都可以对付他 ，而在遇到感情出现危机时 ，他也总是继续单纯幻想着。只要我继续更加努力赚钱 ，我哪天升职加薪了， 只要这个项目我成了 ，或者我只要更漂亮 、更会打扮在整个脸 ，再整个容 ，你就会回到我身边。</p>
+<p>他根本意识不到自己的自恋问题 ，他只是害怕自己的软弱无能而已， 一种病态的害怕、一种高度敏感的害怕。</p>
+<p>你只是在care你那个理想化的自我， 还非要认为是别人嫌你没钱 、嫌你不漂亮才分手、才离婚的。要分手后， 你只会骂前任是个拜金女、是个渣男 ，而根本意识不到其实是自己在自恋而已。</p>
+<p>另外就是说， 如果自恋类型的人，他压抑了他想控制对方的欲望 ，他会感到不开心 、感到不爽、 感到敌意 ，但他会在无意识里将这些敌意压抑了起来。但是这些压抑的心理能量不会凭空消失 ，而会以其他方式释放出来， 就接近我们所说的隐性自恋了。</p>
+<p>这表面上， 生活中他也看似和和气气的 ，是个老好人， 遇到分歧没有愤怒， 也没跟你吵， 也没跟你闹。这只是因为他潜意识里就把敌意和不爽压抑了起来， 但他也会在之后的日子里爆发出来。比方说 ，霍尼说道 ，在之后的约会时他会迟到 ，或者会出现胃痛不舒服了症状等等， 而且连他自己都搞不懂为何自己会不舒服，他或许会归因于饮食不好 、天气不好等无关的原因 ，但是实际上他意识不到的事，其实都是因为自己想要控制对方的这股隐喻欲望导致的。</p>
+<p>当自恋类型的人他的控制欲被过分压抑起来时， 就会以躯体化的方式躯体化的症状出现。这之前还是开开心心的，还是好好的， 下一刻就突然不开心了， 就突然emo了， 这儿不舒服那儿不舒服。而且他的身体反应也是真的 ，不能说他是装的原因呢 ，双方都答不上来。 所以这种占有欲强的自恋者，不管他是表现出来了，还是让他压抑起来了 ，他可以是显性的 也可以是隐性的。</p>
+<p>隐性的自恋不代表他没有影响 ，而是会继续在之后作用在他身上 ，他会是别扭的。</p>
+<p>霍尼还提到些例子， 比方说这种自恋占有欲的女性可能感受到某个男人对她的吸引力。一旦这个男人真的爱上了她， 她也会转而轻视他 ，看不起他 。因为这意味着他失去了他想要的控制欲，以及可能会让自己卷入未知的领域中去 。以及如果丈夫或者恋人不能符合自己的期望 ，如果他迟到了，忘了打电话 忘了纪念日等等。女性神经质的人就会觉得他并不爱她，她的这种感觉也是因为对方未能顺应自己而产生了一种愤怒反应。</p>
+<p>霍尼提到， 众人往往会产生一种奇怪的矛盾现象， 这种矛盾几乎可以使一切恋爱关系都归于失败。一个神经质的姑娘， 由于瞧不起任何的软弱无能 所以他不可能爱上一个”软弱”的男人。但是呢 ,他又因为自己总是希望自己的伴侣能够顺从自己, 能满足自己的占有欲。就想要对方顺从， 又使他不可能和一个同样坚强自恋的男人相处 。他渴望对方是一个硬汉 同时让对方屈服于自己的占有欲。这种矛盾是她注定走入失败的恋爱，经历一次次感情的失败 ，自恋类型的人，他们都害怕屈服于别人 ，只想别人顺从自己，也害怕改变自己。</p>
+<p>但是我们也要知道 ，在真正的亲密关系中 ，就意味着双方肯定会有屈服和让步的。无论是男人和女人，无论是显性自恋还是隐性自恋， 这种占有欲神经质的人如果越是不能做出这种让步， 他恋爱关系就会出现问题。<br>自恋的人无论男女， 他都有一种迫切的需要 ，想要吸引对方的注意力 ，受到他人的尊敬和崇拜。他会产生以美貌与聪明材质 ，以出色的成就、挥金如土等等来实现。他如果得不到崇拜和目光 ，他就会感到一蹶不振， 因为他们极其敏感。</p>
+<p>显性自恋的人， 他会有一种明显愤怒来应对。而隐性自恋的人看似没怎么愤怒。 因为他将这些屈辱压抑了起来， 把敌意压抑了起来。他会在之后爆发 产生新的焦虑。 而为了应对焦虑 他又会继续捣鼓， 继续吸引对方的注意。他们不断的沉溺于自我扩张 ，维护起自己的那个理想的虚幻的自我， 不接受时然的自我。</p>
+<p>其实只是为了保护自己，你对抗屈辱感会软弱无力感 。换句话说 ，他也是为了恢复被压碎了的自尊心，来企图今后继续占有他人， 防止失去爱的保护性手段而已 。</p>
+<p>这不是爱，这是自恋。 在社会当中， 显性自恋是机制的人很容易发现 但是隐性自恋的人发现起来稍微有点困难。</p>
+<p>霍尼提到， 因为他本人也意识不到这当中包含的敌意， 他也认为自己是一个性情温和的人，他也认为人要在感情生活中要懂得无私 ，要懂得奉献， 懂得去让步， 其大道理他都懂 ，只是因为他的道德超我不允许。而在潜意识里， 他把敌意压抑了起来 ，将占有欲压抑了起来 。霍尼比喻道，就隐性自恋的人有一种“安全阀”，经过这一“安全阀”， 一定量的敌意可以一种非破坏性的方式释放出来。用刚才我们提到的例子，那些莫名其妙出现的躯体化症状， 一会不舒服、 那不舒服的各种别扭扭捏等等的小报复。隐性自恋者 他们这种态度本身不会像显性自恋者那种破坏性， 而是一种淡化了的表现。他阻止了纯粹破坏性的冲动 ，不会怎么愤怒， 但他们有种问题， 他们依旧会受到压抑的敌意， 还是会产生新的焦虑和新的问题。</p>
+<p>霍尼比喻道， 他还是会用他的那种“软弱无能” 像鞭子一样去抽打对方， 以便驱使对方对自己的意志服务。他们向对方索取无止境的关怀和帮助， 而事实上，这种人从未感到别人为他做的努力中感到好处。而只会不断的抱怨和不断的要求 ，而更坏的情况就是说别人忽视了他 ，亏待了他。</p>
+<p>另外个重点就是那些隐藏极深的隐性自恋， 他也觉得自恋不好， 自私发脾气的这种品格不好。在恋爱和婚姻关系中也总是对对方百依百顺， 外人看上去性格好好， 老好人一个。但是表现出过分的顺从不见得是个好现象， 看似很无我、 但也搞不好会是自恋人格的表现。这些人往往在头年时期经历过种种屈辱， 或许是学校 ，或许是家庭 ，或者其他原因。受到歧视 ，被人瞧不起 ，别人冷落 ，这种经验往往因为具有痛苦的性质而被他遗忘。 然而一旦自己长大以后 一些生活中的遭遇明显涉及屈辱时。 这时 ，这些经验就会在他的意识中再度出现。想支配他人的敌意就有了， 有了种敌意 ，但他受到自己过去经历的影响 ，又不能下这个敌意的决心 ，不能表达自己真切的确切的感受，其结果就是他会过分的顺从， 这就会造成恶性循环 ，即霍妮提到，他经历了屈辱感。于是他就产生了想侮辱 、想占有别人的欲望， 但是由于自己害怕受到报复 而对屈辱感高度的敏感了。于是他更加希望占有欲和更加想侮辱别人 从而他就陷入了一种自我强化的此循环，即不断强化才是最可怕的 。当强化到情绪安全阀都不管用时 ，就会是一种可怕的爆发 ，他就会走向暴力伤害对方。</p>
+<p>所以霍尼希望自恋者正视自己的心理问题 ，而将自己无意识的那些东西给意识化，这里说的无论是显性还是隐性的自恋， 他都想要占有欲 ，都想对方顺从自己。</p>
+<p>霍尼说道 ，他们都不是真的相信自己一贯正确 ，而只是不断的、不顾一切的需要显得正当合理 。换句话说， 这只是他们的一种心理防御机制。他们并不是每时每刻都在想着占有，他们也会这么照顾你、关心你，但不是一起床就开始支配你。哪有这种人， 有这种人， 你也不会和他确立关系。 </p>
+<p>而只是说他们在遭遇到自己觉得是侮辱性事件时， 比方说遇到生活的挫折， 遇到不顺， 遇到争论， 遇到矛盾 ，当这股压力来的时候 ，他们才会表露出自己的占有欲。这个时候他的支配欲和因支配欲得不到满足 ，才会产生怨恨的合理化。他会把这种占有欲、 支配欲当做防御机制来应对压力， 即自恋者们要明白 ：当遇到压力时，你为什么这么偏执的想要支配别人 ，想要占有别人 想要追求权利和美貌来解决这个问题 都是因为自己无法面对自己的软弱无能。</p>
+<p>你需要进一步知道自己为什么对软弱无能这么敏感 ，为什么发生一点点的争论、 建议、批评 、挫折就理解为是自己身上的软弱无能 ，就觉得自己自尊受辱了。要学会去回溯自己过去的经历与现在情节的因果关系 ，在感情生活中面对有压力的事件时，去识别到自己的支配欲。当压力发生的时候 ，要相信对方的建议和能力 ，去适当采纳恋人的建议，去放下自己的愤怒。</p>
+<p>自恋的人 ，他越感到焦虑， 就越应该知道此时此刻正是自己的无意识里的防御机制在捣鬼。这种时候 ，他就越应该调用自己的理性 ，越应该去相信恋人 ，相信对方， 和对方协商。而不只是只想着支配局面或者释放自己的怨恨而隐性自恋的人， 虽然他们之前不会愤怒 ，但是要意识到自己的战友欲在作祟， 意识到自己压抑的那些育而不得的敌意 ，去正视他，去意识化他。 在自己的感情生活中 ，要懂得去表达自己的敌意， 而不是一味的压抑后的顺从。</p>
+<p>这种人要懂得去表达自己的不满和表达自己内心的真实想法 ，而不是在潜意识里就直接调用压抑这机制来处理他 ，如此无论是显性还是隐性的 ，才能开启段真正合格的爱情。</p>
+<p>弗洛姆也同意说道， 要培养爱的能力 ，首先就需要克服自恋， 克服想要利用他人的愿望，而那些与爱相关的什么关照 、负责 、尊重 、相知等等的态度 ，都是在自己去除自恋以后才能真正拥有的品格。克服不了自恋的人， 什么关照、负责 、尊重、相知等等都是形同虚设 。只有成熟的人才会拥有这些态度</p>
+<p>自恋不是简单的以自我为中心，背后涉及了占有、支配、 顺从， 防御机制以及无意识压抑等等复杂的问题，涉及到他的过去经历， 涉及他的情节，</p>
+<p>弗洛姆补充道 ，自恋是种欲望，强度在许多人身上毫不亚于性欲和求生欲 ，不要认为为自恋的人是少数 ，他在我们生活当中太常见了。弗洛摩提到自恋的反面是客观， 客观就是能够如实的看待人和物 ，所谓客观就是能把客观景象与处于愿望和恐惧的景象区分开来。</p>
+<p>这和霍尼老师说的一样， 自恋的反面不是我们以为的无私登德的美德， 因为那些无我奉献的人，百般顺从的人， 他也大有可能是自恋类型， 即他们也是看不清客观的人， 看不清死循环、 看不清心理防御、看不清为何这么追求控制和支配欲。其自恋的真正本质在于，他限制了我们的理性 ，阻止了一个人在存在当中看到现实。</p>
+<p>弗洛姆提到 ，对于神经质的人来说，只有一个现实， 那就是他自己内心有的东西， 就是他的愿望和恐惧 。外部世界只是他内心世界的符号和投射而已。</p>
+<p>所以我们需要提高客观， 加强理性 ，一旦能够客观能够理性 ，我们学习爱的路程就走了一半。只有先克服了自恋 ，才会走向之后真正的爱， 真正的双方平等的爱 ，一种主体坚信的爱。</p>
+<p>弗洛姆强调，爱是指的一种在保持自我完整性和独立性的前提下与他人结为一体，同时， 爱也是对生命以及我们所爱之物生长的积极关心， 如果我对一个人说 ：“我爱你。”那我也可以这么说 ：“我在你身上爱所有的人 、爱世界、 也爱我自己。”</p>
+<p>而自恋的人， 他的爱情最终只会走向自我毁灭，就像古希腊传说中的纳尔克索斯， 一个俊美而自负的少年， 拒绝了仙女恶科的爱，后者心碎而死 ，复仇女神就惩罚了他 让他爱上了湖水中自己的倒影，之后在自我欣赏中 ，他就掉进了湖中 ，淹死了 。</p>
+<p>自恋是一种诅咒， 在极端形势下 ，他就会自我毁灭而告终。</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>心理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Typora 1.3.8破解</title>
+    <url>/2022/20220819/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>破解过程：</p>
+<p>（1）先安装官方版（1.3.8）</p>
+<p>（2）然后直接将winmm.dll文件复制到Typora安装目录便可</p>
+<p>winmm.dll可在博客根目录下载 ：typora/winmm.dll</p>
+<span id="more"></span>
+
+<hr>
+<p>官方之前承诺的试用版免费也不能用了。</p>
+<p>直接”不讲武德”的显示”This beta version of Typora is expired, please download and install a newer version.”</p>
+<p>用了几个替代品，比如marktext，还是觉得不如Typora顺手。MarkText每次都不默认打开侧边栏，非常难受。</p>
+]]></content>
+      <tags>
+        <tag>破解</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用金星凌日、火星冲、小行星冲等天象测定太阳赤道地平视差的方法</title>
     <url>/2022/20221009/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>如何利用金星凌日、火星冲、小行星冲等天象测定太阳赤道地平视差的方法?</p>
@@ -7246,24 +7317,6 @@
 ]]></content>
       <tags>
         <tag>天文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Typora 1.3.8破解</title>
-    <url>/2022/20220819/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>破解过程：</p>
-<p>（1）先安装官方版（1.3.8）</p>
-<p>（2）然后直接将winmm.dll文件复制到Typora安装目录便可</p>
-<p>winmm.dll可在博客根目录下载 ：typora/winmm.dll</p>
-<span id="more"></span>
-
-<hr>
-<p>官方之前承诺的试用版免费也不能用了。</p>
-<p>直接”不讲武德”的显示”This beta version of Typora is expired, please download and install a newer version.”</p>
-<p>用了几个替代品，比如marktext，还是觉得不如Typora顺手。MarkText每次都不默认打开侧边栏，非常难受。</p>
-]]></content>
-      <tags>
-        <tag>破解</tag>
       </tags>
   </entry>
   <entry>
@@ -7371,59 +7424,6 @@
 ]]></content>
       <tags>
         <tag>人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>自恋与爱情</title>
-    <url>/2022/20220818/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于B站《<a href="https://www.bilibili.com/video/BV1sv4y1c7iD?vd_source=2bbaa5483ec5f3b54f583580af154a76">EP149 你不是在爱 而是自恋！心理学 霍妮&amp;弗洛姆</a>》</p>
-<p>卡伦·霍妮和弗洛姆都是我比较喜欢的心理学家，像霍妮的《我们时代的神经症人格》、《我们内心的冲突》，弗洛姆的《逃避自由》、《爱的艺术》、《为自己的人》等都是很有价值、值得一读的心理学著作。</p>
-<hr>
-<p> 恋爱当中的人该有怎样的内在品质， 才能开启段合格的爱情 ，这里先给出精神分析学派的答案： 那就是克服自恋。</p>
-<span id="more"></span>
-
-<p>自人出生以来， 时刻就处在个体化与孤独感的矛盾之中 ，仍迫切需要和外界建立联系以便克服自己的孤独。</p>
-<p>心理学家弗洛姆说道：（人 为了解决孤独这一焦虑)，一种是在人际交往中通过真正爱的方式来应对孤独 而另一种都是通过消极的自恋方式来应对孤独。</p>
-<p>简单来说，很多在亲密关系中的人，你以为自己在爱对方，其实你只是在自恋而已。没有对对方人格上的共情力和积极关心的能力 他只是为了自私总想着加油对方、支配对方 。极端的情况下还会引发pua和施虐。 他会因为害怕失去你而变成顺从， 表面上看上去他对你百依百顺 ，很无私。但这也是自恋而已。</p>
-<p>其实我们可以分为显性自恋和隐性自恋两种，不管是显性自恋， 还是那种看似无私的隐性自恋，精神分析学家霍尼都一针见血的指出：“自恋的人他都有一种神经质，他在生活中会表现出一种执念，一种对权力、美貌、名望和财富等等的病态追求和执念，而且他对自己身上任何一点软弱无能都十分的敏感，比如说一个男人总觉得自己必须要有很多钱才能配得上自己心爱的人。一个女人总觉得自己必须要很漂亮才能获得相应的爱， 一旦自己没钱、不漂亮的时候 ，她们就会极其的焦虑和高度的敏感。以及他们在生活中遇到一点点的问题 ，比如工作 、学习创业 、人际交往中遇到了挫折，一次失败，别人的一个抱怨、一个批评， 他相比于其他人来说 ，也更加的敏感 ，他总觉得自己受到了屈辱 ，受到了侮辱。”</p>
-<p> 首先 ，我们说这种显性自恋的人 ，他们在亲密关系中也是如此。既希望控制自己， 也希望控制对方。 但凡只要不是他同意的 、他发起的， 他都不希望发生，同时也希望自己永远是正确的 。一旦被证明自己出了错 ，他们就会变得恼怒。 </p>
-<p>他们这种人对控制的追求也可以用一种淡化的方式，他有意识的允许恋人享有充分的自由 ，但他却要坚持知道对方所做的一切。一旦对方有什么对他隐瞒的 他都会柏然大陆以及他总是设法逃避接受猎人的指导劝告和帮助，他在遇到问题 遇到双方争论时都是充耳不闻 他会理解为这是屈辱 还想反过来控制对方。</p>
-<p>霍尼老师解释道， 他其实是觉得自己不应该有软弱无能的表现， 他其实也不是诚心想反对对方， 想控制对方， 而只是对自己软弱无能的反抗罢了。他如果越是感到自己的软弱无能 ，他就越焦虑 ，越想逃避一切看起来和软弱相关的东西。所以 他会继续投入到权利、名望、 财富、 美貌等等东西 ，而不想让对方看到自己这一焦虑。</p>
-<p>他觉得自己能够驾驭一切 ，无论是多么困难的处境， 他自己都可以对付他 ，而在遇到感情出现危机时 ，他也总是继续单纯幻想着。只要我继续更加努力赚钱 ，我哪天升职加薪了， 只要这个项目我成了 ，或者我只要更漂亮 、更会打扮在整个脸 ，再整个容 ，你就会回到我身边。</p>
-<p>他根本意识不到自己的自恋问题 ，他只是害怕自己的软弱无能而已， 一种病态的害怕、一种高度敏感的害怕。</p>
-<p>你只是在care你那个理想化的自我， 还非要认为是别人嫌你没钱 、嫌你不漂亮才分手、才离婚的。要分手后， 你只会骂前任是个拜金女、是个渣男 ，而根本意识不到其实是自己在自恋而已。</p>
-<p>另外就是说， 如果自恋类型的人，他压抑了他想控制对方的欲望 ，他会感到不开心 、感到不爽、 感到敌意 ，但他会在无意识里将这些敌意压抑了起来。但是这些压抑的心理能量不会凭空消失 ，而会以其他方式释放出来， 就接近我们所说的隐性自恋了。</p>
-<p>这表面上， 生活中他也看似和和气气的 ，是个老好人， 遇到分歧没有愤怒， 也没跟你吵， 也没跟你闹。这只是因为他潜意识里就把敌意和不爽压抑了起来， 但他也会在之后的日子里爆发出来。比方说 ，霍尼说道 ，在之后的约会时他会迟到 ，或者会出现胃痛不舒服了症状等等， 而且连他自己都搞不懂为何自己会不舒服，他或许会归因于饮食不好 、天气不好等无关的原因 ，但是实际上他意识不到的事，其实都是因为自己想要控制对方的这股隐喻欲望导致的。</p>
-<p>当自恋类型的人他的控制欲被过分压抑起来时， 就会以躯体化的方式躯体化的症状出现。这之前还是开开心心的，还是好好的， 下一刻就突然不开心了， 就突然emo了， 这儿不舒服那儿不舒服。而且他的身体反应也是真的 ，不能说他是装的原因呢 ，双方都答不上来。 所以这种占有欲强的自恋者，不管他是表现出来了，还是让他压抑起来了 ，他可以是显性的 也可以是隐性的。</p>
-<p>隐性的自恋不代表他没有影响 ，而是会继续在之后作用在他身上 ，他会是别扭的。</p>
-<p>霍尼还提到些例子， 比方说这种自恋占有欲的女性可能感受到某个男人对她的吸引力。一旦这个男人真的爱上了她， 她也会转而轻视他 ，看不起他 。因为这意味着他失去了他想要的控制欲，以及可能会让自己卷入未知的领域中去 。以及如果丈夫或者恋人不能符合自己的期望 ，如果他迟到了，忘了打电话 忘了纪念日等等。女性神经质的人就会觉得他并不爱她，她的这种感觉也是因为对方未能顺应自己而产生了一种愤怒反应。</p>
-<p>霍尼提到， 众人往往会产生一种奇怪的矛盾现象， 这种矛盾几乎可以使一切恋爱关系都归于失败。一个神经质的姑娘， 由于瞧不起任何的软弱无能 所以他不可能爱上一个”软弱”的男人。但是呢 ,他又因为自己总是希望自己的伴侣能够顺从自己, 能满足自己的占有欲。就想要对方顺从， 又使他不可能和一个同样坚强自恋的男人相处 。他渴望对方是一个硬汉 同时让对方屈服于自己的占有欲。这种矛盾是她注定走入失败的恋爱，经历一次次感情的失败 ，自恋类型的人，他们都害怕屈服于别人 ，只想别人顺从自己，也害怕改变自己。</p>
-<p>但是我们也要知道 ，在真正的亲密关系中 ，就意味着双方肯定会有屈服和让步的。无论是男人和女人，无论是显性自恋还是隐性自恋， 这种占有欲神经质的人如果越是不能做出这种让步， 他恋爱关系就会出现问题。<br>自恋的人无论男女， 他都有一种迫切的需要 ，想要吸引对方的注意力 ，受到他人的尊敬和崇拜。他会产生以美貌与聪明材质 ，以出色的成就、挥金如土等等来实现。他如果得不到崇拜和目光 ，他就会感到一蹶不振， 因为他们极其敏感。</p>
-<p>显性自恋的人， 他会有一种明显愤怒来应对。而隐性自恋的人看似没怎么愤怒。 因为他将这些屈辱压抑了起来， 把敌意压抑了起来。他会在之后爆发 产生新的焦虑。 而为了应对焦虑 他又会继续捣鼓， 继续吸引对方的注意。他们不断的沉溺于自我扩张 ，维护起自己的那个理想的虚幻的自我， 不接受时然的自我。</p>
-<p>其实只是为了保护自己，你对抗屈辱感会软弱无力感 。换句话说 ，他也是为了恢复被压碎了的自尊心，来企图今后继续占有他人， 防止失去爱的保护性手段而已 。</p>
-<p>这不是爱，这是自恋。 在社会当中， 显性自恋是机制的人很容易发现 但是隐性自恋的人发现起来稍微有点困难。</p>
-<p>霍尼提到， 因为他本人也意识不到这当中包含的敌意， 他也认为自己是一个性情温和的人，他也认为人要在感情生活中要懂得无私 ，要懂得奉献， 懂得去让步， 其大道理他都懂 ，只是因为他的道德超我不允许。而在潜意识里， 他把敌意压抑了起来 ，将占有欲压抑了起来 。霍尼比喻道，就隐性自恋的人有一种“安全阀”，经过这一“安全阀”， 一定量的敌意可以一种非破坏性的方式释放出来。用刚才我们提到的例子，那些莫名其妙出现的躯体化症状， 一会不舒服、 那不舒服的各种别扭扭捏等等的小报复。隐性自恋者 他们这种态度本身不会像显性自恋者那种破坏性， 而是一种淡化了的表现。他阻止了纯粹破坏性的冲动 ，不会怎么愤怒， 但他们有种问题， 他们依旧会受到压抑的敌意， 还是会产生新的焦虑和新的问题。</p>
-<p>霍尼比喻道， 他还是会用他的那种“软弱无能” 像鞭子一样去抽打对方， 以便驱使对方对自己的意志服务。他们向对方索取无止境的关怀和帮助， 而事实上，这种人从未感到别人为他做的努力中感到好处。而只会不断的抱怨和不断的要求 ，而更坏的情况就是说别人忽视了他 ，亏待了他。</p>
-<p>另外个重点就是那些隐藏极深的隐性自恋， 他也觉得自恋不好， 自私发脾气的这种品格不好。在恋爱和婚姻关系中也总是对对方百依百顺， 外人看上去性格好好， 老好人一个。但是表现出过分的顺从不见得是个好现象， 看似很无我、 但也搞不好会是自恋人格的表现。这些人往往在头年时期经历过种种屈辱， 或许是学校 ，或许是家庭 ，或者其他原因。受到歧视 ，被人瞧不起 ，别人冷落 ，这种经验往往因为具有痛苦的性质而被他遗忘。 然而一旦自己长大以后 一些生活中的遭遇明显涉及屈辱时。 这时 ，这些经验就会在他的意识中再度出现。想支配他人的敌意就有了， 有了种敌意 ，但他受到自己过去经历的影响 ，又不能下这个敌意的决心 ，不能表达自己真切的确切的感受，其结果就是他会过分的顺从， 这就会造成恶性循环 ，即霍妮提到，他经历了屈辱感。于是他就产生了想侮辱 、想占有别人的欲望， 但是由于自己害怕受到报复 而对屈辱感高度的敏感了。于是他更加希望占有欲和更加想侮辱别人 从而他就陷入了一种自我强化的此循环，即不断强化才是最可怕的 。当强化到情绪安全阀都不管用时 ，就会是一种可怕的爆发 ，他就会走向暴力伤害对方。</p>
-<p>所以霍尼希望自恋者正视自己的心理问题 ，而将自己无意识的那些东西给意识化，这里说的无论是显性还是隐性的自恋， 他都想要占有欲 ，都想对方顺从自己。</p>
-<p>霍尼说道 ，他们都不是真的相信自己一贯正确 ，而只是不断的、不顾一切的需要显得正当合理 。换句话说， 这只是他们的一种心理防御机制。他们并不是每时每刻都在想着占有，他们也会这么照顾你、关心你，但不是一起床就开始支配你。哪有这种人， 有这种人， 你也不会和他确立关系。 </p>
-<p>而只是说他们在遭遇到自己觉得是侮辱性事件时， 比方说遇到生活的挫折， 遇到不顺， 遇到争论， 遇到矛盾 ，当这股压力来的时候 ，他们才会表露出自己的占有欲。这个时候他的支配欲和因支配欲得不到满足 ，才会产生怨恨的合理化。他会把这种占有欲、 支配欲当做防御机制来应对压力， 即自恋者们要明白 ：当遇到压力时，你为什么这么偏执的想要支配别人 ，想要占有别人 想要追求权利和美貌来解决这个问题 都是因为自己无法面对自己的软弱无能。</p>
-<p>你需要进一步知道自己为什么对软弱无能这么敏感 ，为什么发生一点点的争论、 建议、批评 、挫折就理解为是自己身上的软弱无能 ，就觉得自己自尊受辱了。要学会去回溯自己过去的经历与现在情节的因果关系 ，在感情生活中面对有压力的事件时，去识别到自己的支配欲。当压力发生的时候 ，要相信对方的建议和能力 ，去适当采纳恋人的建议，去放下自己的愤怒。</p>
-<p>自恋的人 ，他越感到焦虑， 就越应该知道此时此刻正是自己的无意识里的防御机制在捣鬼。这种时候 ，他就越应该调用自己的理性 ，越应该去相信恋人 ，相信对方， 和对方协商。而不只是只想着支配局面或者释放自己的怨恨而隐性自恋的人， 虽然他们之前不会愤怒 ，但是要意识到自己的战友欲在作祟， 意识到自己压抑的那些育而不得的敌意 ，去正视他，去意识化他。 在自己的感情生活中 ，要懂得去表达自己的敌意， 而不是一味的压抑后的顺从。</p>
-<p>这种人要懂得去表达自己的不满和表达自己内心的真实想法 ，而不是在潜意识里就直接调用压抑这机制来处理他 ，如此无论是显性还是隐性的 ，才能开启段真正合格的爱情。</p>
-<p>弗洛姆也同意说道， 要培养爱的能力 ，首先就需要克服自恋， 克服想要利用他人的愿望，而那些与爱相关的什么关照 、负责 、尊重 、相知等等的态度 ，都是在自己去除自恋以后才能真正拥有的品格。克服不了自恋的人， 什么关照、负责 、尊重、相知等等都是形同虚设 。只有成熟的人才会拥有这些态度</p>
-<p>自恋不是简单的以自我为中心，背后涉及了占有、支配、 顺从， 防御机制以及无意识压抑等等复杂的问题，涉及到他的过去经历， 涉及他的情节，</p>
-<p>弗洛姆补充道 ，自恋是种欲望，强度在许多人身上毫不亚于性欲和求生欲 ，不要认为为自恋的人是少数 ，他在我们生活当中太常见了。弗洛摩提到自恋的反面是客观， 客观就是能够如实的看待人和物 ，所谓客观就是能把客观景象与处于愿望和恐惧的景象区分开来。</p>
-<p>这和霍尼老师说的一样， 自恋的反面不是我们以为的无私登德的美德， 因为那些无我奉献的人，百般顺从的人， 他也大有可能是自恋类型， 即他们也是看不清客观的人， 看不清死循环、 看不清心理防御、看不清为何这么追求控制和支配欲。其自恋的真正本质在于，他限制了我们的理性 ，阻止了一个人在存在当中看到现实。</p>
-<p>弗洛姆提到 ，对于神经质的人来说，只有一个现实， 那就是他自己内心有的东西， 就是他的愿望和恐惧 。外部世界只是他内心世界的符号和投射而已。</p>
-<p>所以我们需要提高客观， 加强理性 ，一旦能够客观能够理性 ，我们学习爱的路程就走了一半。只有先克服了自恋 ，才会走向之后真正的爱， 真正的双方平等的爱 ，一种主体坚信的爱。</p>
-<p>弗洛姆强调，爱是指的一种在保持自我完整性和独立性的前提下与他人结为一体，同时， 爱也是对生命以及我们所爱之物生长的积极关心， 如果我对一个人说 ：“我爱你。”那我也可以这么说 ：“我在你身上爱所有的人 、爱世界、 也爱我自己。”</p>
-<p>而自恋的人， 他的爱情最终只会走向自我毁灭，就像古希腊传说中的纳尔克索斯， 一个俊美而自负的少年， 拒绝了仙女恶科的爱，后者心碎而死 ，复仇女神就惩罚了他 让他爱上了湖水中自己的倒影，之后在自我欣赏中 ，他就掉进了湖中 ，淹死了 。</p>
-<p>自恋是一种诅咒， 在极端形势下 ，他就会自我毁灭而告终。</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>心理</tag>
       </tags>
   </entry>
   <entry>
@@ -7851,6 +7851,81 @@
       </tags>
   </entry>
   <entry>
+    <title>各式各样的self-attention</title>
+    <url>/2023/20230118/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>参考：李宏毅老师的<a href="https://www.bilibili.com/video/BV1FG411K7n5">各式各样的Attention</a></p>
+<hr>
+<p>self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。</p>
+<span id="more"></span>
+
+<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>一个长度为N的句子，会得到N个key和N个query。</p>
+<p>然后两两做dot-product，得到attention matrix。</p>
+<p>然后再用attention matrix对value做weight sum。</p>
+<p>痛点在于计算这个N×N的attention matrix计算量可能会非常惊人。</p>
+<p>所以有一系列方法加速这个计算过程。</p>
+<p><img src="sat-1.jpg"></p>
+<h2 id="人为设定优化"><a href="#人为设定优化" class="headerlink" title="人为设定优化"></a>人为设定优化</h2><p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
+<h3 id="local-attention-truncated-attention"><a href="#local-attention-truncated-attention" class="headerlink" title="local attention/truncated attention"></a>local attention/truncated attention</h3><p>在self attention如果我们只看邻居，那我们就能把很远的地方的值设为0。</p>
+<p>缺点：只能看到小范围的数值，跟CNN很像。</p>
+<p><img src="local-attention.jpg"></p>
+<h3 id="stride-attention"><a href="#stride-attention" class="headerlink" title="stride attention"></a>stride attention</h3><p>类似于local-attention，但是间隔更大。</p>
+<p><img src="stride-attention.jpg"></p>
+<h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><p>以上都是以某个位置为中心看左右的事情，如果我们关心整个sequence，那么我们可以用global attention。我们可以加入一个特殊token到原始的sequence里面。在这里，global attention会做两件事情：</p>
+<p>（1）每个特殊的token都加入每一个token，收集全局信息。<br>（2）每个特殊的token都被其他所有的token加入，以用来获取全局信息。</p>
+<p><img src="global-attention.jpg"></p>
+<h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><p>上面提到了三种选择，我们选择哪一种呢？小孩子才做选择，我们都选择。</p>
+<p><img src="mix.jpg"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="data-driven方式"><a href="#data-driven方式" class="headerlink" title="data-driven方式"></a>data-driven方式</h2><h3 id="将较小值取0"><a href="#将较小值取0" class="headerlink" title="将较小值取0"></a>将较小值取0</h3><p><img src="zero.jpg"></p>
+<h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><p>Reformer和routing transformer用了类似的方法。</p>
+<p>第一步先把query和key聚类。</p>
+<p>聚类的计算可以用近似（approximate）但快速（fast）的方式，从而加快计算。Reformer和routing transformer就采用了不同的clustering方式来加速计算。</p>
+<p>聚类完后，我们只计算归为同一个类别的query和key之间的attention score，其他位置的attention score直接设置为0。</p>
+<p><img src="cluster.jpg"></p>
+<p><img src="cluster2.jpg"></p>
+<h2 id="自动设定优化"><a href="#自动设定优化" class="headerlink" title="自动设定优化"></a>自动设定优化</h2><p>我们能不能学习attention matrix哪块需要，哪块不需要吗？或者说能不能学习attention weight呢？</p>
+<h3 id="Sinkhorn-Sorting-Network"><a href="#Sinkhorn-Sorting-Network" class="headerlink" title="Sinkhorn Sorting Network"></a>Sinkhorn Sorting Network</h3><p><img src="learnable.jpg"></p>
+<p>Sinkhorn Sorting Network做法是learn另外一个network来决定这个1-0矩阵。</p>
+<p>新的network会input一个sequence，sequence中每个位置的vector都输出一个跟sequence长度一致的vector。Sequence中每个位置都产生一个vector，拼起来就产生一个N×N的矩阵。然后将这个矩阵通过某种计算变成一个1-0矩阵，并且保证这个计算过程可以微分。</p>
+<p>产生1-0矩阵的计算和整个self-attention是jointly learned的。</p>
+<p>当然也可以选择top-k方法，而不是top-1。</p>
+<p>疑问：用了一个NN，真的比不用NN直接计算所有矩阵运算量小吗？</p>
+<p>答：不一定的。所以Sinkhorn Sorting Network会将输入的向量划分为几个部分，各个部分共用一个经过NN产生的向量。</p>
+<h3 id="linformer"><a href="#linformer" class="headerlink" title="linformer"></a>linformer</h3><p>attention matrix有很多redundant columns ，研究者计算attention matrix的rank发现是低rank的（低秩的）。</p>
+<p>那我们能不能去掉重复，产生小的attention matrix，加快attention的速度呢？</p>
+<p><img src="linformer1.jpg"></p>
+<h4 id="具体做法"><a href="#具体做法" class="headerlink" title="具体做法"></a>具体做法</h4><p>挑出K个有代表性的key（黄色vectors），然后计算出N×K的matrix，然后再挑出K给有代表性的value（蓝色vectors）。然后把K个key（黄色vectors）对第一个query算出来的attention weight（红色框）对这个K个value（蓝色vectors）做weighted sum得到self-attention的output（绿色vector）。</p>
+<p>疑问：但是，为什么我们选择有代表性的keys而不选有代表性的queries？</p>
+<p>答：因为如果query减少了，output sequence length也会变小。这种做法对于sequence中每个位置都需要output的情况是不适用的。</p>
+<h4 id="如何挑选代表性的keys"><a href="#如何挑选代表性的keys" class="headerlink" title="如何挑选代表性的keys"></a>如何挑选代表性的keys</h4><p><img src="reduce-key.jpg"></p>
+<p>Compressed Attention是用CNN扫过整个句子，得到较短的output当作有代表性的keys。</p>
+<p>Linformer是直接乘上N×K矩阵，做线性变化。</p>
+<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><p><img src="acc_sat_cal_0.jpg"></p>
+<p>我们暂时忽略softmax后，输出O可以当成是三个矩阵相乘。</p>
+<h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg"></p>
+<p>将上面的运算过程变成下面的运算过程。</p>
+<p>上面的运算过程乘法次数为$（d+d’）N^2$</p>
+<p>下面的运算过程乘法次数为$2d’dN$</p>
+<p>我们再把softmax放回。</p>
+<p><img src="acc_sat_cal_3.jpg"></p>
+<p>上图为原先的。</p>
+<p> <img src="acc_sat_cal_4.jpg"></p>
+<p>上图为变换顺序后的。</p>
+<p>其中$exp(\mathbf{q}·\mathbf{k})\approx\phi(\mathbf{q})·\phi(\mathbf{k})$</p>
+<p>具体数学推导见李宏毅原视频。</p>
+<h4 id="phi-的确定"><a href="#phi-的确定" class="headerlink" title="$\phi$的确定"></a>$\phi$的确定</h4><p> <img src="phi.jpg"></p>
+<h2 id="Synthesizer"><a href="#Synthesizer" class="headerlink" title="Synthesizer"></a>Synthesizer</h2><p>不用q和v，直接学attention matrix</p>
+<p><img src="synthesizer.jpg"></p>
+<p>把它当成网络里的参数</p>
+<h2 id="丢掉self-attention"><a href="#丢掉self-attention" class="headerlink" title="丢掉self-attention"></a>丢掉self-attention</h2><p><img src="att_free.jpg"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>LRA score表示方法越好，圈圈的大小代表需要用的memory大小</p>
+<p><img src="summary.jpg"></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>重复的眼泪 就是你自欺的安慰奖</title>
     <url>/2023/20230120/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>转载自 :港樂講樂公众号</p>
@@ -8024,81 +8099,6 @@
         <tag>笔记</tag>
         <tag>考研</tag>
         <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>各式各样的self-attention</title>
-    <url>/2023/20230118/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>参考：李宏毅老师的<a href="https://www.bilibili.com/video/BV1FG411K7n5">各式各样的Attention</a></p>
-<hr>
-<p>self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。</p>
-<span id="more"></span>
-
-<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>一个长度为N的句子，会得到N个key和N个query。</p>
-<p>然后两两做dot-product，得到attention matrix。</p>
-<p>然后再用attention matrix对value做weight sum。</p>
-<p>痛点在于计算这个N×N的attention matrix计算量可能会非常惊人。</p>
-<p>所以有一系列方法加速这个计算过程。</p>
-<p><img src="sat-1.jpg"></p>
-<h2 id="人为设定优化"><a href="#人为设定优化" class="headerlink" title="人为设定优化"></a>人为设定优化</h2><p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
-<h3 id="local-attention-truncated-attention"><a href="#local-attention-truncated-attention" class="headerlink" title="local attention/truncated attention"></a>local attention/truncated attention</h3><p>在self attention如果我们只看邻居，那我们就能把很远的地方的值设为0。</p>
-<p>缺点：只能看到小范围的数值，跟CNN很像。</p>
-<p><img src="local-attention.jpg"></p>
-<h3 id="stride-attention"><a href="#stride-attention" class="headerlink" title="stride attention"></a>stride attention</h3><p>类似于local-attention，但是间隔更大。</p>
-<p><img src="stride-attention.jpg"></p>
-<h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><p>以上都是以某个位置为中心看左右的事情，如果我们关心整个sequence，那么我们可以用global attention。我们可以加入一个特殊token到原始的sequence里面。在这里，global attention会做两件事情：</p>
-<p>（1）每个特殊的token都加入每一个token，收集全局信息。<br>（2）每个特殊的token都被其他所有的token加入，以用来获取全局信息。</p>
-<p><img src="global-attention.jpg"></p>
-<h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><p>上面提到了三种选择，我们选择哪一种呢？小孩子才做选择，我们都选择。</p>
-<p><img src="mix.jpg"></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="data-driven方式"><a href="#data-driven方式" class="headerlink" title="data-driven方式"></a>data-driven方式</h2><h3 id="将较小值取0"><a href="#将较小值取0" class="headerlink" title="将较小值取0"></a>将较小值取0</h3><p><img src="zero.jpg"></p>
-<h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><p>Reformer和routing transformer用了类似的方法。</p>
-<p>第一步先把query和key聚类。</p>
-<p>聚类的计算可以用近似（approximate）但快速（fast）的方式，从而加快计算。Reformer和routing transformer就采用了不同的clustering方式来加速计算。</p>
-<p>聚类完后，我们只计算归为同一个类别的query和key之间的attention score，其他位置的attention score直接设置为0。</p>
-<p><img src="cluster.jpg"></p>
-<p><img src="cluster2.jpg"></p>
-<h2 id="自动设定优化"><a href="#自动设定优化" class="headerlink" title="自动设定优化"></a>自动设定优化</h2><p>我们能不能学习attention matrix哪块需要，哪块不需要吗？或者说能不能学习attention weight呢？</p>
-<h3 id="Sinkhorn-Sorting-Network"><a href="#Sinkhorn-Sorting-Network" class="headerlink" title="Sinkhorn Sorting Network"></a>Sinkhorn Sorting Network</h3><p><img src="learnable.jpg"></p>
-<p>Sinkhorn Sorting Network做法是learn另外一个network来决定这个1-0矩阵。</p>
-<p>新的network会input一个sequence，sequence中每个位置的vector都输出一个跟sequence长度一致的vector。Sequence中每个位置都产生一个vector，拼起来就产生一个N×N的矩阵。然后将这个矩阵通过某种计算变成一个1-0矩阵，并且保证这个计算过程可以微分。</p>
-<p>产生1-0矩阵的计算和整个self-attention是jointly learned的。</p>
-<p>当然也可以选择top-k方法，而不是top-1。</p>
-<p>疑问：用了一个NN，真的比不用NN直接计算所有矩阵运算量小吗？</p>
-<p>答：不一定的。所以Sinkhorn Sorting Network会将输入的向量划分为几个部分，各个部分共用一个经过NN产生的向量。</p>
-<h3 id="linformer"><a href="#linformer" class="headerlink" title="linformer"></a>linformer</h3><p>attention matrix有很多redundant columns ，研究者计算attention matrix的rank发现是低rank的（低秩的）。</p>
-<p>那我们能不能去掉重复，产生小的attention matrix，加快attention的速度呢？</p>
-<p><img src="linformer1.jpg"></p>
-<h4 id="具体做法"><a href="#具体做法" class="headerlink" title="具体做法"></a>具体做法</h4><p>挑出K个有代表性的key（黄色vectors），然后计算出N×K的matrix，然后再挑出K给有代表性的value（蓝色vectors）。然后把K个key（黄色vectors）对第一个query算出来的attention weight（红色框）对这个K个value（蓝色vectors）做weighted sum得到self-attention的output（绿色vector）。</p>
-<p>疑问：但是，为什么我们选择有代表性的keys而不选有代表性的queries？</p>
-<p>答：因为如果query减少了，output sequence length也会变小。这种做法对于sequence中每个位置都需要output的情况是不适用的。</p>
-<h4 id="如何挑选代表性的keys"><a href="#如何挑选代表性的keys" class="headerlink" title="如何挑选代表性的keys"></a>如何挑选代表性的keys</h4><p><img src="reduce-key.jpg"></p>
-<p>Compressed Attention是用CNN扫过整个句子，得到较短的output当作有代表性的keys。</p>
-<p>Linformer是直接乘上N×K矩阵，做线性变化。</p>
-<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><p><img src="acc_sat_cal_0.jpg"></p>
-<p>我们暂时忽略softmax后，输出O可以当成是三个矩阵相乘。</p>
-<h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg"></p>
-<p>将上面的运算过程变成下面的运算过程。</p>
-<p>上面的运算过程乘法次数为$（d+d’）N^2$</p>
-<p>下面的运算过程乘法次数为$2d’dN$</p>
-<p>我们再把softmax放回。</p>
-<p><img src="acc_sat_cal_3.jpg"></p>
-<p>上图为原先的。</p>
-<p> <img src="acc_sat_cal_4.jpg"></p>
-<p>上图为变换顺序后的。</p>
-<p>其中$exp(\mathbf{q}·\mathbf{k})\approx\phi(\mathbf{q})·\phi(\mathbf{k})$</p>
-<p>具体数学推导见李宏毅原视频。</p>
-<h4 id="phi-的确定"><a href="#phi-的确定" class="headerlink" title="$\phi$的确定"></a>$\phi$的确定</h4><p> <img src="phi.jpg"></p>
-<h2 id="Synthesizer"><a href="#Synthesizer" class="headerlink" title="Synthesizer"></a>Synthesizer</h2><p>不用q和v，直接学attention matrix</p>
-<p><img src="synthesizer.jpg"></p>
-<p>把它当成网络里的参数</p>
-<h2 id="丢掉self-attention"><a href="#丢掉self-attention" class="headerlink" title="丢掉self-attention"></a>丢掉self-attention</h2><p><img src="att_free.jpg"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>LRA score表示方法越好，圈圈的大小代表需要用的memory大小</p>
-<p><img src="summary.jpg"></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -9422,6 +9422,64 @@ scale).">
 ]]></content>
   </entry>
   <entry>
+    <title>《健身新手的减脂完全手册》</title>
+    <url>/2023/20230319/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.bilibili.com/video/BV1AM411r7z3/">B站版《健身新手的减脂完全手册》™</a></p>
+<hr>
+<p>这个视频介绍合理理减脂的方法</p>
+<p>实际上,减脂从根本上说是一个方法问题,和网上宣传的要有毅力,要坚持,要自律都没什么关系。</p>
+<h2 id="减脂原理"><a href="#减脂原理" class="headerlink" title="减脂原理"></a>减脂原理</h2><h3 id="要有10-20-的热量缺口"><a href="#要有10-20-的热量缺口" class="headerlink" title="要有10%-20%的热量缺口"></a>要有10%-20%的热量缺口</h3><p>我们的热量涉入来自于食物,热量消耗在来自于两方面,主要是基础代谢,其次是活动消耗。左右两边热量相等的话,你的体重就会不增不减,叫做热量平衡点。想要减脂左边的热量涉入,要比右边的热量消耗少20%。</p>
+<p>热量缺口一定要有,但也不需要太大。而热量缺口怎么来的呢?即可以从左边减少一点热量涉入,也可以从右边多做一点有氧活动来提供,或者两者兼而有之。<br>减脂性的基础代谢是提高不了的,我们争取不让它超额下降就可以了。</p>
+<span id="more"></span>
+
+<h3 id="碳氮脂的比例"><a href="#碳氮脂的比例" class="headerlink" title="碳氮脂的比例"></a>碳氮脂的比例</h3><p>热量涉入是按照每克碳水蛋白质脂肪分别449大卡来求和的。</p>
+<p>$$<br>热量摄入(kcal)=碳水<em>4kcal+蛋白质</em>4kcal+脂肪*9kcal<br>$$</p>
+<p>定碳氮脂就定了热量,但定的热量不代表定了碳氮脂。所以我们在热量平衡点的基础上降低了10%-20%热量后,还要按照一种经验化的碳氮脂比例而非任意的比例去组成这个热量。</p>
+<h3 id="碳水的日内分配"><a href="#碳水的日内分配" class="headerlink" title="碳水的日内分配"></a>碳水的日内分配</h3><p>在热量一定碳碳脂配额也一面的情况下,把碳水放在不同的时间去吃,就可以人为的操纵胰岛素的升降,也会影响到我们的减脂效果。<br>就像我们玩游戏的时候有timeing的概念,碳水涉入也有timeing。<br>尤其是对于健身距离来说,碳水的timeing是减脂期保护肌肉的一个重要策略。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>首先是要有10-20%的热量缺口,饮食和有氧都是制造这个热量缺口的手段。</p>
+<p>其次是应吃的热量要以特定的碳氮脂比例来提供,再次是管理碳水的日内分配。<br>这三个原理都和饮食有关,而有氧只适合热量缺口有关。<br>所以说,减脂里饮食比有氧更重要,也更复杂。</p>
+<h2 id="饮食"><a href="#饮食" class="headerlink" title="饮食"></a>饮食</h2><h3 id="热量平衡"><a href="#热量平衡" class="headerlink" title="热量平衡"></a>热量平衡</h3><p>但在我们吃下去后,热量会有两个损失过程,首先是因为不完全吸收造成的热量损失。人体排泄物里会减出少量的碳碳脂及其衍生物,因此学界把碳碳脂热量下调为449大卡。如果还要考虑消化碳碳脂对我们身体造成的额外发热的这种食物热效应,碳碳脂的倒手热量还可以继续下调为3.8,2.8,8.55大卡。</p>
+<table>
+<thead>
+<tr>
+<th>单位kcal/g</th>
+<th>碳水</th>
+<th>蛋白质</th>
+<th>脂肪</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>食物能值</td>
+<td>4.1</td>
+<td>5.65</td>
+<td>9.45</td>
+</tr>
+<tr>
+<td>考虑吸收率</td>
+<td>4.0</td>
+<td>4.0</td>
+<td>9.0</td>
+</tr>
+<tr>
+<td>考虑热效应</td>
+<td>3.8</td>
+<td>2.8</td>
+<td>8.55</td>
+</tr>
+</tbody></table>
+<p>在计算食物热量时,我们用这两种标准都可以,因为食物热量的绝对值是不重要的,我们要的是减脂的10%-20%的热量缺口,和增计的10%-20%的热量盈余。乘以这个百分比后,两种计算标准的差额其实是不大的。</p>
+<h4 id="我们怎么计算自己吃的食物热量呢"><a href="#我们怎么计算自己吃的食物热量呢" class="headerlink" title="我们怎么计算自己吃的食物热量呢?"></a>我们怎么计算自己吃的食物热量呢?</h4><p>一种办法是用我在评论区放的一个食物热量计算的EXCEL表,把日常食物录进去,输入食物分数,来得到碳碳脂的量和总热量。另一种办法是用薄荷APP来记录自己的食物,两种办法在本质上都是一样的。</p>
+<h3 id="热量消耗"><a href="#热量消耗" class="headerlink" title="热量消耗"></a>热量消耗</h3><p>$$<br>热量摄入=基础代谢+活动消耗<br>$$<br>一般人的热量消耗主要靠的是基础代谢,基础代谢就是在完全进息状态时身体要活着所需要的能量,就要比手机吸平时也要耗电一样。<br>其次的热量消耗来自于活动,就是我们上班上课,走路骑车,路铁游养等一切身体活动导致的热量消耗。<br>如果左边的热量消耗和右边的热量设入相等,那么你的体重就会不变,这个数值叫热量平衡点。<br>如果要减脂,就要在热量平衡点的基础上减少10%-20%的热量设入来形成热量缺口,迫使人体分解脂肪来填补热量差。</p>
+<p><img src="table1.png"><br>公式算出的基础代谢有一定参考性,但它对于减值的指导意义还是比较有限的。</p>
+<p>更大的问题是活动消耗的预测公式。前面说的基础代谢的预测公式,起码让你带入体重、身高、年龄等数字去计算,而活动消耗的预测公式则完全靠文字描述请你去对好入座,主观性很强。<br>总之就是说,活动消耗的预测公式是很主观和不准确的。当然有人会说,本来就是让你估计一下,不准确就不准确呗。<br>但问题是,我们的减值本来就只需要10%-20%的热量差,而光是活动消耗这块的估计值,动辙就可以让热量平衡点变动30%-40%,那么这个估计结果对我的意义,当然就很有限。<br>所以,减值到底应该吃多少热量,除了按照上面这些预测公式去计算外,<br>我觉得一个更好的操作办法就是,<strong>既然算不准,那就别算了</strong>。<br>你可以直接按经验化配额开始试吃,并做出调整就行了。</p>
+<p><img src="table2.png"></p>
+<p>所谓经验化配额,就是大家总结出来的对于一般人群按照这个量去吃,就可能恰好有10%-20%的热量缺口,让你开始掉体重。<br>按经验化配额边吃边调整的具体做法是,你先按这个配额吃两周,如果这两周你的体重能掉1.5%-2.5%,大概是2-3斤或3-4斤,那就很合适。<br>简直前期,因为碳水的突然降低,体重会掉得快一点,往后会更加和缓。如果你的体重完全不掉,就说明这个热量、这个配额是你的热量平衡点,<br>需要降低热量才能有热量缺口。调整的办法是,蛋白质和脂肪不变,下调碳水0.3-0.5克即可,这样试探者就制造出了热量缺口,大概率能引起体重下降了。<br>在减脂期里,体重能掉就说明一切正常,不用减碳水。体重不掉就还是下调0.3-0.5克碳水。但碳水不是无限递减的,非比赛型的减脂里,碳水最后也不要低于2克。<br>如果继续降低配额的话,就可能影响上班上学的状态了。<br><strong>为什么是以两周而不是两三天来看体重变化?</strong><br>我们每天体重变化的因素,一是体内食物的注流排空程度的差异。<br>有人会说,我总是空腹量体重,但这种空腹只是清除了大肠断的部分食物残渣而已,小肠断的食迷是排不掉的。<br>真正的空腹你去做一次,长劲就懂了。<br>要进食12小时并提前6小时喝泄药才能实现空腹。<br>我们平时说的空腹是还有食物注流的,可能导致每次量体重相差半斤八凉也不奇怪。<br>其次人体的脱水和吸水也很能影响体重,比如泰水食物量能直接影响鸡糖原储量,一克鸡糖原能扭住三克水,<br>人体内三五百克鸡糖原的变化就能造成体重两三斤的变化。<br>另外,那里子食物量变化以后,在水那平行的要求下,人体必须随之吸收或排出水,这也会影响体重。<br>极端的例子是,健身比赛选手上台前会停止吃盐和大量喝水来降低体内的那里子。<br>在水那平行的作用下,人体也随之排水,他们两三天就能丢好几斤的体重,这就是那里子对体重的影响。<br>生活里总有人说,我低碳低盐几天就能掉几斤体重,我一恢复饮食吃几天就长几斤体重。<br>这并不是因为在这么短的时间内,就能分解掉和合成出几斤的脂肪,那是不可能的。<br>主要就是因为低碳低盐能导致脱水掉体重,高弹高盐能导致吸水长体重。<br>最后,肌肉和脂肪的重量变化也能影响体重,这也是我们真正关心的。<br>不过肌肉和脂肪的重量变化是极其缓慢和微弱的,他们和短期内的体重变化几乎没有关系。<br>比如有人说自己乱吃东西,一天就长了一斤。<br>那我们来分析一下一天长一斤是否可能是肌肉或脂肪造成的呢?<br>首先不可能是肌肉造成的,没有人能一天长出一斤肌肉,同时也不可能是脂肪造成的,<br>因为一斤脂肪的热量是4500大卡,相当于4.5公斤米饭。<br>也就是说一个人必须在热量平衡点的基础上,在这一天里额外再吃4.5公斤米饭,<br>才可能利用这个热量盈余来合成出一斤脂肪。这当然是不可能的事情。<br>同样的,如果一天降低了一斤体重,也不能认为是今天分解了一斤脂肪,<br>因为需要在这一天里少吃或者运动消耗4.5公斤米饭的热量,才可能分解一斤脂肪。<br>这也是不可能的。<br>所以我们看体重一定不要只看两三天的变化,建议大家以两周来看变化。<br>为什么呢?我们用这张示意图简单解释。红色线表示脂肪量,它的增减波动很小,<br>但能随着时间退一而持续积累,一直减值就一直下跌。<br>绿色线表示食物注流排空和人体脱水吸水的重量变化。<br>它的增减波动很大,但不能持续积累,不能往上或往下的持续发展。<br>如果你两三天就去比较体重,哪怕你的红线脂肪确实降低了,<br>但绿线的波动更大,可以轻易覆盖掉红线脂肪的变化。<br>这时候体重的增减主要是绿线造成的,你无法通过体重变化来判断脂肪量的变化。<br>相反,你10天半月再去比较体重的话,你的红线脂肪的降低量已经绘积累的更多了。<br>绿线的波动就没有那么容易覆盖掉红线脂肪的变化。<br>这时候你才能从自己的体重变化里看出脂肪量的变化。<br>所以我们这里讲影视配额时,说的是以两周为周期来看体重变化并判断配额是否合适,<br>而不是让你吃两三天就去判断。<br>短期内的体重变化很难判断脂肪,<br>因为脂肪在短期里根本就不可能合成或分解多少来。<br>好了,以上我们先把碳碳脂总量讲完,那是不是这些既定的碳碳脂,<br>以任意方式分配到各参区,减脂效果都一样呢?<br>当然不是,所以我们还要关注碳碳脂的日内分配。<br>对既定的碳碳脂总量进行日内分配,主要是为了人为的操纵移道素来帮助减脂器多调脂肪找到肌肉。<br>移道素的功能是把血液里的葡萄糖胺计算等营养物质转晕到肌肉组织和脂肪组织里。<br>让肌肉和脂肪进入合成状态。<br>作为合成基素,移道素既能增计也能增值。<br>在没有力量训练的时候,身高移道素当然不会增弃,使会增值,这是移道素的负面作用。<br>但在力量训练之后,肌纤围已经破坏,身高移道素就能在增值的同时会促进增计,这是移道素的正面作用。<br>所以我们对移道素的管理的基本思路就是,力量训练和迅口餐要故意升高移道素来促进增计。<br>这天的其他餐以及休息日的时候,则要保持移道素的相对稳定。<br>我们来看饮食是如何影响移道素的。<br>科研工作者让寿室者设入同等热量的碳水蛋白质脂肪,然后监测他们的移道素变化。<br>结果是碳水最能刺激移道素分泌,蛋白质的刺激能力弱一些,脂肪的刺激能力最弱。<br>也就是说,我们不管吃什么东西都会刺激移道素分泌,我们要做的是对移道素刺激能力最强的碳水移向,进行合理的分配来趋力避害。<br>碳水有三个主要的投放时间点,最大的投放时间点是迅口餐。<br>迅口餐可以吃全天50%左右的碳水,加30-5车蛋白质,脂肪要少最好在20克以内。<br>碳水量大且用快碳,目的是为了升高移道素。<br>蛋白质也比较多,是为了给肌肉修复提供原料并且进一步升高移道素。<br>低脂不是因为害怕脂肪本身,而是因为脂肪对移道素的刺激能力比碳水要差得多。<br>所以在迅口餐总热量一定的前提下,低脂才能让出热量,吃缓成高碳,让迅口餐的移道素更高。<br>迅口餐的时间是最好能在练完半小时内开始吃上,不要抹几大半天都不去吃东西。<br>迅口餐的方式,如果能很快地吃上正餐,就直接去吃正餐。<br>如果没法很快吃到正餐,就可以用蛋白粉加便携快碳先淀一部分,剩一部分再用正餐补齐。<br>赶时间的话还可以全部用蛋白粉加便携快碳来解决,这样就不用吃正餐了。<br>便携快碳我用单独一页来举例,这些只是很少的一部分。<br>只要它的碳水率是脂肪率的5倍以上,并且是以糯米、面粉等精致碳水制成,就可以算作便携快碳了。<br>迅口餐故意升高移道素是非常重要的。<br>之前陆家们闹内部矛盾的时候,他们内部一位职业运动员在网上挂出过他们内部的饮食方案。<br>可以看出,他们训练后吃大量快碳来做高移道素,同时自己还要注射食物单位的外圆性移道素。<br>我不是让大家去复制他们这么大的碳水量,也不是让大家去打移道素,而是想强调,力量训练后升高移道素是非常重要的。<br>碳水的第二个投放时间点是早饭,早饭可以吃全天30%的碳水,碳水GI无所谓。<br>蛋白质和脂肪没太多要求,多少一点都可以,全天总量合规就行了。<br>一晚上的空腹后我们的血糖是很低的,早饭给一些碳水,让血糖升高一些是必要的。<br>不要在低血糖状态下开始上班上学。<br>早饭有点麻烦的是碳白质来源很少,如果是吃食堂的话,两个鸡蛋加一包牛奶差不多能凑合20克蛋白质,<br>但同时也有快20克脂肪了。这就意味着早饭的碳水不能是从油条煎饼、麻团等糖油混合物理获取,<br>只能来自于馒头花卷面条等纯碳水,否则早饭就可能花掉你全天大部分的脂肪配额。<br>如果是自己冲条早饭的话,碳水可以用燕麦片、燕麦敷、玉米粉、藕粉、芝麻糊等,蛋白质则用蛋白粉来提供。<br>碳水的第三个投放时间点是去面前,去面前可以吃全天20%的碳水,是中等或中高质爱的碳水都行,<br>如葱凉面包、香蕉、葡萄干、浙堂饮料等。这些碳水量也就小几时刻,使过定电肚子,不至于让你持撑影响训练,也不至于让你血糖飙升。<br>训练前给点碳水的目的是为了温和的提供血糖支持,让训练有力气,也能抑制训练过程里的肌肉分解,比喝支炼胺基酸还划算。<br>时间是你到了健身房吃都来得及。这张图我都发过好多次,不管是快谈慢谈吃下去,血糖都会立即升高,在半小时到一小时左右达到高点。<br>所以你到了健身房就吃,加上你换衣服、热身等单个的时间,这样你在训练中程正好匹配上碳水给你的血糖。<br>除了上述的迅候早饭迅前,其他餐的时候碳水可以少吃奶制不吃,主要靠吃蛋白质纸防和蔬菜来填饱肚子。<br>其他餐如果你专门去吃比较多的碳水来刺激到素的话,更可能起到增值的作用。<br>在增基期的时候由于碳水的总配额比较多,所以其他餐一般还能吃一些碳水。<br>但在减脂期的时候,尤其是碳水配额低于2.5克每公斤以后,也会明显感觉到全天碳水很紧张。<br>这时候就特别需要注意在其他餐节约碳水出来,有些满足迅候餐早饭迅前餐,尤其是不能抢劫迅候餐的碳水去给其他餐吃。<br>以上我们讲的是对碳单纸做日内分配来对移导素区立毕害,实际上就是碳水分配很讲究。<br>蛋白质和纸房不太讲究,只需要注意迅候餐要保证有30-50个蛋白质并且要20克以内低质。<br>其他时候的蛋白质和纸房分配可以集中一些,也可以均匀一些,这不重要,全天总量合规就行了。<br>下面我们按照大家不同的训练时间,根据上述的碳单纸分配原则,给大家列出了各餐的分配方案,不然有些观众还是看不懂。<br>早饭后就训练的人,直接把早饭作为你们的迅前餐。吃到早饭就开始练。<br>这一餐吃到六七分饱就好了,所有的练前餐都不要吃成全饱,完全保护的锻炼是很不舒服的。<br>练完后你直接吃迅候餐,如果不方便吃上正餐的话可以蛋白粉加便宜快餐来解决。<br>午饭和晚饭都是你的其他餐,我这里给了一点碳水,不然整个下午和晚上的时间太长,不吃碳水的话有些人会习惯不了。<br>再来看午饭前训练的人,把午饭作为你们的迅候餐,然后晚饭是你们的其他餐,理论上可以不吃碳水了。<br>你如果确实不习惯的话可以云一点碳水给晚饭,但一定要少,如果你把其他餐的碳水拉高了,本质上就是在抢劫迅候餐。<br>再来看晚饭前训练的人,把晚饭作为你的迅候餐,你的午饭是其他餐,理论上可以不吃碳水。<br>同样的,如果你不习惯的话,还是可以云一点碳水给午饭,但还是要少。<br>越是减脂期推进的时候,因为碳水总配额越来越紧张,所以大家就越来越需要注意把其他餐节约碳水出来让给迅候早饭迅节,尤其是不能去抢劫迅候餐的碳水。<br>最后是晚上才训练的人,这是很多上班族的情况,你可以把晚饭当作迅前餐,吃到个六七分饱垫垫肚子,就去练了。<br>重点是练完一定要吃迅候餐,晚上健身的人很容易对饮食进行反向操作,在午饭晚饭这些不太需要碳水的时候,他们米饭馒头尬尬地吃。<br>但晚上训练后又不敢吃任何碳水了,理由是白天已经吃过了,再吃就会长胖。<br>为什么其他餐吃那么多碳水都不怕胖,迅候餐吃碳水就会长胖呢?<br>实际上他们的问题是碳水的日内分配错了,他们在白天就把迅候餐的碳水给抢劫过来吃完了。<br>正确的做法是,午饭和晚饭的碳水都不要太多,练完后的迅候餐才是全天最大的一顿。<br>这样就把他们的反向操作给纠正过来了。<br>以上四种训练时间的饮食方案我列的都是四餐,带的总量都是一模一样的,没有谁比谁多吃,只是各餐的分配不同。<br>思路都是从其他餐节约碳水出来,优先供应给训后早饭训前。<br>唯一区别是吃了早饭就训练的人,和晚饭后才训练的人,我在他们的其他餐里放了一点碳水,否则他们每天会有一个很长的午碳水时间,有些人会觉得受不了。<br>最后是休息日怎么吃。休息日没有力量训练,没有增计窗口期,所以不要故意去升高移道素。<br>做法就是,每餐都是碳蛋纸的混合,各餐大概分碳就行。<br>总量上碳水可以减少一些,但白吃个纸房基本不变,多少一点也没事。<br>休息日碳水总量的减少是自然发生的,因为在休息日你不会吃迅前那20%的碳水,<br>迅后那50%的大碳水会改成常规量碳水,这样扣减以后,休息日的碳水总量自然就变少了。<br>因为碳水的总量减少了一些,再加上各餐的碳蛋纸是大概分碳的,这样全间的移道素就会比较稳定,从而减少移道素增值的负面作用。<br>当然,前面我们已经说了,只要一进食就会引起移道素分泌,我们能做的只是让它相对稳定不要太高而已。<br>好了,上面我们把碳蛋纸的总量和分配都说完了,你自己去找食物,配餐组合出这些碳蛋纸就行了。<br>但有的人肯定会说,不知道哪些食物里有碳蛋纸,所以我们再影视的最后一部分,讲一下食物来源。<br>首先讲碳水食物,碳水食物有两个属性,一是它的碳水率,就是100克这种食物里有多少个碳水,这个好理解。<br>另一个属性是它分解为葡萄糖的速度,也就是大家常说的高中低Gi碳水,或者快碳慢碳。<br>所有的碳水食物都必于分解为葡萄糖后才能进入血液工人体利用,<br>如果一种碳水吃下去后血糖上升得很快,就说明它分解为葡萄糖的速度很快。<br>Gi就是用来描述碳水分解为葡萄糖速度的一种指数。<br>怎么测食物的Gi呢?<br>我们再次引用这张图。<br>这条最高的线是受试者吃了含有50克碳水的葡萄糖后的血糖曲线。<br>比如葡萄糖水的浓度如果是软面20,那么他们就要吃250克葡萄糖水。<br>另外几条线是其他类型的碳水,也是让受试者吃含有50克碳水的食物来看血糖曲线。<br>比如金米饭的碳水率是25%,所以就要吃200克金米饭。<br>接着以0分钟到120分钟为界限,把葡萄糖曲线下方面积视为100。<br>其他食物的曲线下方面积是多少,它的Gi就是多少。<br>比如金米饭的血糖曲线很猛,它的曲线下方面积并不比葡萄糖小多少,可能算出来是80。<br>那么金米饭的Gi就是80,又比如五股饭的曲线比较平缓。<br>它的曲线下方面积会比葡萄糖小的多,可能算出来是40,那么五股饭的Gi就是40。<br>这就是Gi的测量办法,测的是涉入50克碳水后在120分钟内的血糖曲线下方面积。<br>在这张表里,我给大家列出了常见的高中低Gi碳水食物。<br>在应用上,训练过餐一般吃高Gi碳水去促进移导宿升高,其他时候则比较随意。<br>碳水的Gi值得我们关注,但也不是说极端重要,因为Gi是影响移导宿的众多因素里的其中之一而已。<br>碳水量、蛋白质量、纤维素量,乃至静时的顺序都能影响移导宿。<br>我们需要综合考虑,而不是只论快慢碳。尤其是碳水量的影响是很大的,你一餐的碳水量够大的话,移导宿就不会低。<br>所以我们说碳水的Gi值得关注,但又不要觉得就是它除载了移导宿。<br>接下来讲脂肪,脂肪的食物来源和碳水一样便宜都是,简直期的脂肪一定要吃够保底量。<br>脂肪是许多性激素的前提,也是脂溶性维生素,比如维生素AD1K,它们的吸收载体。<br>脂肪一旦吃少了,可能导致心肌素缺乏,如男性的搞冻下降,女性的生理期稳乱,以及导致使绍性维生素缺乏引起的各种刺身症状。<br>要知道我们设计的饮食配额已经有热量缺口了,那种近乎领指的饮食会把热量缺口搞得太大,也无法发挥脂肪的生理功能,只是一种自我摧残,对减脂是有害无益的。<br>那么,脂肪怎么吃才能比较合适呢?我的建议是炒菜的植物油,鸡蛋,牛奶,正常吃,尤其是炒菜千万不要放弃。<br>炒菜里的植物油并不多,不管是清炒还是重油,一家菜一片肉,它能附着的油量是有限的。<br>只要你不是去喝油汤或者舔盘子,你是吃不尽多少油的。<br>你要是真的害怕油,你就刮一下,甚至过一下水就行了。像左边这种清炒的菜,一人份你记为五克脂肪就够了。<br>像右边这种比较重油的菜,一人份你记为10-15克脂肪也够了。反正我自己是从来都吃食堂的炒菜,<br>包括水煮肉片、凉拌鸡,这些看起来牛稍微重一点的菜,我都是正常吃的。<br>在一般炒菜之外,有两类食物会隐藏很多脂肪,你要特别谨慎。一种是往内部吸油的菜,比如炒鸡蛋、炒茄子、炸蘑菇等。<br>前面说了,菜品表面能附着的油量是很有限的,但它如果能往内部吸油的话,就可以变得很猛了。<br>像炒鸡蛋我看过几个测评视频,如果是饭馆、食堂那种宽油炒蛋,一个鸡蛋能吸油20-30克。<br>要知道一个鸡蛋本身是5克蛋白质加6克脂肪,你吃一个炒鸡蛋只获得了5克蛋白质,却同时送给你30克脂肪,直接把你全天的脂肪配额占掉一大半。<br>所以说,这些往内部吸油的菜大家叫谨慎,不是说不能吃,但它非常占脂肪配额,你要吃的话就要正确进入配额。<br>除了这些往内部吸油的菜,另一类需要特别谨慎的是固体脂肪。固体脂肪的问题是,你看不出它有脂肪,<br>所以你觉得自己没有吃脂肪。<br>左边这样常用的白瓷勺一勺油是6克,让你喝下去你肯定觉得很离谱。<br>如果让你吃右边这样一个星巴克的常规高点,我们不会觉得多严重,但实际上有30多克脂肪,相当于喝了6勺油。<br>如果让你吃肯的鸡蛋两个蛋挞,你觉得并不离谱,实际上有30克脂肪,相当于喝了5勺油。<br>如果早饭吃两根油条,你觉得很正常,实际上也是30克脂肪,相当于喝了5勺油。<br>如果让你吃两把坚果,你觉得是特别健康的食物,实际上也是40多克脂肪,相当于喝了7勺油。<br>总之,我们会很紧替液体脂肪,但脂肪以固体形式存在时,你就会不知不觉地吃下去。<br>这些脂肪刺客不是说不能吃,而是说你要正确地寄入自己的脂肪配额。<br>你不能花啦啦的吃了一堆脂肪,又说自己没有吃。<br>现实中有很多人对炒菜里的那点植物油津津计较,但吃起固体脂肪的时候一点都不客气,这就颠倒主次了。<br>所以,我建议大家一般的炒菜鸡蛋牛奶也都正常吃,尤其是不要放弃炒菜。<br>拒绝吃炒菜的话,就会失去食物的舒适性和便捷性。<br>同时,对于往内部汐油的菜,以及肥肉、糖油混合物、坚果这些固体脂肪,要谨慎一些。<br>这些是可以吃,没问题,但它们会比较占你的脂肪配额,吃了就要正确地寄入配额。<br>脂肪方面最后再说下所谓的优质脂肪问题。<br>现在网上特别强调优质脂肪,说简直要吃坚果、花生酱这些富含不饱和脂肪酸的优质脂肪才行。<br>言下之意,植物油等其他的脂肪食物就是不优质脂肪了。<br>其实这是一个四十二非的说法。<br>首先,饱和、单不饱和、多不饱和这三种脂肪酸各有其真理功能都是人体所必须的,<br>本身就没有谁优质谁劣质之分。<br>包括中国营养协会在内,主要国家对三种脂肪酸设备的比例建议大概是1比1比1。<br>现在网上有些人把三种脂肪酸都要分出优劣来,这本身是很奇怪的。<br>其实我们再来看我们日常食物里的具体的脂肪酸比例。<br>常用的植物油的脂肪酸就是以不饱和脂肪为主的,这一点和坚果区别不大。<br>饱和脂肪烧高的是肥肉和乳质品,但也不是特别高,也就是五六成而已。<br>之一上我们就正常吃植物油、鸡蛋和乳质品,加上瘦肉里的微量的肥肉,<br>就正好能把三种脂肪酸组合出良好的比例。<br>坚果做一种脂肪来源当然是没问题的,但不至于说成是独一无二的优质脂肪。<br>我们先把自己因吃多少脂肪和吃了多少脂肪,能搞清楚就很厉害了。<br>没必要再去计算三种脂肪酸的比例这些太细碎又太不重要的事情。<br>好了,脂肪我就说完了,最后说蛋白质。<br>蛋白质的推荐设备量,新手也至少吃到每公斤1.5克。<br>接油量比较好的人可以吃到每公斤2克。<br>有人喜欢吃肉,蛋白质还可以吃到2-3克。<br>科研上已经反复证明了3克以内的蛋白质设入是不会损害胜功的。<br>但是2克以上的蛋白质对于维持肌肉就是多余的了。<br>它的性质是单纯的提供热量而已。<br>所以只要你在减脂期有热量缺口,体重在缓慢下降,那你的蛋白质多吃点也没事。<br>蛋白质的食物来源非常非常狭窄,纯粹的蛋白质来源只有两种。<br>一是猪牛羊、鸡鸭鱼虾等各种瘦肉,二是蛋白粉,除此之外就没有了。<br>鸡蛋和牛奶也是蛋白质来源,但它们会负责和蛋白质差不多量的脂肪。<br>如果你靠鸡蛋和牛奶作为主要的蛋白质来源,那你在吃够蛋白质的时候,脂肪早就涉入爆炸了。<br>除非你吃的是鸡蛋白、蛋清液、脱脂牛奶。<br>另外,豆类和豆腐等豆制品也有类似的情况。<br>他们在提供蛋白质同时会负责相当多的脂肪,所以不可能作为蛋白质的主要来源。<br>健身饮食里的最大难点就是找蛋白质吃。<br>在食堂大家要努力的找瘦肉吃,不需要吃水煮的瘦肉,炒菜或者凉拌的瘦肉都可以。<br>对于餐馆和外卖的话,我大概列出了这些东西,他们能提供好吃的瘦肉给你。<br>一顿饭的配餐就是要解决蛋白质,解决的蛋白质这一餐就配成了。<br>因为碳水和脂肪遍地都是,不可能没有。<br>还有一个小问题是很多人来问我,计算蛋白质时要不要去除植物蛋白?<br>如果你是用XL或者薄荷APP计算,主食和蔬菜里的植物蛋白会自动记录,你就不要专门提除了。<br>植物蛋白里的人体必须安计算的比例比较少,所以在生物价、安计算分等这些蛋白质评价方法里会显得弱势一些。<br>但因为植物蛋白占我们每天蛋白质设入量的比例是很低的,就算你麻烦的把这些植物蛋白打折,寄入蛋白质总量。<br>最后的结果无非就是少了几克、十克而已,这是无所谓的,所以不要去纠结要不要去除植物蛋白这个问题了。<br>好了,以上我们讲了碳蛋质总量、分配、食物来源,简直饮食就全部说完了。<br>下一个问题说简直期的运动。<br>运动有力量训练和油氧两类。力量训练这部分很简单,就是和增计器一样,计划、配种、组数都继续维持。<br>按照我们上面领事模式,因为热量缺口并不大,而且有汛前汛后的碳水支持,所以力量训练不会受什么影响。<br>运动方面我们重点讲讲油氧。<br>油氧应该视为制造热量缺口的一种方式。<br>我们需要的10%-20%的热量缺口,可以从饮食做,也可以从油氧做,也可以兼而有之。<br>在简直的前中期,比如在碳水2.5-3.5克的阶段,我们不会觉得有多饿,用饮食来提供热量缺口是很容易的。<br>花时间去做油氧,会不太划算。<br>但在简直后期,比如碳水只有2-2.5克的阶段,我们会感觉吃的很少。<br>继续用饮食制造热量缺口的难度会越来越大。<br>这个时候做一些油氧就会变得比较划算。<br>所以对于简直期的油氧,我建议你先看看能否用饮食就让体重开始缓掉。<br>如果你用饮食就能让体重开始缓掉,就说明你的热量缺口已经合适了,当然不需要费力去做油氧。<br>随着简直期的推进,如果你不想继续降低碳水的话,就可以增加油氧强度,每周可以做2-3次。<br>油氧的时间的话可以循序渐进,一般是40-60分钟。<br>有些同学不愿意做长油氧,而喜欢力量训练后做20分钟的短油氧,似乎也可以。<br>但由于油氧时间越长,脂肪的功能比例会越高,<br>所以单从理论上说,一个60分钟的长油氧会比3个20分钟的短油氧更有效,不过这是一种理论假设而已。<br>油氧的方式很多,跑步机、妥卫仪、游泳、爬楼、跳槽、打球、飞板等等的方式都可以,选什么方式不重要,比较重要的是心率。<br>油氧时的心率越高,单位时间消耗的热量更多,但能坚持的时间也越短,所以我们需要坚固心率和可持续信。<br>对于20-30岁的人来说,合理的油氧心率大概是每分钟120-150次。<br>这样的心率有相对较好的热量消耗功率,也能让人持续的坚持40-60分钟而不难受。<br>怎么测心率呢?用运动手玩手表、用跑步机上的握把,或者自己数20秒的脉搏,都能制造心率。<br>你在做油氧时自己调节强度,使得自己的心率进入这个区间就行了。比如跑步机的速度和坡度都能改变你的心率。<br>有人喜欢平坡跑步,有人喜欢斗坡慢走。<br>同样的,游泳、爬楼、跳槽、打球等其他游泳方式也一样。心率太高了,你就做得和缓一点,心率不够,你就做得紧凑一点。<br>游泳上一些不建议的做法,首先是不建议力量训练后接长游泳,这样会耽误你的迅口餐,进而损失了迅口的增计窗口期,浪费了自己的力量训练。<br>如果因为时间关系,你必须把游泳安排在力量训练之后的话,那可以做个20分钟的短游泳。<br>其实我觉得最方便的方式就是休息日去做个长游泳,这样完全不会影响力量训练。<br>另外也不建议做高频的长游泳。饮食和游泳都是制造热量缺口的工具,它俩加起来,让我们形成10-20%的热量缺口,也就是300-500%大卡的热量缺口,就行了。<br>很多人是误以为吃的越少越减脂,游泳越多越减脂,无原则的去执行,少吃多冻,很容易让你形成特别巨大热量缺口,这是不可能真正减脂的。<br>稍后我们再来详细讲讲。<br>最后提一嘴空腹游养的问题,这是网上真论最多的话题之一了。<br>它的理论假设是我们在起床后的血糖和鸡糖原水平比较低,这时候去做游养会有更高比例的脂肪功能。<br>空腹游养在健身运动员那边比较流行,但许多科研论文又觉得它是一个伪命题。<br>所以我觉得是否空腹游养就随便你了,这些都是不关键的细致末节。<br>如果你要做空腹游养的话,可以先吃点蛋白质或者支链按计算店一下,具称有异志肌肉分解的作用。<br>空腹游养后也不要继续空腹饿肚子,直接该吃饭就吃饭去。<br>以上我们就把简直的知识框架全部讲完了。<br>下面我们来讲一个同学的简直案例,看看一个新手是如何开始简直的,同时也融入讲解一些简直期的常见错误。<br>这是我们学校的一个同学,男生身高175,其中大半年来一直是80公斤,健身新手。<br>他在简直前代日常饮食是这样的,早饭、油条、包子、鸡蛋、午饭和晚饭是馒头煎饼和瘦肉炒菜,夜宵是炒面。<br>餐间饿了的零食会吃一些小雪糕小饼干。<br>我们来分析他的饮食。<br>分析饮食不是去看食物的健康和不健康而是看炭蛋质的总量和分配对不对。<br>现在看总量,我帮他计算了一下,碳水是4.0克,这个配合是一个增计器的配合,对于简直来说太高了。<br>简直应该下调到3-3.5克作为期时量。<br>蛋白质是1.2克,这显然是不够的,健身新手也至少要保底1.5克蛋白质。<br>纸房是1.3克,简直期应该下调到0.8克左右。<br>再来看分配,他各餐的碳水分配是随意的,晚上力量训练后他觉得不饿所以不吃东西,也就是没有迅口餐,丧失了增计的机会,这是一个很大的错误。<br>他的其他餐有在大吃碳水,主要起到了增值的作用。<br>这位同学决定要减肥后,他根据自己理解的简直餐把火石换成了这样。<br>简单的说就是,他用他认为的健康食品替代了不健康食品。<br>馒头煎饼换成了玉米红薯水果,瘦肉炒菜换成了纯粹的西荤肉,全脂牛奶换成了低脂牛奶。<br>饼干这些垃圾食品则完全不吃了。<br>OK,这样的饮食在网上极其常见,我们一搜索健康餐、减脂餐,冒出来的都是这些东西,也影响了很多人。<br>那么这样的健康饮食能减脂吗?我们还是来看碳蛋质的总量和分配。<br>算出来的结果是,他的碳水吃了2.1克,实际上普通人减脂在最末期才会到这么低的配额。<br>蛋白质吃了1.1克,还是老毛病蛋白质不够。<br>不要看他的食谱里吃了几两鸡胸肉,有鸡蛋牛奶什么的蛋白质就够了,够不够,要拉出来算账才知道。<br>脂肪的问题更大,他这种健康饮食不是炒菜,也戒断了糖油混合物,所以脂肪低到了只有0.2克,离脂肪的保底量还差得远。<br>最后来看总热量,和之前相比,总热量从2600多大卡,降为1100多大卡。光是饮食就制造了57%的热量缺口。<br>除此之外,因为他为了减脂还去每周做45次优雅,这样热量缺口可能进一步扩大到70%以上。<br>远远超过我们需要的20%热量缺口。<br>这样的结果就是,第一他会非常非常劳累,因为火事很少又难吃,还要叠加高频优雅。<br>第二他也不能真正的减脂,只有在前面一段时间会比较快的掉一些体重。<br>初期所丢到的体重既来自于脂肪和肌肉的分解,也来自于我们前面说过的,低碳低盐会导致人体的脱水。<br>接着,因为热量缺口极为巨大,会触发他的身体的自我保护,基础代谢会明显下降,使得热量差逐渐消失了。<br>由此形成一个现象,就是他明明吃的很少,明明动的很多,但是体重腰围就是不掉。<br>而且接下来他还可能认为,我一定是吃的还不够少,我一定是动的还不够多,所以才没有瘦下来。<br>所以他还会去进一步的少吃多动,这样再进一步的摧毁他的技术代谢,进入到了永远不可能减脂的恶心循环。<br>下面我们来给他调整出一个正确的减脂饮食,调整饮食就是调整碳难值的总量和分配。<br>先来看他的早饭,早饭的碳水特别高,蛋白质不够,脂肪略高但还凑合,所以我们给他去掉占据了大量碳水和脂肪配合的油条,增加了鸡蛋牛奶,就得到这样的结果。<br>然后是午饭,因为他是晚上健身,所以午饭是他的其他餐,要节约碳水,主要靠蛋白质脂肪和蔬菜来吃饱,所以煮食只吃一两米饭,瘦肉炒菜还是不便,另外再给他加一两酱牛肉和一份蔬菜来让他吃饱。<br>然后是晚饭,晚饭是他的迅前餐,垫垫肚子就要去健身了,简单点的话可以吃粗粮面包、香蕉、葡萄干、浙糖饮料的,如果确实很饿也可以去食堂吃点碳水,外加一点瘦肉。<br>这里举例的是让他吃一根玉米和一两酱牛肉垫垫肚子,吃完就去炼。<br>最后是炼完的迅口餐,由于其他餐节约了碳水出来,现在碳水的剩余配额还有很多,他的80公斤体重可以吃食堂3-4两米饭加瘦肉。<br>如果觉得吃不下或者要图方便的话也可以用便携快碳加蛋白粉来解决。<br>另外他的用餐时间也要尽量提前到炼完半小时以内就开始吃上,而不是像以前那样,炼完一两个小时之后觉得饿了才开始吃。<br>那个就不叫迅口餐了。<br>为了让他的饮食更舒服,我们还留了一些配额让他吃垃圾食品,比如我们给他加一只雪糕,这样太难指的总量配额就差不多了。<br>调整前后的饮食相比,碳水从4克降为2.9克,蛋白质从1.2克增加到1.8克,脂肪从1.3克降低到0.9克。<br>总热量下调了500大卡左右,热量缺口大约19%,这就是减脂饮食。<br>一是有10%-20%大约3500大卡的热量缺口,二是因吃热量因以特定的碳蛋脂比例来提供,30碳水的时机要适配他的力量训练。<br>如果可能还有人问,前面说的健身男性的减脂期的碳水70配额推荐是3-3.5克,为什么他在这里只吃了2.9克还差那么一点呢?<br>比如强调的是,这个视频你所说的所有的配额比例的数字都是一个大概方向,不是让你去按克数吃饭。<br>就比如说现阶段你的碳水配额是3克,那么你今天吃的不管是3克还是2.7克还是3.3克都可以,只要整体上比较稳定就可以了。<br>但是在我们开始一个全新的饮食模式时,一定还是要先做一点计算和规划,不要去按感觉吃饭。<br>没有足够经验的人按感觉吃饭是很不准的,就像我们刚才的举例。<br>这位同学按感觉计划的减脂餐完全就是错误的配额。<br>最后一部分内容我们来归纳一下大家在减脂时的常见错误,希望你没有走过这些弯路。<br>第一个常见问题是食物决定论。<br>很多人受网络宣传的影响认为吃干净健康的食物就能减脂,比如燕麦、红薯、糙米饭、鸡胸酸奶、西南花、零糖领子、零添加之类的。<br>其实不管是红薯燕麦也好,还是米饭饭饭也罢,这些食物都没有问题,但它们都只是碳蛋纸的来源而已。<br>健身饮食的实质是管理碳蛋纸的总量和分配,而不是吃什么食物就能怎样怎样。<br>只要碳蛋纸的总量和分配错了,健康食品也可以组合出很垃圾的饮食,就像我们前面刚才举例的那位同学。<br>脱离食物决定论,转而去关注碳蛋纸的总量和分配,这是我们健身入门的一个重要标志。<br>如果说换食物就能出腹肌就能报血管,那我还做这么长的视频干嘛呢?我直接开场让大家去吃桥麦面,吃鸡胸肉不就行了吗?<br>第二个常见问题是把减脂的叶臣无原则的少吃多动。很多人对热量缺口的限度没有概念,他觉得靠自己的意志力,越少吃,越多动就越减脂。<br>实际上你只需要在体重不变的热量平衡点的基础上,减少10-20%的热量就够了。对于一般体重人来说就是三五百大卡。<br>我们身边有很多人就像我们前面举例过的那个同学,一决定减脂就要去另起如造的搞一套所谓的干净饮食,同时叠加高频率的长有氧。<br>在不知不觉中就把自己的热量缺口做得非常大,在错误的道路上越走越远,还觉得自己在自律。<br>少吃多动这四个字本身没有问题,但它是正确的废话,是一团不明不白的酱糊化。就比如少吃这两个字。<br>少吃多少热量,热量由何种比例的碳蛋纸提供,以及碳水的实际。这些都是有讲究的,并不是说拿着少吃两个字就能搞定减脂的。<br>第三个常见问题是不吃或者少吃熏后餐。减脂期底不是每一分钟都要强迫身体是分解带解。<br>减脂期我们保持力量训练的强度无变,并且在熏后餐吃那么多碳水和蛋白质来提高胰道素,就是为了让身体进入增肌增脂的合成带解阶段。<br>我们必须用这个窗口继续做一点增肌的努力来尽可能抵消其他时段的肌肉分解。<br>有些人练完之后吃的很少奶汁不吃,这就是完全放弃了增肌。<br>当然,熏后餐之所引人如此的充足,原因是我们在其他餐节约了很多碳水出来。<br>我们不是让你加碳水,我们只是调整了碳水的日类分配来节约出了熏后餐。<br>第四个常见问题是不注意饮食的舒适性和可持续。<br>如果你想长期保持比较低的体脂率,火食就必须弄得好吃。<br>怎样让火食好吃一些呢?我这里有三个建议。<br>第一是一般的炒菜你正常吃,不需要去吃水煮。<br>你要小心的主要是西油的菜和固体脂肪就行了。<br>吃炒菜是不会危害你的脂肪配额的。<br>如果你拒绝吃炒菜,那么食堂和外卖几乎就没法吃了,这就太折腾了。<br>第二个建议是,你要把有限的脂肪配额花在你喜欢的食物上。<br>比如一包牛奶加两个鸡蛋差不多是20克脂肪,而一根懵鲁雪糕是15克脂肪。<br>你要喜欢鸡蛋牛奶,你就吃鸡蛋牛奶。你要喜欢雪糕,你就吃雪糕。<br>我们每天的脂肪配额有大几十克,是绝对能支持你吃一些所谓的垃圾食品的。<br>你只需要做好配额管理就行了。<br>第三个建议是,要利用好熏厚餐吃精致碳水和甜口食品的机会。<br>熏厚餐是全年碳水最多的一顿,而且一般吃的是快碳。<br>各种甜口的碳水糕点,比如米糕、发糕、青团、瓷巴、豆沙包、粘豆包、云片糕等等,都可以当作你的熏厚餐,完全没有问题。<br>研制的第五个常见问题是,心态太极,预期太高。我们今天在网上看到很多博主两三个月研制就有很好的效果,或者说只减了几公斤体重就开始暴雪管了。<br>实际上他们能这么快出效果,是因为他们定期就会做研制。<br>基础体制率只有10%-15%,所以只需要两三个月,丢几公斤体重就能出效果了。<br>普通人的基础体制率要高了多,你要达到别人那种效果,就需要用更长时间去丢更多体重才行。<br>如果你想一步到位,就需要把减脂期拉长成五六个月去掉更多体重。<br>如果你只想减脂两三个月,那你就可以分为两三次来逐步减干。<br>总之,你如果基础体制率比较高的话,就不可能两三个月丢几公斤体重就开始击又拉丝。<br>不要对自己有过高的预期。<br>好了,我用这个视频就把减脂讲完了。最重要的内容我放在这里你可以截图。<br>这是减脂的饮食配额和碳水地检方法。<br>这是各餐情况的介绍。<br>早饭、迅前、迅后、其他餐、休息日。<br>这是不同训练时间适配的各餐顺序,早上训练和上午训练的。<br>最后是有氧的建议做法。<br>有氧只是一种热量缺口的提供方式。<br>饮食比有氧更关键也更重要,一定要先学会吃饭,再去考虑有氧。<br>感谢大家看完这个超长视频。<br>我做这个视频的初衷是想让大家学会科学的舒适的生活化的完成减脂。<br>我在开头就说了,减脂首先是一个方法问题,和坚持或者毅力没什么关系。<br>看再多的粒子鸡汤都没用。<br>学会方法才有用。<br>最后要感谢本期节目的金主爸爸曼迪米洛地尔丁生发喷雾。<br>保住头发人人有责,不要肌肉大朗,头也涂了。<br>每天用曼迪喷雾简单喷一喷,维持好自己的发机线,顺手抹抹眉毛,还有浓眉效果,<br>让丑的变帅,帅的更帅。<br>我的账号是在主页里发框架型视频,在动态里发碎片画真实,<br>路过的朋友可以随手点个关注。有提问可以发在评论区,我尽量的回复。<br>下期节目我们再见!</p>
+]]></content>
+      <tags>
+        <tag>健身</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Prompt Engineering By Lil&#39;Log</title>
     <url>/2023/20230320/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>提示工程概览，来自<a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Prompt Engineering | Lil’Log</a>。</p>
@@ -9630,64 +9688,6 @@ scale).">
         <tag>深度学习</tag>
         <tag>人工智能</tag>
         <tag>自然语言处理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《健身新手的减脂完全手册》</title>
-    <url>/2023/20230319/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.bilibili.com/video/BV1AM411r7z3/">B站版《健身新手的减脂完全手册》™</a></p>
-<hr>
-<p>这个视频介绍合理理减脂的方法</p>
-<p>实际上,减脂从根本上说是一个方法问题,和网上宣传的要有毅力,要坚持,要自律都没什么关系。</p>
-<h2 id="减脂原理"><a href="#减脂原理" class="headerlink" title="减脂原理"></a>减脂原理</h2><h3 id="要有10-20-的热量缺口"><a href="#要有10-20-的热量缺口" class="headerlink" title="要有10%-20%的热量缺口"></a>要有10%-20%的热量缺口</h3><p>我们的热量涉入来自于食物,热量消耗在来自于两方面,主要是基础代谢,其次是活动消耗。左右两边热量相等的话,你的体重就会不增不减,叫做热量平衡点。想要减脂左边的热量涉入,要比右边的热量消耗少20%。</p>
-<p>热量缺口一定要有,但也不需要太大。而热量缺口怎么来的呢?即可以从左边减少一点热量涉入,也可以从右边多做一点有氧活动来提供,或者两者兼而有之。<br>减脂性的基础代谢是提高不了的,我们争取不让它超额下降就可以了。</p>
-<span id="more"></span>
-
-<h3 id="碳氮脂的比例"><a href="#碳氮脂的比例" class="headerlink" title="碳氮脂的比例"></a>碳氮脂的比例</h3><p>热量涉入是按照每克碳水蛋白质脂肪分别449大卡来求和的。</p>
-<p>$$<br>热量摄入(kcal)=碳水<em>4kcal+蛋白质</em>4kcal+脂肪*9kcal<br>$$</p>
-<p>定碳氮脂就定了热量,但定的热量不代表定了碳氮脂。所以我们在热量平衡点的基础上降低了10%-20%热量后,还要按照一种经验化的碳氮脂比例而非任意的比例去组成这个热量。</p>
-<h3 id="碳水的日内分配"><a href="#碳水的日内分配" class="headerlink" title="碳水的日内分配"></a>碳水的日内分配</h3><p>在热量一定碳碳脂配额也一面的情况下,把碳水放在不同的时间去吃,就可以人为的操纵胰岛素的升降,也会影响到我们的减脂效果。<br>就像我们玩游戏的时候有timeing的概念,碳水涉入也有timeing。<br>尤其是对于健身距离来说,碳水的timeing是减脂期保护肌肉的一个重要策略。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>首先是要有10-20%的热量缺口,饮食和有氧都是制造这个热量缺口的手段。</p>
-<p>其次是应吃的热量要以特定的碳氮脂比例来提供,再次是管理碳水的日内分配。<br>这三个原理都和饮食有关,而有氧只适合热量缺口有关。<br>所以说,减脂里饮食比有氧更重要,也更复杂。</p>
-<h2 id="饮食"><a href="#饮食" class="headerlink" title="饮食"></a>饮食</h2><h3 id="热量平衡"><a href="#热量平衡" class="headerlink" title="热量平衡"></a>热量平衡</h3><p>但在我们吃下去后,热量会有两个损失过程,首先是因为不完全吸收造成的热量损失。人体排泄物里会减出少量的碳碳脂及其衍生物,因此学界把碳碳脂热量下调为449大卡。如果还要考虑消化碳碳脂对我们身体造成的额外发热的这种食物热效应,碳碳脂的倒手热量还可以继续下调为3.8,2.8,8.55大卡。</p>
-<table>
-<thead>
-<tr>
-<th>单位kcal/g</th>
-<th>碳水</th>
-<th>蛋白质</th>
-<th>脂肪</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>食物能值</td>
-<td>4.1</td>
-<td>5.65</td>
-<td>9.45</td>
-</tr>
-<tr>
-<td>考虑吸收率</td>
-<td>4.0</td>
-<td>4.0</td>
-<td>9.0</td>
-</tr>
-<tr>
-<td>考虑热效应</td>
-<td>3.8</td>
-<td>2.8</td>
-<td>8.55</td>
-</tr>
-</tbody></table>
-<p>在计算食物热量时,我们用这两种标准都可以,因为食物热量的绝对值是不重要的,我们要的是减脂的10%-20%的热量缺口,和增计的10%-20%的热量盈余。乘以这个百分比后,两种计算标准的差额其实是不大的。</p>
-<h4 id="我们怎么计算自己吃的食物热量呢"><a href="#我们怎么计算自己吃的食物热量呢" class="headerlink" title="我们怎么计算自己吃的食物热量呢?"></a>我们怎么计算自己吃的食物热量呢?</h4><p>一种办法是用我在评论区放的一个食物热量计算的EXCEL表,把日常食物录进去,输入食物分数,来得到碳碳脂的量和总热量。另一种办法是用薄荷APP来记录自己的食物,两种办法在本质上都是一样的。</p>
-<h3 id="热量消耗"><a href="#热量消耗" class="headerlink" title="热量消耗"></a>热量消耗</h3><p>$$<br>热量摄入=基础代谢+活动消耗<br>$$<br>一般人的热量消耗主要靠的是基础代谢,基础代谢就是在完全进息状态时身体要活着所需要的能量,就要比手机吸平时也要耗电一样。<br>其次的热量消耗来自于活动,就是我们上班上课,走路骑车,路铁游养等一切身体活动导致的热量消耗。<br>如果左边的热量消耗和右边的热量设入相等,那么你的体重就会不变,这个数值叫热量平衡点。<br>如果要减脂,就要在热量平衡点的基础上减少10%-20%的热量设入来形成热量缺口,迫使人体分解脂肪来填补热量差。</p>
-<p><img src="table1.png"><br>公式算出的基础代谢有一定参考性,但它对于减值的指导意义还是比较有限的。</p>
-<p>更大的问题是活动消耗的预测公式。前面说的基础代谢的预测公式,起码让你带入体重、身高、年龄等数字去计算,而活动消耗的预测公式则完全靠文字描述请你去对好入座,主观性很强。<br>总之就是说,活动消耗的预测公式是很主观和不准确的。当然有人会说,本来就是让你估计一下,不准确就不准确呗。<br>但问题是,我们的减值本来就只需要10%-20%的热量差,而光是活动消耗这块的估计值,动辙就可以让热量平衡点变动30%-40%,那么这个估计结果对我的意义,当然就很有限。<br>所以,减值到底应该吃多少热量,除了按照上面这些预测公式去计算外,<br>我觉得一个更好的操作办法就是,<strong>既然算不准,那就别算了</strong>。<br>你可以直接按经验化配额开始试吃,并做出调整就行了。</p>
-<p><img src="table2.png"></p>
-<p>所谓经验化配额,就是大家总结出来的对于一般人群按照这个量去吃,就可能恰好有10%-20%的热量缺口,让你开始掉体重。<br>按经验化配额边吃边调整的具体做法是,你先按这个配额吃两周,如果这两周你的体重能掉1.5%-2.5%,大概是2-3斤或3-4斤,那就很合适。<br>简直前期,因为碳水的突然降低,体重会掉得快一点,往后会更加和缓。如果你的体重完全不掉,就说明这个热量、这个配额是你的热量平衡点,<br>需要降低热量才能有热量缺口。调整的办法是,蛋白质和脂肪不变,下调碳水0.3-0.5克即可,这样试探者就制造出了热量缺口,大概率能引起体重下降了。<br>在减脂期里,体重能掉就说明一切正常,不用减碳水。体重不掉就还是下调0.3-0.5克碳水。但碳水不是无限递减的,非比赛型的减脂里,碳水最后也不要低于2克。<br>如果继续降低配额的话,就可能影响上班上学的状态了。<br><strong>为什么是以两周而不是两三天来看体重变化?</strong><br>我们每天体重变化的因素,一是体内食物的注流排空程度的差异。<br>有人会说,我总是空腹量体重,但这种空腹只是清除了大肠断的部分食物残渣而已,小肠断的食迷是排不掉的。<br>真正的空腹你去做一次,长劲就懂了。<br>要进食12小时并提前6小时喝泄药才能实现空腹。<br>我们平时说的空腹是还有食物注流的,可能导致每次量体重相差半斤八凉也不奇怪。<br>其次人体的脱水和吸水也很能影响体重,比如泰水食物量能直接影响鸡糖原储量,一克鸡糖原能扭住三克水,<br>人体内三五百克鸡糖原的变化就能造成体重两三斤的变化。<br>另外,那里子食物量变化以后,在水那平行的要求下,人体必须随之吸收或排出水,这也会影响体重。<br>极端的例子是,健身比赛选手上台前会停止吃盐和大量喝水来降低体内的那里子。<br>在水那平行的作用下,人体也随之排水,他们两三天就能丢好几斤的体重,这就是那里子对体重的影响。<br>生活里总有人说,我低碳低盐几天就能掉几斤体重,我一恢复饮食吃几天就长几斤体重。<br>这并不是因为在这么短的时间内,就能分解掉和合成出几斤的脂肪,那是不可能的。<br>主要就是因为低碳低盐能导致脱水掉体重,高弹高盐能导致吸水长体重。<br>最后,肌肉和脂肪的重量变化也能影响体重,这也是我们真正关心的。<br>不过肌肉和脂肪的重量变化是极其缓慢和微弱的,他们和短期内的体重变化几乎没有关系。<br>比如有人说自己乱吃东西,一天就长了一斤。<br>那我们来分析一下一天长一斤是否可能是肌肉或脂肪造成的呢?<br>首先不可能是肌肉造成的,没有人能一天长出一斤肌肉,同时也不可能是脂肪造成的,<br>因为一斤脂肪的热量是4500大卡,相当于4.5公斤米饭。<br>也就是说一个人必须在热量平衡点的基础上,在这一天里额外再吃4.5公斤米饭,<br>才可能利用这个热量盈余来合成出一斤脂肪。这当然是不可能的事情。<br>同样的,如果一天降低了一斤体重,也不能认为是今天分解了一斤脂肪,<br>因为需要在这一天里少吃或者运动消耗4.5公斤米饭的热量,才可能分解一斤脂肪。<br>这也是不可能的。<br>所以我们看体重一定不要只看两三天的变化,建议大家以两周来看变化。<br>为什么呢?我们用这张示意图简单解释。红色线表示脂肪量,它的增减波动很小,<br>但能随着时间退一而持续积累,一直减值就一直下跌。<br>绿色线表示食物注流排空和人体脱水吸水的重量变化。<br>它的增减波动很大,但不能持续积累,不能往上或往下的持续发展。<br>如果你两三天就去比较体重,哪怕你的红线脂肪确实降低了,<br>但绿线的波动更大,可以轻易覆盖掉红线脂肪的变化。<br>这时候体重的增减主要是绿线造成的,你无法通过体重变化来判断脂肪量的变化。<br>相反,你10天半月再去比较体重的话,你的红线脂肪的降低量已经绘积累的更多了。<br>绿线的波动就没有那么容易覆盖掉红线脂肪的变化。<br>这时候你才能从自己的体重变化里看出脂肪量的变化。<br>所以我们这里讲影视配额时,说的是以两周为周期来看体重变化并判断配额是否合适,<br>而不是让你吃两三天就去判断。<br>短期内的体重变化很难判断脂肪,<br>因为脂肪在短期里根本就不可能合成或分解多少来。<br>好了,以上我们先把碳碳脂总量讲完,那是不是这些既定的碳碳脂,<br>以任意方式分配到各参区,减脂效果都一样呢?<br>当然不是,所以我们还要关注碳碳脂的日内分配。<br>对既定的碳碳脂总量进行日内分配,主要是为了人为的操纵移道素来帮助减脂器多调脂肪找到肌肉。<br>移道素的功能是把血液里的葡萄糖胺计算等营养物质转晕到肌肉组织和脂肪组织里。<br>让肌肉和脂肪进入合成状态。<br>作为合成基素,移道素既能增计也能增值。<br>在没有力量训练的时候,身高移道素当然不会增弃,使会增值,这是移道素的负面作用。<br>但在力量训练之后,肌纤围已经破坏,身高移道素就能在增值的同时会促进增计,这是移道素的正面作用。<br>所以我们对移道素的管理的基本思路就是,力量训练和迅口餐要故意升高移道素来促进增计。<br>这天的其他餐以及休息日的时候,则要保持移道素的相对稳定。<br>我们来看饮食是如何影响移道素的。<br>科研工作者让寿室者设入同等热量的碳水蛋白质脂肪,然后监测他们的移道素变化。<br>结果是碳水最能刺激移道素分泌,蛋白质的刺激能力弱一些,脂肪的刺激能力最弱。<br>也就是说,我们不管吃什么东西都会刺激移道素分泌,我们要做的是对移道素刺激能力最强的碳水移向,进行合理的分配来趋力避害。<br>碳水有三个主要的投放时间点,最大的投放时间点是迅口餐。<br>迅口餐可以吃全天50%左右的碳水,加30-5车蛋白质,脂肪要少最好在20克以内。<br>碳水量大且用快碳,目的是为了升高移道素。<br>蛋白质也比较多,是为了给肌肉修复提供原料并且进一步升高移道素。<br>低脂不是因为害怕脂肪本身,而是因为脂肪对移道素的刺激能力比碳水要差得多。<br>所以在迅口餐总热量一定的前提下,低脂才能让出热量,吃缓成高碳,让迅口餐的移道素更高。<br>迅口餐的时间是最好能在练完半小时内开始吃上,不要抹几大半天都不去吃东西。<br>迅口餐的方式,如果能很快地吃上正餐,就直接去吃正餐。<br>如果没法很快吃到正餐,就可以用蛋白粉加便携快碳先淀一部分,剩一部分再用正餐补齐。<br>赶时间的话还可以全部用蛋白粉加便携快碳来解决,这样就不用吃正餐了。<br>便携快碳我用单独一页来举例,这些只是很少的一部分。<br>只要它的碳水率是脂肪率的5倍以上,并且是以糯米、面粉等精致碳水制成,就可以算作便携快碳了。<br>迅口餐故意升高移道素是非常重要的。<br>之前陆家们闹内部矛盾的时候,他们内部一位职业运动员在网上挂出过他们内部的饮食方案。<br>可以看出,他们训练后吃大量快碳来做高移道素,同时自己还要注射食物单位的外圆性移道素。<br>我不是让大家去复制他们这么大的碳水量,也不是让大家去打移道素,而是想强调,力量训练后升高移道素是非常重要的。<br>碳水的第二个投放时间点是早饭,早饭可以吃全天30%的碳水,碳水GI无所谓。<br>蛋白质和脂肪没太多要求,多少一点都可以,全天总量合规就行了。<br>一晚上的空腹后我们的血糖是很低的,早饭给一些碳水,让血糖升高一些是必要的。<br>不要在低血糖状态下开始上班上学。<br>早饭有点麻烦的是碳白质来源很少,如果是吃食堂的话,两个鸡蛋加一包牛奶差不多能凑合20克蛋白质,<br>但同时也有快20克脂肪了。这就意味着早饭的碳水不能是从油条煎饼、麻团等糖油混合物理获取,<br>只能来自于馒头花卷面条等纯碳水,否则早饭就可能花掉你全天大部分的脂肪配额。<br>如果是自己冲条早饭的话,碳水可以用燕麦片、燕麦敷、玉米粉、藕粉、芝麻糊等,蛋白质则用蛋白粉来提供。<br>碳水的第三个投放时间点是去面前,去面前可以吃全天20%的碳水,是中等或中高质爱的碳水都行,<br>如葱凉面包、香蕉、葡萄干、浙堂饮料等。这些碳水量也就小几时刻,使过定电肚子,不至于让你持撑影响训练,也不至于让你血糖飙升。<br>训练前给点碳水的目的是为了温和的提供血糖支持,让训练有力气,也能抑制训练过程里的肌肉分解,比喝支炼胺基酸还划算。<br>时间是你到了健身房吃都来得及。这张图我都发过好多次,不管是快谈慢谈吃下去,血糖都会立即升高,在半小时到一小时左右达到高点。<br>所以你到了健身房就吃,加上你换衣服、热身等单个的时间,这样你在训练中程正好匹配上碳水给你的血糖。<br>除了上述的迅候早饭迅前,其他餐的时候碳水可以少吃奶制不吃,主要靠吃蛋白质纸防和蔬菜来填饱肚子。<br>其他餐如果你专门去吃比较多的碳水来刺激到素的话,更可能起到增值的作用。<br>在增基期的时候由于碳水的总配额比较多,所以其他餐一般还能吃一些碳水。<br>但在减脂期的时候,尤其是碳水配额低于2.5克每公斤以后,也会明显感觉到全天碳水很紧张。<br>这时候就特别需要注意在其他餐节约碳水出来,有些满足迅候餐早饭迅前餐,尤其是不能抢劫迅候餐的碳水去给其他餐吃。<br>以上我们讲的是对碳单纸做日内分配来对移导素区立毕害,实际上就是碳水分配很讲究。<br>蛋白质和纸房不太讲究,只需要注意迅候餐要保证有30-50个蛋白质并且要20克以内低质。<br>其他时候的蛋白质和纸房分配可以集中一些,也可以均匀一些,这不重要,全天总量合规就行了。<br>下面我们按照大家不同的训练时间,根据上述的碳单纸分配原则,给大家列出了各餐的分配方案,不然有些观众还是看不懂。<br>早饭后就训练的人,直接把早饭作为你们的迅前餐。吃到早饭就开始练。<br>这一餐吃到六七分饱就好了,所有的练前餐都不要吃成全饱,完全保护的锻炼是很不舒服的。<br>练完后你直接吃迅候餐,如果不方便吃上正餐的话可以蛋白粉加便宜快餐来解决。<br>午饭和晚饭都是你的其他餐,我这里给了一点碳水,不然整个下午和晚上的时间太长,不吃碳水的话有些人会习惯不了。<br>再来看午饭前训练的人,把午饭作为你们的迅候餐,然后晚饭是你们的其他餐,理论上可以不吃碳水了。<br>你如果确实不习惯的话可以云一点碳水给晚饭,但一定要少,如果你把其他餐的碳水拉高了,本质上就是在抢劫迅候餐。<br>再来看晚饭前训练的人,把晚饭作为你的迅候餐,你的午饭是其他餐,理论上可以不吃碳水。<br>同样的,如果你不习惯的话,还是可以云一点碳水给午饭,但还是要少。<br>越是减脂期推进的时候,因为碳水总配额越来越紧张,所以大家就越来越需要注意把其他餐节约碳水出来让给迅候早饭迅节,尤其是不能去抢劫迅候餐的碳水。<br>最后是晚上才训练的人,这是很多上班族的情况,你可以把晚饭当作迅前餐,吃到个六七分饱垫垫肚子,就去练了。<br>重点是练完一定要吃迅候餐,晚上健身的人很容易对饮食进行反向操作,在午饭晚饭这些不太需要碳水的时候,他们米饭馒头尬尬地吃。<br>但晚上训练后又不敢吃任何碳水了,理由是白天已经吃过了,再吃就会长胖。<br>为什么其他餐吃那么多碳水都不怕胖,迅候餐吃碳水就会长胖呢?<br>实际上他们的问题是碳水的日内分配错了,他们在白天就把迅候餐的碳水给抢劫过来吃完了。<br>正确的做法是,午饭和晚饭的碳水都不要太多,练完后的迅候餐才是全天最大的一顿。<br>这样就把他们的反向操作给纠正过来了。<br>以上四种训练时间的饮食方案我列的都是四餐,带的总量都是一模一样的,没有谁比谁多吃,只是各餐的分配不同。<br>思路都是从其他餐节约碳水出来,优先供应给训后早饭训前。<br>唯一区别是吃了早饭就训练的人,和晚饭后才训练的人,我在他们的其他餐里放了一点碳水,否则他们每天会有一个很长的午碳水时间,有些人会觉得受不了。<br>最后是休息日怎么吃。休息日没有力量训练,没有增计窗口期,所以不要故意去升高移道素。<br>做法就是,每餐都是碳蛋纸的混合,各餐大概分碳就行。<br>总量上碳水可以减少一些,但白吃个纸房基本不变,多少一点也没事。<br>休息日碳水总量的减少是自然发生的,因为在休息日你不会吃迅前那20%的碳水,<br>迅后那50%的大碳水会改成常规量碳水,这样扣减以后,休息日的碳水总量自然就变少了。<br>因为碳水的总量减少了一些,再加上各餐的碳蛋纸是大概分碳的,这样全间的移道素就会比较稳定,从而减少移道素增值的负面作用。<br>当然,前面我们已经说了,只要一进食就会引起移道素分泌,我们能做的只是让它相对稳定不要太高而已。<br>好了,上面我们把碳蛋纸的总量和分配都说完了,你自己去找食物,配餐组合出这些碳蛋纸就行了。<br>但有的人肯定会说,不知道哪些食物里有碳蛋纸,所以我们再影视的最后一部分,讲一下食物来源。<br>首先讲碳水食物,碳水食物有两个属性,一是它的碳水率,就是100克这种食物里有多少个碳水,这个好理解。<br>另一个属性是它分解为葡萄糖的速度,也就是大家常说的高中低Gi碳水,或者快碳慢碳。<br>所有的碳水食物都必于分解为葡萄糖后才能进入血液工人体利用,<br>如果一种碳水吃下去后血糖上升得很快,就说明它分解为葡萄糖的速度很快。<br>Gi就是用来描述碳水分解为葡萄糖速度的一种指数。<br>怎么测食物的Gi呢?<br>我们再次引用这张图。<br>这条最高的线是受试者吃了含有50克碳水的葡萄糖后的血糖曲线。<br>比如葡萄糖水的浓度如果是软面20,那么他们就要吃250克葡萄糖水。<br>另外几条线是其他类型的碳水,也是让受试者吃含有50克碳水的食物来看血糖曲线。<br>比如金米饭的碳水率是25%,所以就要吃200克金米饭。<br>接着以0分钟到120分钟为界限,把葡萄糖曲线下方面积视为100。<br>其他食物的曲线下方面积是多少,它的Gi就是多少。<br>比如金米饭的血糖曲线很猛,它的曲线下方面积并不比葡萄糖小多少,可能算出来是80。<br>那么金米饭的Gi就是80,又比如五股饭的曲线比较平缓。<br>它的曲线下方面积会比葡萄糖小的多,可能算出来是40,那么五股饭的Gi就是40。<br>这就是Gi的测量办法,测的是涉入50克碳水后在120分钟内的血糖曲线下方面积。<br>在这张表里,我给大家列出了常见的高中低Gi碳水食物。<br>在应用上,训练过餐一般吃高Gi碳水去促进移导宿升高,其他时候则比较随意。<br>碳水的Gi值得我们关注,但也不是说极端重要,因为Gi是影响移导宿的众多因素里的其中之一而已。<br>碳水量、蛋白质量、纤维素量,乃至静时的顺序都能影响移导宿。<br>我们需要综合考虑,而不是只论快慢碳。尤其是碳水量的影响是很大的,你一餐的碳水量够大的话,移导宿就不会低。<br>所以我们说碳水的Gi值得关注,但又不要觉得就是它除载了移导宿。<br>接下来讲脂肪,脂肪的食物来源和碳水一样便宜都是,简直期的脂肪一定要吃够保底量。<br>脂肪是许多性激素的前提,也是脂溶性维生素,比如维生素AD1K,它们的吸收载体。<br>脂肪一旦吃少了,可能导致心肌素缺乏,如男性的搞冻下降,女性的生理期稳乱,以及导致使绍性维生素缺乏引起的各种刺身症状。<br>要知道我们设计的饮食配额已经有热量缺口了,那种近乎领指的饮食会把热量缺口搞得太大,也无法发挥脂肪的生理功能,只是一种自我摧残,对减脂是有害无益的。<br>那么,脂肪怎么吃才能比较合适呢?我的建议是炒菜的植物油,鸡蛋,牛奶,正常吃,尤其是炒菜千万不要放弃。<br>炒菜里的植物油并不多,不管是清炒还是重油,一家菜一片肉,它能附着的油量是有限的。<br>只要你不是去喝油汤或者舔盘子,你是吃不尽多少油的。<br>你要是真的害怕油,你就刮一下,甚至过一下水就行了。像左边这种清炒的菜,一人份你记为五克脂肪就够了。<br>像右边这种比较重油的菜,一人份你记为10-15克脂肪也够了。反正我自己是从来都吃食堂的炒菜,<br>包括水煮肉片、凉拌鸡,这些看起来牛稍微重一点的菜,我都是正常吃的。<br>在一般炒菜之外,有两类食物会隐藏很多脂肪,你要特别谨慎。一种是往内部吸油的菜,比如炒鸡蛋、炒茄子、炸蘑菇等。<br>前面说了,菜品表面能附着的油量是很有限的,但它如果能往内部吸油的话,就可以变得很猛了。<br>像炒鸡蛋我看过几个测评视频,如果是饭馆、食堂那种宽油炒蛋,一个鸡蛋能吸油20-30克。<br>要知道一个鸡蛋本身是5克蛋白质加6克脂肪,你吃一个炒鸡蛋只获得了5克蛋白质,却同时送给你30克脂肪,直接把你全天的脂肪配额占掉一大半。<br>所以说,这些往内部吸油的菜大家叫谨慎,不是说不能吃,但它非常占脂肪配额,你要吃的话就要正确进入配额。<br>除了这些往内部吸油的菜,另一类需要特别谨慎的是固体脂肪。固体脂肪的问题是,你看不出它有脂肪,<br>所以你觉得自己没有吃脂肪。<br>左边这样常用的白瓷勺一勺油是6克,让你喝下去你肯定觉得很离谱。<br>如果让你吃右边这样一个星巴克的常规高点,我们不会觉得多严重,但实际上有30多克脂肪,相当于喝了6勺油。<br>如果让你吃肯的鸡蛋两个蛋挞,你觉得并不离谱,实际上有30克脂肪,相当于喝了5勺油。<br>如果早饭吃两根油条,你觉得很正常,实际上也是30克脂肪,相当于喝了5勺油。<br>如果让你吃两把坚果,你觉得是特别健康的食物,实际上也是40多克脂肪,相当于喝了7勺油。<br>总之,我们会很紧替液体脂肪,但脂肪以固体形式存在时,你就会不知不觉地吃下去。<br>这些脂肪刺客不是说不能吃,而是说你要正确地寄入自己的脂肪配额。<br>你不能花啦啦的吃了一堆脂肪,又说自己没有吃。<br>现实中有很多人对炒菜里的那点植物油津津计较,但吃起固体脂肪的时候一点都不客气,这就颠倒主次了。<br>所以,我建议大家一般的炒菜鸡蛋牛奶也都正常吃,尤其是不要放弃炒菜。<br>拒绝吃炒菜的话,就会失去食物的舒适性和便捷性。<br>同时,对于往内部汐油的菜,以及肥肉、糖油混合物、坚果这些固体脂肪,要谨慎一些。<br>这些是可以吃,没问题,但它们会比较占你的脂肪配额,吃了就要正确地寄入配额。<br>脂肪方面最后再说下所谓的优质脂肪问题。<br>现在网上特别强调优质脂肪,说简直要吃坚果、花生酱这些富含不饱和脂肪酸的优质脂肪才行。<br>言下之意,植物油等其他的脂肪食物就是不优质脂肪了。<br>其实这是一个四十二非的说法。<br>首先,饱和、单不饱和、多不饱和这三种脂肪酸各有其真理功能都是人体所必须的,<br>本身就没有谁优质谁劣质之分。<br>包括中国营养协会在内,主要国家对三种脂肪酸设备的比例建议大概是1比1比1。<br>现在网上有些人把三种脂肪酸都要分出优劣来,这本身是很奇怪的。<br>其实我们再来看我们日常食物里的具体的脂肪酸比例。<br>常用的植物油的脂肪酸就是以不饱和脂肪为主的,这一点和坚果区别不大。<br>饱和脂肪烧高的是肥肉和乳质品,但也不是特别高,也就是五六成而已。<br>之一上我们就正常吃植物油、鸡蛋和乳质品,加上瘦肉里的微量的肥肉,<br>就正好能把三种脂肪酸组合出良好的比例。<br>坚果做一种脂肪来源当然是没问题的,但不至于说成是独一无二的优质脂肪。<br>我们先把自己因吃多少脂肪和吃了多少脂肪,能搞清楚就很厉害了。<br>没必要再去计算三种脂肪酸的比例这些太细碎又太不重要的事情。<br>好了,脂肪我就说完了,最后说蛋白质。<br>蛋白质的推荐设备量,新手也至少吃到每公斤1.5克。<br>接油量比较好的人可以吃到每公斤2克。<br>有人喜欢吃肉,蛋白质还可以吃到2-3克。<br>科研上已经反复证明了3克以内的蛋白质设入是不会损害胜功的。<br>但是2克以上的蛋白质对于维持肌肉就是多余的了。<br>它的性质是单纯的提供热量而已。<br>所以只要你在减脂期有热量缺口,体重在缓慢下降,那你的蛋白质多吃点也没事。<br>蛋白质的食物来源非常非常狭窄,纯粹的蛋白质来源只有两种。<br>一是猪牛羊、鸡鸭鱼虾等各种瘦肉,二是蛋白粉,除此之外就没有了。<br>鸡蛋和牛奶也是蛋白质来源,但它们会负责和蛋白质差不多量的脂肪。<br>如果你靠鸡蛋和牛奶作为主要的蛋白质来源,那你在吃够蛋白质的时候,脂肪早就涉入爆炸了。<br>除非你吃的是鸡蛋白、蛋清液、脱脂牛奶。<br>另外,豆类和豆腐等豆制品也有类似的情况。<br>他们在提供蛋白质同时会负责相当多的脂肪,所以不可能作为蛋白质的主要来源。<br>健身饮食里的最大难点就是找蛋白质吃。<br>在食堂大家要努力的找瘦肉吃,不需要吃水煮的瘦肉,炒菜或者凉拌的瘦肉都可以。<br>对于餐馆和外卖的话,我大概列出了这些东西,他们能提供好吃的瘦肉给你。<br>一顿饭的配餐就是要解决蛋白质,解决的蛋白质这一餐就配成了。<br>因为碳水和脂肪遍地都是,不可能没有。<br>还有一个小问题是很多人来问我,计算蛋白质时要不要去除植物蛋白?<br>如果你是用XL或者薄荷APP计算,主食和蔬菜里的植物蛋白会自动记录,你就不要专门提除了。<br>植物蛋白里的人体必须安计算的比例比较少,所以在生物价、安计算分等这些蛋白质评价方法里会显得弱势一些。<br>但因为植物蛋白占我们每天蛋白质设入量的比例是很低的,就算你麻烦的把这些植物蛋白打折,寄入蛋白质总量。<br>最后的结果无非就是少了几克、十克而已,这是无所谓的,所以不要去纠结要不要去除植物蛋白这个问题了。<br>好了,以上我们讲了碳蛋质总量、分配、食物来源,简直饮食就全部说完了。<br>下一个问题说简直期的运动。<br>运动有力量训练和油氧两类。力量训练这部分很简单,就是和增计器一样,计划、配种、组数都继续维持。<br>按照我们上面领事模式,因为热量缺口并不大,而且有汛前汛后的碳水支持,所以力量训练不会受什么影响。<br>运动方面我们重点讲讲油氧。<br>油氧应该视为制造热量缺口的一种方式。<br>我们需要的10%-20%的热量缺口,可以从饮食做,也可以从油氧做,也可以兼而有之。<br>在简直的前中期,比如在碳水2.5-3.5克的阶段,我们不会觉得有多饿,用饮食来提供热量缺口是很容易的。<br>花时间去做油氧,会不太划算。<br>但在简直后期,比如碳水只有2-2.5克的阶段,我们会感觉吃的很少。<br>继续用饮食制造热量缺口的难度会越来越大。<br>这个时候做一些油氧就会变得比较划算。<br>所以对于简直期的油氧,我建议你先看看能否用饮食就让体重开始缓掉。<br>如果你用饮食就能让体重开始缓掉,就说明你的热量缺口已经合适了,当然不需要费力去做油氧。<br>随着简直期的推进,如果你不想继续降低碳水的话,就可以增加油氧强度,每周可以做2-3次。<br>油氧的时间的话可以循序渐进,一般是40-60分钟。<br>有些同学不愿意做长油氧,而喜欢力量训练后做20分钟的短油氧,似乎也可以。<br>但由于油氧时间越长,脂肪的功能比例会越高,<br>所以单从理论上说,一个60分钟的长油氧会比3个20分钟的短油氧更有效,不过这是一种理论假设而已。<br>油氧的方式很多,跑步机、妥卫仪、游泳、爬楼、跳槽、打球、飞板等等的方式都可以,选什么方式不重要,比较重要的是心率。<br>油氧时的心率越高,单位时间消耗的热量更多,但能坚持的时间也越短,所以我们需要坚固心率和可持续信。<br>对于20-30岁的人来说,合理的油氧心率大概是每分钟120-150次。<br>这样的心率有相对较好的热量消耗功率,也能让人持续的坚持40-60分钟而不难受。<br>怎么测心率呢?用运动手玩手表、用跑步机上的握把,或者自己数20秒的脉搏,都能制造心率。<br>你在做油氧时自己调节强度,使得自己的心率进入这个区间就行了。比如跑步机的速度和坡度都能改变你的心率。<br>有人喜欢平坡跑步,有人喜欢斗坡慢走。<br>同样的,游泳、爬楼、跳槽、打球等其他游泳方式也一样。心率太高了,你就做得和缓一点,心率不够,你就做得紧凑一点。<br>游泳上一些不建议的做法,首先是不建议力量训练后接长游泳,这样会耽误你的迅口餐,进而损失了迅口的增计窗口期,浪费了自己的力量训练。<br>如果因为时间关系,你必须把游泳安排在力量训练之后的话,那可以做个20分钟的短游泳。<br>其实我觉得最方便的方式就是休息日去做个长游泳,这样完全不会影响力量训练。<br>另外也不建议做高频的长游泳。饮食和游泳都是制造热量缺口的工具,它俩加起来,让我们形成10-20%的热量缺口,也就是300-500%大卡的热量缺口,就行了。<br>很多人是误以为吃的越少越减脂,游泳越多越减脂,无原则的去执行,少吃多冻,很容易让你形成特别巨大热量缺口,这是不可能真正减脂的。<br>稍后我们再来详细讲讲。<br>最后提一嘴空腹游养的问题,这是网上真论最多的话题之一了。<br>它的理论假设是我们在起床后的血糖和鸡糖原水平比较低,这时候去做游养会有更高比例的脂肪功能。<br>空腹游养在健身运动员那边比较流行,但许多科研论文又觉得它是一个伪命题。<br>所以我觉得是否空腹游养就随便你了,这些都是不关键的细致末节。<br>如果你要做空腹游养的话,可以先吃点蛋白质或者支链按计算店一下,具称有异志肌肉分解的作用。<br>空腹游养后也不要继续空腹饿肚子,直接该吃饭就吃饭去。<br>以上我们就把简直的知识框架全部讲完了。<br>下面我们来讲一个同学的简直案例,看看一个新手是如何开始简直的,同时也融入讲解一些简直期的常见错误。<br>这是我们学校的一个同学,男生身高175,其中大半年来一直是80公斤,健身新手。<br>他在简直前代日常饮食是这样的,早饭、油条、包子、鸡蛋、午饭和晚饭是馒头煎饼和瘦肉炒菜,夜宵是炒面。<br>餐间饿了的零食会吃一些小雪糕小饼干。<br>我们来分析他的饮食。<br>分析饮食不是去看食物的健康和不健康而是看炭蛋质的总量和分配对不对。<br>现在看总量,我帮他计算了一下,碳水是4.0克,这个配合是一个增计器的配合,对于简直来说太高了。<br>简直应该下调到3-3.5克作为期时量。<br>蛋白质是1.2克,这显然是不够的,健身新手也至少要保底1.5克蛋白质。<br>纸房是1.3克,简直期应该下调到0.8克左右。<br>再来看分配,他各餐的碳水分配是随意的,晚上力量训练后他觉得不饿所以不吃东西,也就是没有迅口餐,丧失了增计的机会,这是一个很大的错误。<br>他的其他餐有在大吃碳水,主要起到了增值的作用。<br>这位同学决定要减肥后,他根据自己理解的简直餐把火石换成了这样。<br>简单的说就是,他用他认为的健康食品替代了不健康食品。<br>馒头煎饼换成了玉米红薯水果,瘦肉炒菜换成了纯粹的西荤肉,全脂牛奶换成了低脂牛奶。<br>饼干这些垃圾食品则完全不吃了。<br>OK,这样的饮食在网上极其常见,我们一搜索健康餐、减脂餐,冒出来的都是这些东西,也影响了很多人。<br>那么这样的健康饮食能减脂吗?我们还是来看碳蛋质的总量和分配。<br>算出来的结果是,他的碳水吃了2.1克,实际上普通人减脂在最末期才会到这么低的配额。<br>蛋白质吃了1.1克,还是老毛病蛋白质不够。<br>不要看他的食谱里吃了几两鸡胸肉,有鸡蛋牛奶什么的蛋白质就够了,够不够,要拉出来算账才知道。<br>脂肪的问题更大,他这种健康饮食不是炒菜,也戒断了糖油混合物,所以脂肪低到了只有0.2克,离脂肪的保底量还差得远。<br>最后来看总热量,和之前相比,总热量从2600多大卡,降为1100多大卡。光是饮食就制造了57%的热量缺口。<br>除此之外,因为他为了减脂还去每周做45次优雅,这样热量缺口可能进一步扩大到70%以上。<br>远远超过我们需要的20%热量缺口。<br>这样的结果就是,第一他会非常非常劳累,因为火事很少又难吃,还要叠加高频优雅。<br>第二他也不能真正的减脂,只有在前面一段时间会比较快的掉一些体重。<br>初期所丢到的体重既来自于脂肪和肌肉的分解,也来自于我们前面说过的,低碳低盐会导致人体的脱水。<br>接着,因为热量缺口极为巨大,会触发他的身体的自我保护,基础代谢会明显下降,使得热量差逐渐消失了。<br>由此形成一个现象,就是他明明吃的很少,明明动的很多,但是体重腰围就是不掉。<br>而且接下来他还可能认为,我一定是吃的还不够少,我一定是动的还不够多,所以才没有瘦下来。<br>所以他还会去进一步的少吃多动,这样再进一步的摧毁他的技术代谢,进入到了永远不可能减脂的恶心循环。<br>下面我们来给他调整出一个正确的减脂饮食,调整饮食就是调整碳难值的总量和分配。<br>先来看他的早饭,早饭的碳水特别高,蛋白质不够,脂肪略高但还凑合,所以我们给他去掉占据了大量碳水和脂肪配合的油条,增加了鸡蛋牛奶,就得到这样的结果。<br>然后是午饭,因为他是晚上健身,所以午饭是他的其他餐,要节约碳水,主要靠蛋白质脂肪和蔬菜来吃饱,所以煮食只吃一两米饭,瘦肉炒菜还是不便,另外再给他加一两酱牛肉和一份蔬菜来让他吃饱。<br>然后是晚饭,晚饭是他的迅前餐,垫垫肚子就要去健身了,简单点的话可以吃粗粮面包、香蕉、葡萄干、浙糖饮料的,如果确实很饿也可以去食堂吃点碳水,外加一点瘦肉。<br>这里举例的是让他吃一根玉米和一两酱牛肉垫垫肚子,吃完就去炼。<br>最后是炼完的迅口餐,由于其他餐节约了碳水出来,现在碳水的剩余配额还有很多,他的80公斤体重可以吃食堂3-4两米饭加瘦肉。<br>如果觉得吃不下或者要图方便的话也可以用便携快碳加蛋白粉来解决。<br>另外他的用餐时间也要尽量提前到炼完半小时以内就开始吃上,而不是像以前那样,炼完一两个小时之后觉得饿了才开始吃。<br>那个就不叫迅口餐了。<br>为了让他的饮食更舒服,我们还留了一些配额让他吃垃圾食品,比如我们给他加一只雪糕,这样太难指的总量配额就差不多了。<br>调整前后的饮食相比,碳水从4克降为2.9克,蛋白质从1.2克增加到1.8克,脂肪从1.3克降低到0.9克。<br>总热量下调了500大卡左右,热量缺口大约19%,这就是减脂饮食。<br>一是有10%-20%大约3500大卡的热量缺口,二是因吃热量因以特定的碳蛋脂比例来提供,30碳水的时机要适配他的力量训练。<br>如果可能还有人问,前面说的健身男性的减脂期的碳水70配额推荐是3-3.5克,为什么他在这里只吃了2.9克还差那么一点呢?<br>比如强调的是,这个视频你所说的所有的配额比例的数字都是一个大概方向,不是让你去按克数吃饭。<br>就比如说现阶段你的碳水配额是3克,那么你今天吃的不管是3克还是2.7克还是3.3克都可以,只要整体上比较稳定就可以了。<br>但是在我们开始一个全新的饮食模式时,一定还是要先做一点计算和规划,不要去按感觉吃饭。<br>没有足够经验的人按感觉吃饭是很不准的,就像我们刚才的举例。<br>这位同学按感觉计划的减脂餐完全就是错误的配额。<br>最后一部分内容我们来归纳一下大家在减脂时的常见错误,希望你没有走过这些弯路。<br>第一个常见问题是食物决定论。<br>很多人受网络宣传的影响认为吃干净健康的食物就能减脂,比如燕麦、红薯、糙米饭、鸡胸酸奶、西南花、零糖领子、零添加之类的。<br>其实不管是红薯燕麦也好,还是米饭饭饭也罢,这些食物都没有问题,但它们都只是碳蛋纸的来源而已。<br>健身饮食的实质是管理碳蛋纸的总量和分配,而不是吃什么食物就能怎样怎样。<br>只要碳蛋纸的总量和分配错了,健康食品也可以组合出很垃圾的饮食,就像我们前面刚才举例的那位同学。<br>脱离食物决定论,转而去关注碳蛋纸的总量和分配,这是我们健身入门的一个重要标志。<br>如果说换食物就能出腹肌就能报血管,那我还做这么长的视频干嘛呢?我直接开场让大家去吃桥麦面,吃鸡胸肉不就行了吗?<br>第二个常见问题是把减脂的叶臣无原则的少吃多动。很多人对热量缺口的限度没有概念,他觉得靠自己的意志力,越少吃,越多动就越减脂。<br>实际上你只需要在体重不变的热量平衡点的基础上,减少10-20%的热量就够了。对于一般体重人来说就是三五百大卡。<br>我们身边有很多人就像我们前面举例过的那个同学,一决定减脂就要去另起如造的搞一套所谓的干净饮食,同时叠加高频率的长有氧。<br>在不知不觉中就把自己的热量缺口做得非常大,在错误的道路上越走越远,还觉得自己在自律。<br>少吃多动这四个字本身没有问题,但它是正确的废话,是一团不明不白的酱糊化。就比如少吃这两个字。<br>少吃多少热量,热量由何种比例的碳蛋纸提供,以及碳水的实际。这些都是有讲究的,并不是说拿着少吃两个字就能搞定减脂的。<br>第三个常见问题是不吃或者少吃熏后餐。减脂期底不是每一分钟都要强迫身体是分解带解。<br>减脂期我们保持力量训练的强度无变,并且在熏后餐吃那么多碳水和蛋白质来提高胰道素,就是为了让身体进入增肌增脂的合成带解阶段。<br>我们必须用这个窗口继续做一点增肌的努力来尽可能抵消其他时段的肌肉分解。<br>有些人练完之后吃的很少奶汁不吃,这就是完全放弃了增肌。<br>当然,熏后餐之所引人如此的充足,原因是我们在其他餐节约了很多碳水出来。<br>我们不是让你加碳水,我们只是调整了碳水的日类分配来节约出了熏后餐。<br>第四个常见问题是不注意饮食的舒适性和可持续。<br>如果你想长期保持比较低的体脂率,火食就必须弄得好吃。<br>怎样让火食好吃一些呢?我这里有三个建议。<br>第一是一般的炒菜你正常吃,不需要去吃水煮。<br>你要小心的主要是西油的菜和固体脂肪就行了。<br>吃炒菜是不会危害你的脂肪配额的。<br>如果你拒绝吃炒菜,那么食堂和外卖几乎就没法吃了,这就太折腾了。<br>第二个建议是,你要把有限的脂肪配额花在你喜欢的食物上。<br>比如一包牛奶加两个鸡蛋差不多是20克脂肪,而一根懵鲁雪糕是15克脂肪。<br>你要喜欢鸡蛋牛奶,你就吃鸡蛋牛奶。你要喜欢雪糕,你就吃雪糕。<br>我们每天的脂肪配额有大几十克,是绝对能支持你吃一些所谓的垃圾食品的。<br>你只需要做好配额管理就行了。<br>第三个建议是,要利用好熏厚餐吃精致碳水和甜口食品的机会。<br>熏厚餐是全年碳水最多的一顿,而且一般吃的是快碳。<br>各种甜口的碳水糕点,比如米糕、发糕、青团、瓷巴、豆沙包、粘豆包、云片糕等等,都可以当作你的熏厚餐,完全没有问题。<br>研制的第五个常见问题是,心态太极,预期太高。我们今天在网上看到很多博主两三个月研制就有很好的效果,或者说只减了几公斤体重就开始暴雪管了。<br>实际上他们能这么快出效果,是因为他们定期就会做研制。<br>基础体制率只有10%-15%,所以只需要两三个月,丢几公斤体重就能出效果了。<br>普通人的基础体制率要高了多,你要达到别人那种效果,就需要用更长时间去丢更多体重才行。<br>如果你想一步到位,就需要把减脂期拉长成五六个月去掉更多体重。<br>如果你只想减脂两三个月,那你就可以分为两三次来逐步减干。<br>总之,你如果基础体制率比较高的话,就不可能两三个月丢几公斤体重就开始击又拉丝。<br>不要对自己有过高的预期。<br>好了,我用这个视频就把减脂讲完了。最重要的内容我放在这里你可以截图。<br>这是减脂的饮食配额和碳水地检方法。<br>这是各餐情况的介绍。<br>早饭、迅前、迅后、其他餐、休息日。<br>这是不同训练时间适配的各餐顺序,早上训练和上午训练的。<br>最后是有氧的建议做法。<br>有氧只是一种热量缺口的提供方式。<br>饮食比有氧更关键也更重要,一定要先学会吃饭,再去考虑有氧。<br>感谢大家看完这个超长视频。<br>我做这个视频的初衷是想让大家学会科学的舒适的生活化的完成减脂。<br>我在开头就说了,减脂首先是一个方法问题,和坚持或者毅力没什么关系。<br>看再多的粒子鸡汤都没用。<br>学会方法才有用。<br>最后要感谢本期节目的金主爸爸曼迪米洛地尔丁生发喷雾。<br>保住头发人人有责,不要肌肉大朗,头也涂了。<br>每天用曼迪喷雾简单喷一喷,维持好自己的发机线,顺手抹抹眉毛,还有浓眉效果,<br>让丑的变帅,帅的更帅。<br>我的账号是在主页里发框架型视频,在动态里发碎片画真实,<br>路过的朋友可以随手点个关注。有提问可以发在评论区,我尽量的回复。<br>下期节目我们再见!</p>
-]]></content>
-      <tags>
-        <tag>健身</tag>
       </tags>
   </entry>
   <entry>
@@ -10706,26 +10706,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>SC-NAFSSR</title>
-    <url>/2023/20230802/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的qzd等同学。<a href="https://openaccess.thecvf.com/content/CVPR2023W/NTIRE/html/Qiu_SC-NAFSSR_Perceptual-Oriented_Stereo_Image_Super-Resolution_Using_Stereo_Consistency_Guided_NAFSSR_CVPRW_2023_paper.html">论文地址</a></p>
-<p>指导老师为金枝老师，发表于CVPR的wordshop论文。为CVPR的NTIRE 2023双目图像超分辨率挑战赛的第二名解决方案。</p>
-<hr>
-<span id="more"></span>
-
-<p>模型架构：</p>
-<p><img src="model.png"></p>
-<p>结果：</p>
-<p><img src="result.png"></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-        <tag>peer</tag>
-        <tag>计算机视觉</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LLaMA2</title>
     <url>/2023/20230719/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
@@ -10804,6 +10784,26 @@ scale).">
         <tag>深度学习</tag>
         <tag>人工智能</tag>
         <tag>自然语言处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SC-NAFSSR</title>
+    <url>/2023/20230802/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的qzd等同学。<a href="https://openaccess.thecvf.com/content/CVPR2023W/NTIRE/html/Qiu_SC-NAFSSR_Perceptual-Oriented_Stereo_Image_Super-Resolution_Using_Stereo_Consistency_Guided_NAFSSR_CVPRW_2023_paper.html">论文地址</a></p>
+<p>指导老师为金枝老师，发表于CVPR的wordshop论文。为CVPR的NTIRE 2023双目图像超分辨率挑战赛的第二名解决方案。</p>
+<hr>
+<span id="more"></span>
+
+<p>模型架构：</p>
+<p><img src="model.png"></p>
+<p>结果：</p>
+<p><img src="result.png"></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>peer</tag>
+        <tag>计算机视觉</tag>
       </tags>
   </entry>
   <entry>
@@ -10969,79 +10969,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>DLinear-Are Transformers Effective for Time Forecasting</title>
-    <url>/2024/20240214/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>这篇论文使用一个简单的线性层模型超过了众多Transformer系列复杂模型。不仅让人疑问：时序预测中Transformer的发展是否真的有效？</p>
-<p><a href="https://github.com/cure-lab/LTSF-Linear">源代码</a>。出自AAAI 2023</p>
-<span id="more"></span>
-
-<h2 id="时间序列问题"><a href="#时间序列问题" class="headerlink" title="时间序列问题"></a>时间序列问题</h2><p>对于历史数据L的序列，我们可以往后预测T个未来时间序列长度。</p>
-<p>当T&gt;1时，可以通过迭代单步预测来获得多步预测，也可以直接优化多步预测目标，前者称为iterated multi-step (IMS) forecasting，后者称为direct multi-step (DMS) forecasting。IMS会受到误差累积的影响。</p>
-<h2 id="Transformer的-有效性"><a href="#Transformer的-有效性" class="headerlink" title="Transformer的 有效性"></a>Transformer的 有效性</h2><p>Transformer的主要工作动力来自于它的多头自注意机制，它具有显著的提取长序列元素之间语义相关性的能力(例如，文本中的单词或图像中的二维补丁)。然而，自我注意在一定程度上具有排列不变性和“反序性”。虽然使用各种类型的位置编码技术可以保留一些有序信息，但在其上加上自注意后，仍然不可避免地存在时间信息丢失。对于语义丰富的应用程序，如自然语言中，这通常不是一个严重的问题。例如，即使我们重新排序其中的一些单词，句子的语义也会在很大程度上保留下来。然而，在分析时间序列数据时，通常数值数据本身缺乏语义，我们主要感兴趣的是对连续点之间的时间变化进行建模。也就是说，顺序本身起着最关键的作用。因此，我们提出了以下有趣的问题:变形金刚对长期时间序列预测真的有效吗?</p>
-<h2 id="基于Transformer的长时间序列预测方法"><a href="#基于Transformer的长时间序列预测方法" class="headerlink" title="基于Transformer的长时间序列预测方法"></a>基于Transformer的长时间序列预测方法</h2><p><img src="transformer.png"></p>
-<h2 id="DLinear模型"><a href="#DLinear模型" class="headerlink" title="DLinear模型"></a>DLinear模型</h2><p>DLinear模型首先将历史时间序列数据分解为趋势(Trend)数据$X_t\in \mathbb{R}^{L\times C}$ 和剩余(Remainder)数据$X_s=X-X_t$两部分，然后对分解得到的两个序列分别应用单层线性网络：</p>
-<p>$$<br>H_s=W_sX_s\in\mathbb{R}^{T\times C},W_s\in \mathbb{R}^{T\times L}\<br>H_t=W_tX_t\in\mathbb{R}^{T\times C},W_t\in \mathbb{R}^{T\times L}<br>$$</p>
-<p>最终的输出为，两个单层线性网络的输出结果相加：$\hat{X}=H_s+H_t$</p>
-<p>另外，如果数据集的变量具有不同的特征，即不同的季节性和趋势，那么在不同变量之间共享权重可能表现不好。所以，文章设计了两种DLinear：</p>
-<p>DLinear-S：每个变量共享相同的线性层；<br>DLinear-I：每个变量拥有独立的线性层。</p>
-<h2 id="模型代码"><a href="#模型代码" class="headerlink" title="模型代码"></a>模型代码</h2><p>占位</p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="数据集设置"><a href="#数据集设置" class="headerlink" title="数据集设置"></a>数据集设置</h3><p>使用的数据集涉及交通、电力、天气、汇率等多个领域，均为多元时间序列。</p>
-<p><img src="dataset.png"></p>
-<p>Mean Squared Error (MSE) 和 Mean Absolute Error (MAE)</p>
-<h3 id="对比模型"><a href="#对比模型" class="headerlink" title="对比模型"></a><strong>对比模型</strong></h3><p>六种Transformer-based方法： </p>
-<p>（1）FEDformer（阿里达摩院出品，ICML 2022）</p>
-<p><img src="FEDformer1.png"></p>
-<p><img src="FEDformer2.png"></p>
-<p>（2）Autoformer（NIPS 2021）</p>
-<p><img src="Autoformer1.png"></p>
-<p><img src="Autoformer2.png"></p>
-<p>（3）Informer（AAAI 2021 Best Paper）</p>
-<p><img src="Informer1.png"></p>
-<p><img src="Informer2.png"></p>
-<p>（4）Pyraformer（ICLR 2022）</p>
-<p>（5）LogTrans（NIPS 2019）</p>
-<p>（6）Reformer（ ICLR 2020）</p>
-<p>朴素的DMS方法：Closest Repeat (Repeat-C)。即 repeats the last value in the look-back window</p>
-<p><img src="Efficiency.png"></p>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="result.png"><br>最好的结果用粗体突出显示，transformer的最好结果用下划线突出显示。因此，与基于transformers的模型的结果相比，线性模型的结果是最好的。</p>
-<p>现有的基于Transformer的TSF方法对于时间关系提取并不是很有效，DLinear是长期预测任务的强大基线。 FEDformer实现了相对较高的预测精度，可能是因为FEDformer不太依赖Transformer中的自注意力机制，相反，它采用了经典的时间序列分析技术，如傅里叶变换，这在时间特征提取中起着重要作用。</p>
-<h2 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h2><p><strong>问题一</strong>：现有的ltsf-transformer能否很好地从较长的输入序列中提取时间关系?</p>
-<p>一般来说，一个强大的TSF模型，具有较强的时间关系提取能力，应该能够在更大的look back窗口尺寸下获得更好的结果。</p>
-<p>现有的基于transformer的模型的性能随着回看窗口大小的增加而恶化或保持稳定。相比之下，所有LTSF-Linear的性能都随着回看窗口大小的增加而显著提高。因此，如果给定较长的序列，现有的解决方案倾向于过拟合时间噪声而不是提取时间信息，并且输入大小为96正好适用于大多数transformer。</p>
-<p><img src="bigwindow.png"></p>
-<p><strong>问题二</strong>：我们可以从长期预测中学到什么</p>
-<p>虽然回顾窗口中的时间动态对短期时间序列预测的准确性有显著影响，但我们假设长期预测仅取决于模型是否能够很好地捕捉趋势和周期性。也就是说，预测范围越远，回顾窗口本身的影响就越小。</p>
-<p>为了验证上述假设，在表中，我们比较了来自两个不同回顾窗口的数据对相同未来720时间步的预测精度:(i)原始输入L=96设置(称为Close)和(ii)原始96时间步之前的远输入L=96设置(称为far)。</p>
-<p><img src="whatlong.png"></p>
-<p>从实验结果来看，SOTAtransformer的性能略有下降，表明这些模型仅从相邻的时间序列序列中捕获相似的时间信息。由于捕获数据集的内在特征通常不需要大量的参数，例如。一个参数可以表示周期性。使用太多的参数甚至会导致过拟合，这部分解释了为什么LSTF-linear比基于transformer的方法表现得更好</p>
-<p><strong>问题三</strong>：self-attention 对LTSF是否一直有效?</p>
-<p>我们验证现有Transformer(例如，Informer)中的这些复杂设计是否必要。在表4中，我们逐步将Informer转换为Linear。首先，我们将每个自注意层替换为一个线性层，称为Att .- linear，因为自注意层可以被视为一个权值动态变化的全连接层。<br>此外，我们在Informer中抛弃了其他辅助设计(例如FFN)，留下嵌入层和线性层，称为Embed + linear。最后，我们将模型简化为一个线性层。令人惊讶的是，Informer的性能随着逐渐简化而增长，这表明至少对于现有的LTSF基准测试来说，自关注方案和其他复杂模块是不必要的。</p>
-<p><img src="p3.png"></p>
-<p><strong>问题四：</strong>现有的Ltsf-Trasformer能很好地保持时间顺序吗?</p>
-<p>总所周知自注意力是全局性的，不在乎顺序的。</p>
-<p>然而，在时间序列预测中，序列顺序往往起着至关重要的作用。我们认为，即使使用位置和时间嵌入，现有的基于transformer的方法仍然遭受时间信息丢失。</p>
-<p>在表中，我们在嵌入策略之前对原始输入进行洗牌。提出了两种洗牌策略:洗牌;随机洗牌整个输入序列和Half-Ex（将输入序列的前半部分与后半部分交换。）有趣的是，与Exchange Rate的原始设置(Ori.)相比，即使在随机打乱输入序列时，所有基于transformer的方法的性能也不会波动。相反，LTSF-Linear的性能会受到严重损害。这表明具有不同位置和时间嵌入的ltsf - transformer保留了相当有限的时间关系，并且容易对有噪声的金融数据进行过拟合，而LTSF-Linear可以自然地对顺序进行建模，并避免使用较少的参数进行过拟合。</p>
-<p><img src="ex.png"></p>
-<p><strong>问题五：</strong>不同的embedding策略效果如何?</p>
-<p><img src="embedding.png"></p>
-<p>在表中，没有位置嵌入(wo/Pos.)， Informer的预测误差大大增加。没有时间戳嵌入(wo/Temp.)会随着预测长度的增加而逐渐损害Informer的性能。由于Informer对每个令牌使用单个时间步长，因此有必要在令牌中引入时态信息。</p>
-<p>FEDformer和Autoformer不是在每个令牌中使用单个时间步长，而是输入一系列时间戳来嵌入时间信息。因此，它们可以在没有固定位置嵌入的情况下获得相当甚至更好的性能。然而，如果没有时间戳嵌入，由于全局时间信息的丢失，自耦器的性能会迅速下降。相反，由于FEDformer中提出的频率增强模块引入了时间感应偏置，因此移除任何位置/时间戳嵌入的影响较小。</p>
-<p><strong>问题六：</strong>训练数据大小是现有ltsftransformer的限制因素吗?</p>
-<p>完整数据集 (17,544*0.7 hours), 命名为Ori., </p>
-<p>短一些的数据集(8,760 hours, i.e., 1 year)</p>
-<p><img src="p6.png"></p>
-<p>我们可以看出数据集变小甚至还使一部分性能变好了。</p>
-<h2 id="相关评价"><a href="#相关评价" class="headerlink" title="相关评价"></a>相关评价</h2><p><strong>知乎用户brightnova</strong>：我在自己的数据集上亲测，这篇论文的DLinear方法效果远远不如informer算法效果。</p>
-<p><strong>知乎用户蛋壳儿</strong>回复以上：算法和数据 是息息相关的，他这个算法 在周期性强的数据集上有很好的效果，和Autoformer一样.<br>Informer关注突变的关键数据，仔细看看注意力机制就知道了。</p>
-<p><strong>知乎用户stupidboys</strong>：我们的论文发现了在时间序列上正确使用transformer的方式，效果超越DLinear和其他formers，欢迎指正：A Time Series is Worth 64 Words: Long-term Forecasting with Transformers</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-        <tag>时间序列</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Sora</title>
     <url>/2024/20240219/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>openai 发布的人工智能文生视频大模型 (但openai并未单纯将其视为视频模型，而是作为”世界模拟器”</p>
@@ -11151,6 +11078,79 @@ scale).">
         <tag>深度学习</tag>
         <tag>人工智能</tag>
         <tag>多模态</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DLinear-Are Transformers Effective for Time Forecasting</title>
+    <url>/2024/20240214/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>这篇论文使用一个简单的线性层模型超过了众多Transformer系列复杂模型。不仅让人疑问：时序预测中Transformer的发展是否真的有效？</p>
+<p><a href="https://github.com/cure-lab/LTSF-Linear">源代码</a>。出自AAAI 2023</p>
+<span id="more"></span>
+
+<h2 id="时间序列问题"><a href="#时间序列问题" class="headerlink" title="时间序列问题"></a>时间序列问题</h2><p>对于历史数据L的序列，我们可以往后预测T个未来时间序列长度。</p>
+<p>当T&gt;1时，可以通过迭代单步预测来获得多步预测，也可以直接优化多步预测目标，前者称为iterated multi-step (IMS) forecasting，后者称为direct multi-step (DMS) forecasting。IMS会受到误差累积的影响。</p>
+<h2 id="Transformer的-有效性"><a href="#Transformer的-有效性" class="headerlink" title="Transformer的 有效性"></a>Transformer的 有效性</h2><p>Transformer的主要工作动力来自于它的多头自注意机制，它具有显著的提取长序列元素之间语义相关性的能力(例如，文本中的单词或图像中的二维补丁)。然而，自我注意在一定程度上具有排列不变性和“反序性”。虽然使用各种类型的位置编码技术可以保留一些有序信息，但在其上加上自注意后，仍然不可避免地存在时间信息丢失。对于语义丰富的应用程序，如自然语言中，这通常不是一个严重的问题。例如，即使我们重新排序其中的一些单词，句子的语义也会在很大程度上保留下来。然而，在分析时间序列数据时，通常数值数据本身缺乏语义，我们主要感兴趣的是对连续点之间的时间变化进行建模。也就是说，顺序本身起着最关键的作用。因此，我们提出了以下有趣的问题:变形金刚对长期时间序列预测真的有效吗?</p>
+<h2 id="基于Transformer的长时间序列预测方法"><a href="#基于Transformer的长时间序列预测方法" class="headerlink" title="基于Transformer的长时间序列预测方法"></a>基于Transformer的长时间序列预测方法</h2><p><img src="transformer.png"></p>
+<h2 id="DLinear模型"><a href="#DLinear模型" class="headerlink" title="DLinear模型"></a>DLinear模型</h2><p>DLinear模型首先将历史时间序列数据分解为趋势(Trend)数据$X_t\in \mathbb{R}^{L\times C}$ 和剩余(Remainder)数据$X_s=X-X_t$两部分，然后对分解得到的两个序列分别应用单层线性网络：</p>
+<p>$$<br>H_s=W_sX_s\in\mathbb{R}^{T\times C},W_s\in \mathbb{R}^{T\times L}\<br>H_t=W_tX_t\in\mathbb{R}^{T\times C},W_t\in \mathbb{R}^{T\times L}<br>$$</p>
+<p>最终的输出为，两个单层线性网络的输出结果相加：$\hat{X}=H_s+H_t$</p>
+<p>另外，如果数据集的变量具有不同的特征，即不同的季节性和趋势，那么在不同变量之间共享权重可能表现不好。所以，文章设计了两种DLinear：</p>
+<p>DLinear-S：每个变量共享相同的线性层；<br>DLinear-I：每个变量拥有独立的线性层。</p>
+<h2 id="模型代码"><a href="#模型代码" class="headerlink" title="模型代码"></a>模型代码</h2><p>占位</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="数据集设置"><a href="#数据集设置" class="headerlink" title="数据集设置"></a>数据集设置</h3><p>使用的数据集涉及交通、电力、天气、汇率等多个领域，均为多元时间序列。</p>
+<p><img src="dataset.png"></p>
+<p>Mean Squared Error (MSE) 和 Mean Absolute Error (MAE)</p>
+<h3 id="对比模型"><a href="#对比模型" class="headerlink" title="对比模型"></a><strong>对比模型</strong></h3><p>六种Transformer-based方法： </p>
+<p>（1）FEDformer（阿里达摩院出品，ICML 2022）</p>
+<p><img src="FEDformer1.png"></p>
+<p><img src="FEDformer2.png"></p>
+<p>（2）Autoformer（NIPS 2021）</p>
+<p><img src="Autoformer1.png"></p>
+<p><img src="Autoformer2.png"></p>
+<p>（3）Informer（AAAI 2021 Best Paper）</p>
+<p><img src="Informer1.png"></p>
+<p><img src="Informer2.png"></p>
+<p>（4）Pyraformer（ICLR 2022）</p>
+<p>（5）LogTrans（NIPS 2019）</p>
+<p>（6）Reformer（ ICLR 2020）</p>
+<p>朴素的DMS方法：Closest Repeat (Repeat-C)。即 repeats the last value in the look-back window</p>
+<p><img src="Efficiency.png"></p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="result.png"><br>最好的结果用粗体突出显示，transformer的最好结果用下划线突出显示。因此，与基于transformers的模型的结果相比，线性模型的结果是最好的。</p>
+<p>现有的基于Transformer的TSF方法对于时间关系提取并不是很有效，DLinear是长期预测任务的强大基线。 FEDformer实现了相对较高的预测精度，可能是因为FEDformer不太依赖Transformer中的自注意力机制，相反，它采用了经典的时间序列分析技术，如傅里叶变换，这在时间特征提取中起着重要作用。</p>
+<h2 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h2><p><strong>问题一</strong>：现有的ltsf-transformer能否很好地从较长的输入序列中提取时间关系?</p>
+<p>一般来说，一个强大的TSF模型，具有较强的时间关系提取能力，应该能够在更大的look back窗口尺寸下获得更好的结果。</p>
+<p>现有的基于transformer的模型的性能随着回看窗口大小的增加而恶化或保持稳定。相比之下，所有LTSF-Linear的性能都随着回看窗口大小的增加而显著提高。因此，如果给定较长的序列，现有的解决方案倾向于过拟合时间噪声而不是提取时间信息，并且输入大小为96正好适用于大多数transformer。</p>
+<p><img src="bigwindow.png"></p>
+<p><strong>问题二</strong>：我们可以从长期预测中学到什么</p>
+<p>虽然回顾窗口中的时间动态对短期时间序列预测的准确性有显著影响，但我们假设长期预测仅取决于模型是否能够很好地捕捉趋势和周期性。也就是说，预测范围越远，回顾窗口本身的影响就越小。</p>
+<p>为了验证上述假设，在表中，我们比较了来自两个不同回顾窗口的数据对相同未来720时间步的预测精度:(i)原始输入L=96设置(称为Close)和(ii)原始96时间步之前的远输入L=96设置(称为far)。</p>
+<p><img src="whatlong.png"></p>
+<p>从实验结果来看，SOTAtransformer的性能略有下降，表明这些模型仅从相邻的时间序列序列中捕获相似的时间信息。由于捕获数据集的内在特征通常不需要大量的参数，例如。一个参数可以表示周期性。使用太多的参数甚至会导致过拟合，这部分解释了为什么LSTF-linear比基于transformer的方法表现得更好</p>
+<p><strong>问题三</strong>：self-attention 对LTSF是否一直有效?</p>
+<p>我们验证现有Transformer(例如，Informer)中的这些复杂设计是否必要。在表4中，我们逐步将Informer转换为Linear。首先，我们将每个自注意层替换为一个线性层，称为Att .- linear，因为自注意层可以被视为一个权值动态变化的全连接层。<br>此外，我们在Informer中抛弃了其他辅助设计(例如FFN)，留下嵌入层和线性层，称为Embed + linear。最后，我们将模型简化为一个线性层。令人惊讶的是，Informer的性能随着逐渐简化而增长，这表明至少对于现有的LTSF基准测试来说，自关注方案和其他复杂模块是不必要的。</p>
+<p><img src="p3.png"></p>
+<p><strong>问题四：</strong>现有的Ltsf-Trasformer能很好地保持时间顺序吗?</p>
+<p>总所周知自注意力是全局性的，不在乎顺序的。</p>
+<p>然而，在时间序列预测中，序列顺序往往起着至关重要的作用。我们认为，即使使用位置和时间嵌入，现有的基于transformer的方法仍然遭受时间信息丢失。</p>
+<p>在表中，我们在嵌入策略之前对原始输入进行洗牌。提出了两种洗牌策略:洗牌;随机洗牌整个输入序列和Half-Ex（将输入序列的前半部分与后半部分交换。）有趣的是，与Exchange Rate的原始设置(Ori.)相比，即使在随机打乱输入序列时，所有基于transformer的方法的性能也不会波动。相反，LTSF-Linear的性能会受到严重损害。这表明具有不同位置和时间嵌入的ltsf - transformer保留了相当有限的时间关系，并且容易对有噪声的金融数据进行过拟合，而LTSF-Linear可以自然地对顺序进行建模，并避免使用较少的参数进行过拟合。</p>
+<p><img src="ex.png"></p>
+<p><strong>问题五：</strong>不同的embedding策略效果如何?</p>
+<p><img src="embedding.png"></p>
+<p>在表中，没有位置嵌入(wo/Pos.)， Informer的预测误差大大增加。没有时间戳嵌入(wo/Temp.)会随着预测长度的增加而逐渐损害Informer的性能。由于Informer对每个令牌使用单个时间步长，因此有必要在令牌中引入时态信息。</p>
+<p>FEDformer和Autoformer不是在每个令牌中使用单个时间步长，而是输入一系列时间戳来嵌入时间信息。因此，它们可以在没有固定位置嵌入的情况下获得相当甚至更好的性能。然而，如果没有时间戳嵌入，由于全局时间信息的丢失，自耦器的性能会迅速下降。相反，由于FEDformer中提出的频率增强模块引入了时间感应偏置，因此移除任何位置/时间戳嵌入的影响较小。</p>
+<p><strong>问题六：</strong>训练数据大小是现有ltsftransformer的限制因素吗?</p>
+<p>完整数据集 (17,544*0.7 hours), 命名为Ori., </p>
+<p>短一些的数据集(8,760 hours, i.e., 1 year)</p>
+<p><img src="p6.png"></p>
+<p>我们可以看出数据集变小甚至还使一部分性能变好了。</p>
+<h2 id="相关评价"><a href="#相关评价" class="headerlink" title="相关评价"></a>相关评价</h2><p><strong>知乎用户brightnova</strong>：我在自己的数据集上亲测，这篇论文的DLinear方法效果远远不如informer算法效果。</p>
+<p><strong>知乎用户蛋壳儿</strong>回复以上：算法和数据 是息息相关的，他这个算法 在周期性强的数据集上有很好的效果，和Autoformer一样.<br>Informer关注突变的关键数据，仔细看看注意力机制就知道了。</p>
+<p><strong>知乎用户stupidboys</strong>：我们的论文发现了在时间序列上正确使用transformer的方式，效果超越DLinear和其他formers，欢迎指正：A Time Series is Worth 64 Words: Long-term Forecasting with Transformers</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>时间序列</tag>
       </tags>
   </entry>
   <entry>
@@ -11936,7 +11936,7 @@ scale).">
   <entry>
     <title>恋爱脑之死</title>
     <url>/2024/20240623/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-mctsOeAs" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-DVlvZntJ" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
 				<pre class="aplayer-lrc-content">[00:00.00]戀愛腦之死 - 陳健安
 [00:01.29]詞：Oscar
 [00:01.77]曲：陳健安/賴映彤
@@ -11989,7 +11989,7 @@ scale).">
 			</div>
 			<script>
 				var ap = new APlayer({
-					element: document.getElementById("aplayer-mctsOeAs"),
+					element: document.getElementById("aplayer-DVlvZntJ"),
 					narrow: false,
 					autoplay: false,
 					showlrc: 2,
