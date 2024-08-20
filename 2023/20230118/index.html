@@ -95,7 +95,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -219,6 +219,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -334,27 +346,27 @@
 <p>然后再用attention matrix对value做weight sum。</p>
 <p>痛点在于计算这个N×N的attention matrix计算量可能会非常惊人。</p>
 <p>所以有一系列方法加速这个计算过程。</p>
-<p><img src="sat-1.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="sat-1.jpg"></p>
 <h2 id="人为设定优化"><a href="#人为设定优化" class="headerlink" title="人为设定优化"></a>人为设定优化</h2><p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
 <h3 id="local-attention-truncated-attention"><a href="#local-attention-truncated-attention" class="headerlink" title="local attention/truncated attention"></a>local attention/truncated attention</h3><p>在self attention如果我们只看邻居，那我们就能把很远的地方的值设为0。</p>
 <p>缺点：只能看到小范围的数值，跟CNN很像。</p>
-<p><img src="local-attention.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="local-attention.jpg"></p>
 <h3 id="stride-attention"><a href="#stride-attention" class="headerlink" title="stride attention"></a>stride attention</h3><p>类似于local-attention，但是间隔更大。</p>
-<p><img src="stride-attention.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="stride-attention.jpg"></p>
 <h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><p>以上都是以某个位置为中心看左右的事情，如果我们关心整个sequence，那么我们可以用global attention。我们可以加入一个特殊token到原始的sequence里面。在这里，global attention会做两件事情：</p>
 <p>（1）每个特殊的token都加入每一个token，收集全局信息。<br>（2）每个特殊的token都被其他所有的token加入，以用来获取全局信息。</p>
-<p><img src="global-attention.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="global-attention.jpg"></p>
 <h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><p>上面提到了三种选择，我们选择哪一种呢？小孩子才做选择，我们都选择。</p>
-<p><img src="mix.jpg" srcset="/img/loading.gif" lazyload></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="data-driven方式"><a href="#data-driven方式" class="headerlink" title="data-driven方式"></a>data-driven方式</h2><h3 id="将较小值取0"><a href="#将较小值取0" class="headerlink" title="将较小值取0"></a>将较小值取0</h3><p><img src="zero.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="mix.jpg"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="data-driven方式"><a href="#data-driven方式" class="headerlink" title="data-driven方式"></a>data-driven方式</h2><h3 id="将较小值取0"><a href="#将较小值取0" class="headerlink" title="将较小值取0"></a>将较小值取0</h3><p><img src="zero.jpg"></p>
 <h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><p>Reformer和routing transformer用了类似的方法。</p>
 <p>第一步先把query和key聚类。</p>
 <p>聚类的计算可以用近似（approximate）但快速（fast）的方式，从而加快计算。Reformer和routing transformer就采用了不同的clustering方式来加速计算。</p>
 <p>聚类完后，我们只计算归为同一个类别的query和key之间的attention score，其他位置的attention score直接设置为0。</p>
-<p><img src="cluster.jpg" srcset="/img/loading.gif" lazyload></p>
-<p><img src="cluster2.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="cluster.jpg"></p>
+<p><img src="cluster2.jpg"></p>
 <h2 id="自动设定优化"><a href="#自动设定优化" class="headerlink" title="自动设定优化"></a>自动设定优化</h2><p>我们能不能学习attention matrix哪块需要，哪块不需要吗？或者说能不能学习attention weight呢？</p>
-<h3 id="Sinkhorn-Sorting-Network"><a href="#Sinkhorn-Sorting-Network" class="headerlink" title="Sinkhorn Sorting Network"></a>Sinkhorn Sorting Network</h3><p><img src="learnable.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Sinkhorn-Sorting-Network"><a href="#Sinkhorn-Sorting-Network" class="headerlink" title="Sinkhorn Sorting Network"></a>Sinkhorn Sorting Network</h3><p><img src="learnable.jpg"></p>
 <p>Sinkhorn Sorting Network做法是learn另外一个network来决定这个1-0矩阵。</p>
 <p>新的network会input一个sequence，sequence中每个位置的vector都输出一个跟sequence长度一致的vector。Sequence中每个位置都产生一个vector，拼起来就产生一个N×N的矩阵。然后将这个矩阵通过某种计算变成一个1-0矩阵，并且保证这个计算过程可以微分。</p>
 <p>产生1-0矩阵的计算和整个self-attention是jointly learned的。</p>
@@ -363,33 +375,33 @@
 <p>答：不一定的。所以Sinkhorn Sorting Network会将输入的向量划分为几个部分，各个部分共用一个经过NN产生的向量。</p>
 <h3 id="linformer"><a href="#linformer" class="headerlink" title="linformer"></a>linformer</h3><p>attention matrix有很多redundant columns ，研究者计算attention matrix的rank发现是低rank的（低秩的）。</p>
 <p>那我们能不能去掉重复，产生小的attention matrix，加快attention的速度呢？</p>
-<p><img src="linformer1.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="linformer1.jpg"></p>
 <h4 id="具体做法"><a href="#具体做法" class="headerlink" title="具体做法"></a>具体做法</h4><p>挑出K个有代表性的key（黄色vectors），然后计算出N×K的matrix，然后再挑出K给有代表性的value（蓝色vectors）。然后把K个key（黄色vectors）对第一个query算出来的attention weight（红色框）对这个K个value（蓝色vectors）做weighted sum得到self-attention的output（绿色vector）。</p>
 <p>疑问：但是，为什么我们选择有代表性的keys而不选有代表性的queries？</p>
 <p>答：因为如果query减少了，output sequence length也会变小。这种做法对于sequence中每个位置都需要output的情况是不适用的。</p>
-<h4 id="如何挑选代表性的keys"><a href="#如何挑选代表性的keys" class="headerlink" title="如何挑选代表性的keys"></a>如何挑选代表性的keys</h4><p><img src="reduce-key.jpg" srcset="/img/loading.gif" lazyload></p>
+<h4 id="如何挑选代表性的keys"><a href="#如何挑选代表性的keys" class="headerlink" title="如何挑选代表性的keys"></a>如何挑选代表性的keys</h4><p><img src="reduce-key.jpg"></p>
 <p>Compressed Attention是用CNN扫过整个句子，得到较短的output当作有代表性的keys。</p>
 <p>Linformer是直接乘上N×K矩阵，做线性变化。</p>
-<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><p><img src="acc_sat_cal_0.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><p><img src="acc_sat_cal_0.jpg"></p>
 <p>我们暂时忽略softmax后，输出O可以当成是三个矩阵相乘。</p>
-<h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg"></p>
 <p>将上面的运算过程变成下面的运算过程。</p>
 <p>上面的运算过程乘法次数为$（d+d’）N^2$</p>
 <p>下面的运算过程乘法次数为$2d’dN$</p>
 <p>我们再把softmax放回。</p>
-<p><img src="acc_sat_cal_3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="acc_sat_cal_3.jpg"></p>
 <p>上图为原先的。</p>
-<p> <img src="acc_sat_cal_4.jpg" srcset="/img/loading.gif" lazyload></p>
+<p> <img src="acc_sat_cal_4.jpg"></p>
 <p>上图为变换顺序后的。</p>
 <p>其中$exp(\mathbf{q}·\mathbf{k})\approx\phi(\mathbf{q})·\phi(\mathbf{k})$</p>
 <p>具体数学推导见李宏毅原视频。</p>
-<h4 id="phi-的确定"><a href="#phi-的确定" class="headerlink" title="$\phi$的确定"></a>$\phi$的确定</h4><p> <img src="phi.jpg" srcset="/img/loading.gif" lazyload></p>
+<h4 id="phi-的确定"><a href="#phi-的确定" class="headerlink" title="$\phi$的确定"></a>$\phi$的确定</h4><p> <img src="phi.jpg"></p>
 <h2 id="Synthesizer"><a href="#Synthesizer" class="headerlink" title="Synthesizer"></a>Synthesizer</h2><p>不用q和v，直接学attention matrix</p>
-<p><img src="synthesizer.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="synthesizer.jpg"></p>
 <p>把它当成网络里的参数</p>
-<h2 id="丢掉self-attention"><a href="#丢掉self-attention" class="headerlink" title="丢掉self-attention"></a>丢掉self-attention</h2><p><img src="att_free.jpg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="丢掉self-attention"><a href="#丢掉self-attention" class="headerlink" title="丢掉self-attention"></a>丢掉self-attention</h2><p><img src="att_free.jpg"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>LRA score表示方法越好，圈圈的大小代表需要用的memory大小</p>
-<p><img src="summary.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="summary.jpg"></p>
 
                 
               </div>
@@ -575,7 +587,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -621,10 +633,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

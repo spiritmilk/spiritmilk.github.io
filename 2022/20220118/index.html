@@ -80,7 +80,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -204,6 +204,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -316,7 +328,7 @@
 <p>更深的网络可能面临误差变高的问题，但并不是过拟合（过拟合是训练误差变低，但测试误差变高，而更深的网络面临的问题是训练误差也变低。）</p>
 <p>本文提出了一种框架（deep residual learning framework)来避免浅层神经网络到深度神经网络出现的这种情况。</p>
 <p>要学的东西叫做H（x），假设现在已经有了一个浅的神经网络，他的输出是x，然后要在这个浅的神经网络上面再新加一些层，让它变得更深。新加的那些层不要直接去学H（x），而是应该去学H（x）-x，x是原始的浅层神经网络已经学到的一些东西，新加的层不要重新去学习，而是去学习学到的东西和真实的东西之间的残差，最后整个神经网络的输出等价于浅层神经网络的输出x和新加的神经网络学习残差的输出之和，将优化目标从H（x）转变成为了$F(x)=H(x)-x $</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118222138438.jpg" srcset="/img/loading.gif" lazyload alt="360截图20220118222138438"></p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118222138438.jpg" alt="360截图20220118222138438"></p>
 <p>残差使用了Shortcut Connection等先人的技术。</p>
 <p><strong>应用：</strong></p>
 <p>残差连接如何处理输入和输出的形状是不同的情况：</p>
@@ -330,9 +342,9 @@
 <p>测试的时候，使用了10-crop testing（就是给定一张测试图片，会在里面随机的或者是按照一定规则的去采样10个图片出来，然后再每个子图上面做预测，最后将结果做平均）。这样的好处是因为训练的时候每次是随机把图片拿出来，测试的时候也大概进行模拟这个过程，另外做10次预测能够降低方差。</p>
 <p>在不同的分辨率上去做采样，工作量较大，一般不这么做。</p>
 <p><strong>实验：</strong></p>
-<p>神经网络架构。<img src="/images/360%E6%88%AA%E5%9B%BE20220118223707645.jpg" srcset="/img/loading.gif" lazyload alt="360截图20220118223707645"></p>
+<p>神经网络架构。<img src="/images/360%E6%88%AA%E5%9B%BE20220118223707645.jpg" alt="360截图20220118223707645"></p>
 <p>结果图：</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224259087.jpg" srcset="/img/loading.gif" lazyload alt="360截图20220118224259087"></p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224259087.jpg" alt="360截图20220118224259087"></p>
 <p>图中的误差急剧下降是因为学习率*0.1。</p>
 <p>输入输出形状不一样的时候怎样做残差连接：</p>
 <ul>
@@ -345,7 +357,7 @@
 </ul>
 <p>B和C虽然差不多，但是计算复杂度更高，B对计算量的增加比较少，作者采用了B</p>
 <p>bottleneck 设计：</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224930682.jpg" srcset="/img/loading.gif" lazyload alt="360截图20220118224930682"></p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224930682.jpg" alt="360截图20220118224930682"></p>
 <p><strong>为什么好：</strong></p>
 <p>与没加残差相比，梯度能保证够大，保证能训练。</p>
 <p>设浅层神经网络为$g(x)$，则深层神经网络可以看成f(g(x))</p>
@@ -541,7 +553,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -587,10 +599,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

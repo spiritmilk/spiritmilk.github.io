@@ -82,7 +82,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -206,6 +206,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -316,7 +328,7 @@
 <hr>
 <h3 id="原始版本"><a href="#原始版本" class="headerlink" title="原始版本"></a>原始版本</h3><p>《Chain-of-Thought Prompting Elicits Reasoning in Large Language Models》——思维链概念的开山之作</p>
 <p>这篇文章是现任谷歌大脑研究员的Jason Wei在22年1月放到arxiv上面的文章，在上文所说的大背景下提出了思维链这个概念。<span id="more"></span>简单来说，思维链是一种离散式提示学习，更具体地，大模型下的上下文学习（即不进行训练，将例子添加到当前样本输入的前面，让模型一次输入这些文本进行输出完成任务），相比于之前传统的上下文学习，即通过x1,y1,x2,y2,….x_test作为输入来让大模型补全输出y_test，思维链多了中间的一些闲言碎语絮絮叨叨，以下面这张图为例子：</p>
-<p><img src="https://pic3.zhimg.com/80/v2-e1b5adff46170f633e8ed635e7a57646_720w.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-e1b5adff46170f633e8ed635e7a57646_720w.webp" alt="img"></p>
 <p>思维链的絮絮叨叨即不直接预测y，而是将y的“思维过程”r（学术上有很多学者将这种过程统称为relationale）也要预测出来。当然最后我们不需要这些“思维过程”，这些只是用来提示获得更好的答案，只选择最后的答案即可。作者对不同的数据集的原本用于上下文学习的提示标注了这些思维链然后跑了实验，发现这么做能够显著的提升性能。</p>
 <p>COT一经提出就引发了社区对它的热烈讨论，类似 AI 是不是也需要鼓励来获得更好的表现之类的问题</p>
 <h3 id="具体讲解"><a href="#具体讲解" class="headerlink" title="具体讲解"></a>具体讲解</h3><h4 id="zero-shot"><a href="#zero-shot" class="headerlink" title="zero-shot"></a>zero-shot</h4><ul>
@@ -327,7 +339,7 @@
 <li><p>语言模型的输入是一道数学题连接一个字符串“The answer is”，然后让语言模型进行续写</p>
 </li>
 </ul>
-<p><img src="zeroshot.png" srcset="/img/loading.gif" lazyload alt="zeroshot"></p>
+<p><img src="zeroshot.png" alt="zeroshot"></p>
 <h4 id="CoT"><a href="#CoT" class="headerlink" title="CoT"></a>CoT</h4><ul>
 <li><p>比如输入问题并提示Let’s think step by step</p>
 </li>
@@ -336,7 +348,7 @@
 <li><p>这种情况下，语言模型会续写出中间推理步骤，并最终生成答案</p>
 </li>
 </ul>
-<p><img src="zeroshot.png" srcset="/img/loading.gif" lazyload alt="zeroshot"></p>
+<p><img src="zeroshot.png" alt="zeroshot"></p>
 <h4 id="Manual-CoT"><a href="#Manual-CoT" class="headerlink" title="Manual-CoT"></a>Manual-CoT</h4><p> 一种few shot方法，所以构造了一些模板Q&amp;A（模板A中也有Let’s think step by step），然后再给出问题并提示Let’s think step by step。</p>
 <ul>
 <li>文献：Chain of Thought Prompting Elicits Reasoning in Large Language Models（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903%EF%BC%89">https://arxiv.org/abs/2201.11903）</a></li>
@@ -345,7 +357,7 @@
 <li>这里少样本训练中的问题和答案的样例都需要人为构造并手动设计，因此为了和第四种自动 CoT 做区分，这里称为 Manual-CoT</li>
 <li>Manual-CoT 比 Zero-Shot-CoT 的性能要好，因为它采用的是 few shot ，在输入中提供了一些问题、中间推理步骤以及答案的样例给语言模型进行参考。但是，提供这些样例需要进行人工设计，这就需要一定的人工成本</li>
 </ul>
-<p><img src="zeroshot.png" srcset="/img/loading.gif" lazyload alt="zeroshot"></p>
+<p><img src="zeroshot.png" alt="zeroshot"></p>
 <h4 id="Auto-CoT"><a href="#Auto-CoT" class="headerlink" title="Auto-CoT"></a>Auto-CoT</h4><p>采样多个问题，每个问题提示Let’s think step by step，让模型给出答案。然后拼接所有生成的Q&amp;A并给出最终问题，并提示Let’s think step by step。</p>
 <ul>
 <li>文献：Automatic Chain of thought Prompting in Large Language Models（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03493">https://arxiv.org/abs/2210.03493</a> ）</li>
@@ -364,7 +376,7 @@
 <li><p>在 Auto-CoT 中，其实也是用到了很多个“Let’s think step by step”对每个采样的问题分别触发中间推理步骤和答案，这也是为什么叫它“Let’s think not just step by step but also one by one”，也就是AI需要多鼓励几次</p>
 </li>
 </ul>
-<p><img src="autocot.png" srcset="/img/loading.gif" lazyload alt="autocot"></p>
+<p><img src="autocot.png" alt="autocot"></p>
 
                 
               </div>
@@ -552,7 +564,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -598,10 +610,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

@@ -82,7 +82,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -202,6 +202,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
               </a>
             </li>
           
@@ -333,16 +345,16 @@
 <p>[25]</p>
 <p> ），可以修复这种性能损失，同时保留可解释性增益。这极大地提高了 ML 性能，因此对于我们的大多数实验，我们实际应用的函数是 2 但请注意，我们尝试解释的激活是在额外层规范之前，而不是之后：<br>$$<br>f(x)=LN(SoLU(x))=LN(x*softmax(x))<br>$$</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><strong>“请注意，以任意性能代价来构建提高可解释性的架构既微不足道又无趣。”</strong></p>
-<p><img src="train_curve.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="train_curve.png"></p>
 <p> 如图所示，SoLU 大致相当于所有模型大小的基线，始终落在模型大小的 1.05 倍和 0.95 倍乘数之间（与大多数情况下相比，大致相当于 ±0.01 纳特的损失变化）总共损失 1.6-3 纳特）。  尽管所有差异都很小并且更有可能是随机噪声（在 50B 模型上，SoLU 相当于将模型大小增加 1.01 倍），但在大模型尺寸下，SoLU 的性能可能会比基线稍好一些。 ）。</p>
-<p><img src="downstream.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="downstream.png"></p>
 <p>上图为下游任务的性能。由于SoLU 使用基线的一系列超参数，并且 SoLU 的最佳超参数可能与基线模型的最佳超参数不同。但表明 SoLU 至少与基线一样好。</p>
 <p>总的来说，我们得出的结论是，与标准 Transformer 相比，带有 LayerNorm 的 SoLU 似乎实现了有竞争力的 ML 和训练性能。</p>
 <h2 id="可解释性"><a href="#可解释性" class="headerlink" title="可解释性"></a>可解释性</h2><h3 id="定量结果"><a href="#定量结果" class="headerlink" title="定量结果"></a>定量结果</h3><p>我们关于哪些部分的神经元可以初步解释的实验结果如下图 4所示。对于从 1 层到 40 层的模型，SoLU 模型的神经元比基线的神经元更具可解释性，增加了大约 25 个绝对百分点，从约 35% 可解释到约 60% 可解释。  这将可解释神经元的比例增加了 1.7 倍。  尽管效果大小适中，但样本量、一致的间隙和一致的可解释神经元绝对率表明 SoLU 模型具有真实且持久的效果。</p>
-<p><img src="fraction.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="fraction.png"></p>
 <p> 蓝线显示了标记为初步表明基线变换器中模型大小范围从 1 到 64 层的解释的神经元分数。  红线显示了标记为初步暗示 SoLU 转换器中的解释的神经元部分。  绿点显示了标记为初步表明 16 层模型中带有额外层范数但不带有 SoLU 的解释的神经元的分数。  总体而言，在 1 层到 40 层的模型中，SoLU 将可解释神经元的比例增加了约 25%，而在 64 层模型中，增益要小得多。</p>
 <p>我们不知道为什么 64L 模型从 SoLU 中受益较少，但一种可能的理论是，随着模型变得更大，它们的神经元代表更复杂的概念并且变得更难以理解。这表明神经元仍然是可解释的，但不再“容易解释”。</p>
-<h3 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h3><h4 id="一层模型神经元"><a href="#一层模型神经元" class="headerlink" title="一层模型神经元"></a>一层模型神经元</h4><p><img src="1layer.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h3><h4 id="一层模型神经元"><a href="#一层模型神经元" class="headerlink" title="一层模型神经元"></a>一层模型神经元</h4><p><img src="1layer.png"></p>
 <p>1 层 SoLU 模型中的神经元似乎对 Base64 编码的文本进行触发（左）。神经元对 logits 的扩展权重（右）增加了混合情况下很少出现在单词中的一堆标记的概率，同时降低了代表英语单词的多个标记的概率，这一事实证实了这一点。可以将其理解为一个可解释的规则，即在 Base64 文本上，下一个标记更有可能也是 Base64。</p>
 <h4 id="较大模型中的前面的神经元（”DE-TOKENIZATION”）"><a href="#较大模型中的前面的神经元（”DE-TOKENIZATION”）" class="headerlink" title="较大模型中的前面的神经元（”DE-TOKENIZATION”）"></a>较大模型中的前面的神经元（”DE-TOKENIZATION”）</h4><p>接下来我们将探索转向更大的型号——我们剩下的示例将来自 16L、24L、40L 和 64L 型号的混合。  我们最有趣的发现之一是，大型网络的早期、中期和晚期层的神经元往往扮演着非常不同类型的角色，就像已知的卷积网络视觉模型不同深度的特征是不同的一样。  我们将在各自的部分中讨论每个神经元，从前面层的神经元开始。</p>
 <p>前面层神经元似乎经常参与将标记的“人工”结构映射到更自然、语义上有意义的表示。</p>
@@ -354,9 +366,9 @@
 <li><strong>神经元响应 LaTeX“\”命令：</strong>“\left”、“\frac{”、“\begin”…</li>
 </ul>
 <h4 id="较大模型中的后层神经元（“RE-TOKENIZATION”）"><a href="#较大模型中的后层神经元（“RE-TOKENIZATION”）" class="headerlink" title="较大模型中的后层神经元（“RE-TOKENIZATION”）"></a>较大模型中的后层神经元（“RE-TOKENIZATION”）</h4><p>后期层神经元（靠近网络输出的神经元）通常会做与早期层神经元相反的事情：它们介导单词或上下文标记返回文字标记的转换。例如，最后一层中的一个神经元会触发标记“st”，同时增加后续标记是“rag”的可能性；本质上，这是一种将单词“stragglers”的表示形式逐个转换或指示为其组成标记以进行输出的方法。类似地，“nappies”输出神经元在标记“n”上触发，并增加标记“app”帮助写入“nappies”的概率。这些神经元本质上模拟了一个额外的输出词汇项，该词汇项仅在前面的标记满足某些条件时才可用。</p>
-<p><img src="retoken.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="retoken.png"></p>
 <h4 id="较大模型中的中间层神经元"><a href="#较大模型中的中间层神经元" class="headerlink" title="较大模型中的中间层神经元"></a>较大模型中的中间层神经元</h4><p>中间层的神经元通常代表更复杂、抽象的想法。例如，当且仅当数字涉及多个人时，有一个神经元似乎代表数字：</p>
-<p><img src="number.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="number.png"></p>
 <p>在这些层中可以发现各种各样有趣的神经元。我们观察到的一些常见类别包括：</p>
 <ul>
 <li>对特定类型的描述性从句激发的神经元：对描述声音的从句激发的神经元、对描述服装的从句激发的神经元、对音乐描述性从句激发的神经元（例如“C 大调”）、对从句激发的神经元描述写在物体上的文字，…</li>
@@ -549,7 +561,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -595,10 +607,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

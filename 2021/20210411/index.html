@@ -43,8 +43,8 @@
 <meta property="article:published_time" content="2021-04-11T10:29:41.000Z">
 <meta property="article:modified_time" content="2022-03-16T08:59:22.392Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="笔记">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://www.ai-start.com/ml2014/images/b8167ff0926046e112acf789dba98057.png">
   
@@ -88,7 +88,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -208,6 +208,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
               </a>
             </li>
           
@@ -343,7 +355,7 @@
 <blockquote>
 <p> 在我们面对多维特征问题的时候，我们要保证这些特征都具有相近的尺度，这将帮助梯度下降算法更快地收敛。</p>
 </blockquote>
-<p><img src="http://www.ai-start.com/ml2014/images/b8167ff0926046e112acf789dba98057.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/b8167ff0926046e112acf789dba98057.png" alt="img"></p>
 <blockquote>
 <p> 最简单的方法是令：${x_n}=\frac{x_n-\mu_n}{s_n}$，其中 ${\mu_n}$是平均值，${s_n}$是标准差(极差也行)。</p>
 </blockquote>
@@ -381,20 +393,20 @@
 <p>我们将因变量(<strong>dependent variable</strong>)可能属于的两个类分别称为负向类（<strong>negative class</strong>）和正向类（<strong>positive class</strong>），则因变量y∈ {0,1}，其中 0 表示负向类，1 表示正向类。</p>
 <p>我们引入一个新的模型，逻辑回归，该模型的输出变量范围始终在0和1之间。<br>逻辑回归模型的假设是： $h_\theta ( x )=g(\theta^{T}X )$<br>其中：<br>$X$ 代表特征向量<br>$g$ 代表逻辑函数（<strong>logistic function</strong>)是一个常用的逻辑函数为<strong>S</strong>形函数（<strong>Sigmoid function</strong>），公式为： $g( z )=\frac{1}{1+e^{-z}}$。</p>
 <p>该函数的图像为：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/1073efb17b0d053b4f9218d4393246cc.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/1073efb17b0d053b4f9218d4393246cc.jpg" alt="img"></p>
 <p>$h_\theta ( x )$的作用是，对于给定的输入变量，根据选择的参数计算输出变量=1的可能性（<strong>estimated probablity</strong>）即$h_\theta ( x )=P( y=1|x;\theta )$<br>例如，如果对于给定的$x$，通过已经确定的参数计算得出$h_\theta ( x )=0.7$，则表示有70%的几率$y$为正向类，相应地$y$为负向类的几率为1-0.7=0.3。</p>
 <p><strong>代价函数：</strong></p>
 <p>若按照原来的公式，我们得到的代价函数将是一个非凸函数（<strong>non-convexfunction</strong>）。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/8b94e47b7630ac2b0bcb10d204513810.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/8b94e47b7630ac2b0bcb10d204513810.jpg" alt="img"></p>
 <p>这意味着我们的代价函数有许多局部最小值，这将影响梯度下降算法寻找全局最小值。</p>
-<p>故我们重新定义逻辑回归的代价函数为:<br>$$<br>J(\theta )=\frac{1}{m}\sum \limits_{i=1}^m Cost(h _\theta( {x}^{( i )} ),y^{( i )})<br>$$<br>其中<img src="http://www.ai-start.com/ml2014/images/54249cb51f0086fa6a805291bf2639f1.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>故我们重新定义逻辑回归的代价函数为:<br>$$<br>J(\theta )=\frac{1}{m}\sum \limits_{i=1}^m Cost(h _\theta( {x}^{( i )} ),y^{( i )})<br>$$<br>其中<img src="http://www.ai-start.com/ml2014/images/54249cb51f0086fa6a805291bf2639f1.png" alt="img"></p>
 <p>${h_\theta}( x )$与 $Cost( {h_\theta}( x ),y )$之间的关系如下图所示：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/ffa56adcc217800d71afdc3e0df88378.jpg" srcset="/img/loading.gif" lazyload alt="img"><br>将构建的 $Cost( {h_\theta}( x ),y )$简化如下：<br>$Cost( {h_\theta}( x ),y )=-y\times log( {h_\theta}( x ) )-(1-y)\times log( 1-{h_\theta}( x ) )$<br>带入代价函数得到：<br>$J( \theta  )=\frac{1}{m}\sum\limits_{i=1}^{m}{[-y^{(i)}\log ( {h_\theta}( x^{(i)} ) )-( 1-y^{(i)} )\log ( 1-{h_\theta}( x^{(i)} ) )]}$<br>即：$J( \theta  )=-\frac{1}{m}\sum\limits_{i=1}^{m}{[y^{(i)}\log ( {h_\theta}( x^{(i)} ) )+( 1-y^{(i)} )\log ( 1-{h_\theta}( x^{(i)} ) )]}$</p>
+<p><img src="http://www.ai-start.com/ml2014/images/ffa56adcc217800d71afdc3e0df88378.jpg" alt="img"><br>将构建的 $Cost( {h_\theta}( x ),y )$简化如下：<br>$Cost( {h_\theta}( x ),y )=-y\times log( {h_\theta}( x ) )-(1-y)\times log( 1-{h_\theta}( x ) )$<br>带入代价函数得到：<br>$J( \theta  )=\frac{1}{m}\sum\limits_{i=1}^{m}{[-y^{(i)}\log ( {h_\theta}( x^{(i)} ) )-( 1-y^{(i)} )\log ( 1-{h_\theta}( x^{(i)} ) )]}$<br>即：$J( \theta  )=-\frac{1}{m}\sum\limits_{i=1}^{m}{[y^{(i)}\log ( {h_\theta}( x^{(i)} ) )+( 1-y^{(i)} )\log ( 1-{h_\theta}( x^{(i)} ) )]}$</p>
 <p><strong>一对多的情况：</strong></p>
-<p><img src="http://www.ai-start.com/ml2014/images/b72863ce7f85cd491e5b940924ef5a5f.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/b72863ce7f85cd491e5b940924ef5a5f.png" alt="img"></p>
 <p>我们只需分别多次如右上角的操作，可化归为分成两类的逻辑回归。</p>
 <h5 id="正规化"><a href="#正规化" class="headerlink" title="正规化"></a>正规化</h5><p>我们已经学了几种算法，如最小二乘法（Ordinary Least Squares,OLS)。我们所学的算法不足之处是随着特征维度的增加会出现线性模型的过度拟合。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/72f84165fbf1753cd516e65d5e91c0d3.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/72f84165fbf1753cd516e65d5e91c0d3.jpg" alt="img"></p>
 <p>过拟合解决方案：</p>
 <ol>
 <li><p>丢弃一些不能帮助我们正确预测的特征。可以是手工选择保留哪些特征，或者使用一些模型选择的算法来帮忙（例如<strong>PCA</strong>）</p>
@@ -414,7 +426,7 @@
 <p>相应地，$\lambda \sum\limits_{j=1}^{n}{|\theta_j|}$被称为L1惩罚项。</p>
 </blockquote>
 <p>在这里，我们展示只讨论岭回归。</p>
-<p>我们也利用正规方程来求解正则化线性回归模型：<img src="http://www.ai-start.com/ml2014/images/71d723ddb5863c943fcd4e6951114ee3.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>我们也利用正规方程来求解正则化线性回归模型：<img src="http://www.ai-start.com/ml2014/images/71d723ddb5863c943fcd4e6951114ee3.png" alt="img"></p>
 <p>图中的矩阵尺寸为 （n+1）*(n+1)。</p>
 <p>同样对于逻辑回归，我们也给代价函数增加一个正则化的表达式，得到代价函数：</p>
 <p>$$<br>J(\theta)=\frac{1}{m}\sum\limits_{i=1}^{m}{[-y^{(i)}\log (h_\theta( x^{(i)}) )-( 1-y^{(i)} )\log ( 1-{h_\theta}( x^{(i)}) )]}+\frac{\lambda }{2m}\sum\limits_{j=1}^{n}\theta _j ^2<br>$$</p>
@@ -426,9 +438,9 @@
 <p>一旦我们获得了平均值和方差的估计值，给定新的一个训练实例，根据模型计算 $p(x)$：</p>
 <p>$$<br>p(x)=\prod\limits_{j=1}^np(x_j;\mu_j,\sigma_j^2)=\prod\limits_{j=1}^1\frac{1}{\sqrt{2\pi}\sigma_j}exp(-\frac{(x_j-\mu_j)^2}{2\sigma_j^2})<br>$$<br>当$p(x) &lt; \varepsilon$时，为异常。</p>
 <p>下图是一个由两个特征的训练集，以及特征的分布情况：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/ba47767a11ba39a23898b9f1a5a57cc5.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/ba47767a11ba39a23898b9f1a5a57cc5.png" alt="img"></p>
 <p>下面的三维图表表示的是密度估计函数，$z$轴为根据两个特征的值所估计$p(x)$值：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/82b90f56570c05966da116c3afe6fc91.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/82b90f56570c05966da116c3afe6fc91.jpg" alt="img"></p>
 <p>接下来的具体评价方法如下：</p>
 <ol>
 <li>根据测试集数据，我们估计特征的平均值和方差并构建$p(x)$函数</li>
@@ -445,7 +457,7 @@
 <p>**多元高斯分布:</p>
 <p>假使我们有两个相关的特征，而且这两个特征的值域范围比较宽，这种情况下，一般的高斯分布模型可能不能很好地识别异常数据。其原因在于，一般的高斯分布模型尝试的是去同时抓住两个特征的偏差，因此创造出一个比较大的判定边界。</p>
 <p>下图中是两个相关特征，洋红色的线（根据ε的不同其范围可大可小）是一般的高斯分布模型获得的判定边界，很明显绿色的<strong>X</strong>所代表的数据点很可能是异常值，但是其$p(x)$值却仍然在正常范围内。多元高斯分布将创建像图中蓝色曲线所示的判定边界。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/598db991a7c930c9021cec5f6ab9beb9.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/598db991a7c930c9021cec5f6ab9beb9.png" alt="img"></p>
 <p>在多元高斯分布模型中，我们将协方差矩阵形式的高斯分布函数，用所有的特征一起来计算 $p(x)$。</p>
 <p>我们首先计算所有特征的平均值，然后再计算协方差矩阵：<br>$p(x)=\prod_{j=1}^np(x_j;\mu,\sigma_j^2)=\prod_{j=1}^n\frac{1}{\sqrt{2\pi}\sigma_j}exp(-\frac{(x_j-\mu_j)^2}{2\sigma_j^2})$</p>
 <p>$\mu=\frac{1}{m}\sum_{i=1}^mx^{(i)}$</p>
@@ -453,7 +465,7 @@
 <p>注:其中$\mu $ 是一个向量，其每一个单元都是原特征矩阵中一行数据的均值。最后我们计算多元高斯分布的$p\left( x \right)$:<br>$p(x)=\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)$<br>其中：</p>
 <p>$|\Sigma|$是定矩阵，在 <strong>Octave</strong> 中用 <code>det(sigma)</code>计算</p>
 <p>$\Sigma^{-1}$ 是逆矩阵，下面我们来看看协方差矩阵是如何影响模型的：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/29df906704d254f18e92a63173dd51e7.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/29df906704d254f18e92a63173dd51e7.jpg" alt="img"></p>
 <p>上图是5个不同的模型，从左往右依次分析：</p>
 <ol>
 <li>是一个一般的高斯分布模型</li>
@@ -524,9 +536,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
-      
         <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
       
     </div>
   
@@ -697,7 +709,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -743,10 +755,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

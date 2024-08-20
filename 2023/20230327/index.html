@@ -92,7 +92,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -212,6 +212,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
               </a>
             </li>
           
@@ -422,9 +434,9 @@
 </ul>
 </li>
 </ul>
-<p><img src="mode1.jpg" srcset="/img/loading.gif" lazyload></p>
-<p><img src="mode2.jpg" srcset="/img/loading.gif" lazyload></p>
-<p><img src="mode3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="mode1.jpg"></p>
+<p><img src="mode2.jpg"></p>
+<p><img src="mode3.jpg"></p>
 <h3 id="建立和训练World-Model"><a href="#建立和训练World-Model" class="headerlink" title="建立和训练World Model"></a>建立和训练World Model</h3><p>——基于能源模型的联合嵌入体系结构</p>
 <p>我们如何表示预测中的不确定性?</p>
 <ul>
@@ -434,10 +446,10 @@
 <li>生成模型必须预测世界的每一个细节</li>
 <li>我的解决方案：Joint-Embedding Predictive Architecture</li>
 </ul>
-<h4 id="世界模型的体系结构-JEPA"><a href="#世界模型的体系结构-JEPA" class="headerlink" title="世界模型的体系结构:JEPA"></a>世界模型的体系结构:JEPA</h4><p><img src="JEPA.jpg" srcset="/img/loading.gif" lazyload></p>
-<h4 id="架构-Generative-vs-Joint-Embedding"><a href="#架构-Generative-vs-Joint-Embedding" class="headerlink" title="架构:Generative vs Joint Embedding"></a>架构:Generative vs Joint Embedding</h4><p><img src="JEPA_art.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="Energy-Based-Models"><a href="#Energy-Based-Models" class="headerlink" title="Energy-Based Models:"></a>Energy-Based Models:</h3><p><img src="EB_model.jpg" srcset="/img/loading.gif" lazyload></p>
-<p><img src="EBM_train.jpg" srcset="/img/loading.gif" lazyload></p>
+<h4 id="世界模型的体系结构-JEPA"><a href="#世界模型的体系结构-JEPA" class="headerlink" title="世界模型的体系结构:JEPA"></a>世界模型的体系结构:JEPA</h4><p><img src="JEPA.jpg"></p>
+<h4 id="架构-Generative-vs-Joint-Embedding"><a href="#架构-Generative-vs-Joint-Embedding" class="headerlink" title="架构:Generative vs Joint Embedding"></a>架构:Generative vs Joint Embedding</h4><p><img src="JEPA_art.jpg"></p>
+<h3 id="Energy-Based-Models"><a href="#Energy-Based-Models" class="headerlink" title="Energy-Based Models:"></a>Energy-Based Models:</h3><p><img src="EB_model.jpg"></p>
+<p><img src="EBM_train.jpg"></p>
 <h3 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h3><ul>
 <li>放弃生成模型<ul>
 <li>偏向joint-embedding architectures</li>
@@ -458,14 +470,14 @@
 </ul>
 </li>
 </ul>
-<h3 id="非对比学习地训练JEPA"><a href="#非对比学习地训练JEPA" class="headerlink" title="非对比学习地训练JEPA"></a>非对比学习地训练JEPA</h3><p><img src="JEPA_TRAIN.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="VICReg-Variance-Invariance-Covariance-Regularization"><a href="#VICReg-Variance-Invariance-Covariance-Regularization" class="headerlink" title="VICReg: Variance, Invariance, Covariance Regularization"></a>VICReg: Variance, Invariance, Covariance Regularization</h3><p><img src="VICReg.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="VICRegL"><a href="#VICRegL" class="headerlink" title="VICRegL"></a>VICRegL</h3><p><img src="VICRegL.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="MC-JEPA-Motion-amp-Content-JEPA"><a href="#MC-JEPA-Motion-amp-Content-JEPA" class="headerlink" title="MC-JEPA: Motion &amp; Content JEPA"></a>MC-JEPA: Motion &amp; Content JEPA</h3><p><img src="MC-JEPA.JPG" srcset="/img/loading.gif" lazyload></p>
-<p><img src="MC-JEPA1.JPG" srcset="/img/loading.gif" lazyload></p>
-<p><img src="MC-JEPA2.JPG" srcset="/img/loading.gif" lazyload></p>
-<h3 id="Image-JEPA"><a href="#Image-JEPA" class="headerlink" title="Image-JEPA"></a>Image-JEPA</h3><p><img src="IJEPA.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels"><a href="#Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels" class="headerlink" title="Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels"></a>Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels</h3><p><img src="HPMTA.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="非对比学习地训练JEPA"><a href="#非对比学习地训练JEPA" class="headerlink" title="非对比学习地训练JEPA"></a>非对比学习地训练JEPA</h3><p><img src="JEPA_TRAIN.jpg"></p>
+<h3 id="VICReg-Variance-Invariance-Covariance-Regularization"><a href="#VICReg-Variance-Invariance-Covariance-Regularization" class="headerlink" title="VICReg: Variance, Invariance, Covariance Regularization"></a>VICReg: Variance, Invariance, Covariance Regularization</h3><p><img src="VICReg.jpg"></p>
+<h3 id="VICRegL"><a href="#VICRegL" class="headerlink" title="VICRegL"></a>VICRegL</h3><p><img src="VICRegL.jpg"></p>
+<h3 id="MC-JEPA-Motion-amp-Content-JEPA"><a href="#MC-JEPA-Motion-amp-Content-JEPA" class="headerlink" title="MC-JEPA: Motion &amp; Content JEPA"></a>MC-JEPA: Motion &amp; Content JEPA</h3><p><img src="MC-JEPA.JPG"></p>
+<p><img src="MC-JEPA1.JPG"></p>
+<p><img src="MC-JEPA2.JPG"></p>
+<h3 id="Image-JEPA"><a href="#Image-JEPA" class="headerlink" title="Image-JEPA"></a>Image-JEPA</h3><p><img src="IJEPA.jpg"></p>
+<h3 id="Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels"><a href="#Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels" class="headerlink" title="Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels"></a>Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels</h3><p><img src="HPMTA.jpg"></p>
 <h2 id="Hierarchical-Planning-with-Uncertainty"><a href="#Hierarchical-Planning-with-Uncertainty" class="headerlink" title="Hierarchical Planning with Uncertainty"></a>Hierarchical Planning with Uncertainty</h2><ul>
 <li>Hierarchical world model</li>
 <li>Hierarchical world model</li>
@@ -726,7 +738,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -772,10 +784,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

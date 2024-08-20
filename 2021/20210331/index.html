@@ -105,7 +105,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -225,6 +225,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
               </a>
             </li>
           
@@ -355,54 +367,54 @@
 </blockquote>
 <p>以下来自：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html">http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html</a></p>
 <p>1.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050103.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050103.png" alt="img"></p>
 <p>首先，字符串”BBC ABCDAB ABCDABCDABDE”的第一个字符与搜索词”ABCDABD”的第一个字符，进行比较。因为B与A不匹配，所以搜索词后移一位。</p>
 <p>2.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050104.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050104.png" alt="img"></p>
 <p>因为B与A不匹配，搜索词再往后移。</p>
 <p>3.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050105.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050105.png" alt="img"></p>
 <p>就这样，直到字符串有一个字符，与搜索词的第一个字符相同为止。</p>
 <p>4.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050106.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050106.png" alt="img"></p>
 <p>接着比较字符串和搜索词的下一个字符，还是相同。</p>
 <p>5.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050107.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050107.png" alt="img"></p>
 <p>直到字符串有一个字符，与搜索词对应的字符不相同为止。</p>
 <p>6.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050108.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050108.png" alt="img"></p>
 <p>这时，最自然的反应是，将搜索词整个后移一位，再从头逐个比较。这样做虽然可行，但是效率很差，因为你要把”搜索位置”移到已经比较过的位置，重比一遍。</p>
 <p>7.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050107.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050107.png" alt="img"></p>
 <p>一个基本事实是，当空格与D不匹配时，你其实知道前面六个字符是”ABCDAB”。KMP算法的想法是，设法利用这个已知信息，不要把”搜索位置”移回已经比较过的位置，继续把它向后移，这样就提高了效率。</p>
 <p>8.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050109.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050109.png" alt="img"></p>
 <p>怎么做到这一点呢？可以针对搜索词，算出一张《部分匹配表》（Partial Match Table）。这张表是如何产生的，后面再介绍，这里只要会用就可以了。</p>
 <p>9.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050107.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050107.png" alt="img"></p>
 <p>已知空格与D不匹配时，前面六个字符”ABCDAB”是匹配的。查表可知，最后一个匹配字符B对应的”部分匹配值”为2，因此按照下面的公式算出向后移动的位数：</p>
 <blockquote>
 <p>　　移动位数 = 已匹配的字符数 - 对应的部分匹配值</p>
 </blockquote>
 <p>因为 6 - 2 等于4，所以将搜索词向后移动4位。</p>
 <p>10.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050110.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050110.png" alt="img"></p>
 <p>因为空格与Ｃ不匹配，搜索词还要继续往后移。这时，已匹配的字符数为2（”AB”），对应的”部分匹配值”为0。所以，移动位数 = 2 - 0，结果为 2，于是将搜索词向后移2位。</p>
 <p>11.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050111.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050111.png" alt="img"></p>
 <p>因为空格与A不匹配，继续后移一位。</p>
 <p>12.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050112.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050112.png" alt="img"></p>
 <p>逐位比较，直到发现C与D不匹配。于是，移动位数 = 6 - 2，继续将搜索词向后移动4位。</p>
 <p>13.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050113.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050113.png" alt="img"></p>
 <p>逐位比较，直到搜索词的最后一位，发现完全匹配，于是搜索完成。如果还要继续搜索（即找出全部匹配），移动位数 = 7 - 0，再将搜索词向后移动7位，这里就不再重复了。</p>
 <p>14.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050114.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050114.png" alt="img"></p>
 <p>下面介绍《部分匹配表》是如何产生的。</p>
 <p>首先，要了解两个概念：”前缀”和”后缀”。 “前缀”指除了最后一个字符以外，一个字符串的全部头部组合；”后缀”指除了第一个字符以外，一个字符串的全部尾部组合。</p>
 <p>15.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050109.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050109.png" alt="img"></p>
 <p>“部分匹配值”就是”前缀”和”后缀”的最长的共有元素的长度。以”ABCDABD”为例，</p>
 <blockquote>
 <p>　　－　“A”的前缀和后缀都为空集，共有元素的长度为0；</p>
@@ -414,25 +426,25 @@
 <p>　　－　“ABCDABD”的前缀为[A, AB, ABC, ABCD, ABCDA, ABCDAB]，后缀为[BCDABD, CDABD, DABD, ABD, BD, D]，共有元素的长度为0。</p>
 </blockquote>
 <p>16.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050112.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050112.png" alt="img"></p>
 <p>“部分匹配”的实质是，有时候，字符串头部和尾部会有重复。比如，”ABCDAB”之中有两个”AB”，那么它的”部分匹配值”就是2（”AB”的长度）。搜索词移动的时候，第一个”AB”向后移动4位（字符串长度-部分匹配值），就可以来到第二个”AB”的位置。</p>
 <p>（完）</p>
 <h3 id="3-Boyer-Moore算法"><a href="#3-Boyer-Moore算法" class="headerlink" title="3. Boyer-Moore算法"></a><strong>3. Boyer-Moore算法</strong></h3><blockquote>
 <p>相关论文：<br>R.S.Boyer, J.S.Moore, A fast string searching algorithm , Communications of the ACM,20(10):762-772 ,1977<br>来自<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/05/boyer-moore_string_search_algorithm.html">http://www.ruanyifeng.com/blog/2013/05/boyer-moore_string_search_algorithm.html</a></p>
 </blockquote>
 <p>1.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050302.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050302.png" alt="img"></p>
 <p>假定字符串为”HERE IS A SIMPLE EXAMPLE”，搜索词为”EXAMPLE”。</p>
 <p>2.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050303.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050303.png" alt="img"></p>
 <p>首先，”字符串”与”搜索词”头部对齐，从尾部开始比较。</p>
 <p>这是一个很聪明的想法，因为如果尾部字符不匹配，那么只要一次比较，就可以知道前7个字符（整体上）肯定不是要找的结果。</p>
 <p>我们看到，”S”与”E”不匹配。这时，**”S”就被称为”坏字符”（bad character），即不匹配的字符。**我们还发现，”S”不包含在搜索词”EXAMPLE”之中，这意味着可以把搜索词直接移到”S”的后一位。</p>
 <p>3.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050304.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050304.png" alt="img"></p>
 <p>依然从尾部开始比较，发现”P”与”E”不匹配，所以”P”是”坏字符”。但是，”P”包含在搜索词”EXAMPLE”之中。所以，将搜索词后移两位，两个”P”对齐。</p>
 <p>4.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050305.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050305.png" alt="img"></p>
 <p>我们由此总结出**”坏字符规则”**：</p>
 <blockquote>
 <p>　　后移位数 = 坏字符的位置 - 搜索词中的上一次出现位置</p>
@@ -440,25 +452,25 @@
 <p>如果”坏字符”不包含在搜索词之中，则上一次出现位置为 -1。</p>
 <p>以”P”为例，它作为”坏字符”，出现在搜索词的第6位（从0开始编号），在搜索词中的上一次出现位置为4，所以后移 6 - 4 = 2位。再以前面第二步的”S”为例，它出现在第6位，上一次出现位置是 -1（即未出现），则整个搜索词后移 6 - (-1) = 7位。</p>
 <p>5.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050306.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050306.png" alt="img"></p>
 <p>依然从尾部开始比较，”E”与”E”匹配。</p>
 <p>6.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050307.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050307.png" alt="img"></p>
 <p>比较前面一位，”LE”与”LE”匹配。</p>
 <p>7.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050308.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050308.png" alt="img"></p>
 <p>比较前面一位，”PLE”与”PLE”匹配。</p>
 <p>8.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050309.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050309.png" alt="img"></p>
 <p>比较前面一位，”MPLE”与”MPLE”匹配。<strong>我们把这种情况称为”好后缀”（good suffix），即所有尾部匹配的字符串。</strong>注意，”MPLE”、”PLE”、”LE”、”E”都是好后缀。</p>
 <p>9.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050310.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050310.png" alt="img"></p>
 <p>比较前一位，发现”I”与”A”不匹配。所以，”I”是”坏字符”。</p>
 <p>10.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050311.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050311.png" alt="img"></p>
 <p>根据”坏字符规则”，此时搜索词应该后移 2 - （-1）= 3 位。问题是，此时有没有更好的移法？</p>
 <p>11.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050309.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050309.png" alt="img"></p>
 <p>我们知道，此时存在”好后缀”。所以，可以采用**”好后缀规则”**：</p>
 <blockquote>
 <p>　　后移位数 = 好后缀的位置 - 搜索词中的上一次出现位置</p>
@@ -473,14 +485,14 @@
 </blockquote>
 <p>回到上文的这个例子。此时，所有的”好后缀”（MPLE、PLE、LE、E）之中，只有”E”在”EXAMPLE”还出现在头部，所以后移 6 - 0 = 6位。</p>
 <p>12.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050312.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050312.png" alt="img"></p>
 <p>可以看到，”坏字符规则”只能移3位，”好后缀规则”可以移6位。所以，<strong>Boyer-Moore算法的基本思想是，每次后移这两个规则之中的较大值。</strong></p>
 <p>更巧妙的是，这两个规则的移动位数，只与搜索词有关，与原字符串无关。因此，可以预先计算生成《坏字符规则表》和《好后缀规则表》。使用时，只要查表比较一下就可以了。</p>
 <p>13.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050313.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050313.png" alt="img"></p>
 <p>继续从尾部开始比较，”P”与”E”不匹配，因此”P”是”坏字符”。根据”坏字符规则”，后移 6 - 4 = 2位。</p>
 <p>14.</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050314.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050314.png" alt="img"></p>
 <p>从尾部开始逐位比较，发现全部匹配，于是搜索结束。如果还要继续查找（即找出全部匹配），则根据”好后缀规则”，后移 6 - 0 = 6位，即头部的”E”移到尾部的”E”的位置。</p>
 <p>（完）</p>
 <h3 id="4-Horspool算法"><a href="#4-Horspool算法" class="headerlink" title="4.Horspool算法"></a><strong>4.Horspool算法</strong></h3><blockquote>
@@ -715,7 +727,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -761,10 +773,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

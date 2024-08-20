@@ -79,7 +79,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -203,6 +203,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -314,7 +326,7 @@
 <p><strong>A</strong>: 这篇论文试图解决的问题是深度神经网络在处理不平衡数据集时的性能问题。在现实世界的数据集中，某些类别的样本可能比其他类别稀少，这导致模型在训练过程中容易偏向于多数类，从而在少数类上表现不佳，这种现象称为类别不平衡（class imbalance）。为了解决这个问题，论文提出了一种名为Oversampling with Pure Noise Images (OPeN)的新方法，旨在通过在训练过程中引入纯噪声图像来改善模型对少数类（minority class）的泛化能力。此外，论文还提出了一种新的批量归一化层（Distribution Aware Routing Batch Normalization, DAR-BN），用于分别归一化噪声图像和自然图像，以进一步提高模型性能。</p>
 <span id="more"></span>
 
-<p><img src="Model.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="Model.png"></p>
 <p><strong>Q</strong>: 有哪些相关研究？</p>
 <p><strong>A</strong>: 相关研究主要集中在解决类别不平衡问题，提高模型在少数类上的分类性能。以下是一些与本论文相关的研究：</p>
 <ol>
@@ -353,12 +365,12 @@
 <ol>
 <li><strong>纯噪声图像生成</strong>：在训练过程中，OPeN会在每个mini-batch中随机替换一部分图像为纯噪声图像。这些噪声图像是完全随机生成的，与数据集中的任何真实图像都无关。替换的概率与类别的频率成反比，即少数类图像被替换的概率更高。</li>
 </ol>
-<p><img src="OPeN.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="OPeN.png"></p>
 <p>2.<strong>分布感知路由批量归一化（DAR-BN）</strong>：由于传统的批量归一化（BN）假设输入数据来自单一分布，而OPeN方法中同时存在自然图像和噪声图像，这违反了BN的假设。为了解决这个问题，论文提出了DAR-BN，它通过学习自然图像的激活映射的仿射参数来归一化噪声图像，从而允许模型分别处理这两种类型的输入。</p>
-<p><img src="DAR-BN.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="diff_shift.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="DAR-BN.png"></p>
+<p><img src="diff_shift.png"></p>
 <p>自然图像和噪声图像之间的分布偏移如下。自然图像和纯随机噪声图像的激活图。激活图是预训练的VGG16模型的第一个卷积块的输出(我们从64个通道中采样16个)。<br>我们看到自然图像和纯噪声图像的特征是从不同的分布中采样的。</p>
-<p><img src="shift.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="shift.png"></p>
 <ol start="3">
 <li><strong>训练策略</strong>：OPeN方法在训练的后期阶段开始引入噪声图像，这种策略称为延迟过采样（Deferred Resampling）。这样做的目的是让模型在训练初期专注于学习数据的真实分布，而在后期通过引入噪声图像来鼓励模型泛化。</li>
 <li><strong>数据增强的鲁棒性</strong>：论文还展示了OPeN方法在不同数据增强策略下的性能，包括随机水平翻转、随机裁剪、Cutout和SimCLR等，证明了OPeN方法在各种数据增强条件下都能提高模型性能。</li>
@@ -614,7 +626,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -660,10 +672,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

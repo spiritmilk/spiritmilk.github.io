@@ -83,7 +83,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -203,6 +203,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
               </a>
             </li>
           
@@ -393,7 +405,7 @@
 <li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.03401">Ye &amp; Durrett (2022)</a>发现，对于涉及文本推理的 NLP 任务（即 QA 和 NLI），在提示中包含解释的好处很小到中等，并且效果因模型而异。他们观察到解释更可能是非事实的而不是不一致的（即解释是否需要预测）。非事实的解释很可能导致错误的预测。</li>
 <li><em>Self-Ask</em> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a> ) 是一种反复提示模型提出<em>后续问题</em>以迭代构建思维过程的方法。可以通过搜索引擎结果回答后续问题。同样，<em>IRCoT</em>（Interleaving Retrieval CoT；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10509">Trivedi et al. 2022</a>）和<em>ReAct</em>（Reason + Act；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">Yao et al. 2023</a>）将迭代 CoT 提示与维基百科 API 查询相结合，以搜索相关实体和内容，然后将其添加回语境。</li>
 </ul>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/SelfAsk-search.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/SelfAsk-search.png" alt="img"></p>
 <p>图 1. Self-Ask 如何与外部搜索查询一起使用。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a>）。</p>
 <h1 id="Automatic-Prompt-Design"><a href="#Automatic-Prompt-Design" class="headerlink" title="Automatic Prompt Design"></a>Automatic Prompt Design</h1><p>Prompt 是一系列前缀标记，可增加在给定输入的情况下获得所需输出的概率。因此，我们可以将它们视为可训练的参数，并通过梯度下降<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">直接在嵌入空间上对其进行优化</a>，例如<strong>AutoPrompt</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.15980">Shin et al., 2020</a> , <strong>Prefix-Tuning</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.00190">Li &amp; Liang (2021)</a> ), <strong>P-tuning</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.10385">Liu et al . 2021</a> ) 和<strong>Prompt-Tuning</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.08691">Lester et al. 2021</a> ).<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">我的“可控神经文本生成”帖子中的这一部分</a>对它们有很好的介绍。从 AutoPrompt 到 Prompt-Tuning 的趋势是设置逐渐简化。</p>
 <p><strong>APE</strong>（Automatic Prompt Engineer；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.01910">Zhou et al. 2022</a>）是一种搜索模型生成的候选指令池，然后根据所选得分函数过滤候选集，最终选择得分最高的最佳候选指令的方法。</p>
@@ -433,13 +445,13 @@
 
 <p>然后用模型生成的知识，进一步提示 LM 得到答案。</p>
 <h2 id="Programming-Language"><a href="#Programming-Language" class="headerlink" title="Programming Language"></a>Programming Language</h2><p>既有<strong>PAL</strong>（程序辅助语言模型）；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.10435">高等。2022</a> ) 和<strong>PoT</strong> (Program of Thoughts prompting; <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a> ) 要求 LLM 生成编程语言语句来解决自然语言推理问题，从而将求解步骤卸载到运行时，例如 Python 解释器。这样的设置解耦了复杂的计算和推理。它依赖于具有足够好的编码技能的 LM。</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/PoT.png" srcset="/img/loading.gif" lazyload alt="图 2. 比较 CoT 和 PoT。"></p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/PoT.png" alt="图 2. 比较 CoT 和 PoT。"></p>
 <p>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a>）。</p>
 <h2 id="External-APIs"><a href="#External-APIs" class="headerlink" title="External APIs"></a>External APIs</h2><p><strong>TALM</strong>（工具增强语言模型；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）是一种通过文本到文本 API 调用进行增强的语言模型。LM 被引导生成<code>|tool-call</code>并<code>tool input text</code>以任务输入文本为条件来构造 API 调用请求。当<code>|result</code>出现时，调用指定的工具 API，并将返回的结果附加到文本序列。最终输出是在<code>|output</code>令牌之后生成的。</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM.png" alt="img"></p>
 <p>图 3. TALM 中 API 调用的格式。（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
 <p>TALM 采用自我对弈的方法来迭代引导工具使用示例的数据集，并用它来微调 LM。这个迭代的自我对弈管道模仿了一个 RL 过程，其中 LM 是策略网络，它由带有二元奖励信号的策略梯度训练。</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM-iteration.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM-iteration.png" alt="img"></p>
 <p>图 4. 自我对弈迭代有助于提升模型性能。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
 <p><strong>Toolformer</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a> ) 是一种可以通过简单的 API 使用外部工具的 LM，它以自我监督的方式构建，每个 API 只需要少量的演示。Toolformer 的工具箱包括：</p>
 <ul>
@@ -449,12 +461,12 @@
 <li>提高低资源语言性能的<em>Translation system</em></li>
 <li>使 LM 了解时间进程的<em>calendar</em></li>
 </ul>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer.png" alt="img"></p>
 <p>图 5. 说明如何构建 Toolformer。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
 <p>Toolformer 的训练如下：</p>
 <ol>
 <li><p>*<em>Prompting to annotate potential API calls</em>. 。要求预训练的 LM 通过带有 API 调用使用示例的少量学习来注释数据集。格式化示例：</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer-annotation.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer-annotation.png" alt="img"></p>
 <p>图 6. 如何注释数据集以进行 API 调用。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
 <ul>
 <li><p>每个 API 调用都表示为（API 名称，相应输入）的元组，$c=(a_c, i_c)$和其对应的结果表示为r. 有结果和无结果的API调用序列分别标注如下：</p>
@@ -700,7 +712,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -746,10 +758,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

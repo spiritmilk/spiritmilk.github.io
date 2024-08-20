@@ -85,7 +85,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -209,6 +209,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -319,7 +331,7 @@
 
 <h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h3 id="Graph-Lottery-Ticket-Hypothesis"><a href="#Graph-Lottery-Ticket-Hypothesis" class="headerlink" title="Graph Lottery Ticket Hypothesis"></a>Graph Lottery Ticket Hypothesis</h3><h4 id="The-Lottery-Ticket-Hypothesis"><a href="#The-Lottery-Ticket-Hypothesis" class="headerlink" title="The Lottery Ticket Hypothesis"></a>The Lottery Ticket Hypothesis</h4><p>该论文首先提到了ICLR 2019最佳论文:The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks。该论文提出了彩票假说：密集的、随机初始化的、前馈网络包含子网络（中奖票），这些子网络在孤立地训练时，在类似数量的迭代中达到与原始网络相当的测试精度。</p>
 <p>具体而言，他的训练策略如下：</p>
-<p><img src="LTH.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="LTH.png"></p>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1905.01067">《Deconstructing Lottery Tickets: Zeros, Signs, and the Supermask》</a>也有类似的内容。展示了为什么将权重设置为零很重要，如何使用符号来进行重新初始化的网络训练，以及为什么掩蔽的行为类似于训练。最后，我们发现了超级掩码的存在，这些掩码可以应用于未经训练的随机初始化网络，以生成性能远远优于偶然的模型（MNIST 上为 86%，CIFAR-10 上为 41%）。</p>
 <p>ICLR2020 的《<a target="_blank" rel="noopener" href="http://proceedings.mlr.press/v119/malach20a/malach20a.pdf">Proving the Lottery Ticket Hypothesis: Pruning is All You Need</a>宣称证明了The Lottery Ticket Hypothesis。一句话概括：只要对随机初始化的神经网络做个好剪枝，不怎么训练也能有个好效果。</p>
 <p>Pruning is All You Need！</p>
@@ -331,7 +343,7 @@
 <p>具体而言，在端到端训练过程中，UGS分别对邻接矩阵和GNN模型权值应用两个可微二元掩模张量。训练完成后，移除最小大小的元素，将相应的掩码位置更新为0，分别从邻接矩阵和GNN中去除低评分的边和权重。然后将稀疏GNN权重参数倒绕到其原始初始化。（类似于原始的LTH）</p>
 <p>实验结果表明，UGS可以在不影响预测精度的前提下显著降低推理计算成本。在这项工作中，我们的目标是为受到对抗性扰动的数据集找到glt。当我们将UGS算法直接应用于摄动图时，glt的性能精度与干净的glt相比明显较低，这需要开发新的优化方法来寻找对抗鲁棒的glt。</p>
 <h2 id="分析对抗性攻击对图属性的影响"><a href="#分析对抗性攻击对图属性的影响" class="headerlink" title="分析对抗性攻击对图属性的影响"></a>分析对抗性攻击对图属性的影响</h2><p>像MetaAttack、PGD和PR-BCD这样的对抗性攻击通过引入新边或删除现有边来毒害图结构，导致原始图属性发生变化。<br>我们分析了干净边和对抗边连接的节点在属性特征上的差异。</p>
-<p><img src="impact.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="impact.png"></p>
 <p>图a和图b描述了受PGD攻击的homophilic和 heterophilic图数据集中连接节点属性特征差的密度分布。在同态图中，攻击倾向于连接属性特征差异较大的节点。防御技术可以潜在地利用这些信息来区分图中的良性和敌对边缘。然而，这不是 heterophilic图的情况。相反，我们利用节点的位置特征，使用像DeepWalk这样的位置编码技术(Perozzi等人，2014)。有趣的是，从图c中我们可以看到，在heterophilic图中，攻击倾向于连接位置特征差较大的节点。ARGS使用这些图的属性来迭代地从homophilic和 heterophilic图中修剪对抗性边。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>$\mathcal{L}$<br>总所周知，两层的GCN可以表示为<br>$$<br>Z=f({ A, X },\Theta)= \mathcal{S}(\hat{A} \sigma ( \hat A X W_{(0)}) W_{(1)})<br>$$<br>设计了一个transductive semi-supervised node classification (SSNC) loss：<br>$$<br>\mathcal{L} _0 (f(\left{A, X\right}, \Theta))=-\sum _ {l \in \mathcal{Y} _{TL}} \sum _{j=1} ^C  Y _{l_j} log( Z <em>{l_j})<br>$$<br>其中$\mathcal{Y}</em>{TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
 <p>posion 攻击者的目标是找到一个最优的扰动A ‘，欺骗GNN做出错误的预测。这可以表述为一个双层优化问题(Zugner et al.， 2018;zugner &amp; gunnemann, 2019):<br>$$<br>arg \max\mathcal{L}<em>{atk}(f(\left{A’,X\right},\Theta ^\ast))\<br>A’\in\Phi(A)\<br>\mathrm{s.t.}\quad\Theta^{\ast}=\arg\min</em>{\Theta}\mathcal{L}<em>{0}(f(\left{A’,X\right},\Theta))<br>$$<br>其中$\Phi(A)$是满足$\frac{|A’-A|{0}}{|A|{0}}\leq\Delta$的领接矩阵。$\mathcal{L}</em>{atk}$ 是攻击loss函数，$\Delta$ 是 perturbation rate，$\Theta ^\ast$是摄动图上GNN的最优参数。</p>
@@ -345,15 +357,15 @@
 <p>其中yi∈R P为输入图G上运行DeepWalk算法(Perozzi et al.， 2014)得到的节点i, j的位置特征，P为节点位置特征个数。</p>
 <p>另外，作者还训练了一个简单的两层MLP。mlp只使用节点特征进行训练。然后我们使用训练好的MLP来预测测试节点的标签。称这些标签为伪标签。最后，利用MLP预测置信度较高的测试节点计算测试节点CE损失项。</p>
 <p>设$Y_{P L}$为MLP预测置信度较高的测试节点集，$Y_{mlp}$为MLP的预测值。CE损失为：<br>$$<br>\mathcal{L}<em>1(f({A’,X},\Theta))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^CY_{mlp_{l_j}}\log(Z_{l_j})<br>$$<br>最终loss为：<br>$$<br>\mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\beta\mathcal{L}<em>{fs}(m</em>{g}\odot A’,X)\+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))+\lambda_{1}||m_{g}||<em>{1}+\lambda</em>{2}||m_{\theta}||_{1}<br>$$<br>其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m_\theta$用于模型权重。</p>
-<p><img src="algo.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="UGS.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="result.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="algo.png"></p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="UGS.png"></p>
+<p><img src="result.png"></p>
 <p>Inference MACs（Multiply-Accumulate Operations）是指推断过程中的乘累加操作数量。</p>
-<p><img src="vsother.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="vsother.png"></p>
 <p>在大规模图数据集中：</p>
-<p><img src="biggraph.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="biggraph.png"></p>
 <p>消融实验：</p>
-<p><img src="aba.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="aba.png"></p>
 
                 
               </div>
@@ -541,7 +553,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -587,10 +599,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

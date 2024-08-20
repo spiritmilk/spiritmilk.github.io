@@ -36,8 +36,8 @@
 <meta property="article:published_time" content="2021-05-30T14:38:02.000Z">
 <meta property="article:modified_time" content="2022-03-16T08:55:27.248Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="笔记">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://www.ai-start.com/ml2014/images/66facb7fa8eddc3a860e420588c981d5.png">
   
@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -205,6 +205,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -314,21 +326,21 @@
 <span id="more"></span>
 
 <h5 id="代价函数："><a href="#代价函数：" class="headerlink" title="代价函数："></a>代价函数：</h5><p>我们回忆一下逻辑回归。其代价函数如下：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/66facb7fa8eddc3a860e420588c981d5.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/66facb7fa8eddc3a860e420588c981d5.png" alt="img"></p>
 <p>我们要实现我们的目标，就要把$-\log(1-\frac{1}{1+e^{-z}})$一点一点修改，修改为下两图的紫色直线函数，左边的函数，称之为${\cos}t_1{(z)}$，同时，右边函数称它为${\cos}t_0{(z)}$。</p>
 <p>最后SVM代价函数变为：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/5a63e35db410fdb57c76de97ea888278.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/5a63e35db410fdb57c76de97ea888278.png" alt="img"></p>
 <p>最后有别于逻辑回归输出的概率。在这里，我们的代价函数，当最小化代价函数，获得参数$\theta $时，支持向量机所做的是它来直接预测$y$的值等于1，还是等于0。因此，这个假设函数会预测1。当$\theta^Tx$大于或者等于0时，或者等于0时，所以学习参数$\theta $就是支持向量机假设函数的形式。</p>
 <h5 id="大间距分类器"><a href="#大间距分类器" class="headerlink" title="大间距分类器:"></a>大间距分类器:</h5><p>支持向量机的目标是找到一个能正确划分数据集且间隔最大的超平面。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/e68e6ca3275f433330a7981971eb4f16.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/e68e6ca3275f433330a7981971eb4f16.png" alt="img"></p>
 <p>如该图所示，黑线比红线有着更大的距离。</p>
 <h5 id="核函数："><a href="#核函数：" class="headerlink" title="核函数："></a>核函数：</h5><p>核函数可以看成是判断近似程度的函数。</p>
-<p><img src="http://www.ai-start.com/ml2014/images/529b6dbc07c9f39f5266bd0b3f628545.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/529b6dbc07c9f39f5266bd0b3f628545.png" alt="img"></p>
 <p>为了获得上图所示的判定边界，我们的模型可能是<br>$$<br>\theta _0+\theta _1x_1+\theta _2x_2+\theta _3x_1x_2+\theta _4x_1^2+\theta _5x_2^2+\cdots<br>$$<br>的形式。</p>
 <p>我们可以用一系列的新的特征$f$来替换模型中的每一项。例如令：<br>$$<br>f_1=x_1,f_2=x_2,f_3=x_1x_2,f_4=x_1^2,f_5=x_2^2<br>$$</p>
 <p>…得到:<br>$$<br>h_θ(x)=\theta _1f_1+\theta _2f_2+…+\theta _nf_n<br>$$<br>。然而，除了对原有的特征进行组合以外，有没有更好的方法来构造$f_1,f_2,f_3$？我们可以利用核函数来计算出新的特征。</p>
 <p>给定一个训练样本$x$，我们利用$x$的各个特征与我们预先选定的<strong>地标</strong>(<strong>landmarks</strong>)$l^{(1)},l^{(2)},l^{(3)}$的近似程度来选取新的特征$f_1,f_2,f_3$</p>
-<p><img src="http://www.ai-start.com/ml2014/images/2516821097bda5dfaf0b94e55de851e0.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/2516821097bda5dfaf0b94e55de851e0.png" alt="img"></p>
 <p>例如：<br>$$<br>f_1=similarity(x,l^{(1)})=e(-\frac{\left| x-l^{(1)} \right|^2}{2\sigma^2})<br>\<br>其中:\left| x-l^{(1)}\right|^2=\sum{_{j=1}^{n}}{(x_j-l_j^{(1)})^2}<br>$$<br>上例中的$similarity(x,l^{(1)})$就是核函数，具体而言，这里是一个<strong>高斯核函数</strong>(<strong>Gaussian Kernel</strong>)。 <strong>注：这个函数与正态分布没什么实际上的关系，只是看上去像而已。</strong></p>
 <p>这些地标的作用是什么？如果一个训练样本$x$与地标$l$之间的距离近似于0，则新特征 $f$近似于$e^{-0}=1$，如果训练样本$x$与地标$l$之间距离较远，则$f$近似于$e^{-(一个较大的数)}=0$。</p>
 <h5 id="支持向量机参数的影响："><a href="#支持向量机参数的影响：" class="headerlink" title="支持向量机参数的影响："></a>支持向量机参数的影响：</h5><p>两个参数$C$和$\sigma$的影响：</p>
@@ -368,9 +380,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
-      
         <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
       
     </div>
   
@@ -541,7 +553,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -587,10 +599,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

@@ -78,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -202,6 +202,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -315,12 +327,12 @@
 
 <p>我们可以参考其方法来利用金星凌日、火星冲、小行星冲等天象测定太阳赤道地平视差。</p>
 <p>设地球上有两位观测者P、P’（不同维度），P点的观测者看到金星从A点穿过太阳到B点。</p>
-<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1a.gif" srcset="/img/loading.gif" lazyload alt="Track of Venus across the Sun"></p>
+<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1a.gif" alt="Track of Venus across the Sun"></p>
 <p>金星的轨道平面和地球的轨道平面非常接近，通常被称为黄道平面(很接近，但不完全相同——如果是，每次金星超过地球都会发生凌日)。<br>因此AB线几乎与天球上标记黄道的线平行，也就是黄道平面与我们看到的天空相交的那条线。</p>
 <p>如果我们测量AB和A’ B ‘之间的距离D，原则上我们可以应用一些简单的三角函数，利用金地距离或其他相关数据等来推导出日地平均距离（AU)，进一步得到太阳视差。</p>
-<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1b.gif" srcset="/img/loading.gif" lazyload alt="Geometry of the Transit"></p>
+<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1b.gif" alt="Geometry of the Transit"></p>
 <p>开始我们的推导过程，符号由图所示，其中A、B两点为金星内切太阳平面时的中心，所以到太阳中心的距离为R-r。</p>
-<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus4.gif" srcset="/img/loading.gif" lazyload alt="Variables used in the calculation"></p>
+<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus4.gif" alt="Variables used in the calculation"></p>
 <p>$h=(R-r)cos\theta$</p>
 <p>由于过境时间T正比于距离AB，故$T=k·AB=2k(R-r)cos\theta$</p>
 <p>我们设A’B’的角为$\theta+\delta$，则：</p>
@@ -520,7 +532,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -566,10 +578,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

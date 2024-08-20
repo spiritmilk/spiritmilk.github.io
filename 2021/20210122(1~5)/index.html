@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -196,6 +196,18 @@
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
               </a>
             </li>
           
@@ -809,7 +821,7 @@
 <h4 id="3-3"><a href="#3-3" class="headerlink" title="3."></a>3.</h4><p>令$Y = |X|^{\frac{1}{3}}, Z = |X|^{\frac{1}{4}}$，则：<br>$F_Y(y) = P(Y \leq y) = P(|X|^{\frac{1}{3}} \leq y) = P(|X| \leq y^3) = \int_{0}^{y^3}f_{|X|}(|x|)dx$，<br>所以$f_Y(y) = 3y^2f_{|X|}(y^3)$，同理$f_Z(z) = 4z^3f_{|X|}(y^4)$。</p>
 <h4 id="4-3"><a href="#4-3" class="headerlink" title="4."></a>4.</h4><p>因为$F_Y(y) = P(Y \leq y)$，当$0 \leq y \leq 5$时，由全概率公式，<br>$P(Y \leq y) = \frac{1}{4}P(X \leq y) + \frac{3}{4}P(X - 5 \leq y) = \frac{1}{4}P(X \leq y) + \frac{3}{4}P(X \leq y + 5)$，<br>所以$P(Y \leq y) = \frac{1}{4}(\int_{0}^{y}f_{X_A}(x)dx + 3\int_{0}^{y + 5}f_{X_B}(x)dx) = \frac{y}{10} + \frac{1}{4}$，故$f_Y(y) = \frac{1}{10}$；<br>同理当$5 &lt; y \leq 15$时，$P(Y \leq y) = \frac{3}{4}\int_{0}^{y + 5}f_{X_B}(x)dx = \frac{y + 5}{20}$，所以$f_Y(y) = \frac{1}{20}$。</p>
 <h4 id="5-3"><a href="#5-3" class="headerlink" title="5."></a>5.</h4><p>$|z| = 0.5$的情况</p>
-<p><img src="https://s3.ax1x.com/2021/02/15/y6GADf.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://s3.ax1x.com/2021/02/15/y6GADf.jpg"></p>
 <p>由于$X, Y$均服从均匀分布，两个随机变量的联合概率可以用以上的正方形区域面积表示。<br>考虑$|X - Y| \leq z$，这个式子可以被拆开为两个式子$X - Y \leq z$和$Y - X \leq z$，在图中做出这两个函数的图像。<br>不难发现$P(Z \leq z)$就是两条平行线与正方形所包围的图形的面积，即$P(Z \leq z) = 2z - z^2$，所以$f_Z(z) = 2 - 2z$。</p>
 <h4 id="6-3"><a href="#6-3" class="headerlink" title="6."></a>6.</h4><p>使用和第五题类似的做法：$P(Z \leq z) = P(|X - Y| \leq z) = \frac{\sqrt{2}z}{2}(\sqrt{2}z + \frac{\sqrt{2}}{2}(1 - z) * 2) = \frac{z}{2}$，<br>所以$f_Z(z) = \frac{1}{2}$。</p>
 <h4 id="7-3"><a href="#7-3" class="headerlink" title="7."></a>7.</h4><p>不难看出这题的随机变量就是第五题中的Z。所以$E[Z] = \int_{0}^{1}2z^2 - z^3dz = \frac{1}{3}$。</p>
@@ -1110,7 +1122,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -1156,10 +1168,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 

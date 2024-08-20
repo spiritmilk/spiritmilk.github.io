@@ -79,7 +79,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -203,6 +203,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>about me</span>
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
@@ -315,8 +327,8 @@
 <p>代码：<a target="_blank" rel="noopener" href="https://github.com/yuweihao/MambaOut">github</a></p>
 <span id="more"></span>
 
-<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="mambaout.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="概念讨论"><a href="#概念讨论" class="headerlink" title="概念讨论"></a>概念讨论</h2><p><img src="x3.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="mambaout.png"></p>
+<h2 id="概念讨论"><a href="#概念讨论" class="headerlink" title="概念讨论"></a>概念讨论</h2><p><img src="x3.png"></p>
 <p>从记忆角度来看因果注意力和类 RNN 模型的机制说明，其中$x_i$ 表示第 i 步骤的输入标记。 (a) 因果注意力将所有先前标记的键 和值  存储为内存。通过不断添加当前 token 的 key 和 value 来更新内存，因此内存是无损的，但缺点是随着序列的延长，整合旧内存和当前 token 的计算复杂度会增加。因此，注意力可以有效地管理短序列，但可能会遇到较长序列的困难。</p>
 <p>相反，类似 RNN 的模型将先前的标记压缩为固定大小的隐藏状态 ℎ ，用作内存。这种固定大小意味着 RNN 内存本质上是有损的，无法与注意力模型的无损内存容量直接竞争。尽管如此，类似 RNN 的模型在处理长序列时可以表现出明显的优势，因为无论序列长度如何，将旧内存与当前输入合并的复杂性保持不变。</p>
 <p>总之，Mamba 非常适合具有以下特征的任务：<br>• 特征1：任务涉及处理长序列。<br>• 特征2：任务需要因果标记混合模式。</p>
@@ -324,13 +336,13 @@
 <h3 id="视觉识别任务的序列是否很长"><a href="#视觉识别任务的序列是否很长" class="headerlink" title="视觉识别任务的序列是否很长"></a>视觉识别任务的序列是否很长</h3><p>对于ImageNet上的图像分类，典型的输入图像大小为 224$^{2}$,从而产生块大小为 16$^{2}$的 14$^{2}=196$标记。显然，196 远小于$\tau_\mathrm{small}$和$\tau_\mathrm{base}$ ,表明 ImageNet 上的图像分类不符合长序列任务的条件。</p>
 <p>对于 COCO 上的对象检测和实例分割，推理图像大小为$800\times1280$,对于 ADE2oK 上的语义分割，推理图像大小为$512\times2048$ ,令牌数量约为4K，给定补丁大小$16^2$。从$4K&gt;\tau_\mathrm{small}$和$4K\approx\tau_\mathrm{base}$开始，COCO上的检测和ADE2oK上的分割都可以被认为是长序列任务。</p>
 <h3 id="视觉识别任务需要因果标记混合模式吗"><a href="#视觉识别任务需要因果标记混合模式吗" class="headerlink" title="视觉识别任务需要因果标记混合模式吗"></a>视觉识别任务需要因果标记混合模式吗</h3><p>作者指出，完全可见的令牌混合模式允许不受限制的混合范围，而因果模式则限制当前令牌只能访问先前令牌的信息。视觉识别被归类为理解任务，其中模型可以立即看到整个图像，从而消除了对令牌混合的限制。对令牌混合施加额外的限制可能会降低模型性能。</p>
-<h2 id="实验验证"><a href="#实验验证" class="headerlink" title="实验验证"></a>实验验证</h2><p><img src="x6.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="实验验证"><a href="#实验验证" class="headerlink" title="实验验证"></a>实验验证</h2><p><img src="x6.png"></p>
 <p>Gated CNN 块的算法的PyTorch 代码:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GatedCNNBlock</span>(<span class="hljs-params">nn.Module</span>):</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, dim, expension_ratio=<span class="hljs-number">8</span>/<span class="hljs-number">3</span>, kernel_size=<span class="hljs-number">7</span>, conv_ratio=<span class="hljs-number">1.0</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">norm_layer=partial(<span class="hljs-params">nn.LayerNorm,eps=<span class="hljs-number">1e-6</span></span>),</span></span><br><span class="hljs-params"><span class="hljs-function">act_layer=nn.GELU,</span></span><br><span class="hljs-params"><span class="hljs-function">drop_path=<span class="hljs-number">0.</span></span>):</span><br><span class="hljs-built_in">super</span>().__init__()<br>self.norm = norm_layer(dim)<br>hidden = <span class="hljs-built_in">int</span>(expension_ratio * dim)<br>self.fc1 = nn.Linear(dim, hidden * <span class="hljs-number">2</span>)<br>self.act = act_layer()<br>conv_channels = <span class="hljs-built_in">int</span>(conv_ratio * dim)<br>self.split_indices = (hidden, hidden - conv_channels, conv_channels)<br>self.conv = nn.Conv2d(conv_channels, conv_channels, kernel_size=kernel_size, padding=kernel_size//<span class="hljs-number">2</span>, groups=conv_channels)<br>self.fc2 = nn.Linear(hidden, dim)<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>shortcut = x <span class="hljs-comment"># [B, H, W, C] = x.shape</span><br>x = self.norm(x)<br>g, i, c = torch.split(self.fc1(x), self.split_indices, dim=-<span class="hljs-number">1</span>)<br>c = c.permute(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment"># [B, H, W, C] -&gt; [B, C, H, W]</span><br>c = self.conv(c)<br>c = c.permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>) <span class="hljs-comment"># [B, C, H, W] -&gt; [B, H, W, C]</span><br>x = self.fc2(self.act(g) * torch.cat((i, c), dim=-<span class="hljs-number">1</span>))<br><span class="hljs-keyword">return</span> x + shortcut<br></code></pre></td></tr></table></figure>
 
 <h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>下表显示了224*224分辨率下模型在ImageNet上的性能。我们的MambaOut模型采用gate CNN块[60]。Mamba区块源自Gated CNN区块，包含了一个额外的SSM(状态空间模型)。很明显，视觉mamba模型不如MambaOut的性能，更不用说超越最先进的卷积或卷积注意力混合模型了。注意，vmamba9将mamba块的元架构修改为MetaFormer，不同于其他可视化mamba模型和MambaOut</p>
-<p><img src="imagenet.jpg" srcset="/img/loading.gif" lazyload></p>
-<h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p><img src="seg1.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="imagenet.jpg"></p>
+<h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p><img src="seg1.jpg"></p>
 
                 
               </div>
@@ -507,7 +519,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <span>LJX</span> 
     </div>
   
   
@@ -553,10 +565,6 @@
 
 
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
 
 
 
