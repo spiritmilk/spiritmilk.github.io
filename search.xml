@@ -12274,7 +12274,17 @@ scale).">
 <p>最终loss:  αCE+βRCE</p>
 <p>Strength:</p>
 <p>Weakness: 根据NoisyGL，效果比baseline高不了多少，可能是因为图数据的标签稀缺性</p>
-<h2 id="《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》"><a href="#《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》" class="headerlink" title="《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》"></a>《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》</h2>]]></content>
+<h2 id="《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》"><a href="#《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》" class="headerlink" title="《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》"></a>《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》</h2><p>Motivation：</p>
+<p>Method:</p>
+<p><img src="idgl.png"></p>
+<p>Strength:相似性使用了多头设置，学习能力更强。使用了历史邻接矩阵信息。Weakness:</p>
+<h2 id="《Adversarial-Label-Flipping-Attack-and-Defense-for-Graph-Neural-Networks-（ICDM-2020）》"><a href="#《Adversarial-Label-Flipping-Attack-and-Defense-for-Graph-Neural-Networks-（ICDM-2020）》" class="headerlink" title="《Adversarial Label-Flipping Attack and Defense for Graph Neural Networks （ICDM 2020）》"></a>《Adversarial Label-Flipping Attack and Defense for Graph Neural Networks （ICDM 2020）》</h2><p>Motivation：社区标签和GCN输出具有一致性</p>
+<p><img src="af_moti.png"></p>
+<p>Method: 使用community信息来帮助分类。先Embedding再聚类（k-means+NodeVec），得到community标签。有了community label后，将训练GCN用来预测community label作为辅助自监督任务，将L-1层的隐藏特征输入，输出K-路softmax 分布。</p>
+<p><img src="af1.png"></p>
+<p>Strength: 形式简单</p>
+<p>Weakness: 耗时严重（根据NoisyGL，运行时间最慢的第二个）。网络部分共享结构，此处不耗时。耗时应该在社区标签计算上。此处可能有改进空间。</p>
+]]></content>
       <tags>
         <tag>深度学习</tag>
         <tag>图神经网络</tag>
