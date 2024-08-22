@@ -12110,6 +12110,18 @@ scale).">
 <p><img src="KDD2022.PNG"></p>
 <p>Strength: 图增强提高学习能力。Advanced GCN中针对低度高度做了不同的聚合权重</p>
 <p>Weakness: 相似度策略比较单调。特征打乱如果按类内打乱效果会更好（（ICML 2024）Feature Distribution on Graph Topology Mediates the Effect of Graph Convolution: Homophily Perspective）。</p>
+<h2 id="《toward-robust-graph-neural-networks-for-noisy-graphs-with-sparse-labels-2022WSDM-》"><a href="#《toward-robust-graph-neural-networks-for-noisy-graphs-with-sparse-labels-2022WSDM-》" class="headerlink" title="《toward robust graph neural networks for noisy graphs with sparse labels (2022WSDM)》"></a>《toward robust graph neural networks for noisy graphs with sparse labels (2022WSDM)》</h2><p>Strength:使用了单独的边预测器，更好的利用特征信息</p>
+<p>Method: </p>
+<p><img src="rsgnn.png"></p>
+<h2 id="《Learning-on-Graphs-under-Label-Noise-（ICASSP-2023-》"><a href="#《Learning-on-Graphs-under-Label-Noise-（ICASSP-2023-》" class="headerlink" title="《Learning on Graphs under Label Noise （ICASSP 2023)》"></a>《Learning on Graphs under Label Noise （ICASSP 2023)》</h2><p>Motivation：需要一种没有标签信息的正则化项，以获得针对标签噪声的卓越模型泛化能力</p>
+<p>Method: 首先对图进行增强，第一种是随机丢边，第二种是随机mask节点属性。再使用对比学习和标签矫正。</p>
+<p><img src="iscapp2023.png"></p>
+<p>Strength:两次图增强都公用一套GCN，耗时小。使用了多种图增强技术。图增强过程中不涉及标签。</p>
+<p>Weakness:方法简单。相当于只进行了图增强+标签矫正。</p>
+<h2 id="《Multi-teacher-Self-training-for-Semi-supervised-Node-Classification-with-Noisy-Labels-（ACM-MM-2023-》"><a href="#《Multi-teacher-Self-training-for-Semi-supervised-Node-Classification-with-Noisy-Labels-（ACM-MM-2023-》" class="headerlink" title="《Multi-teacher Self-training for Semi-supervised Node Classification with Noisy Labels （ACM MM 2023)》"></a>《Multi-teacher Self-training for Semi-supervised Node Classification with Noisy Labels （ACM MM 2023)》</h2><p>Motivation：根据文献《Selc: Self-ensemble label correction improves learning with noisy labels.》，在带有噪声标签的数据集上训练神经网络模型时，模型倾向于首先学习简单(干净)的样本。</p>
+<p>Method:</p>
+<p><img src="multiteacher.png"></p>
+<p>使用先前的作为教师模型，并积累教师模型的参数。来进行标签处理</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
