@@ -12284,6 +12284,21 @@ scale).">
 <p><img src="af1.png"></p>
 <p>Strength: 形式简单</p>
 <p>Weakness: 耗时严重（根据NoisyGL，运行时间最慢的第二个）。网络部分共享结构，此处不耗时。耗时应该在社区标签计算上。此处可能有改进空间。</p>
+<h2 id="《Data-Augmentation-for-Graph-Neural-Networks-AAAI-2021）》"><a href="#《Data-Augmentation-for-Graph-Neural-Networks-AAAI-2021）》" class="headerlink" title="《Data Augmentation for Graph Neural Networks  (AAAI 2021）》"></a>《Data Augmentation for Graph Neural Networks  (AAAI 2021）》</h2><p>Motivation：最明显的方法涉及添加或删除节点或边。但问题仍然存在，哪些边缘需要改变？</p>
+<p>Method:</p>
+<p>（1）使用边缘预测器函数（文中使用的是GAE）来获取𝒢中所有可能和现有边缘的边缘概率。边缘预测器的作用是灵活的，一般可以用任何合适的方法代替。</p>
+<p> (2) 使用预测的边概率，我们确定性地添加（删除）新（现有）边以创建修改后的图𝒢 ，该图用作 GNN 节点分类器的输入。</p>
+<h2 id="《NRGNN-learning-a-lable-noise-resistant-graph-neural-network-on-sparsely-and-noisily-labeled-graphs-2021-KDD》"><a href="#《NRGNN-learning-a-lable-noise-resistant-graph-neural-network-on-sparsely-and-noisily-labeled-graphs-2021-KDD》" class="headerlink" title="《NRGNN learning a lable noise-resistant graph neural network on sparsely and noisily labeled graphs 2021 KDD》"></a>《NRGNN learning a lable noise-resistant graph neural network on sparsely and noisily labeled graphs 2021 KDD》</h2><p>Motivation：由于图上的标签稀疏，错误标记的节点可能会影响其邻域内未标记的节点，从而难以接受正确标记节点的监督。为了解决这些问题，NRGNN 首先连接具有相似特征的节点以创建精细图。基于这个精细化的图，生成精确的伪标签，使未标记的样本能够接受来自正确标记的样本的更多监督，从而减少噪声标签的影响。</p>
+<p>Method:</p>
+<p><img src="nrgnn.png"></p>
+<p>Strength: 使用了单独的边预测器，更好的利用特征信息Weakness: 边预测器单使用该loss而不使用分类器，疑似无增长。在理论上假设节点的特征相似性与其标签有较高的相关性</p>
+<h2 id="《Unified-Robust-Training-for-Graph-NeuralNetworks-against-Label-Noise-（PAKDD-2021-》"><a href="#《Unified-Robust-Training-for-Graph-NeuralNetworks-against-Label-Noise-（PAKDD-2021-》" class="headerlink" title="《Unified Robust Training for Graph NeuralNetworks against Label Noise （PAKDD 2021)》"></a>《Unified Robust Training for Graph NeuralNetworks against Label Noise （PAKDD 2021)》</h2><p>Motivation：结构邻近性（直接或间接连接）高的节点往往具有相似的标签-&gt;随机游走</p>
+<p>Method:</p>
+<p><img src="PAKDD2021.PNG"></p>
+<p>Strength: 样本有重新加权，可以让可靠标签在梯度更新时做出更多共享。标签校正在高噪声下，不能保证性能增益，而通过先验分布损失的正则化能发挥作用。Weakness: 需要更多的时间复杂度和空间占用，因为要随机游走来收集</p>
+<h2 id="《EvenNet-Ignoring-Odd-Hop-Neighbors-Improves-Robustness-of-Graph-Neural-Networks-（NIPS-2022-》"><a href="#《EvenNet-Ignoring-Odd-Hop-Neighbors-Improves-Robustness-of-Graph-Neural-Networks-（NIPS-2022-》" class="headerlink" title="《EvenNet: Ignoring Odd-Hop Neighbors Improves Robustness of Graph Neural Networks （NIPS 2022)》"></a>《EvenNet: Ignoring Odd-Hop Neighbors Improves Robustness of Graph Neural Networks （NIPS 2022)》</h2><p>Motivation：源于符号网络的平衡理论提供了一个很好的视角：“敌人的敌人就是我的朋友，我朋友的朋友也是我的朋友。”</p>
+<p>Method: </p>
+<p><img src="evennet.png"></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
