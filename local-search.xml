@@ -63,6 +63,27 @@
   
   
   <entry>
+    <title>图鲁棒性论文速览</title>
+    <link href="/2024/20240629/"/>
+    <url>/2024/20240629/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="《Learning-Graph-Neural-Networks-with-Noisy-Labels-（arxiv-2019-》"><a href="#《Learning-Graph-Neural-Networks-with-Noisy-Labels-（arxiv-2019-》" class="headerlink" title="《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》"></a>《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》</h2><p>Motivation：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。</p><span id="more"></span><p>Method:</p><p><img src="1.png"></p><p>Strength: 方法简单，计算量小</p><p>Weakness: 结果疑似不好，根据NoisyGL</p><h2 id="《Symmetric-Cross-Entropy-for-Robust-Learning-with-Noisy-Labels-（ICCV-2019）》"><a href="#《Symmetric-Cross-Entropy-for-Robust-Learning-with-Noisy-Labels-（ICCV-2019）》" class="headerlink" title="《Symmetric Cross Entropy for Robust Learning with Noisy Labels （ICCV 2019）》"></a>《Symmetric Cross Entropy for Robust Learning with Noisy Labels （ICCV 2019）》</h2><p>Motivation：交叉熵：（1）hard class处理不好；（2）遇到noisy label表现下降很多。作者受反向KL散度启发提出了另一种交叉熵</p><p>Method: </p><p>交叉熵(CE)： -q(x)logp(x)</p><p>RCE:  -p(x)logq(x)</p><p>最终loss:  αCE+βRCE</p><p>Strength:</p><p>Weakness: 根据NoisyGL，效果比baseline高不了多少，可能是因为图数据的标签稀缺性</p><h2 id="《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》"><a href="#《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》" class="headerlink" title="《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》"></a>《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>图神经网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>恋爱脑之死</title>
     <link href="/2024/20240623/"/>
     <url>/2024/20240623/</url>
