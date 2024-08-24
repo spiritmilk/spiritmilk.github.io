@@ -3602,39 +3602,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何只使用一个隐层，来实现包含n元输入的任意布尔函数？</title>
-    <url>/2021/20210724/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>此为吴恩达《深度学习》课程中其中一个（不起眼的）知识的拓展。</p>
-<p>吴恩达举例说明深度神经网络时，给出了只使用一层隐藏层表示异或逻辑需要$O(2^n)$的隐藏单元。</p>
-<span id="more"></span>
-
-<p>结论看起来很显然，但该如何证明呢？</p>
-<hr>
-<p>包含n元输入的任意布尔函数可以唯一表示为析取范式（Disjunctive Normal Form，DNF）（由有限个简单合取式构成的析取式）的形式。</p>
-<p>单个隐结点可以表示任意合取式。考虑任意布尔变量，假设$X_i$，若它 在合取范式中出现的形式为正（$X_i$)，则设权重为1；若出现的形式为非$\overline{X_i}$， 则设权重为−1；若没有在合取式中出现。设权重为0；并且偏置设为合区式中变量的总数取负之后再加1。可以看出，当采用ReLU激活函数之后，当且仅当所有出现的布尔变量均满足条件时，该隐藏单元才会被激活（输出1)，否则输出 0，这与合取范式的定义的相符的。然后，令所有隐藏单元到输出层的参数为1，并设输出单元的偏置为0。这样，当且仅当所有的隐藏单元都未被激活时，才会输出0，否则都将输出一个正数，起到了析取的作用。</p>
-<p>由上可知，最多只需一层隐藏层，感知机就能表示任何布尔函数，只需表示为析取范式的形式。任何布尔函数都可以用真值表来表示。</p>
-<p>例如:</p>
-<p><img src="https://z3.ax1x.com/2021/07/26/WRrVr8.jpg"></p>
-<p>那隐藏单元什么时候最多呢？异或函数。这时候的真值表如棋盘一样交叉相错。</p>
-<p><img src="https://z3.ax1x.com/2021/07/26/WRWY4O.jpg"></p>
-<p>这时候，隐藏单元为$2^{n-1}$个。</p>
-<p>也如吴恩达所提到的，如果不限制隐藏层为单层，则隐藏单元数量可以降低到$O(n)$。</p>
-<p>事实上，吴恩达提到的这个异或函数也被称为”n元奇偶校验问题“。文献3中通过引入隐层抑制神经元将隐元数目降至n。</p>
-<p>此外，顺便提一下Shannon’theorem,即当n&gt;2时，存在一个n元输入的布尔函数至少需要$\frac{2^n}{n}$的门。</p>
-<p>如果我们能找到用一个数量多项式大小的神经网络模型计算所有的布尔函数，则说明了P=NP。</p>
-<p>[参考资料：]</p>
-<p>1.<a href="http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Spring.2018/www/slides/lec2.universal.pdf">cmu的deep learing ppt</a></p>
-<p>2.《百面机器学习》</p>
-<p>3.陆阳，杨娟，王强，黄镇谨.二进神经网络表达奇偶校验问题的隐元最小数目上界.中国科学：信息科学,2012</p>
-<p>进一步阅读：</p>
-<p>4.Setiono, R. (1997). On the solution of the parity problem by a single hidden layer feedforward neural network. Neurocomputing, 16(3), 225–235.</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>费用为k的生成树</title>
     <url>/2021/20210718/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>问题：输入无向图G和一个整数k。G中有n个顶点。每条边的费用非1 即2。请在图G中寻找一棵费用为k 的生成树。<br>(此题为数据结构与算法HW5的bouns题第一题)</p>
@@ -3665,6 +3632,39 @@
 ]]></content>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何只使用一个隐层，来实现包含n元输入的任意布尔函数？</title>
+    <url>/2021/20210724/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>此为吴恩达《深度学习》课程中其中一个（不起眼的）知识的拓展。</p>
+<p>吴恩达举例说明深度神经网络时，给出了只使用一层隐藏层表示异或逻辑需要$O(2^n)$的隐藏单元。</p>
+<span id="more"></span>
+
+<p>结论看起来很显然，但该如何证明呢？</p>
+<hr>
+<p>包含n元输入的任意布尔函数可以唯一表示为析取范式（Disjunctive Normal Form，DNF）（由有限个简单合取式构成的析取式）的形式。</p>
+<p>单个隐结点可以表示任意合取式。考虑任意布尔变量，假设$X_i$，若它 在合取范式中出现的形式为正（$X_i$)，则设权重为1；若出现的形式为非$\overline{X_i}$， 则设权重为−1；若没有在合取式中出现。设权重为0；并且偏置设为合区式中变量的总数取负之后再加1。可以看出，当采用ReLU激活函数之后，当且仅当所有出现的布尔变量均满足条件时，该隐藏单元才会被激活（输出1)，否则输出 0，这与合取范式的定义的相符的。然后，令所有隐藏单元到输出层的参数为1，并设输出单元的偏置为0。这样，当且仅当所有的隐藏单元都未被激活时，才会输出0，否则都将输出一个正数，起到了析取的作用。</p>
+<p>由上可知，最多只需一层隐藏层，感知机就能表示任何布尔函数，只需表示为析取范式的形式。任何布尔函数都可以用真值表来表示。</p>
+<p>例如:</p>
+<p><img src="https://z3.ax1x.com/2021/07/26/WRrVr8.jpg"></p>
+<p>那隐藏单元什么时候最多呢？异或函数。这时候的真值表如棋盘一样交叉相错。</p>
+<p><img src="https://z3.ax1x.com/2021/07/26/WRWY4O.jpg"></p>
+<p>这时候，隐藏单元为$2^{n-1}$个。</p>
+<p>也如吴恩达所提到的，如果不限制隐藏层为单层，则隐藏单元数量可以降低到$O(n)$。</p>
+<p>事实上，吴恩达提到的这个异或函数也被称为”n元奇偶校验问题“。文献3中通过引入隐层抑制神经元将隐元数目降至n。</p>
+<p>此外，顺便提一下Shannon’theorem,即当n&gt;2时，存在一个n元输入的布尔函数至少需要$\frac{2^n}{n}$的门。</p>
+<p>如果我们能找到用一个数量多项式大小的神经网络模型计算所有的布尔函数，则说明了P=NP。</p>
+<p>[参考资料：]</p>
+<p>1.<a href="http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Spring.2018/www/slides/lec2.universal.pdf">cmu的deep learing ppt</a></p>
+<p>2.《百面机器学习》</p>
+<p>3.陆阳，杨娟，王强，黄镇谨.二进神经网络表达奇偶校验问题的隐元最小数目上界.中国科学：信息科学,2012</p>
+<p>进一步阅读：</p>
+<p>4.Setiono, R. (1997). On the solution of the parity problem by a single hidden layer feedforward neural network. Neurocomputing, 16(3), 225–235.</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -4637,31 +4637,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何读论文——李沐</title>
-    <url>/2022/20220120/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文大致分为以下几个部分：</p>
-<p>1.title<br>2.abstract<br>3.introduction<br>4.method<br>5.experiments<br>6.conclusion</p>
-<p>论文读三遍。</p>
-<span id="more"></span>
-
-<h6 id="第一遍"><a href="#第一遍" class="headerlink" title="第一遍"></a>第一遍</h6><p>标题、摘要、结论。</p>
-<p>然后看一看方法和实验部分重要的图和表。这样可以花费十几分钟时间了解到论文结果怎么样，质量怎么样，是否适合你的研究方向。</p>
-<h6 id="第二遍"><a href="#第二遍" class="headerlink" title="第二遍"></a>第二遍</h6><p>确定论文值得读之后，可以快速的把整个论文过一遍，不需要知道所有的细节，需要了解重要的图和表，知道每一个部分在干什么，圈出相关文献。</p>
-<p>觉得文章太难，可以读引用的文献。</p>
-<p>如果觉得不需要了解那么就可以停止了。</p>
-<h6 id="第三遍"><a href="#第三遍" class="headerlink" title="第三遍"></a>第三遍</h6><p>每句话作者在干什么</p>
-<p>提出什么问题，用什么方法来解决这个问题。实验是怎么做的。如果是我来做怎么实现？能不能做得更好？</p>
-<p>合上文章，回忆每一个部分在讲什么</p>
-<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><p>第一遍 做海选</p>
-<p>第二遍 做精选</p>
-<p>第三遍 重点研读</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>论文</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>BERT</title>
     <url>/2022/20220119/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文：BERT:Pre-training of Deep Bidirectional Transformers for Language Understanding</p>
@@ -4786,6 +4761,31 @@
         <tag>笔记</tag>
         <tag>机器学习</tag>
         <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何读论文——李沐</title>
+    <url>/2022/20220120/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文大致分为以下几个部分：</p>
+<p>1.title<br>2.abstract<br>3.introduction<br>4.method<br>5.experiments<br>6.conclusion</p>
+<p>论文读三遍。</p>
+<span id="more"></span>
+
+<h6 id="第一遍"><a href="#第一遍" class="headerlink" title="第一遍"></a>第一遍</h6><p>标题、摘要、结论。</p>
+<p>然后看一看方法和实验部分重要的图和表。这样可以花费十几分钟时间了解到论文结果怎么样，质量怎么样，是否适合你的研究方向。</p>
+<h6 id="第二遍"><a href="#第二遍" class="headerlink" title="第二遍"></a>第二遍</h6><p>确定论文值得读之后，可以快速的把整个论文过一遍，不需要知道所有的细节，需要了解重要的图和表，知道每一个部分在干什么，圈出相关文献。</p>
+<p>觉得文章太难，可以读引用的文献。</p>
+<p>如果觉得不需要了解那么就可以停止了。</p>
+<h6 id="第三遍"><a href="#第三遍" class="headerlink" title="第三遍"></a>第三遍</h6><p>每句话作者在干什么</p>
+<p>提出什么问题，用什么方法来解决这个问题。实验是怎么做的。如果是我来做怎么实现？能不能做得更好？</p>
+<p>合上文章，回忆每一个部分在讲什么</p>
+<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><p>第一遍 做海选</p>
+<p>第二遍 做精选</p>
+<p>第三遍 重点研读</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>论文</tag>
       </tags>
   </entry>
   <entry>
@@ -4989,23 +4989,6 @@
       </tags>
   </entry>
   <entry>
-    <title>高考100天</title>
-    <url>/2022/20220227/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 今天离高考还有100天。</p>
-<p>距离属于我的高考100天已经过了两年了。</p>
-<p>没有发生变化的是仍然因为疫情不得不在家上网课。</p>
-<span id="more"></span>
-
-<p>回想起来，高考结束的下午和往日也没有什么太大不同，也没有意想中的解放后的欢呼雀跃</p>
-<hr>
-<p>写个屁，没什么好怀念的</p>
-]]></content>
-      <tags>
-        <tag>纪念</tag>
-        <tag>回忆</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《拖延症与摩托车维修艺术——“当代年轻人的精神困境”》笔记</title>
     <url>/2022/20220225/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>演讲者是李松蔚</p>
@@ -5206,6 +5189,23 @@
         <tag>笔记</tag>
         <tag>演讲</tag>
         <tag>心理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高考100天</title>
+    <url>/2022/20220227/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p> 今天离高考还有100天。</p>
+<p>距离属于我的高考100天已经过了两年了。</p>
+<p>没有发生变化的是仍然因为疫情不得不在家上网课。</p>
+<span id="more"></span>
+
+<p>回想起来，高考结束的下午和往日也没有什么太大不同，也没有意想中的解放后的欢呼雀跃</p>
+<hr>
+<p>写个屁，没什么好怀念的</p>
+]]></content>
+      <tags>
+        <tag>纪念</tag>
+        <tag>回忆</tag>
       </tags>
   </entry>
   <entry>
@@ -5926,25 +5926,46 @@
       </tags>
   </entry>
   <entry>
-    <title>验证集loss下降，准确率却上升的问题</title>
-    <url>/2022/20220328/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>在做李宏毅的2022机器学习课程HW3时遇到了这个问题。</p>
+    <title>你该认清你的恐惧而不是目标</title>
+    <url>/2022/20220408/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该演讲来自TED。<br>演讲者：Tim Ferriss<br>官网链接：<a href="https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript">https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript</a></p>
 <span id="more"></span>
 
-<p>网上一搜，发现有很多人都遇到了这个问题。甚至有人在github专门开了一个<a href="https://github.com/thegregyang/LossUpAccUp">LossUpAccUp</a>项目讨论这一问题。</p>
-<p>LossUpAccUp项目还讨论了一些解决方法：</p>
-<p><strong>标准化</strong>。如果权重或者Logit标准化，可能不会出现这一问题。</p>
-<p>Guo等人[2]认为这是一个错误的校准问题，即神经网络对其错误分类的输入变得过度自信。</p>
-<p>Takashi Ishida等人提出了一个新的损失函数，来避免出现这一问题。（关键代码只有一行就能发顶会就很厉害。）</p>
-<p>设原来的损失函数是$\mathcal{L}(\theta)$，现在改为$ \tilde{\mathcal{L}}(\theta)=|\mathcal{L}(\theta)-b|+b$。其中b为预先设定的阈值。从而能使损失函数二次下降。</p>
-<p>参考资料：</p>
-<p>1.<a href="https://github.com/thegregyang/LossUpAccUp">LossUpAccUp</a></p>
-<p>2.<a href="https://arxiv.org/abs/1706.04599">On Calibration of Modern Neural Networks</a></p>
-<p>3.<a href="https://arxiv.org/pdf/2002.08709.pdf">Do We Need Zero Training Loss After Achieving Zero Training Error?</a></p>
-<p>4.<a href="https://kexue.fm/archives/7643">我们真的需要把训练集的损失降低到零吗？</a></p>
+<p>我所找到的并被证实为最可靠安全的 情绪安全网 也正是 我用来做出最佳商业决定的工具。 但是这是次要的。 它就是斯多葛学派（stoicism）。</p>
+<p>美国的奠基人， 托马斯·杰斐逊、约翰·亚当斯、 乔治·华盛顿 他们都是斯多葛学派的信奉者。</p>
+<p>而在希腊罗马世界， 人们把斯多葛学派作为一个全面的系统 能解决很多事情。 于我们而言， 最主要的目的是训练我们自己 将可控和不可控的事情分开， 然后训练如何专注于于前者。 这将降低情绪的反应力， 这将成为一种超能力。</p>
+<p>我找到一个改变人生的警句， ““折磨我們的往往是想像， 而不是真實”” 出自塞内卡， 他是著名的斯多葛学派作家。 </p>
+<p> “premeditatio malorum,” 意思是在最坏情况来临前提前预想。 简而言之， 预想最坏的情景及你所恐惧的细节， 防止你采取任何行动， 因此你可以采取行动，来摆脱恐惧。 我当时头脑一片混乱， 充满着连续不断嘈杂的声音。 通过思考我的问题没有什么用处。 我需要把想法都写在纸上。 </p>
+<h5 id="第一页"><a href="#第一页" class="headerlink" title="第一页"></a>第一页</h5><p>第一页是这样的。 “如果我…?” 这是你所恐惧的东西， 让你焦虑的东西， 被拖延的东西。 它可能是邀约某人， 结束一段关系， 提出升职，辞职或者创业。 它可以是任何事情。 与我而言，它是在工作 4年后第一次休假 我离开公司去伦敦休息一个月， 我可以免费住在伦敦朋友的房间里， 让我从生意的瓶颈中解放自己 或者结束它。</p>
+<p>在第一栏“定义”中， 你写下所有你预想中 会发生的最坏的事情 如果你采取这一步行动。 你需要写下10到20个。 我不会每一个都详述， 但我举两个例子。 一个是如果我去伦敦， 伦敦在下雨的话，我会很沮丧。 整个旅程就是浪费时间。 第二个是我错过了美国国税局的信， 我将被查税 或者被抨击或者关闭等。</p>
+<p>这时可以使用“预防”一栏。 在这一栏中，你写下答案： 我能做什么来预防这些事情发生， 或者至少降低发生的可能性？ 因此当我在伦敦觉得沮丧时， 我可以随身携带便携式蓝光 在早上使用15分钟。 我知道这会帮助我摆脱抑郁。 对于国税局， 我可以修改在国税局的邮寄地址， 因此文件到我的会计手上 而不是我的UPS地址。 超级简单。</p>
+<p>接下来我们到“修复”一栏。 如果最坏的情况发生， 你能做什么来减轻损失， 或者你能向谁寻求帮助？ 因此第一个伦敦的例子， 我会多花点钱，去西班牙享受阳光， 来弥补损失，如果我陷入恐慌中。 如果我错过美国国税局的来件， 我可以给当律师的朋友打电话 或者咨询法学教授 他们的意见， 我将向他们请教 过去类似的情况是如何处理的。 在填写第一页时请谨记一个问题： 过去是否有人 不够聪明或者缺乏主动性 来弄清楚这些问题吗？ 答案是“是的”。</p>
+<table>
+<thead>
+<tr>
+<th>定义</th>
+<th>预防</th>
+<th>修复</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>設定10-20個做下這個決定、行動後，你所恐懼的事情</td>
+<td>你可以怎麼去避免或降低這些風險？</td>
+<td>如果最糟的情況發生了， 你能做什麼來稍微 修復造成的損害？</td>
+</tr>
+</tbody></table>
+<h5 id="第二页"><a href="#第二页" class="headerlink" title="第二页"></a>第二页</h5><p>第二页很简单： 一次尝试或部分成功会带来哪些好处？ 你可以看到我们直面恐惧 同时保持谨慎。 因此当你尝试你想做的事情的时候， 也许你可以建立自信， 提高情绪、经济等方面的技能。 一个安打（a base hit）能带来哪些好处？ 花10到15分钟时间思考下。</p>
+<h5 id="第三页"><a href="#第三页" class="headerlink" title="第三页"></a>第三页</h5><p> 这很可能是最重要的，不要跳过。 “不行动的代价”。 </p>
+<p>人类非常善于设想可能出错的事情 如果我们尝试新的事情，例如加薪。 我们通常忽视维持现状所付出的代价 什么都不改变。 因此你要扪心自问， 如果我错过这次行动或决定 以及类似的行动和决定， 6个月，12个月，3年后我的 生活会是什么样子？ 刚开始，这些变化非常细微。 但从情感、经济、身体等方面 再次仔细地思考。</p>
+<p>这就是恐惧设置的三页纸。 </p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>之后，我意识到用1到10来评测， 1是最小的影响，10是最大的影响， 如果我踏上旅途，它将面对 1到3个短暂的可解决的苦恼， 还有8到10个能深刻改变我生活的 积极影响。 因此我选择了旅程。 然而我预想的灾难一个也没发生。 当然会有一些小问题。 我能将自己从生意中抽离出来。 最后我延长了那个环球旅行， 花了一年半的时间， 这也是我第一本书的素材来源， 最后让我今天站在了这里。</p>
+<p>“Easy choices, hard life. Hard choices, easy life“</p>
+<p>困难的选择， 我们最害怕去做的、问的、说的， 这些有可能正是我们最需要做的。 我们面对的最大挑战和困难是 永远不能通过一个轻松的谈话就能解决， 不管是你自我思考还是和别人探讨。</p>
+<p>因此我鼓励你问自己： 你现在处在你人生中的哪个阶段 也许会让你看清恐惧而不是目标？ 请将Seneca的话铭记在心： “We suffer more often in imagination than in reality”</p>
 ]]></content>
       <tags>
-        <tag>人工智能</tag>
+        <tag>演讲</tag>
+        <tag>心理</tag>
       </tags>
   </entry>
   <entry>
@@ -6014,97 +6035,25 @@
       </tags>
   </entry>
   <entry>
-    <title>你该认清你的恐惧而不是目标</title>
-    <url>/2022/20220408/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该演讲来自TED。<br>演讲者：Tim Ferriss<br>官网链接：<a href="https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript">https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript</a></p>
+    <title>验证集loss下降，准确率却上升的问题</title>
+    <url>/2022/20220328/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>在做李宏毅的2022机器学习课程HW3时遇到了这个问题。</p>
 <span id="more"></span>
 
-<p>我所找到的并被证实为最可靠安全的 情绪安全网 也正是 我用来做出最佳商业决定的工具。 但是这是次要的。 它就是斯多葛学派（stoicism）。</p>
-<p>美国的奠基人， 托马斯·杰斐逊、约翰·亚当斯、 乔治·华盛顿 他们都是斯多葛学派的信奉者。</p>
-<p>而在希腊罗马世界， 人们把斯多葛学派作为一个全面的系统 能解决很多事情。 于我们而言， 最主要的目的是训练我们自己 将可控和不可控的事情分开， 然后训练如何专注于于前者。 这将降低情绪的反应力， 这将成为一种超能力。</p>
-<p>我找到一个改变人生的警句， ““折磨我們的往往是想像， 而不是真實”” 出自塞内卡， 他是著名的斯多葛学派作家。 </p>
-<p> “premeditatio malorum,” 意思是在最坏情况来临前提前预想。 简而言之， 预想最坏的情景及你所恐惧的细节， 防止你采取任何行动， 因此你可以采取行动，来摆脱恐惧。 我当时头脑一片混乱， 充满着连续不断嘈杂的声音。 通过思考我的问题没有什么用处。 我需要把想法都写在纸上。 </p>
-<h5 id="第一页"><a href="#第一页" class="headerlink" title="第一页"></a>第一页</h5><p>第一页是这样的。 “如果我…?” 这是你所恐惧的东西， 让你焦虑的东西， 被拖延的东西。 它可能是邀约某人， 结束一段关系， 提出升职，辞职或者创业。 它可以是任何事情。 与我而言，它是在工作 4年后第一次休假 我离开公司去伦敦休息一个月， 我可以免费住在伦敦朋友的房间里， 让我从生意的瓶颈中解放自己 或者结束它。</p>
-<p>在第一栏“定义”中， 你写下所有你预想中 会发生的最坏的事情 如果你采取这一步行动。 你需要写下10到20个。 我不会每一个都详述， 但我举两个例子。 一个是如果我去伦敦， 伦敦在下雨的话，我会很沮丧。 整个旅程就是浪费时间。 第二个是我错过了美国国税局的信， 我将被查税 或者被抨击或者关闭等。</p>
-<p>这时可以使用“预防”一栏。 在这一栏中，你写下答案： 我能做什么来预防这些事情发生， 或者至少降低发生的可能性？ 因此当我在伦敦觉得沮丧时， 我可以随身携带便携式蓝光 在早上使用15分钟。 我知道这会帮助我摆脱抑郁。 对于国税局， 我可以修改在国税局的邮寄地址， 因此文件到我的会计手上 而不是我的UPS地址。 超级简单。</p>
-<p>接下来我们到“修复”一栏。 如果最坏的情况发生， 你能做什么来减轻损失， 或者你能向谁寻求帮助？ 因此第一个伦敦的例子， 我会多花点钱，去西班牙享受阳光， 来弥补损失，如果我陷入恐慌中。 如果我错过美国国税局的来件， 我可以给当律师的朋友打电话 或者咨询法学教授 他们的意见， 我将向他们请教 过去类似的情况是如何处理的。 在填写第一页时请谨记一个问题： 过去是否有人 不够聪明或者缺乏主动性 来弄清楚这些问题吗？ 答案是“是的”。</p>
-<table>
-<thead>
-<tr>
-<th>定义</th>
-<th>预防</th>
-<th>修复</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>設定10-20個做下這個決定、行動後，你所恐懼的事情</td>
-<td>你可以怎麼去避免或降低這些風險？</td>
-<td>如果最糟的情況發生了， 你能做什麼來稍微 修復造成的損害？</td>
-</tr>
-</tbody></table>
-<h5 id="第二页"><a href="#第二页" class="headerlink" title="第二页"></a>第二页</h5><p>第二页很简单： 一次尝试或部分成功会带来哪些好处？ 你可以看到我们直面恐惧 同时保持谨慎。 因此当你尝试你想做的事情的时候， 也许你可以建立自信， 提高情绪、经济等方面的技能。 一个安打（a base hit）能带来哪些好处？ 花10到15分钟时间思考下。</p>
-<h5 id="第三页"><a href="#第三页" class="headerlink" title="第三页"></a>第三页</h5><p> 这很可能是最重要的，不要跳过。 “不行动的代价”。 </p>
-<p>人类非常善于设想可能出错的事情 如果我们尝试新的事情，例如加薪。 我们通常忽视维持现状所付出的代价 什么都不改变。 因此你要扪心自问， 如果我错过这次行动或决定 以及类似的行动和决定， 6个月，12个月，3年后我的 生活会是什么样子？ 刚开始，这些变化非常细微。 但从情感、经济、身体等方面 再次仔细地思考。</p>
-<p>这就是恐惧设置的三页纸。 </p>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>之后，我意识到用1到10来评测， 1是最小的影响，10是最大的影响， 如果我踏上旅途，它将面对 1到3个短暂的可解决的苦恼， 还有8到10个能深刻改变我生活的 积极影响。 因此我选择了旅程。 然而我预想的灾难一个也没发生。 当然会有一些小问题。 我能将自己从生意中抽离出来。 最后我延长了那个环球旅行， 花了一年半的时间， 这也是我第一本书的素材来源， 最后让我今天站在了这里。</p>
-<p>“Easy choices, hard life. Hard choices, easy life“</p>
-<p>困难的选择， 我们最害怕去做的、问的、说的， 这些有可能正是我们最需要做的。 我们面对的最大挑战和困难是 永远不能通过一个轻松的谈话就能解决， 不管是你自我思考还是和别人探讨。</p>
-<p>因此我鼓励你问自己： 你现在处在你人生中的哪个阶段 也许会让你看清恐惧而不是目标？ 请将Seneca的话铭记在心： “We suffer more often in imagination than in reality”</p>
+<p>网上一搜，发现有很多人都遇到了这个问题。甚至有人在github专门开了一个<a href="https://github.com/thegregyang/LossUpAccUp">LossUpAccUp</a>项目讨论这一问题。</p>
+<p>LossUpAccUp项目还讨论了一些解决方法：</p>
+<p><strong>标准化</strong>。如果权重或者Logit标准化，可能不会出现这一问题。</p>
+<p>Guo等人[2]认为这是一个错误的校准问题，即神经网络对其错误分类的输入变得过度自信。</p>
+<p>Takashi Ishida等人提出了一个新的损失函数，来避免出现这一问题。（关键代码只有一行就能发顶会就很厉害。）</p>
+<p>设原来的损失函数是$\mathcal{L}(\theta)$，现在改为$ \tilde{\mathcal{L}}(\theta)=|\mathcal{L}(\theta)-b|+b$。其中b为预先设定的阈值。从而能使损失函数二次下降。</p>
+<p>参考资料：</p>
+<p>1.<a href="https://github.com/thegregyang/LossUpAccUp">LossUpAccUp</a></p>
+<p>2.<a href="https://arxiv.org/abs/1706.04599">On Calibration of Modern Neural Networks</a></p>
+<p>3.<a href="https://arxiv.org/pdf/2002.08709.pdf">Do We Need Zero Training Loss After Achieving Zero Training Error?</a></p>
+<p>4.<a href="https://kexue.fm/archives/7643">我们真的需要把训练集的损失降低到零吗？</a></p>
 ]]></content>
       <tags>
-        <tag>演讲</tag>
-        <tag>心理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>走出焦虑的方法</title>
-    <url>/2022/20220417/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该笔记来自【如何才能不焦虑？【T君说心理】-哔哩哔哩】 <a href="https://b23.tv/1THZvnL">https://b23.tv/1THZvnL</a></p>
-<span id="more"></span>
-
-<p>总结一下方法：</p>
-<h2 id="1-夸张式不攻自破法"><a href="#1-夸张式不攻自破法" class="headerlink" title="1. 夸张式不攻自破法"></a>1. 夸张式不攻自破法</h2><ol>
-<li>夸张式悖论放大法：以毒攻毒，既然要从坏处想问题，那就想到底</li>
-<li>夸张式任务拆解法：把一项任务拆分成若干个在几分钟，甚至几秒钟内完成的小任务。适合于拖延症患者。</li>
-</ol>
-<h2 id="2-洪水暴露疗法"><a href="#2-洪水暴露疗法" class="headerlink" title="2. 洪水暴露疗法"></a>2. 洪水暴露疗法</h2><p>当焦虑涉及到人际交往时适用。</p>
-<p>有两种具体做法：</p>
-<ol>
-<li>把自己的失败和不足告诉自己尊敬的人。</li>
-<li>把自己的焦虑和害怕暴露出来</li>
-</ol>
-<h3 id="社恐救星"><a href="#社恐救星" class="headerlink" title="社恐救星"></a>社恐救星</h3><p>循序渐进，例如：</p>
-<ol>
-<li>一周至少跟二十个对象微笑打招呼，对象可以先从没有威胁的开始</li>
-<li>跟身边的人搭话，称赞对方的隐藏优势，对象可以由亲到疏</li>
-<li>拒绝练习：提出一个你觉得一定会被拒绝的请求</li>
-<li>自我揭露法：告诉别人自己在某一方面特别焦虑或害羞</li>
-<li>大卫 · 莱特曼法：把对方放在聚光灯下，即鼓励对方发表意见</li>
-</ol>
-<h2 id="3-认知扭曲信念转变法"><a href="#3-认知扭曲信念转变法" class="headerlink" title="3. 认知扭曲信念转变法"></a>3. 认知扭曲信念转变法</h2><ol>
-<li>写下你的消极核心信念评分（1-100）</li>
-<li>从认知扭曲清单中识别你的认知扭曲</li>
-</ol>
-<blockquote>
-<p>1.要么一切要么全无思想。你以黑白分明的范畴来看待事物，如果你的表现不够完美， 你<br>就会认为自己彻底失败。</p>
-<p>2.过于概括。你把一个孤立的消极事件看做是一个永远会持续下去的失败模式。</p>
-<p>3.心灵过滤。你选择一段消极细节，反复思考这段细节。结果，在你眼里，整个现实都 变<br>得黑暗起来，就像一滴墨水染黑了整杯水一样。</p>
-<p>4.贬损积极的东西。你拒绝承认积极的经验，你会找这样那样的理由认为它们 “不算数” 。<br>这样你就可以坚持和你日常经验相矛盾的消极信念了。</p>
-<p>5.跳跃式结论。即便没有确定的事实令人信服地支持你的结论，你也会对事情作出一个 消极的解释。<br>a. 测心术。你武断地认为别人对你作出消极的反映，你甚至不愿花工夫去检验一下。<br>b.先知错误。你预期事情会变糟，而且你坚信这个预言是一个已经成立的事实。</p>
-<p>6.夸大与缩小。你夸大了事情的重要性（比如你弄糟了的事情或者别人的成绩），或者不合适地夸小事情，直到它们显得很小（你个人的优良品质或者别人的不足）。这种扭曲又被称 做<br>“双目镜把戏”。</p>
-<p>7.情绪推理。你假定自己的消极情绪必然反映了事情的真实状况： “我这么感觉，所以它<br>肯定是真的。”</p>
-<p>8.应该陈述。你试图用应该或不应该来激发自己，就好像在期望你做什么事之前应该先 鞭<br>笞你或惩罚你一样。 “必须”和“本该”同样也是罪魁祸首。这种情绪的结果是一种负罪感。当你<br>用应该陈述来要求别人时，你会体会到愤怒、灰心和怨恨。</p>
-<p>9.贴标签与标签不当。贴标签是过于概括的一种极端形式。你不再描述你的错误，而是 为<br>你自己贴上一个消极的标签： “我是一个失败者。 ”当别人的行为以一种不当的方式与你发生关<br>系时，你也会给他贴上一个标签： “他是一个该死的讨厌鬼。 ”标签不当是指用高度主观的语言<br>或高度情绪化的语言来描述一件事情。</p>
-<p>10.归己化。你会把自己看作是许多外界消极事件的原因，事实上你并不应该为这些事负<br>主要责任。</p>
-</blockquote>
-<ol start="3">
-<li>重新给你的消极核心信念打分</li>
-</ol>
-<p>最重要的是给自己创造<strong>积极思维</strong>。</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>心理</tag>
+        <tag>人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -6135,52 +6084,6 @@
 ]]></content>
       <tags>
         <tag>音乐</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>研究工作的价值</title>
-    <url>/2022/20220505/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自：</p>
-<p><a href="https://www.bilibili.com/video/BV1oL411c7Us">李沐-如何判断（你自己的）研究工作的价值【论文精读】</a>、<a href="https://www.bilibili.com/video/BV1ea41127Bq?spm_id_from=333.999.0.0">你（被）吐槽过论文不够 novel 吗？【论文精读】</a></p>
-<span id="more"></span>
-
-<h4 id="价值公式"><a href="#价值公式" class="headerlink" title="价值公式"></a>价值公式</h4><p>用有<strong>新意</strong>的方法<strong>有效</strong>地解决一个<strong>研究</strong>问题。</p>
-<p>有效：是一个相对的说法，是相对于之前的问题。</p>
-<p>新意：1.不代表该领域之前从没人提过，只是近期很少人用 2.可以借鉴其他领域的方法</p>
-<p>研究问题：注意区别于工程问题，很多情况是现有方法是行不通的，更需要探索</p>
-<p>粗糙公式：价值=新意度×有效性X问题大小</p>
-<p>举例：</p>
-<p><strong>问题大小：</strong></p>
-<p>1：前面的工作某个点做的不好的地方进行改进</p>
-<p>10：CV里面某一个视觉的子任务</p>
-<p>100：提升机器对图片的理解</p>
-<p><strong>有效性：</strong></p>
-<p>1：模型精度比前人好一点</p>
-<p>10：数据集精度提升一个点</p>
-<p>100：数据集精度提升十个点</p>
-<p>三个方向：效果（比如精度）、规模、安全</p>
-<p><strong>新意度：</strong></p>
-<p>1：不意外</p>
-<p>10：有一定新意度</p>
-<p>100：大家之前不熟的，打开了新世界的大门。相对而言，任何一个技术事实上不可能之前从来没出现过</p>
-<h4 id="新意度"><a href="#新意度" class="headerlink" title="新意度"></a>新意度</h4><p>来自一篇有意思的文章：<a href="https://perceiving-systems.blog/en/post/novelty-in-science">https://perceiving-systems.blog/en/post/novelty-in-science</a></p>
-<p>（作者michael J.Black）</p>
-<p>建议新意度（novelty）换成优美度（beauty）。优美度从技术和复杂中脱离出来。</p>
-<p>误区：</p>
-<p><strong>1.复杂度衡量新意度</strong></p>
-<p>如果一个非常小的改动它能产生大的结果他就是有新意的，无关复杂度。【比如一行代码上顶会的flooding方法？】</p>
-<p><strong>2.用困难衡量新意度</strong></p>
-<p>并不是说模型必须复杂才能发文章，才是新意的。</p>
-<p><strong>3.用惊讶衡量新意度</strong></p>
-<p>比如mae，这么小的想法效果却那么好</p>
-<p>4.<strong>用技术上的新意性来衡量工作的新意度</strong></p>
-<p>比如机器学习解数学题就是新意的</p>
-<p><strong>5.用有效性和价值衡量新意度</strong></p>
-<p>不是新的想法都是有用的。现在没有，以后可能会有实用性</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>论文</tag>
       </tags>
   </entry>
   <entry>
@@ -6238,7 +6141,7 @@
     <title>银河修理员</title>
     <url>/2022/20220509/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​                                </p>
-<div id="aplayer-waQEikVB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+<div id="aplayer-mzoqgFvP" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
 				<pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文
 [00:01.000] 作曲 : Howie@Dear Jane
 [00:02.14]编曲 : Dear Jane
@@ -6289,7 +6192,7 @@
 			</div>
 			<script>
 				var ap = new APlayer({
-					element: document.getElementById("aplayer-waQEikVB"),
+					element: document.getElementById("aplayer-mzoqgFvP"),
 					narrow: false,
 					autoplay: false,
 					showlrc: 2,
@@ -6327,6 +6230,52 @@
       </tags>
   </entry>
   <entry>
+    <title>研究工作的价值</title>
+    <url>/2022/20220505/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自：</p>
+<p><a href="https://www.bilibili.com/video/BV1oL411c7Us">李沐-如何判断（你自己的）研究工作的价值【论文精读】</a>、<a href="https://www.bilibili.com/video/BV1ea41127Bq?spm_id_from=333.999.0.0">你（被）吐槽过论文不够 novel 吗？【论文精读】</a></p>
+<span id="more"></span>
+
+<h4 id="价值公式"><a href="#价值公式" class="headerlink" title="价值公式"></a>价值公式</h4><p>用有<strong>新意</strong>的方法<strong>有效</strong>地解决一个<strong>研究</strong>问题。</p>
+<p>有效：是一个相对的说法，是相对于之前的问题。</p>
+<p>新意：1.不代表该领域之前从没人提过，只是近期很少人用 2.可以借鉴其他领域的方法</p>
+<p>研究问题：注意区别于工程问题，很多情况是现有方法是行不通的，更需要探索</p>
+<p>粗糙公式：价值=新意度×有效性X问题大小</p>
+<p>举例：</p>
+<p><strong>问题大小：</strong></p>
+<p>1：前面的工作某个点做的不好的地方进行改进</p>
+<p>10：CV里面某一个视觉的子任务</p>
+<p>100：提升机器对图片的理解</p>
+<p><strong>有效性：</strong></p>
+<p>1：模型精度比前人好一点</p>
+<p>10：数据集精度提升一个点</p>
+<p>100：数据集精度提升十个点</p>
+<p>三个方向：效果（比如精度）、规模、安全</p>
+<p><strong>新意度：</strong></p>
+<p>1：不意外</p>
+<p>10：有一定新意度</p>
+<p>100：大家之前不熟的，打开了新世界的大门。相对而言，任何一个技术事实上不可能之前从来没出现过</p>
+<h4 id="新意度"><a href="#新意度" class="headerlink" title="新意度"></a>新意度</h4><p>来自一篇有意思的文章：<a href="https://perceiving-systems.blog/en/post/novelty-in-science">https://perceiving-systems.blog/en/post/novelty-in-science</a></p>
+<p>（作者michael J.Black）</p>
+<p>建议新意度（novelty）换成优美度（beauty）。优美度从技术和复杂中脱离出来。</p>
+<p>误区：</p>
+<p><strong>1.复杂度衡量新意度</strong></p>
+<p>如果一个非常小的改动它能产生大的结果他就是有新意的，无关复杂度。【比如一行代码上顶会的flooding方法？】</p>
+<p><strong>2.用困难衡量新意度</strong></p>
+<p>并不是说模型必须复杂才能发文章，才是新意的。</p>
+<p><strong>3.用惊讶衡量新意度</strong></p>
+<p>比如mae，这么小的想法效果却那么好</p>
+<p>4.<strong>用技术上的新意性来衡量工作的新意度</strong></p>
+<p>比如机器学习解数学题就是新意的</p>
+<p><strong>5.用有效性和价值衡量新意度</strong></p>
+<p>不是新的想法都是有用的。现在没有，以后可能会有实用性</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>论文</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>实践论</title>
     <url>/2022/20220513/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p align="center">实践论</p>
@@ -6356,6 +6305,57 @@
       <tags>
         <tag>阅读</tag>
         <tag>哲学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>走出焦虑的方法</title>
+    <url>/2022/20220417/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该笔记来自【如何才能不焦虑？【T君说心理】-哔哩哔哩】 <a href="https://b23.tv/1THZvnL">https://b23.tv/1THZvnL</a></p>
+<span id="more"></span>
+
+<p>总结一下方法：</p>
+<h2 id="1-夸张式不攻自破法"><a href="#1-夸张式不攻自破法" class="headerlink" title="1. 夸张式不攻自破法"></a>1. 夸张式不攻自破法</h2><ol>
+<li>夸张式悖论放大法：以毒攻毒，既然要从坏处想问题，那就想到底</li>
+<li>夸张式任务拆解法：把一项任务拆分成若干个在几分钟，甚至几秒钟内完成的小任务。适合于拖延症患者。</li>
+</ol>
+<h2 id="2-洪水暴露疗法"><a href="#2-洪水暴露疗法" class="headerlink" title="2. 洪水暴露疗法"></a>2. 洪水暴露疗法</h2><p>当焦虑涉及到人际交往时适用。</p>
+<p>有两种具体做法：</p>
+<ol>
+<li>把自己的失败和不足告诉自己尊敬的人。</li>
+<li>把自己的焦虑和害怕暴露出来</li>
+</ol>
+<h3 id="社恐救星"><a href="#社恐救星" class="headerlink" title="社恐救星"></a>社恐救星</h3><p>循序渐进，例如：</p>
+<ol>
+<li>一周至少跟二十个对象微笑打招呼，对象可以先从没有威胁的开始</li>
+<li>跟身边的人搭话，称赞对方的隐藏优势，对象可以由亲到疏</li>
+<li>拒绝练习：提出一个你觉得一定会被拒绝的请求</li>
+<li>自我揭露法：告诉别人自己在某一方面特别焦虑或害羞</li>
+<li>大卫 · 莱特曼法：把对方放在聚光灯下，即鼓励对方发表意见</li>
+</ol>
+<h2 id="3-认知扭曲信念转变法"><a href="#3-认知扭曲信念转变法" class="headerlink" title="3. 认知扭曲信念转变法"></a>3. 认知扭曲信念转变法</h2><ol>
+<li>写下你的消极核心信念评分（1-100）</li>
+<li>从认知扭曲清单中识别你的认知扭曲</li>
+</ol>
+<blockquote>
+<p>1.要么一切要么全无思想。你以黑白分明的范畴来看待事物，如果你的表现不够完美， 你<br>就会认为自己彻底失败。</p>
+<p>2.过于概括。你把一个孤立的消极事件看做是一个永远会持续下去的失败模式。</p>
+<p>3.心灵过滤。你选择一段消极细节，反复思考这段细节。结果，在你眼里，整个现实都 变<br>得黑暗起来，就像一滴墨水染黑了整杯水一样。</p>
+<p>4.贬损积极的东西。你拒绝承认积极的经验，你会找这样那样的理由认为它们 “不算数” 。<br>这样你就可以坚持和你日常经验相矛盾的消极信念了。</p>
+<p>5.跳跃式结论。即便没有确定的事实令人信服地支持你的结论，你也会对事情作出一个 消极的解释。<br>a. 测心术。你武断地认为别人对你作出消极的反映，你甚至不愿花工夫去检验一下。<br>b.先知错误。你预期事情会变糟，而且你坚信这个预言是一个已经成立的事实。</p>
+<p>6.夸大与缩小。你夸大了事情的重要性（比如你弄糟了的事情或者别人的成绩），或者不合适地夸小事情，直到它们显得很小（你个人的优良品质或者别人的不足）。这种扭曲又被称 做<br>“双目镜把戏”。</p>
+<p>7.情绪推理。你假定自己的消极情绪必然反映了事情的真实状况： “我这么感觉，所以它<br>肯定是真的。”</p>
+<p>8.应该陈述。你试图用应该或不应该来激发自己，就好像在期望你做什么事之前应该先 鞭<br>笞你或惩罚你一样。 “必须”和“本该”同样也是罪魁祸首。这种情绪的结果是一种负罪感。当你<br>用应该陈述来要求别人时，你会体会到愤怒、灰心和怨恨。</p>
+<p>9.贴标签与标签不当。贴标签是过于概括的一种极端形式。你不再描述你的错误，而是 为<br>你自己贴上一个消极的标签： “我是一个失败者。 ”当别人的行为以一种不当的方式与你发生关<br>系时，你也会给他贴上一个标签： “他是一个该死的讨厌鬼。 ”标签不当是指用高度主观的语言<br>或高度情绪化的语言来描述一件事情。</p>
+<p>10.归己化。你会把自己看作是许多外界消极事件的原因，事实上你并不应该为这些事负<br>主要责任。</p>
+</blockquote>
+<ol start="3">
+<li>重新给你的消极核心信念打分</li>
+</ol>
+<p>最重要的是给自己创造<strong>积极思维</strong>。</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>心理</tag>
       </tags>
   </entry>
   <entry>
@@ -6469,40 +6469,6 @@
 <p>直到在某年某日</p>
 <p>我能安息于葬礼</p>
 <p>仍想你一家可到齐</p>
-]]></content>
-      <tags>
-        <tag>音乐</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>“励志”的高山低谷</title>
-    <url>/2022/20220515/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《高山低谷》由陈咏谦作词，林奕匡作曲并演唱<span id="more"></span>，是我的粤语歌Top1(目前暂时是)。</p>
-<p>《声生不息》中由楊千嬅 、周笔畅 、单依纯三人演唱了这首歌曲，其实个人不太喜欢。没有节目组所说的味道“展现了渐行渐远的人之间的羁绊，不同的人生状态，讲述她们自己追求的那个高山，交织出逆境顺境中的无畏与勇敢”。感觉是“贵族游戏，街角游记”版的《高山低谷》，全无意味。</p>
-<p>最后接一段古巨基的《欢乐今宵》，更是显得狗尾续貂。</p>
-<p>事实上这并不是一首励志而是一首极绝望的歌曲。</p>
-<blockquote>
-<p>你快樂過生活 我拼命去生存</p>
-<p>…</p>
-<p>你界定了生活 我侮辱了生存</p>
-<p>…</p>
-<p>未見終點 也未見恩典 我與你極遠</p>
-<p>…</p>
-<p>我卻尚要生存 偷偷存活於山之谷等到某天魂斷</p>
-<p>——《高山低谷》</p>
-</blockquote>
-<p>插句题外话，某天发现我喜欢的纯音乐作者Martin Czerny和陈咏谦不约而同,有一首《You live in luxury ,but I am starving》。我觉得这是“你快樂過生活 我拼命去生存”的很好的翻译。所以什么时候能有英文版呢。</p>
-<p>当初林奕匡没有多大起色，外界反响平平。陈咏谦也收到了公司的明示：这可能是林奕匡的最后一支歌了。尽管陈咏谦和林奕匡不是第一次合作，但是谁也不能保证就能引起反响。陈咏谦当时其实也是有种当做遗书的味道来写，站在当时的林奕匡的角度来写。</p>
-<blockquote>
-<p>唱片公司有講過這或許是林奕匡的last shot，但你問我是否特別俾心機寫呢？其實又無，亦不會特別擺個靚陣出來，只不過，有如此夕陽的氣氛，就自然有如此感覺去寫一份歌詞，結果這種夕陽氣氛又剛好切合香港人共有的情緒，所以就成功了。</p>
-<p>——陈咏谦</p>
-</blockquote>
-<p>虽然歌曲很绝望，但是歌曲创作者的经历显得很励志。</p>
-<p>尽管林奕匡在一出道时获取了不菲的成绩，但是由于版权等种种原因又迅速陷入了低迷期。作为当初最后的一支歌，林奕匡唱不好就只能滚蛋，回到加拿大，从此将远离乐坛。很幸运，《高山低谷》反响极好，拯救了林奕匡。《高山低谷》为林奕匡获得了叱吒十大第十位及劲歌金曲奖，叱咤乐坛唱作人银奖。就近而说，在最近一年的叱咤乐坛最佳唱作人，前三甲林奕匡仍占有一席，诠释了从低谷到高山的逆袭。</p>
-<p>陈咏谦虽然没有林奕匡这么低谷，前一年还打败了他的师傅——黄伟文获得了叱咤，但是当时也处于事业的平静期。《高山低谷》也给了陈咏谦挣得了一些奖项，让香港乐坛认识了一位出色的词人。</p>
-<p>其实我们也能见到倘若林奕匡没有在当初步上高山，现在会怎样——同为新秀歌唱大赛温哥华选拔赛获奖者的骆振伟一直远离乐坛，直到出道13年才有第一首自己的歌。</p>
-<p>林奕匡和陈咏谦后续也有一系列合作，如《查无此字》《难得一遇》。这就是后话了。</p>
-<p>一颗乐坛唱作人新星就此冉冉升起。</p>
 ]]></content>
       <tags>
         <tag>音乐</tag>
@@ -6655,6 +6621,40 @@
       <tags>
         <tag>数学</tag>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>“励志”的高山低谷</title>
+    <url>/2022/20220515/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《高山低谷》由陈咏谦作词，林奕匡作曲并演唱<span id="more"></span>，是我的粤语歌Top1(目前暂时是)。</p>
+<p>《声生不息》中由楊千嬅 、周笔畅 、单依纯三人演唱了这首歌曲，其实个人不太喜欢。没有节目组所说的味道“展现了渐行渐远的人之间的羁绊，不同的人生状态，讲述她们自己追求的那个高山，交织出逆境顺境中的无畏与勇敢”。感觉是“贵族游戏，街角游记”版的《高山低谷》，全无意味。</p>
+<p>最后接一段古巨基的《欢乐今宵》，更是显得狗尾续貂。</p>
+<p>事实上这并不是一首励志而是一首极绝望的歌曲。</p>
+<blockquote>
+<p>你快樂過生活 我拼命去生存</p>
+<p>…</p>
+<p>你界定了生活 我侮辱了生存</p>
+<p>…</p>
+<p>未見終點 也未見恩典 我與你極遠</p>
+<p>…</p>
+<p>我卻尚要生存 偷偷存活於山之谷等到某天魂斷</p>
+<p>——《高山低谷》</p>
+</blockquote>
+<p>插句题外话，某天发现我喜欢的纯音乐作者Martin Czerny和陈咏谦不约而同,有一首《You live in luxury ,but I am starving》。我觉得这是“你快樂過生活 我拼命去生存”的很好的翻译。所以什么时候能有英文版呢。</p>
+<p>当初林奕匡没有多大起色，外界反响平平。陈咏谦也收到了公司的明示：这可能是林奕匡的最后一支歌了。尽管陈咏谦和林奕匡不是第一次合作，但是谁也不能保证就能引起反响。陈咏谦当时其实也是有种当做遗书的味道来写，站在当时的林奕匡的角度来写。</p>
+<blockquote>
+<p>唱片公司有講過這或許是林奕匡的last shot，但你問我是否特別俾心機寫呢？其實又無，亦不會特別擺個靚陣出來，只不過，有如此夕陽的氣氛，就自然有如此感覺去寫一份歌詞，結果這種夕陽氣氛又剛好切合香港人共有的情緒，所以就成功了。</p>
+<p>——陈咏谦</p>
+</blockquote>
+<p>虽然歌曲很绝望，但是歌曲创作者的经历显得很励志。</p>
+<p>尽管林奕匡在一出道时获取了不菲的成绩，但是由于版权等种种原因又迅速陷入了低迷期。作为当初最后的一支歌，林奕匡唱不好就只能滚蛋，回到加拿大，从此将远离乐坛。很幸运，《高山低谷》反响极好，拯救了林奕匡。《高山低谷》为林奕匡获得了叱吒十大第十位及劲歌金曲奖，叱咤乐坛唱作人银奖。就近而说，在最近一年的叱咤乐坛最佳唱作人，前三甲林奕匡仍占有一席，诠释了从低谷到高山的逆袭。</p>
+<p>陈咏谦虽然没有林奕匡这么低谷，前一年还打败了他的师傅——黄伟文获得了叱咤，但是当时也处于事业的平静期。《高山低谷》也给了陈咏谦挣得了一些奖项，让香港乐坛认识了一位出色的词人。</p>
+<p>其实我们也能见到倘若林奕匡没有在当初步上高山，现在会怎样——同为新秀歌唱大赛温哥华选拔赛获奖者的骆振伟一直远离乐坛，直到出道13年才有第一首自己的歌。</p>
+<p>林奕匡和陈咏谦后续也有一系列合作，如《查无此字》《难得一遇》。这就是后话了。</p>
+<p>一颗乐坛唱作人新星就此冉冉升起。</p>
+]]></content>
+      <tags>
+        <tag>音乐</tag>
       </tags>
   </entry>
   <entry>
@@ -7143,6 +7143,59 @@
       </tags>
   </entry>
   <entry>
+    <title>自恋与爱情</title>
+    <url>/2022/20220818/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于B站《<a href="https://www.bilibili.com/video/BV1sv4y1c7iD?vd_source=2bbaa5483ec5f3b54f583580af154a76">EP149 你不是在爱 而是自恋！心理学 霍妮&amp;弗洛姆</a>》</p>
+<p>卡伦·霍妮和弗洛姆都是我比较喜欢的心理学家，像霍妮的《我们时代的神经症人格》、《我们内心的冲突》，弗洛姆的《逃避自由》、《爱的艺术》、《为自己的人》等都是很有价值、值得一读的心理学著作。</p>
+<hr>
+<p> 恋爱当中的人该有怎样的内在品质， 才能开启段合格的爱情 ，这里先给出精神分析学派的答案： 那就是克服自恋。</p>
+<span id="more"></span>
+
+<p>自人出生以来， 时刻就处在个体化与孤独感的矛盾之中 ，仍迫切需要和外界建立联系以便克服自己的孤独。</p>
+<p>心理学家弗洛姆说道：（人 为了解决孤独这一焦虑)，一种是在人际交往中通过真正爱的方式来应对孤独 而另一种都是通过消极的自恋方式来应对孤独。</p>
+<p>简单来说，很多在亲密关系中的人，你以为自己在爱对方，其实你只是在自恋而已。没有对对方人格上的共情力和积极关心的能力 他只是为了自私总想着加油对方、支配对方 。极端的情况下还会引发pua和施虐。 他会因为害怕失去你而变成顺从， 表面上看上去他对你百依百顺 ，很无私。但这也是自恋而已。</p>
+<p>其实我们可以分为显性自恋和隐性自恋两种，不管是显性自恋， 还是那种看似无私的隐性自恋，精神分析学家霍尼都一针见血的指出：“自恋的人他都有一种神经质，他在生活中会表现出一种执念，一种对权力、美貌、名望和财富等等的病态追求和执念，而且他对自己身上任何一点软弱无能都十分的敏感，比如说一个男人总觉得自己必须要有很多钱才能配得上自己心爱的人。一个女人总觉得自己必须要很漂亮才能获得相应的爱， 一旦自己没钱、不漂亮的时候 ，她们就会极其的焦虑和高度的敏感。以及他们在生活中遇到一点点的问题 ，比如工作 、学习创业 、人际交往中遇到了挫折，一次失败，别人的一个抱怨、一个批评， 他相比于其他人来说 ，也更加的敏感 ，他总觉得自己受到了屈辱 ，受到了侮辱。”</p>
+<p> 首先 ，我们说这种显性自恋的人 ，他们在亲密关系中也是如此。既希望控制自己， 也希望控制对方。 但凡只要不是他同意的 、他发起的， 他都不希望发生，同时也希望自己永远是正确的 。一旦被证明自己出了错 ，他们就会变得恼怒。 </p>
+<p>他们这种人对控制的追求也可以用一种淡化的方式，他有意识的允许恋人享有充分的自由 ，但他却要坚持知道对方所做的一切。一旦对方有什么对他隐瞒的 他都会柏然大陆以及他总是设法逃避接受猎人的指导劝告和帮助，他在遇到问题 遇到双方争论时都是充耳不闻 他会理解为这是屈辱 还想反过来控制对方。</p>
+<p>霍尼老师解释道， 他其实是觉得自己不应该有软弱无能的表现， 他其实也不是诚心想反对对方， 想控制对方， 而只是对自己软弱无能的反抗罢了。他如果越是感到自己的软弱无能 ，他就越焦虑 ，越想逃避一切看起来和软弱相关的东西。所以 他会继续投入到权利、名望、 财富、 美貌等等东西 ，而不想让对方看到自己这一焦虑。</p>
+<p>他觉得自己能够驾驭一切 ，无论是多么困难的处境， 他自己都可以对付他 ，而在遇到感情出现危机时 ，他也总是继续单纯幻想着。只要我继续更加努力赚钱 ，我哪天升职加薪了， 只要这个项目我成了 ，或者我只要更漂亮 、更会打扮在整个脸 ，再整个容 ，你就会回到我身边。</p>
+<p>他根本意识不到自己的自恋问题 ，他只是害怕自己的软弱无能而已， 一种病态的害怕、一种高度敏感的害怕。</p>
+<p>你只是在care你那个理想化的自我， 还非要认为是别人嫌你没钱 、嫌你不漂亮才分手、才离婚的。要分手后， 你只会骂前任是个拜金女、是个渣男 ，而根本意识不到其实是自己在自恋而已。</p>
+<p>另外就是说， 如果自恋类型的人，他压抑了他想控制对方的欲望 ，他会感到不开心 、感到不爽、 感到敌意 ，但他会在无意识里将这些敌意压抑了起来。但是这些压抑的心理能量不会凭空消失 ，而会以其他方式释放出来， 就接近我们所说的隐性自恋了。</p>
+<p>这表面上， 生活中他也看似和和气气的 ，是个老好人， 遇到分歧没有愤怒， 也没跟你吵， 也没跟你闹。这只是因为他潜意识里就把敌意和不爽压抑了起来， 但他也会在之后的日子里爆发出来。比方说 ，霍尼说道 ，在之后的约会时他会迟到 ，或者会出现胃痛不舒服了症状等等， 而且连他自己都搞不懂为何自己会不舒服，他或许会归因于饮食不好 、天气不好等无关的原因 ，但是实际上他意识不到的事，其实都是因为自己想要控制对方的这股隐喻欲望导致的。</p>
+<p>当自恋类型的人他的控制欲被过分压抑起来时， 就会以躯体化的方式躯体化的症状出现。这之前还是开开心心的，还是好好的， 下一刻就突然不开心了， 就突然emo了， 这儿不舒服那儿不舒服。而且他的身体反应也是真的 ，不能说他是装的原因呢 ，双方都答不上来。 所以这种占有欲强的自恋者，不管他是表现出来了，还是让他压抑起来了 ，他可以是显性的 也可以是隐性的。</p>
+<p>隐性的自恋不代表他没有影响 ，而是会继续在之后作用在他身上 ，他会是别扭的。</p>
+<p>霍尼还提到些例子， 比方说这种自恋占有欲的女性可能感受到某个男人对她的吸引力。一旦这个男人真的爱上了她， 她也会转而轻视他 ，看不起他 。因为这意味着他失去了他想要的控制欲，以及可能会让自己卷入未知的领域中去 。以及如果丈夫或者恋人不能符合自己的期望 ，如果他迟到了，忘了打电话 忘了纪念日等等。女性神经质的人就会觉得他并不爱她，她的这种感觉也是因为对方未能顺应自己而产生了一种愤怒反应。</p>
+<p>霍尼提到， 众人往往会产生一种奇怪的矛盾现象， 这种矛盾几乎可以使一切恋爱关系都归于失败。一个神经质的姑娘， 由于瞧不起任何的软弱无能 所以他不可能爱上一个”软弱”的男人。但是呢 ,他又因为自己总是希望自己的伴侣能够顺从自己, 能满足自己的占有欲。就想要对方顺从， 又使他不可能和一个同样坚强自恋的男人相处 。他渴望对方是一个硬汉 同时让对方屈服于自己的占有欲。这种矛盾是她注定走入失败的恋爱，经历一次次感情的失败 ，自恋类型的人，他们都害怕屈服于别人 ，只想别人顺从自己，也害怕改变自己。</p>
+<p>但是我们也要知道 ，在真正的亲密关系中 ，就意味着双方肯定会有屈服和让步的。无论是男人和女人，无论是显性自恋还是隐性自恋， 这种占有欲神经质的人如果越是不能做出这种让步， 他恋爱关系就会出现问题。<br>自恋的人无论男女， 他都有一种迫切的需要 ，想要吸引对方的注意力 ，受到他人的尊敬和崇拜。他会产生以美貌与聪明材质 ，以出色的成就、挥金如土等等来实现。他如果得不到崇拜和目光 ，他就会感到一蹶不振， 因为他们极其敏感。</p>
+<p>显性自恋的人， 他会有一种明显愤怒来应对。而隐性自恋的人看似没怎么愤怒。 因为他将这些屈辱压抑了起来， 把敌意压抑了起来。他会在之后爆发 产生新的焦虑。 而为了应对焦虑 他又会继续捣鼓， 继续吸引对方的注意。他们不断的沉溺于自我扩张 ，维护起自己的那个理想的虚幻的自我， 不接受时然的自我。</p>
+<p>其实只是为了保护自己，你对抗屈辱感会软弱无力感 。换句话说 ，他也是为了恢复被压碎了的自尊心，来企图今后继续占有他人， 防止失去爱的保护性手段而已 。</p>
+<p>这不是爱，这是自恋。 在社会当中， 显性自恋是机制的人很容易发现 但是隐性自恋的人发现起来稍微有点困难。</p>
+<p>霍尼提到， 因为他本人也意识不到这当中包含的敌意， 他也认为自己是一个性情温和的人，他也认为人要在感情生活中要懂得无私 ，要懂得奉献， 懂得去让步， 其大道理他都懂 ，只是因为他的道德超我不允许。而在潜意识里， 他把敌意压抑了起来 ，将占有欲压抑了起来 。霍尼比喻道，就隐性自恋的人有一种“安全阀”，经过这一“安全阀”， 一定量的敌意可以一种非破坏性的方式释放出来。用刚才我们提到的例子，那些莫名其妙出现的躯体化症状， 一会不舒服、 那不舒服的各种别扭扭捏等等的小报复。隐性自恋者 他们这种态度本身不会像显性自恋者那种破坏性， 而是一种淡化了的表现。他阻止了纯粹破坏性的冲动 ，不会怎么愤怒， 但他们有种问题， 他们依旧会受到压抑的敌意， 还是会产生新的焦虑和新的问题。</p>
+<p>霍尼比喻道， 他还是会用他的那种“软弱无能” 像鞭子一样去抽打对方， 以便驱使对方对自己的意志服务。他们向对方索取无止境的关怀和帮助， 而事实上，这种人从未感到别人为他做的努力中感到好处。而只会不断的抱怨和不断的要求 ，而更坏的情况就是说别人忽视了他 ，亏待了他。</p>
+<p>另外个重点就是那些隐藏极深的隐性自恋， 他也觉得自恋不好， 自私发脾气的这种品格不好。在恋爱和婚姻关系中也总是对对方百依百顺， 外人看上去性格好好， 老好人一个。但是表现出过分的顺从不见得是个好现象， 看似很无我、 但也搞不好会是自恋人格的表现。这些人往往在头年时期经历过种种屈辱， 或许是学校 ，或许是家庭 ，或者其他原因。受到歧视 ，被人瞧不起 ，别人冷落 ，这种经验往往因为具有痛苦的性质而被他遗忘。 然而一旦自己长大以后 一些生活中的遭遇明显涉及屈辱时。 这时 ，这些经验就会在他的意识中再度出现。想支配他人的敌意就有了， 有了种敌意 ，但他受到自己过去经历的影响 ，又不能下这个敌意的决心 ，不能表达自己真切的确切的感受，其结果就是他会过分的顺从， 这就会造成恶性循环 ，即霍妮提到，他经历了屈辱感。于是他就产生了想侮辱 、想占有别人的欲望， 但是由于自己害怕受到报复 而对屈辱感高度的敏感了。于是他更加希望占有欲和更加想侮辱别人 从而他就陷入了一种自我强化的此循环，即不断强化才是最可怕的 。当强化到情绪安全阀都不管用时 ，就会是一种可怕的爆发 ，他就会走向暴力伤害对方。</p>
+<p>所以霍尼希望自恋者正视自己的心理问题 ，而将自己无意识的那些东西给意识化，这里说的无论是显性还是隐性的自恋， 他都想要占有欲 ，都想对方顺从自己。</p>
+<p>霍尼说道 ，他们都不是真的相信自己一贯正确 ，而只是不断的、不顾一切的需要显得正当合理 。换句话说， 这只是他们的一种心理防御机制。他们并不是每时每刻都在想着占有，他们也会这么照顾你、关心你，但不是一起床就开始支配你。哪有这种人， 有这种人， 你也不会和他确立关系。 </p>
+<p>而只是说他们在遭遇到自己觉得是侮辱性事件时， 比方说遇到生活的挫折， 遇到不顺， 遇到争论， 遇到矛盾 ，当这股压力来的时候 ，他们才会表露出自己的占有欲。这个时候他的支配欲和因支配欲得不到满足 ，才会产生怨恨的合理化。他会把这种占有欲、 支配欲当做防御机制来应对压力， 即自恋者们要明白 ：当遇到压力时，你为什么这么偏执的想要支配别人 ，想要占有别人 想要追求权利和美貌来解决这个问题 都是因为自己无法面对自己的软弱无能。</p>
+<p>你需要进一步知道自己为什么对软弱无能这么敏感 ，为什么发生一点点的争论、 建议、批评 、挫折就理解为是自己身上的软弱无能 ，就觉得自己自尊受辱了。要学会去回溯自己过去的经历与现在情节的因果关系 ，在感情生活中面对有压力的事件时，去识别到自己的支配欲。当压力发生的时候 ，要相信对方的建议和能力 ，去适当采纳恋人的建议，去放下自己的愤怒。</p>
+<p>自恋的人 ，他越感到焦虑， 就越应该知道此时此刻正是自己的无意识里的防御机制在捣鬼。这种时候 ，他就越应该调用自己的理性 ，越应该去相信恋人 ，相信对方， 和对方协商。而不只是只想着支配局面或者释放自己的怨恨而隐性自恋的人， 虽然他们之前不会愤怒 ，但是要意识到自己的战友欲在作祟， 意识到自己压抑的那些育而不得的敌意 ，去正视他，去意识化他。 在自己的感情生活中 ，要懂得去表达自己的敌意， 而不是一味的压抑后的顺从。</p>
+<p>这种人要懂得去表达自己的不满和表达自己内心的真实想法 ，而不是在潜意识里就直接调用压抑这机制来处理他 ，如此无论是显性还是隐性的 ，才能开启段真正合格的爱情。</p>
+<p>弗洛姆也同意说道， 要培养爱的能力 ，首先就需要克服自恋， 克服想要利用他人的愿望，而那些与爱相关的什么关照 、负责 、尊重 、相知等等的态度 ，都是在自己去除自恋以后才能真正拥有的品格。克服不了自恋的人， 什么关照、负责 、尊重、相知等等都是形同虚设 。只有成熟的人才会拥有这些态度</p>
+<p>自恋不是简单的以自我为中心，背后涉及了占有、支配、 顺从， 防御机制以及无意识压抑等等复杂的问题，涉及到他的过去经历， 涉及他的情节，</p>
+<p>弗洛姆补充道 ，自恋是种欲望，强度在许多人身上毫不亚于性欲和求生欲 ，不要认为为自恋的人是少数 ，他在我们生活当中太常见了。弗洛摩提到自恋的反面是客观， 客观就是能够如实的看待人和物 ，所谓客观就是能把客观景象与处于愿望和恐惧的景象区分开来。</p>
+<p>这和霍尼老师说的一样， 自恋的反面不是我们以为的无私登德的美德， 因为那些无我奉献的人，百般顺从的人， 他也大有可能是自恋类型， 即他们也是看不清客观的人， 看不清死循环、 看不清心理防御、看不清为何这么追求控制和支配欲。其自恋的真正本质在于，他限制了我们的理性 ，阻止了一个人在存在当中看到现实。</p>
+<p>弗洛姆提到 ，对于神经质的人来说，只有一个现实， 那就是他自己内心有的东西， 就是他的愿望和恐惧 。外部世界只是他内心世界的符号和投射而已。</p>
+<p>所以我们需要提高客观， 加强理性 ，一旦能够客观能够理性 ，我们学习爱的路程就走了一半。只有先克服了自恋 ，才会走向之后真正的爱， 真正的双方平等的爱 ，一种主体坚信的爱。</p>
+<p>弗洛姆强调，爱是指的一种在保持自我完整性和独立性的前提下与他人结为一体，同时， 爱也是对生命以及我们所爱之物生长的积极关心， 如果我对一个人说 ：“我爱你。”那我也可以这么说 ：“我在你身上爱所有的人 、爱世界、 也爱我自己。”</p>
+<p>而自恋的人， 他的爱情最终只会走向自我毁灭，就像古希腊传说中的纳尔克索斯， 一个俊美而自负的少年， 拒绝了仙女恶科的爱，后者心碎而死 ，复仇女神就惩罚了他 让他爱上了湖水中自己的倒影，之后在自我欣赏中 ，他就掉进了湖中 ，淹死了 。</p>
+<p>自恋是一种诅咒， 在极端形势下 ，他就会自我毁灭而告终。</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>心理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《一小时漫画基金实战法》笔记</title>
     <url>/2022/20220817/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于管鹏的《一小时漫画基金实战法》书籍</p>
@@ -7208,59 +7261,6 @@
       <tags>
         <tag>笔记</tag>
         <tag>理财</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>自恋与爱情</title>
-    <url>/2022/20220818/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于B站《<a href="https://www.bilibili.com/video/BV1sv4y1c7iD?vd_source=2bbaa5483ec5f3b54f583580af154a76">EP149 你不是在爱 而是自恋！心理学 霍妮&amp;弗洛姆</a>》</p>
-<p>卡伦·霍妮和弗洛姆都是我比较喜欢的心理学家，像霍妮的《我们时代的神经症人格》、《我们内心的冲突》，弗洛姆的《逃避自由》、《爱的艺术》、《为自己的人》等都是很有价值、值得一读的心理学著作。</p>
-<hr>
-<p> 恋爱当中的人该有怎样的内在品质， 才能开启段合格的爱情 ，这里先给出精神分析学派的答案： 那就是克服自恋。</p>
-<span id="more"></span>
-
-<p>自人出生以来， 时刻就处在个体化与孤独感的矛盾之中 ，仍迫切需要和外界建立联系以便克服自己的孤独。</p>
-<p>心理学家弗洛姆说道：（人 为了解决孤独这一焦虑)，一种是在人际交往中通过真正爱的方式来应对孤独 而另一种都是通过消极的自恋方式来应对孤独。</p>
-<p>简单来说，很多在亲密关系中的人，你以为自己在爱对方，其实你只是在自恋而已。没有对对方人格上的共情力和积极关心的能力 他只是为了自私总想着加油对方、支配对方 。极端的情况下还会引发pua和施虐。 他会因为害怕失去你而变成顺从， 表面上看上去他对你百依百顺 ，很无私。但这也是自恋而已。</p>
-<p>其实我们可以分为显性自恋和隐性自恋两种，不管是显性自恋， 还是那种看似无私的隐性自恋，精神分析学家霍尼都一针见血的指出：“自恋的人他都有一种神经质，他在生活中会表现出一种执念，一种对权力、美貌、名望和财富等等的病态追求和执念，而且他对自己身上任何一点软弱无能都十分的敏感，比如说一个男人总觉得自己必须要有很多钱才能配得上自己心爱的人。一个女人总觉得自己必须要很漂亮才能获得相应的爱， 一旦自己没钱、不漂亮的时候 ，她们就会极其的焦虑和高度的敏感。以及他们在生活中遇到一点点的问题 ，比如工作 、学习创业 、人际交往中遇到了挫折，一次失败，别人的一个抱怨、一个批评， 他相比于其他人来说 ，也更加的敏感 ，他总觉得自己受到了屈辱 ，受到了侮辱。”</p>
-<p> 首先 ，我们说这种显性自恋的人 ，他们在亲密关系中也是如此。既希望控制自己， 也希望控制对方。 但凡只要不是他同意的 、他发起的， 他都不希望发生，同时也希望自己永远是正确的 。一旦被证明自己出了错 ，他们就会变得恼怒。 </p>
-<p>他们这种人对控制的追求也可以用一种淡化的方式，他有意识的允许恋人享有充分的自由 ，但他却要坚持知道对方所做的一切。一旦对方有什么对他隐瞒的 他都会柏然大陆以及他总是设法逃避接受猎人的指导劝告和帮助，他在遇到问题 遇到双方争论时都是充耳不闻 他会理解为这是屈辱 还想反过来控制对方。</p>
-<p>霍尼老师解释道， 他其实是觉得自己不应该有软弱无能的表现， 他其实也不是诚心想反对对方， 想控制对方， 而只是对自己软弱无能的反抗罢了。他如果越是感到自己的软弱无能 ，他就越焦虑 ，越想逃避一切看起来和软弱相关的东西。所以 他会继续投入到权利、名望、 财富、 美貌等等东西 ，而不想让对方看到自己这一焦虑。</p>
-<p>他觉得自己能够驾驭一切 ，无论是多么困难的处境， 他自己都可以对付他 ，而在遇到感情出现危机时 ，他也总是继续单纯幻想着。只要我继续更加努力赚钱 ，我哪天升职加薪了， 只要这个项目我成了 ，或者我只要更漂亮 、更会打扮在整个脸 ，再整个容 ，你就会回到我身边。</p>
-<p>他根本意识不到自己的自恋问题 ，他只是害怕自己的软弱无能而已， 一种病态的害怕、一种高度敏感的害怕。</p>
-<p>你只是在care你那个理想化的自我， 还非要认为是别人嫌你没钱 、嫌你不漂亮才分手、才离婚的。要分手后， 你只会骂前任是个拜金女、是个渣男 ，而根本意识不到其实是自己在自恋而已。</p>
-<p>另外就是说， 如果自恋类型的人，他压抑了他想控制对方的欲望 ，他会感到不开心 、感到不爽、 感到敌意 ，但他会在无意识里将这些敌意压抑了起来。但是这些压抑的心理能量不会凭空消失 ，而会以其他方式释放出来， 就接近我们所说的隐性自恋了。</p>
-<p>这表面上， 生活中他也看似和和气气的 ，是个老好人， 遇到分歧没有愤怒， 也没跟你吵， 也没跟你闹。这只是因为他潜意识里就把敌意和不爽压抑了起来， 但他也会在之后的日子里爆发出来。比方说 ，霍尼说道 ，在之后的约会时他会迟到 ，或者会出现胃痛不舒服了症状等等， 而且连他自己都搞不懂为何自己会不舒服，他或许会归因于饮食不好 、天气不好等无关的原因 ，但是实际上他意识不到的事，其实都是因为自己想要控制对方的这股隐喻欲望导致的。</p>
-<p>当自恋类型的人他的控制欲被过分压抑起来时， 就会以躯体化的方式躯体化的症状出现。这之前还是开开心心的，还是好好的， 下一刻就突然不开心了， 就突然emo了， 这儿不舒服那儿不舒服。而且他的身体反应也是真的 ，不能说他是装的原因呢 ，双方都答不上来。 所以这种占有欲强的自恋者，不管他是表现出来了，还是让他压抑起来了 ，他可以是显性的 也可以是隐性的。</p>
-<p>隐性的自恋不代表他没有影响 ，而是会继续在之后作用在他身上 ，他会是别扭的。</p>
-<p>霍尼还提到些例子， 比方说这种自恋占有欲的女性可能感受到某个男人对她的吸引力。一旦这个男人真的爱上了她， 她也会转而轻视他 ，看不起他 。因为这意味着他失去了他想要的控制欲，以及可能会让自己卷入未知的领域中去 。以及如果丈夫或者恋人不能符合自己的期望 ，如果他迟到了，忘了打电话 忘了纪念日等等。女性神经质的人就会觉得他并不爱她，她的这种感觉也是因为对方未能顺应自己而产生了一种愤怒反应。</p>
-<p>霍尼提到， 众人往往会产生一种奇怪的矛盾现象， 这种矛盾几乎可以使一切恋爱关系都归于失败。一个神经质的姑娘， 由于瞧不起任何的软弱无能 所以他不可能爱上一个”软弱”的男人。但是呢 ,他又因为自己总是希望自己的伴侣能够顺从自己, 能满足自己的占有欲。就想要对方顺从， 又使他不可能和一个同样坚强自恋的男人相处 。他渴望对方是一个硬汉 同时让对方屈服于自己的占有欲。这种矛盾是她注定走入失败的恋爱，经历一次次感情的失败 ，自恋类型的人，他们都害怕屈服于别人 ，只想别人顺从自己，也害怕改变自己。</p>
-<p>但是我们也要知道 ，在真正的亲密关系中 ，就意味着双方肯定会有屈服和让步的。无论是男人和女人，无论是显性自恋还是隐性自恋， 这种占有欲神经质的人如果越是不能做出这种让步， 他恋爱关系就会出现问题。<br>自恋的人无论男女， 他都有一种迫切的需要 ，想要吸引对方的注意力 ，受到他人的尊敬和崇拜。他会产生以美貌与聪明材质 ，以出色的成就、挥金如土等等来实现。他如果得不到崇拜和目光 ，他就会感到一蹶不振， 因为他们极其敏感。</p>
-<p>显性自恋的人， 他会有一种明显愤怒来应对。而隐性自恋的人看似没怎么愤怒。 因为他将这些屈辱压抑了起来， 把敌意压抑了起来。他会在之后爆发 产生新的焦虑。 而为了应对焦虑 他又会继续捣鼓， 继续吸引对方的注意。他们不断的沉溺于自我扩张 ，维护起自己的那个理想的虚幻的自我， 不接受时然的自我。</p>
-<p>其实只是为了保护自己，你对抗屈辱感会软弱无力感 。换句话说 ，他也是为了恢复被压碎了的自尊心，来企图今后继续占有他人， 防止失去爱的保护性手段而已 。</p>
-<p>这不是爱，这是自恋。 在社会当中， 显性自恋是机制的人很容易发现 但是隐性自恋的人发现起来稍微有点困难。</p>
-<p>霍尼提到， 因为他本人也意识不到这当中包含的敌意， 他也认为自己是一个性情温和的人，他也认为人要在感情生活中要懂得无私 ，要懂得奉献， 懂得去让步， 其大道理他都懂 ，只是因为他的道德超我不允许。而在潜意识里， 他把敌意压抑了起来 ，将占有欲压抑了起来 。霍尼比喻道，就隐性自恋的人有一种“安全阀”，经过这一“安全阀”， 一定量的敌意可以一种非破坏性的方式释放出来。用刚才我们提到的例子，那些莫名其妙出现的躯体化症状， 一会不舒服、 那不舒服的各种别扭扭捏等等的小报复。隐性自恋者 他们这种态度本身不会像显性自恋者那种破坏性， 而是一种淡化了的表现。他阻止了纯粹破坏性的冲动 ，不会怎么愤怒， 但他们有种问题， 他们依旧会受到压抑的敌意， 还是会产生新的焦虑和新的问题。</p>
-<p>霍尼比喻道， 他还是会用他的那种“软弱无能” 像鞭子一样去抽打对方， 以便驱使对方对自己的意志服务。他们向对方索取无止境的关怀和帮助， 而事实上，这种人从未感到别人为他做的努力中感到好处。而只会不断的抱怨和不断的要求 ，而更坏的情况就是说别人忽视了他 ，亏待了他。</p>
-<p>另外个重点就是那些隐藏极深的隐性自恋， 他也觉得自恋不好， 自私发脾气的这种品格不好。在恋爱和婚姻关系中也总是对对方百依百顺， 外人看上去性格好好， 老好人一个。但是表现出过分的顺从不见得是个好现象， 看似很无我、 但也搞不好会是自恋人格的表现。这些人往往在头年时期经历过种种屈辱， 或许是学校 ，或许是家庭 ，或者其他原因。受到歧视 ，被人瞧不起 ，别人冷落 ，这种经验往往因为具有痛苦的性质而被他遗忘。 然而一旦自己长大以后 一些生活中的遭遇明显涉及屈辱时。 这时 ，这些经验就会在他的意识中再度出现。想支配他人的敌意就有了， 有了种敌意 ，但他受到自己过去经历的影响 ，又不能下这个敌意的决心 ，不能表达自己真切的确切的感受，其结果就是他会过分的顺从， 这就会造成恶性循环 ，即霍妮提到，他经历了屈辱感。于是他就产生了想侮辱 、想占有别人的欲望， 但是由于自己害怕受到报复 而对屈辱感高度的敏感了。于是他更加希望占有欲和更加想侮辱别人 从而他就陷入了一种自我强化的此循环，即不断强化才是最可怕的 。当强化到情绪安全阀都不管用时 ，就会是一种可怕的爆发 ，他就会走向暴力伤害对方。</p>
-<p>所以霍尼希望自恋者正视自己的心理问题 ，而将自己无意识的那些东西给意识化，这里说的无论是显性还是隐性的自恋， 他都想要占有欲 ，都想对方顺从自己。</p>
-<p>霍尼说道 ，他们都不是真的相信自己一贯正确 ，而只是不断的、不顾一切的需要显得正当合理 。换句话说， 这只是他们的一种心理防御机制。他们并不是每时每刻都在想着占有，他们也会这么照顾你、关心你，但不是一起床就开始支配你。哪有这种人， 有这种人， 你也不会和他确立关系。 </p>
-<p>而只是说他们在遭遇到自己觉得是侮辱性事件时， 比方说遇到生活的挫折， 遇到不顺， 遇到争论， 遇到矛盾 ，当这股压力来的时候 ，他们才会表露出自己的占有欲。这个时候他的支配欲和因支配欲得不到满足 ，才会产生怨恨的合理化。他会把这种占有欲、 支配欲当做防御机制来应对压力， 即自恋者们要明白 ：当遇到压力时，你为什么这么偏执的想要支配别人 ，想要占有别人 想要追求权利和美貌来解决这个问题 都是因为自己无法面对自己的软弱无能。</p>
-<p>你需要进一步知道自己为什么对软弱无能这么敏感 ，为什么发生一点点的争论、 建议、批评 、挫折就理解为是自己身上的软弱无能 ，就觉得自己自尊受辱了。要学会去回溯自己过去的经历与现在情节的因果关系 ，在感情生活中面对有压力的事件时，去识别到自己的支配欲。当压力发生的时候 ，要相信对方的建议和能力 ，去适当采纳恋人的建议，去放下自己的愤怒。</p>
-<p>自恋的人 ，他越感到焦虑， 就越应该知道此时此刻正是自己的无意识里的防御机制在捣鬼。这种时候 ，他就越应该调用自己的理性 ，越应该去相信恋人 ，相信对方， 和对方协商。而不只是只想着支配局面或者释放自己的怨恨而隐性自恋的人， 虽然他们之前不会愤怒 ，但是要意识到自己的战友欲在作祟， 意识到自己压抑的那些育而不得的敌意 ，去正视他，去意识化他。 在自己的感情生活中 ，要懂得去表达自己的敌意， 而不是一味的压抑后的顺从。</p>
-<p>这种人要懂得去表达自己的不满和表达自己内心的真实想法 ，而不是在潜意识里就直接调用压抑这机制来处理他 ，如此无论是显性还是隐性的 ，才能开启段真正合格的爱情。</p>
-<p>弗洛姆也同意说道， 要培养爱的能力 ，首先就需要克服自恋， 克服想要利用他人的愿望，而那些与爱相关的什么关照 、负责 、尊重 、相知等等的态度 ，都是在自己去除自恋以后才能真正拥有的品格。克服不了自恋的人， 什么关照、负责 、尊重、相知等等都是形同虚设 。只有成熟的人才会拥有这些态度</p>
-<p>自恋不是简单的以自我为中心，背后涉及了占有、支配、 顺从， 防御机制以及无意识压抑等等复杂的问题，涉及到他的过去经历， 涉及他的情节，</p>
-<p>弗洛姆补充道 ，自恋是种欲望，强度在许多人身上毫不亚于性欲和求生欲 ，不要认为为自恋的人是少数 ，他在我们生活当中太常见了。弗洛摩提到自恋的反面是客观， 客观就是能够如实的看待人和物 ，所谓客观就是能把客观景象与处于愿望和恐惧的景象区分开来。</p>
-<p>这和霍尼老师说的一样， 自恋的反面不是我们以为的无私登德的美德， 因为那些无我奉献的人，百般顺从的人， 他也大有可能是自恋类型， 即他们也是看不清客观的人， 看不清死循环、 看不清心理防御、看不清为何这么追求控制和支配欲。其自恋的真正本质在于，他限制了我们的理性 ，阻止了一个人在存在当中看到现实。</p>
-<p>弗洛姆提到 ，对于神经质的人来说，只有一个现实， 那就是他自己内心有的东西， 就是他的愿望和恐惧 。外部世界只是他内心世界的符号和投射而已。</p>
-<p>所以我们需要提高客观， 加强理性 ，一旦能够客观能够理性 ，我们学习爱的路程就走了一半。只有先克服了自恋 ，才会走向之后真正的爱， 真正的双方平等的爱 ，一种主体坚信的爱。</p>
-<p>弗洛姆强调，爱是指的一种在保持自我完整性和独立性的前提下与他人结为一体，同时， 爱也是对生命以及我们所爱之物生长的积极关心， 如果我对一个人说 ：“我爱你。”那我也可以这么说 ：“我在你身上爱所有的人 、爱世界、 也爱我自己。”</p>
-<p>而自恋的人， 他的爱情最终只会走向自我毁灭，就像古希腊传说中的纳尔克索斯， 一个俊美而自负的少年， 拒绝了仙女恶科的爱，后者心碎而死 ，复仇女神就惩罚了他 让他爱上了湖水中自己的倒影，之后在自我欣赏中 ，他就掉进了湖中 ，淹死了 。</p>
-<p>自恋是一种诅咒， 在极端形势下 ，他就会自我毁灭而告终。</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>心理</tag>
       </tags>
   </entry>
   <entry>
@@ -8099,274 +8099,6 @@
         <tag>笔记</tag>
         <tag>考研</tag>
         <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何爱自己</title>
-    <url>/2023/20230206/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>转载自<a href="https://www.zhihu.com/question/21002625/answer/33803818">知乎</a>。</p>
-<hr>
-<p><strong>请像爱一个你爱的人一样去爱。</strong></p>
-<p><em>你是如何爱一个人的？</em></p>
-<p><em>你喜欢关于ta的一切吗？ta的颜，ta的语，ta的一颦一笑？ta的努力，ta的童心，ta的生活轨迹？</em></p>
-<p><em>你会关心ta吗？你会对ta嘘寒问暖吗？ta生病了，你会不会照顾ta？</em></p>
-<p><em>你会帮助ta吗？ta取得了成就，你会为ta开心，为ta喝彩，为ta感到骄傲自豪吗？ta受到挫折，你会安慰ta，支持ta，鼓励ta吗？</em></p>
-<span id="more"></span>
-
-<p><strong>我会呢！因为我爱他。</strong>因为我爱他，所以我希望成为一个最好的伴侣。我向着成为“贤内助”的方向努力。</p>
-<p>我是一个十分感性的姑娘，但是在恋爱中，我会注意让自己理性地思考问题。我在各个方面考虑他的感受，我在各种细节思考他的需求。</p>
-<p>我关心他，关注他，引导他，帮助他，跟他撒娇，给他纠正错误，天冷给他织围巾，提醒他带外套；他累了给他按摩，他困了给他铺床；室内空调温度低，倒热水给他喝，还要确保不烫嘴。</p>
-<p>我学做菜，因为他爱吃；我炖鸡汤给他喝，因为喜欢看他眼睛里闪着光的欢喜笑脸。</p>
-<p>我要求自己成为他的贤内助，辅助他取得事业上的成功。我督促他健身和早起，并且以身作则。我在外人面前，以朋友的身份，真诚地夸赞他的优点，使他更受欢迎。</p>
-<p>有时我会在最亲近的朋友间，当面指出他的错误， 调侃他懒惰的小毛病。更多的时候，我会提醒自己，把一些话留着私底下告诉他，避免他难堪。</p>
-<p>他取得了成就，我发自内心地赞美他；他受到了挫折，我心疼，温柔地安慰他，然后理性地分析事态，与他探讨解决方案。</p>
-<p>我不宠溺他。他的不好的习惯，会在我的引导下慢慢改掉或者改善。</p>
-<p><strong>我爱他，我就对他好。然而我不曾意识到，我对自己并不好。</strong></p>
-<p><strong>我不注重自己的健康，不关注身体的需求。</strong>一个人的时候，不注重规律饮食，很容易就不吃饭、不按时吃饭、叫外卖、吃零食、吃泡面，怎么糊弄怎么来。渴了不去喝水，饿了不去吃东西。</p>
-<p><strong>我对自己要求很严。</strong>我对别人宽容，<strong>对自己却总像是拿着个鞭子</strong>，鞭策自己在各个方面都要努力，都要优秀。我绷紧了神经，努力向前冲刺，给自己的小身躯上压上了蜗壳，重重的。</p>
-<p><strong>我不体恤自己劳累，我不体谅自己的身体</strong>。我生病了吃药只为不让病躯拖慢自己。我受挫了先责备自己。不敢畅快地哭，受伤了也舍不得给自己的心几句温柔的安慰。</p>
-<p><strong>我吝惜对自己的褒奖、欣赏。</strong>取得了成就，我很少打从心底地夸赞自己。不欣赏自己，担心自己的外表不够吸引人。</p>
-<p><strong>我不关注我内心的需求。</strong>我总是朝着“我应该”的方向去做选择，很少考虑“我想要”的那些选项。</p>
-<p>而今我想想，如果是他，我怎会舍得让他这么糊弄自己的身子呢。我关心他的身体健康，我爱他，所以我会督促他规律饮食，我会愿意为他做饭，让他注意营养均衡。如果是他，我怎会不支持他，鼓励他，为他欢喜为他愁？</p>
-<p><strong>从前的我，还没有想过爱自己。</strong>是的，<strong>我还没有想过爱自己。我还没有好好思考过这个问题。我从未意识到这是个问题。</strong></p>
-<p>我爱他，我爱至亲，我爱护花花草草小猫小狗。</p>
-<p><strong>我却没想过要爱自己。这是多么可笑啊！</strong></p>
-<p><strong>多幸运才能在这世上走一遭，为何不该趁此机会好好地爱自己吗？有许许多多的人，在我的生命里出现。然而人生这条路，大部分时间只能自己走。</strong></p>
-<p><strong>我是重要的，很重要，非常重要。</strong></p>
-<p><strong>我值得用爱别人的方式去爱自己，像谈恋爱一样去爱自己！我需要用心地爱自己，就像爱我爱的人一样。我知道如何用心地爱一个人。我用同样的办法去爱自己。</strong></p>
-<p><em>你愿意从今天开始，承诺好好地爱自己吗？</em></p>
-<p><em>你愿意变得“自恋”一些吗？你愿意接纳自己的外表，珍惜自己，认可自己作为一个独立无二的存在吗？</em></p>
-<p><em>你愿意从今天开始关心自己的健康吗？生病了，你能不能负责任地照顾好自己呢？</em></p>
-<p><em>你愿意帮助自己的心吗？ 取得了成就，你会为自己开心，为自己喝彩，为自己感到骄傲自豪吗？受到了挫折，你会安慰自己，支持和鼓励自己吗？</em></p>
-<p>我愿意。因为我爱自己。</p>
-<p>我开始关心自己，倾听自己的心声，关注自己的需求。我开导自己，帮助自己。<strong>因为我知道自己是重要的。</strong></p>
-<ul>
-<li><em>给自己做好吃的。哪怕只有自己一个人吃，认认真真地炒两个小菜，调一小碟酱料，抓起筷子愉快地说：嘿，要开动喽！</em></li>
-<li><em>不再忽视自己的需求。工作时再忙再赶，口渴了，起身给自己倒杯热水，还要吹吹，不要烫嘴；眼睛酸涩了肩膀疼了，起身走走，给自己揉揉，捏捏，在心里说一声：亲爱的，辛苦了；</em></li>
-<li><em>受挫的时候，温柔地安慰自己，肯定自己：“亲爱的，你很努力，你也很聪明。运气有时候忙着照顾别人所以没来得及眷顾你。” 然后理性地分析事态，寻找解决方案；</em></li>
-<li><em>取得了成就，赞美自己，给自己肯定（就是给自己点个赞～）</em></li>
-<li><em>不要宠溺自己。改掉不好的习惯。不要因为“希望别人对我的看法很好”而健身、练舞、读书、做饭、打扫房间，而是为了自己能更自信，为了让自己身体健康，为了使自己开心，为了让自己骄（自）傲（恋），才去做那些“使自己变得更好”的事。</em></li>
-<li><em>像对待爱人一样耐心地对自己。不再急着看到成绩，不再急着要求自己成长。</em></li>
-</ul>
-<p>有时候我在想，那么是不是就要让自己安逸舒服放纵？因为不想让自己遭受压力巨大的日子，而放弃一次选举，放弃一个奖项的申请，放弃一次难度系数很高的考试，放弃参加一个有趣但很有挑战的比赛？</p>
-<p>我既想做这些，又明明知道每次一旦开始这么一个任务，就会让自己忙成陀螺，让自己压力山大，需要逼着自己去做好多好多额外的事，需要逼着自己去加倍地努力，需要冒着失败和受挫的风险，冒着吃力不讨好、花了大量时间最后一无所获的风险，冒着最后的结果让自己伤心难过的风险。这是爱吗？这是合适的爱的方式吗？我的心里很纠结，很矛盾。</p>
-<p>直到我看到了这么些话：</p>
-<p><img src="1.jpg"></p>
-<p>正如约会不是因为知道一个人会答应我我就去约，而应该是因为我喜欢他我才去约他；<strong>做一件事情不是因为知道我一定能完成我才去做，而是因为我想去做，想去挑战，很想完成它，我才去做！哪怕最后会失败，如果我真心想要，那么就去做吧！失败也是可以的( It is OKAY to fail )！</strong></p>
-<p>去参加一个充满挑战的比赛，去参加一次竞选，让自己忙成陀螺，让自己压力山大，逼着自己去做好多好多额外的事，逼着自己去加倍地努力，需要冒着失败和受挫的风险，冒着吃力不讨好、花了大量时间最后一无所获的风险，冒着最后的结果让自己伤心难过的风险。</p>
-<p><strong>因为我知道我的内心是想参加的。只是它一开始不够勇敢，它害怕。所以我要鼓励它，支持它，帮助它实现这个愿望。</strong></p>
-<p>至于失败，那又怎样。<strong>失败是可以接受的(</strong> **It is OKAY to fail )**！我爱我自己。哪怕遭遇挫折和失败，我还是会为自己骄傲，我还要站在自己的这边，肯定这个努力了的自己（嗒就是给自己点个赞），告诉自己：你很勇敢，继续向前，么么哒！</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Prompt Engineering By Lil&#39;Log</title>
-    <url>/2023/20230320/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>提示工程概览，来自<a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Prompt Engineering | Lil’Log</a>。</p>
-<hr>
-<p><strong>Prompt Engineering</strong>，也称为<strong>In-Context Prompting</strong>，指的是如何与 LLM 通信以<em>在不</em>更新模型权重的情况下引导其行为以获得预期结果的方法。这是一门经验科学，即时工程方法的效果在模型之间可能会有很大差异，因此需要大量的实验和启发式方法。</p>
-<p>有用的资源：</p>
-<ul>
-<li><a href="https://github.com/openai/openai-cookbook">OpenAI Cookbook</a>有许多关于如何有效利用 LLM 的深入示例。</li>
-<li><a href="https://github.com/dair-ai/Prompt-Engineering-Guide">Prompt Engineering Guide</a> repo 包含相当全面的有关 prompt engineering 的教育材料集合。</li>
-</ul>
-<p>这篇文章仅关注自回归语言模型的提示工程，因此与完形填空测试、图像生成或多模态模型无关。就其核心而言，即时工程的目标是对齐和模型可操纵性。查看我<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/">之前关于可控文本生成的帖子</a>。</p>
-<p>**[作者的个人看法]**在我看来，一些提示工程论文不值得 8 页长，因为那些技巧可以用一两句话解释，剩下的就是基准测试。一个易于使用和共享的基准基础设施应该对社区更有好处。迭代提示或外部工具的使用并非易事。使整个研究界都采用它也很重要。</p>
-<span id="more"></span>
-
-<h1 id="基本prompting"><a href="#基本prompting" class="headerlink" title="基本prompting"></a>基本prompting</h1><p>Zero-shot 和 few-shot learning 是两种最基本的模型提示方法，由许多 LLM 论文开创，通常用于基准 LLM 性能。</p>
-<h2 id="Zero-shot"><a href="#Zero-shot" class="headerlink" title="Zero-shot"></a>Zero-shot</h2><p><strong>Zero-shot 学习</strong>是简单地将任务文本输入模型并要求结果。</p>
-<p>（所有情感分析示例均来自SST-2）</p>
-<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="Few-shot"><a href="#Few-shot" class="headerlink" title="Few-shot"></a>Few-shot</h2><p><strong>Few-shot learning</strong>提供了一组关于目标任务的高质量演示，每个演示都包含输入和期望的输出。当模型首先看到好的例子时，它可以更好地理解人类的意图和需要什么样的答案的标准。因此，少样本学习通常比零样本学习有更好的性能。然而，它是以更多的token消耗为代价的，并且当输入和输出文本很长时可能会达到上下文长度限制。</p>
-<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Text:</span> (lawrence bounces) all over the stage, dancing, running, sweating, mopping his face <span class="hljs-built_in">and</span> generally displaying the wacky talent that brought him fame <span class="hljs-keyword">in</span> the first place.<br><span class="hljs-symbol">Sentiment:</span> positive<br><br><span class="hljs-symbol">Text:</span> despite all evidence <span class="hljs-keyword">to</span> the contrary, this clunker has somehow managed <span class="hljs-keyword">to</span> pose <span class="hljs-keyword">as</span> an actual feature movie, the kind that charges full admission <span class="hljs-built_in">and</span> gets hyped <span class="hljs-keyword">on</span> tv <span class="hljs-built_in">and</span> purports <span class="hljs-keyword">to</span> amuse small children <span class="hljs-built_in">and</span> ostensible adults.<br><span class="hljs-symbol">Sentiment:</span> negative<br><br><span class="hljs-symbol">Text:</span> <span class="hljs-keyword">for</span> the first time <span class="hljs-keyword">in</span> years, de niro digs deep emotionally, perhaps because he<span class="hljs-comment">&#x27;s been stirred by the powerful work of his co-stars.</span><br><span class="hljs-symbol">Sentiment:</span> positive<br><br><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
-
-<p>许多研究研究了如何构建上下文中的示例以最大限度地提高性能，并观察到<strong>prompt格式、训练示例和示例顺序的选择会导致</strong>从接近随机猜测到接近 SoTA 的显着不同的性能。</p>
-<p><a href="https://arxiv.org/abs/2102.09690">赵等。(2021)</a>调查了少样本分类的情况，并提出 LLM 的几个偏差（他们在实验中使用 GPT-3）导致了如此高的方差：（1）如果示例中的标签分布不平衡，则存在多数标签<em>偏差</em>; (2) <em>Recency bias</em>是指模型可能在最后重复标签的倾向；(3) <em>Common token bias</em>表明 LLM 比 rare tokens 更倾向于产生 common token。为了克服这种偏差，他们提出了一种方法来校准模型输出的标签概率，使其在输入字符串为 时保持一致<code>N/A</code>。</p>
-<h3 id="示例选择技巧"><a href="#示例选择技巧" class="headerlink" title="示例选择技巧"></a>示例选择技巧</h3><ul>
-<li>选择在语义上与测试示例相似的示例k-嵌入空间中的 NN 聚类（<a href="https://arxiv.org/abs/2101.06804">Liu et al., 2021</a>）</li>
-<li>为了选择多样化且具有代表性的示例集，<a href="https://arxiv.org/abs/2209.01975">Su 等人。(2022)</a>提出使用基于图的方法：（1）首先，构造一个有向图$G=(V,E)$基于嵌入（例如通过<a href="https://arxiv.org/abs/1908.10084">SBERT</a>或<a href="https://arxiv.org/abs/2201.10005">其他</a> <a href="https://platform.openai.com/docs/guides/embeddings">嵌入</a> <a href="https://openai.com/blog/new-and-improved-embedding-model">模型</a>）样本之间的余弦相似度，其中每个节点指向其k最近的邻居；(2) 从一组选定的样本开始$\mathcal{L}=∅$和一组剩余样本$\mathcal{U}$在. 每个样品在∈在得分为</li>
-</ul>
-<p>$$<br>\text{score}(u) = \sum_{v \in {v \mid (u, v) \in E, v\in \mathcal{U}}} s(v)\quad\text{where }s(v)=\rho^{- \vert {\ell \in \mathcal{L} \vert (v, \ell)\in E }\vert},\quad\rho &gt; 1<br>$$</p>
-<p>吖如果选择了许多相邻的样本，那么$s(v)$就很低，因此评分鼓励选择不同的样本。</p>
-<ul>
-<li><a href="https://arxiv.org/abs/2112.08633">鲁宾等人。(2022)</a>提出通过特定于一个训练数据集的<a href="https://lilianweng.github.io/posts/2021-05-31-contrastive/">对比学习</a>来训练嵌入，以进行上下文学习样本选择。给定每个训练对(X,y), 一个例子的质量$e_i$（格式化的输入输出对）可以通过 LM 分配的条件概率来衡量：$\text{score}(e_i) = P_\text{LM}(y \mid e_i, x)$. 我们可以用 top-k 识别其他示例k和底部-k将每个训练对的候选正集和负集打分，并将其用于对比学习。</li>
-<li>一些研究人员尝试使用<a href="https://lilianweng.github.io/posts/2018-02-19-rl-overview/#q-learning-off-policy-td-control">Q-Learning</a>来进行样本选择。( <a href="https://arxiv.org/abs/2211.04486">Zhang et al. 2022</a> )</li>
-<li>受基于不确定性的<a href="https://lilianweng.github.io/posts/2022-02-20-active-learning/">主动学习</a>的启发，<a href="https://arxiv.org/abs/2302.12246">Diao 等人。(2023)</a>建议在多次抽样试验中识别具有高分歧(high disagreement)或熵的例子。然后注释这些示例以用于 few-shot prompts。</li>
-</ul>
-<h3 id="Example-Ordering提示"><a href="#Example-Ordering提示" class="headerlink" title="Example Ordering提示"></a>Example Ordering提示</h3><ul>
-<li>一个普遍的建议是保持样本选择的多样性、与测试样本的相关性以及随机顺序，以避免多数标签偏差和近因偏差。</li>
-<li>增加模型大小或包含更多训练示例不会减少上下文示例的不同排列之间的方差。相同的订单可能适用于一种型号，但不适用于另一种型号。当验证集有限时，请考虑选择顺序，以使模型不会产生极度不平衡的预测或对其预测过于自信。( <a href="https://arxiv.org/abs/2104.08786">Lu et al. 2022</a> )</li>
-</ul>
-<h1 id="Instruction-Prompting"><a href="#Instruction-Prompting" class="headerlink" title="Instruction Prompting"></a>Instruction Prompting</h1><p>在提示中展示few-shot示例的目的是向模型解释我们的意图；换句话说，以演示的形式向模型描述任务指令。然而，few-shot 在token使用方面可能很昂贵，并且由于上下文长度有限而限制了输入长度。那么，为什么不直接给出指令呢？</p>
-<p><em>Instructed LM</em>（例如<a href="https://openai.com/research/instruction-following">InstructGPT</a>、<a href="https://github.com/allenai/natural-instructions">natural instruction</a>）使用高质量元组（任务指令、输入、ground truth 输出）微调预训练模型，使 LM 更好地理解用户意图并遵循指令。<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#rl-fine-tuning-with-human-preferences">RLHF</a>（人类反馈强化学习）是一种常用的方法。instruction following style fine-tuning 的好处是改进了模型，使其更符合人类的意图，并大大降低了沟通成本。</p>
-<p>在与指令模型交互时，我们应该详细描述任务要求，尽量<em>具体</em>和<em>准确</em>，避免说“不做某事”，而是具体说明要做什么。</p>
-<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet">Please label the sentiment towards the movie <span class="hljs-keyword">of</span> the given movie review. The sentiment label should be <span class="hljs-string">&quot;positive&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;negative&quot;</span>. <br><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film. </span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
-
-<p>向目标听众解释是另一种聪明的指示方式</p>
-<ul>
-<li>例如为孩子们制作教育材料，</li>
-</ul>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">Describe what <span class="hljs-keyword">is</span> quantum physics <span class="hljs-keyword">to</span> a <span class="hljs-number">6</span>-<span class="hljs-built_in">year</span>-old.<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>和安全的内容，</li>
-</ul>
-<figure class="highlight python-repl"><table><tr><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta">...</span> <span class="python"><span class="hljs-keyword">in</span> language that <span class="hljs-keyword">is</span> safe <span class="hljs-keyword">for</span> work.</span><br></code></pre></td></tr></table></figure>
-
-<p><strong>In-context instruction learning</strong>( <a href="https://arxiv.org/abs/2302.14691">Ye et al. 2023</a> ) 将few-shot learning与instruction prompting结合。它在提示中包含多个跨不同任务的演示示例，每个演示都由指令、任务输入和输出组成。请注意，他们的实验仅针对分类任务，指令提示包含所有标签选项。</p>
-<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Definition:</span> Determine the speaker <span class="hljs-keyword">of</span> the dialogue, <span class="hljs-string">&quot;agent&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;customer&quot;</span>.<br><span class="hljs-symbol">Input:</span> I have successfully booked your tickets.<br><span class="hljs-symbol">Ouput:</span> agent<br><br><span class="hljs-symbol">Definition:</span> Determine which category the question asks <span class="hljs-keyword">for</span>, <span class="hljs-string">&quot;Quantity&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;Location&quot;</span>.<br><span class="hljs-symbol">Input:</span> What<span class="hljs-comment">&#x27;s the oldest building in US?</span><br><span class="hljs-symbol">Ouput:</span> Location<br><br><span class="hljs-symbol">Definition:</span> Classify the sentiment <span class="hljs-keyword">of</span> the given movie review, <span class="hljs-string">&quot;positive&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;negative&quot;</span>.<br><span class="hljs-symbol">Input:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Output:</span><br></code></pre></td></tr></table></figure>
-
-<h1 id="自洽抽样"><a href="#自洽抽样" class="headerlink" title="自洽抽样"></a>自洽抽样</h1><p><strong>自洽采样(Self-Consistency Sampling)</strong>( <a href="https://arxiv.org/abs/2203.11171">Wang et al. 2022a</a> ) 是对温度 &gt; 0 的多个输出进行采样，然后从这些候选中选择最好的一个。选择最佳候选人的标准因任务而异。一个通用的解决方案是选择<strong>多数票</strong>。对于易于验证的任务，例如带有单元测试的编程问题，我们可以简单地运行解释器并通过单元测试验证正确性。</p>
-<h1 id="思维链-CoT"><a href="#思维链-CoT" class="headerlink" title="思维链 (CoT)"></a>思维链 (CoT)</h1><p><strong>思维链 (CoT) 提示</strong>( <a href="https://arxiv.org/abs/2201.11903">Wei et al. 2022</a> ) 生成一系列短句来逐步描述推理逻辑，称为<em>推理链</em>或<em>基本原理</em>，最终得出最终答案。CoT 的好处对于<strong>复杂的推理任务</strong>更为明显，同时使用<strong>大型模型</strong>（例如，具有超过 50B 个参数）。简单的任务只能从 CoT 提示中略微获益。</p>
-<h2 id="CoT-提示的类型"><a href="#CoT-提示的类型" class="headerlink" title="CoT 提示的类型"></a>CoT 提示的类型</h2><p>CoT提示的两种主要类型：</p>
-<ul>
-<li><strong>Few-shot CoT</strong>。它是通过一些演示来提示模型，每个演示都包含手动编写（或模型生成）的高质量推理链。</li>
-</ul>
-<p>（所有数学推理示例均来自<a href="https://github.com/openai/grade-school-math">GSM8k</a>）</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">Question: Tom <span class="hljs-keyword">and</span> Elizabeth have a competition <span class="hljs-keyword">to</span> climb a hill. Elizabeth takes 30 minutes <span class="hljs-keyword">to</span> climb the hill. Tom takes four times as long as Elizabeth does <span class="hljs-keyword">to</span> climb the hill. How many hours does it take Tom <span class="hljs-keyword">to</span> climb up the hill?<br>Answer: It takes Tom 30<span class="hljs-number">*4</span> = &lt;&lt;30<span class="hljs-number">*4</span>=120&gt;&gt;120 minutes <span class="hljs-keyword">to</span> climb the hill.<br>It takes Tom 120/60 = &lt;&lt;120/<span class="hljs-attribute">60</span>=2&gt;&gt;2 hours <span class="hljs-keyword">to</span> climb the hill.<br>So the answer is 2.<br>===<br>Question: Jack is a soccer player. He needs <span class="hljs-keyword">to</span> buy two pairs of<span class="hljs-built_in"> socks </span><span class="hljs-keyword">and</span> a pair of soccer shoes. Each pair of<span class="hljs-built_in"> socks </span>cost <span class="hljs-variable">$9</span>.50, <span class="hljs-keyword">and</span> the shoes cost <span class="hljs-variable">$92</span>. Jack has <span class="hljs-variable">$40</span>. How much more money does Jack need?<br>Answer: The total cost of two pairs of<span class="hljs-built_in"> socks </span>is <span class="hljs-variable">$9</span>.50 x 2 = $&lt;&lt;9.5<span class="hljs-number">*2</span>=19&gt;&gt;19.<br>The total cost of the<span class="hljs-built_in"> socks </span><span class="hljs-keyword">and</span> the shoes is <span class="hljs-variable">$19</span> + <span class="hljs-variable">$92</span> = $&lt;&lt;19+<span class="hljs-attribute">92</span>=111&gt;&gt;111.<br>Jack need <span class="hljs-variable">$111</span> - <span class="hljs-variable">$40</span> = $&lt;&lt;<span class="hljs-attribute">111-40</span>=71&gt;&gt;71 more.<br>So the answer is 71.<br>===<br>Question: Marty has 100 centimeters of ribbon that he must cut into 4 equal parts. Each of the cut parts must be divided into 5 equal parts. How long will each final cut be?<br>Answer:<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>Zero-shot CoT</strong>。使用自然语言语句<code>Let&#39;s think step by step</code>明确鼓励模型首先生成推理链，然后提示<code>Therefore, the answer is</code>生成答案（<a href="https://arxiv.org/abs/2205.11916">Kojima 等人，2022 年</a>）。或者类似的说法<code>Let&#39;s work this out it a step by step to be sure we have the right answer</code>（<a href="https://arxiv.org/abs/2211.01910">Zhou et al. 2022</a>）。</li>
-</ul>
-<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Question:</span> Marty has <span class="hljs-number">100</span> centimeters <span class="hljs-keyword">of</span> ribbon that he must cut <span class="hljs-keyword">into</span> <span class="hljs-number">4</span> equal parts. <span class="hljs-keyword">Each</span> <span class="hljs-keyword">of</span> the cut parts must be divided <span class="hljs-keyword">into</span> <span class="hljs-number">5</span> equal parts. How <span class="hljs-type">long</span> will <span class="hljs-keyword">each</span> final cut be?<br><span class="hljs-symbol">Answer:</span> <span class="hljs-keyword">Let</span><span class="hljs-comment">&#x27;s think step by step.</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="提示和扩展"><a href="#提示和扩展" class="headerlink" title="提示和扩展"></a>提示和扩展</h2><ul>
-<li><a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/#self-consistency-sampling">自洽抽样</a>可以通过抽取多个不同的答案然后进行多数表决来提高推理的准确性。( <a href="https://arxiv.org/abs/2203.11171">Wang et al. 2022a</a> )</li>
-<li>集成学习的另一种方法是改变示例顺序或使用模型生成的基本原理来代替人工编写的基本原理，以在多个样本试验中引入随机性。然后以多数票聚合模型输出以获得最终答案。（<a href="https://arxiv.org/abs/2207.00747">王等人 2022b</a>）</li>
-<li>如果训练样例只与真答案相关联（易于验证！）但没有基本原理，我们可以遵循 STaR <em>（</em> Self-Taught Reasoner；<a href="https://arxiv.org/abs/2203.14465">Zelikman et al. 2022</a>）方法： (1) 让 LLM 生成推理链，只保留那些导致正确答案的人；(2) 然后用生成的基本原理微调模型并重复该过程直到收敛。请注意，更高的温度更有可能产生错误的基本原理和正确的答案。如果训练样本没有真实答案，可以考虑使用多数票作为“正确”答案。</li>
-<li>提示具有更高推理复杂性的演示可以实现更好的性能，其中复杂性由链中推理步骤的数量来衡量。分隔推理步骤时，换行符<code>\n</code>比<code>step i</code>、句号<code>.</code>或分号<code>;</code>更有效。（<a href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
-<li>*基于复杂性的一致性(Complexity-based consistency)*是通过仅在顶部进行多数投票，在所有世代中明确偏好复杂链k复杂的链条。（<a href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
-<li>后来，<a href="https://arxiv.org/abs/2302.12822">Shum 等人。(2023)</a>发现在他们的实验中，仅使用复杂示例的 CoT 提示可以提高复杂问题的准确性，但在简单问题中表现不佳；GSM8k 上显示的证据。</li>
-<li>发现<code>Question:</code>改成<code>Q:</code>有用。（<a href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
-<li><a href="https://arxiv.org/abs/2205.03401">Ye &amp; Durrett (2022)</a>发现，对于涉及文本推理的 NLP 任务（即 QA 和 NLI），在提示中包含解释的好处很小到中等，并且效果因模型而异。他们观察到解释更可能是非事实的而不是不一致的（即解释是否需要预测）。非事实的解释很可能导致错误的预测。</li>
-<li><em>Self-Ask</em> ( <a href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a> ) 是一种反复提示模型提出<em>后续问题</em>以迭代构建思维过程的方法。可以通过搜索引擎结果回答后续问题。同样，<em>IRCoT</em>（Interleaving Retrieval CoT；<a href="https://arxiv.org/abs/2212.10509">Trivedi et al. 2022</a>）和<em>ReAct</em>（Reason + Act；<a href="https://arxiv.org/abs/2210.03629">Yao et al. 2023</a>）将迭代 CoT 提示与维基百科 API 查询相结合，以搜索相关实体和内容，然后将其添加回语境。</li>
-</ul>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/SelfAsk-search.png" alt="img"></p>
-<p>图 1. Self-Ask 如何与外部搜索查询一起使用。<br>（图片来源：<a href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a>）。</p>
-<h1 id="Automatic-Prompt-Design"><a href="#Automatic-Prompt-Design" class="headerlink" title="Automatic Prompt Design"></a>Automatic Prompt Design</h1><p>Prompt 是一系列前缀标记，可增加在给定输入的情况下获得所需输出的概率。因此，我们可以将它们视为可训练的参数，并通过梯度下降<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">直接在嵌入空间上对其进行优化</a>，例如<strong>AutoPrompt</strong> ( <a href="https://arxiv.org/abs/2010.15980">Shin et al., 2020</a> , <strong>Prefix-Tuning</strong> ( <a href="https://arxiv.org/abs/2101.00190">Li &amp; Liang (2021)</a> ), <strong>P-tuning</strong> ( <a href="https://arxiv.org/abs/2103.10385">Liu et al . 2021</a> ) 和<strong>Prompt-Tuning</strong> ( <a href="https://arxiv.org/abs/2104.08691">Lester et al. 2021</a> ).<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">我的“可控神经文本生成”帖子中的这一部分</a>对它们有很好的介绍。从 AutoPrompt 到 Prompt-Tuning 的趋势是设置逐渐简化。</p>
-<p><strong>APE</strong>（Automatic Prompt Engineer；<a href="https://arxiv.org/abs/2211.01910">Zhou et al. 2022</a>）是一种搜索模型生成的候选指令池，然后根据所选得分函数过滤候选集，最终选择得分最高的最佳候选指令的方法。</p>
-<ol>
-<li>提示 LLM 基于输入输出对形式的一小组演示生成候选指令。例如<code>&#123;&#123;Given desired input-output pairs&#125;&#125;\n\nThe instruction is</code>。</li>
-<li>对于给定的数据集$\mathcal{D}<em>\text{train} = {(x, y)}$，我们想找到一条instruction$\rho$满足$\rho^* = \arg\max_\rho \mathbb{E}</em>{(x, y) \in \mathcal{D}_\text{train}} [f(\rho, x, y)]$，其中$f(.)$是每个样本的得分函数，例如执行精度$\mathbb{1}[\text{LM}(.\vert \rho, x)=y]$或对数概率：$p_\text{LM}(y \mid \rho, x)$</li>
-<li>使用迭代蒙特卡洛搜索方法通过提示提出语义相似的变体来改进最佳候选者，例如<code>Generate a variation of the following instruction while keeping the semantic meaning.\n\nInput: ...\n\nOutput:...</code></li>
-</ol>
-<p>为了自动构建思想链提示，<a href="https://arxiv.org/abs/2302.12822">Shum 等人。(2023)</a>建议 augment-prune-select，一个三步过程：</p>
-<ol>
-<li><em>增强</em>：使用few-shot或zero-shot CoT 提示生成给定问题的多个伪思维链；</li>
-<li><em>Prune</em>：根据生成的答案是否与基本事实相匹配来修剪伪链。</li>
-<li><em>选择</em>：应用方差减少的策略梯度策略来学习所选示例的概率分布，同时将示例的概率分布视为策略，将验证集的准确性视为奖励。</li>
-</ol>
-<p><a href="https://arxiv.org/abs/2210.03493">张等。(2023)</a>改为采用<em>聚类</em>技术对问题进行抽样，然后生成链。他们观察到 LLM 倾向于犯某些类型的错误。一种类型的错误在嵌入空间中可能相似，因此被组合在一起。通过仅从频繁错误的集群中抽取一个或几个样本，我们可以防止对一种错误类型的过多错误演示，并收集一组不同的示例。</p>
-<ol>
-<li><em>问题聚类</em>：嵌入问题并运行k-means 聚类的方法。</li>
-<li><em>演示选择</em>：从每个集群中选择一组具有代表性的问题；即来自一个集群的一个演示。每个簇中的样本按到簇质心的距离排序，最接近质心的样本首先被选择。</li>
-<li><em>Rationale generation</em> : 使用zero-shot CoT 为选定的问题生成推理链，并构建few-shot prompt以运行推理。</li>
-</ol>
-<h1 id="Augmented-Language-Models"><a href="#Augmented-Language-Models" class="headerlink" title="Augmented Language Models"></a>Augmented Language Models</h1><p><a href="https://arxiv.org/abs/2302.07842">Mialon 等人</a>对Augmented Language Models的综述。<a href="https://arxiv.org/abs/2302.07842">(2023)</a>广泛涵盖了多种语言模型类别，这些语言模型增强了推理技能和使用外部工具的能力。推荐它。</p>
-<h2 id="Retrieval"><a href="#Retrieval" class="headerlink" title="Retrieval"></a>Retrieval</h2><p>通常我们需要在模型预训练时间截止或内部/私有知识库之后完成需要最新知识的任务。在这种情况下，如果我们没有在提示中明确提供上下文，模型将不知道上下文。<a href="https://lilianweng.github.io/posts/2020-10-29-odqa/">开放领域问答(Open Domain Question Answering)</a>的许多方法依赖于首先对知识库进行检索，然后将检索到的内容作为提示的一部分。这种过程的准确性取决于检索和生成步骤的质量。</p>
-<p><a href="https://arxiv.org/abs/2203.05115">拉扎里杜等人。(2022)</a>研究了如何使用谷歌搜索进行文档检索以增强 LLM。给出一个问题q，从 Google 返回的 20 个 URL 中提取干净的文本，生成一组文档。因为这些文件很长，每个文件被分成6个句子的段落，{p}. 段落按照证据段落和查询之间基于 TF-IDF 的余弦相似度进行排序。提示中仅使用最相关的段落来生成答案A.</p>
-<p>对于闭卷 QA，每个演示的格式如下，以构建 few-shot 提示。发现将问题与证据交换（问题和答案之间的距离更长）在所有数据集中始终产生较低的结果。</p>
-<figure class="highlight avrasm"><table><tr><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">Evidence:</span> ...<br><span class="hljs-symbol">Question:</span> ...<br><span class="hljs-symbol">Answer:</span> ...<br></code></pre></td></tr></table></figure>
-
-<p>答案概率以三种方式计算：</p>
-<ol>
-<li><a href="https://lilianweng.github.io/posts/2020-10-29-odqa/#RAG">RAG</a>风格，$p(a_i \mid q) = \sum_{i=1}^n p_\text{tf-idf} (p_i \mid q) \cdot p_\text{LM}(a_i \mid q, p_i)$，其中$p_\text{tf-idf} (p_i \mid q)$是 TF-IDF 段落和问题表示之间的归一化余弦相似度。</li>
-<li>噪声信道推断，$p(a_i\mid q) = \frac{p_\text{LM}(q \mid a_i, p_i) \cdot p_\text{LM}(a_i \mid p_i)}{p_\text{LM}(q \mid p_i)}$</li>
-<li>Product-of-Experts (PoE)，结合上面使用的所有概率，除了$p_\text{LM}(p_i \mid q)$.</li>
-</ol>
-<p>根据他们在生成和分类任务上的实验，在三个答案重新排序分数中 - PoE &gt; Noisy channel &gt; RAG。在个体概率中，$p_\text{LM}(a \mid q, p_i)$和$p_\text{LM}(q \mid p_i, a)$被发现是最有用的。$p_\text{LM}(q \mid p_i, a)$在给定证据段落和答案的情况下，捕获 LM 可以很好地解释问题，并且可以可靠地用于对候选答案进行重新排序。</p>
-<p>针对基于不同日期的问题的<a href="https://situatedqa.github.io/">SituatedQA</a>数据集进行的一项观察是，尽管 LM（预训练截止日期为 2020 年）可以通过 Google 搜索访问最新信息，但其在 2020 年后问题上的表现仍然比 2020 年前问题差<em>很多</em>。这表明上下文信息和模型内部知识之间存在一些差异或参数冲突。</p>
-<p>有趣的是，即使仅使用“internal retrieval”也被发现是有益的，即在回答问题之前生成关于某个主题的知识（<a href="https://arxiv.org/abs/2110.08387">Liu 等人，2022 年</a>）。首先我们可以使用下面的模板来抽取知识：</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">Generate</span> some knowledge <span class="hljs-keyword">about</span> the <span class="hljs-keyword">input</span>. Examples:<br><br><span class="hljs-keyword">Input</span>: What <span class="hljs-keyword">type</span> of water formation is formed <span class="hljs-keyword">by</span> clouds?<br>Knowledge: Clouds are made of water vapor.<br><br><span class="hljs-keyword">Input</span>: &#123;question&#125;<br>Knowledge:<br></code></pre></td></tr></table></figure>
-
-<p>然后用模型生成的知识，进一步提示 LM 得到答案。</p>
-<h2 id="Programming-Language"><a href="#Programming-Language" class="headerlink" title="Programming Language"></a>Programming Language</h2><p>既有<strong>PAL</strong>（程序辅助语言模型）；<a href="https://arxiv.org/abs/2211.10435">高等。2022</a> ) 和<strong>PoT</strong> (Program of Thoughts prompting; <a href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a> ) 要求 LLM 生成编程语言语句来解决自然语言推理问题，从而将求解步骤卸载到运行时，例如 Python 解释器。这样的设置解耦了复杂的计算和推理。它依赖于具有足够好的编码技能的 LM。</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/PoT.png" alt="图 2. 比较 CoT 和 PoT。"></p>
-<p>（图片来源：<a href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a>）。</p>
-<h2 id="External-APIs"><a href="#External-APIs" class="headerlink" title="External APIs"></a>External APIs</h2><p><strong>TALM</strong>（工具增强语言模型；<a href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）是一种通过文本到文本 API 调用进行增强的语言模型。LM 被引导生成<code>|tool-call</code>并<code>tool input text</code>以任务输入文本为条件来构造 API 调用请求。当<code>|result</code>出现时，调用指定的工具 API，并将返回的结果附加到文本序列。最终输出是在<code>|output</code>令牌之后生成的。</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM.png" alt="img"></p>
-<p>图 3. TALM 中 API 调用的格式。（图片来源：<a href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
-<p>TALM 采用自我对弈的方法来迭代引导工具使用示例的数据集，并用它来微调 LM。这个迭代的自我对弈管道模仿了一个 RL 过程，其中 LM 是策略网络，它由带有二元奖励信号的策略梯度训练。</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM-iteration.png" alt="img"></p>
-<p>图 4. 自我对弈迭代有助于提升模型性能。<br>（图片来源：<a href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
-<p><strong>Toolformer</strong> ( <a href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a> ) 是一种可以通过简单的 API 使用外部工具的 LM，它以自我监督的方式构建，每个 API 只需要少量的演示。Toolformer 的工具箱包括：</p>
-<ul>
-<li><em>Calculator</em>帮助 LM 缺乏精确的数学技能；</li>
-<li><em>Q&amp;A system</em>以帮助解决不忠实的内容和幻觉；</li>
-<li><em>Search engine</em>在预训练截止时间后提供最新信息；</li>
-<li>提高低资源语言性能的<em>Translation system</em></li>
-<li>使 LM 了解时间进程的<em>calendar</em></li>
-</ul>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer.png" alt="img"></p>
-<p>图 5. 说明如何构建 Toolformer。<br>（图片来源：<a href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
-<p>Toolformer 的训练如下：</p>
-<ol>
-<li><p>*<em>Prompting to annotate potential API calls</em>. 。要求预训练的 LM 通过带有 API 调用使用示例的少量学习来注释数据集。格式化示例：</p>
-<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer-annotation.png" alt="img"></p>
-<p>图 6. 如何注释数据集以进行 API 调用。<br>（图片来源：<a href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
-<ul>
-<li><p>每个 API 调用都表示为（API 名称，相应输入）的元组，$c=(a_c, i_c)$和其对应的结果表示为r. 有结果和无结果的API调用序列分别标注如下：</p>
-<p>$$<br>\begin{aligned}<br>  e(c) &amp;= \langle\texttt{API}\rangle a_c(i_c) \langle\texttt{/API}\rangle \<br>  e(c, r) &amp;= \langle\texttt{API}\rangle a_c(i_c) \to r \langle\texttt{/API}\rangle<br>  \end{aligned}<br>$$</p>
-</li>
-<li><p>基于概率的示例 API 调用$p_\text{LM}(\langle\texttt{API}\rangle \mid \text{prompt}(\mathbf{x}), \mathbf{x}_{1:i})$并选择top-k在 position i进行 API 调用的候选位置$i$如果概率大于阈值。</p>
-</li>
-<li><p>Then we sample potential API calls from the LM given the sequence $[\text{prompt}(\mathbf{x}), x_1, \dots, x_{i-1}, \langle\texttt{API}\rangle]$ as prefix and ⟨/API⟩ as suffix.</p>
-</li>
-</ul>
-</li>
-<li><p><em>根据 API 调用是否有助于模型预测未来标记过滤注释。</em>使用自我监督损失来确定哪些 API 调用实际上有帮助。</p>
-<ul>
-<li><p>执行每个 API 调用$c_i$得到相应的结果$r_i$.</p>
-</li>
-<li><p>计算 LM 在令牌上的加权交叉熵损失$X_i,…,Xn$当模型以提示为前缀时。计算了两个版本，一个带有 API 结果，另一个带有空序列$\varepsilon$.</p>
-<p>$$<br>\begin{aligned}<br>  L^+_i &amp;= L_i(e(c_i, r_i)) \<br>  L^-_i &amp;= \min(L_i(\varepsilon), L_i(e(c_i, \varepsilon))) \<br>  \end{aligned}<br>$$</p>
-<p>仅 API 调用$L^-_i - L^+_i$保留大于阈值的标记，这意味着添加此 API 调用及其结果有助于模型预测未来的标记。</p>
-</li>
-</ul>
-</li>
-<li><p><em>在这个带注释的数据集上微调 LM。</em>新的训练序列构造为$\mathbf{x}^* = x_{1:i-1}, e(c_i, r_i), x_{i:n}$. 训练数据是原始数据集（例如论文中的 CCNet 的子集）及其增强版本的组合。</p>
-</li>
-</ol>
-<p>在推理时，解码一直运行到模型产生“→” 令牌，表明它正在等待下一个 API 调用的响应。</p>
-<p>Toolformer 目前不支持链式使用工具（即使用一个工具的输出作为另一个工具的输入）或以交互方式（即在人工选择后采用 API 响应）。两者都是未来扩展模型的有趣方向。</p>
-<h1 id="Citation"><a href="#Citation" class="headerlink" title="Citation"></a>Citation</h1><p>格式如下</p>
-<blockquote>
-<p>Weng, Lilian. (Mar 2023). Prompt Engineering. Lil’Log. <a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/</a>.</p>
-</blockquote>
-<p>或</p>
-<figure class="highlight nix"><table><tr><td class="code"><pre><code class="hljs nix">@article&#123;weng2023prompt,<br>  <span class="hljs-attr">title</span>   = <span class="hljs-string">&quot;Prompt Engineering&quot;</span>,<br>  <span class="hljs-attr">author</span>  = <span class="hljs-string">&quot;Weng, Lilian&quot;</span>,<br>  <span class="hljs-attr">journal</span> = <span class="hljs-string">&quot;lilianweng.github.io&quot;</span>,<br>  <span class="hljs-attr">year</span>    = <span class="hljs-string">&quot;2023&quot;</span>,<br>  <span class="hljs-attr">month</span>   = <span class="hljs-string">&quot;Mar&quot;</span>,<br>  <span class="hljs-attr">url</span>     = <span class="hljs-string">&quot;https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[1] Zhao et al. <a href="https://arxiv.org/abs/2102.09690">“Calibrate Before Use: Improving Few-shot Performance of Language Models.”</a> ICML 2021</p>
-<p>[2] Liu et al. <a href="https://arxiv.org/abs/2101.06804">“What Makes Good In-Context Examples for GPT-3?”</a> arXiv preprint arXiv:2101.06804 (2021).</p>
-<p>[3] Lu et al. <a href="https://arxiv.org/abs/2104.08786">“Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity.”</a> ACL 2022</p>
-<p>[4] Ye et al. <a href="https://arxiv.org/abs/2302.14691">“In-Context Instruction Learning.”</a> arXiv preprint arXiv:2302.14691 (2023).</p>
-<p>[5] Su et al. <a href="https://arxiv.org/abs/2209.01975">“Selective annotation makes language models better few-shot learners.”</a> arXiv preprint arXiv:2209.01975 (2022).</p>
-<p>[6] Rubin et al. <a href="https://arxiv.org/abs/2112.08633">“Learning to retrieve prompts for in-context learning.”</a> NAACL-HLT 2022</p>
-<p>[7] Wei et al. <a href="https://arxiv.org/abs/2201.11903">“Chain of thought prompting elicits reasoning in large language models.”</a> NeurIPS 2022</p>
-<p>[8] Wang et al. <a href="https://arxiv.org/abs/2203.11171">“Self-Consistency Improves Chain of Thought Reasoning in Language Models.”</a> ICLR 2023.</p>
-<p>[9] Diao et al. <a href="https://arxiv.org/abs/2302.12246">“Active Prompting with Chain-of-Thought for Large Language Models.”</a> arXiv preprint arXiv:2302.12246 (2023).</p>
-<p>[10] Zelikman et al. <a href="https://arxiv.org/abs/2203.14465">“STaR: Bootstrapping Reasoning With Reasoning.”</a> arXiv preprint arXiv:2203.14465 (2022).</p>
-<p>[11] Ye &amp; Durrett. <a href="https://arxiv.org/abs/2205.03401">“The unreliability of explanations in few-shot in-context learning.”</a> arXiv preprint arXiv:2205.03401 (2022).</p>
-<p>[12] Trivedi et al. <a href="https://arxiv.org/abs/2212.10509">“Interleaving retrieval with chain-of-thought reasoning for knowledge-intensive multi-step questions.”</a> arXiv preprint arXiv:2212.10509 (2022).</p>
-<p>[13] Press et al. <a href="https://arxiv.org/abs/2210.03350">“Measuring and narrowing the compositionality gap in language models.”</a> arXiv preprint arXiv:2210.03350 (2022).</p>
-<p>[14] Yao et al. <a href="https://arxiv.org/abs/2210.03629">“ReAct: Synergizing reasoning and acting in language models.”</a> ICLR 2023.</p>
-<p>[15] Fu et al. <a href="https://arxiv.org/abs/2210.00720">“Complexity-based prompting for multi-step reasoning.”</a> arXiv preprint arXiv:2210.00720 (2022).</p>
-<p>[16] Wang et al. <a href="https://arxiv.org/abs/2207.00747">“Rationale-augmented ensembles in language models.”</a> arXiv preprint arXiv:2207.00747 (2022).</p>
-<p>[17] Zhang et al. <a href="https://arxiv.org/abs/2210.03493">“Automatic chain of thought prompting in large language models.”</a> arXiv preprint arXiv:2210.03493 (2022).</p>
-<p>[18] Shum et al. <a href="https://arxiv.org/abs/2302.12822">“Automatic Prompt Augmentation and Selection with Chain-of-Thought from Labeled Data.”</a> arXiv preprint arXiv:2302.12822 (2023).</p>
-<p>[19] Zhou et al. <a href="https://arxiv.org/abs/2211.01910">“Large Language Models Are Human-Level Prompt Engineers.”</a> ICLR 2023.</p>
-<p>[20] Lazaridou et al. <a href="https://arxiv.org/abs/2203.05115">“Internet augmented language models through few-shot prompting for open-domain question answering.”</a> arXiv preprint arXiv:2203.05115 (2022).</p>
-<p>[21] Chen et al. <a href="https://arxiv.org/abs/2211.12588">“Program of Thoughts Prompting: Disentangling Computation from Reasoning for Numerical Reasoning Tasks.”</a> arXiv preprint arXiv:2211.12588 (2022).</p>
-<p>[22] Gao et al. <a href="https://arxiv.org/abs/2211.10435">“PAL: Program-aided language models.”</a> arXiv preprint arXiv:2211.10435 (2022).</p>
-<p>[23] Parisi et al. <a href="https://arxiv.org/abs/2205.12255">“TALM: Tool Augmented Language Models”</a> arXiv preprint arXiv:2205.12255 (2022).</p>
-<p>[24] Schick et al. <a href="https://arxiv.org/abs/2302.04761">“Toolformer: Language Models Can Teach Themselves to Use Tools.”</a> arXiv preprint arXiv:2302.04761 (2023).</p>
-<p>[25] Mialon et al. <a href="https://arxiv.org/abs/2302.07842">“Augmented Language Models: a Survey”</a> arXiv preprint arXiv:2302.07842 (2023).</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-        <tag>自然语言处理</tag>
       </tags>
   </entry>
   <entry>
@@ -9633,6 +9365,63 @@ scale).">
       </tags>
   </entry>
   <entry>
+    <title>如何爱自己</title>
+    <url>/2023/20230206/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>转载自<a href="https://www.zhihu.com/question/21002625/answer/33803818">知乎</a>。</p>
+<hr>
+<p><strong>请像爱一个你爱的人一样去爱。</strong></p>
+<p><em>你是如何爱一个人的？</em></p>
+<p><em>你喜欢关于ta的一切吗？ta的颜，ta的语，ta的一颦一笑？ta的努力，ta的童心，ta的生活轨迹？</em></p>
+<p><em>你会关心ta吗？你会对ta嘘寒问暖吗？ta生病了，你会不会照顾ta？</em></p>
+<p><em>你会帮助ta吗？ta取得了成就，你会为ta开心，为ta喝彩，为ta感到骄傲自豪吗？ta受到挫折，你会安慰ta，支持ta，鼓励ta吗？</em></p>
+<span id="more"></span>
+
+<p><strong>我会呢！因为我爱他。</strong>因为我爱他，所以我希望成为一个最好的伴侣。我向着成为“贤内助”的方向努力。</p>
+<p>我是一个十分感性的姑娘，但是在恋爱中，我会注意让自己理性地思考问题。我在各个方面考虑他的感受，我在各种细节思考他的需求。</p>
+<p>我关心他，关注他，引导他，帮助他，跟他撒娇，给他纠正错误，天冷给他织围巾，提醒他带外套；他累了给他按摩，他困了给他铺床；室内空调温度低，倒热水给他喝，还要确保不烫嘴。</p>
+<p>我学做菜，因为他爱吃；我炖鸡汤给他喝，因为喜欢看他眼睛里闪着光的欢喜笑脸。</p>
+<p>我要求自己成为他的贤内助，辅助他取得事业上的成功。我督促他健身和早起，并且以身作则。我在外人面前，以朋友的身份，真诚地夸赞他的优点，使他更受欢迎。</p>
+<p>有时我会在最亲近的朋友间，当面指出他的错误， 调侃他懒惰的小毛病。更多的时候，我会提醒自己，把一些话留着私底下告诉他，避免他难堪。</p>
+<p>他取得了成就，我发自内心地赞美他；他受到了挫折，我心疼，温柔地安慰他，然后理性地分析事态，与他探讨解决方案。</p>
+<p>我不宠溺他。他的不好的习惯，会在我的引导下慢慢改掉或者改善。</p>
+<p><strong>我爱他，我就对他好。然而我不曾意识到，我对自己并不好。</strong></p>
+<p><strong>我不注重自己的健康，不关注身体的需求。</strong>一个人的时候，不注重规律饮食，很容易就不吃饭、不按时吃饭、叫外卖、吃零食、吃泡面，怎么糊弄怎么来。渴了不去喝水，饿了不去吃东西。</p>
+<p><strong>我对自己要求很严。</strong>我对别人宽容，<strong>对自己却总像是拿着个鞭子</strong>，鞭策自己在各个方面都要努力，都要优秀。我绷紧了神经，努力向前冲刺，给自己的小身躯上压上了蜗壳，重重的。</p>
+<p><strong>我不体恤自己劳累，我不体谅自己的身体</strong>。我生病了吃药只为不让病躯拖慢自己。我受挫了先责备自己。不敢畅快地哭，受伤了也舍不得给自己的心几句温柔的安慰。</p>
+<p><strong>我吝惜对自己的褒奖、欣赏。</strong>取得了成就，我很少打从心底地夸赞自己。不欣赏自己，担心自己的外表不够吸引人。</p>
+<p><strong>我不关注我内心的需求。</strong>我总是朝着“我应该”的方向去做选择，很少考虑“我想要”的那些选项。</p>
+<p>而今我想想，如果是他，我怎会舍得让他这么糊弄自己的身子呢。我关心他的身体健康，我爱他，所以我会督促他规律饮食，我会愿意为他做饭，让他注意营养均衡。如果是他，我怎会不支持他，鼓励他，为他欢喜为他愁？</p>
+<p><strong>从前的我，还没有想过爱自己。</strong>是的，<strong>我还没有想过爱自己。我还没有好好思考过这个问题。我从未意识到这是个问题。</strong></p>
+<p>我爱他，我爱至亲，我爱护花花草草小猫小狗。</p>
+<p><strong>我却没想过要爱自己。这是多么可笑啊！</strong></p>
+<p><strong>多幸运才能在这世上走一遭，为何不该趁此机会好好地爱自己吗？有许许多多的人，在我的生命里出现。然而人生这条路，大部分时间只能自己走。</strong></p>
+<p><strong>我是重要的，很重要，非常重要。</strong></p>
+<p><strong>我值得用爱别人的方式去爱自己，像谈恋爱一样去爱自己！我需要用心地爱自己，就像爱我爱的人一样。我知道如何用心地爱一个人。我用同样的办法去爱自己。</strong></p>
+<p><em>你愿意从今天开始，承诺好好地爱自己吗？</em></p>
+<p><em>你愿意变得“自恋”一些吗？你愿意接纳自己的外表，珍惜自己，认可自己作为一个独立无二的存在吗？</em></p>
+<p><em>你愿意从今天开始关心自己的健康吗？生病了，你能不能负责任地照顾好自己呢？</em></p>
+<p><em>你愿意帮助自己的心吗？ 取得了成就，你会为自己开心，为自己喝彩，为自己感到骄傲自豪吗？受到了挫折，你会安慰自己，支持和鼓励自己吗？</em></p>
+<p>我愿意。因为我爱自己。</p>
+<p>我开始关心自己，倾听自己的心声，关注自己的需求。我开导自己，帮助自己。<strong>因为我知道自己是重要的。</strong></p>
+<ul>
+<li><em>给自己做好吃的。哪怕只有自己一个人吃，认认真真地炒两个小菜，调一小碟酱料，抓起筷子愉快地说：嘿，要开动喽！</em></li>
+<li><em>不再忽视自己的需求。工作时再忙再赶，口渴了，起身给自己倒杯热水，还要吹吹，不要烫嘴；眼睛酸涩了肩膀疼了，起身走走，给自己揉揉，捏捏，在心里说一声：亲爱的，辛苦了；</em></li>
+<li><em>受挫的时候，温柔地安慰自己，肯定自己：“亲爱的，你很努力，你也很聪明。运气有时候忙着照顾别人所以没来得及眷顾你。” 然后理性地分析事态，寻找解决方案；</em></li>
+<li><em>取得了成就，赞美自己，给自己肯定（就是给自己点个赞～）</em></li>
+<li><em>不要宠溺自己。改掉不好的习惯。不要因为“希望别人对我的看法很好”而健身、练舞、读书、做饭、打扫房间，而是为了自己能更自信，为了让自己身体健康，为了使自己开心，为了让自己骄（自）傲（恋），才去做那些“使自己变得更好”的事。</em></li>
+<li><em>像对待爱人一样耐心地对自己。不再急着看到成绩，不再急着要求自己成长。</em></li>
+</ul>
+<p>有时候我在想，那么是不是就要让自己安逸舒服放纵？因为不想让自己遭受压力巨大的日子，而放弃一次选举，放弃一个奖项的申请，放弃一次难度系数很高的考试，放弃参加一个有趣但很有挑战的比赛？</p>
+<p>我既想做这些，又明明知道每次一旦开始这么一个任务，就会让自己忙成陀螺，让自己压力山大，需要逼着自己去做好多好多额外的事，需要逼着自己去加倍地努力，需要冒着失败和受挫的风险，冒着吃力不讨好、花了大量时间最后一无所获的风险，冒着最后的结果让自己伤心难过的风险。这是爱吗？这是合适的爱的方式吗？我的心里很纠结，很矛盾。</p>
+<p>直到我看到了这么些话：</p>
+<p><img src="1.jpg"></p>
+<p>正如约会不是因为知道一个人会答应我我就去约，而应该是因为我喜欢他我才去约他；<strong>做一件事情不是因为知道我一定能完成我才去做，而是因为我想去做，想去挑战，很想完成它，我才去做！哪怕最后会失败，如果我真心想要，那么就去做吧！失败也是可以的( It is OKAY to fail )！</strong></p>
+<p>去参加一个充满挑战的比赛，去参加一次竞选，让自己忙成陀螺，让自己压力山大，逼着自己去做好多好多额外的事，逼着自己去加倍地努力，需要冒着失败和受挫的风险，冒着吃力不讨好、花了大量时间最后一无所获的风险，冒着最后的结果让自己伤心难过的风险。</p>
+<p><strong>因为我知道我的内心是想参加的。只是它一开始不够勇敢，它害怕。所以我要鼓励它，支持它，帮助它实现这个愿望。</strong></p>
+<p>至于失败，那又怎样。<strong>失败是可以接受的(</strong> **It is OKAY to fail )**！我爱我自己。哪怕遭遇挫折和失败，我还是会为自己骄傲，我还要站在自己的这边，肯定这个努力了的自己（嗒就是给自己点个赞），告诉自己：你很勇敢，继续向前，么么哒！</p>
+]]></content>
+  </entry>
+  <entry>
     <title>《健身新手的减脂完全手册》</title>
     <url>/2023/20230319/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.bilibili.com/video/BV1AM411r7z3/">B站版《健身新手的减脂完全手册》™</a></p>
@@ -9688,6 +9477,217 @@ scale).">
 ]]></content>
       <tags>
         <tag>健身</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Prompt Engineering By Lil&#39;Log</title>
+    <url>/2023/20230320/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>提示工程概览，来自<a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Prompt Engineering | Lil’Log</a>。</p>
+<hr>
+<p><strong>Prompt Engineering</strong>，也称为<strong>In-Context Prompting</strong>，指的是如何与 LLM 通信以<em>在不</em>更新模型权重的情况下引导其行为以获得预期结果的方法。这是一门经验科学，即时工程方法的效果在模型之间可能会有很大差异，因此需要大量的实验和启发式方法。</p>
+<p>有用的资源：</p>
+<ul>
+<li><a href="https://github.com/openai/openai-cookbook">OpenAI Cookbook</a>有许多关于如何有效利用 LLM 的深入示例。</li>
+<li><a href="https://github.com/dair-ai/Prompt-Engineering-Guide">Prompt Engineering Guide</a> repo 包含相当全面的有关 prompt engineering 的教育材料集合。</li>
+</ul>
+<p>这篇文章仅关注自回归语言模型的提示工程，因此与完形填空测试、图像生成或多模态模型无关。就其核心而言，即时工程的目标是对齐和模型可操纵性。查看我<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/">之前关于可控文本生成的帖子</a>。</p>
+<p>**[作者的个人看法]**在我看来，一些提示工程论文不值得 8 页长，因为那些技巧可以用一两句话解释，剩下的就是基准测试。一个易于使用和共享的基准基础设施应该对社区更有好处。迭代提示或外部工具的使用并非易事。使整个研究界都采用它也很重要。</p>
+<span id="more"></span>
+
+<h1 id="基本prompting"><a href="#基本prompting" class="headerlink" title="基本prompting"></a>基本prompting</h1><p>Zero-shot 和 few-shot learning 是两种最基本的模型提示方法，由许多 LLM 论文开创，通常用于基准 LLM 性能。</p>
+<h2 id="Zero-shot"><a href="#Zero-shot" class="headerlink" title="Zero-shot"></a>Zero-shot</h2><p><strong>Zero-shot 学习</strong>是简单地将任务文本输入模型并要求结果。</p>
+<p>（所有情感分析示例均来自SST-2）</p>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Few-shot"><a href="#Few-shot" class="headerlink" title="Few-shot"></a>Few-shot</h2><p><strong>Few-shot learning</strong>提供了一组关于目标任务的高质量演示，每个演示都包含输入和期望的输出。当模型首先看到好的例子时，它可以更好地理解人类的意图和需要什么样的答案的标准。因此，少样本学习通常比零样本学习有更好的性能。然而，它是以更多的token消耗为代价的，并且当输入和输出文本很长时可能会达到上下文长度限制。</p>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Text:</span> (lawrence bounces) all over the stage, dancing, running, sweating, mopping his face <span class="hljs-built_in">and</span> generally displaying the wacky talent that brought him fame <span class="hljs-keyword">in</span> the first place.<br><span class="hljs-symbol">Sentiment:</span> positive<br><br><span class="hljs-symbol">Text:</span> despite all evidence <span class="hljs-keyword">to</span> the contrary, this clunker has somehow managed <span class="hljs-keyword">to</span> pose <span class="hljs-keyword">as</span> an actual feature movie, the kind that charges full admission <span class="hljs-built_in">and</span> gets hyped <span class="hljs-keyword">on</span> tv <span class="hljs-built_in">and</span> purports <span class="hljs-keyword">to</span> amuse small children <span class="hljs-built_in">and</span> ostensible adults.<br><span class="hljs-symbol">Sentiment:</span> negative<br><br><span class="hljs-symbol">Text:</span> <span class="hljs-keyword">for</span> the first time <span class="hljs-keyword">in</span> years, de niro digs deep emotionally, perhaps because he<span class="hljs-comment">&#x27;s been stirred by the powerful work of his co-stars.</span><br><span class="hljs-symbol">Sentiment:</span> positive<br><br><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
+
+<p>许多研究研究了如何构建上下文中的示例以最大限度地提高性能，并观察到<strong>prompt格式、训练示例和示例顺序的选择会导致</strong>从接近随机猜测到接近 SoTA 的显着不同的性能。</p>
+<p><a href="https://arxiv.org/abs/2102.09690">赵等。(2021)</a>调查了少样本分类的情况，并提出 LLM 的几个偏差（他们在实验中使用 GPT-3）导致了如此高的方差：（1）如果示例中的标签分布不平衡，则存在多数标签<em>偏差</em>; (2) <em>Recency bias</em>是指模型可能在最后重复标签的倾向；(3) <em>Common token bias</em>表明 LLM 比 rare tokens 更倾向于产生 common token。为了克服这种偏差，他们提出了一种方法来校准模型输出的标签概率，使其在输入字符串为 时保持一致<code>N/A</code>。</p>
+<h3 id="示例选择技巧"><a href="#示例选择技巧" class="headerlink" title="示例选择技巧"></a>示例选择技巧</h3><ul>
+<li>选择在语义上与测试示例相似的示例k-嵌入空间中的 NN 聚类（<a href="https://arxiv.org/abs/2101.06804">Liu et al., 2021</a>）</li>
+<li>为了选择多样化且具有代表性的示例集，<a href="https://arxiv.org/abs/2209.01975">Su 等人。(2022)</a>提出使用基于图的方法：（1）首先，构造一个有向图$G=(V,E)$基于嵌入（例如通过<a href="https://arxiv.org/abs/1908.10084">SBERT</a>或<a href="https://arxiv.org/abs/2201.10005">其他</a> <a href="https://platform.openai.com/docs/guides/embeddings">嵌入</a> <a href="https://openai.com/blog/new-and-improved-embedding-model">模型</a>）样本之间的余弦相似度，其中每个节点指向其k最近的邻居；(2) 从一组选定的样本开始$\mathcal{L}=∅$和一组剩余样本$\mathcal{U}$在. 每个样品在∈在得分为</li>
+</ul>
+<p>$$<br>\text{score}(u) = \sum_{v \in {v \mid (u, v) \in E, v\in \mathcal{U}}} s(v)\quad\text{where }s(v)=\rho^{- \vert {\ell \in \mathcal{L} \vert (v, \ell)\in E }\vert},\quad\rho &gt; 1<br>$$</p>
+<p>吖如果选择了许多相邻的样本，那么$s(v)$就很低，因此评分鼓励选择不同的样本。</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2112.08633">鲁宾等人。(2022)</a>提出通过特定于一个训练数据集的<a href="https://lilianweng.github.io/posts/2021-05-31-contrastive/">对比学习</a>来训练嵌入，以进行上下文学习样本选择。给定每个训练对(X,y), 一个例子的质量$e_i$（格式化的输入输出对）可以通过 LM 分配的条件概率来衡量：$\text{score}(e_i) = P_\text{LM}(y \mid e_i, x)$. 我们可以用 top-k 识别其他示例k和底部-k将每个训练对的候选正集和负集打分，并将其用于对比学习。</li>
+<li>一些研究人员尝试使用<a href="https://lilianweng.github.io/posts/2018-02-19-rl-overview/#q-learning-off-policy-td-control">Q-Learning</a>来进行样本选择。( <a href="https://arxiv.org/abs/2211.04486">Zhang et al. 2022</a> )</li>
+<li>受基于不确定性的<a href="https://lilianweng.github.io/posts/2022-02-20-active-learning/">主动学习</a>的启发，<a href="https://arxiv.org/abs/2302.12246">Diao 等人。(2023)</a>建议在多次抽样试验中识别具有高分歧(high disagreement)或熵的例子。然后注释这些示例以用于 few-shot prompts。</li>
+</ul>
+<h3 id="Example-Ordering提示"><a href="#Example-Ordering提示" class="headerlink" title="Example Ordering提示"></a>Example Ordering提示</h3><ul>
+<li>一个普遍的建议是保持样本选择的多样性、与测试样本的相关性以及随机顺序，以避免多数标签偏差和近因偏差。</li>
+<li>增加模型大小或包含更多训练示例不会减少上下文示例的不同排列之间的方差。相同的订单可能适用于一种型号，但不适用于另一种型号。当验证集有限时，请考虑选择顺序，以使模型不会产生极度不平衡的预测或对其预测过于自信。( <a href="https://arxiv.org/abs/2104.08786">Lu et al. 2022</a> )</li>
+</ul>
+<h1 id="Instruction-Prompting"><a href="#Instruction-Prompting" class="headerlink" title="Instruction Prompting"></a>Instruction Prompting</h1><p>在提示中展示few-shot示例的目的是向模型解释我们的意图；换句话说，以演示的形式向模型描述任务指令。然而，few-shot 在token使用方面可能很昂贵，并且由于上下文长度有限而限制了输入长度。那么，为什么不直接给出指令呢？</p>
+<p><em>Instructed LM</em>（例如<a href="https://openai.com/research/instruction-following">InstructGPT</a>、<a href="https://github.com/allenai/natural-instructions">natural instruction</a>）使用高质量元组（任务指令、输入、ground truth 输出）微调预训练模型，使 LM 更好地理解用户意图并遵循指令。<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#rl-fine-tuning-with-human-preferences">RLHF</a>（人类反馈强化学习）是一种常用的方法。instruction following style fine-tuning 的好处是改进了模型，使其更符合人类的意图，并大大降低了沟通成本。</p>
+<p>在与指令模型交互时，我们应该详细描述任务要求，尽量<em>具体</em>和<em>准确</em>，避免说“不做某事”，而是具体说明要做什么。</p>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet">Please label the sentiment towards the movie <span class="hljs-keyword">of</span> the given movie review. The sentiment label should be <span class="hljs-string">&quot;positive&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;negative&quot;</span>. <br><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film. </span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
+
+<p>向目标听众解释是另一种聪明的指示方式</p>
+<ul>
+<li>例如为孩子们制作教育材料，</li>
+</ul>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">Describe what <span class="hljs-keyword">is</span> quantum physics <span class="hljs-keyword">to</span> a <span class="hljs-number">6</span>-<span class="hljs-built_in">year</span>-old.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>和安全的内容，</li>
+</ul>
+<figure class="highlight python-repl"><table><tr><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta">...</span> <span class="python"><span class="hljs-keyword">in</span> language that <span class="hljs-keyword">is</span> safe <span class="hljs-keyword">for</span> work.</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>In-context instruction learning</strong>( <a href="https://arxiv.org/abs/2302.14691">Ye et al. 2023</a> ) 将few-shot learning与instruction prompting结合。它在提示中包含多个跨不同任务的演示示例，每个演示都由指令、任务输入和输出组成。请注意，他们的实验仅针对分类任务，指令提示包含所有标签选项。</p>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Definition:</span> Determine the speaker <span class="hljs-keyword">of</span> the dialogue, <span class="hljs-string">&quot;agent&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;customer&quot;</span>.<br><span class="hljs-symbol">Input:</span> I have successfully booked your tickets.<br><span class="hljs-symbol">Ouput:</span> agent<br><br><span class="hljs-symbol">Definition:</span> Determine which category the question asks <span class="hljs-keyword">for</span>, <span class="hljs-string">&quot;Quantity&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;Location&quot;</span>.<br><span class="hljs-symbol">Input:</span> What<span class="hljs-comment">&#x27;s the oldest building in US?</span><br><span class="hljs-symbol">Ouput:</span> Location<br><br><span class="hljs-symbol">Definition:</span> Classify the sentiment <span class="hljs-keyword">of</span> the given movie review, <span class="hljs-string">&quot;positive&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;negative&quot;</span>.<br><span class="hljs-symbol">Input:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Output:</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="自洽抽样"><a href="#自洽抽样" class="headerlink" title="自洽抽样"></a>自洽抽样</h1><p><strong>自洽采样(Self-Consistency Sampling)</strong>( <a href="https://arxiv.org/abs/2203.11171">Wang et al. 2022a</a> ) 是对温度 &gt; 0 的多个输出进行采样，然后从这些候选中选择最好的一个。选择最佳候选人的标准因任务而异。一个通用的解决方案是选择<strong>多数票</strong>。对于易于验证的任务，例如带有单元测试的编程问题，我们可以简单地运行解释器并通过单元测试验证正确性。</p>
+<h1 id="思维链-CoT"><a href="#思维链-CoT" class="headerlink" title="思维链 (CoT)"></a>思维链 (CoT)</h1><p><strong>思维链 (CoT) 提示</strong>( <a href="https://arxiv.org/abs/2201.11903">Wei et al. 2022</a> ) 生成一系列短句来逐步描述推理逻辑，称为<em>推理链</em>或<em>基本原理</em>，最终得出最终答案。CoT 的好处对于<strong>复杂的推理任务</strong>更为明显，同时使用<strong>大型模型</strong>（例如，具有超过 50B 个参数）。简单的任务只能从 CoT 提示中略微获益。</p>
+<h2 id="CoT-提示的类型"><a href="#CoT-提示的类型" class="headerlink" title="CoT 提示的类型"></a>CoT 提示的类型</h2><p>CoT提示的两种主要类型：</p>
+<ul>
+<li><strong>Few-shot CoT</strong>。它是通过一些演示来提示模型，每个演示都包含手动编写（或模型生成）的高质量推理链。</li>
+</ul>
+<p>（所有数学推理示例均来自<a href="https://github.com/openai/grade-school-math">GSM8k</a>）</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">Question: Tom <span class="hljs-keyword">and</span> Elizabeth have a competition <span class="hljs-keyword">to</span> climb a hill. Elizabeth takes 30 minutes <span class="hljs-keyword">to</span> climb the hill. Tom takes four times as long as Elizabeth does <span class="hljs-keyword">to</span> climb the hill. How many hours does it take Tom <span class="hljs-keyword">to</span> climb up the hill?<br>Answer: It takes Tom 30<span class="hljs-number">*4</span> = &lt;&lt;30<span class="hljs-number">*4</span>=120&gt;&gt;120 minutes <span class="hljs-keyword">to</span> climb the hill.<br>It takes Tom 120/60 = &lt;&lt;120/<span class="hljs-attribute">60</span>=2&gt;&gt;2 hours <span class="hljs-keyword">to</span> climb the hill.<br>So the answer is 2.<br>===<br>Question: Jack is a soccer player. He needs <span class="hljs-keyword">to</span> buy two pairs of<span class="hljs-built_in"> socks </span><span class="hljs-keyword">and</span> a pair of soccer shoes. Each pair of<span class="hljs-built_in"> socks </span>cost <span class="hljs-variable">$9</span>.50, <span class="hljs-keyword">and</span> the shoes cost <span class="hljs-variable">$92</span>. Jack has <span class="hljs-variable">$40</span>. How much more money does Jack need?<br>Answer: The total cost of two pairs of<span class="hljs-built_in"> socks </span>is <span class="hljs-variable">$9</span>.50 x 2 = $&lt;&lt;9.5<span class="hljs-number">*2</span>=19&gt;&gt;19.<br>The total cost of the<span class="hljs-built_in"> socks </span><span class="hljs-keyword">and</span> the shoes is <span class="hljs-variable">$19</span> + <span class="hljs-variable">$92</span> = $&lt;&lt;19+<span class="hljs-attribute">92</span>=111&gt;&gt;111.<br>Jack need <span class="hljs-variable">$111</span> - <span class="hljs-variable">$40</span> = $&lt;&lt;<span class="hljs-attribute">111-40</span>=71&gt;&gt;71 more.<br>So the answer is 71.<br>===<br>Question: Marty has 100 centimeters of ribbon that he must cut into 4 equal parts. Each of the cut parts must be divided into 5 equal parts. How long will each final cut be?<br>Answer:<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Zero-shot CoT</strong>。使用自然语言语句<code>Let&#39;s think step by step</code>明确鼓励模型首先生成推理链，然后提示<code>Therefore, the answer is</code>生成答案（<a href="https://arxiv.org/abs/2205.11916">Kojima 等人，2022 年</a>）。或者类似的说法<code>Let&#39;s work this out it a step by step to be sure we have the right answer</code>（<a href="https://arxiv.org/abs/2211.01910">Zhou et al. 2022</a>）。</li>
+</ul>
+<figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Question:</span> Marty has <span class="hljs-number">100</span> centimeters <span class="hljs-keyword">of</span> ribbon that he must cut <span class="hljs-keyword">into</span> <span class="hljs-number">4</span> equal parts. <span class="hljs-keyword">Each</span> <span class="hljs-keyword">of</span> the cut parts must be divided <span class="hljs-keyword">into</span> <span class="hljs-number">5</span> equal parts. How <span class="hljs-type">long</span> will <span class="hljs-keyword">each</span> final cut be?<br><span class="hljs-symbol">Answer:</span> <span class="hljs-keyword">Let</span><span class="hljs-comment">&#x27;s think step by step.</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="提示和扩展"><a href="#提示和扩展" class="headerlink" title="提示和扩展"></a>提示和扩展</h2><ul>
+<li><a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/#self-consistency-sampling">自洽抽样</a>可以通过抽取多个不同的答案然后进行多数表决来提高推理的准确性。( <a href="https://arxiv.org/abs/2203.11171">Wang et al. 2022a</a> )</li>
+<li>集成学习的另一种方法是改变示例顺序或使用模型生成的基本原理来代替人工编写的基本原理，以在多个样本试验中引入随机性。然后以多数票聚合模型输出以获得最终答案。（<a href="https://arxiv.org/abs/2207.00747">王等人 2022b</a>）</li>
+<li>如果训练样例只与真答案相关联（易于验证！）但没有基本原理，我们可以遵循 STaR <em>（</em> Self-Taught Reasoner；<a href="https://arxiv.org/abs/2203.14465">Zelikman et al. 2022</a>）方法： (1) 让 LLM 生成推理链，只保留那些导致正确答案的人；(2) 然后用生成的基本原理微调模型并重复该过程直到收敛。请注意，更高的温度更有可能产生错误的基本原理和正确的答案。如果训练样本没有真实答案，可以考虑使用多数票作为“正确”答案。</li>
+<li>提示具有更高推理复杂性的演示可以实现更好的性能，其中复杂性由链中推理步骤的数量来衡量。分隔推理步骤时，换行符<code>\n</code>比<code>step i</code>、句号<code>.</code>或分号<code>;</code>更有效。（<a href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
+<li>*基于复杂性的一致性(Complexity-based consistency)*是通过仅在顶部进行多数投票，在所有世代中明确偏好复杂链k复杂的链条。（<a href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
+<li>后来，<a href="https://arxiv.org/abs/2302.12822">Shum 等人。(2023)</a>发现在他们的实验中，仅使用复杂示例的 CoT 提示可以提高复杂问题的准确性，但在简单问题中表现不佳；GSM8k 上显示的证据。</li>
+<li>发现<code>Question:</code>改成<code>Q:</code>有用。（<a href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
+<li><a href="https://arxiv.org/abs/2205.03401">Ye &amp; Durrett (2022)</a>发现，对于涉及文本推理的 NLP 任务（即 QA 和 NLI），在提示中包含解释的好处很小到中等，并且效果因模型而异。他们观察到解释更可能是非事实的而不是不一致的（即解释是否需要预测）。非事实的解释很可能导致错误的预测。</li>
+<li><em>Self-Ask</em> ( <a href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a> ) 是一种反复提示模型提出<em>后续问题</em>以迭代构建思维过程的方法。可以通过搜索引擎结果回答后续问题。同样，<em>IRCoT</em>（Interleaving Retrieval CoT；<a href="https://arxiv.org/abs/2212.10509">Trivedi et al. 2022</a>）和<em>ReAct</em>（Reason + Act；<a href="https://arxiv.org/abs/2210.03629">Yao et al. 2023</a>）将迭代 CoT 提示与维基百科 API 查询相结合，以搜索相关实体和内容，然后将其添加回语境。</li>
+</ul>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/SelfAsk-search.png" alt="img"></p>
+<p>图 1. Self-Ask 如何与外部搜索查询一起使用。<br>（图片来源：<a href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a>）。</p>
+<h1 id="Automatic-Prompt-Design"><a href="#Automatic-Prompt-Design" class="headerlink" title="Automatic Prompt Design"></a>Automatic Prompt Design</h1><p>Prompt 是一系列前缀标记，可增加在给定输入的情况下获得所需输出的概率。因此，我们可以将它们视为可训练的参数，并通过梯度下降<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">直接在嵌入空间上对其进行优化</a>，例如<strong>AutoPrompt</strong> ( <a href="https://arxiv.org/abs/2010.15980">Shin et al., 2020</a> , <strong>Prefix-Tuning</strong> ( <a href="https://arxiv.org/abs/2101.00190">Li &amp; Liang (2021)</a> ), <strong>P-tuning</strong> ( <a href="https://arxiv.org/abs/2103.10385">Liu et al . 2021</a> ) 和<strong>Prompt-Tuning</strong> ( <a href="https://arxiv.org/abs/2104.08691">Lester et al. 2021</a> ).<a href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">我的“可控神经文本生成”帖子中的这一部分</a>对它们有很好的介绍。从 AutoPrompt 到 Prompt-Tuning 的趋势是设置逐渐简化。</p>
+<p><strong>APE</strong>（Automatic Prompt Engineer；<a href="https://arxiv.org/abs/2211.01910">Zhou et al. 2022</a>）是一种搜索模型生成的候选指令池，然后根据所选得分函数过滤候选集，最终选择得分最高的最佳候选指令的方法。</p>
+<ol>
+<li>提示 LLM 基于输入输出对形式的一小组演示生成候选指令。例如<code>&#123;&#123;Given desired input-output pairs&#125;&#125;\n\nThe instruction is</code>。</li>
+<li>对于给定的数据集$\mathcal{D}<em>\text{train} = {(x, y)}$，我们想找到一条instruction$\rho$满足$\rho^* = \arg\max_\rho \mathbb{E}</em>{(x, y) \in \mathcal{D}_\text{train}} [f(\rho, x, y)]$，其中$f(.)$是每个样本的得分函数，例如执行精度$\mathbb{1}[\text{LM}(.\vert \rho, x)=y]$或对数概率：$p_\text{LM}(y \mid \rho, x)$</li>
+<li>使用迭代蒙特卡洛搜索方法通过提示提出语义相似的变体来改进最佳候选者，例如<code>Generate a variation of the following instruction while keeping the semantic meaning.\n\nInput: ...\n\nOutput:...</code></li>
+</ol>
+<p>为了自动构建思想链提示，<a href="https://arxiv.org/abs/2302.12822">Shum 等人。(2023)</a>建议 augment-prune-select，一个三步过程：</p>
+<ol>
+<li><em>增强</em>：使用few-shot或zero-shot CoT 提示生成给定问题的多个伪思维链；</li>
+<li><em>Prune</em>：根据生成的答案是否与基本事实相匹配来修剪伪链。</li>
+<li><em>选择</em>：应用方差减少的策略梯度策略来学习所选示例的概率分布，同时将示例的概率分布视为策略，将验证集的准确性视为奖励。</li>
+</ol>
+<p><a href="https://arxiv.org/abs/2210.03493">张等。(2023)</a>改为采用<em>聚类</em>技术对问题进行抽样，然后生成链。他们观察到 LLM 倾向于犯某些类型的错误。一种类型的错误在嵌入空间中可能相似，因此被组合在一起。通过仅从频繁错误的集群中抽取一个或几个样本，我们可以防止对一种错误类型的过多错误演示，并收集一组不同的示例。</p>
+<ol>
+<li><em>问题聚类</em>：嵌入问题并运行k-means 聚类的方法。</li>
+<li><em>演示选择</em>：从每个集群中选择一组具有代表性的问题；即来自一个集群的一个演示。每个簇中的样本按到簇质心的距离排序，最接近质心的样本首先被选择。</li>
+<li><em>Rationale generation</em> : 使用zero-shot CoT 为选定的问题生成推理链，并构建few-shot prompt以运行推理。</li>
+</ol>
+<h1 id="Augmented-Language-Models"><a href="#Augmented-Language-Models" class="headerlink" title="Augmented Language Models"></a>Augmented Language Models</h1><p><a href="https://arxiv.org/abs/2302.07842">Mialon 等人</a>对Augmented Language Models的综述。<a href="https://arxiv.org/abs/2302.07842">(2023)</a>广泛涵盖了多种语言模型类别，这些语言模型增强了推理技能和使用外部工具的能力。推荐它。</p>
+<h2 id="Retrieval"><a href="#Retrieval" class="headerlink" title="Retrieval"></a>Retrieval</h2><p>通常我们需要在模型预训练时间截止或内部/私有知识库之后完成需要最新知识的任务。在这种情况下，如果我们没有在提示中明确提供上下文，模型将不知道上下文。<a href="https://lilianweng.github.io/posts/2020-10-29-odqa/">开放领域问答(Open Domain Question Answering)</a>的许多方法依赖于首先对知识库进行检索，然后将检索到的内容作为提示的一部分。这种过程的准确性取决于检索和生成步骤的质量。</p>
+<p><a href="https://arxiv.org/abs/2203.05115">拉扎里杜等人。(2022)</a>研究了如何使用谷歌搜索进行文档检索以增强 LLM。给出一个问题q，从 Google 返回的 20 个 URL 中提取干净的文本，生成一组文档。因为这些文件很长，每个文件被分成6个句子的段落，{p}. 段落按照证据段落和查询之间基于 TF-IDF 的余弦相似度进行排序。提示中仅使用最相关的段落来生成答案A.</p>
+<p>对于闭卷 QA，每个演示的格式如下，以构建 few-shot 提示。发现将问题与证据交换（问题和答案之间的距离更长）在所有数据集中始终产生较低的结果。</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">Evidence:</span> ...<br><span class="hljs-symbol">Question:</span> ...<br><span class="hljs-symbol">Answer:</span> ...<br></code></pre></td></tr></table></figure>
+
+<p>答案概率以三种方式计算：</p>
+<ol>
+<li><a href="https://lilianweng.github.io/posts/2020-10-29-odqa/#RAG">RAG</a>风格，$p(a_i \mid q) = \sum_{i=1}^n p_\text{tf-idf} (p_i \mid q) \cdot p_\text{LM}(a_i \mid q, p_i)$，其中$p_\text{tf-idf} (p_i \mid q)$是 TF-IDF 段落和问题表示之间的归一化余弦相似度。</li>
+<li>噪声信道推断，$p(a_i\mid q) = \frac{p_\text{LM}(q \mid a_i, p_i) \cdot p_\text{LM}(a_i \mid p_i)}{p_\text{LM}(q \mid p_i)}$</li>
+<li>Product-of-Experts (PoE)，结合上面使用的所有概率，除了$p_\text{LM}(p_i \mid q)$.</li>
+</ol>
+<p>根据他们在生成和分类任务上的实验，在三个答案重新排序分数中 - PoE &gt; Noisy channel &gt; RAG。在个体概率中，$p_\text{LM}(a \mid q, p_i)$和$p_\text{LM}(q \mid p_i, a)$被发现是最有用的。$p_\text{LM}(q \mid p_i, a)$在给定证据段落和答案的情况下，捕获 LM 可以很好地解释问题，并且可以可靠地用于对候选答案进行重新排序。</p>
+<p>针对基于不同日期的问题的<a href="https://situatedqa.github.io/">SituatedQA</a>数据集进行的一项观察是，尽管 LM（预训练截止日期为 2020 年）可以通过 Google 搜索访问最新信息，但其在 2020 年后问题上的表现仍然比 2020 年前问题差<em>很多</em>。这表明上下文信息和模型内部知识之间存在一些差异或参数冲突。</p>
+<p>有趣的是，即使仅使用“internal retrieval”也被发现是有益的，即在回答问题之前生成关于某个主题的知识（<a href="https://arxiv.org/abs/2110.08387">Liu 等人，2022 年</a>）。首先我们可以使用下面的模板来抽取知识：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">Generate</span> some knowledge <span class="hljs-keyword">about</span> the <span class="hljs-keyword">input</span>. Examples:<br><br><span class="hljs-keyword">Input</span>: What <span class="hljs-keyword">type</span> of water formation is formed <span class="hljs-keyword">by</span> clouds?<br>Knowledge: Clouds are made of water vapor.<br><br><span class="hljs-keyword">Input</span>: &#123;question&#125;<br>Knowledge:<br></code></pre></td></tr></table></figure>
+
+<p>然后用模型生成的知识，进一步提示 LM 得到答案。</p>
+<h2 id="Programming-Language"><a href="#Programming-Language" class="headerlink" title="Programming Language"></a>Programming Language</h2><p>既有<strong>PAL</strong>（程序辅助语言模型）；<a href="https://arxiv.org/abs/2211.10435">高等。2022</a> ) 和<strong>PoT</strong> (Program of Thoughts prompting; <a href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a> ) 要求 LLM 生成编程语言语句来解决自然语言推理问题，从而将求解步骤卸载到运行时，例如 Python 解释器。这样的设置解耦了复杂的计算和推理。它依赖于具有足够好的编码技能的 LM。</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/PoT.png" alt="图 2. 比较 CoT 和 PoT。"></p>
+<p>（图片来源：<a href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a>）。</p>
+<h2 id="External-APIs"><a href="#External-APIs" class="headerlink" title="External APIs"></a>External APIs</h2><p><strong>TALM</strong>（工具增强语言模型；<a href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）是一种通过文本到文本 API 调用进行增强的语言模型。LM 被引导生成<code>|tool-call</code>并<code>tool input text</code>以任务输入文本为条件来构造 API 调用请求。当<code>|result</code>出现时，调用指定的工具 API，并将返回的结果附加到文本序列。最终输出是在<code>|output</code>令牌之后生成的。</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM.png" alt="img"></p>
+<p>图 3. TALM 中 API 调用的格式。（图片来源：<a href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
+<p>TALM 采用自我对弈的方法来迭代引导工具使用示例的数据集，并用它来微调 LM。这个迭代的自我对弈管道模仿了一个 RL 过程，其中 LM 是策略网络，它由带有二元奖励信号的策略梯度训练。</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM-iteration.png" alt="img"></p>
+<p>图 4. 自我对弈迭代有助于提升模型性能。<br>（图片来源：<a href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
+<p><strong>Toolformer</strong> ( <a href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a> ) 是一种可以通过简单的 API 使用外部工具的 LM，它以自我监督的方式构建，每个 API 只需要少量的演示。Toolformer 的工具箱包括：</p>
+<ul>
+<li><em>Calculator</em>帮助 LM 缺乏精确的数学技能；</li>
+<li><em>Q&amp;A system</em>以帮助解决不忠实的内容和幻觉；</li>
+<li><em>Search engine</em>在预训练截止时间后提供最新信息；</li>
+<li>提高低资源语言性能的<em>Translation system</em></li>
+<li>使 LM 了解时间进程的<em>calendar</em></li>
+</ul>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer.png" alt="img"></p>
+<p>图 5. 说明如何构建 Toolformer。<br>（图片来源：<a href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
+<p>Toolformer 的训练如下：</p>
+<ol>
+<li><p>*<em>Prompting to annotate potential API calls</em>. 。要求预训练的 LM 通过带有 API 调用使用示例的少量学习来注释数据集。格式化示例：</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer-annotation.png" alt="img"></p>
+<p>图 6. 如何注释数据集以进行 API 调用。<br>（图片来源：<a href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
+<ul>
+<li><p>每个 API 调用都表示为（API 名称，相应输入）的元组，$c=(a_c, i_c)$和其对应的结果表示为r. 有结果和无结果的API调用序列分别标注如下：</p>
+<p>$$<br>\begin{aligned}<br>  e(c) &amp;= \langle\texttt{API}\rangle a_c(i_c) \langle\texttt{/API}\rangle \<br>  e(c, r) &amp;= \langle\texttt{API}\rangle a_c(i_c) \to r \langle\texttt{/API}\rangle<br>  \end{aligned}<br>$$</p>
+</li>
+<li><p>基于概率的示例 API 调用$p_\text{LM}(\langle\texttt{API}\rangle \mid \text{prompt}(\mathbf{x}), \mathbf{x}_{1:i})$并选择top-k在 position i进行 API 调用的候选位置$i$如果概率大于阈值。</p>
+</li>
+<li><p>Then we sample potential API calls from the LM given the sequence $[\text{prompt}(\mathbf{x}), x_1, \dots, x_{i-1}, \langle\texttt{API}\rangle]$ as prefix and ⟨/API⟩ as suffix.</p>
+</li>
+</ul>
+</li>
+<li><p><em>根据 API 调用是否有助于模型预测未来标记过滤注释。</em>使用自我监督损失来确定哪些 API 调用实际上有帮助。</p>
+<ul>
+<li><p>执行每个 API 调用$c_i$得到相应的结果$r_i$.</p>
+</li>
+<li><p>计算 LM 在令牌上的加权交叉熵损失$X_i,…,Xn$当模型以提示为前缀时。计算了两个版本，一个带有 API 结果，另一个带有空序列$\varepsilon$.</p>
+<p>$$<br>\begin{aligned}<br>  L^+_i &amp;= L_i(e(c_i, r_i)) \<br>  L^-_i &amp;= \min(L_i(\varepsilon), L_i(e(c_i, \varepsilon))) \<br>  \end{aligned}<br>$$</p>
+<p>仅 API 调用$L^-_i - L^+_i$保留大于阈值的标记，这意味着添加此 API 调用及其结果有助于模型预测未来的标记。</p>
+</li>
+</ul>
+</li>
+<li><p><em>在这个带注释的数据集上微调 LM。</em>新的训练序列构造为$\mathbf{x}^* = x_{1:i-1}, e(c_i, r_i), x_{i:n}$. 训练数据是原始数据集（例如论文中的 CCNet 的子集）及其增强版本的组合。</p>
+</li>
+</ol>
+<p>在推理时，解码一直运行到模型产生“→” 令牌，表明它正在等待下一个 API 调用的响应。</p>
+<p>Toolformer 目前不支持链式使用工具（即使用一个工具的输出作为另一个工具的输入）或以交互方式（即在人工选择后采用 API 响应）。两者都是未来扩展模型的有趣方向。</p>
+<h1 id="Citation"><a href="#Citation" class="headerlink" title="Citation"></a>Citation</h1><p>格式如下</p>
+<blockquote>
+<p>Weng, Lilian. (Mar 2023). Prompt Engineering. Lil’Log. <a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/</a>.</p>
+</blockquote>
+<p>或</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><code class="hljs nix">@article&#123;weng2023prompt,<br>  <span class="hljs-attr">title</span>   = <span class="hljs-string">&quot;Prompt Engineering&quot;</span>,<br>  <span class="hljs-attr">author</span>  = <span class="hljs-string">&quot;Weng, Lilian&quot;</span>,<br>  <span class="hljs-attr">journal</span> = <span class="hljs-string">&quot;lilianweng.github.io&quot;</span>,<br>  <span class="hljs-attr">year</span>    = <span class="hljs-string">&quot;2023&quot;</span>,<br>  <span class="hljs-attr">month</span>   = <span class="hljs-string">&quot;Mar&quot;</span>,<br>  <span class="hljs-attr">url</span>     = <span class="hljs-string">&quot;https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[1] Zhao et al. <a href="https://arxiv.org/abs/2102.09690">“Calibrate Before Use: Improving Few-shot Performance of Language Models.”</a> ICML 2021</p>
+<p>[2] Liu et al. <a href="https://arxiv.org/abs/2101.06804">“What Makes Good In-Context Examples for GPT-3?”</a> arXiv preprint arXiv:2101.06804 (2021).</p>
+<p>[3] Lu et al. <a href="https://arxiv.org/abs/2104.08786">“Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity.”</a> ACL 2022</p>
+<p>[4] Ye et al. <a href="https://arxiv.org/abs/2302.14691">“In-Context Instruction Learning.”</a> arXiv preprint arXiv:2302.14691 (2023).</p>
+<p>[5] Su et al. <a href="https://arxiv.org/abs/2209.01975">“Selective annotation makes language models better few-shot learners.”</a> arXiv preprint arXiv:2209.01975 (2022).</p>
+<p>[6] Rubin et al. <a href="https://arxiv.org/abs/2112.08633">“Learning to retrieve prompts for in-context learning.”</a> NAACL-HLT 2022</p>
+<p>[7] Wei et al. <a href="https://arxiv.org/abs/2201.11903">“Chain of thought prompting elicits reasoning in large language models.”</a> NeurIPS 2022</p>
+<p>[8] Wang et al. <a href="https://arxiv.org/abs/2203.11171">“Self-Consistency Improves Chain of Thought Reasoning in Language Models.”</a> ICLR 2023.</p>
+<p>[9] Diao et al. <a href="https://arxiv.org/abs/2302.12246">“Active Prompting with Chain-of-Thought for Large Language Models.”</a> arXiv preprint arXiv:2302.12246 (2023).</p>
+<p>[10] Zelikman et al. <a href="https://arxiv.org/abs/2203.14465">“STaR: Bootstrapping Reasoning With Reasoning.”</a> arXiv preprint arXiv:2203.14465 (2022).</p>
+<p>[11] Ye &amp; Durrett. <a href="https://arxiv.org/abs/2205.03401">“The unreliability of explanations in few-shot in-context learning.”</a> arXiv preprint arXiv:2205.03401 (2022).</p>
+<p>[12] Trivedi et al. <a href="https://arxiv.org/abs/2212.10509">“Interleaving retrieval with chain-of-thought reasoning for knowledge-intensive multi-step questions.”</a> arXiv preprint arXiv:2212.10509 (2022).</p>
+<p>[13] Press et al. <a href="https://arxiv.org/abs/2210.03350">“Measuring and narrowing the compositionality gap in language models.”</a> arXiv preprint arXiv:2210.03350 (2022).</p>
+<p>[14] Yao et al. <a href="https://arxiv.org/abs/2210.03629">“ReAct: Synergizing reasoning and acting in language models.”</a> ICLR 2023.</p>
+<p>[15] Fu et al. <a href="https://arxiv.org/abs/2210.00720">“Complexity-based prompting for multi-step reasoning.”</a> arXiv preprint arXiv:2210.00720 (2022).</p>
+<p>[16] Wang et al. <a href="https://arxiv.org/abs/2207.00747">“Rationale-augmented ensembles in language models.”</a> arXiv preprint arXiv:2207.00747 (2022).</p>
+<p>[17] Zhang et al. <a href="https://arxiv.org/abs/2210.03493">“Automatic chain of thought prompting in large language models.”</a> arXiv preprint arXiv:2210.03493 (2022).</p>
+<p>[18] Shum et al. <a href="https://arxiv.org/abs/2302.12822">“Automatic Prompt Augmentation and Selection with Chain-of-Thought from Labeled Data.”</a> arXiv preprint arXiv:2302.12822 (2023).</p>
+<p>[19] Zhou et al. <a href="https://arxiv.org/abs/2211.01910">“Large Language Models Are Human-Level Prompt Engineers.”</a> ICLR 2023.</p>
+<p>[20] Lazaridou et al. <a href="https://arxiv.org/abs/2203.05115">“Internet augmented language models through few-shot prompting for open-domain question answering.”</a> arXiv preprint arXiv:2203.05115 (2022).</p>
+<p>[21] Chen et al. <a href="https://arxiv.org/abs/2211.12588">“Program of Thoughts Prompting: Disentangling Computation from Reasoning for Numerical Reasoning Tasks.”</a> arXiv preprint arXiv:2211.12588 (2022).</p>
+<p>[22] Gao et al. <a href="https://arxiv.org/abs/2211.10435">“PAL: Program-aided language models.”</a> arXiv preprint arXiv:2211.10435 (2022).</p>
+<p>[23] Parisi et al. <a href="https://arxiv.org/abs/2205.12255">“TALM: Tool Augmented Language Models”</a> arXiv preprint arXiv:2205.12255 (2022).</p>
+<p>[24] Schick et al. <a href="https://arxiv.org/abs/2302.04761">“Toolformer: Language Models Can Teach Themselves to Use Tools.”</a> arXiv preprint arXiv:2302.04761 (2023).</p>
+<p>[25] Mialon et al. <a href="https://arxiv.org/abs/2302.07842">“Augmented Language Models: a Survey”</a> arXiv preprint arXiv:2302.07842 (2023).</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>自然语言处理</tag>
       </tags>
   </entry>
   <entry>
@@ -10463,85 +10463,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>机器学习科研的十年——陈天奇</title>
-    <url>/2023/20230711/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>陈天奇是机器学习领域著名的青年华人学者之一，本科毕业于上海交通大学ACM班，博士毕业于华盛顿大学计算机系，研究方向为大规模机器学习。TVM、MXNET、XGBoost 作者，CMU 助理教授，OctoML CTO。在gpt的潮流下，领导的团队提出了MLC LLM ，为在各类硬件上原生部署任意大型语言模型提供了解决方案，可将大模型应用于移动端（例如 iPhone）、消费级电脑端（例如 Mac）和 Web 浏览器。</p>
-<p>该文写于2019年。</p>
-<hr>
-<p>十年前，MSRA的夏天，刚开始尝试机器学习研究的我面对科研巨大的不确定性，感到最多的是困惑和迷茫。十年之后，即将跨出下一步的时候，未来依然是如此不确定，但是期待又更多了一些。这其中的变化也带着这十年经历的影子。</p>
-<span id="more"></span>
-
-<h2 id="起始：-科研是什么"><a href="#起始：-科研是什么" class="headerlink" title="起始： 科研是什么"></a>起始： 科研是什么</h2><p>我从大三开始进入交大APEX实验室，有幸随着戴文渊学长做机器学习，当时的我觉得“机器学习”这个名字十分高大上然后选择了这个方向，但是做了一年之后依然摸不着头脑，心中十分向往可以做科研，独立写论文的生活，却总是不知道如何下手。文渊在我进实验室的一年后去了百度。当时还没有得到学长真传的我，开始了我科研的第一阶段，从大四到硕士的第二年，期间一直自己摸索，不断地问自己 “科研是什么”。</p>
-<p>和课程作业不同，学术研究没有具体的问题，具体的方法，具体的答案。文渊的离开让我一下子不知道该怎么做，当时的我的想法很简单，快点寻找一个具体的方向，完成一篇论文。因为ACM班的机会暑假在MSRA的短暂实习，虽然学会了很多东西，但并没有给我答案。MSRA回来之后，在实验室薛老师的建议下，我选择了一个现在看来正确而又错误的方向 – 深度学习。那是AlexNet出现之前两年，深度学习的主流热点是非监督学习和限制玻尔兹曼机。没有导师的指导，没有工具，当时我靠着实验室的两块显卡和自己写的CUDA代码开始了死磕深度学习的两年半。实验室的学长问我，你准备要干啥，我说：“我要用卷积RBM去提升ImageNet的分类效率。” 这一个回答开启了图书馆和实验室的无数个日日夜夜，为了给实验室的老机器多带一块高功率的显卡，我们打开了一台机器的机箱，在外面多塞了一个外接电源。我的生活就持续在调参的循环中：可视化权重的图片, 看上去那么有点像人脸，但是精度却总是提不上来，再来一遍。从一开始hack显卡代码的兴奋，到一年之后的焦虑，再到时不时在树下踱步想如何加旋转不变的模型的尝试，在这个方向上，我花费了本科四年级到硕士一年半的所有时间，直到最后还是一无所获。现在看来，当时的我犯了一个非常明显的错误 – <strong>常见的科学研究要么是问题驱动，比如“如何解决ImageNet分类问题”；要么是方法驱动，如 “RBM可以用来干什么”。</strong>当时的我同时锁死了要解决的问题和用来解决问题的方案，成功的可能性自然不高。如果我在多看一看当时整个领域的各种思路，比如Lecun在很早的时候就已经做end to end，或许结局会不那么一样吧。</p>
-<p>当然没有如果，赌上了两年半的时间的我留下的只是何时能够发表论文的紧张心情。焦虑的我开始打算换一个方向，因为RBM当时有一个比较经典的文章应用在了推荐系统上，我开始接触推荐系统和kddcup。比较幸运的是，这一次我并没有把RBM作为唯一的一个方法，而是更加广泛地去看了推荐系统中的矩阵分解类的算法，并且在实验室搭建了一个比较泛用的矩阵分解系统。推荐系统方向的耕耘逐渐有了收获，我们在两年KDDCup11中获得了不错的成绩。KDD12在北京，放弃了一个过年的时间，我完成了第一篇关于基于特征的分布式矩阵分解论文，并且非常兴奋地投到了KDD。四月底的时候，我们收到了KDD的提前拒搞通知 – 论文连第一轮评审都没有过。收到拒搞通知时候的我的心情无比沮丧，因为这是第一篇自己大部分独立推动完成的文章。转折在五月，KDDCup12 封榜，我们拿到了第一个track的冠军，我依然还记得拿到KDDCup12冠军的那一个瞬间，我在状态里面中二地打了excalibur，仿佛硕士期间的所有阴霾一扫而尽。那时候的我依然还不完全知道科研是什么，但是隐隐之中觉得似乎可以继续试试。</p>
-<h2 id="第零年：-可以做什么"><a href="#第零年：-可以做什么" class="headerlink" title="第零年： 可以做什么"></a>第零年： 可以做什么</h2><p>我对于科研看法的第一个转折，在于我硕士临近毕业的时候。李航老师来到我们实验室给了关于机器学习和信息检索的报告，并且和我们座谈。在报告的过程中，我异常兴奋，甚至时不时地想要跳起来，因为发现我似乎已经知道如何可以解决这么多有趣问题的方法，但是之前却从来没有想过自己可以做这些问题。联系了李航老师之后，在同一年的夏天，我有幸到香港跟随李航和杨强老师实习。实验室的不少学长们曾经去香港和杨强老师工作，他们回来之后都仿佛开了光似地在科研上面突飞猛进。去香港之后，我开始明白其中的原因 – 研究视野。经过几年的磨练，那时候的我或许已经知道如何去解决一个已有的问题，但是却缺乏其他一些必要的技能 – <strong>如何选择一个新颖的研究问题，如何在结果不尽人意的时候转变方向寻找新的突破点，如何知道整个领域的问题之间的关系等等。</strong>“你香港回来以后升级了嘛。” – 来自某大侠的评论。这也许是对于我三个月香港实习的最好概括的吧。香港实习结束的时候我收获了第一篇正式的一作会议论文(在当年的ICML)。</p>
-<blockquote>
-<p>第一篇就是ICML….</p>
-</blockquote>
-<p>因为KDDCup的缘故，我认识了我现在博士导师Carlos的postdoc Danny，Danny把我推荐给了Carlos(UW)和Alex(CMU)。我在申请的时候幸运地拿到了UW和CMU的offer。在CMU visit的时候我见到了传说中的大神学长李沐，他和我感叹，现在正是大数据大火的时候，但是等到我们毕业的时候，不知道时代会是如何，不过又反过来说总可以去做更重要的东西。现在想起这段对话依然依然唏嘘不已。我最后选择了UW开始了我六年的博士生活。</p>
-<p>感谢博士之前在APEX实验室和香港的经历，在博士开始的时候我似乎已经不再担心自己可以做什么了。</p>
-<h2 id="第一年：-意外可以收获什么"><a href="#第一年：-意外可以收获什么" class="headerlink" title="第一年： 意外可以收获什么"></a>第一年： 意外可以收获什么</h2><p>如果给我在UW的第一年一个主题的话，或许是“意外”。在交大时候因为兴趣的关系一直去蹭系统生物研究员敖平老师的组会探讨随机过程和马尔可夫链。到UW的第一个学期，我无意看到一篇探讨如何用Lagevin过程做采样的文章，我想这不就是之前组会上探讨过的东西么，原来这些方法也可以用到机器学习上。我直接借用了原来的交大学会的知识完成了第一篇高效采样HMC的文章。我后来并没有继续在这个方向上面耕耘下去，不过另外一位同在组会的学弟继续基于这个方向完成了他的博士论文。</p>
-<p>同样的在这一年，我和导师开始“质疑深度学习” – 如果别的的机器学习模型，有足够大的模型容量和数据，是否可以获得和深度学习一样的效果呢？当时Carlos看好kernel methods，而我因为过去的一些经历决定尝试Tree Boosting。虽然最后在vision领域依然被卷积网络打败而尝试挑战失败，但是为了挑战这一假说而实现高效Tree boosting的系统经过小伙伴建议开源成为了后来的XGBoost。</p>
-<p>在第一年暑假结束的时候，因为偶然的原因，我开始对quantile sketch算法感兴趣。这里主要的问题是如何设计一个近似的可以合并的数据结构用来查找quantile。这个方向有一个经典的方案GK-sketch的论文，但是只能够解决数据点没有权重的情况。经过一两天的推导，我在一次去爬山的路上终于把结论推广到了有权重的情况。有趣的是新的证明比起原来的证明看起来简单很多。这个结论没有单独发表，但是后来意想不到地被用到了分布式XGBoost算法中，证明也收录在了XGboost文章的附录中。</p>
-<p>研究并不是一朝一夕，做想做的事情把它做好，开始的时候兴趣使然，而在几年之后意想不到的地方获得的收获，这样的感觉走非常不错。</p>
-<h2 id="第二年和第三年：-选择做什么"><a href="#第二年和第三年：-选择做什么" class="headerlink" title="第二年和第三年： 选择做什么"></a>第二年和第三年： 选择做什么</h2><p>在新生聚会上，Carlos对我说，你已经有论文的发表经历了，接下来要静下心来做发大的，“只做best paper水平的研究”。和很多nice的导师不同，Carlos对于学生的要求非常严格，说话也是非常直白甚至于“尖刻“。很多的老师不论我们提出什么样的想法，总会先肯定一番，而Carlos则会非常直接地提出质疑。一开始的时候会非常不习惯，感觉到信心受到了打击，但是慢慢习惯之后开始习惯这样风格。到<strong>现在看来，诚实的反馈的确是我收益最大的东西。我进入博士的一年之后，主要在想的问题是做什么样的问题，可以值得自己深入付出，做扎实有影响力的工作。</strong></p>
-<p>在博士的第三年，Carlos在建议我把XGBoost写成论文，用他的话说：“写一篇让读者可以学到东西的文章”。和传统的写法不同，我们在文章的每一个章节插入了实验结果验证当章节提出的观点。而他对于做图的处理也成为了我现在的习惯，直接在图里面插入箭头注释，减少读者的阅读负担。经过几次打磨论文终于成为了我们想要的模样。</p>
-<p>博士前对于深度学习遗憾让我又逐渐把目光转回到深度学习。这个时候，我选择了不再一个人作战，在博士的第二年和第三年，我和兴趣使然的小伙伴们合作，一起开始了MXNet的项目。</p>
-<blockquote>
-<p>哈哈MXNet还有沐神</p>
-</blockquote>
-<p>项目从零开始，在短短的一年时间里面做出完整的架构。我第一次看到集合了大家的力量齐心协力可以创造出什么样的东西。研究的乐趣不光是发表论文，更多还是可以给别人带来什么，或者更加大胆地说 – 如何一起改变世界。</p>
-<p>博士第二年暑假，我在小伙伴的介绍下进入Google Brain跟随Ian Goodfellow实习。当时GAN的论文刚刚发表，我也有幸在成为Ian的第一个实习生。</p>
-<blockquote>
-<p>Ian Goodfellow….这就是大神之路吗…..</p>
-</blockquote>
-<p>实习的开始，我们讨论需要做的问题，Ian和我把可能要做的项目画在一个风险和回报的曲线上，让我选择。到最后我选择了自己提出的一个课题，在这个曲线里面风险最高，回报也最高。我一直有一个理想，希望可以构建一个终身学习的机器学习系统，并且解决其中可能出现的问题。这个理想过于模糊，但是我们想办法拿出其中的一个可能小的目标 – 知识迁移。如果一个机器学习系统要终生学习，那么在不断收集数据之后必然需要扩充模型的规模来学习更广或者更深，按照现在的做法我们在模型改变之后只能抛弃原来的模型重新训练，这显然是不够高效的。是否有一个方法可以从已经训练好的网络上面进行知识迁移也就成为了一个重要的问题。我先花了一个半月的时间尝试了比较显然的Knowledge distillation的方法一直没有得到正面的结果。在最后的一个月，我改变了思路。实习结束的前一个星期，我打开Tensorborard上最近一组实验的结果：实验表明新的思路正面的效果。这最后几步的幸运也让我的这一个冒险之旅有了一个相对圆满的结果。这篇论文最后被发表在了ICLR上，也是我最喜欢的结果之一。</p>
-<p>博士的第三年，我和小伙伴们开发了一种可以用低于线性复杂度就可以训练更深模型的内存优化算法。当时我非常兴奋地把这一结果写下来然后把稿子后给导师看。他和我说：Hmm,这个结果如果投到NeurIPS的话或许可以中一篇poster，但是这并不是特别有意思。在我沉默之后他又补充了一句：论文并非越多越好，相反你可能要尝试优化你的论文里面最低质量的那一篇。最后我们只是把这篇论文挂在了Arxiv上。Carlos的说法或许比较极端（这篇论文依然影响了不少后面的工作），但也的确是对的，用李沐之前说过的一句话概括，<strong>保证每一篇论文的质量接近单调提升，已经是一件难以做到但是又值得最求的事情。</strong></p>
-<p><strong>选择做什么眼光和做出好结果的能力一样重要，眼界决定了工作影响力的上界，能力决定了到底是否到达那个上界。</strong>交大时敖平老师曾经和我说过，一个人做一件简单的事情和困难的事情其实是要花费一样多的时间。因为即使再简单的问题也有很多琐碎的地方。要想拿到一些东西，就必然意味着要放弃一些其他东西，既然如此，<strong>为什么不一直选择跳出舒适区，选一个最让自己兴奋的问题呢。</strong></p>
-<blockquote>
-<p>我其实很喜欢跳出自己的舒适区，选一个能让自己兴奋的问题，但总是失败….</p>
-</blockquote>
-<h2 id="第四年之后：-坚持做什么"><a href="#第四年之后：-坚持做什么" class="headerlink" title="第四年之后： 坚持做什么"></a>第四年之后： 坚持做什么</h2><p>博士第三年，我和小伙伴们参加GTC，结束后老黄party的角落里，我一个人在发呆。深度学习的框架发展已经铺开，可接下来应该做什么，我一下子感到迷茫。第三年的暑假我没有去实习，而是决定一个人在学校尝试开发脑海中显现的抽象概念 – 深度学习中间表示。暑假结束之后，我完成了第一个版本，可以比较灵活地支持深度学习系统里面的计算图内存优化。但是总是觉得还缺少着什么 – 系统的瓶颈依然在更接近底层的算子实现上。暑假之后在去加州的飞机上，我尝试在纸上画出为了优化矩阵乘法可能的循环变换，回来之后，我们决定推动一个更加大胆的项目 – 尝试用自动编译生成的方式优化机器学习的底层代码。</p>
-<p>这个项目早在之前我也有一些想法，但是一直没有敢去吃这个螃蟹。原因是它的两个特点：从零开始，横跨多领域。因为要做底层代码生成和想要支持新的硬件，我们需要重新重新搞清楚很多在之前被现有的操作系统和驱动隐藏掉的问题，这就好象是在一个荒岛上一无所有重新搭建起一个城堡一样。而这里面也涉及了系统，程序语言，体系结构和机器学习等领域。这让我想起之前在ACM班时候重头搭建编译器和MIPS处理器并且连接起来的经历。也是那段经历让我觉得为了解决问题去吃多个领域的螃蟹是个让人兴奋的事情。那段经历给我留下的第二个印记是理解了合作和传承的重要性。这门课程设计有一个传统，每一门课程的老师都由上一届学长担任。每一届的同学都会在之前的基础上有所改进。我也曾经为这门课做过一些微小的贡献。演化到现在，这门课程已经从只做简单的答辩，到现在已经有在线评测的OJ。大家一起的合作塑造了这个课程。推动新的机器学习系统和塑造这门课程一行，需要各个团队的同学合作，足够时间的耐心关注和不断地改进。</p>
-<p>我的合作者们也被“卷入”到了这个项目中。我的体系结构合作者一直想要设计新的AI硬件，我在雏形完成之后花了大量的时间讨论如何协同设计新的硬件的问题。我们开始讨论怎么管理片上内存，怎么可以比较容易地生成指令集，甚至怎么调度内存读写和计算并行的问题都暴露出来。有一天，我和合作者说我们需要引入虚拟线程的概念来隐藏内存读写开销，然后他很快和我说，这是体系结构里面经典的超线程技术，发明人正是我们的系主任Hank。我们也在不断地重新发现经典的问题的解决方法在新场景的应用，让我觉得上了一堂最好的体系结构课程。</p>
-<p>两年间的不少关键技术问题的突破都是在有趣的时候发生的。我在排队参观西雅图艺术博物馆的infinity mirror展览的途中把加速器内存拷贝支持的第一个方案写在了一张星巴克的餐巾纸上。到后来是程序语言方向的同学们也继续参与进来。我们争论最多的是如何如何平衡函数式语言和经典计算图做让大家都可以搞懂的中间表达，这一讨论还在不断继续。经过大家的努力，TVM的第一篇论文在项目开始的两年之后终于发表。两年间参与项目的同学也从两个人，到一个团队，再到一个新的lab和一个社区，这两年也是我博士期间最充实的两年。</p>
-<p>因为做了不少“跨界”的工作，我常被问起你到底属于哪个领域。过去半年一直在各地给报告，报告这样开头：算法突破，数据的爆发，计算硬件的提升三者支撑了机器学习的变革，而整合这三者的，则是机器学习系统。这也是为什么我要做机器学习系统的原因。曾经一个教授问我这样的问题，如果明天有一样新的化学反应过程可能带来机器学习的变革，你会怎么做。我答道：“我投入会去学习研究这个化学过程”。虽然我不知道遥远的未来会需要什么，到底是系统，算法，还是化学，从问题出发，用尽所有可能的方法去最好地解决机器学习问题，应该这就是我想要坚持的研究风格吧。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在写这篇总结的时候，心中有不少感叹。我常想，如果我在焦虑死磕深度学习的时候我多开窍一些会发生什么，如果我并没有在实习结束的时候完成当时的实验，又会是什么。但现在看来，<strong>很多困难和无助都是随机的涨落的一部分，付出足够多的时间和耐心，随机过程总会收敛到和付出相对的稳态。</strong></p>
-<p>每个人的研究道路都各不相同，我的经历应该也是千万条道路中其中一条罢了。<strong>博士的经历就好像是用五年多时间作为筹码投资给自己，去突破自己做自己原来想不到的事情。中不管坎坷曲折都是无可替代的一部分。</strong></p>
-<p>科研从来不是一个人的事情，对于我来说特别是如此。我在交大的时候和一群年轻的同学一起摸索推荐系统的算法，而在博士期间搭建的每一个系统都包含了很多合作者一起的努力。也正是大家一起的努力才带来了现在的成果。我个人在这十年间受到了不少老师，同学，家人的鼓励和帮助，感谢他们他们给予了我这无比珍贵的十年时光。</p>
-]]></content>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Frozen Language Model Helps ECG Zero-Shot Learning</title>
-    <url>/2023/20230714/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的lj同学。一位将去哈佛的大佬。</p>
-<p>论文地址：<a href="https://openreview.net/forum?id=UAr59yTUWR2">https://openreview.net/forum?id=UAr59yTUWR2</a></p>
-<p>共同一作：lj和来自伦敦帝国理工学院地球科学与工程系的Che liu</p>
-<p>发表自MIDL（The International Conference on Medical Imaging with Deep Learning）是一个非常年轻的<strong>医学图像</strong>方向的会议。</p>
-<hr>
-<p><strong>评价：</strong>ECG版CLIP</p>
-<span id="more"></span>
-
-<p>模型：</p>
-<p><img src="model.png"></p>
-<p>prompt: The report of the ECG is Short Title that {text}</p>
-<p>使用一个大型临床语言模型。</p>
-<p>ECG编码器基于ResNet1d-18</p>
-<p>本研究得到了国家自然科学基金（No.621008）的资助。o</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-        <tag>peer</tag>
-        <tag>医学图像</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>天文学神经网络的历史、入门和展望</title>
     <url>/2023/20230701/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#">发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？</a></p>
@@ -10706,6 +10627,85 @@ scale).">
       </tags>
   </entry>
   <entry>
+    <title>机器学习科研的十年——陈天奇</title>
+    <url>/2023/20230711/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>陈天奇是机器学习领域著名的青年华人学者之一，本科毕业于上海交通大学ACM班，博士毕业于华盛顿大学计算机系，研究方向为大规模机器学习。TVM、MXNET、XGBoost 作者，CMU 助理教授，OctoML CTO。在gpt的潮流下，领导的团队提出了MLC LLM ，为在各类硬件上原生部署任意大型语言模型提供了解决方案，可将大模型应用于移动端（例如 iPhone）、消费级电脑端（例如 Mac）和 Web 浏览器。</p>
+<p>该文写于2019年。</p>
+<hr>
+<p>十年前，MSRA的夏天，刚开始尝试机器学习研究的我面对科研巨大的不确定性，感到最多的是困惑和迷茫。十年之后，即将跨出下一步的时候，未来依然是如此不确定，但是期待又更多了一些。这其中的变化也带着这十年经历的影子。</p>
+<span id="more"></span>
+
+<h2 id="起始：-科研是什么"><a href="#起始：-科研是什么" class="headerlink" title="起始： 科研是什么"></a>起始： 科研是什么</h2><p>我从大三开始进入交大APEX实验室，有幸随着戴文渊学长做机器学习，当时的我觉得“机器学习”这个名字十分高大上然后选择了这个方向，但是做了一年之后依然摸不着头脑，心中十分向往可以做科研，独立写论文的生活，却总是不知道如何下手。文渊在我进实验室的一年后去了百度。当时还没有得到学长真传的我，开始了我科研的第一阶段，从大四到硕士的第二年，期间一直自己摸索，不断地问自己 “科研是什么”。</p>
+<p>和课程作业不同，学术研究没有具体的问题，具体的方法，具体的答案。文渊的离开让我一下子不知道该怎么做，当时的我的想法很简单，快点寻找一个具体的方向，完成一篇论文。因为ACM班的机会暑假在MSRA的短暂实习，虽然学会了很多东西，但并没有给我答案。MSRA回来之后，在实验室薛老师的建议下，我选择了一个现在看来正确而又错误的方向 – 深度学习。那是AlexNet出现之前两年，深度学习的主流热点是非监督学习和限制玻尔兹曼机。没有导师的指导，没有工具，当时我靠着实验室的两块显卡和自己写的CUDA代码开始了死磕深度学习的两年半。实验室的学长问我，你准备要干啥，我说：“我要用卷积RBM去提升ImageNet的分类效率。” 这一个回答开启了图书馆和实验室的无数个日日夜夜，为了给实验室的老机器多带一块高功率的显卡，我们打开了一台机器的机箱，在外面多塞了一个外接电源。我的生活就持续在调参的循环中：可视化权重的图片, 看上去那么有点像人脸，但是精度却总是提不上来，再来一遍。从一开始hack显卡代码的兴奋，到一年之后的焦虑，再到时不时在树下踱步想如何加旋转不变的模型的尝试，在这个方向上，我花费了本科四年级到硕士一年半的所有时间，直到最后还是一无所获。现在看来，当时的我犯了一个非常明显的错误 – <strong>常见的科学研究要么是问题驱动，比如“如何解决ImageNet分类问题”；要么是方法驱动，如 “RBM可以用来干什么”。</strong>当时的我同时锁死了要解决的问题和用来解决问题的方案，成功的可能性自然不高。如果我在多看一看当时整个领域的各种思路，比如Lecun在很早的时候就已经做end to end，或许结局会不那么一样吧。</p>
+<p>当然没有如果，赌上了两年半的时间的我留下的只是何时能够发表论文的紧张心情。焦虑的我开始打算换一个方向，因为RBM当时有一个比较经典的文章应用在了推荐系统上，我开始接触推荐系统和kddcup。比较幸运的是，这一次我并没有把RBM作为唯一的一个方法，而是更加广泛地去看了推荐系统中的矩阵分解类的算法，并且在实验室搭建了一个比较泛用的矩阵分解系统。推荐系统方向的耕耘逐渐有了收获，我们在两年KDDCup11中获得了不错的成绩。KDD12在北京，放弃了一个过年的时间，我完成了第一篇关于基于特征的分布式矩阵分解论文，并且非常兴奋地投到了KDD。四月底的时候，我们收到了KDD的提前拒搞通知 – 论文连第一轮评审都没有过。收到拒搞通知时候的我的心情无比沮丧，因为这是第一篇自己大部分独立推动完成的文章。转折在五月，KDDCup12 封榜，我们拿到了第一个track的冠军，我依然还记得拿到KDDCup12冠军的那一个瞬间，我在状态里面中二地打了excalibur，仿佛硕士期间的所有阴霾一扫而尽。那时候的我依然还不完全知道科研是什么，但是隐隐之中觉得似乎可以继续试试。</p>
+<h2 id="第零年：-可以做什么"><a href="#第零年：-可以做什么" class="headerlink" title="第零年： 可以做什么"></a>第零年： 可以做什么</h2><p>我对于科研看法的第一个转折，在于我硕士临近毕业的时候。李航老师来到我们实验室给了关于机器学习和信息检索的报告，并且和我们座谈。在报告的过程中，我异常兴奋，甚至时不时地想要跳起来，因为发现我似乎已经知道如何可以解决这么多有趣问题的方法，但是之前却从来没有想过自己可以做这些问题。联系了李航老师之后，在同一年的夏天，我有幸到香港跟随李航和杨强老师实习。实验室的不少学长们曾经去香港和杨强老师工作，他们回来之后都仿佛开了光似地在科研上面突飞猛进。去香港之后，我开始明白其中的原因 – 研究视野。经过几年的磨练，那时候的我或许已经知道如何去解决一个已有的问题，但是却缺乏其他一些必要的技能 – <strong>如何选择一个新颖的研究问题，如何在结果不尽人意的时候转变方向寻找新的突破点，如何知道整个领域的问题之间的关系等等。</strong>“你香港回来以后升级了嘛。” – 来自某大侠的评论。这也许是对于我三个月香港实习的最好概括的吧。香港实习结束的时候我收获了第一篇正式的一作会议论文(在当年的ICML)。</p>
+<blockquote>
+<p>第一篇就是ICML….</p>
+</blockquote>
+<p>因为KDDCup的缘故，我认识了我现在博士导师Carlos的postdoc Danny，Danny把我推荐给了Carlos(UW)和Alex(CMU)。我在申请的时候幸运地拿到了UW和CMU的offer。在CMU visit的时候我见到了传说中的大神学长李沐，他和我感叹，现在正是大数据大火的时候，但是等到我们毕业的时候，不知道时代会是如何，不过又反过来说总可以去做更重要的东西。现在想起这段对话依然依然唏嘘不已。我最后选择了UW开始了我六年的博士生活。</p>
+<p>感谢博士之前在APEX实验室和香港的经历，在博士开始的时候我似乎已经不再担心自己可以做什么了。</p>
+<h2 id="第一年：-意外可以收获什么"><a href="#第一年：-意外可以收获什么" class="headerlink" title="第一年： 意外可以收获什么"></a>第一年： 意外可以收获什么</h2><p>如果给我在UW的第一年一个主题的话，或许是“意外”。在交大时候因为兴趣的关系一直去蹭系统生物研究员敖平老师的组会探讨随机过程和马尔可夫链。到UW的第一个学期，我无意看到一篇探讨如何用Lagevin过程做采样的文章，我想这不就是之前组会上探讨过的东西么，原来这些方法也可以用到机器学习上。我直接借用了原来的交大学会的知识完成了第一篇高效采样HMC的文章。我后来并没有继续在这个方向上面耕耘下去，不过另外一位同在组会的学弟继续基于这个方向完成了他的博士论文。</p>
+<p>同样的在这一年，我和导师开始“质疑深度学习” – 如果别的的机器学习模型，有足够大的模型容量和数据，是否可以获得和深度学习一样的效果呢？当时Carlos看好kernel methods，而我因为过去的一些经历决定尝试Tree Boosting。虽然最后在vision领域依然被卷积网络打败而尝试挑战失败，但是为了挑战这一假说而实现高效Tree boosting的系统经过小伙伴建议开源成为了后来的XGBoost。</p>
+<p>在第一年暑假结束的时候，因为偶然的原因，我开始对quantile sketch算法感兴趣。这里主要的问题是如何设计一个近似的可以合并的数据结构用来查找quantile。这个方向有一个经典的方案GK-sketch的论文，但是只能够解决数据点没有权重的情况。经过一两天的推导，我在一次去爬山的路上终于把结论推广到了有权重的情况。有趣的是新的证明比起原来的证明看起来简单很多。这个结论没有单独发表，但是后来意想不到地被用到了分布式XGBoost算法中，证明也收录在了XGboost文章的附录中。</p>
+<p>研究并不是一朝一夕，做想做的事情把它做好，开始的时候兴趣使然，而在几年之后意想不到的地方获得的收获，这样的感觉走非常不错。</p>
+<h2 id="第二年和第三年：-选择做什么"><a href="#第二年和第三年：-选择做什么" class="headerlink" title="第二年和第三年： 选择做什么"></a>第二年和第三年： 选择做什么</h2><p>在新生聚会上，Carlos对我说，你已经有论文的发表经历了，接下来要静下心来做发大的，“只做best paper水平的研究”。和很多nice的导师不同，Carlos对于学生的要求非常严格，说话也是非常直白甚至于“尖刻“。很多的老师不论我们提出什么样的想法，总会先肯定一番，而Carlos则会非常直接地提出质疑。一开始的时候会非常不习惯，感觉到信心受到了打击，但是慢慢习惯之后开始习惯这样风格。到<strong>现在看来，诚实的反馈的确是我收益最大的东西。我进入博士的一年之后，主要在想的问题是做什么样的问题，可以值得自己深入付出，做扎实有影响力的工作。</strong></p>
+<p>在博士的第三年，Carlos在建议我把XGBoost写成论文，用他的话说：“写一篇让读者可以学到东西的文章”。和传统的写法不同，我们在文章的每一个章节插入了实验结果验证当章节提出的观点。而他对于做图的处理也成为了我现在的习惯，直接在图里面插入箭头注释，减少读者的阅读负担。经过几次打磨论文终于成为了我们想要的模样。</p>
+<p>博士前对于深度学习遗憾让我又逐渐把目光转回到深度学习。这个时候，我选择了不再一个人作战，在博士的第二年和第三年，我和兴趣使然的小伙伴们合作，一起开始了MXNet的项目。</p>
+<blockquote>
+<p>哈哈MXNet还有沐神</p>
+</blockquote>
+<p>项目从零开始，在短短的一年时间里面做出完整的架构。我第一次看到集合了大家的力量齐心协力可以创造出什么样的东西。研究的乐趣不光是发表论文，更多还是可以给别人带来什么，或者更加大胆地说 – 如何一起改变世界。</p>
+<p>博士第二年暑假，我在小伙伴的介绍下进入Google Brain跟随Ian Goodfellow实习。当时GAN的论文刚刚发表，我也有幸在成为Ian的第一个实习生。</p>
+<blockquote>
+<p>Ian Goodfellow….这就是大神之路吗…..</p>
+</blockquote>
+<p>实习的开始，我们讨论需要做的问题，Ian和我把可能要做的项目画在一个风险和回报的曲线上，让我选择。到最后我选择了自己提出的一个课题，在这个曲线里面风险最高，回报也最高。我一直有一个理想，希望可以构建一个终身学习的机器学习系统，并且解决其中可能出现的问题。这个理想过于模糊，但是我们想办法拿出其中的一个可能小的目标 – 知识迁移。如果一个机器学习系统要终生学习，那么在不断收集数据之后必然需要扩充模型的规模来学习更广或者更深，按照现在的做法我们在模型改变之后只能抛弃原来的模型重新训练，这显然是不够高效的。是否有一个方法可以从已经训练好的网络上面进行知识迁移也就成为了一个重要的问题。我先花了一个半月的时间尝试了比较显然的Knowledge distillation的方法一直没有得到正面的结果。在最后的一个月，我改变了思路。实习结束的前一个星期，我打开Tensorborard上最近一组实验的结果：实验表明新的思路正面的效果。这最后几步的幸运也让我的这一个冒险之旅有了一个相对圆满的结果。这篇论文最后被发表在了ICLR上，也是我最喜欢的结果之一。</p>
+<p>博士的第三年，我和小伙伴们开发了一种可以用低于线性复杂度就可以训练更深模型的内存优化算法。当时我非常兴奋地把这一结果写下来然后把稿子后给导师看。他和我说：Hmm,这个结果如果投到NeurIPS的话或许可以中一篇poster，但是这并不是特别有意思。在我沉默之后他又补充了一句：论文并非越多越好，相反你可能要尝试优化你的论文里面最低质量的那一篇。最后我们只是把这篇论文挂在了Arxiv上。Carlos的说法或许比较极端（这篇论文依然影响了不少后面的工作），但也的确是对的，用李沐之前说过的一句话概括，<strong>保证每一篇论文的质量接近单调提升，已经是一件难以做到但是又值得最求的事情。</strong></p>
+<p><strong>选择做什么眼光和做出好结果的能力一样重要，眼界决定了工作影响力的上界，能力决定了到底是否到达那个上界。</strong>交大时敖平老师曾经和我说过，一个人做一件简单的事情和困难的事情其实是要花费一样多的时间。因为即使再简单的问题也有很多琐碎的地方。要想拿到一些东西，就必然意味着要放弃一些其他东西，既然如此，<strong>为什么不一直选择跳出舒适区，选一个最让自己兴奋的问题呢。</strong></p>
+<blockquote>
+<p>我其实很喜欢跳出自己的舒适区，选一个能让自己兴奋的问题，但总是失败….</p>
+</blockquote>
+<h2 id="第四年之后：-坚持做什么"><a href="#第四年之后：-坚持做什么" class="headerlink" title="第四年之后： 坚持做什么"></a>第四年之后： 坚持做什么</h2><p>博士第三年，我和小伙伴们参加GTC，结束后老黄party的角落里，我一个人在发呆。深度学习的框架发展已经铺开，可接下来应该做什么，我一下子感到迷茫。第三年的暑假我没有去实习，而是决定一个人在学校尝试开发脑海中显现的抽象概念 – 深度学习中间表示。暑假结束之后，我完成了第一个版本，可以比较灵活地支持深度学习系统里面的计算图内存优化。但是总是觉得还缺少着什么 – 系统的瓶颈依然在更接近底层的算子实现上。暑假之后在去加州的飞机上，我尝试在纸上画出为了优化矩阵乘法可能的循环变换，回来之后，我们决定推动一个更加大胆的项目 – 尝试用自动编译生成的方式优化机器学习的底层代码。</p>
+<p>这个项目早在之前我也有一些想法，但是一直没有敢去吃这个螃蟹。原因是它的两个特点：从零开始，横跨多领域。因为要做底层代码生成和想要支持新的硬件，我们需要重新重新搞清楚很多在之前被现有的操作系统和驱动隐藏掉的问题，这就好象是在一个荒岛上一无所有重新搭建起一个城堡一样。而这里面也涉及了系统，程序语言，体系结构和机器学习等领域。这让我想起之前在ACM班时候重头搭建编译器和MIPS处理器并且连接起来的经历。也是那段经历让我觉得为了解决问题去吃多个领域的螃蟹是个让人兴奋的事情。那段经历给我留下的第二个印记是理解了合作和传承的重要性。这门课程设计有一个传统，每一门课程的老师都由上一届学长担任。每一届的同学都会在之前的基础上有所改进。我也曾经为这门课做过一些微小的贡献。演化到现在，这门课程已经从只做简单的答辩，到现在已经有在线评测的OJ。大家一起的合作塑造了这个课程。推动新的机器学习系统和塑造这门课程一行，需要各个团队的同学合作，足够时间的耐心关注和不断地改进。</p>
+<p>我的合作者们也被“卷入”到了这个项目中。我的体系结构合作者一直想要设计新的AI硬件，我在雏形完成之后花了大量的时间讨论如何协同设计新的硬件的问题。我们开始讨论怎么管理片上内存，怎么可以比较容易地生成指令集，甚至怎么调度内存读写和计算并行的问题都暴露出来。有一天，我和合作者说我们需要引入虚拟线程的概念来隐藏内存读写开销，然后他很快和我说，这是体系结构里面经典的超线程技术，发明人正是我们的系主任Hank。我们也在不断地重新发现经典的问题的解决方法在新场景的应用，让我觉得上了一堂最好的体系结构课程。</p>
+<p>两年间的不少关键技术问题的突破都是在有趣的时候发生的。我在排队参观西雅图艺术博物馆的infinity mirror展览的途中把加速器内存拷贝支持的第一个方案写在了一张星巴克的餐巾纸上。到后来是程序语言方向的同学们也继续参与进来。我们争论最多的是如何如何平衡函数式语言和经典计算图做让大家都可以搞懂的中间表达，这一讨论还在不断继续。经过大家的努力，TVM的第一篇论文在项目开始的两年之后终于发表。两年间参与项目的同学也从两个人，到一个团队，再到一个新的lab和一个社区，这两年也是我博士期间最充实的两年。</p>
+<p>因为做了不少“跨界”的工作，我常被问起你到底属于哪个领域。过去半年一直在各地给报告，报告这样开头：算法突破，数据的爆发，计算硬件的提升三者支撑了机器学习的变革，而整合这三者的，则是机器学习系统。这也是为什么我要做机器学习系统的原因。曾经一个教授问我这样的问题，如果明天有一样新的化学反应过程可能带来机器学习的变革，你会怎么做。我答道：“我投入会去学习研究这个化学过程”。虽然我不知道遥远的未来会需要什么，到底是系统，算法，还是化学，从问题出发，用尽所有可能的方法去最好地解决机器学习问题，应该这就是我想要坚持的研究风格吧。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在写这篇总结的时候，心中有不少感叹。我常想，如果我在焦虑死磕深度学习的时候我多开窍一些会发生什么，如果我并没有在实习结束的时候完成当时的实验，又会是什么。但现在看来，<strong>很多困难和无助都是随机的涨落的一部分，付出足够多的时间和耐心，随机过程总会收敛到和付出相对的稳态。</strong></p>
+<p>每个人的研究道路都各不相同，我的经历应该也是千万条道路中其中一条罢了。<strong>博士的经历就好像是用五年多时间作为筹码投资给自己，去突破自己做自己原来想不到的事情。中不管坎坷曲折都是无可替代的一部分。</strong></p>
+<p>科研从来不是一个人的事情，对于我来说特别是如此。我在交大的时候和一群年轻的同学一起摸索推荐系统的算法，而在博士期间搭建的每一个系统都包含了很多合作者一起的努力。也正是大家一起的努力才带来了现在的成果。我个人在这十年间受到了不少老师，同学，家人的鼓励和帮助，感谢他们他们给予了我这无比珍贵的十年时光。</p>
+]]></content>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Frozen Language Model Helps ECG Zero-Shot Learning</title>
+    <url>/2023/20230714/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的lj同学。一位将去哈佛的大佬。</p>
+<p>论文地址：<a href="https://openreview.net/forum?id=UAr59yTUWR2">https://openreview.net/forum?id=UAr59yTUWR2</a></p>
+<p>共同一作：lj和来自伦敦帝国理工学院地球科学与工程系的Che liu</p>
+<p>发表自MIDL（The International Conference on Medical Imaging with Deep Learning）是一个非常年轻的<strong>医学图像</strong>方向的会议。</p>
+<hr>
+<p><strong>评价：</strong>ECG版CLIP</p>
+<span id="more"></span>
+
+<p>模型：</p>
+<p><img src="model.png"></p>
+<p>prompt: The report of the ECG is Short Title that {text}</p>
+<p>使用一个大型临床语言模型。</p>
+<p>ECG编码器基于ResNet1d-18</p>
+<p>本研究得到了国家自然科学基金（No.621008）的资助。o</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>peer</tag>
+        <tag>医学图像</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LLaMA2</title>
     <url>/2023/20230719/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
@@ -10807,26 +10807,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>Self-Supervision is All You Need for Solving Rubik’s Cube</title>
-    <url>/2024/20240113/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文使用NN来解魔方，耳目一新的方法。<a href="https://arxiv.org/pdf/2106.03157.pdf">论文地址</a></p>
-<p>TMLR 2023.</p>
-<hr>
-<p>简单来说，该方法利用了组合搜索的一个基本特性：等概率的情况下路径越短，随机发生的可能性就越大。这意味着随机训练争夺的累积概率随着移动次数的减少而增加：$1/\mathbb{M}^N$，其中$\mathbb{M}$表示移动集，N表示路径长度。</p>
-<span id="more"></span>
-
-<p><img src="model.png"></p>
-<p>训练一个DNN来获得达到某一目标状态的概率图，也就是获得最后一步，也就是倒着来。</p>
-<p>训练DNN时，我们的方法用目标状态初始化目标问题，并应用一系列随机移动对其进行加扰。在每一步，DNN都会根据当前状态的模式来预测最后一次应用的移动。作为训练损失，我们计算最后一步的实际概率分布和预测概率分布之间的分类交叉熵。算法1概述了训练过程，上图展示了魔方上的一个示例数据点。</p>
-<p><img src="1.png"></p>
-<p>我们通过顺序反转DNN预测的移动来搜索追溯到目标状态的解决方案路径。我们采用最佳优先搜索算法，并对最有希望的候选路径进行优先排序，我们根据其所有组成移动的概率的累积乘积对其进行评估。累积乘积可以表示为$\prod_{i=1} \hat p_i$，其中$\prod$表示第$i$次朝向目标的反向移动的预测概率。</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>On Embeddings for Numerical Features in Tabular Deep Learning</title>
     <url>/2024/20240116/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文使用表格深度学习的一些新embedding。<a href="https://arxiv.org/pdf/2203.05556.pdf">论文地址</a></p>
@@ -10849,6 +10829,26 @@ scale).">
         <tag>深度学习</tag>
         <tag>人工智能</tag>
         <tag>tabular data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Self-Supervision is All You Need for Solving Rubik’s Cube</title>
+    <url>/2024/20240113/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文使用NN来解魔方，耳目一新的方法。<a href="https://arxiv.org/pdf/2106.03157.pdf">论文地址</a></p>
+<p>TMLR 2023.</p>
+<hr>
+<p>简单来说，该方法利用了组合搜索的一个基本特性：等概率的情况下路径越短，随机发生的可能性就越大。这意味着随机训练争夺的累积概率随着移动次数的减少而增加：$1/\mathbb{M}^N$，其中$\mathbb{M}$表示移动集，N表示路径长度。</p>
+<span id="more"></span>
+
+<p><img src="model.png"></p>
+<p>训练一个DNN来获得达到某一目标状态的概率图，也就是获得最后一步，也就是倒着来。</p>
+<p>训练DNN时，我们的方法用目标状态初始化目标问题，并应用一系列随机移动对其进行加扰。在每一步，DNN都会根据当前状态的模式来预测最后一次应用的移动。作为训练损失，我们计算最后一步的实际概率分布和预测概率分布之间的分类交叉熵。算法1概述了训练过程，上图展示了魔方上的一个示例数据点。</p>
+<p><img src="1.png"></p>
+<p>我们通过顺序反转DNN预测的移动来搜索追溯到目标状态的解决方案路径。我们采用最佳优先搜索算法，并对最有希望的候选路径进行优先排序，我们根据其所有组成移动的概率的累积乘积对其进行评估。累积乘积可以表示为$\prod_{i=1} \hat p_i$，其中$\prod$表示第$i$次朝向目标的反向移动的预测概率。</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -11429,41 +11429,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>prompt压缩</title>
-    <url>/2024/20240429/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>prompt压缩技术可以减少输入prompt的长度，同时保持各种任务的性能。</p>
-<span id="more"></span>
-
-<h2 id="Selective-Context"><a href="#Selective-Context" class="headerlink" title="Selective Context"></a>Selective Context</h2><p>出自《<a href="https://arxiv.org/abs/2310.06201">Compressing Context to Enhance Inference Efficiency of Large Language Models</a>》-EMNLP 2023。使用了一个很简单但有效的方法。</p>
-<h3 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h3><p>作者提出了self-information的概念，用来衡量了一段文本相对与一个language model所蕴含的信息。</p>
-<p>self-information计算也极其简单。<br>$$<br>I(x) = -log(P(x))<br>$$<br>P指语言模型，但不需要是大模型本体，可以是小号的LLMs，例如1.3b的OPT和OpenAI-Curie(6.3b)。</p>
-<p>prompt压缩的整体过程十分简单。</p>
-<ul>
-<li>首先计算文本中每个短语的self-informaiton。</li>
-<li>再根据想要的压缩比设置百分位数，得到阈值。</li>
-<li>最后删去低于阈值的短语。</li>
-</ul>
-<p>我们也可以直接上代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_self_info_via_gpt2</span>(<span class="hljs-params">self, text: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>], <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]]:</span><br>        <span class="hljs-keyword">if</span> self.lang == <span class="hljs-string">&#x27;en&#x27;</span>:<br>            text = <span class="hljs-string">f&quot;&lt;|endoftext|&gt;<span class="hljs-subst">&#123;text&#125;</span>&quot;</span><br>        <span class="hljs-keyword">elif</span> self.lang == <span class="hljs-string">&#x27;zh&#x27;</span>:<br>            text = <span class="hljs-string">f&quot;[CLS]<span class="hljs-subst">&#123;text&#125;</span>&quot;</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            encoding = self.tokenizer(text, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>)<br>            encoding = encoding.to(self.device)<br>            outputs = self.model(**encoding)<br>            logits = outputs.logits<br>            probs = torch.softmax(logits, dim=-<span class="hljs-number">1</span>)<br>            self_info = -torch.log(probs)<br>        <br><br>        input_ids = encoding[<span class="hljs-string">&#x27;input_ids&#x27;</span>]<br>        input_ids_expaned = input_ids[:, <span class="hljs-number">1</span>:].unsqueeze(-<span class="hljs-number">1</span>)<br>    <br>        tokens = [self.tokenizer.decode(token_) <span class="hljs-keyword">for</span> token_ <span class="hljs-keyword">in</span> input_ids.squeeze().tolist()[<span class="hljs-number">1</span>:]]<br>        <span class="hljs-keyword">return</span> tokens, self_info[:, :-<span class="hljs-number">1</span>].gather(-<span class="hljs-number">1</span>, input_ids_expaned).squeeze(-<span class="hljs-number">1</span>).squeeze(<span class="hljs-number">0</span>).tolist()<br></code></pre></td></tr></table></figure>
-
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>使用了<strong>以下三个数据源</strong>作为测试数据：</p>
-<ul>
-<li><a href="https://link.zhihu.com/?target=http://ShareGPT.com">http://ShareGPT.com</a>：收集用户与ChatGPT对话记录的网站</li>
-<li>Arxiv</li>
-<li>BBC News</li>
-</ul>
-<p><img src="exp1.png"></p>
-<h2 id="LLMLingua"><a href="#LLMLingua" class="headerlink" title="LLMLingua"></a>LLMLingua</h2><p>LLMLingua是Huiqiang Jiang, Qianhui Wu, Xufang Luo等出自微软的研究者提出的一系列prompt压缩算法。</p>
-<h3 id="LLMLingua-1"><a href="#LLMLingua-1" class="headerlink" title="LLMLingua"></a>LLMLingua</h3><p>占位</p>
-<h3 id="LongLLMLingua"><a href="#LongLLMLingua" class="headerlink" title="LongLLMLingua"></a>LongLLMLingua</h3><p>zhanw</p>
-<h3 id="LLMLinguav2"><a href="#LLMLinguav2" class="headerlink" title="LLMLinguav2"></a>LLMLinguav2</h3><p>暂无</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>自然语言处理</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每个人都应该掌握的快速调研法</title>
     <url>/2024/20240403/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来着Up主老蒋巨靠谱的<a href="https://www.bilibili.com/video/BV1pF411f7yD/">《面试必备！每个人都应该掌握的快速调研法》</a></p>
@@ -11508,6 +11473,41 @@ scale).">
 <p>适用于某个学科领域中的启蒙学习，比如学习经济学以及人口学，需要看论文看书，通过论文的参考书目，通过自媒体的文章、通过京东书籍页面搜索、咨询熟人，找到一本合格的启蒙书，然后点开这个书的豆瓣页面或者微信读书页面，找到下方该书籍归属于的书单，能发现想要深入了解领域的书，如果据此没有找到靠谱的书单，很可能是这本启蒙书质量一般。可以重复这个过程，最终找到很好的阅读list，在这个阅读list里面摘要出工人比较好的3-5本启蒙书，都读一遍，就可以超越多数人在这个领域内的认知了。</p>
 <p>在较大的领域，可以找中国最好的研究生院校这个系，找到该系导师推荐的考研参考书目，里面有靠谱的教材。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>prompt压缩</title>
+    <url>/2024/20240429/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>prompt压缩技术可以减少输入prompt的长度，同时保持各种任务的性能。</p>
+<span id="more"></span>
+
+<h2 id="Selective-Context"><a href="#Selective-Context" class="headerlink" title="Selective Context"></a>Selective Context</h2><p>出自《<a href="https://arxiv.org/abs/2310.06201">Compressing Context to Enhance Inference Efficiency of Large Language Models</a>》-EMNLP 2023。使用了一个很简单但有效的方法。</p>
+<h3 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h3><p>作者提出了self-information的概念，用来衡量了一段文本相对与一个language model所蕴含的信息。</p>
+<p>self-information计算也极其简单。<br>$$<br>I(x) = -log(P(x))<br>$$<br>P指语言模型，但不需要是大模型本体，可以是小号的LLMs，例如1.3b的OPT和OpenAI-Curie(6.3b)。</p>
+<p>prompt压缩的整体过程十分简单。</p>
+<ul>
+<li>首先计算文本中每个短语的self-informaiton。</li>
+<li>再根据想要的压缩比设置百分位数，得到阈值。</li>
+<li>最后删去低于阈值的短语。</li>
+</ul>
+<p>我们也可以直接上代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_self_info_via_gpt2</span>(<span class="hljs-params">self, text: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>], <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]]:</span><br>        <span class="hljs-keyword">if</span> self.lang == <span class="hljs-string">&#x27;en&#x27;</span>:<br>            text = <span class="hljs-string">f&quot;&lt;|endoftext|&gt;<span class="hljs-subst">&#123;text&#125;</span>&quot;</span><br>        <span class="hljs-keyword">elif</span> self.lang == <span class="hljs-string">&#x27;zh&#x27;</span>:<br>            text = <span class="hljs-string">f&quot;[CLS]<span class="hljs-subst">&#123;text&#125;</span>&quot;</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            encoding = self.tokenizer(text, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>)<br>            encoding = encoding.to(self.device)<br>            outputs = self.model(**encoding)<br>            logits = outputs.logits<br>            probs = torch.softmax(logits, dim=-<span class="hljs-number">1</span>)<br>            self_info = -torch.log(probs)<br>        <br><br>        input_ids = encoding[<span class="hljs-string">&#x27;input_ids&#x27;</span>]<br>        input_ids_expaned = input_ids[:, <span class="hljs-number">1</span>:].unsqueeze(-<span class="hljs-number">1</span>)<br>    <br>        tokens = [self.tokenizer.decode(token_) <span class="hljs-keyword">for</span> token_ <span class="hljs-keyword">in</span> input_ids.squeeze().tolist()[<span class="hljs-number">1</span>:]]<br>        <span class="hljs-keyword">return</span> tokens, self_info[:, :-<span class="hljs-number">1</span>].gather(-<span class="hljs-number">1</span>, input_ids_expaned).squeeze(-<span class="hljs-number">1</span>).squeeze(<span class="hljs-number">0</span>).tolist()<br></code></pre></td></tr></table></figure>
+
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>使用了<strong>以下三个数据源</strong>作为测试数据：</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=http://ShareGPT.com">http://ShareGPT.com</a>：收集用户与ChatGPT对话记录的网站</li>
+<li>Arxiv</li>
+<li>BBC News</li>
+</ul>
+<p><img src="exp1.png"></p>
+<h2 id="LLMLingua"><a href="#LLMLingua" class="headerlink" title="LLMLingua"></a>LLMLingua</h2><p>LLMLingua是Huiqiang Jiang, Qianhui Wu, Xufang Luo等出自微软的研究者提出的一系列prompt压缩算法。</p>
+<h3 id="LLMLingua-1"><a href="#LLMLingua-1" class="headerlink" title="LLMLingua"></a>LLMLingua</h3><p>占位</p>
+<h3 id="LongLLMLingua"><a href="#LongLLMLingua" class="headerlink" title="LongLLMLingua"></a>LongLLMLingua</h3><p>zhanw</p>
+<h3 id="LLMLinguav2"><a href="#LLMLinguav2" class="headerlink" title="LLMLinguav2"></a>LLMLinguav2</h3><p>暂无</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>自然语言处理</tag>
+      </tags>
   </entry>
   <entry>
     <title>FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS</title>
@@ -11936,7 +11936,7 @@ scale).">
   <entry>
     <title>恋爱脑之死</title>
     <url>/2024/20240623/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-ZuanWGdl" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-maMykKYa" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
 				<pre class="aplayer-lrc-content">[00:00.00]戀愛腦之死 - 陳健安
 [00:01.29]詞：Oscar
 [00:01.77]曲：陳健安/賴映彤
@@ -11989,7 +11989,7 @@ scale).">
 			</div>
 			<script>
 				var ap = new APlayer({
-					element: document.getElementById("aplayer-ZuanWGdl"),
+					element: document.getElementById("aplayer-maMykKYa"),
 					narrow: false,
 					autoplay: false,
 					showlrc: 2,
@@ -12235,6 +12235,28 @@ scale).">
         <tag>人工智能</tag>
         <tag>图神经网络</tag>
         <tag>图学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Classifying Nodes in Graphs without GNNs</title>
+    <url>/2024/20240824/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>图神经网络（GNN）是对图中节点进行分类的主要范例，但它们具有一些源于其消息传递架构的不良属性。最近，蒸馏方法成功地消除了测试时 GNN 的使用，但在训练期间仍然需要它们。作者提出了一种完全无 GNN 的节点分类方法，在训练或测试时不需要它们。该方法由三个关键部分组成：平滑约束、伪标签迭代和邻域标签直方图。</p>
+<span id="more"></span>
+<blockquote>
+<p>PS：我觉得“无GNN”的说法并不准确，它只是没有把图结构和NN结合起来，而不是不用上任何图结构来进行学习。</p>
+</blockquote>
+<hr>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>蒸馏方法最近挑战了节点分类中的现有范式。 GNN 的标准做法是在图中所有标记节点上训练模型，并在测试时使用相同的模型进行节点分类。蒸馏方法消除了在测试时使用 GNN 的需要，尽管它们仍然需要训练 GNN。他们使用 GNN 来伪标记无监督节点。随后，训练 MLP 仅根据其节点特征来预测这些节点的标签，而不考虑其邻居的特征。值得注意的是，在多个数据集上，蒸馏方法与 GNN 具有竞争力。这个结果令人困惑，因为图结构在训练期间似乎有益，但在测试期间却没有。这就引出了一个问题：为什么蒸馏方法如此成功？</p>
+<p>作者指出：应对数据集不在于提高模型表达能力，而在于降低模型样本复杂性。 GNN 通过有用的归纳偏差克服了这一挑战，而蒸馏则通过使用 GNN 伪标签增加训练集的大小来克服这一挑战。</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>CoHOp - Consistency and Histogram Optimization</p>
+<p><img src="psu_code.png"></p>
+<p>该模型的损失氛围两部分。</p>
+<p>一部分为分类的交叉熵损失：<br>$$<br>\mathcal{L}<em>{GT}\left(\Psi\right)=\sum</em>{(\mathbf{x}_i,\mathbf{y}<em>i)\in\mathcal{V}</em>{train}}CE\left(\Psi\left(\mathbf{x}_i\right),\mathbf{y}_i\right)<br>$$</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>图神经网络</tag>
       </tags>
   </entry>
   <entry>

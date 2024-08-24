@@ -21,26 +21,26 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="论文地址 图结构网络通常包含拓扑扰动和权重扰动形式的潜在噪声和攻击，这可能导致 GNN 的分类性能下降。为了提高模型的鲁棒性，该论文提出了一种新方法：随机游走负采样图卷积网络（RW-NSGCN）。具体来说，RW-NSGCN 集成了用于负采样的随机游走（RWR）和 PageRank（PGR）算法，并采用基于行列式点过程（DPP）的 GCN 进行卷积运算。 RWR 利用全局和局部信息来管理噪声和局部变">
+    <meta name="description" content="图神经网络（GNN）是对图中节点进行分类的主要范例，但它们具有一些源于其消息传递架构的不良属性。最近，蒸馏方法成功地消除了测试时 GNN 的使用，但在训练期间仍然需要它们。作者提出了一种完全无 GNN 的节点分类方法，在训练或测试时不需要它们。该方法由三个关键部分组成：平滑约束、伪标签迭代和邻域标签直方图。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RW-NSGCN：通过负采样进行结构性攻击的稳健方法">
-<meta property="og:url" content="https://lijianxiong.work/2024/20240814/index.html">
+<meta property="og:title" content="Classifying Nodes in Graphs without GNNs">
+<meta property="og:url" content="https://lijianxiong.work/2024/20240824/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="论文地址 图结构网络通常包含拓扑扰动和权重扰动形式的潜在噪声和攻击，这可能导致 GNN 的分类性能下降。为了提高模型的鲁棒性，该论文提出了一种新方法：随机游走负采样图卷积网络（RW-NSGCN）。具体来说，RW-NSGCN 集成了用于负采样的随机游走（RWR）和 PageRank（PGR）算法，并采用基于行列式点过程（DPP）的 GCN 进行卷积运算。 RWR 利用全局和局部信息来管理噪声和局部变">
+<meta property="og:description" content="图神经网络（GNN）是对图中节点进行分类的主要范例，但它们具有一些源于其消息传递架构的不良属性。最近，蒸馏方法成功地消除了测试时 GNN 的使用，但在训练期间仍然需要它们。作者提出了一种完全无 GNN 的节点分类方法，在训练或测试时不需要它们。该方法由三个关键部分组成：平滑约束、伪标签迭代和邻域标签直方图。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240814/method1.png">
-<meta property="article:published_time" content="2024-08-14T09:13:12.000Z">
-<meta property="article:modified_time" content="2024-08-14T11:36:23.744Z">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240824/psu_code.png">
+<meta property="article:published_time" content="2024-08-24T02:19:46.000Z">
+<meta property="article:modified_time" content="2024-08-24T02:56:44.325Z">
 <meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="图神经网络">
-<meta property="article:tag" content="图学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2024/20240814/method1.png">
+<meta name="twitter:image" content="https://lijianxiong.work/2024/20240824/psu_code.png">
   
   
   
-  <title>RW-NSGCN：通过负采样进行结构性攻击的稳健方法 - 小熊的小站</title>
+  <title>Classifying Nodes in Graphs without GNNs - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -243,7 +243,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="RW-NSGCN：通过负采样进行结构性攻击的稳健方法"></span>
+            <span id="subtitle" data-typed-text="Classifying Nodes in Graphs without GNNs"></span>
           
         </div>
 
@@ -254,8 +254,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-14 17:13" pubdate>
-          2024年8月14日 下午
+        <time datetime="2024-08-24 10:19" pubdate>
+          2024年8月24日 上午
         </time>
       </span>
     
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          518 字
         
       </span>
     
@@ -277,7 +277,7 @@
         
         
         
-          14 分钟
+          5 分钟
         
       </span>
     
@@ -314,46 +314,23 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">RW-NSGCN：通过负采样进行结构性攻击的稳健方法</h1>
+            <h1 id="seo-header">Classifying Nodes in Graphs without GNNs</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.06665">论文地址</a></p>
-<p>图结构网络通常包含拓扑扰动和权重扰动形式的潜在噪声和攻击，这可能导致 GNN 的分类性能下降。为了提高模型的鲁棒性，该论文提出了一种新方法：随机游走负采样图卷积网络（RW-NSGCN）。具体来说，RW-NSGCN 集成了用于负采样的随机游走（RWR）和 PageRank（PGR）算法，并采用基于行列式点过程（DPP）的 GCN 进行卷积运算。 RWR 利用全局和局部信息来管理噪声和局部变化，而 PGR 评估节点重要性以稳定拓扑结构。基于 DPP 的 GCN 确保负样本之间的多样性，并聚合其特征以产生鲁棒的节点嵌入，从而提高分类性能。</p>
-<hr>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>图神经网络（GNN）是对图中节点进行分类的主要范例，但它们具有一些源于其消息传递架构的不良属性。最近，蒸馏方法成功地消除了测试时 GNN 的使用，但在训练期间仍然需要它们。作者提出了一种完全无 GNN 的节点分类方法，在训练或测试时不需要它们。该方法由三个关键部分组成：平滑约束、伪标签迭代和邻域标签直方图。</p>
 <span id="more"></span>
-
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>目前的方法主要集中于聚合来自邻居的数据风险评估和模式识别的节点，其忽略来自非相邻节点的信息，这会间接影响网络的整体流量和权重分布。这种局部视角限制了它们响应拓扑变化和重量分布波动的能力。因此，理解非邻居节点之间复杂的关系对于开发更准确的分类模型至关重要。</p>
-<p>一些研究，如SDGCN [ <a target="_blank" rel="noopener" href="https://arxiv.org/html/2408.06665v1#bib.bib25">25</a> ] ，引入了负采样机制，但其随机负采样方法未能充分利用节点和全局结构信息的重要性。因此，这些方法捕获非相邻节点之间复杂关系的能力有限，阻碍了对网络内节点全局影响力的准确评估。这反过来又影响节点表示和模型的整体稳定性。</p>
-<p><strong>拓扑扰动：</strong>这种攻击有选择地删除关键边缘，加剧图网络内自然发生的拓扑变化。它模拟极端情况下可能发生的碎片化和连接中断，旨在评估模型在面临重大结构扰动时的表现，并评估其处理现实网络复杂变化的能力。</p>
-<p><strong>权重扰动：</strong>这种攻击会修改边权重或引入随机噪声，以放大图中边权重的现有波动。该方法通过模拟极端权重扰动，评估模型处理信息流路径变化和节点影响力变化的鲁棒性，保证模型在动态环境下的可靠性。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="负样本的选取"><a href="#负样本的选取" class="headerlink" title="负样本的选取"></a>负样本的选取</h3><p>首先，通过计算最短路径长度$d(v_i,v_j)$在节点对之间，我们可以确定两个节点之间的关系链长度。然后，我们为每个节点生成一组可达节点$v_i$在不同的路径长度$l:$<br>$$N_l(v_{i})={v_{j}|d(v_{i},v_{j})=l}$$<br>此步骤有助于识别与节点具有特定路径关系的节点集。</p>
-<p><img src="method1.png"></p>
-<p>$$s_{ij}=\beta\cdot(1-\alpha)\left[(\mathbf{I}-\alpha\mathbf{P})^{-1}\mathbf{e}_i\right]_j+(1-\beta)\left[\alpha\mathbf{P}(\alpha\mathbf{P}\mathbf{p}+(1-\alpha)\mathbf{e})+(1-\alpha)\mathbf{e}\right]_j\quad\forall v_j\in\mathcal{N}_l(v_i),$$</p>
-<p>其中$\mathbf{P}=\mathbf{D}^{-1}\mathbf{A}$ 是转移矩阵，$\alpha$是重启概率，$\beta$是RWR和PGR的权重参数。</p>
-<p>基于这些综合评分向量，我们从不同路径长度的节点集中选择得分最高的节点作为候选节点：</p>
-<p>$$\text{candidates}(v_i)=\bigcup\limits_{l = 1}^{L}\operatorname{top}({s_{ij}|v_j\in\mathcal{N}_l(v_i)})$$</p>
-<p>通过整合不同距离的非邻居节点的关键节点信息，节点可以捕获多尺度特征，获取从局部到全局视角的多样化信息，从而更全面地表征其特征。此外，合并来自不同距离的节点的信息增加了信息多样性，避免了仅仅依赖局部邻域信息的局限性，从而提高了模型的鲁棒性和泛化能力。当包含来自更远距离节点的信息时，模型可以更好地理解全局结构，捕获全局模式并处理远程依赖性，特别是在本地信息不足时提供有价值的上下文信息。综上所述，该方法有效解决了图结构网络中的拓扑漏洞和权重不稳定问题，增强了整体稳定性和鲁棒性。</p>
-<h2 id="基于带有-DPP-采样的标签传播的-GCN"><a href="#基于带有-DPP-采样的标签传播的-GCN" class="headerlink" title="基于带有 DPP 采样的标签传播的 GCN"></a>基于带有 DPP 采样的标签传播的 GCN</h2><p>通过将行列式点过程（DPP）与图卷积网络（GCN）相结合，我们在保证节点多样性的同时，有效捕获节点和社区之间的特征关联，从而提高防御能力。</p>
-<p>首先，模型使用DPP核矩阵来衡量节点对之间的关联强度，定义如下：<br>$$<br>L=Q\cdot(S_{com}\cdot S_{com}^{T})\cdot exp(S_{node}-1)\cdot Q^{T}<br>$$</p>
-<p>在此背景下，L表示 DPP核矩阵，其中每个元素 $L_{ij}$表示节点之间的关联强度 $v_ i、v_j$和均选自 candidates(v)。</p>
-<p>这 $s$ 矩阵由三种类型的相似度矩阵组成：</p>
-<p>$$(S_{node})_{ij} = cos(x_i, x_j) = \frac{x_i \cdot x_j}{|x_i||x_j|}$$</p>
-<p>$$(S_{com})_{ij} = cos(f_i, f_j) = \frac{f_i \cdot f_j}{|f_i||f_j|}$$</p>
-<p>$$Q_{ij} = cos(c_i, f_j) = \frac{c_i \cdot f_j}{|c_i||f_j|}$$</p>
-<p>第一条公式量化了特征空间内节点的相似度。</p>
-<p>第二条公式衡量了社区特征之间的相似度。</p>
-<p>第三条公式表示中心节点和社区特征之间的相似度。</p>
-<p>上述步骤旨在有效捕获节点和社区之间的特征关系，获取节点和社区之间丰富的信息。</p>
-<p>构建DPP核矩阵L后 ，进行采样，保证所选节点样本具有足够的代表性和多样性，避免节点选择出现偏差和过度集中。</p>
-<p>DPP得到的负样本主要用在GCN消息传递阶段：</p>
-<p>$$x_{\mathrm{pos}}^{(l+1)}=\mathrm{ReLU}\Big(\mathbf{W}^{(l)}\cdot\mathrm{normalize}(x^{(l)},\mathbf{D},\mathbf{A})\Big)$$</p>
-<p>$$x_{\mathrm{neg}}^{(l+1)}=\mathrm{ReLU}(W_{\mathrm{DPP}}^{(l)}\cdot\mathrm{normalize}(x^{(l)},D_{\mathrm{DPP}},A_{\mathrm{DPP}}))$$</p>
-<p>$$x^{(l+1)}=x_{\mathrm{pos}}^{(l+1)}-\lambda\cdot x_{\mathrm{neg}}^{(l+1)}$$</p>
-<p>首先，我们使用标准的GCN卷积来传播正样本的特征，捕获正常行为的特征。</p>
-<p>接下来，我们介绍 DPP 采样机制来选择负样本节点并传播其特征。</p>
-<p>最后，通过减去负样本的特征（乘以平衡系数）来更新节点表示 $\lambda$）来自阳性样本。这种方法保证了所选节点子集在特征空间中是离散的，允许选择彼此不太相似的节点，从而避免冗余信息选择，有效防止过拟合，增强对图结构中异常行为的敏感性。</p>
+<blockquote>
+<p>PS：我觉得“无GNN”的说法并不准确，它只是没有把图结构和NN结合起来，而不是不用上任何图结构来进行学习。</p>
+</blockquote>
+<hr>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>蒸馏方法最近挑战了节点分类中的现有范式。 GNN 的标准做法是在图中所有标记节点上训练模型，并在测试时使用相同的模型进行节点分类。蒸馏方法消除了在测试时使用 GNN 的需要，尽管它们仍然需要训练 GNN。他们使用 GNN 来伪标记无监督节点。随后，训练 MLP 仅根据其节点特征来预测这些节点的标签，而不考虑其邻居的特征。值得注意的是，在多个数据集上，蒸馏方法与 GNN 具有竞争力。这个结果令人困惑，因为图结构在训练期间似乎有益，但在测试期间却没有。这就引出了一个问题：为什么蒸馏方法如此成功？</p>
+<p>作者指出：应对数据集不在于提高模型表达能力，而在于降低模型样本复杂性。 GNN 通过有用的归纳偏差克服了这一挑战，而蒸馏则通过使用 GNN 伪标签增加训练集的大小来克服这一挑战。</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>CoHOp - Consistency and Histogram Optimization</p>
+<p><img src="psu_code.png"></p>
+<p>该模型的损失氛围两部分。</p>
+<p>一部分为分类的交叉熵损失：<br>$$<br>\mathcal{L}<em>{GT}\left(\Psi\right)=\sum</em>{(\mathbf{x}_i,\mathbf{y}<em>i)\in\mathcal{V}</em>{train}}CE\left(\Psi\left(\mathbf{x}_i\right),\mathbf{y}_i\right)<br>$$</p>
 
                 
               </div>
@@ -366,11 +343,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
         <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
       
         <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
-      
-        <a href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" class="print-no-link">#图学习</a>
       
     </div>
   
@@ -382,8 +359,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>RW-NSGCN：通过负采样进行结构性攻击的稳健方法</div>
-      <div>https://lijianxiong.work/2024/20240814/</div>
+      <div>Classifying Nodes in Graphs without GNNs</div>
+      <div>https://lijianxiong.work/2024/20240824/</div>
     </div>
     <div class="license-meta">
       
@@ -395,7 +372,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月14日</div>
+          <div>2024年8月24日</div>
         </div>
       
       
@@ -427,18 +404,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/20240824/" title="Classifying Nodes in Graphs without GNNs">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Classifying Nodes in Graphs without GNNs</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/20240811/" title="CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合">
-                        <span class="hidden-mobile">CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</span>
+                      <a href="/2024/20240814/" title="RW-NSGCN：通过负采样进行结构性攻击的稳健方法">
+                        <span class="hidden-mobile">RW-NSGCN：通过负采样进行结构性攻击的稳健方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
