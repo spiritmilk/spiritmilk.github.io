@@ -12253,11 +12253,12 @@ scale).">
 <p>该模型的损失分为两部分。</p>
 <p>一部分为分类的交叉熵损失：<br>$$<br>L_{GT}(\Psi)=\sum_{(x_i,y_i)\in V_{train}}CE(\Psi(x_i),y_i)<br>$$<br>一部分为：<br>$$<br>L_{consist}(\Psi)=\sum_{v_i\in V}\left(\frac{1}{|N(v_i)|}\sum_{v_j\in N(v_i)}CE(\Psi(x_i),\Psi(x_j))\right)<br>$$</p>
 <p>最终：<br>$$<br>L(\Psi) = L_{GT}(\Psi) + \gamma \cdot L_{consist}(\Psi)<br>$$</p>
-<h3 id="伪标签迭代"><a href="#伪标签迭代" class="headerlink" title="伪标签迭代"></a>伪标签迭代</h3><p>在每次迭代之前，我们将模型以高置信度进行预测的节点以及现有的地面实况训练节点添加到训练集中。我们将模型预测作为这些非真实节点的标签，并将它们称为伪标签。<br>$$<br>V_{train}^{I+1} = V_{train} \cup {v_i | \max_{j=1,…,C}(\Psi^I(x_i))_j &gt; \tau}<br>$$<br>另外还加了一个伪标签平滑：<br>$$<br>Y^{*}=\lambda\cdot\hat{Y}+(1-\lambda)\cdot\hat{A}\hat{Y}<br>$$<br>其实就是标签传播</p>
+<h3 id="伪标签迭代"><a href="#伪标签迭代" class="headerlink" title="伪标签迭代"></a>伪标签迭代</h3><p>在每次迭代之前，我们将模型以高置信度进行预测的节点以及现有的地面实况训练节点添加到训练集中。我们将模型预测作为这些非真实节点的标签，并将它们称为伪标签。<br>$$<br>V_{train}^{I+1} = V_{train} \cup {v_i | \max_{j=1,…,C}(\Psi^I(x_i))_j &gt; \tau }<br>$$<br>另外还加了一个伪标签平滑：<br>$$<br>Y^{*}=\lambda\cdot\hat{Y}+(1-\lambda)\cdot\hat{A}\hat{Y}<br>$$<br>其实就是标签传播</p>
 <h3 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h3><p>$$<br>h_i’ = \sum_{v_j \in N^\ell(v_i) \cap V_{train}} (\alpha^{d(v_i, v_j)} \cdot y_j)<br>$$</p>
 <p>$N^\ell$指为$\ell$距离以内的。</p>
 <p>$y_j\in {0,1}^C$为onthot的向量</p>
-<p>最后会做一个归一化：<br>$$<br>h_i = \frac{h_i’}{\sum_{j=1}^C h_{ij}’}<br>$$<br>对于较大的数据集，例如 ogbn-products，这种计算变得很麻烦。为了解决这个问题，提出了 h 的有效近似。通过使用卷积运算扩展标签来联合计算图中所有节点的直方图。具体来说，矩阵 H 的行表示每个节点的非标准化直方图，通过以下方式获得：<br>$$<br>H’=\sum_{k=1}^\ell\left(\alpha\hat{A}\right)^k\tilde{Y}<br>$$<br>$\tilde{Y}$的第i行为：<br>$$<br>\tilde{y}<em>i =<br>\begin{cases}<br>y_i &amp; \text{if } v_i \in V</em>{train} \<br>0 &amp; \text{if } v_i \notin V_{train}<br>\end{cases}<br>$$</p>
+<p>最后会做一个归一化：<br>$$<br>h_i = \frac{h_i’}{\sum_{j=1}^C h_{ij}’}<br>$$<br>对于较大的数据集，例如 ogbn-products，这种计算变得很麻烦。为了解决这个问题，提出了 h 的有效近似。通过使用卷积运算扩展标签来联合计算图中所有节点的直方图。具体来说，矩阵 H 的行表示每个节点的非标准化直方图，通过以下方式获得：<br>$$<br>H’=\sum_{k=1}^\ell\left(\alpha\hat{A}\right)^k\tilde{Y}<br>$$<br>$\tilde{Y}$的第i行 为：</p>
+<p><img src="for.png"></p>
 <h4 id="精确算和近似算的比较"><a href="#精确算和近似算的比较" class="headerlink" title="精确算和近似算的比较"></a>精确算和近似算的比较</h4><p><img src="exa.png"></p>
 ]]></content>
       <tags>
