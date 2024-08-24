@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2024/20240824/psu_code.png">
 <meta property="article:published_time" content="2024-08-24T02:19:46.000Z">
-<meta property="article:modified_time" content="2024-08-24T02:56:44.325Z">
+<meta property="article:modified_time" content="2024-08-24T03:25:57.127Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          518 字
+          537 字
         
       </span>
     
@@ -330,7 +330,8 @@
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>CoHOp - Consistency and Histogram Optimization</p>
 <p><img src="psu_code.png"></p>
 <p>该模型的损失氛围两部分。</p>
-<p>一部分为分类的交叉熵损失：<br>$$<br>\mathcal{L}<em>{GT}\left(\Psi\right)=\sum</em>{(\mathbf{x}_i,\mathbf{y}<em>i)\in\mathcal{V}</em>{train}}CE\left(\Psi\left(\mathbf{x}_i\right),\mathbf{y}_i\right)<br>$$</p>
+<p>一部分为分类的交叉熵损失：<br>$$<br>L_{GT}(\Psi)=\sum_{(x_i,y_i)\in V_{train}}CE(\Psi(x_i),y_i)<br>$$<br>一部分为：<br>$$<br>L_{consist}(\Psi)=\sum_{v_i\in V}\left(\frac{1}{|N(v_i)|}\sum_{v_j\in N(v_i)}CE(\Psi(x_i),\Psi(x_j))\right)<br>$$</p>
+<p>最终：<br>$$<br>L(\Psi) = L_{GT}(\Psi) + \gamma \cdot L_{consist}(\Psi)<br>$$</p>
 
                 
               </div>
