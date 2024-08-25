@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>一个美妙的不等式</title>
+    <url>/2019/20190323/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近在Aops论坛上发现了这个美妙的不等式，由Pirkuliyev Rovsen提出并被我加强。</p>
+<p>$\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$</p>
+<span id="more"></span>
+
+<p>证明：</p>
+<p>不等式右边：</p>
+<p>$\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$<br>$\Leftarrow \frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}-\ln \sqrt{\frac{n+1}{2}}$    </p>
+<p>这个等价于对数平均不等式。</p>
+<p>不等式左边(来自Aniv的证明)：</p>
+<p>即证$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}+\frac{1}{2 n+5}$<br>$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}} \Longleftrightarrow \ln \left(\frac{n+1}{n+2}\right)+\frac{1}{\left(n+\frac{5}{2}\right)}&gt;0$<br>设 $f(x)=\ln (x+1)-\ln (x+2)+\frac{1}{x+\frac{5}{2}}$<br>则 $f^{\prime}(x)=\frac{1}{(x+1)(x+2)}-\frac{1}{\left(x+\frac{5}{2}\right)^{2}}&gt;0, \forall x \geq 1$<br>所以 $f(x) \geq f(1)&gt;0, \forall x \geq 1$<br>所以 $\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}, \forall n \geq 1$<br>证毕.</p>
+<p>这个不等式精度很高，ln2的值只相差了大约千分之一。</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>丑奴儿·书博山道中壁</title>
+    <url>/2019/20190430/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>In my younger days, I had tasted only  gladness,</p>
+<p>But loved to mount the top floor,</p>
+<p>But loved to mount the top floor,</p>
+<p>To write a song pretending sadness,</p>
+<span id="more"></span>
+
+<p>And now I’ve tasted Sorrow’s flavors, bitter  and sour,</p>
+<p>And can’t find a word,</p>
+<p>And can’t find a word,</p>
+<p>But merely say，“what a golden autumn hour！”</p>
+<p>——翻译来自林语堂</p>
+<p>少年不识愁滋味，爱上层楼。爱上层楼。为赋新词强说愁。<br>而今识尽愁滋味，欲说还休。欲说还休。却道天凉好个秋。</p>
+<p><img src="/photos/photo-1478993161925-a849b2c448d1.jpg" alt="prove1"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>1000 days</title>
     <url>/2021/1000/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>　　很高兴你能来到这里。<br>　　今天正好是博客诞生的1000天。（其实是把最早有准确时间记录的日子作为初始日，创立博客可能可以追溯到18年五月甚至更前）。很高兴你与我能共同见证这一时刻。</p>
@@ -214,43 +251,6 @@
       <tags>
         <tag>纪念</tag>
         <tag>回忆</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>丑奴儿·书博山道中壁</title>
-    <url>/2019/20190430/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>In my younger days, I had tasted only  gladness,</p>
-<p>But loved to mount the top floor,</p>
-<p>But loved to mount the top floor,</p>
-<p>To write a song pretending sadness,</p>
-<span id="more"></span>
-
-<p>And now I’ve tasted Sorrow’s flavors, bitter  and sour,</p>
-<p>And can’t find a word,</p>
-<p>And can’t find a word,</p>
-<p>But merely say，“what a golden autumn hour！”</p>
-<p>——翻译来自林语堂</p>
-<p>少年不识愁滋味，爱上层楼。爱上层楼。为赋新词强说愁。<br>而今识尽愁滋味，欲说还休。欲说还休。却道天凉好个秋。</p>
-<p><img src="/photos/photo-1478993161925-a849b2c448d1.jpg" alt="prove1"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>一个美妙的不等式</title>
-    <url>/2019/20190323/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近在Aops论坛上发现了这个美妙的不等式，由Pirkuliyev Rovsen提出并被我加强。</p>
-<p>$\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$</p>
-<span id="more"></span>
-
-<p>证明：</p>
-<p>不等式右边：</p>
-<p>$\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}$<br>$\Leftarrow \frac{1}{2 n+3}&lt;\ln \sqrt{\frac{n+2}{2}}-\ln \sqrt{\frac{n+1}{2}}$    </p>
-<p>这个等价于对数平均不等式。</p>
-<p>不等式左边(来自Aniv的证明)：</p>
-<p>即证$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}&lt;\frac{1}{5}+\frac{1}{7}+\ldots+\frac{1}{2 n+3}+\frac{1}{2 n+5}$<br>$\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}} \Longleftrightarrow \ln \left(\frac{n+1}{n+2}\right)+\frac{1}{\left(n+\frac{5}{2}\right)}&gt;0$<br>设 $f(x)=\ln (x+1)-\ln (x+2)+\frac{1}{x+\frac{5}{2}}$<br>则 $f^{\prime}(x)=\frac{1}{(x+1)(x+2)}-\frac{1}{\left(x+\frac{5}{2}\right)^{2}}&gt;0, \forall x \geq 1$<br>所以 $f(x) \geq f(1)&gt;0, \forall x \geq 1$<br>所以 $\ln \sqrt{\frac{n+2}{2}}&lt;\frac{1}{2 n+5}+\ln \sqrt{\frac{n+1}{2}}, \forall n \geq 1$<br>证毕.</p>
-<p>这个不等式精度很高，ln2的值只相差了大约千分之一。</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -956,6 +956,25 @@
       </tags>
   </entry>
   <entry>
+    <title>巧妙曲线系，减少计算量</title>
+    <url>/2019/20190810/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（2014·全国·21·2） </p>
+<p>已知抛物线$C:y^2$=$4x$的焦点为F，过点F的直线$l$与C相交于A、B两点，若AB垂直平分线$l’$与C相交于M，N两点，且A,M,B,N四点在同一圆上，求$l$的方程。 </p>
+<span id="more"></span>
+
+<p>解：</p>
+<p>设AB：$x$=$my+1$ </p>
+<p>则MN：$x-(2m^2+1$)=-$\frac{1}{m}*(y-2m)$ </p>
+<p>过A,B,M,N四点的曲线系方程为：</p>
+<p> （$x-my-1$）$[x-(2m^2+1)+\frac{1}{m}*(y-2m)]$+$\lambda $（$y^2-4x$）=0 </p>
+<p>$\because $A,B,M,N 四点共圆 $\therefore -m+\frac{1}{m}$=0 m=$\pm 1$ </p>
+<p>$\therefore $直线$l$:y=$\pm(x-1)$</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>条条大路通罗马，巧比大小多方法</title>
     <url>/2019/20190815/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（2014·湖北·22）<br>$\pi$为圆周率，e=2.71828…为自然对数的底数。<br>（1）求函数$f(x)=\frac{lnx}{x}$的单调区间<br>（2）将$e^3,3^e,3^{\pi},{\pi}^3,e^{\pi},{\pi}^e$这六个数按从小到大的顺序排列，并证明你的结论。</p>
@@ -975,25 +994,6 @@
 <p>事实上，这梯子不太容易攀爬，我们不妨舍弃该梯子，换一条道路直捣黄龙。<br>解法二：$e^3$&lt;$\pi^e$<br>$\Leftrightarrow {\pi}^{\frac{e}{3}}&gt;e$<br>而$\frac{e}{3}&gt;\frac{9}{10}$<br>$\therefore $只需证$ \pi^{\frac{9}{10}}&gt;e$<br>而 ${1+\frac{1}{x}}^{x+1}\geq e$<br>$\therefore $只需证 $\frac{\pi}{e}&gt;1+\frac{1}{8}$<br>即证$8\pi&gt;9e$</p>
 <p>而8x3.14&gt;9x2.72</p>
 <p>证毕。</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>巧妙曲线系，减少计算量</title>
-    <url>/2019/20190810/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（2014·全国·21·2） </p>
-<p>已知抛物线$C:y^2$=$4x$的焦点为F，过点F的直线$l$与C相交于A、B两点，若AB垂直平分线$l’$与C相交于M，N两点，且A,M,B,N四点在同一圆上，求$l$的方程。 </p>
-<span id="more"></span>
-
-<p>解：</p>
-<p>设AB：$x$=$my+1$ </p>
-<p>则MN：$x-(2m^2+1$)=-$\frac{1}{m}*(y-2m)$ </p>
-<p>过A,B,M,N四点的曲线系方程为：</p>
-<p> （$x-my-1$）$[x-(2m^2+1)+\frac{1}{m}*(y-2m)]$+$\lambda $（$y^2-4x$）=0 </p>
-<p>$\because $A,B,M,N 四点共圆 $\therefore -m+\frac{1}{m}$=0 m=$\pm 1$ </p>
-<p>$\therefore $直线$l$:y=$\pm(x-1)$</p>
 ]]></content>
       <tags>
         <tag>数学</tag>
@@ -1054,6 +1054,15 @@
 ]]></content>
   </entry>
   <entry>
+    <title>《德米安》</title>
+    <url>/2020/20201022/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>我常幻想未来，想象着自己可能会成为一名诗人、先知或画家。</p>
+<span id="more"></span>但这些都徒劳无益。我人生的意义并不是写诗、讲道或绘画，其他人的也不应如此，所有这些应仅被视为爱好。每个人都只有一个使命，那就是寻找自我，无论最终成为诗人还是疯子、先知还是罪犯，都不关紧要。一个人的主要任务就是找到属于自己的命运，并全心全意地沿着命运之路前行。其他一切都是逃避的借口，是泯然众人的退缩、随波逐流，也是内心的恐惧。我心中的不断出现新意象，它们可能曾在我面前出现过，但直到现在我才第一次经历。这是一次本性的实验，也是一场结果未知的博弈，它可能会找到新的出路，也可能什么也找不到。我唯一的使命就是任其自由发展，感受它的意志，并完全掌握住。除此以外，别无其他。我早已感受过孤独，现在我将要忍受更刻骨铭心的孤独，一切都无法避免。]]></content>
+      <tags>
+        <tag>阅读</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一个关于e的证明的一题多解</title>
     <url>/2020/20201009/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>求证：$e&gt;1+1+\frac{1}{2!}+$···$+\frac{1}{k!}$</p>
@@ -1063,15 +1072,6 @@
 ]]></content>
       <tags>
         <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《德米安》</title>
-    <url>/2020/20201022/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>我常幻想未来，想象着自己可能会成为一名诗人、先知或画家。</p>
-<span id="more"></span>但这些都徒劳无益。我人生的意义并不是写诗、讲道或绘画，其他人的也不应如此，所有这些应仅被视为爱好。每个人都只有一个使命，那就是寻找自我，无论最终成为诗人还是疯子、先知还是罪犯，都不关紧要。一个人的主要任务就是找到属于自己的命运，并全心全意地沿着命运之路前行。其他一切都是逃避的借口，是泯然众人的退缩、随波逐流，也是内心的恐惧。我心中的不断出现新意象，它们可能曾在我面前出现过，但直到现在我才第一次经历。这是一次本性的实验，也是一场结果未知的博弈，它可能会找到新的出路，也可能什么也找不到。我唯一的使命就是任其自由发展，感受它的意志，并完全掌握住。除此以外，别无其他。我早已感受过孤独，现在我将要忍受更刻骨铭心的孤独，一切都无法避免。]]></content>
-      <tags>
-        <tag>阅读</tag>
       </tags>
   </entry>
   <entry>
@@ -1308,48 +1308,6 @@
       </tags>
   </entry>
   <entry>
-    <title>旅行商问题及其拓展</title>
-    <url>/2020/20201207/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>旅行商问题（英文：Travelling salesman problem, TSP）是图论、组合数学中一个非常经典的问题。</p>
-<span id="more"></span>
-
-<p>旅行商问题具体内容：给定一系列城市和每对城市之间的距离，求解访问每一座城市一次并回到起始城市的最短回路。其与哈密顿有着密切的联系，TSP可以约化为哈密顿回路。</p>
-<p>TSP属于NPC问题，故无多项式时间算法，常用求解算法有回溯法、分支限界法、等，以上均为O（n!）的时间复杂度。</p>
-<p>TSP对路线规划有着重要应用，而路线往往为非哈密顿图。可以适当地对TSP进行拓展：（正是SYSU2020年新手赛A题。）</p>
-<p>给定一系列城市和每对城市之间的距离，求解访问每一座城市并回到起始城市的最短回路。（该形式貌似又被称为Euclidean TSP）</p>
-<p>该问题可以约化为TSP。</p>
-<p>解法：</p>
-<p>获得每个城市到其他城市的最短路径，若该城市与某城市不可直接到达，那么这两站之间增加一条边，边的权为以上所求最短路径的长度。而这个图一定是哈密顿圈。该问题现在约化为了TSP。</p>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>来自斯坦福轮回赛的有趣积分题目</title>
-    <url>/2020/20201210/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><span id="more"></span>
-
-<p><img src="https://s3.ax1x.com/2020/12/22/rr5ZFI.jpg" alt="1"></p>
-<p>另法： $I(a)=\int_{0}^{\pi}\ln\left(1-2a\cos(x)+a^2\right)\ \text{d}x,;\ a&gt;1$ </p>
-<p>设三角形ABC，边$a,b,c$所对的角为$\alpha,\beta,\gamma$ </p>
-<p>根据余弦定理有： $c^2=a^2+b^2-2ab\cos(\gamma)$ </p>
-<p>令$b=1,\gamma=x$ </p>
-<p>则：</p>
-<p> $I(a) = \int_{0}^{\pi}\ln\left(c^2\right)\ \text{d}\gamma \ = 2\int_{0}^{\pi}\ln\left(c\right)\ \text{d}\gamma $ </p>
-<p>根据正弦定理有： $\frac{\sin(\alpha)}{a}=\frac{\sin(\beta)}{b}=\frac{\sin(\gamma)}{c}$ </p>
-<p>故：</p>
-<p> $I(a) = 2\int_{0}^{\pi}\ln\left(a\ \frac{\sin(\gamma)}{\sin(\alpha)}\right)\ \text{d}\gamma \ = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma-2\int_{0}^{\pi}\ln\left(\sin(\alpha)\right)\ \text{d}\gamma $</p>
-<p> 又因为：$\gamma=\pi-\alpha-\beta$,$\text{d}\gamma=-\text{d}\alpha-\text{d}\beta$ </p>
-<p>当$\gamma\rightarrow 0:\alpha\rightarrow \pi,\beta\rightarrow 0$ </p>
-<p>当$\gamma\rightarrow \pi:\alpha\rightarrow 0,\beta\rightarrow 0$ </p>
-<p>故 $I(a)  = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma\  -2\left[\int_{\pi}^{0}\ln\left(\sin(\alpha)\right)(-\text{d}\alpha)+\int_{0}^{0}\ln\left(\sin(\alpha)\right)(-\text{d}\beta)\right] \  = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma-2\int_{0}^{\pi}\ln\left(\sin(\alpha)\right)\ \text{d}\alpha  = 2\pi \ln(a)$</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>小镇做题家出路何在</title>
     <url>/2020/20201219/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>2020年12月15日北交大大三学生跳楼，写下了一封让人唏嘘不已的遗书。部分观点让我深有同感。</p>
@@ -1401,6 +1359,30 @@
       </tags>
   </entry>
   <entry>
+    <title>来自斯坦福轮回赛的有趣积分题目</title>
+    <url>/2020/20201210/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><span id="more"></span>
+
+<p><img src="https://s3.ax1x.com/2020/12/22/rr5ZFI.jpg" alt="1"></p>
+<p>另法： $I(a)=\int_{0}^{\pi}\ln\left(1-2a\cos(x)+a^2\right)\ \text{d}x,;\ a&gt;1$ </p>
+<p>设三角形ABC，边$a,b,c$所对的角为$\alpha,\beta,\gamma$ </p>
+<p>根据余弦定理有： $c^2=a^2+b^2-2ab\cos(\gamma)$ </p>
+<p>令$b=1,\gamma=x$ </p>
+<p>则：</p>
+<p> $I(a) = \int_{0}^{\pi}\ln\left(c^2\right)\ \text{d}\gamma \ = 2\int_{0}^{\pi}\ln\left(c\right)\ \text{d}\gamma $ </p>
+<p>根据正弦定理有： $\frac{\sin(\alpha)}{a}=\frac{\sin(\beta)}{b}=\frac{\sin(\gamma)}{c}$ </p>
+<p>故：</p>
+<p> $I(a) = 2\int_{0}^{\pi}\ln\left(a\ \frac{\sin(\gamma)}{\sin(\alpha)}\right)\ \text{d}\gamma \ = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma-2\int_{0}^{\pi}\ln\left(\sin(\alpha)\right)\ \text{d}\gamma $</p>
+<p> 又因为：$\gamma=\pi-\alpha-\beta$,$\text{d}\gamma=-\text{d}\alpha-\text{d}\beta$ </p>
+<p>当$\gamma\rightarrow 0:\alpha\rightarrow \pi,\beta\rightarrow 0$ </p>
+<p>当$\gamma\rightarrow \pi:\alpha\rightarrow 0,\beta\rightarrow 0$ </p>
+<p>故 $I(a)  = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma\  -2\left[\int_{\pi}^{0}\ln\left(\sin(\alpha)\right)(-\text{d}\alpha)+\int_{0}^{0}\ln\left(\sin(\alpha)\right)(-\text{d}\beta)\right] \  = 2\pi \ln(a)+2\int_{0}^{\pi}\ln\left(\sin(\gamma)\right)\ \text{d}\gamma-2\int_{0}^{\pi}\ln\left(\sin(\alpha)\right)\ \text{d}\alpha  = 2\pi \ln(a)$</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一道SYSU期末高数题</title>
     <url>/2021/20210107/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>证明：当$x\in(0,\frac{\pi}{2})$, $\frac{tanx}{x}&gt; \frac{x}{sinx}$.</p>
@@ -1434,6 +1416,24 @@
 <script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <tags>
         <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>旅行商问题及其拓展</title>
+    <url>/2020/20201207/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>旅行商问题（英文：Travelling salesman problem, TSP）是图论、组合数学中一个非常经典的问题。</p>
+<span id="more"></span>
+
+<p>旅行商问题具体内容：给定一系列城市和每对城市之间的距离，求解访问每一座城市一次并回到起始城市的最短回路。其与哈密顿有着密切的联系，TSP可以约化为哈密顿回路。</p>
+<p>TSP属于NPC问题，故无多项式时间算法，常用求解算法有回溯法、分支限界法、等，以上均为O（n!）的时间复杂度。</p>
+<p>TSP对路线规划有着重要应用，而路线往往为非哈密顿图。可以适当地对TSP进行拓展：（正是SYSU2020年新手赛A题。）</p>
+<p>给定一系列城市和每对城市之间的距离，求解访问每一座城市并回到起始城市的最短回路。（该形式貌似又被称为Euclidean TSP）</p>
+<p>该问题可以约化为TSP。</p>
+<p>解法：</p>
+<p>获得每个城市到其他城市的最短路径，若该城市与某城市不可直接到达，那么这两站之间增加一条边，边的权为以上所求最短路径的长度。而这个图一定是哈密顿圈。该问题现在约化为了TSP。</p>
+]]></content>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -3169,6 +3169,42 @@
       </tags>
   </entry>
   <entry>
+    <title>机器学习之神经网络</title>
+    <url>/2021/20210509/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
+<p>所以我们引入神经网络。</p>
+<span id="more"></span>
+
+<h5 id="一些神经网络术语"><a href="#一些神经网络术语" class="headerlink" title="一些神经网络术语"></a>一些神经网络术语</h5><p><a href="https://imgtu.com/i/WypJ74"><img src="https://z3.ax1x.com/2021/07/23/WypJ74.jpg" alt="WypJ74.jpg"></a></p>
+<p>上图为神经元，神经元处理信号后，通过激活函数处理以产生神经元的输出。（常用的有Sigmoid函数、阶跃函数等）</p>
+<p>下图为一个3层的神经网络，第一层成为输入层（<strong>Input Layer</strong>），最后一层称为输出层（<strong>Output Layer</strong>），中间一层成为隐藏层（<strong>Hidden Layers</strong>）。我们为每一层都增加一个偏差单位（<strong>bias unit</strong>）：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/8293711e1d23414d0a03f6878f5a2d91.jpg" alt="img"></p>
+<h5 id="逻辑函数的一些例子"><a href="#逻辑函数的一些例子" class="headerlink" title="逻辑函数的一些例子"></a>逻辑函数的一些例子</h5><p>下图的神经元（三个权重分别为-30，20，20）可以被视为作用同于逻辑与（<strong>AND</strong>）：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/57480b04956f1dc54ecfc64d68a6b357.jpg" alt="img"></p>
+<p>下图的神经元（三个权重分别为-10，20，20）可以被视为作用等同于逻辑或（<strong>OR</strong>）：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/7527e61b1612dcf84dadbcf7a26a22fb.jpg" alt="img"></p>
+<p>下图的神经元（两个权重分别为 10，-20）可以被视为作用等同于逻辑非（<strong>NOT</strong>）：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/1fd3017dfa554642a5e1805d6d2b1fa6.jpg" alt="img"></p>
+<p><strong>XNOR</strong>：</p>
+<p>我们可以利用神经元来组合成更为复杂的神经网络以实现更复杂的运算。例如我们要实现<strong>XNOR</strong> 功能（输入的两个值必须一样，均为1或均为0），即<br>$$<br>\text{XNOR}=( \text{x}_1, \text{AND}, \text{x}_2 ), \text{OR} ( ( \text{NOT}, \text{x}_1)\text{AND} ( \text{NOT}, \text{x}_2))<br>$$<br>首先构造一个能表达$( \text{NOT}, x_1 ) AND ( \text{NOT}, x_2 )$部分的神经元：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/4c44e69a12b48efdff2fe92a0a698768.jpg" alt="img"></p>
+<p>然后将表示 <strong>AND</strong> 的神经元和表示$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$的神经元以及表示 OR 的神经元进行组合：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/432c906875baca78031bd337fe0c8682.jpg" alt="img"></p>
+<h5 id="神经网络的一些定义"><a href="#神经网络的一些定义" class="headerlink" title="神经网络的一些定义"></a>神经网络的一些定义</h5><p>假设神经网络的训练样本有$m$个，每个包含一组输入$x$和一组输出信号$y$，$L$表示神经网络层数，$S_I$表示每层的<strong>neuron</strong>个数($S_l$表示输出层神经元个数)，$S_L$代表最后一层中处理单元的个数。</p>
+<p>将神经网络的分类定义为两种情况：二类分类和多类分类，</p>
+<p>二类分类：$S_L=0, y=0, or, 1$表示哪一类；</p>
+<p>$K$类分类：$S_L=k, y_i = 1$表示分到第$i$类；$(k&gt;2)$</p>
+<p><img src="http://www.ai-start.com/ml2014/images/8f7c28297fc9ed297f42942018441850.jpg" alt="img"></p>
+<h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>记<br>$$<br>h_\theta(x)\in \mathbb{R}^{K}{({h_\theta}(x))}_{i}={i}^{th} \text{output}<br>$$</p>
+<p>则：</p>
+<p><a href="https://imgtu.com/i/WyKJb9"><img src="https://z3.ax1x.com/2021/07/23/WyKJb9.jpg" alt="WyKJb9.jpg"></a></p>
+<p>$h_\theta(x)$与真实值之间的距离为每个样本-每个类输出的加和，对参数进行<strong>regularization</strong>的<strong>bias</strong>项处理所有参数的平方和。</p>
+]]></content>
+      <tags>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Wolfram Mathematica识别猫种</title>
     <url>/2021/20210415/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>自Wolfram Mathematica 11.3起逐渐开始支持神经网络等功能，</p>
@@ -3209,67 +3245,6 @@
       <tags>
         <tag>机器学习</tag>
         <tag>mathematica</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习之神经网络</title>
-    <url>/2021/20210509/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>无论是线性回归还是逻辑回归都有这样一个缺点，即：当特征太多时，计算的负荷会非常大。</p>
-<p>所以我们引入神经网络。</p>
-<span id="more"></span>
-
-<h5 id="一些神经网络术语"><a href="#一些神经网络术语" class="headerlink" title="一些神经网络术语"></a>一些神经网络术语</h5><p><a href="https://imgtu.com/i/WypJ74"><img src="https://z3.ax1x.com/2021/07/23/WypJ74.jpg" alt="WypJ74.jpg"></a></p>
-<p>上图为神经元，神经元处理信号后，通过激活函数处理以产生神经元的输出。（常用的有Sigmoid函数、阶跃函数等）</p>
-<p>下图为一个3层的神经网络，第一层成为输入层（<strong>Input Layer</strong>），最后一层称为输出层（<strong>Output Layer</strong>），中间一层成为隐藏层（<strong>Hidden Layers</strong>）。我们为每一层都增加一个偏差单位（<strong>bias unit</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/8293711e1d23414d0a03f6878f5a2d91.jpg" alt="img"></p>
-<h5 id="逻辑函数的一些例子"><a href="#逻辑函数的一些例子" class="headerlink" title="逻辑函数的一些例子"></a>逻辑函数的一些例子</h5><p>下图的神经元（三个权重分别为-30，20，20）可以被视为作用同于逻辑与（<strong>AND</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/57480b04956f1dc54ecfc64d68a6b357.jpg" alt="img"></p>
-<p>下图的神经元（三个权重分别为-10，20，20）可以被视为作用等同于逻辑或（<strong>OR</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/7527e61b1612dcf84dadbcf7a26a22fb.jpg" alt="img"></p>
-<p>下图的神经元（两个权重分别为 10，-20）可以被视为作用等同于逻辑非（<strong>NOT</strong>）：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/1fd3017dfa554642a5e1805d6d2b1fa6.jpg" alt="img"></p>
-<p><strong>XNOR</strong>：</p>
-<p>我们可以利用神经元来组合成更为复杂的神经网络以实现更复杂的运算。例如我们要实现<strong>XNOR</strong> 功能（输入的两个值必须一样，均为1或均为0），即<br>$$<br>\text{XNOR}=( \text{x}_1, \text{AND}, \text{x}_2 ), \text{OR} ( ( \text{NOT}, \text{x}_1)\text{AND} ( \text{NOT}, \text{x}_2))<br>$$<br>首先构造一个能表达$( \text{NOT}, x_1 ) AND ( \text{NOT}, x_2 )$部分的神经元：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/4c44e69a12b48efdff2fe92a0a698768.jpg" alt="img"></p>
-<p>然后将表示 <strong>AND</strong> 的神经元和表示$( \text{NOT}, \text{x}_1 ) \text{AND} ( \text{NOT}, \text{x}_2 )$的神经元以及表示 OR 的神经元进行组合：</p>
-<p><img src="http://www.ai-start.com/ml2014/images/432c906875baca78031bd337fe0c8682.jpg" alt="img"></p>
-<h5 id="神经网络的一些定义"><a href="#神经网络的一些定义" class="headerlink" title="神经网络的一些定义"></a>神经网络的一些定义</h5><p>假设神经网络的训练样本有$m$个，每个包含一组输入$x$和一组输出信号$y$，$L$表示神经网络层数，$S_I$表示每层的<strong>neuron</strong>个数($S_l$表示输出层神经元个数)，$S_L$代表最后一层中处理单元的个数。</p>
-<p>将神经网络的分类定义为两种情况：二类分类和多类分类，</p>
-<p>二类分类：$S_L=0, y=0, or, 1$表示哪一类；</p>
-<p>$K$类分类：$S_L=k, y_i = 1$表示分到第$i$类；$(k&gt;2)$</p>
-<p><img src="http://www.ai-start.com/ml2014/images/8f7c28297fc9ed297f42942018441850.jpg" alt="img"></p>
-<h5 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h5><p>记<br>$$<br>h_\theta(x)\in \mathbb{R}^{K}{({h_\theta}(x))}_{i}={i}^{th} \text{output}<br>$$</p>
-<p>则：</p>
-<p><a href="https://imgtu.com/i/WyKJb9"><img src="https://z3.ax1x.com/2021/07/23/WyKJb9.jpg" alt="WyKJb9.jpg"></a></p>
-<p>$h_\theta(x)$与真实值之间的距离为每个样本-每个类输出的加和，对参数进行<strong>regularization</strong>的<strong>bias</strong>项处理所有参数的平方和。</p>
-]]></content>
-      <tags>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>辨析依概率收敛和以概率一收敛</title>
-    <url>/2021/20210514/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>依概率收敛和以概率一收敛是常见的收敛定义。但不易分清。</p>
-<span id="more"></span>
-
-<p>往往其常见的定义比较含糊。</p>
-<p>可以转换一下，变得更加清晰。</p>
-<p>定义如下：</p>
-<p>Xn是一个随机变量序列，X是随机变量，对于任意自然数ε&gt;0</p>
-<p>都有：</p>
-<p><strong>依概率收敛：</strong></p>
-<p>$$<br>\lim_{n\to\infty}P({\omega:|X_n(\omega)-X_0(\omega)|\geqε})=0<br>$$<br><strong>以概率一收敛（几乎处处收敛）：</strong></p>
-<p>$$<br>\lim_{n\to\infty}P({\omega:\sup_{m&gt;n}|X_m(\omega)-X_0(\omega)|\geqε})=0<br>$$</p>
-<hr>
-<p>我们以一个图示来更加清晰地说明，我们把差值$|x_n-x|$绘成n的函数。为简单起见，把序列画成了曲线。于是曲线表示一特定的序列$|x_n(\xi )-x(\xi )|$。依概率收敛表示对于特定的$n&gt;n_o$，仅有一小部分曲线的坐标超过ε(图(a))。当然，对于每一个$n&gt;n_0$，可能甚至没有一条曲线始终小于ε,另一方面，几乎处处收敛则要求大多数曲线对每个$n&gt;n_0$都低于ε(图(b))。</p>
-<p><img src="https://ae01.alicdn.com/kf/U06ed9e75205341088b128eac35fd404bt.jpg" alt="1"></p>
-<p>阅读材料：</p>
-<p>1.<a href="http://www.themattsimpson.com/2013/08/22/im-almost-sure-its-probably-converging-wait-what/">Matt Simpson-I’m Almost Sure it’s Probably Converging… Wait, What?</a></p>
-<p>2.Papoulis A,Pillai S.U.《概率、随机变量与随机过程》</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -3392,6 +3367,45 @@
       </tags>
   </entry>
   <entry>
+    <title>巧用对称化三重积分为三次</title>
+    <url>/2021/20210708/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>$f(x)$ 在 $0\leq x\leq1$上连续。<br>证明:<br>$\int _0^1\ dx\int _x^1\ dy\int _x^y\ f\left(x\right)f\left(y\right)f\left(z\right)dz=\frac{1}{3!}\left(\int _0^1\ f\left(t\right)dt\right)^3$</p>
+<span id="more"></span>
+
+<hr>
+<p>证明如下：</p>
+<p>$\left(\int_0^1 f(x)&gt;dx\right)^3=6\int_{0\leq x\leq z\leq y\leq1}f(x)f(y)f(z)d(x,y,z)=6\int_0^1\int_x^1\int_x^y f(x)f(y)f(z)dzdydx$</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>辨析依概率收敛和以概率一收敛</title>
+    <url>/2021/20210514/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>依概率收敛和以概率一收敛是常见的收敛定义。但不易分清。</p>
+<span id="more"></span>
+
+<p>往往其常见的定义比较含糊。</p>
+<p>可以转换一下，变得更加清晰。</p>
+<p>定义如下：</p>
+<p>Xn是一个随机变量序列，X是随机变量，对于任意自然数ε&gt;0</p>
+<p>都有：</p>
+<p><strong>依概率收敛：</strong></p>
+<p>$$<br>\lim_{n\to\infty}P({\omega:|X_n(\omega)-X_0(\omega)|\geqε})=0<br>$$<br><strong>以概率一收敛（几乎处处收敛）：</strong></p>
+<p>$$<br>\lim_{n\to\infty}P({\omega:\sup_{m&gt;n}|X_m(\omega)-X_0(\omega)|\geqε})=0<br>$$</p>
+<hr>
+<p>我们以一个图示来更加清晰地说明，我们把差值$|x_n-x|$绘成n的函数。为简单起见，把序列画成了曲线。于是曲线表示一特定的序列$|x_n(\xi )-x(\xi )|$。依概率收敛表示对于特定的$n&gt;n_o$，仅有一小部分曲线的坐标超过ε(图(a))。当然，对于每一个$n&gt;n_0$，可能甚至没有一条曲线始终小于ε,另一方面，几乎处处收敛则要求大多数曲线对每个$n&gt;n_0$都低于ε(图(b))。</p>
+<p><img src="https://ae01.alicdn.com/kf/U06ed9e75205341088b128eac35fd404bt.jpg" alt="1"></p>
+<p>阅读材料：</p>
+<p>1.<a href="http://www.themattsimpson.com/2013/08/22/im-almost-sure-its-probably-converging-wait-what/">Matt Simpson-I’m Almost Sure it’s Probably Converging… Wait, What?</a></p>
+<p>2.Papoulis A,Pillai S.U.《概率、随机变量与随机过程》</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>京都大学 2021 年入学試験問題（理系数学）部分解答</title>
     <url>/2021/20210612/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>京都大学 2021 年入学试题略解：</p>
@@ -3410,6 +3424,26 @@
 <p>利用西格蒙德（Zsigmondy）定理可进一步证明:</p>
 <p>若$a^n-b^n$为素数的幂，其中$n&gt;2，a、b&gt;1$，且$gcd(a,b)=1$，则n也为素数。</p>
 <p>(2)Hint:对a求导</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>级数的若干反例</title>
+    <url>/2021/20210710/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（一）$\sum _{n=1}^{\infty}a_n$收敛，但是$\sum _{n=1}^{\infty}{a_n}^3$发散</p>
+<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=1-1+\frac{1}{\sqrt[3]{2}}-\frac{1}{2\sqrt[3]{2}}-\frac{1}{2\sqrt[3]{2}}\<br>+…+\frac{1}{\sqrt[3]{k}}-\frac{1}{k\sqrt[3]{k}}(减去k个)-…<br>$$</p>
+<span id="more"></span>
+
+<p>（二）$\sum _{n=1}^{\infty}a_n$收敛，但是$a_n \neq o(\frac{1}{n})$</p>
+<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=1+\frac{1}{2^2}+\frac{1}{3^2}+\frac{1}{4}+\<br>+\frac{1}{5^2}+\frac{1}{6^2}+\frac{1}{7^2}+\frac{1}{8^2}+\frac{1}{9}…<br>\<br>（即对k^2项改写，将\frac{1}{n^2}换成\frac{1}{n}）<br>$$<br>（三）$a_n = o(\frac{1}{n})$，但是$\sum _{n=1}^{\infty}a_n$不收敛<br>$$<br>a_n=\frac{1}{nlnn}<br>$$</p>
+<p>（四）$\sum _{n=1}^{\infty}a_n+b_n$收敛，但是$\sum _{n=1}^{\infty}a_n$、$\sum _{n=1}^{\infty}a_n$均不收敛。</p>
+<p>例子：<br>$$<br>a_n=(-1)^n\ \ ,\ \  b_n=(-1)^{n+1}<br>$$<br>（五）$\sum _{n=1}^{\infty}a _{2n-1}+a _{2n}$收敛，但是$\sum _{n=1}^{\infty}u_n$不收敛。</p>
+<p>例子：<br>$$<br>a_n=(-1)^n\ \ ,\ \  b_n=(-1)^{n+1}<br>$$<br>（六）$\lim _{n\ \rightarrow \ \infty \ }\ na_n=0$,但是$\sum _{n=1}^{\infty}a _{2n-1}+a _{2n}$收敛。</p>
+<p>例子：<br>$$<br>a_n=\frac{1}{nlnn}<br>$$<br>（七）$\sum _{n=1}^{\infty}a_n$为发散的交错级数，但是$\lim _{n\ \rightarrow \ \infty \ }\ a_n=0$</p>
+<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=1-\frac{1}{2}+\frac{1}{3^2}-\frac{1}{5^2}\<br>+…+\frac{1}{(2n-1)^2}-\frac{1}{2n}+…<br>$$<br>（八）$\sum _{n=1}^{\infty}a_n$为发散的交错级数，但是$|a_n|&gt;|a _n+1|$</p>
+<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=(-1)^n(1+\frac{1}{n})<br>$$</p>
 ]]></content>
       <tags>
         <tag>数学</tag>
@@ -3453,37 +3487,36 @@
       </tags>
   </entry>
   <entry>
-    <title>级数的若干反例</title>
-    <url>/2021/20210710/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（一）$\sum _{n=1}^{\infty}a_n$收敛，但是$\sum _{n=1}^{\infty}{a_n}^3$发散</p>
-<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=1-1+\frac{1}{\sqrt[3]{2}}-\frac{1}{2\sqrt[3]{2}}-\frac{1}{2\sqrt[3]{2}}\<br>+…+\frac{1}{\sqrt[3]{k}}-\frac{1}{k\sqrt[3]{k}}(减去k个)-…<br>$$</p>
+    <title>如何只使用一个隐层，来实现包含n元输入的任意布尔函数？</title>
+    <url>/2021/20210724/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>此为吴恩达《深度学习》课程中其中一个（不起眼的）知识的拓展。</p>
+<p>吴恩达举例说明深度神经网络时，给出了只使用一层隐藏层表示异或逻辑需要$O(2^n)$的隐藏单元。</p>
 <span id="more"></span>
 
-<p>（二）$\sum _{n=1}^{\infty}a_n$收敛，但是$a_n \neq o(\frac{1}{n})$</p>
-<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=1+\frac{1}{2^2}+\frac{1}{3^2}+\frac{1}{4}+\<br>+\frac{1}{5^2}+\frac{1}{6^2}+\frac{1}{7^2}+\frac{1}{8^2}+\frac{1}{9}…<br>\<br>（即对k^2项改写，将\frac{1}{n^2}换成\frac{1}{n}）<br>$$<br>（三）$a_n = o(\frac{1}{n})$，但是$\sum _{n=1}^{\infty}a_n$不收敛<br>$$<br>a_n=\frac{1}{nlnn}<br>$$</p>
-<p>（四）$\sum _{n=1}^{\infty}a_n+b_n$收敛，但是$\sum _{n=1}^{\infty}a_n$、$\sum _{n=1}^{\infty}a_n$均不收敛。</p>
-<p>例子：<br>$$<br>a_n=(-1)^n\ \ ,\ \  b_n=(-1)^{n+1}<br>$$<br>（五）$\sum _{n=1}^{\infty}a _{2n-1}+a _{2n}$收敛，但是$\sum _{n=1}^{\infty}u_n$不收敛。</p>
-<p>例子：<br>$$<br>a_n=(-1)^n\ \ ,\ \  b_n=(-1)^{n+1}<br>$$<br>（六）$\lim _{n\ \rightarrow \ \infty \ }\ na_n=0$,但是$\sum _{n=1}^{\infty}a _{2n-1}+a _{2n}$收敛。</p>
-<p>例子：<br>$$<br>a_n=\frac{1}{nlnn}<br>$$<br>（七）$\sum _{n=1}^{\infty}a_n$为发散的交错级数，但是$\lim _{n\ \rightarrow \ \infty \ }\ a_n=0$</p>
-<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=1-\frac{1}{2}+\frac{1}{3^2}-\frac{1}{5^2}\<br>+…+\frac{1}{(2n-1)^2}-\frac{1}{2n}+…<br>$$<br>（八）$\sum _{n=1}^{\infty}a_n$为发散的交错级数，但是$|a_n|&gt;|a _n+1|$</p>
-<p>例子：<br>$$<br>\sum _{n=1}^{\infty}a_n=(-1)^n(1+\frac{1}{n})<br>$$</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>巧用对称化三重积分为三次</title>
-    <url>/2021/20210708/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>$f(x)$ 在 $0\leq x\leq1$上连续。<br>证明:<br>$\int _0^1\ dx\int _x^1\ dy\int _x^y\ f\left(x\right)f\left(y\right)f\left(z\right)dz=\frac{1}{3!}\left(\int _0^1\ f\left(t\right)dt\right)^3$</p>
-<span id="more"></span>
-
+<p>结论看起来很显然，但该如何证明呢？</p>
 <hr>
-<p>证明如下：</p>
-<p>$\left(\int_0^1 f(x)&gt;dx\right)^3=6\int_{0\leq x\leq z\leq y\leq1}f(x)f(y)f(z)d(x,y,z)=6\int_0^1\int_x^1\int_x^y f(x)f(y)f(z)dzdydx$</p>
+<p>包含n元输入的任意布尔函数可以唯一表示为析取范式（Disjunctive Normal Form，DNF）（由有限个简单合取式构成的析取式）的形式。</p>
+<p>单个隐结点可以表示任意合取式。考虑任意布尔变量，假设$X_i$，若它 在合取范式中出现的形式为正（$X_i$)，则设权重为1；若出现的形式为非$\overline{X_i}$， 则设权重为−1；若没有在合取式中出现。设权重为0；并且偏置设为合区式中变量的总数取负之后再加1。可以看出，当采用ReLU激活函数之后，当且仅当所有出现的布尔变量均满足条件时，该隐藏单元才会被激活（输出1)，否则输出 0，这与合取范式的定义的相符的。然后，令所有隐藏单元到输出层的参数为1，并设输出单元的偏置为0。这样，当且仅当所有的隐藏单元都未被激活时，才会输出0，否则都将输出一个正数，起到了析取的作用。</p>
+<p>由上可知，最多只需一层隐藏层，感知机就能表示任何布尔函数，只需表示为析取范式的形式。任何布尔函数都可以用真值表来表示。</p>
+<p>例如:</p>
+<p><img src="https://z3.ax1x.com/2021/07/26/WRrVr8.jpg"></p>
+<p>那隐藏单元什么时候最多呢？异或函数。这时候的真值表如棋盘一样交叉相错。</p>
+<p><img src="https://z3.ax1x.com/2021/07/26/WRWY4O.jpg"></p>
+<p>这时候，隐藏单元为$2^{n-1}$个。</p>
+<p>也如吴恩达所提到的，如果不限制隐藏层为单层，则隐藏单元数量可以降低到$O(n)$。</p>
+<p>事实上，吴恩达提到的这个异或函数也被称为”n元奇偶校验问题“。文献3中通过引入隐层抑制神经元将隐元数目降至n。</p>
+<p>此外，顺便提一下Shannon’theorem,即当n&gt;2时，存在一个n元输入的布尔函数至少需要$\frac{2^n}{n}$的门。</p>
+<p>如果我们能找到用一个数量多项式大小的神经网络模型计算所有的布尔函数，则说明了P=NP。</p>
+<p>[参考资料：]</p>
+<p>1.<a href="http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Spring.2018/www/slides/lec2.universal.pdf">cmu的deep learing ppt</a></p>
+<p>2.《百面机器学习》</p>
+<p>3.陆阳，杨娟，王强，黄镇谨.二进神经网络表达奇偶校验问题的隐元最小数目上界.中国科学：信息科学,2012</p>
+<p>进一步阅读：</p>
+<p>4.Setiono, R. (1997). On the solution of the parity problem by a single hidden layer feedforward neural network. Neurocomputing, 16(3), 225–235.</p>
 ]]></content>
       <tags>
         <tag>数学</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3635,39 +3668,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何只使用一个隐层，来实现包含n元输入的任意布尔函数？</title>
-    <url>/2021/20210724/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>此为吴恩达《深度学习》课程中其中一个（不起眼的）知识的拓展。</p>
-<p>吴恩达举例说明深度神经网络时，给出了只使用一层隐藏层表示异或逻辑需要$O(2^n)$的隐藏单元。</p>
-<span id="more"></span>
-
-<p>结论看起来很显然，但该如何证明呢？</p>
-<hr>
-<p>包含n元输入的任意布尔函数可以唯一表示为析取范式（Disjunctive Normal Form，DNF）（由有限个简单合取式构成的析取式）的形式。</p>
-<p>单个隐结点可以表示任意合取式。考虑任意布尔变量，假设$X_i$，若它 在合取范式中出现的形式为正（$X_i$)，则设权重为1；若出现的形式为非$\overline{X_i}$， 则设权重为−1；若没有在合取式中出现。设权重为0；并且偏置设为合区式中变量的总数取负之后再加1。可以看出，当采用ReLU激活函数之后，当且仅当所有出现的布尔变量均满足条件时，该隐藏单元才会被激活（输出1)，否则输出 0，这与合取范式的定义的相符的。然后，令所有隐藏单元到输出层的参数为1，并设输出单元的偏置为0。这样，当且仅当所有的隐藏单元都未被激活时，才会输出0，否则都将输出一个正数，起到了析取的作用。</p>
-<p>由上可知，最多只需一层隐藏层，感知机就能表示任何布尔函数，只需表示为析取范式的形式。任何布尔函数都可以用真值表来表示。</p>
-<p>例如:</p>
-<p><img src="https://z3.ax1x.com/2021/07/26/WRrVr8.jpg"></p>
-<p>那隐藏单元什么时候最多呢？异或函数。这时候的真值表如棋盘一样交叉相错。</p>
-<p><img src="https://z3.ax1x.com/2021/07/26/WRWY4O.jpg"></p>
-<p>这时候，隐藏单元为$2^{n-1}$个。</p>
-<p>也如吴恩达所提到的，如果不限制隐藏层为单层，则隐藏单元数量可以降低到$O(n)$。</p>
-<p>事实上，吴恩达提到的这个异或函数也被称为”n元奇偶校验问题“。文献3中通过引入隐层抑制神经元将隐元数目降至n。</p>
-<p>此外，顺便提一下Shannon’theorem,即当n&gt;2时，存在一个n元输入的布尔函数至少需要$\frac{2^n}{n}$的门。</p>
-<p>如果我们能找到用一个数量多项式大小的神经网络模型计算所有的布尔函数，则说明了P=NP。</p>
-<p>[参考资料：]</p>
-<p>1.<a href="http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Spring.2018/www/slides/lec2.universal.pdf">cmu的deep learing ppt</a></p>
-<p>2.《百面机器学习》</p>
-<p>3.陆阳，杨娟，王强，黄镇谨.二进神经网络表达奇偶校验问题的隐元最小数目上界.中国科学：信息科学,2012</p>
-<p>进一步阅读：</p>
-<p>4.Setiono, R. (1997). On the solution of the parity problem by a single hidden layer feedforward neural network. Neurocomputing, 16(3), 225–235.</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
-        <tag>深度学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《一天学会深度学习》-李宏毅</title>
     <url>/2021/20210727/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>此为李宏毅（Hung-yi Lee）的Understanding Deep Learning in One Day 课程的笔记。</p>
@@ -3803,6 +3803,33 @@
         <tag>笔记</tag>
         <tag>机器学习</tag>
         <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>辛普森公式</title>
+    <url>/2021/20210813/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>辛普森公式（Simpson‘s rule）公式是牛顿-科特斯公式当n=2时的情形。</p>
+<p>$\int_{a}^{b} f(x) d x \approx \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right]$</p>
+<span id="more"></span>
+
+<p>辛普森公式的误差：</p>
+<p>设$f(x)$在[a,b]上具有连续的四阶导数，则辛普森公式的误差为</p>
+<p>$R_2(f)=-\frac{(b-a)^5}{2880} f^{(4)}(\eta ),\eta \in [a,b].$</p>
+<p>即：</p>
+<p>$| \int_{a}^{b} f(x) d x - \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right] | \leq \frac{1}{90} \left(\frac{b-a}{2}\right)^5 \sup_{[a,b]} |f^{(4)}|.$</p>
+<p>证明：</p>
+<p>设$x=(a+b)/2,h=(b-a)/2$</p>
+<p>对$\frac{6\int_{x-h}^{x+h}f(t)dt-2h(f(x+h)+4f(x)+f(x-h))}{h^5}$</p>
+<p>以h为主元，反复使用柯西中值定理：</p>
+<p>$=\frac{4f(x+h_1)-8f(x)+4f(x-h_1)-2h_1(f’(x+h_1)-f’(x-h_1))}{5h_1^4} $</p>
+<p>$=\frac{2f’(x+h_2)-2f’(x-h_2)-2h_2(f’’(x+h_2)+f’’(x-h_2))}{20h_2^3} $</p>
+<p>$=\frac{2h_3(f’’’(x+h_3)-f’’’(x-h_3))}{60h_3^2}=\frac1{15}·\frac{f’’’(x+h_3)-f’’’(x-h_3)}{2h_3} $</p>
+<p>$=\frac1{15}·f^{(4)}(x+h_4) $</p>
+<p>其中$0&lt;h_4&lt;h_3&lt;h_2&lt;h_1&lt;h$</p>
+<p>证毕。</p>
+]]></content>
+      <tags>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -3983,33 +4010,6 @@
       <tags>
         <tag>笔记</tag>
         <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>辛普森公式</title>
-    <url>/2021/20210813/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>辛普森公式（Simpson‘s rule）公式是牛顿-科特斯公式当n=2时的情形。</p>
-<p>$\int_{a}^{b} f(x) d x \approx \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right]$</p>
-<span id="more"></span>
-
-<p>辛普森公式的误差：</p>
-<p>设$f(x)$在[a,b]上具有连续的四阶导数，则辛普森公式的误差为</p>
-<p>$R_2(f)=-\frac{(b-a)^5}{2880} f^{(4)}(\eta ),\eta \in [a,b].$</p>
-<p>即：</p>
-<p>$| \int_{a}^{b} f(x) d x - \frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right] | \leq \frac{1}{90} \left(\frac{b-a}{2}\right)^5 \sup_{[a,b]} |f^{(4)}|.$</p>
-<p>证明：</p>
-<p>设$x=(a+b)/2,h=(b-a)/2$</p>
-<p>对$\frac{6\int_{x-h}^{x+h}f(t)dt-2h(f(x+h)+4f(x)+f(x-h))}{h^5}$</p>
-<p>以h为主元，反复使用柯西中值定理：</p>
-<p>$=\frac{4f(x+h_1)-8f(x)+4f(x-h_1)-2h_1(f’(x+h_1)-f’(x-h_1))}{5h_1^4} $</p>
-<p>$=\frac{2f’(x+h_2)-2f’(x-h_2)-2h_2(f’’(x+h_2)+f’’(x-h_2))}{20h_2^3} $</p>
-<p>$=\frac{2h_3(f’’’(x+h_3)-f’’’(x-h_3))}{60h_3^2}=\frac1{15}·\frac{f’’’(x+h_3)-f’’’(x-h_3)}{2h_3} $</p>
-<p>$=\frac1{15}·f^{(4)}(x+h_4) $</p>
-<p>其中$0&lt;h_4&lt;h_3&lt;h_2&lt;h_1&lt;h$</p>
-<p>证毕。</p>
-]]></content>
-      <tags>
-        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -4197,52 +4197,6 @@
       </tags>
   </entry>
   <entry>
-    <title>《中县干部》</title>
-    <url>/2021/20210919/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
-<span id="more"></span>
-
-<p>**主要是研究下面一些问题： **</p>
-<p>1．中县县乡领导干部的基本特征 </p>
-<p>2．中县领导干部的来源，他们进入党政机关的方式和机制 </p>
-<p>3．领导干部的政治轨迹和生涯模式 </p>
-<p>4．多出干部的机构和岗位 </p>
-<p>5．政绩和领导干部的仕途 </p>
-<p>6．关系和领导干部的仕途</p>
-<p>中县副科级以上男女干部比例严重不对等，特别是女正科级一把手和女县领导。女干部除了自身的素质和能力之外，她们之所以能够脱颖而出，与 她们的家庭背景所拥有的政治资源息息相关。这其中有父辈的庇护，有丈夫的援助，也有组织部门的较早发现和刻意培养；或者几种因素兼而有之。忘掉性别，成为 男性丛林的一部分，这既是一些女干部的成长经验，也是一些女干部的成长之忧。</p>
-<p>1978 年以来，中县领导干部获得干部身份主要有三个途径：大中专毕业生分配、军队转业安置， 以及各种形式的吸收录用。吸收录用机制是领导干部阶层安排子女就业的一种途径，是封闭的自我繁殖的机制，打上了深深的权力庇护的烙印。</p>
-<p>有两个现象比较突出：一是单位系统自繁殖现象，无论好的和差的单位，系统内部子弟安排都比较普遍。二是关系资源的运作，无论自身人力资本如何， 都需要找关系、托门子，以获得工作安排。从这也可以看出，阶层自繁殖是一种基本的本能，而这 必然会导致阶层的劣化和腐朽。</p>
-<p>没有市场化改革的国税所自繁殖现 象更加突出，但也有大中专毕业生分配和关系安排。而进行市场化改革的邮政所，基本通过招录来 补充工作人员，基本上根绝了自繁殖现象和关系安排，这说明，“逢进必考”、“公开招录”这些 市场化竞争机制是改变单位自繁殖和关系安排的两大制度设计。</p>
-<p>从中县的现实来看，人力资本和 社会资本越雄厚，越是到好单位；人力资本和社会资本越稀薄，越是到坏单位。</p>
-<p>中县官场存在“年轻”效应，即越年轻成为领导干部，优 势越大，晋升也可能越快。</p>
-<p>是党务部门挤压了政府部门和事业单位的晋升空间，这同时也说明党务部门是 权力资源的集大成者，是干部资源的高地，也是执政党地位的一种体现。党管干部和党务部门向其 它部门输送干部是一脉相承的。</p>
-<p>组织部为什么多出干部？</p>
-<p>1．部门优势</p>
-<p>2．高进高出。组织部进人也是再筛选机制，甄补干部比较严格。</p>
-<p>农林、教育职能部门为什么产出干部相对较多？</p>
-<p>1．院校分布和专业分配。其它系统则没有或者缺乏相应的精英学校</p>
-<p>2．学历干部聚集。农林和教育系统是知识分子聚集的地方，是知识型干部扎堆的地方。</p>
-<p>3．地方需要。</p>
-<p>地位显赫的财政局、人劳局和计生委为什么出干部不多？</p>
-<p>这是因为这些局权力和资源多，在县里地位高，待遇好，干部一旦进入，都不愿意出来，结果 导致干部积压，进步反而慢了。</p>
-<p>有 59%的县领导，77%的乡镇领导，53%的县直领导，具有乡镇工作经历。乡镇为什么多出干部？</p>
-<p>主要因素有：</p>
-<p>1．组织部门用人导向。组织部门一直都有很明确的用人导向，就是从基层，从一线提拔干部。</p>
-<p>2．乡镇职位多。</p>
-<p>3．乡镇干部资源相对较少，积压也较少。</p>
-<p>4．乡镇工作特点。乡镇是综合全面工作，可以使干部得到全方面的锻炼。乡镇直接面对群众， 经常面对急事、难事和麻烦事。</p>
-<p>为什么秘书岗位多出干部？主要因素有：</p>
-<p>1．多层筛选。质量有保障。</p>
-<p>2．学历因素。</p>
-<p>3．岗位特点。“秘书的快速晋升优势不仅在于其和首长亲近的关系纽带，还在于他们拥有适合中国政治系统 特性的技能。”（Li Wei and Pye,1992:928）</p>
-<p>4．服务领导。也就是中县人所说的“大人手下长大人”，秘书是领导身边的人，一方面领导会 有意识的传授，另一方面秘书在日常服务中也会不断学习和感悟。同时，秘书和领导往往形成一种 庇护性关系，领导因为了解秘书，同时感念其服务的辛苦，往往会为秘书的提拔和晋升多多考虑和 筹划。</p>
-]]></content>
-      <tags>
-        <tag>社会</tag>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>numpy-100知识点</title>
     <url>/2021/20210829/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>以下<a href="https://github.com/rougier/numpy-100">numpy-100题</a>中涉及的一些知识点。</p>
@@ -4300,59 +4254,49 @@
       </tags>
   </entry>
   <entry>
-    <title>ResNet</title>
-    <url>/2022/20220118/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文：何恺明等 - Deep Residual Learning for Image Recognition</p>
+    <title>《中县干部》</title>
+    <url>/2021/20210919/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><hr>
 <span id="more"></span>
 
-<hr>
-<p>更深的网络可能面临误差变高的问题，但并不是过拟合（过拟合是训练误差变低，但测试误差变高，而更深的网络面临的问题是训练误差也变低。）</p>
-<p>本文提出了一种框架（deep residual learning framework)来避免浅层神经网络到深度神经网络出现的这种情况。</p>
-<p>要学的东西叫做H（x），假设现在已经有了一个浅的神经网络，他的输出是x，然后要在这个浅的神经网络上面再新加一些层，让它变得更深。新加的那些层不要直接去学H（x），而是应该去学H（x）-x，x是原始的浅层神经网络已经学到的一些东西，新加的层不要重新去学习，而是去学习学到的东西和真实的东西之间的残差，最后整个神经网络的输出等价于浅层神经网络的输出x和新加的神经网络学习残差的输出之和，将优化目标从H（x）转变成为了$F(x)=H(x)-x $</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118222138438.jpg" alt="360截图20220118222138438"></p>
-<p>残差使用了Shortcut Connection等先人的技术。</p>
-<p><strong>应用：</strong></p>
-<p>残差连接如何处理输入和输出的形状是不同的情况：</p>
-<p>第一个方案是在输入和输出上分别添加一些额外的0，使得这两个形状能够对应起来然后可以相加<br>第二个方案是之前提到过的全连接怎么做投影，做到卷积上，是通过一个叫做1<em>1的卷积层，这个卷积层的特点是在空间维度上不做任何东西，主要是在通道维度上做改变。所以只要选取一个1</em>1的卷积使得输出通道是输入通道的两倍，这样就能将残差连接的输入和输出进行对比了。在ResNet中，如果把输出通道数翻了两倍，那么输入的高和宽通常都会被减半，所以在做1*1的卷积的时候，同样也会使步幅为2，这样的话使得高宽和通道上都能够匹配上</p>
-<p>图像处理：</p>
-<p>短边随机裁剪到[256,480]。pre-pixel取均值。增强图像。</p>
-<p>神经网络使用引用论文[13]（其实就是作者之前自己写的）的权重。</p>
-<p>minibatch=256,学习率0.1,当错误率不显著下降时每次除10。</p>
-<p>训练了$60 *10^4$代。</p>
-<p>没有使用dropout,因为没有全连接层。</p>
-<p>测试的时候，使用了10-crop testing（就是给定一张测试图片，会在里面随机的或者是按照一定规则的去采样10个图片出来，然后再每个子图上面做预测，最后将结果做平均）。这样的好处是因为训练的时候每次是随机把图片拿出来，测试的时候也大概进行模拟这个过程，另外做10次预测能够降低方差。</p>
-<p>在不同的分辨率上去做采样，工作量较大，一般不这么做。</p>
-<p><strong>实验：</strong></p>
-<p>神经网络架构。<img src="/images/360%E6%88%AA%E5%9B%BE20220118223707645.jpg" alt="360截图20220118223707645"></p>
-<p>结果图：</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224259087.jpg" alt="360截图20220118224259087"></p>
-<p>图中的误差急剧下降是因为学习率*0.1。</p>
-<p>输入输出形状不一样的时候怎样做残差连接：</p>
-<ul>
-<li><p>A:填零</p>
-</li>
-<li><p>B:投影</p>
-</li>
-<li><p>C:所有的连接都做投影：就算输入输出的形状是一样的，一样可以在连接的时候做个1*1的卷积，但是输入和输出通道数是一样的，做一次投影</p>
-</li>
-</ul>
-<p>B和C虽然差不多，但是计算复杂度更高，B对计算量的增加比较少，作者采用了B</p>
-<p>bottleneck 设计：</p>
-<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224930682.jpg" alt="360截图20220118224930682"></p>
-<p><strong>为什么好：</strong></p>
-<p>与没加残差相比，梯度能保证够大，保证能训练。</p>
-<p>设浅层神经网络为$g(x)$，则深层神经网络可以看成f(g(x))</p>
-<p>求导$\frac{\partial  f(g(x))}{\partial x}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}$</p>
-<p>残差：$\frac{\partial  (f(g(x))+g(x))}{\partial g(x))}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}+\frac{\partial  g(x)}{\partial x}$</p>
-<p><strong>另外：</strong><br>这篇文章的residual和gradient boosting是不一样的</p>
-<ul>
-<li>gradient boosting是在标号上做residual</li>
-<li>这篇文章是在feature维度上</li>
-</ul>
+<p>**主要是研究下面一些问题： **</p>
+<p>1．中县县乡领导干部的基本特征 </p>
+<p>2．中县领导干部的来源，他们进入党政机关的方式和机制 </p>
+<p>3．领导干部的政治轨迹和生涯模式 </p>
+<p>4．多出干部的机构和岗位 </p>
+<p>5．政绩和领导干部的仕途 </p>
+<p>6．关系和领导干部的仕途</p>
+<p>中县副科级以上男女干部比例严重不对等，特别是女正科级一把手和女县领导。女干部除了自身的素质和能力之外，她们之所以能够脱颖而出，与 她们的家庭背景所拥有的政治资源息息相关。这其中有父辈的庇护，有丈夫的援助，也有组织部门的较早发现和刻意培养；或者几种因素兼而有之。忘掉性别，成为 男性丛林的一部分，这既是一些女干部的成长经验，也是一些女干部的成长之忧。</p>
+<p>1978 年以来，中县领导干部获得干部身份主要有三个途径：大中专毕业生分配、军队转业安置， 以及各种形式的吸收录用。吸收录用机制是领导干部阶层安排子女就业的一种途径，是封闭的自我繁殖的机制，打上了深深的权力庇护的烙印。</p>
+<p>有两个现象比较突出：一是单位系统自繁殖现象，无论好的和差的单位，系统内部子弟安排都比较普遍。二是关系资源的运作，无论自身人力资本如何， 都需要找关系、托门子，以获得工作安排。从这也可以看出，阶层自繁殖是一种基本的本能，而这 必然会导致阶层的劣化和腐朽。</p>
+<p>没有市场化改革的国税所自繁殖现 象更加突出，但也有大中专毕业生分配和关系安排。而进行市场化改革的邮政所，基本通过招录来 补充工作人员，基本上根绝了自繁殖现象和关系安排，这说明，“逢进必考”、“公开招录”这些 市场化竞争机制是改变单位自繁殖和关系安排的两大制度设计。</p>
+<p>从中县的现实来看，人力资本和 社会资本越雄厚，越是到好单位；人力资本和社会资本越稀薄，越是到坏单位。</p>
+<p>中县官场存在“年轻”效应，即越年轻成为领导干部，优 势越大，晋升也可能越快。</p>
+<p>是党务部门挤压了政府部门和事业单位的晋升空间，这同时也说明党务部门是 权力资源的集大成者，是干部资源的高地，也是执政党地位的一种体现。党管干部和党务部门向其 它部门输送干部是一脉相承的。</p>
+<p>组织部为什么多出干部？</p>
+<p>1．部门优势</p>
+<p>2．高进高出。组织部进人也是再筛选机制，甄补干部比较严格。</p>
+<p>农林、教育职能部门为什么产出干部相对较多？</p>
+<p>1．院校分布和专业分配。其它系统则没有或者缺乏相应的精英学校</p>
+<p>2．学历干部聚集。农林和教育系统是知识分子聚集的地方，是知识型干部扎堆的地方。</p>
+<p>3．地方需要。</p>
+<p>地位显赫的财政局、人劳局和计生委为什么出干部不多？</p>
+<p>这是因为这些局权力和资源多，在县里地位高，待遇好，干部一旦进入，都不愿意出来，结果 导致干部积压，进步反而慢了。</p>
+<p>有 59%的县领导，77%的乡镇领导，53%的县直领导，具有乡镇工作经历。乡镇为什么多出干部？</p>
+<p>主要因素有：</p>
+<p>1．组织部门用人导向。组织部门一直都有很明确的用人导向，就是从基层，从一线提拔干部。</p>
+<p>2．乡镇职位多。</p>
+<p>3．乡镇干部资源相对较少，积压也较少。</p>
+<p>4．乡镇工作特点。乡镇是综合全面工作，可以使干部得到全方面的锻炼。乡镇直接面对群众， 经常面对急事、难事和麻烦事。</p>
+<p>为什么秘书岗位多出干部？主要因素有：</p>
+<p>1．多层筛选。质量有保障。</p>
+<p>2．学历因素。</p>
+<p>3．岗位特点。“秘书的快速晋升优势不仅在于其和首长亲近的关系纽带，还在于他们拥有适合中国政治系统 特性的技能。”（Li Wei and Pye,1992:928）</p>
+<p>4．服务领导。也就是中县人所说的“大人手下长大人”，秘书是领导身边的人，一方面领导会 有意识的传授，另一方面秘书在日常服务中也会不断学习和感悟。同时，秘书和领导往往形成一种 庇护性关系，领导因为了解秘书，同时感念其服务的辛苦，往往会为秘书的提拔和晋升多多考虑和 筹划。</p>
 ]]></content>
       <tags>
+        <tag>社会</tag>
         <tag>笔记</tag>
-        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -4634,6 +4578,62 @@
         <tag>笔记</tag>
         <tag>演讲</tag>
         <tag>哲学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ResNet</title>
+    <url>/2022/20220118/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>论文：何恺明等 - Deep Residual Learning for Image Recognition</p>
+<span id="more"></span>
+
+<hr>
+<p>更深的网络可能面临误差变高的问题，但并不是过拟合（过拟合是训练误差变低，但测试误差变高，而更深的网络面临的问题是训练误差也变低。）</p>
+<p>本文提出了一种框架（deep residual learning framework)来避免浅层神经网络到深度神经网络出现的这种情况。</p>
+<p>要学的东西叫做H（x），假设现在已经有了一个浅的神经网络，他的输出是x，然后要在这个浅的神经网络上面再新加一些层，让它变得更深。新加的那些层不要直接去学H（x），而是应该去学H（x）-x，x是原始的浅层神经网络已经学到的一些东西，新加的层不要重新去学习，而是去学习学到的东西和真实的东西之间的残差，最后整个神经网络的输出等价于浅层神经网络的输出x和新加的神经网络学习残差的输出之和，将优化目标从H（x）转变成为了$F(x)=H(x)-x $</p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118222138438.jpg" alt="360截图20220118222138438"></p>
+<p>残差使用了Shortcut Connection等先人的技术。</p>
+<p><strong>应用：</strong></p>
+<p>残差连接如何处理输入和输出的形状是不同的情况：</p>
+<p>第一个方案是在输入和输出上分别添加一些额外的0，使得这两个形状能够对应起来然后可以相加<br>第二个方案是之前提到过的全连接怎么做投影，做到卷积上，是通过一个叫做1<em>1的卷积层，这个卷积层的特点是在空间维度上不做任何东西，主要是在通道维度上做改变。所以只要选取一个1</em>1的卷积使得输出通道是输入通道的两倍，这样就能将残差连接的输入和输出进行对比了。在ResNet中，如果把输出通道数翻了两倍，那么输入的高和宽通常都会被减半，所以在做1*1的卷积的时候，同样也会使步幅为2，这样的话使得高宽和通道上都能够匹配上</p>
+<p>图像处理：</p>
+<p>短边随机裁剪到[256,480]。pre-pixel取均值。增强图像。</p>
+<p>神经网络使用引用论文[13]（其实就是作者之前自己写的）的权重。</p>
+<p>minibatch=256,学习率0.1,当错误率不显著下降时每次除10。</p>
+<p>训练了$60 *10^4$代。</p>
+<p>没有使用dropout,因为没有全连接层。</p>
+<p>测试的时候，使用了10-crop testing（就是给定一张测试图片，会在里面随机的或者是按照一定规则的去采样10个图片出来，然后再每个子图上面做预测，最后将结果做平均）。这样的好处是因为训练的时候每次是随机把图片拿出来，测试的时候也大概进行模拟这个过程，另外做10次预测能够降低方差。</p>
+<p>在不同的分辨率上去做采样，工作量较大，一般不这么做。</p>
+<p><strong>实验：</strong></p>
+<p>神经网络架构。<img src="/images/360%E6%88%AA%E5%9B%BE20220118223707645.jpg" alt="360截图20220118223707645"></p>
+<p>结果图：</p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224259087.jpg" alt="360截图20220118224259087"></p>
+<p>图中的误差急剧下降是因为学习率*0.1。</p>
+<p>输入输出形状不一样的时候怎样做残差连接：</p>
+<ul>
+<li><p>A:填零</p>
+</li>
+<li><p>B:投影</p>
+</li>
+<li><p>C:所有的连接都做投影：就算输入输出的形状是一样的，一样可以在连接的时候做个1*1的卷积，但是输入和输出通道数是一样的，做一次投影</p>
+</li>
+</ul>
+<p>B和C虽然差不多，但是计算复杂度更高，B对计算量的增加比较少，作者采用了B</p>
+<p>bottleneck 设计：</p>
+<p><img src="/images/360%E6%88%AA%E5%9B%BE20220118224930682.jpg" alt="360截图20220118224930682"></p>
+<p><strong>为什么好：</strong></p>
+<p>与没加残差相比，梯度能保证够大，保证能训练。</p>
+<p>设浅层神经网络为$g(x)$，则深层神经网络可以看成f(g(x))</p>
+<p>求导$\frac{\partial  f(g(x))}{\partial x}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}$</p>
+<p>残差：$\frac{\partial  (f(g(x))+g(x))}{\partial g(x))}=\frac{\partial  f(g(x))}{\partial g(x))} \frac{\partial  g(x)}{\partial x}+\frac{\partial  g(x)}{\partial x}$</p>
+<p><strong>另外：</strong><br>这篇文章的residual和gradient boosting是不一样的</p>
+<ul>
+<li>gradient boosting是在标号上做residual</li>
+<li>这篇文章是在feature维度上</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>深度学习</tag>
       </tags>
   </entry>
   <entry>
@@ -6014,49 +6014,6 @@
       </tags>
   </entry>
   <entry>
-    <title>你该认清你的恐惧而不是目标</title>
-    <url>/2022/20220408/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该演讲来自TED。<br>演讲者：Tim Ferriss<br>官网链接：<a href="https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript">https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript</a></p>
-<span id="more"></span>
-
-<p>我所找到的并被证实为最可靠安全的 情绪安全网 也正是 我用来做出最佳商业决定的工具。 但是这是次要的。 它就是斯多葛学派（stoicism）。</p>
-<p>美国的奠基人， 托马斯·杰斐逊、约翰·亚当斯、 乔治·华盛顿 他们都是斯多葛学派的信奉者。</p>
-<p>而在希腊罗马世界， 人们把斯多葛学派作为一个全面的系统 能解决很多事情。 于我们而言， 最主要的目的是训练我们自己 将可控和不可控的事情分开， 然后训练如何专注于于前者。 这将降低情绪的反应力， 这将成为一种超能力。</p>
-<p>我找到一个改变人生的警句， ““折磨我們的往往是想像， 而不是真實”” 出自塞内卡， 他是著名的斯多葛学派作家。 </p>
-<p> “premeditatio malorum,” 意思是在最坏情况来临前提前预想。 简而言之， 预想最坏的情景及你所恐惧的细节， 防止你采取任何行动， 因此你可以采取行动，来摆脱恐惧。 我当时头脑一片混乱， 充满着连续不断嘈杂的声音。 通过思考我的问题没有什么用处。 我需要把想法都写在纸上。 </p>
-<h5 id="第一页"><a href="#第一页" class="headerlink" title="第一页"></a>第一页</h5><p>第一页是这样的。 “如果我…?” 这是你所恐惧的东西， 让你焦虑的东西， 被拖延的东西。 它可能是邀约某人， 结束一段关系， 提出升职，辞职或者创业。 它可以是任何事情。 与我而言，它是在工作 4年后第一次休假 我离开公司去伦敦休息一个月， 我可以免费住在伦敦朋友的房间里， 让我从生意的瓶颈中解放自己 或者结束它。</p>
-<p>在第一栏“定义”中， 你写下所有你预想中 会发生的最坏的事情 如果你采取这一步行动。 你需要写下10到20个。 我不会每一个都详述， 但我举两个例子。 一个是如果我去伦敦， 伦敦在下雨的话，我会很沮丧。 整个旅程就是浪费时间。 第二个是我错过了美国国税局的信， 我将被查税 或者被抨击或者关闭等。</p>
-<p>这时可以使用“预防”一栏。 在这一栏中，你写下答案： 我能做什么来预防这些事情发生， 或者至少降低发生的可能性？ 因此当我在伦敦觉得沮丧时， 我可以随身携带便携式蓝光 在早上使用15分钟。 我知道这会帮助我摆脱抑郁。 对于国税局， 我可以修改在国税局的邮寄地址， 因此文件到我的会计手上 而不是我的UPS地址。 超级简单。</p>
-<p>接下来我们到“修复”一栏。 如果最坏的情况发生， 你能做什么来减轻损失， 或者你能向谁寻求帮助？ 因此第一个伦敦的例子， 我会多花点钱，去西班牙享受阳光， 来弥补损失，如果我陷入恐慌中。 如果我错过美国国税局的来件， 我可以给当律师的朋友打电话 或者咨询法学教授 他们的意见， 我将向他们请教 过去类似的情况是如何处理的。 在填写第一页时请谨记一个问题： 过去是否有人 不够聪明或者缺乏主动性 来弄清楚这些问题吗？ 答案是“是的”。</p>
-<table>
-<thead>
-<tr>
-<th>定义</th>
-<th>预防</th>
-<th>修复</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>設定10-20個做下這個決定、行動後，你所恐懼的事情</td>
-<td>你可以怎麼去避免或降低這些風險？</td>
-<td>如果最糟的情況發生了， 你能做什麼來稍微 修復造成的損害？</td>
-</tr>
-</tbody></table>
-<h5 id="第二页"><a href="#第二页" class="headerlink" title="第二页"></a>第二页</h5><p>第二页很简单： 一次尝试或部分成功会带来哪些好处？ 你可以看到我们直面恐惧 同时保持谨慎。 因此当你尝试你想做的事情的时候， 也许你可以建立自信， 提高情绪、经济等方面的技能。 一个安打（a base hit）能带来哪些好处？ 花10到15分钟时间思考下。</p>
-<h5 id="第三页"><a href="#第三页" class="headerlink" title="第三页"></a>第三页</h5><p> 这很可能是最重要的，不要跳过。 “不行动的代价”。 </p>
-<p>人类非常善于设想可能出错的事情 如果我们尝试新的事情，例如加薪。 我们通常忽视维持现状所付出的代价 什么都不改变。 因此你要扪心自问， 如果我错过这次行动或决定 以及类似的行动和决定， 6个月，12个月，3年后我的 生活会是什么样子？ 刚开始，这些变化非常细微。 但从情感、经济、身体等方面 再次仔细地思考。</p>
-<p>这就是恐惧设置的三页纸。 </p>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>之后，我意识到用1到10来评测， 1是最小的影响，10是最大的影响， 如果我踏上旅途，它将面对 1到3个短暂的可解决的苦恼， 还有8到10个能深刻改变我生活的 积极影响。 因此我选择了旅程。 然而我预想的灾难一个也没发生。 当然会有一些小问题。 我能将自己从生意中抽离出来。 最后我延长了那个环球旅行， 花了一年半的时间， 这也是我第一本书的素材来源， 最后让我今天站在了这里。</p>
-<p>“Easy choices, hard life. Hard choices, easy life“</p>
-<p>困难的选择， 我们最害怕去做的、问的、说的， 这些有可能正是我们最需要做的。 我们面对的最大挑战和困难是 永远不能通过一个轻松的谈话就能解决， 不管是你自我思考还是和别人探讨。</p>
-<p>因此我鼓励你问自己： 你现在处在你人生中的哪个阶段 也许会让你看清恐惧而不是目标？ 请将Seneca的话铭记在心： “We suffer more often in imagination than in reality”</p>
-]]></content>
-      <tags>
-        <tag>演讲</tag>
-        <tag>心理</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>走出焦虑的方法</title>
     <url>/2022/20220417/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该笔记来自【如何才能不焦虑？【T君说心理】-哔哩哔哩】 <a href="https://b23.tv/1THZvnL">https://b23.tv/1THZvnL</a></p>
@@ -6104,6 +6061,49 @@
 ]]></content>
       <tags>
         <tag>笔记</tag>
+        <tag>心理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>你该认清你的恐惧而不是目标</title>
+    <url>/2022/20220408/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该演讲来自TED。<br>演讲者：Tim Ferriss<br>官网链接：<a href="https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript">https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals/transcript</a></p>
+<span id="more"></span>
+
+<p>我所找到的并被证实为最可靠安全的 情绪安全网 也正是 我用来做出最佳商业决定的工具。 但是这是次要的。 它就是斯多葛学派（stoicism）。</p>
+<p>美国的奠基人， 托马斯·杰斐逊、约翰·亚当斯、 乔治·华盛顿 他们都是斯多葛学派的信奉者。</p>
+<p>而在希腊罗马世界， 人们把斯多葛学派作为一个全面的系统 能解决很多事情。 于我们而言， 最主要的目的是训练我们自己 将可控和不可控的事情分开， 然后训练如何专注于于前者。 这将降低情绪的反应力， 这将成为一种超能力。</p>
+<p>我找到一个改变人生的警句， ““折磨我們的往往是想像， 而不是真實”” 出自塞内卡， 他是著名的斯多葛学派作家。 </p>
+<p> “premeditatio malorum,” 意思是在最坏情况来临前提前预想。 简而言之， 预想最坏的情景及你所恐惧的细节， 防止你采取任何行动， 因此你可以采取行动，来摆脱恐惧。 我当时头脑一片混乱， 充满着连续不断嘈杂的声音。 通过思考我的问题没有什么用处。 我需要把想法都写在纸上。 </p>
+<h5 id="第一页"><a href="#第一页" class="headerlink" title="第一页"></a>第一页</h5><p>第一页是这样的。 “如果我…?” 这是你所恐惧的东西， 让你焦虑的东西， 被拖延的东西。 它可能是邀约某人， 结束一段关系， 提出升职，辞职或者创业。 它可以是任何事情。 与我而言，它是在工作 4年后第一次休假 我离开公司去伦敦休息一个月， 我可以免费住在伦敦朋友的房间里， 让我从生意的瓶颈中解放自己 或者结束它。</p>
+<p>在第一栏“定义”中， 你写下所有你预想中 会发生的最坏的事情 如果你采取这一步行动。 你需要写下10到20个。 我不会每一个都详述， 但我举两个例子。 一个是如果我去伦敦， 伦敦在下雨的话，我会很沮丧。 整个旅程就是浪费时间。 第二个是我错过了美国国税局的信， 我将被查税 或者被抨击或者关闭等。</p>
+<p>这时可以使用“预防”一栏。 在这一栏中，你写下答案： 我能做什么来预防这些事情发生， 或者至少降低发生的可能性？ 因此当我在伦敦觉得沮丧时， 我可以随身携带便携式蓝光 在早上使用15分钟。 我知道这会帮助我摆脱抑郁。 对于国税局， 我可以修改在国税局的邮寄地址， 因此文件到我的会计手上 而不是我的UPS地址。 超级简单。</p>
+<p>接下来我们到“修复”一栏。 如果最坏的情况发生， 你能做什么来减轻损失， 或者你能向谁寻求帮助？ 因此第一个伦敦的例子， 我会多花点钱，去西班牙享受阳光， 来弥补损失，如果我陷入恐慌中。 如果我错过美国国税局的来件， 我可以给当律师的朋友打电话 或者咨询法学教授 他们的意见， 我将向他们请教 过去类似的情况是如何处理的。 在填写第一页时请谨记一个问题： 过去是否有人 不够聪明或者缺乏主动性 来弄清楚这些问题吗？ 答案是“是的”。</p>
+<table>
+<thead>
+<tr>
+<th>定义</th>
+<th>预防</th>
+<th>修复</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>設定10-20個做下這個決定、行動後，你所恐懼的事情</td>
+<td>你可以怎麼去避免或降低這些風險？</td>
+<td>如果最糟的情況發生了， 你能做什麼來稍微 修復造成的損害？</td>
+</tr>
+</tbody></table>
+<h5 id="第二页"><a href="#第二页" class="headerlink" title="第二页"></a>第二页</h5><p>第二页很简单： 一次尝试或部分成功会带来哪些好处？ 你可以看到我们直面恐惧 同时保持谨慎。 因此当你尝试你想做的事情的时候， 也许你可以建立自信， 提高情绪、经济等方面的技能。 一个安打（a base hit）能带来哪些好处？ 花10到15分钟时间思考下。</p>
+<h5 id="第三页"><a href="#第三页" class="headerlink" title="第三页"></a>第三页</h5><p> 这很可能是最重要的，不要跳过。 “不行动的代价”。 </p>
+<p>人类非常善于设想可能出错的事情 如果我们尝试新的事情，例如加薪。 我们通常忽视维持现状所付出的代价 什么都不改变。 因此你要扪心自问， 如果我错过这次行动或决定 以及类似的行动和决定， 6个月，12个月，3年后我的 生活会是什么样子？ 刚开始，这些变化非常细微。 但从情感、经济、身体等方面 再次仔细地思考。</p>
+<p>这就是恐惧设置的三页纸。 </p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>之后，我意识到用1到10来评测， 1是最小的影响，10是最大的影响， 如果我踏上旅途，它将面对 1到3个短暂的可解决的苦恼， 还有8到10个能深刻改变我生活的 积极影响。 因此我选择了旅程。 然而我预想的灾难一个也没发生。 当然会有一些小问题。 我能将自己从生意中抽离出来。 最后我延长了那个环球旅行， 花了一年半的时间， 这也是我第一本书的素材来源， 最后让我今天站在了这里。</p>
+<p>“Easy choices, hard life. Hard choices, easy life“</p>
+<p>困难的选择， 我们最害怕去做的、问的、说的， 这些有可能正是我们最需要做的。 我们面对的最大挑战和困难是 永远不能通过一个轻松的谈话就能解决， 不管是你自我思考还是和别人探讨。</p>
+<p>因此我鼓励你问自己： 你现在处在你人生中的哪个阶段 也许会让你看清恐惧而不是目标？ 请将Seneca的话铭记在心： “We suffer more often in imagination than in reality”</p>
+]]></content>
+      <tags>
+        <tag>演讲</tag>
         <tag>心理</tag>
       </tags>
   </entry>
@@ -6238,7 +6238,7 @@
     <title>银河修理员</title>
     <url>/2022/20220509/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​                                </p>
-<div id="aplayer-BmVelaYH" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+<div id="aplayer-KMZwGgzB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
 				<pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文
 [00:01.000] 作曲 : Howie@Dear Jane
 [00:02.14]编曲 : Dear Jane
@@ -6289,7 +6289,7 @@
 			</div>
 			<script>
 				var ap = new APlayer({
-					element: document.getElementById("aplayer-BmVelaYH"),
+					element: document.getElementById("aplayer-KMZwGgzB"),
 					narrow: false,
 					autoplay: false,
 					showlrc: 2,
@@ -6324,6 +6324,38 @@
 ]]></content>
       <tags>
         <tag>音乐</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实践论</title>
+    <url>/2022/20220513/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p align="center">实践论</p>
+<p align="center">论认识和实践的关系——知和行的关系</p>
+<p align="center">（一九三七年七月）</p>
+
+<span id="more"></span>
+
+<blockquote>
+<p>$\ \ $ *在中国共产党内，曾经有一部分教条主义的同志长期拒绝中国革命的经验，否认“马克思主义不是教条而是行动的指南”这个真理，而只生吞活剥马克思主义书籍中的只言片语，去吓唬人们。还有另一部分经验主义的同志长期拘守于自身的片断经验，不了解理论对于革命实践的重要性，看不见革命的全局，虽然也是辛苦地——但却是盲目地在工作。这两类同志的错误思想，特别是教条主义思想，曾经在一九三一年至一九三四年使得中国革命受了极大的损失，而教条主义者却是披着马克思主义的外衣迷惑了广大的同志。毛泽东的《实践论》，是为着用马克思主义的认识论观点去揭露党内的教条主义和经验主义——特别是教条主义这些主观主义的错误而写的。因为重点是揭露看轻实践的教条主义这种主观主义，故题为《实践论》。毛泽东曾以这篇论文的观点在延安的抗日军事政治大学作过讲演。</p>
+</blockquote>
+<p>　　马克思以前的唯物论，离开人的社会性，离开人的历史发展，去观察认识问题，因此不能了解认识对社会实践的依赖关系，即认识对生产和阶级斗争的依赖关系。<br>　　首先，马克思主义者认为人类的生产活动是最基本的实践活动，是决定其它一切活动的东西。人的认识，主要地依赖于物质的生产活动，逐渐地了解自然的现象、自然的性质、自然的规律性、人和自然的关系；而且经过生产活动，也在各种不同程度上逐渐地认识了人和人的一定的相互关系。一切这些知识，离开生产活动是不能得到的。在没有阶级的社会中，每个人以社会一员的资格，同其它社会成员协力，结成一定的生产关系，从事生产活动，以解决人类物质生活问题。在各种阶级的社会中，各阶级的社会成员，则又以各种不同的方式，结成一定的生产关系，从事生产活动，以解决人类物质生活问题。这是人的认识发展的基本来源。<br>　　人的社会实践，不限于生产活动一种形式，还有多种其它的形式，阶级斗争，政治生活，科学和艺术的活动，总之社会实际生活的一切领域都是社会的人所参加的。因此，人的认识，在物质生活以外，还从政治生活文化生活中（与物质生活密切联系），在各种不同程度上，知道人和人的各种关系。其中，尤以各种形式的阶级斗争，给予人的认识发展以深刻的影响。在阶级社会中，每一个人都在一定的阶级地位中生活，各种思想无不打上阶级的烙印。<br>　　马克思主义者认为人类社会的生产活动，是一步又一步地由低级向高级发展，因此，人们的认识，不论对于自然界方面，对于社会方面，也都是一步又一步地由低级向高级发展，即由浅入深，由片面到更多的方面。在很长的历史时期内，大家对于社会的历史只能限于片面的了解，这一方面是由于剥削阶级的偏见经常歪曲社会的历史，另方面，则由于生产规模的狭小，限制了人们的眼界。人们能够对于社会历史的发展作全面的历史的了解，把对于社会的认识变成了科学，这只是到了伴随巨大生产力——大工业而出现近代无产阶级的时候，这就是马克思主义的科学。<br>　　马克思主义者认为，只有人们的社会实践，才是人们对于外界认识的真理性的标准。实际的情形是这样的，只有在社会实践过程中（物质生产过程中，阶级斗争过程中，科学实验过程中），人们达到了思想中所预想的结果时，人们的认识才被证实了。人们要想得到工作的胜利即得到预想的结果，一定要使自己的思想合于客观外界的规律性，如果不合，就会在实践中失败。人们经过失败之后，也就从失败取得教训，改正自己的思想使之适合于外界的规律性，人们就能变失败为胜利，所谓“失败者成功之母”，“吃一堑长一智”，就是这个道理。辩证唯物论的认识论把实践提到第一的地位，认为人的认识一点也不能离开实践，排斥一切否认实践重要性、使认识离开实践的错误理论。列宁这样说过：“实践高于（理论的）认识，因为它不但有普遍性的品格，而且还有直接现实性的品格。”[1]马克思主义的哲学辩证唯物论有两个最显着的特点：一个是它的阶级性，公然申明辩证唯物论是为无产阶级服务的；再一个是它的实践性，强调理论对于实践的依赖关系，理论的基础是实践，又转过来为实践服务。判定认识或理论之是否真理，不是依主观上觉得如何而定，而是依客观上社会实践的结果如何而定。真理的标准只能是社会的实践。实践的观点是辩证唯物论的认识论之第一的和基本的观点[2]。<br>　　然而人的认识究竟怎样从实践发生，而又服务于实践呢？这只要看一看认识的发展过程就会明了的。<br>　　原来人在实践过程中，开始只是看到过程中各个事物的现象方面，看到各个事物的片面，看到各个事物之间的外部联系。例如有些外面的人们到延安来考察，头一二天，他们看到了延安的地形、街道、屋宇，接触了许多的人，参加了宴会、晚会和群众大会，听到了各种说话，看到了各种文件，这些就是事物的现象，事物的各个片面以及这些事物的外部联系。这叫做认识的感性阶段，就是感觉和印象的阶段。也就是延安这些各别的事物作用于考察团先生们的感官，引起了他们的感觉，在他们的脑子中生起了许多的印象，以及这些印象间的大概的外部的联系，这是认识的第一个阶段。在这个阶段中，人们还不能造成深刻的概念，作出合乎论理（即合乎逻辑）的结论。<br>　　社会实践的继续，使人们在实践中引起感觉和印象的东西反复了多次，于是在人们的脑子里生起了一个认识过程中的突变（即飞跃），产生了概念。概念这种东西已经不是事物的现象，不是事物的各个片面，不是它们的外部联系，而是抓着了事物的本质，事物的全体，事物的内部联系了。概念同感觉，不但是数量上的差别，而且有了性质上的差别。循此继进，使用判断和推理的方法，就可产生出合乎论理的结论来。《三国演义》上所谓“眉头一皱计上心来”，我们普通说话所谓“让我想一想”，就是人在脑子中运用概念以作判断和推理的工夫。这是认识的第二个阶段。外来的考察团先生们在他们集合了各种材料，加上他们“想了一想”之后，他们就能够作出“共产党的抗日民族统一战线的政策是彻底的、诚恳的和真实的”这样一个判断了。在他们作出这个判断之后，如果他们对于团结救国也是真实的的话，那末他们就能够进一步作出这样的结论：“抗日民族统一战线是能够成功的。”这个概念、判断和推理的阶段，在人们对于一个事物的整个认识过程中是更重要的阶段，也就是理性认识的阶段。认识的真正任务在于经过感觉而到达于思维，到达于逐步了解客观事物的内部矛盾，了解它的规律性，了解这一过程和那一过程间的内部联系，即到达于论理的认识。重复地说，论理的认识所以和感性的认识不同，是因为感性的认识是属于事物之片面的、现象的、外部联系的东西，论理的认识则推进了一大步，到达了事物的全体的、本质的、内部联系的东西，到达了暴露周围世界的内在的矛盾，因而能在周围世界的总体上，在周围世界一切方面的内部联系上去把握周围世界的发展。<br>　　这种基于实践的由浅入深的辩证唯物论的关于认识发展过程的理论，在马克思主义以前，是没有一个人这样解决过的。马克思主义的唯物论，第一次正确地解决了这个问题，唯物地而且辩证地指出了认识的深化的运动，指出了社会的人在他们的生产和阶级斗争的复杂的、经常反复的实践中，由感性认识到论理认识的推移的运动。列宁说过：“物质的抽象，自然规律的抽象，价值的抽象以及其它等等，一句话，一切科学的（正确的、郑重的、非瞎说的）抽象，都更深刻、更正确、更完全地反映着自然。”[3]马克思列宁主义认为：认识过程中两个阶段的特性，在低级阶段，认识表现为感性的，在高级阶段，认识表现为论理的，但任何阶段，都是统一的认识过程中的阶段。感性和理性二者的性质不同，但又不是互相分离的，它们在实践的基础上统一起来了。我们的实践证明：感觉到了的东西，我们不能立刻理解它，只有理解了的东西才更深刻地感觉它。感觉只解决现象问题，理论才解决本质问题。这些问题的解决，一点也不能离开实践。无论何人要认识什么事物，除了同那个事物接触，即生活于（实践于）那个事物的环境中，是没有法子解决的。不能在封建社会就预先认识资本主义社会的规律，因为资本主义还未出现，还无这种实践。马克思主义只能是资本主义社会的产物。马克思不能在自由资本主义时代就预先具体地认识帝国主义时代的某些特异的规律，因为帝国主义这个资本主义最后阶段还未到来，还无这种实践，只有列宁和斯大林才能担当此项任务。马克思、恩格斯、列宁、斯大林之所以能够作出他们的理论，除了他们的天才条件之外，主要地是他们亲自参加了当时的阶级斗争和科学实验的实践，没有这后一个条件，任何天才也是不能成功的。“秀才不出门，全知天下事”，在技术不发达的古代只是一句空话，在技术发达的现代虽然可以实现这句话，然而真正亲知的是天下实践着的人，那些人在他们的实践中间取得了“知”，经过文字和技术的传达而到达于“秀才”之手，秀才乃能间接地“知天下事”。如果要直接地认识某种或某些事物，便只有亲身参加于变革现实、变革某种或某些事物的实践的斗争中，才能触到那种或那些事物的现象，也只有在亲身参加变革现实的实践的斗争中，才能暴露那种或那些事物的本质而理解它们。这是任何人实际上走着的认识路程，不过有些人故意歪曲地说些反对的话罢了。世上最可笑的是那些“知识里手”[4]，有了道听途说的一知半解，便自封为“天下第一”，适足见其不自量而已。知识的问题是一个科学问题，来不得半点的虚伪和骄傲，决定地需要的倒是其反面——诚实和谦逊的态度。你要有知识，你就得参加变革现实的实践。你要知道梨子的滋味，你就得变革梨子，亲口吃一吃。你要知道原子的组织同性质，你就得实行物理学和化学的实验，变革原子的情况。你要知道革命的理论和方法，你就得参加革命。一切真知都是从直接经验发源的。但人不能事事直接经验，事实上多数的知识都是间接经验的东西，这就是一切古代的和外域的知识。这些知识在古人在外人是直接经验的东西，如果在古人外人直接经验时是符合于列宁所说的条件“科学的抽象”，是科学地反映了客观的事物，那末这些知识是可靠的，否则就是不可靠的。所以，一个人的知识，不外直接经验的和间接经验的两部分。而且在我为间接经验者，在人则仍为直接经验。因此，就知识的总体说来，无论何种知识都是不能离开直接经验的。任何知识的来源，在于人的肉体感官对客观外界的感觉，否认了这个感觉，否认了直接经验，否认亲自参加变革现实的实践，他就不是唯物论者。“知识里手”之所以可笑，原因就是在这个地方。中国人有一句老话：“不入虎穴，焉得虎子。”这句话对于人们的实践是真理，对于认识论也是真理。离开实践的认识是不可能的。<br>　　为了明了基于变革现实的实践而产生的辩证唯物论的认识运动——认识的逐渐深化的运动，下面再举出几个具体的例子。<br>　　无产阶级对于资本主义社会的认识，在其实践的初期——破坏机器和自发斗争时期，他们还只在感性认识的阶段，只认识资本主义各个现象的片面及其外部的联系。这时，他们还是一个所谓“自在的阶级”。但是到了他们实践的第二个时期——有意识有组织的经济斗争和政治斗争的时期，由于实践，由于长期斗争的经验，经过马克思、恩格斯用科学的方法把这种种经验总结起来，产生了马克思主义的理论，用以教育无产阶级，这样就使无产阶级理解了资本主义社会的本质，理解了社会阶级的剥削关系，理解了无产阶级的历史任务，这时他们就变成了一个“自为的阶级”。<br>　　中国人民对于帝国主义的认识也是这样。第一阶段是表面的感性的认识阶段，表现在太平天国运动和义和团运动等笼统的排外主义的斗争上[5]。第二阶段才进到理性的认识阶段，看出了帝国主义内部和外部的各种矛盾，并看出了帝国主义联合中国买办阶级和封建阶级以压榨中国人民大众的实质，这种认识是从一九一九年五四运动[6]前后才开始的。<br>　　我们再来看战争。战争的领导者，如果他们是一些没有战争经验的人，对于一个具体的战争（例如我们过去十年的土地革命战争）的深刻的指导规律，在开始阶段是不了解的。他们在开始阶段只是身历了许多作战的经验，而且败仗是打得很多的。然而由于这些经验（胜仗，特别是败仗的经验），使他们能够理解贯串整个战争的内部的东西，即那个具体战争的规律性，懂得了战略和战术，因而能够有把握地去指导战争。此时，如果改换一个无经验的人去指导，又会要在吃了一些败仗之后（有了经验之后）才能理会战争的正确的规律。<br>　　常常听到一些同志在不能勇敢接受工作任务时说出来的一句话：没有把握。为什么没有把握呢？因为他对于这项工作的内容和环境没有规律性的了解，或者他从来就没有接触过这类工作，或者接触得不多，因而无从谈到这类工作的规律性。及至把工作的情况和环境给以详细分析之后，他就觉得比较地有了把握，愿意去做这项工作。如果这个人在这项工作中经过了一个时期，他有了这项工作的经验了，而他又是一个肯虚心体察情况的人，不是一个主观地、片面地、表面地看问题的人，他就能够自己做出应该怎样进行工作的结论，他的工作勇气也就可以大大地提高了。只有那些主观地、片面地和表面地看问题的人，跑到一个地方，不问环境的情况，不看事情的全体（事情的历史和全部现状），也不触到事情的本质（事情的性质及此一事情和其它事情的内部联系），就自以为是地发号施令起来，这样的人是没有不跌交子的。<br>　　由此看来，认识的过程，第一步，是开始接触外界事情，属于感觉的阶段。第二步，是综合感觉的材料加以整理和改造，属于概念、判断和推理的阶段。只有感觉的材料十分丰富（不是零碎不全）和合于实际（不是错觉），才能根据这样的材料造出正确的概念和论理来。<br>　　这里有两个要点必须着重指明。第一个，在前面已经说过的，这里再重复说一说，就是理性认识依赖于感性认识的问题。如果以为理性认识可以不从感性认识得来，他就是一个唯心论者。哲学史上有所谓“唯理论”一派，就是只承认理性的实在性，不承认经验的实在性，以为只有理性靠得住，而感觉的经验是靠不住的，这一派的错误在于颠倒了事实。理性的东西所以靠得住，正是由于它来源于感性，否则理性的东西就成了无源之水，无本之木，而只是主观自生的靠不住的东西了。从认识过程的秩序说来，感觉经验是第一的东西，我们强调社会实践在认识过程中的意义，就在于只有社会实践才能使人的认识开始发生，开始从客观外界得到感觉经验。一个闭目塞听、同客观外界根本绝缘的人，是无所谓认识的。认识开始于经验——这就是认识论的唯物论。<br>　　第二是认识有待于深化，认识的感性阶段有待于发展到理性阶段——这就是认识论的辩证法[7]。如果以为认识可以停顿在低级的感性阶段，以为只有感性认识可靠，而理性认识是靠不住的，这便是重复了历史上的“经验论”的错误。这种理论的错误，在于不知道感觉材料固然是客观外界某些真实性的反映（我这里不来说经验只是所谓内省体验的那种唯心的经验论），但它们仅是片面的和表面的东西，这种反映是不完全的，是没有反映事物本质的。要完全地反映整个的事物，反映事物的本质，反映事物的内部规律性，就必须经过思考作用，将丰富的感觉材料加以去粗取精、去伪存真、由此及彼、由表及里的改造制作工夫，造成概念和理论的系统，就必须从感性认识跃进到理性认识。这种改造过的认识，不是更空虚了更不可靠了的认识，相反，只要是在认识过程中根据于实践基础而科学地改造过的东西，正如列宁所说乃是更深刻、更正确、更完全地反映客观事物的东西。庸俗的事务主义家不是这样，他们尊重经验而看轻理论，因而不能通观客观过程的全体，缺乏明确的方针，没有远大的前途，沾沾自喜于一得之功和一孔之见。这种人如果指导革命，就会引导革命走上碰壁的地步。<br>　　理性认识依赖于感性认识，感性认识有待于发展到理性认识，这就是辩证唯物论的认识论。哲学上的“唯理论”和“经验论”都不懂得认识的历史性或辩证性，虽然各有片面的真理（对于唯物的唯理论和经验论而言，非指唯心的唯理论和经验论），但在认识论的全体上则都是错误的。由感性到理性之辩证唯物论的认识运动，对于一个小的认识过程（例如对于一个事物或一件工作的认识）是如此，对于一个大的认识过程（例如对于一个社会或一个革命的认识）也是如此。<br>　　然而认识运动至此还没有完结。辩证唯物论的认识运动，如果只到理性认识为止，那末还只说到问题的一半。而且对于马克思主义的哲学说来，还只说到非十分重要的那一半。马克思主义的哲学认为十分重要的问题，不在于懂得了客观世界的规律性，因而能够解释世界，而在于拿了这种对于客观规律性的认识去能动地改造世界。在马克思主义看来，理论是重要的，它的重要性充分地表现在列宁说过的一句话：“没有革命的理论，就不会有革命的运动。”[8]然而马克思主义看重理论，正是，也仅仅是，因为它能够指导行动。如果有了正确的理论，只是把它空谈一阵，束之高阁，并不实行，那末，这种理论再好也是没有意义的。认识从实践始，经过实践得到了理论的认识，还须再回到实践去。认识的能动作用，不但表现于从感性的认识到理性的认识之能动的飞跃，更重要的还须表现于从理性的认识到革命的实践这一个飞跃。抓着了世界的规律性的认识，必须把它再回到改造世界的实践中去，再用到生产的实践、革命的阶级斗争和民族斗争的实践以及科学实验的实践中去。这就是检验理论和发展理论的过程，是整个认识过程的继续。理论的东西之是否符合于客观真理性这个问题，在前面说的由感性到理性之认识运动中是没有完全解决的，也不能完全解决的。要完全地解决这个问题，只有把理性的认识再回到社会实践中去，应用理论于实践，看它是否能够达到预想的目的。许多自然科学理论之所以被称为真理，不但在于自然科学家们创立这些学说的时候，而且在于为尔后的科学实践所证实的时候。马克思列宁主义之所以被称为真理，也不但在于马克思、恩格斯、列宁、斯大林等人科学地构成这些学说的时候，而且在于为尔后革命的阶级斗争和民族斗争的实践所证实的时候。辩证唯物论之所以为普遍真理，在于经过无论什么人的实践都不能逃出它的范围。人类认识的历史告诉我们，许多理论的真理性是不完全的，经过实践的检验而纠正了它们的不完全性。许多理论是错误的，经过实践的检验而纠正其错误。所谓实践是真理的标准，所谓“生活、实践底观点，应该是认识论底首先的和基本的观点”[9]，理由就在这个地方。斯大林说得好：“理论若不和革命实践联系起来，就会变成无对象的理论，同样，实践若不以革命理论为指南，就会变成盲目的实践。”[10]<br>　　说到这里，认识运动就算完成了吗？我们的答复是完成了，又没有完成。社会的人们投身于变革在某一发展阶段内的某一客观过程的实践中（不论是关于变革某一自然过程的实践，或变革某一社会过程的实践），由于客观过程的反映和主观能动性的作用，使得人们的认识由感性的推移到了理性的，造成了大体上相应于该客观过程的法则性的思想、理论、计划或方案，然后再应用这种思想、理论、计划或方案于该同一客观过程的实践，如果能够实现预想的目的，即将预定的思想、理论、计划、方案在该同一过程的实践中变为事实，或者大体上变为事实，那末，对于这一具体过程的认识运动算是完成了。例如，在变革自然的过程中，某一工程计划的实现，某一科学假想的证实，某一器物的制成，某一农产的收获，在变革社会过程中某一罢工的胜利，某一战争的胜利，某一教育计划的实现，都算实现了预想的目的。然而一般地说来，不论在变革自然或变革社会的实践中，人们原定的思想、理论、计划、方案，毫无改变地实现出来的事，是很少的。这是因为从事变革现实的人们，常常受着许多的限制，不但常常受着科学条件和技术条件的限制，而且也受着客观过程的发展及其表现程度的限制（客观过程的方面及本质尚未充分暴露）。在这种情形之下，由于实践中发现前所未料的情况，因而部分地改变思想、理论、计划、方案的事是常有的，全部地改变的事也是有的。即是说，原定的思想、理论、计划、方案，部分地或全部地不合于实际，部分错了或全部错了的事，都是有的。许多时候须反复失败过多次，才能纠正错误的认识，才能到达于和客观过程的规律性相符合，因而才能够变主观的东西为客观的东西，即在实践中得到预想的结果。但是不管怎样，到了这种时候，人们对于在某一发展阶段内的某一客观过程的认识运动，算是完成了。<br>　　然而对于过程的推移而言，人们的认识运动是没有完成的。任何过程，不论是属于自然界的和属于社会的，由于内部的矛盾和斗争，都是向前推移向前发展的，人们的认识运动也应跟着推移和发展。依社会运动来说，真正的革命的指导者，不但在于当自己的思想、理论、计划、方案有错误时须得善于改正，如同上面已经说到的，而且在于当某一客观过程已经从某一发展阶段向另一发展阶段推移转变的时候，须得善于使自己和参加革命的一切人员在主观认识上也跟着推移转变，即是要使新的革命任务和新的工作方案的提出，适合于新的情况的变化。革命时期情况的变化是很急速的，如果革命党人的认识不能随之而急速变化，就不能引导革命走向胜利。<br>　　然而思想落后于实际的事是常有的，这是因为人的认识受了许多社会条件的限制的缘故。我们反对革命队伍中的顽固派，他们的思想不能随变化了的客观情况而前进，在历史上表现为右倾机会主义。这些人看不出矛盾的斗争已将客观过程推向前进了，而他们的认识仍然停止在旧阶段。一切顽固党的思想都有这样的特征。他们的思想离开了社会的实践，他们不能站在社会车轮的前头充任向导的工作，他们只知跟在车子后面怨恨车子走得太快了，企图把它向后拉，开倒车。<br>　　我们也反对“左”翼空谈主义。他们的思想超过客观过程的一定发展阶段，有些把幻想看作真理，有些则把仅在将来有现实可能性的理想，勉强地放在现时来做，离开了当前大多数人的实践，离开了当前的现实性，在行动上表现为冒险主义。<br>　　唯心论和机械唯物论，机会主义和冒险主义，都是以主观和客观相分裂，以认识和实践相脱离为特征的。以科学的社会实践为特征的马克思列宁主义的认识论，不能不坚决反对这些错误思想。马克思主义者承认，在绝对的总的宇宙发展过程中，各个具体过程的发展都是相对的，因而在绝对真理的长河中，人们对于在各个一定发展阶段上的具体过程的认识只具有相对的真理性。无数相对的真理之总和，就是绝对的真理[11]。客观过程的发展是充满着矛盾和斗争的发展，人的认识运动的发展也是充满着矛盾和斗争的发展。一切客观世界的辩证法的运动，都或先或后地能够反映到人的认识中来。社会实践中的发生、发展和消灭的过程是无穷的，人的认识的发生、发展和消灭的过程也是无穷的。根据于一定的思想、理论、计划、方案以从事于变革客观现实的实践，一次又一次地向前，人们对于客观现实的认识也就一次又一次地深化。客观现实世界的变化运动永远没有完结，人们在实践中对于真理的认识也就永远没有完结。马克思列宁主义并没有结束真理，而是在实践中不断地开辟认识真理的道路。我们的结论是主观和客观、理论和实践、知和行的具体的历史的统一，反对一切离开具体历史的“左”的或右的错误思想。<br>　　社会的发展到了今天的时代，正确地认识世界和改造世界的责任，已经历史地落在无产阶级及其政党的肩上。这种根据科学认识而定下来的改造世界的实践过程，在世界、在中国均已到达了一个历史的时节——自有历史以来未曾有过的重大时节，这就是整个儿地推翻世界和中国的黑暗面，把它们转变过来成为前所未有的光明世界。无产阶级和革命人民改造世界的斗争，包括实现下述的任务：改造客观世界，也改造自己的主观世界——改造自己的认识能力，改造主观世界同客观世界的关系。地球上已经有一部分实行了这种改造，这就是苏联。他们还正在促进这种改造过程。中国人民和世界人民也都正在或将要通过这样的改造过程。所谓被改造的客观世界，其中包括了一切反对改造的人们，他们的被改造，须要通过强迫的阶段，然后才能进入自觉的阶段。世界到了全人类都自觉地改造自己和改造世界的时候，那就是世界的共产主义时代。<br>　　通过实践而发现真理，又通过实践而证实真理和发展真理。从感性认识而能动地发展到理性认识，又从理性认识而能动地指导革命实践，改造主观世界和客观世界。实践、认识、再实践、再认识，这种形式，循环往复以至无穷，而实践和认识之每一循环的内容，都比较地进到了高一级的程度。这就是辩证唯物论的全部认识论，这就是辩证唯物论的知行统一观。</p>
+<hr>
+<p><strong>注释</strong></p>
+<p>[1]见列宁《黑格尔〈逻辑学〉一书摘要》。新的译文是：“实践高于（理论的）认识，因为它不仅具有普遍性的品格，而且还具有直接现实性的品格。”（《列宁全集》第55卷，人民出版社1990年版，第183页）</p>
+<p>[2] 参见马克思《关于费尔巴哈的提纲》（《马克思恩格斯选集》第1卷，人民出版社1972年版，第16—19页）和列宁《唯物主义和经验批判主义》第二章第六节（《列宁全集》第18卷，人民出版社1988年版，第144页）。</p>
+<p>[3]见列宁《黑格尔〈逻辑学〉一书摘要》（《列宁全集》第55卷，人民出版社1990年版，第142页）。</p>
+<p>[4]里手，湖南方言，内行的意思。</p>
+<p>[5]说：“《实践论》中将太平天国放在排外主义一起说不妥，出选集时拟加修改，此处暂仍照原。”</p>
+<p>[6]五四运动是一九一九年五月四日发生的反帝反封建的爱国运动。当时，第一次世界大战刚刚结束，英、美、法、日、意等战胜国在巴黎召开对德和会，决定由日本继承德国在中国山东的特权。中国是参加对德宣战的战胜国之一，但北洋军阀政府却准备接受这个决定。五月四日，北京学生游行示威，反对帝国主义的这一无理决定和北洋军阀政府的妥协。这次运动迅速地获得了全国人民的响应，到六月三日以后，发展成为有工人阶级、城市小资产阶级和民族资产阶级参加的广大群众性的反帝反封建的爱国运动。五四运动也是反对封建文化的新文化运动。以一九一五年《青年杂志》（后改名《新青年》）创刊为起点的新文化运动，竖起“民主”和“科学”的旗帜，反对旧道德，提倡新道德，反对旧文学，提倡新文学。五四运动中的先进分子接受了马克思主义，使新文化运动发展成为马克思主义思想运动，他们致力于马克思主义同中国工人运动相结合，在思想上和干部上准备了中国共产党的成立。</p>
+<p>[7]参见列宁《黑格尔〈逻辑学〉一书摘要》：“要理解，就必须从经验开始理解、研究，从经验上升到一般。”（《列宁全集》第55卷，人民出版社1990年版，第175页）</p>
+<p>[8]见列宁《俄国社会民主党人的任务》（《列宁全集》第2卷，人民出版社1984年版，第443页）；并见列宁《怎么办？》第一章第四节（《列宁全集》第6卷，人民出版社1986年版，第23页）。</p>
+<p>[9]见列宁《唯物主义和经验批判主义》第二章第六节（《列宁全集》第18卷，人民出版社1988年版，第144页）。</p>
+<p>[10]见斯大林《论列宁主义基础》第三部分《理论》。新的译文是：“离开革命实践的理论是空洞的理论，而不以革命理论为指南的实践是盲目的实践。”（《斯大林选集》上卷，人民出版社1979年版，第199—200页）</p>
+<p>[11]参见列宁《唯物主义和经验批判主义》第二章第五节。原文是：“人类思维按其本性是能够给我们提供并且正在提供由相对真理的总和所构成的绝对真理的。”（《列宁全集》第18卷，人民出版社1988年版，第135页）</p>
+]]></content>
+      <tags>
+        <tag>阅读</tag>
+        <tag>哲学</tag>
       </tags>
   </entry>
   <entry>
@@ -6440,38 +6472,6 @@
 ]]></content>
       <tags>
         <tag>音乐</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实践论</title>
-    <url>/2022/20220513/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p align="center">实践论</p>
-<p align="center">论认识和实践的关系——知和行的关系</p>
-<p align="center">（一九三七年七月）</p>
-
-<span id="more"></span>
-
-<blockquote>
-<p>$\ \ $ *在中国共产党内，曾经有一部分教条主义的同志长期拒绝中国革命的经验，否认“马克思主义不是教条而是行动的指南”这个真理，而只生吞活剥马克思主义书籍中的只言片语，去吓唬人们。还有另一部分经验主义的同志长期拘守于自身的片断经验，不了解理论对于革命实践的重要性，看不见革命的全局，虽然也是辛苦地——但却是盲目地在工作。这两类同志的错误思想，特别是教条主义思想，曾经在一九三一年至一九三四年使得中国革命受了极大的损失，而教条主义者却是披着马克思主义的外衣迷惑了广大的同志。毛泽东的《实践论》，是为着用马克思主义的认识论观点去揭露党内的教条主义和经验主义——特别是教条主义这些主观主义的错误而写的。因为重点是揭露看轻实践的教条主义这种主观主义，故题为《实践论》。毛泽东曾以这篇论文的观点在延安的抗日军事政治大学作过讲演。</p>
-</blockquote>
-<p>　　马克思以前的唯物论，离开人的社会性，离开人的历史发展，去观察认识问题，因此不能了解认识对社会实践的依赖关系，即认识对生产和阶级斗争的依赖关系。<br>　　首先，马克思主义者认为人类的生产活动是最基本的实践活动，是决定其它一切活动的东西。人的认识，主要地依赖于物质的生产活动，逐渐地了解自然的现象、自然的性质、自然的规律性、人和自然的关系；而且经过生产活动，也在各种不同程度上逐渐地认识了人和人的一定的相互关系。一切这些知识，离开生产活动是不能得到的。在没有阶级的社会中，每个人以社会一员的资格，同其它社会成员协力，结成一定的生产关系，从事生产活动，以解决人类物质生活问题。在各种阶级的社会中，各阶级的社会成员，则又以各种不同的方式，结成一定的生产关系，从事生产活动，以解决人类物质生活问题。这是人的认识发展的基本来源。<br>　　人的社会实践，不限于生产活动一种形式，还有多种其它的形式，阶级斗争，政治生活，科学和艺术的活动，总之社会实际生活的一切领域都是社会的人所参加的。因此，人的认识，在物质生活以外，还从政治生活文化生活中（与物质生活密切联系），在各种不同程度上，知道人和人的各种关系。其中，尤以各种形式的阶级斗争，给予人的认识发展以深刻的影响。在阶级社会中，每一个人都在一定的阶级地位中生活，各种思想无不打上阶级的烙印。<br>　　马克思主义者认为人类社会的生产活动，是一步又一步地由低级向高级发展，因此，人们的认识，不论对于自然界方面，对于社会方面，也都是一步又一步地由低级向高级发展，即由浅入深，由片面到更多的方面。在很长的历史时期内，大家对于社会的历史只能限于片面的了解，这一方面是由于剥削阶级的偏见经常歪曲社会的历史，另方面，则由于生产规模的狭小，限制了人们的眼界。人们能够对于社会历史的发展作全面的历史的了解，把对于社会的认识变成了科学，这只是到了伴随巨大生产力——大工业而出现近代无产阶级的时候，这就是马克思主义的科学。<br>　　马克思主义者认为，只有人们的社会实践，才是人们对于外界认识的真理性的标准。实际的情形是这样的，只有在社会实践过程中（物质生产过程中，阶级斗争过程中，科学实验过程中），人们达到了思想中所预想的结果时，人们的认识才被证实了。人们要想得到工作的胜利即得到预想的结果，一定要使自己的思想合于客观外界的规律性，如果不合，就会在实践中失败。人们经过失败之后，也就从失败取得教训，改正自己的思想使之适合于外界的规律性，人们就能变失败为胜利，所谓“失败者成功之母”，“吃一堑长一智”，就是这个道理。辩证唯物论的认识论把实践提到第一的地位，认为人的认识一点也不能离开实践，排斥一切否认实践重要性、使认识离开实践的错误理论。列宁这样说过：“实践高于（理论的）认识，因为它不但有普遍性的品格，而且还有直接现实性的品格。”[1]马克思主义的哲学辩证唯物论有两个最显着的特点：一个是它的阶级性，公然申明辩证唯物论是为无产阶级服务的；再一个是它的实践性，强调理论对于实践的依赖关系，理论的基础是实践，又转过来为实践服务。判定认识或理论之是否真理，不是依主观上觉得如何而定，而是依客观上社会实践的结果如何而定。真理的标准只能是社会的实践。实践的观点是辩证唯物论的认识论之第一的和基本的观点[2]。<br>　　然而人的认识究竟怎样从实践发生，而又服务于实践呢？这只要看一看认识的发展过程就会明了的。<br>　　原来人在实践过程中，开始只是看到过程中各个事物的现象方面，看到各个事物的片面，看到各个事物之间的外部联系。例如有些外面的人们到延安来考察，头一二天，他们看到了延安的地形、街道、屋宇，接触了许多的人，参加了宴会、晚会和群众大会，听到了各种说话，看到了各种文件，这些就是事物的现象，事物的各个片面以及这些事物的外部联系。这叫做认识的感性阶段，就是感觉和印象的阶段。也就是延安这些各别的事物作用于考察团先生们的感官，引起了他们的感觉，在他们的脑子中生起了许多的印象，以及这些印象间的大概的外部的联系，这是认识的第一个阶段。在这个阶段中，人们还不能造成深刻的概念，作出合乎论理（即合乎逻辑）的结论。<br>　　社会实践的继续，使人们在实践中引起感觉和印象的东西反复了多次，于是在人们的脑子里生起了一个认识过程中的突变（即飞跃），产生了概念。概念这种东西已经不是事物的现象，不是事物的各个片面，不是它们的外部联系，而是抓着了事物的本质，事物的全体，事物的内部联系了。概念同感觉，不但是数量上的差别，而且有了性质上的差别。循此继进，使用判断和推理的方法，就可产生出合乎论理的结论来。《三国演义》上所谓“眉头一皱计上心来”，我们普通说话所谓“让我想一想”，就是人在脑子中运用概念以作判断和推理的工夫。这是认识的第二个阶段。外来的考察团先生们在他们集合了各种材料，加上他们“想了一想”之后，他们就能够作出“共产党的抗日民族统一战线的政策是彻底的、诚恳的和真实的”这样一个判断了。在他们作出这个判断之后，如果他们对于团结救国也是真实的的话，那末他们就能够进一步作出这样的结论：“抗日民族统一战线是能够成功的。”这个概念、判断和推理的阶段，在人们对于一个事物的整个认识过程中是更重要的阶段，也就是理性认识的阶段。认识的真正任务在于经过感觉而到达于思维，到达于逐步了解客观事物的内部矛盾，了解它的规律性，了解这一过程和那一过程间的内部联系，即到达于论理的认识。重复地说，论理的认识所以和感性的认识不同，是因为感性的认识是属于事物之片面的、现象的、外部联系的东西，论理的认识则推进了一大步，到达了事物的全体的、本质的、内部联系的东西，到达了暴露周围世界的内在的矛盾，因而能在周围世界的总体上，在周围世界一切方面的内部联系上去把握周围世界的发展。<br>　　这种基于实践的由浅入深的辩证唯物论的关于认识发展过程的理论，在马克思主义以前，是没有一个人这样解决过的。马克思主义的唯物论，第一次正确地解决了这个问题，唯物地而且辩证地指出了认识的深化的运动，指出了社会的人在他们的生产和阶级斗争的复杂的、经常反复的实践中，由感性认识到论理认识的推移的运动。列宁说过：“物质的抽象，自然规律的抽象，价值的抽象以及其它等等，一句话，一切科学的（正确的、郑重的、非瞎说的）抽象，都更深刻、更正确、更完全地反映着自然。”[3]马克思列宁主义认为：认识过程中两个阶段的特性，在低级阶段，认识表现为感性的，在高级阶段，认识表现为论理的，但任何阶段，都是统一的认识过程中的阶段。感性和理性二者的性质不同，但又不是互相分离的，它们在实践的基础上统一起来了。我们的实践证明：感觉到了的东西，我们不能立刻理解它，只有理解了的东西才更深刻地感觉它。感觉只解决现象问题，理论才解决本质问题。这些问题的解决，一点也不能离开实践。无论何人要认识什么事物，除了同那个事物接触，即生活于（实践于）那个事物的环境中，是没有法子解决的。不能在封建社会就预先认识资本主义社会的规律，因为资本主义还未出现，还无这种实践。马克思主义只能是资本主义社会的产物。马克思不能在自由资本主义时代就预先具体地认识帝国主义时代的某些特异的规律，因为帝国主义这个资本主义最后阶段还未到来，还无这种实践，只有列宁和斯大林才能担当此项任务。马克思、恩格斯、列宁、斯大林之所以能够作出他们的理论，除了他们的天才条件之外，主要地是他们亲自参加了当时的阶级斗争和科学实验的实践，没有这后一个条件，任何天才也是不能成功的。“秀才不出门，全知天下事”，在技术不发达的古代只是一句空话，在技术发达的现代虽然可以实现这句话，然而真正亲知的是天下实践着的人，那些人在他们的实践中间取得了“知”，经过文字和技术的传达而到达于“秀才”之手，秀才乃能间接地“知天下事”。如果要直接地认识某种或某些事物，便只有亲身参加于变革现实、变革某种或某些事物的实践的斗争中，才能触到那种或那些事物的现象，也只有在亲身参加变革现实的实践的斗争中，才能暴露那种或那些事物的本质而理解它们。这是任何人实际上走着的认识路程，不过有些人故意歪曲地说些反对的话罢了。世上最可笑的是那些“知识里手”[4]，有了道听途说的一知半解，便自封为“天下第一”，适足见其不自量而已。知识的问题是一个科学问题，来不得半点的虚伪和骄傲，决定地需要的倒是其反面——诚实和谦逊的态度。你要有知识，你就得参加变革现实的实践。你要知道梨子的滋味，你就得变革梨子，亲口吃一吃。你要知道原子的组织同性质，你就得实行物理学和化学的实验，变革原子的情况。你要知道革命的理论和方法，你就得参加革命。一切真知都是从直接经验发源的。但人不能事事直接经验，事实上多数的知识都是间接经验的东西，这就是一切古代的和外域的知识。这些知识在古人在外人是直接经验的东西，如果在古人外人直接经验时是符合于列宁所说的条件“科学的抽象”，是科学地反映了客观的事物，那末这些知识是可靠的，否则就是不可靠的。所以，一个人的知识，不外直接经验的和间接经验的两部分。而且在我为间接经验者，在人则仍为直接经验。因此，就知识的总体说来，无论何种知识都是不能离开直接经验的。任何知识的来源，在于人的肉体感官对客观外界的感觉，否认了这个感觉，否认了直接经验，否认亲自参加变革现实的实践，他就不是唯物论者。“知识里手”之所以可笑，原因就是在这个地方。中国人有一句老话：“不入虎穴，焉得虎子。”这句话对于人们的实践是真理，对于认识论也是真理。离开实践的认识是不可能的。<br>　　为了明了基于变革现实的实践而产生的辩证唯物论的认识运动——认识的逐渐深化的运动，下面再举出几个具体的例子。<br>　　无产阶级对于资本主义社会的认识，在其实践的初期——破坏机器和自发斗争时期，他们还只在感性认识的阶段，只认识资本主义各个现象的片面及其外部的联系。这时，他们还是一个所谓“自在的阶级”。但是到了他们实践的第二个时期——有意识有组织的经济斗争和政治斗争的时期，由于实践，由于长期斗争的经验，经过马克思、恩格斯用科学的方法把这种种经验总结起来，产生了马克思主义的理论，用以教育无产阶级，这样就使无产阶级理解了资本主义社会的本质，理解了社会阶级的剥削关系，理解了无产阶级的历史任务，这时他们就变成了一个“自为的阶级”。<br>　　中国人民对于帝国主义的认识也是这样。第一阶段是表面的感性的认识阶段，表现在太平天国运动和义和团运动等笼统的排外主义的斗争上[5]。第二阶段才进到理性的认识阶段，看出了帝国主义内部和外部的各种矛盾，并看出了帝国主义联合中国买办阶级和封建阶级以压榨中国人民大众的实质，这种认识是从一九一九年五四运动[6]前后才开始的。<br>　　我们再来看战争。战争的领导者，如果他们是一些没有战争经验的人，对于一个具体的战争（例如我们过去十年的土地革命战争）的深刻的指导规律，在开始阶段是不了解的。他们在开始阶段只是身历了许多作战的经验，而且败仗是打得很多的。然而由于这些经验（胜仗，特别是败仗的经验），使他们能够理解贯串整个战争的内部的东西，即那个具体战争的规律性，懂得了战略和战术，因而能够有把握地去指导战争。此时，如果改换一个无经验的人去指导，又会要在吃了一些败仗之后（有了经验之后）才能理会战争的正确的规律。<br>　　常常听到一些同志在不能勇敢接受工作任务时说出来的一句话：没有把握。为什么没有把握呢？因为他对于这项工作的内容和环境没有规律性的了解，或者他从来就没有接触过这类工作，或者接触得不多，因而无从谈到这类工作的规律性。及至把工作的情况和环境给以详细分析之后，他就觉得比较地有了把握，愿意去做这项工作。如果这个人在这项工作中经过了一个时期，他有了这项工作的经验了，而他又是一个肯虚心体察情况的人，不是一个主观地、片面地、表面地看问题的人，他就能够自己做出应该怎样进行工作的结论，他的工作勇气也就可以大大地提高了。只有那些主观地、片面地和表面地看问题的人，跑到一个地方，不问环境的情况，不看事情的全体（事情的历史和全部现状），也不触到事情的本质（事情的性质及此一事情和其它事情的内部联系），就自以为是地发号施令起来，这样的人是没有不跌交子的。<br>　　由此看来，认识的过程，第一步，是开始接触外界事情，属于感觉的阶段。第二步，是综合感觉的材料加以整理和改造，属于概念、判断和推理的阶段。只有感觉的材料十分丰富（不是零碎不全）和合于实际（不是错觉），才能根据这样的材料造出正确的概念和论理来。<br>　　这里有两个要点必须着重指明。第一个，在前面已经说过的，这里再重复说一说，就是理性认识依赖于感性认识的问题。如果以为理性认识可以不从感性认识得来，他就是一个唯心论者。哲学史上有所谓“唯理论”一派，就是只承认理性的实在性，不承认经验的实在性，以为只有理性靠得住，而感觉的经验是靠不住的，这一派的错误在于颠倒了事实。理性的东西所以靠得住，正是由于它来源于感性，否则理性的东西就成了无源之水，无本之木，而只是主观自生的靠不住的东西了。从认识过程的秩序说来，感觉经验是第一的东西，我们强调社会实践在认识过程中的意义，就在于只有社会实践才能使人的认识开始发生，开始从客观外界得到感觉经验。一个闭目塞听、同客观外界根本绝缘的人，是无所谓认识的。认识开始于经验——这就是认识论的唯物论。<br>　　第二是认识有待于深化，认识的感性阶段有待于发展到理性阶段——这就是认识论的辩证法[7]。如果以为认识可以停顿在低级的感性阶段，以为只有感性认识可靠，而理性认识是靠不住的，这便是重复了历史上的“经验论”的错误。这种理论的错误，在于不知道感觉材料固然是客观外界某些真实性的反映（我这里不来说经验只是所谓内省体验的那种唯心的经验论），但它们仅是片面的和表面的东西，这种反映是不完全的，是没有反映事物本质的。要完全地反映整个的事物，反映事物的本质，反映事物的内部规律性，就必须经过思考作用，将丰富的感觉材料加以去粗取精、去伪存真、由此及彼、由表及里的改造制作工夫，造成概念和理论的系统，就必须从感性认识跃进到理性认识。这种改造过的认识，不是更空虚了更不可靠了的认识，相反，只要是在认识过程中根据于实践基础而科学地改造过的东西，正如列宁所说乃是更深刻、更正确、更完全地反映客观事物的东西。庸俗的事务主义家不是这样，他们尊重经验而看轻理论，因而不能通观客观过程的全体，缺乏明确的方针，没有远大的前途，沾沾自喜于一得之功和一孔之见。这种人如果指导革命，就会引导革命走上碰壁的地步。<br>　　理性认识依赖于感性认识，感性认识有待于发展到理性认识，这就是辩证唯物论的认识论。哲学上的“唯理论”和“经验论”都不懂得认识的历史性或辩证性，虽然各有片面的真理（对于唯物的唯理论和经验论而言，非指唯心的唯理论和经验论），但在认识论的全体上则都是错误的。由感性到理性之辩证唯物论的认识运动，对于一个小的认识过程（例如对于一个事物或一件工作的认识）是如此，对于一个大的认识过程（例如对于一个社会或一个革命的认识）也是如此。<br>　　然而认识运动至此还没有完结。辩证唯物论的认识运动，如果只到理性认识为止，那末还只说到问题的一半。而且对于马克思主义的哲学说来，还只说到非十分重要的那一半。马克思主义的哲学认为十分重要的问题，不在于懂得了客观世界的规律性，因而能够解释世界，而在于拿了这种对于客观规律性的认识去能动地改造世界。在马克思主义看来，理论是重要的，它的重要性充分地表现在列宁说过的一句话：“没有革命的理论，就不会有革命的运动。”[8]然而马克思主义看重理论，正是，也仅仅是，因为它能够指导行动。如果有了正确的理论，只是把它空谈一阵，束之高阁，并不实行，那末，这种理论再好也是没有意义的。认识从实践始，经过实践得到了理论的认识，还须再回到实践去。认识的能动作用，不但表现于从感性的认识到理性的认识之能动的飞跃，更重要的还须表现于从理性的认识到革命的实践这一个飞跃。抓着了世界的规律性的认识，必须把它再回到改造世界的实践中去，再用到生产的实践、革命的阶级斗争和民族斗争的实践以及科学实验的实践中去。这就是检验理论和发展理论的过程，是整个认识过程的继续。理论的东西之是否符合于客观真理性这个问题，在前面说的由感性到理性之认识运动中是没有完全解决的，也不能完全解决的。要完全地解决这个问题，只有把理性的认识再回到社会实践中去，应用理论于实践，看它是否能够达到预想的目的。许多自然科学理论之所以被称为真理，不但在于自然科学家们创立这些学说的时候，而且在于为尔后的科学实践所证实的时候。马克思列宁主义之所以被称为真理，也不但在于马克思、恩格斯、列宁、斯大林等人科学地构成这些学说的时候，而且在于为尔后革命的阶级斗争和民族斗争的实践所证实的时候。辩证唯物论之所以为普遍真理，在于经过无论什么人的实践都不能逃出它的范围。人类认识的历史告诉我们，许多理论的真理性是不完全的，经过实践的检验而纠正了它们的不完全性。许多理论是错误的，经过实践的检验而纠正其错误。所谓实践是真理的标准，所谓“生活、实践底观点，应该是认识论底首先的和基本的观点”[9]，理由就在这个地方。斯大林说得好：“理论若不和革命实践联系起来，就会变成无对象的理论，同样，实践若不以革命理论为指南，就会变成盲目的实践。”[10]<br>　　说到这里，认识运动就算完成了吗？我们的答复是完成了，又没有完成。社会的人们投身于变革在某一发展阶段内的某一客观过程的实践中（不论是关于变革某一自然过程的实践，或变革某一社会过程的实践），由于客观过程的反映和主观能动性的作用，使得人们的认识由感性的推移到了理性的，造成了大体上相应于该客观过程的法则性的思想、理论、计划或方案，然后再应用这种思想、理论、计划或方案于该同一客观过程的实践，如果能够实现预想的目的，即将预定的思想、理论、计划、方案在该同一过程的实践中变为事实，或者大体上变为事实，那末，对于这一具体过程的认识运动算是完成了。例如，在变革自然的过程中，某一工程计划的实现，某一科学假想的证实，某一器物的制成，某一农产的收获，在变革社会过程中某一罢工的胜利，某一战争的胜利，某一教育计划的实现，都算实现了预想的目的。然而一般地说来，不论在变革自然或变革社会的实践中，人们原定的思想、理论、计划、方案，毫无改变地实现出来的事，是很少的。这是因为从事变革现实的人们，常常受着许多的限制，不但常常受着科学条件和技术条件的限制，而且也受着客观过程的发展及其表现程度的限制（客观过程的方面及本质尚未充分暴露）。在这种情形之下，由于实践中发现前所未料的情况，因而部分地改变思想、理论、计划、方案的事是常有的，全部地改变的事也是有的。即是说，原定的思想、理论、计划、方案，部分地或全部地不合于实际，部分错了或全部错了的事，都是有的。许多时候须反复失败过多次，才能纠正错误的认识，才能到达于和客观过程的规律性相符合，因而才能够变主观的东西为客观的东西，即在实践中得到预想的结果。但是不管怎样，到了这种时候，人们对于在某一发展阶段内的某一客观过程的认识运动，算是完成了。<br>　　然而对于过程的推移而言，人们的认识运动是没有完成的。任何过程，不论是属于自然界的和属于社会的，由于内部的矛盾和斗争，都是向前推移向前发展的，人们的认识运动也应跟着推移和发展。依社会运动来说，真正的革命的指导者，不但在于当自己的思想、理论、计划、方案有错误时须得善于改正，如同上面已经说到的，而且在于当某一客观过程已经从某一发展阶段向另一发展阶段推移转变的时候，须得善于使自己和参加革命的一切人员在主观认识上也跟着推移转变，即是要使新的革命任务和新的工作方案的提出，适合于新的情况的变化。革命时期情况的变化是很急速的，如果革命党人的认识不能随之而急速变化，就不能引导革命走向胜利。<br>　　然而思想落后于实际的事是常有的，这是因为人的认识受了许多社会条件的限制的缘故。我们反对革命队伍中的顽固派，他们的思想不能随变化了的客观情况而前进，在历史上表现为右倾机会主义。这些人看不出矛盾的斗争已将客观过程推向前进了，而他们的认识仍然停止在旧阶段。一切顽固党的思想都有这样的特征。他们的思想离开了社会的实践，他们不能站在社会车轮的前头充任向导的工作，他们只知跟在车子后面怨恨车子走得太快了，企图把它向后拉，开倒车。<br>　　我们也反对“左”翼空谈主义。他们的思想超过客观过程的一定发展阶段，有些把幻想看作真理，有些则把仅在将来有现实可能性的理想，勉强地放在现时来做，离开了当前大多数人的实践，离开了当前的现实性，在行动上表现为冒险主义。<br>　　唯心论和机械唯物论，机会主义和冒险主义，都是以主观和客观相分裂，以认识和实践相脱离为特征的。以科学的社会实践为特征的马克思列宁主义的认识论，不能不坚决反对这些错误思想。马克思主义者承认，在绝对的总的宇宙发展过程中，各个具体过程的发展都是相对的，因而在绝对真理的长河中，人们对于在各个一定发展阶段上的具体过程的认识只具有相对的真理性。无数相对的真理之总和，就是绝对的真理[11]。客观过程的发展是充满着矛盾和斗争的发展，人的认识运动的发展也是充满着矛盾和斗争的发展。一切客观世界的辩证法的运动，都或先或后地能够反映到人的认识中来。社会实践中的发生、发展和消灭的过程是无穷的，人的认识的发生、发展和消灭的过程也是无穷的。根据于一定的思想、理论、计划、方案以从事于变革客观现实的实践，一次又一次地向前，人们对于客观现实的认识也就一次又一次地深化。客观现实世界的变化运动永远没有完结，人们在实践中对于真理的认识也就永远没有完结。马克思列宁主义并没有结束真理，而是在实践中不断地开辟认识真理的道路。我们的结论是主观和客观、理论和实践、知和行的具体的历史的统一，反对一切离开具体历史的“左”的或右的错误思想。<br>　　社会的发展到了今天的时代，正确地认识世界和改造世界的责任，已经历史地落在无产阶级及其政党的肩上。这种根据科学认识而定下来的改造世界的实践过程，在世界、在中国均已到达了一个历史的时节——自有历史以来未曾有过的重大时节，这就是整个儿地推翻世界和中国的黑暗面，把它们转变过来成为前所未有的光明世界。无产阶级和革命人民改造世界的斗争，包括实现下述的任务：改造客观世界，也改造自己的主观世界——改造自己的认识能力，改造主观世界同客观世界的关系。地球上已经有一部分实行了这种改造，这就是苏联。他们还正在促进这种改造过程。中国人民和世界人民也都正在或将要通过这样的改造过程。所谓被改造的客观世界，其中包括了一切反对改造的人们，他们的被改造，须要通过强迫的阶段，然后才能进入自觉的阶段。世界到了全人类都自觉地改造自己和改造世界的时候，那就是世界的共产主义时代。<br>　　通过实践而发现真理，又通过实践而证实真理和发展真理。从感性认识而能动地发展到理性认识，又从理性认识而能动地指导革命实践，改造主观世界和客观世界。实践、认识、再实践、再认识，这种形式，循环往复以至无穷，而实践和认识之每一循环的内容，都比较地进到了高一级的程度。这就是辩证唯物论的全部认识论，这就是辩证唯物论的知行统一观。</p>
-<hr>
-<p><strong>注释</strong></p>
-<p>[1]见列宁《黑格尔〈逻辑学〉一书摘要》。新的译文是：“实践高于（理论的）认识，因为它不仅具有普遍性的品格，而且还具有直接现实性的品格。”（《列宁全集》第55卷，人民出版社1990年版，第183页）</p>
-<p>[2] 参见马克思《关于费尔巴哈的提纲》（《马克思恩格斯选集》第1卷，人民出版社1972年版，第16—19页）和列宁《唯物主义和经验批判主义》第二章第六节（《列宁全集》第18卷，人民出版社1988年版，第144页）。</p>
-<p>[3]见列宁《黑格尔〈逻辑学〉一书摘要》（《列宁全集》第55卷，人民出版社1990年版，第142页）。</p>
-<p>[4]里手，湖南方言，内行的意思。</p>
-<p>[5]说：“《实践论》中将太平天国放在排外主义一起说不妥，出选集时拟加修改，此处暂仍照原。”</p>
-<p>[6]五四运动是一九一九年五月四日发生的反帝反封建的爱国运动。当时，第一次世界大战刚刚结束，英、美、法、日、意等战胜国在巴黎召开对德和会，决定由日本继承德国在中国山东的特权。中国是参加对德宣战的战胜国之一，但北洋军阀政府却准备接受这个决定。五月四日，北京学生游行示威，反对帝国主义的这一无理决定和北洋军阀政府的妥协。这次运动迅速地获得了全国人民的响应，到六月三日以后，发展成为有工人阶级、城市小资产阶级和民族资产阶级参加的广大群众性的反帝反封建的爱国运动。五四运动也是反对封建文化的新文化运动。以一九一五年《青年杂志》（后改名《新青年》）创刊为起点的新文化运动，竖起“民主”和“科学”的旗帜，反对旧道德，提倡新道德，反对旧文学，提倡新文学。五四运动中的先进分子接受了马克思主义，使新文化运动发展成为马克思主义思想运动，他们致力于马克思主义同中国工人运动相结合，在思想上和干部上准备了中国共产党的成立。</p>
-<p>[7]参见列宁《黑格尔〈逻辑学〉一书摘要》：“要理解，就必须从经验开始理解、研究，从经验上升到一般。”（《列宁全集》第55卷，人民出版社1990年版，第175页）</p>
-<p>[8]见列宁《俄国社会民主党人的任务》（《列宁全集》第2卷，人民出版社1984年版，第443页）；并见列宁《怎么办？》第一章第四节（《列宁全集》第6卷，人民出版社1986年版，第23页）。</p>
-<p>[9]见列宁《唯物主义和经验批判主义》第二章第六节（《列宁全集》第18卷，人民出版社1988年版，第144页）。</p>
-<p>[10]见斯大林《论列宁主义基础》第三部分《理论》。新的译文是：“离开革命实践的理论是空洞的理论，而不以革命理论为指南的实践是盲目的实践。”（《斯大林选集》上卷，人民出版社1979年版，第199—200页）</p>
-<p>[11]参见列宁《唯物主义和经验批判主义》第二章第五节。原文是：“人类思维按其本性是能够给我们提供并且正在提供由相对真理的总和所构成的绝对真理的。”（《列宁全集》第18卷，人民出版社1988年版，第135页）</p>
-]]></content>
-      <tags>
-        <tag>阅读</tag>
-        <tag>哲学</tag>
       </tags>
   </entry>
   <entry>
@@ -6714,127 +6714,6 @@
       </tags>
   </entry>
   <entry>
-    <title>黄伟文x麦浚龙爱情七部曲</title>
-    <url>/2022/20220708/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>跨越十年的七首歌贯穿了一段十年的故事。</p>
-<p>《耿耿于怀》、《念念不忘》、《罗生门》这三部曲是系列的主线。</p>
-<span id="more"></span>
-
-<hr>
-<p>2004年《耿耿于怀》</p>
-<p>2014年《念念不忘》</p>
-<p>2015年《罗生门》</p>
-<p>《雷克雅未克》</p>
-<p>《睡前服》</p>
-<p>《瑕疵》</p>
-<p>《单鱼座》</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/8274446-5e983970fa71bfcd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/690/format/webp" alt="img"></p>
-<hr>
-<h5 id="《耿耿于怀》"><a href="#《耿耿于怀》" class="headerlink" title="《耿耿于怀》"></a>《耿耿于怀》</h5><p>你　最近还好吗　尚爱看少女漫画吗<br>最近　近乎没露面　你有新对象吗<br>真想带你见见　我刚识到的她<br>我想听你意见　这算是病吧<br>为何无论我　愿意怎样试　怎样也<br>不可一样爱慕她<br>难道没练习太耐　感觉都追不回来<br>试图再　努力爱　也显得不自在<br>不懂得如何谈恋爱<br>还是我太爱你　对过去太放不开<br>难道是寂寞太耐　生秀的锁不能开<br>钥匙也拆断了　留在旧患所在怀内<br>放满对你的爱<br>难怪跟谁也　再没法恋爱<br>我　有时仍很怕　路过你那从前的家<br>往事若然未落幕　再揭起有害吗<br>真想带你见见　我刚识到的她<br>我想听你意见　这算是病吧<br>为何无论我　愿意怎样试　怎样也<br>(没令自己恋上她)<br>难道没练习太耐　感觉都追不回来<br>试图再　努力爱　也显得不自在<br>不懂得如何谈恋爱<br>还是我太爱你　对过去太放不开<br>难道是寂寞太耐　生秀的锁不能开<br>钥匙也拆断了　留在旧患所在怀内<br>放满对你的爱<br>难怪跟谁也　再没法恋爱<br>难道没练习太耐　感觉都追不回来<br>试图再　努力爱　也显得不自在<br>耿耿于怀从前的爱<br>从没有　振作过　痛了再痛也应该<br>难道是寂寞太耐　生秀的锁不能开<br>往事却　似断箭　还剩下在体内<br>若怀内　放满对你的爱<br>害怕一直也　再没法恋爱</p>
-<hr>
-<h5 id="《念念不忘》"><a href="#《念念不忘》" class="headerlink" title="《念念不忘》"></a>《念念不忘》</h5><p>十年又過去 舉止仍像少女<br>你跟我每夜仍聚聚 到夢裡追<br>贈你哈囉吉蒂那玩具 這天早變作茉莉香水<br>你的笑 卻是照舊和煦</p>
-<p>留在你漫畫書裡 當初那美麗神仙伴侶<br>就像那青春洪水 現在已經不可能追</p>
-<p>那故事倉猝結束不到氣絕便已安葬<br>教兩人心裡有道不解的咒沒法釋放<br>讓我們打聽對方今天過得一切平安<br>縱使相見已是路人茫茫 臉書等愛侶入睡卻偷看</p>
-<p>自離別剎那 今生停頓了嗎<br>縱使我最後曾認命 邂逅了她<br>但信一天總會再遇吧 我想聽你說別喜歡她<br>你跟我 以後抱著回家</p>
-<p>其實你是一幅畫 狠狠往這舊人心上掛<br>現實過得不順嗎 定定望向這畫中曇花</p>
-<p>那故事倉猝結束不到氣絕便已安葬<br>教兩人心裡有道不解的咒沒法釋放<br>讓我們打聽對方今天過得一切平安<br>縱使相見已是路人茫茫 記憶中你仍像初戀好看</p>
-<p>吻過二十年還未寒 離去六十年仍熱燙<br>共你就似被舊情下了降 像下了降<br>每晚都想起對方</p>
-<p>誰亦會講 假使那樣懷念必會再次有迴光<br>其實只要 讓我耿耿某人思憶早閃閃發光<br>個個也探問<br>愛戀不老的秘方 唯獨壯烈離座可百世流芳<br>你未忘 我未忘 猶勝伴在旁</p>
-<p>那故事倉猝結束不到氣絕便已安葬<br>才成就心裡那道不解的咒沒法釋放<br>讓我們打聽對方天天過得一切平安<br>縱使相見已是路人茫茫 這生恐怕會念念你不放<br>流連著不想過對岸</p>
-<hr>
-<h5 id="《睡前服》"><a href="#《睡前服》" class="headerlink" title="《睡前服》"></a>《睡前服》</h5><p>承著這份寧靜有話對你講<br>還是趁著難眠夜去衝個浪<br>還是對著頭上朦朧月光寫一首詩叫你明天看</p>
-<p>其實我夢遊在你萬呎套房<br>還是我在沈沈睡到出了汗<br>還是我在床上離奇睡醒 輾轉一刻你正在觀看</p>
-<p>或者我 正在 魂飄蕩<br>前面是你嗎 不可能吧<br>明明還很清楚坐在我家</p>
-<p>但目下光影是狂想嗎<br>模糊輪廓後是特別美好嗎</p>
-<p>撐著 暈著 但尚是我吧<br>怎麼醫好無眠者半夜時的感性<br>長夜有點灰</p>
-<p>斟一杯水拿來睡前服那顆寶貝<br>不高興 再續杯<br>朦朦鬆鬆剎那特別想潛入你心跟你說<br>有件憾事讓我終身有悔<br>未敢約的約會<br>仍在半夢與半醒之時被化灰</p>
-<p>其實睡了嗎 不可能吧<br>明明還很清醒算著創疤<br>但現在思想 沒邏輯嗎</p>
-<p>遺忘常理後是特別勇敢嗎<br>虛弱 無力 但沒亂說話<br>怎麼醫好無眠者半夜時的感性</p>
-<p>長夜有點灰<br>斟一杯水拿來睡前服那顆寶貝</p>
-<p>明日到 醒起再後悔<br>想跟你說為什麼人在痛心 失去你<br>卻未盡力 大概擔心我未配<br>未敢約的約會<br>仍在半夢與半醒之時未化灰 未化灰<br>讓幻象暫時陪我 關起燈 開開舞會<br>待藥力運行全身驅走一片灰<br>我只可這樣 享受你 然後徹底崩潰<br>共你 甜蜜過先崩潰 都算不悔<br>明白你只在彌留的一剎<br>願意待我好 卻不會 再夢迴</p>
-<hr>
-<h5 id="《瑕疵》"><a href="#《瑕疵》" class="headerlink" title="《瑕疵》"></a>《瑕疵》</h5><p>男：差些想放弃吧　为何未放手<br>差一些不要我吧　为何又再忍<br>并没什么亏欠我吧<br>为何犯罪作恶都找到借口　作罢<br>曾怀疑与后悔吗<br>差一些失去你吧　为何没法改<br>明明瑕疵多似乱麻　不去掩盖一下<br>其实你也很多景仰者爱你吧<br>很感激依然留下<br>情人间　能容许小秘密吗<br>应该揭穿但揭穿担心更卑下<br>情人间　能容许小错处吗<br>女：真的想过没送花也没情话<br>也算是爱情吧（男：但我不只有这点错）<br>严重多几倍吧<br>忍耐到底　光阴都不算白花<br>（男：为何人性会这么可怕）<br>先变笨吧　换我忍忍得到吗<br>男：其实曾内心挣扎吗（男：就当赠你的礼物吧）<br>女：罪案不去调查　男:亦想听你讲一下<br>女：差些想放弃吧　为何未放手<br>差一些不要你吧　为何又再忍<br>是未服输的个性吧<br>男：要爱我有阵时（女：不舍得不宽恕）不易<br>女：早知道原理吧　因此我也没惊讶<br>找快乐先修课程是要接受最差<br>登天国拿胜利也一秒吧<br>不过谪仙之路遥远又可怕<br>我共你关系如等大石开花<br>美好一剎　可杀死我吧<br>因此不舍这满场　<br>颓垣败瓦</p>
-<hr>
-<h5 id="《罗生门》"><a href="#《罗生门》" class="headerlink" title="《罗生门》"></a>《罗生门》</h5><p>男：若果你　未覺荒謬<br>被傳聞談論的瘋子挽著手</p>
-<p>女：很感激　喜歡我十年仍不休<br>近日舊同學說我已　耿耿於你心六百週<br>很可惜　這一世未能長廝守<br>但事實如若告訴你或更內疚<br>我愛過哈囉吉蒂嗎似乎沒有</p>
-<p>狄更斯是漫畫嗎　仍然少女誤會了嗎<br>迷戀蔽眼才給美化　但其實真懂得我嗎</p>
-<p>那動人時光　不用常回看<br>能提取溫暖以後渡嚴寒　就關起那間房<br>最動人時光　未必地老天荒<br>難忘的因你太念念才難忘<br>容易抱住誰十年　最難是放</p>
-<p>真心講　想起那段情仍不枉<br>若路上重遇會笑笑問你近況<br>你每晚更新的臉書卻無謂看</p>
-<p>離別了若想心安　先不要每夜重翻舊案<br>望著更好的地方　為下段愛戀吸收陽光</p>
-<p>那動人時光　不用常回看<br>能提取溫暖以後渡嚴寒　就關起那間房<br>最動人時光　未必地老天荒<br>難忘的因你太念念才難忘<br>容易眼淚流十年　難在擦乾</p>
-<p>男：還在嘆息那愛戀不到氣絕便已安葬<br>(女：怕掛念太猖狂)<br>男：敎兩人心裡有道不解的咒沒法釋放</p>
-<p>　合：個個也探問愛戀不老的秘方<br>　男：唯獨壯烈離座 可百世流芳<br>(女：難道抱著殘像　可百世流芳)<br>　男：你未忘　我未忘　猶勝伴在旁<br>(女：你未忘　我未忘　情信亦泛黃)</p>
-<p>男：不心安　清早與夜來亦望望<br>收不到信號過兩秒又再看看<br>你說過常聯繫對方</p>
-<p>男：從前號碼　等於老地方　不敢拆掉再裝<br>(女：那動人時光　不用常回看)<br>(能提取溫暖以後渡嚴寒　就關起那間房)<br>男：猶如絕症　天天有預感　幸福即將再降<br>(女：最動人時光　未必地老天荒)<br>(最纏綿那黑影　即使每夜遊蕩　其實一早已給安葬)</p>
-<p>男：情人若你也未忘<br>約定誰過十年暗渡陳倉　再續夜航</p>
-<p>女：別瘋狂　男：下個一月<br>男：願如期團聚於　冰島某地方<br>(女：讓前塵沉澱於　福島某地方)</p>
-<hr>
-<h5 id="《单鱼座》"><a href="#《单鱼座》" class="headerlink" title="《单鱼座》"></a>《单鱼座》</h5><p>无故地眼湿 突然悲痛莫名<br>再切入有关你的情景<br>还有话要讲 没有声 这大概乃双鱼宿命<br>半世任传闻话我痴 却没有辩驳那本领<br>灭了音的情歌 却依然动听 </p>
-<p>何时火 何时冰 仍无声 仍无反应<br>天生过份冷静<br>举重也可若轻<br>就算心 多汹涌 不泄漏半升 </p>
-<p>无暇又辩证<br>谁人好 谁人差 早心领<br>世界图腾怎拼 只得我能够 抽丝剥茧一一看清<br>只爱悬崖绝岭<br>由人去 诬蔑我 抑郁症<br>最怕逢场助庆<br>当天涯无风景 重投心境 </p>
-<p>如流失 就会死 的感性<br>已在血管之中 别矫正<br>跟你吻的场景<br>就算它 是我的 故事入面 凭空设定 并无实证<br>仍留低 能重返 的小径 </p>
-<p>个个严辞指正<br>怎么我能够 一声不响修改圣经<br>真爱才能获胜<br>旁人会 疑问我 极多情<br>如何赚取尊敬<br>很多人能心倾 然而都 非因即兴<br>像恶梦仍然爱 但爱极仍无声<br>多得宿命感性<br>得一刹美好 却杀掉一生的感性<br>忍不了时时 也想念你<br>唯有 驯服我 坏心情<br>维持 安静 端正<br>当天涯无风景 重投心境<br>重投心境 抹去 风声</p>
-<hr>
-<p>《雷克雅未克》</p>
-<p>还请你兑现约定 飞到为我破冰</p>
-<p>置身冰岛名胜 杀不死依存症</p>
-<p>前尘埋没 那段情</p>
-<p>约誓残念 却没有清</p>
-<p>而你有讲过</p>
-<p>来年再续旧场景</p>
-<p>冒雪独自踏故城</p>
-<p>北欧式配乐 灵动而冷静</p>
-<p>潜入我 随身听 蓝鲸在 旋律间低唱 遗孤的心声</p>
-<p>相比这市面 缓慢而洁净</p>
-<p>徬徨路人像我 携同不必的感性</p>
-<p>北极里有一束光</p>
-<p>你话留来伴我望</p>
-<p>我若觉得绝望</p>
-<p>想到亦会全释放</p>
-<p>这 绿里透紫的光</p>
-<p>从未天际怒放</p>
-<p>好比原来 一起能到达 的远方 而未同往</p>
-<p>冰川未访 火山未闯</p>
-<p>还是 我自困 空想之中</p>
-<p>未熄的热情 用十年来放送</p>
-<p>彷佛一眼热泉 涌进 寒冷冰窖中</p>
-<p>炎凉大战中 谁够耐性便胜利</p>
-<p>冰封旧情再解冻</p>
-<p>或者失约 一早已在你 预备中</p>
-<p>坚守冰岛只是我 未望通</p>
-<p>根本不是 天下情人都 求重逢 重温美梦</p>
-<p>情人都 求重逢 重修破洞</p>
-<p>如情人都 能重逢</p>
-<p>情歌少很多 精彩内容</p>
-<p>来 踏步空 早些心死 早上进</p>
-<p>念念的 失约以后 我便我便放松</p>
-<p>让挂念 葬在最深 白雪中</p>
-<p>北极里有一束光</p>
-<p>你话留来伴我望</p>
-<p>我若觉得绝望</p>
-<p>想到亦会全释放</p>
-<p>这 绿里透紫的光</p>
-<p>从未天际怒放</p>
-<p>好比原来 一起能到达 的远方 而未同往</p>
-<p>冰川未访 火山未闯</p>
-<p>或我自负又气盛</p>
-<p>冰岛的约会 纯属场错认</p>
-<p>从没有留心听</p>
-<p>情人话 重返的都市 无端改了姓</p>
-<p>终不可碰面 无谓来怨命</p>
-<p>从来并无洞察 旁人心底的本领</p>
-<p>请你兑现约定 飞到伴我看星</p>
-<p>往昔福岛名胜 破损中显神圣</p>
-<p>谁人能为 昨日情</p>
-<p>过十年后 再度远征</p>
-<p>时间废墟里</p>
-<p>寻那 不经污染 相恋的铁证</p>
-]]></content>
-      <tags>
-        <tag>音乐</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>十年之约</title>
     <url>/2022/20220710/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="我也不知道密码。" data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
@@ -7051,30 +6930,6 @@
       </tags>
   </entry>
   <entry>
-    <title>中国房地产行业的压力</title>
-    <url>/2022/20220720/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>中国房地产行业的压力（Stresses in China’s Real Estate Sector）——来自美联储报告第五章Near-Term Risks to the Financial System。</p>
-<p>以下为翻译：</p>
-<span id="more"></span>
-
-<hr>
-<h3 id="简要"><a href="#简要" class="headerlink" title="简要"></a>简要</h3><p><strong>中国的压力，包括房地产行业的压力，可能蔓延到美国。</strong></p>
-<p>在中国，房地产行业的债务水平很高，去年房地产行业的活动和价格大幅下降（见“中国房地产行业的压力”方框）。如果这场衰退加剧，其对中国市场和金融机构的影响可能会因2019冠状病毒疾病疫情的进一步爆发、新的监管限制（包括遏制科技行业的进一步行动）或因地缘政治动机或风险担忧而导致的其他国家贸易或投资的任何缩减而扩大。鉴于中国经济和金融体系的规模，以及中国与世界其他地区广泛的贸易联系，中国的金融压力可能会通过风险情绪恶化和经济活动中断给全球金融市场带来压力，这可能会影响美国。</p>
-<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>在过去的几十年里，中国的扩张性政策帮助维持了经济的快速增长，这已经超过了大多数其他国家。中国在世界GDP中的份额已达到约17%（图A）。对中国企业的信贷增长更快，支持了GDP增长，但由此产生的企业部门杠杆效应使其越来越容易受到冲击。<br>中国的非金融企业信贷已达到GDP的160%左右，这一水平远高于大多数其他新兴市场经济体（图B）。中国房地产行业的企业负债特别高，房地产行业一直是中国快速增长的关键引擎，房地产开发和相关活动的贷款增长迅速。</p>
-<p><img src="/images/2.jpg"></p>
-<p>在过去几年中，中国政府加强了对房地产市场的监管，包括对购房、银行房地产行业风险敞口以及一些市场的抵押贷款施加新的限制。 2020年8月，监管机构宣布了直接针对房地产开发商的进一步措施：根据杠杆和流动性的具体审慎限制（通常称为“三条红线”），逐步收紧对借款的限制。从长远来看，这些约束应该有助于控制杠杆，提高房地产部门和金融体系的弹性。<br>这些举措实施后不久，房地产销售急剧放缓（图C）。房价和建筑活动也有所下降。客户通常在项目竣工前向建筑公司付款，如果买家对开发商完成住房单元的能力失去信心，不利的动态可能会加剧。几家房地产开发商已经出现了付款违约，其他房地产开发商在国内和国外都出现了严重的流动性紧缩以及海外融资。在经历了多年的强劲增长后，国内银行对房地产开发商的贷款正在下降，一些大型中国房地产开发商在离岸美元市场发行的债券今年的交易价格正处于日益低迷的水平（图D）。</p>
-<p><img src="/images/3.jpg"></p>
-<p>尽管到目前为止，中国政府设法控制住了其影响，但房地产市场低迷的严重恶化可能会影响中国的金融体系。中资银行对开发商的直接敞口占其一级资本的一半以上，并通过向其他公司发放以房地产为抵押的贷款，对房地产市场有大量间接敞口。通过向散户投资者销售银行赞助的理财产品，中资银行还间接接触了房地产开发商。地方政府还受到中国房地产市场的影响，因为它们的财政收入有很大一部分来自卖地，而且它们的杠杆率也很高。去年，包括表外融资工具在内的地方政府债务的广义估计超过了GDP的70%。12月，国家政府宣布在2022年第一季度放松对地方政府债券融资的限制，这将部分缓解短期压力，并为基础设施投资提供资金。今年第一季度，地方政府的债券发行似乎表现强劲，年初中国固定资产投资增速加快，反映出今年财政刺激的前期沉重负担。</p>
-<p>到目前为止，对美国的溢出效应在范围上是有限的，部分原因是美国的直接出口。中国大陆的风险敞口相对较小。银行的风险敞口不到一级资本的10%。投资者的风险敞口也很有限:现有数据显示，持有的中国证券(包括通过离岸关联公司发行的证券)仅占美国国债的1%左右。此外，最近的研究估计，对中国的销售占美国公司收入的不到5%。</p>
-<p>但是，如果房地产市场的影响加剧，并导致中国银行承受巨大压力，从而降低银行贷款和GDP增长，那么压力将通过实体和金融渠道——尤其是贸易和全球风险情绪——向美国传递。<br>鉴于中国在全球经济中扮演的重要角色，贸易渠道是重要的，美联储工作人员的研究发现，负面的中国GDP惊喜往往会降低全球大宗商品价格和其他国家的贸易量。风险情绪也可以是一个重要的国际溢出渠道，中国过去的严重压力时期扰乱了全球市场，如2015年。<br>中国政府汇率管理机制的变化加剧了人们对中国经济增长的担忧(图E)。随之而来的资本外流加速和中国股市大幅回调，伴随着全球和美国市场的波动，以及美元的大幅升值。</p>
-<p><img src="/images/4.jpg"></p>
-]]></content>
-      <tags>
-        <tag>学习</tag>
-        <tag>经济</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数学建模课堂</title>
     <url>/2022/20220730/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>笔记笔记</p>
@@ -7130,16 +6985,148 @@
       </tags>
   </entry>
   <entry>
-    <title>kaggle小技巧之指数加权ensemble</title>
-    <url>/2022/20220815/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/jbomitchell/exponentially-weighted-ensemble-spaceship-titanic">JOHN MITCHELL</a></p>
-<p>权重=$ e^{b*(x-s)}$</p>
-<p>x是每个模型的LB分数。得分越大越好，因此权重随着x的增加而变大，随着x的减少而变小（模型越好，权重越大）。<br>b是模型的一个可调参数，b越大，权重衰减越快，分数越低。S是一个校准参数，其定义如下：如果S设置为最佳单模型分数，则最高非标准化权重exp（b*（x-S））为1.0，这是方便的，但不是必需的。</p>
-<p>最后还要归一化。</p>
+    <title>黄伟文x麦浚龙爱情七部曲</title>
+    <url>/2022/20220708/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>跨越十年的七首歌贯穿了一段十年的故事。</p>
+<p>《耿耿于怀》、《念念不忘》、《罗生门》这三部曲是系列的主线。</p>
+<span id="more"></span>
+
+<hr>
+<p>2004年《耿耿于怀》</p>
+<p>2014年《念念不忘》</p>
+<p>2015年《罗生门》</p>
+<p>《雷克雅未克》</p>
+<p>《睡前服》</p>
+<p>《瑕疵》</p>
+<p>《单鱼座》</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8274446-5e983970fa71bfcd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/690/format/webp" alt="img"></p>
+<hr>
+<h5 id="《耿耿于怀》"><a href="#《耿耿于怀》" class="headerlink" title="《耿耿于怀》"></a>《耿耿于怀》</h5><p>你　最近还好吗　尚爱看少女漫画吗<br>最近　近乎没露面　你有新对象吗<br>真想带你见见　我刚识到的她<br>我想听你意见　这算是病吧<br>为何无论我　愿意怎样试　怎样也<br>不可一样爱慕她<br>难道没练习太耐　感觉都追不回来<br>试图再　努力爱　也显得不自在<br>不懂得如何谈恋爱<br>还是我太爱你　对过去太放不开<br>难道是寂寞太耐　生秀的锁不能开<br>钥匙也拆断了　留在旧患所在怀内<br>放满对你的爱<br>难怪跟谁也　再没法恋爱<br>我　有时仍很怕　路过你那从前的家<br>往事若然未落幕　再揭起有害吗<br>真想带你见见　我刚识到的她<br>我想听你意见　这算是病吧<br>为何无论我　愿意怎样试　怎样也<br>(没令自己恋上她)<br>难道没练习太耐　感觉都追不回来<br>试图再　努力爱　也显得不自在<br>不懂得如何谈恋爱<br>还是我太爱你　对过去太放不开<br>难道是寂寞太耐　生秀的锁不能开<br>钥匙也拆断了　留在旧患所在怀内<br>放满对你的爱<br>难怪跟谁也　再没法恋爱<br>难道没练习太耐　感觉都追不回来<br>试图再　努力爱　也显得不自在<br>耿耿于怀从前的爱<br>从没有　振作过　痛了再痛也应该<br>难道是寂寞太耐　生秀的锁不能开<br>往事却　似断箭　还剩下在体内<br>若怀内　放满对你的爱<br>害怕一直也　再没法恋爱</p>
+<hr>
+<h5 id="《念念不忘》"><a href="#《念念不忘》" class="headerlink" title="《念念不忘》"></a>《念念不忘》</h5><p>十年又過去 舉止仍像少女<br>你跟我每夜仍聚聚 到夢裡追<br>贈你哈囉吉蒂那玩具 這天早變作茉莉香水<br>你的笑 卻是照舊和煦</p>
+<p>留在你漫畫書裡 當初那美麗神仙伴侶<br>就像那青春洪水 現在已經不可能追</p>
+<p>那故事倉猝結束不到氣絕便已安葬<br>教兩人心裡有道不解的咒沒法釋放<br>讓我們打聽對方今天過得一切平安<br>縱使相見已是路人茫茫 臉書等愛侶入睡卻偷看</p>
+<p>自離別剎那 今生停頓了嗎<br>縱使我最後曾認命 邂逅了她<br>但信一天總會再遇吧 我想聽你說別喜歡她<br>你跟我 以後抱著回家</p>
+<p>其實你是一幅畫 狠狠往這舊人心上掛<br>現實過得不順嗎 定定望向這畫中曇花</p>
+<p>那故事倉猝結束不到氣絕便已安葬<br>教兩人心裡有道不解的咒沒法釋放<br>讓我們打聽對方今天過得一切平安<br>縱使相見已是路人茫茫 記憶中你仍像初戀好看</p>
+<p>吻過二十年還未寒 離去六十年仍熱燙<br>共你就似被舊情下了降 像下了降<br>每晚都想起對方</p>
+<p>誰亦會講 假使那樣懷念必會再次有迴光<br>其實只要 讓我耿耿某人思憶早閃閃發光<br>個個也探問<br>愛戀不老的秘方 唯獨壯烈離座可百世流芳<br>你未忘 我未忘 猶勝伴在旁</p>
+<p>那故事倉猝結束不到氣絕便已安葬<br>才成就心裡那道不解的咒沒法釋放<br>讓我們打聽對方天天過得一切平安<br>縱使相見已是路人茫茫 這生恐怕會念念你不放<br>流連著不想過對岸</p>
+<hr>
+<h5 id="《睡前服》"><a href="#《睡前服》" class="headerlink" title="《睡前服》"></a>《睡前服》</h5><p>承著這份寧靜有話對你講<br>還是趁著難眠夜去衝個浪<br>還是對著頭上朦朧月光寫一首詩叫你明天看</p>
+<p>其實我夢遊在你萬呎套房<br>還是我在沈沈睡到出了汗<br>還是我在床上離奇睡醒 輾轉一刻你正在觀看</p>
+<p>或者我 正在 魂飄蕩<br>前面是你嗎 不可能吧<br>明明還很清楚坐在我家</p>
+<p>但目下光影是狂想嗎<br>模糊輪廓後是特別美好嗎</p>
+<p>撐著 暈著 但尚是我吧<br>怎麼醫好無眠者半夜時的感性<br>長夜有點灰</p>
+<p>斟一杯水拿來睡前服那顆寶貝<br>不高興 再續杯<br>朦朦鬆鬆剎那特別想潛入你心跟你說<br>有件憾事讓我終身有悔<br>未敢約的約會<br>仍在半夢與半醒之時被化灰</p>
+<p>其實睡了嗎 不可能吧<br>明明還很清醒算著創疤<br>但現在思想 沒邏輯嗎</p>
+<p>遺忘常理後是特別勇敢嗎<br>虛弱 無力 但沒亂說話<br>怎麼醫好無眠者半夜時的感性</p>
+<p>長夜有點灰<br>斟一杯水拿來睡前服那顆寶貝</p>
+<p>明日到 醒起再後悔<br>想跟你說為什麼人在痛心 失去你<br>卻未盡力 大概擔心我未配<br>未敢約的約會<br>仍在半夢與半醒之時未化灰 未化灰<br>讓幻象暫時陪我 關起燈 開開舞會<br>待藥力運行全身驅走一片灰<br>我只可這樣 享受你 然後徹底崩潰<br>共你 甜蜜過先崩潰 都算不悔<br>明白你只在彌留的一剎<br>願意待我好 卻不會 再夢迴</p>
+<hr>
+<h5 id="《瑕疵》"><a href="#《瑕疵》" class="headerlink" title="《瑕疵》"></a>《瑕疵》</h5><p>男：差些想放弃吧　为何未放手<br>差一些不要我吧　为何又再忍<br>并没什么亏欠我吧<br>为何犯罪作恶都找到借口　作罢<br>曾怀疑与后悔吗<br>差一些失去你吧　为何没法改<br>明明瑕疵多似乱麻　不去掩盖一下<br>其实你也很多景仰者爱你吧<br>很感激依然留下<br>情人间　能容许小秘密吗<br>应该揭穿但揭穿担心更卑下<br>情人间　能容许小错处吗<br>女：真的想过没送花也没情话<br>也算是爱情吧（男：但我不只有这点错）<br>严重多几倍吧<br>忍耐到底　光阴都不算白花<br>（男：为何人性会这么可怕）<br>先变笨吧　换我忍忍得到吗<br>男：其实曾内心挣扎吗（男：就当赠你的礼物吧）<br>女：罪案不去调查　男:亦想听你讲一下<br>女：差些想放弃吧　为何未放手<br>差一些不要你吧　为何又再忍<br>是未服输的个性吧<br>男：要爱我有阵时（女：不舍得不宽恕）不易<br>女：早知道原理吧　因此我也没惊讶<br>找快乐先修课程是要接受最差<br>登天国拿胜利也一秒吧<br>不过谪仙之路遥远又可怕<br>我共你关系如等大石开花<br>美好一剎　可杀死我吧<br>因此不舍这满场　<br>颓垣败瓦</p>
+<hr>
+<h5 id="《罗生门》"><a href="#《罗生门》" class="headerlink" title="《罗生门》"></a>《罗生门》</h5><p>男：若果你　未覺荒謬<br>被傳聞談論的瘋子挽著手</p>
+<p>女：很感激　喜歡我十年仍不休<br>近日舊同學說我已　耿耿於你心六百週<br>很可惜　這一世未能長廝守<br>但事實如若告訴你或更內疚<br>我愛過哈囉吉蒂嗎似乎沒有</p>
+<p>狄更斯是漫畫嗎　仍然少女誤會了嗎<br>迷戀蔽眼才給美化　但其實真懂得我嗎</p>
+<p>那動人時光　不用常回看<br>能提取溫暖以後渡嚴寒　就關起那間房<br>最動人時光　未必地老天荒<br>難忘的因你太念念才難忘<br>容易抱住誰十年　最難是放</p>
+<p>真心講　想起那段情仍不枉<br>若路上重遇會笑笑問你近況<br>你每晚更新的臉書卻無謂看</p>
+<p>離別了若想心安　先不要每夜重翻舊案<br>望著更好的地方　為下段愛戀吸收陽光</p>
+<p>那動人時光　不用常回看<br>能提取溫暖以後渡嚴寒　就關起那間房<br>最動人時光　未必地老天荒<br>難忘的因你太念念才難忘<br>容易眼淚流十年　難在擦乾</p>
+<p>男：還在嘆息那愛戀不到氣絕便已安葬<br>(女：怕掛念太猖狂)<br>男：敎兩人心裡有道不解的咒沒法釋放</p>
+<p>　合：個個也探問愛戀不老的秘方<br>　男：唯獨壯烈離座 可百世流芳<br>(女：難道抱著殘像　可百世流芳)<br>　男：你未忘　我未忘　猶勝伴在旁<br>(女：你未忘　我未忘　情信亦泛黃)</p>
+<p>男：不心安　清早與夜來亦望望<br>收不到信號過兩秒又再看看<br>你說過常聯繫對方</p>
+<p>男：從前號碼　等於老地方　不敢拆掉再裝<br>(女：那動人時光　不用常回看)<br>(能提取溫暖以後渡嚴寒　就關起那間房)<br>男：猶如絕症　天天有預感　幸福即將再降<br>(女：最動人時光　未必地老天荒)<br>(最纏綿那黑影　即使每夜遊蕩　其實一早已給安葬)</p>
+<p>男：情人若你也未忘<br>約定誰過十年暗渡陳倉　再續夜航</p>
+<p>女：別瘋狂　男：下個一月<br>男：願如期團聚於　冰島某地方<br>(女：讓前塵沉澱於　福島某地方)</p>
+<hr>
+<h5 id="《单鱼座》"><a href="#《单鱼座》" class="headerlink" title="《单鱼座》"></a>《单鱼座》</h5><p>无故地眼湿 突然悲痛莫名<br>再切入有关你的情景<br>还有话要讲 没有声 这大概乃双鱼宿命<br>半世任传闻话我痴 却没有辩驳那本领<br>灭了音的情歌 却依然动听 </p>
+<p>何时火 何时冰 仍无声 仍无反应<br>天生过份冷静<br>举重也可若轻<br>就算心 多汹涌 不泄漏半升 </p>
+<p>无暇又辩证<br>谁人好 谁人差 早心领<br>世界图腾怎拼 只得我能够 抽丝剥茧一一看清<br>只爱悬崖绝岭<br>由人去 诬蔑我 抑郁症<br>最怕逢场助庆<br>当天涯无风景 重投心境 </p>
+<p>如流失 就会死 的感性<br>已在血管之中 别矫正<br>跟你吻的场景<br>就算它 是我的 故事入面 凭空设定 并无实证<br>仍留低 能重返 的小径 </p>
+<p>个个严辞指正<br>怎么我能够 一声不响修改圣经<br>真爱才能获胜<br>旁人会 疑问我 极多情<br>如何赚取尊敬<br>很多人能心倾 然而都 非因即兴<br>像恶梦仍然爱 但爱极仍无声<br>多得宿命感性<br>得一刹美好 却杀掉一生的感性<br>忍不了时时 也想念你<br>唯有 驯服我 坏心情<br>维持 安静 端正<br>当天涯无风景 重投心境<br>重投心境 抹去 风声</p>
+<hr>
+<p>《雷克雅未克》</p>
+<p>还请你兑现约定 飞到为我破冰</p>
+<p>置身冰岛名胜 杀不死依存症</p>
+<p>前尘埋没 那段情</p>
+<p>约誓残念 却没有清</p>
+<p>而你有讲过</p>
+<p>来年再续旧场景</p>
+<p>冒雪独自踏故城</p>
+<p>北欧式配乐 灵动而冷静</p>
+<p>潜入我 随身听 蓝鲸在 旋律间低唱 遗孤的心声</p>
+<p>相比这市面 缓慢而洁净</p>
+<p>徬徨路人像我 携同不必的感性</p>
+<p>北极里有一束光</p>
+<p>你话留来伴我望</p>
+<p>我若觉得绝望</p>
+<p>想到亦会全释放</p>
+<p>这 绿里透紫的光</p>
+<p>从未天际怒放</p>
+<p>好比原来 一起能到达 的远方 而未同往</p>
+<p>冰川未访 火山未闯</p>
+<p>还是 我自困 空想之中</p>
+<p>未熄的热情 用十年来放送</p>
+<p>彷佛一眼热泉 涌进 寒冷冰窖中</p>
+<p>炎凉大战中 谁够耐性便胜利</p>
+<p>冰封旧情再解冻</p>
+<p>或者失约 一早已在你 预备中</p>
+<p>坚守冰岛只是我 未望通</p>
+<p>根本不是 天下情人都 求重逢 重温美梦</p>
+<p>情人都 求重逢 重修破洞</p>
+<p>如情人都 能重逢</p>
+<p>情歌少很多 精彩内容</p>
+<p>来 踏步空 早些心死 早上进</p>
+<p>念念的 失约以后 我便我便放松</p>
+<p>让挂念 葬在最深 白雪中</p>
+<p>北极里有一束光</p>
+<p>你话留来伴我望</p>
+<p>我若觉得绝望</p>
+<p>想到亦会全释放</p>
+<p>这 绿里透紫的光</p>
+<p>从未天际怒放</p>
+<p>好比原来 一起能到达 的远方 而未同往</p>
+<p>冰川未访 火山未闯</p>
+<p>或我自负又气盛</p>
+<p>冰岛的约会 纯属场错认</p>
+<p>从没有留心听</p>
+<p>情人话 重返的都市 无端改了姓</p>
+<p>终不可碰面 无谓来怨命</p>
+<p>从来并无洞察 旁人心底的本领</p>
+<p>请你兑现约定 飞到伴我看星</p>
+<p>往昔福岛名胜 破损中显神圣</p>
+<p>谁人能为 昨日情</p>
+<p>过十年后 再度远征</p>
+<p>时间废墟里</p>
+<p>寻那 不经污染 相恋的铁证</p>
 ]]></content>
       <tags>
-        <tag>kaggle</tag>
+        <tag>音乐</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>中国房地产行业的压力</title>
+    <url>/2022/20220720/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>中国房地产行业的压力（Stresses in China’s Real Estate Sector）——来自美联储报告第五章Near-Term Risks to the Financial System。</p>
+<p>以下为翻译：</p>
+<span id="more"></span>
+
+<hr>
+<h3 id="简要"><a href="#简要" class="headerlink" title="简要"></a>简要</h3><p><strong>中国的压力，包括房地产行业的压力，可能蔓延到美国。</strong></p>
+<p>在中国，房地产行业的债务水平很高，去年房地产行业的活动和价格大幅下降（见“中国房地产行业的压力”方框）。如果这场衰退加剧，其对中国市场和金融机构的影响可能会因2019冠状病毒疾病疫情的进一步爆发、新的监管限制（包括遏制科技行业的进一步行动）或因地缘政治动机或风险担忧而导致的其他国家贸易或投资的任何缩减而扩大。鉴于中国经济和金融体系的规模，以及中国与世界其他地区广泛的贸易联系，中国的金融压力可能会通过风险情绪恶化和经济活动中断给全球金融市场带来压力，这可能会影响美国。</p>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>在过去的几十年里，中国的扩张性政策帮助维持了经济的快速增长，这已经超过了大多数其他国家。中国在世界GDP中的份额已达到约17%（图A）。对中国企业的信贷增长更快，支持了GDP增长，但由此产生的企业部门杠杆效应使其越来越容易受到冲击。<br>中国的非金融企业信贷已达到GDP的160%左右，这一水平远高于大多数其他新兴市场经济体（图B）。中国房地产行业的企业负债特别高，房地产行业一直是中国快速增长的关键引擎，房地产开发和相关活动的贷款增长迅速。</p>
+<p><img src="/images/2.jpg"></p>
+<p>在过去几年中，中国政府加强了对房地产市场的监管，包括对购房、银行房地产行业风险敞口以及一些市场的抵押贷款施加新的限制。 2020年8月，监管机构宣布了直接针对房地产开发商的进一步措施：根据杠杆和流动性的具体审慎限制（通常称为“三条红线”），逐步收紧对借款的限制。从长远来看，这些约束应该有助于控制杠杆，提高房地产部门和金融体系的弹性。<br>这些举措实施后不久，房地产销售急剧放缓（图C）。房价和建筑活动也有所下降。客户通常在项目竣工前向建筑公司付款，如果买家对开发商完成住房单元的能力失去信心，不利的动态可能会加剧。几家房地产开发商已经出现了付款违约，其他房地产开发商在国内和国外都出现了严重的流动性紧缩以及海外融资。在经历了多年的强劲增长后，国内银行对房地产开发商的贷款正在下降，一些大型中国房地产开发商在离岸美元市场发行的债券今年的交易价格正处于日益低迷的水平（图D）。</p>
+<p><img src="/images/3.jpg"></p>
+<p>尽管到目前为止，中国政府设法控制住了其影响，但房地产市场低迷的严重恶化可能会影响中国的金融体系。中资银行对开发商的直接敞口占其一级资本的一半以上，并通过向其他公司发放以房地产为抵押的贷款，对房地产市场有大量间接敞口。通过向散户投资者销售银行赞助的理财产品，中资银行还间接接触了房地产开发商。地方政府还受到中国房地产市场的影响，因为它们的财政收入有很大一部分来自卖地，而且它们的杠杆率也很高。去年，包括表外融资工具在内的地方政府债务的广义估计超过了GDP的70%。12月，国家政府宣布在2022年第一季度放松对地方政府债券融资的限制，这将部分缓解短期压力，并为基础设施投资提供资金。今年第一季度，地方政府的债券发行似乎表现强劲，年初中国固定资产投资增速加快，反映出今年财政刺激的前期沉重负担。</p>
+<p>到目前为止，对美国的溢出效应在范围上是有限的，部分原因是美国的直接出口。中国大陆的风险敞口相对较小。银行的风险敞口不到一级资本的10%。投资者的风险敞口也很有限:现有数据显示，持有的中国证券(包括通过离岸关联公司发行的证券)仅占美国国债的1%左右。此外，最近的研究估计，对中国的销售占美国公司收入的不到5%。</p>
+<p>但是，如果房地产市场的影响加剧，并导致中国银行承受巨大压力，从而降低银行贷款和GDP增长，那么压力将通过实体和金融渠道——尤其是贸易和全球风险情绪——向美国传递。<br>鉴于中国在全球经济中扮演的重要角色，贸易渠道是重要的，美联储工作人员的研究发现，负面的中国GDP惊喜往往会降低全球大宗商品价格和其他国家的贸易量。风险情绪也可以是一个重要的国际溢出渠道，中国过去的严重压力时期扰乱了全球市场，如2015年。<br>中国政府汇率管理机制的变化加剧了人们对中国经济增长的担忧(图E)。随之而来的资本外流加速和中国股市大幅回调，伴随着全球和美国市场的波动，以及美元的大幅升值。</p>
+<p><img src="/images/4.jpg"></p>
+]]></content>
+      <tags>
         <tag>学习</tag>
+        <tag>经济</tag>
       </tags>
   </entry>
   <entry>
@@ -7208,6 +7195,19 @@
       <tags>
         <tag>笔记</tag>
         <tag>理财</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>kaggle小技巧之指数加权ensemble</title>
+    <url>/2022/20220815/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/jbomitchell/exponentially-weighted-ensemble-spaceship-titanic">JOHN MITCHELL</a></p>
+<p>权重=$ e^{b*(x-s)}$</p>
+<p>x是每个模型的LB分数。得分越大越好，因此权重随着x的增加而变大，随着x的减少而变小（模型越好，权重越大）。<br>b是模型的一个可调参数，b越大，权重衰减越快，分数越低。S是一个校准参数，其定义如下：如果S设置为最佳单模型分数，则最高非标准化权重exp（b*（x-S））为1.0，这是方便的，但不是必需的。</p>
+<p>最后还要归一化。</p>
+]]></content>
+      <tags>
+        <tag>kaggle</tag>
+        <tag>学习</tag>
       </tags>
   </entry>
   <entry>
@@ -7320,6 +7320,24 @@
       </tags>
   </entry>
   <entry>
+    <title>AI教育报告</title>
+    <url>/2022/20221013/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该报告来自2022斯坦福AI指数报告。</p>
+<span id="more"></span>
+
+<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0001.jpg"></p>
+<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0002.jpg"></p>
+<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0003.jpg"></p>
+<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0004.jpg"></p>
+<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0005.jpg"></p>
+<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0006.jpg"></p>
+<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0007.jpg"></p>
+]]></content>
+      <tags>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>State of AI 报告之AI发展预测</title>
     <url>/2022/20221012/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该预测出自State of AI Report 2022，由AI投资者Nathan Benaich 和 Ian Hogarth 撰写。今年是第五年。每次报告都会进行预测，去年预测了8个，结果只对了一半。</p>
@@ -7403,24 +7421,6 @@
 <p>[1]<a href="https://stateof.ai/">https://stateof.ai</a></p>
 <h5 id=""><a href="#" class="headerlink" title=""></a></h5><hr>
 <p>预测还是从比较宏观的方面入手的，比较偏向于AGI。该报告也不如斯坦福AI报告更学术，主要是从投资者的视角开展。</p>
-]]></content>
-      <tags>
-        <tag>人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AI教育报告</title>
-    <url>/2022/20221013/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该报告来自2022斯坦福AI指数报告。</p>
-<span id="more"></span>
-
-<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0001.jpg"></p>
-<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0002.jpg"></p>
-<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0003.jpg"></p>
-<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0004.jpg"></p>
-<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0005.jpg"></p>
-<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0006.jpg"></p>
-<p><img src="/images/AI%E6%95%99%E8%82%B2_page-0007.jpg"></p>
 ]]></content>
       <tags>
         <tag>人工智能</tag>
@@ -9919,6 +9919,90 @@ scale).">
       </tags>
   </entry>
   <entry>
+    <title>全世界国家计算机方向博士申请和毕业走向粗略分析</title>
+    <url>/2023/20230401/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自B站UP主<strong>五云寨主</strong>的<a href="https://www.bilibili.com/video/BV12c411L7KS">《全世界国家计算机方向博士申请和毕业走向粗略分析》</a></p>
+<p>全世界国家计算机方向博士申请和毕业走向粗略分析（新西兰参考澳洲，瑞士参考德国和丹麦）</p>
+<hr>
+<p>视频主要简略介绍全世界各国关于申请读博士的不同的要求以及全世界各个国家的学校的博士毕业的主要的出路。</p>
+<p>澳大利亚和美国主要是Up主待的比较多的地方,但是对别的国家也有所了解。</p>
+<p>内容不算太多。</p>
+<p>简单总结：除了美国就是中国，亚洲这块HK 坡县 本子，hk需要转金融，坡县岗位一般，本子只能去汽车等传统行业且压力最小，土澳和加拿大推荐加拿大，欧陆的德国注重项目，时间久，北欧压力小，带嘤很难（牛津除外），综上：还得是美国。</p>
+<span id="more"></span>
+
+<h2 id="大陆VS港澳VS-国外"><a href="#大陆VS港澳VS-国外" class="headerlink" title="大陆VS港澳VS 国外"></a>大陆VS港澳VS 国外</h2><h3 id="大陆"><a href="#大陆" class="headerlink" title="大陆"></a>大陆</h3><p>在国内读博士的好处是你第一名的家人很近,朋友很近,你在生活上可能会比较舒适,这是非常大的优点。</p>
+<p>缺点呢,就是说有可能就是国内的博士特别多,然后会比较卷,然后而且在国内的博士里面差距会非常的大,就是说他有一个优点是如果你能够跟一个特别厉害的老板,特别厉害的组,你在这个组里面,你是这个老板比较喜欢的top的学生的话,那么你可能会在国内有很强的一些科研的资源,以及以后未来事业发展的资源,所以说尤其是你如果是在这种情况下想在国内长期的发展,比如说你以后想在国内找老师的职位,然后想申请一些科研基金,以及想在科研的道路上走得很远,主要在国内的市场上发展的话,那么你如果能在这些方向上做得很好,那在国内读博士将会是一个非常好的选择。</p>
+<p>当然,但是也有一个主要原因,是国内的博士特别多,比如说越是非常厉害的老师,他们主力的博士生是越多的,然后他们给每个人花的精力会更少,那这种情况下可能你不一定能捡过别人的情况下,有可能出国会是更好的一个选择。</p>
+<h3 id="港澳"><a href="#港澳" class="headerlink" title="港澳"></a>港澳</h3><p>然后出国呢,首先香港倒是不算出国,但是香港的极所学校的教育模式和国内的会有一点不同。</p>
+<p>第一,香港他们的教育是基本上是英语教育的,然后他们的科研的理念可能比较跟欧美国家以及澳大利亚、英国这些的比较接轨一点,首先它也是英语的教育。</p>
+<p>但是其实在香港,而且香港的学校也非常的好,比如说香港有几所所学校,香港中文大学,香港科技大学,然后这些都是非常非常不错,基本上都是亚洲最顶尖的,如果你能在香港最好的老师那里做,那也是非常好的。</p>
+<p>那在香港读博士,比如说如果计算机博士会有一点点毕业的限制,毕业以后的发展限制,就是说如果你在香港要找到IT方面的就业的工作会比较难,因为香港主要是一个金融城市,所以有很多人他们毕业以后会转入金融行业。</p>
+<p>如果说你想IT就业的话,你需要回到国内大陆再来找,因为大陆的IT会比较发达,但同样也会非常的卷。</p>
+<p>当然另外有一部分香港毕业的同学他们会选择,到第三个国家去找,比如说到美国,到美国的话因为有很多,美国有很多计算机的公司,所以机会会很多。</p>
+<p>但是有一个问题,国外的人在美国找工作你需要一些工作签证,如果你在香港毕业的学生你将会很难拿到美国的工作签证抽签啊这些的会带来巨大的不确定性,然后这是一个比较大的问题。</p>
+<p>当然香港也有一些优点就跟国内类似,比如说你可以靠近你的家人和朋友,你在香港你可以经常坐地铁去深圳找你的朋友和家人,这是一件非常好的事情。</p>
+<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><h4 id="东南亚"><a href="#东南亚" class="headerlink" title="东南亚"></a>东南亚</h4><p>另外就是一些比较靠近中国的国家,比如说新加坡,新加坡的学校其实也不错,新加坡是一个很小的,很就是非常干净的环境,非常好的城市,一个国家,然后他们的极数学校非常的好,一个是新加坡国立,还有一个是南洋理工。</p>
+<p>然后他们有很多老师都非常非常强,同样在新加坡读国诗的话,相对于国内的话,他也算离得比较近,你回家也会比较近,而且新加坡的美食,他有很多东南亚的美食,也有很多中国的美食,所以说对于食物这一块会好很多。</p>
+<p>然后新加坡的博士申请几乎跟美国的或者是澳大利亚的很像,需要考GRE,托福亚斯等,然后也是英语教育。</p>
+<p>另外,他的私资学生比例可能会比国内的高校更稍微平衡一点,就是说你可能需要拿到的老师的时间会多一点,这是一件很好的事情。</p>
+<p>但是同样毕业的新加坡也是有一个问题就是,你如果在新加坡境内找IT公司,新加坡是有一些IT公司,相对于香港来说我觉得他的IT公司会多一点,然后有一些国内的IT公司也在搬往新加坡,但是它的发展空间不是太大。</p>
+<p>所以说有一部分人他们还是会选择从新加坡回到中国的更大的市场去就业,所以说这种情况下你跟在国内读博士的同学来比,你会有那么一点点的学术网络上的不同。</p>
+<p>所以说也是一个考虑的,然后新加坡读博士的话,他的毕业要求也挺高的,感觉跟香港是持平的,新加坡那边的老师他们都很厉害。</p>
+<p>另外,但是另外新加坡有一个优点是新加坡的PHD毕业以后应该会比较容易拿到新加坡的他们的永久居民在本地工作是没有太大障碍的。<br>然后还有一份选项是很多新加货币的人也会到美国的一些IT公司去工作,这一点跟香港很像,他们可能也会遇到一些工作签证的问题,所以会增加一些不确定性。</p>
+<h4 id="澳大利亚和加拿大"><a href="#澳大利亚和加拿大" class="headerlink" title="澳大利亚和加拿大"></a>澳大利亚和加拿大</h4><p>然后剩下有几个国家我觉得非常非常类似,一个是澳大利亚,一个是加拿大。</p>
+<p>然后这两个国家其实也是有学读博士首选的几个国家之一。澳大利亚和加拿大有一点比较相似的是他们都是英联邦教育制度,特别是澳大利亚是非常靠近英联邦教育制度的。</p>
+<p>然后加拿大因为靠近美国,所以他介于英联邦和美式教育之间,然后申请加拿大和申请澳大利亚基本上你都需要雅思托福或者GRE,然后他们那边有很多老师科研做的非常不错。</p>
+<p>比如说澳大利亚的一些大学,悉尼大学,莫尔本大学,奥国利大学,然后昆斯兰大学,然后澳大利亚主要有八大国家八大校这些都是比较好的。<br>然后加拿大有很多多伦多大学,然后还有就是华铁卢大学等等,加拿大的还有很多科研工作者都非常厉害。</p>
+<p>然后加拿大的华人是很多的,所以如果你生活在多人多或者是温哥华这些地方的话,在美食和生活上是相对于欧美国家来说是还不错的。<br>但是缺点呢,就是非常的寒冷,你需要适应这种天气。澳大利亚同样也是有很多移民或者是亚洲人。</p>
+<p>同样缺点呢,就是他其实算是优点吧,他气候比较像度假的,就是没有太寒冷的天气。而且大部分澳大利亚的城市都是靠近大海,所以是环境还是不错的。</p>
+<p>同样毕业的条件这两个国家比较相似吧,但有一点点区别是澳大利亚的博士一般来说他们是不上课的,他们是直接进学校就开始做科研。<br>所以他们毕业的时间会跟英国比较像是会比美国要短一年。美国的博士一般是五年毕业,然后加拿大的博士可能也会五年。</p>
+<p>但是澳大利亚可能是三年到四年,因为他们不需要上课,然后不需要上课呢,有一个优点呢,就是你可以直接进入科研,然后集中一些毕业论文等等的。</p>
+<p>缺点呢,就是你没有时间去补一些基础知识,但我个人觉得其实更好的一种方式还是你可以上一些课,然后慢慢的进入科研,这样会更好。<br>当然对不同的同学你的需求不一样,可能这个设置也是不一样的。</p>
+<p>然后同样优点呢,加拿大和澳大利亚是一名国家,所以读完博士以后申请他们国家的永久拘留权是比较容易的,因为他们国家非常缺人产。<br>但是也有一个缺点就是特别是澳大利亚的,澳大利亚本国的IT的公司行业其实不是很发达,所以你即使拿到了澳大利亚的工作签证和他的永久居民,但是你要找到一份很好的工作也不是特别容易给你。</p>
+<p>就是说你要么你就是在学校或者一些研究所里面做科研,要么你就是去工业检。</p>
+<p>但是学校研究所的科研职位并不是特别多大大量,所以其实有一部分人他们毕业以后会选择从澳大利亚去到美国,因为美国的公司会更多。<br>然后这种情况下他们也会有一些问题就是签证的问题,然后拿到工作签证许可的问题,然后这一系列的问题会造成很多不确定性。</p>
+<p>加拿大同样也有这个问题,但是加拿大因为靠近美国,在加拿大的那个温哥华等城市有很多美国的工业界的公司的分布,所以说他们那边相对早工作会比澳大利亚好很多。</p>
+<p>另外他们可能直接到美国来跳槽或者是找美国工业界的工作也会容易很多。</p>
+<p>所以加拿大的选择我个人感觉是优于澳大利亚的。</p>
+<p>另外从国家的福利上来讲,澳大利亚和加拿大这两个国家他们都是非常的就是基于矿争资源人口很稀少,所以他们的国家的福利是比较不错的。</p>
+<p>就是说基础福利是比较好的,比如说澳大利亚他们如果拿到他们的永久居民是他们的居民以后基本上工地医院开密室可以不用花钱的。</p>
+<p>然后如果是小孩上学什么的功利也不用花钱,然后上大学的话国家可以给你贷款,无息贷款基本上也不用花他钱。</p>
+<p>所以是比较就是比较适合居住的一个地方,但是工作的话机会很少,因为他大部分的产业都是很单一的那种。</p>
+<p>比如说煤矿啊矿业这一款,加拿大其实也类似,但加拿大唯一的区别是他靠近美国,所以会有一些机会。</p>
+<h4 id="欧洲"><a href="#欧洲" class="headerlink" title="欧洲"></a>欧洲</h4><h5 id="英国"><a href="#英国" class="headerlink" title="英国"></a>英国</h5><p>然后,欧洲国家其实我不是特别熟悉,但是据我所知英国那边的话,英国其实有很多很好的学校,因为英国是一个历史非常悠久的国家。</p>
+<p>然后比如说剑桥牛津等就不说了,就如果你能拿到这些学校的offer,那你不用考虑以后的出入,就直接去英国就好了。</p>
+<p>然后英国呢,一般学校博士毕业的话,他也是有一些问题就是英国他不是一名国家,所以你要拿到他的永久居民会比较困难一点。</p>
+<p>就也不是说困难,就是时间会花得长一点。</p>
+<p>然后另外英国现在他们的IT产业公司工业界不是那么发达,他有很多是美国的公司的分部,但他招的人可能没有那么多。</p>
+<p>所以其实有很多英国毕业的人,他们可能不是英国最牛逼的学校毕业的,当然英国比如说最牛逼的剑桥啊,牛津啊他去什么地方都没有问题。他们可能也不会选择回国,但回国并不是一个不好的选择,回国当然也是一个非常好的选择,因为我们国家现在发展得非常好。</p>
+<p>就是说回国你要面对更多的竞争,因为你并没有在国内完成你的学业,所以你的社会支援和学业支援导师支援这一块跟国内是有一定的,就是没有完全的接轨,可能会有一定的后悔。</p>
+<p>你需要再重新去建立一些支援,这中间需要花掉一些时间和精力。</p>
+<h5 id="德国"><a href="#德国" class="headerlink" title="德国"></a>德国</h5><p>另外德国,德国是一个非常有意思的国家,德国做科研非常注重你的这个这个项目的扎实的工地,他们不是很喜欢灌水,就说有可能你毕业以后不需要发很多容,但是你需要完成一个项目完整的做完这个项目。</p>
+<p>所以德国的博士生的时间会非常的长,我认识好几个读博士的人,德国最快的也是五年以上,甚至读七年八年的很多,但是他们有一个好处是他们会给这个博士非常多的funding,就让你不用担心做到七年八年都可以。</p>
+<p>另外呢,他们给博士的讲学生跟他们德国相当于一个全职工作可以养活自己和自己的家人都没有太大的关系,所以你在德国这种地方读博士也会压力比较小。</p>
+<p>会尽下心来认真的做一件事情,就是所以你会看到很多德国毕业的博士他们的年龄相对而言会偏大,但是他们其实的工作会非常非常的扎实,就很多很扎实的工作其实都德国的一些大学和研究所做的。</p>
+<h5 id="小众欧洲国家"><a href="#小众欧洲国家" class="headerlink" title="小众欧洲国家"></a>小众欧洲国家</h5><p>然后另外还有一些欧洲国家可能比较小众,比如说丹麦啊,北欧这些国家他可能第一是他这些国家他不是英语国家,然后第二他可能没有太多的华人,可能生活会不长得非常的不方便,比如说买菜啊,生活会非常不方便。</p>
+<p>但是优点的是比如说这些国家他们读国是压力非常小,他们会给你很充足的funding,然后他们读PhD有点像是一个那种把你当成一个工作人员,就是PhD给的那个奖学金可以足够你养活一家人。</p>
+<p>然后另外他们也不怎么加班,他们会给很充足的项目金费等等,就压力非常的小,这也是一种非常好的方式,适合做一些适合让你尽一下心来做一些科研吧,我觉得也是非常好的选择。</p>
+<h4 id="东亚"><a href="#东亚" class="headerlink" title="东亚"></a>东亚</h4><p>然后另外亚洲国家日本也是很有意思啊,日本他他有一个优点就是他跟我们中国很近,然后你可以几乎感觉你就像在国内一样的跟你的朋友他们在交流,因为没有时间,时差。<br>另外日本的学校的科研也做得非常好,比如说东京大学还有诸波大学等等这些都是非常好的学校,然后日本还有一点非常好,就是他们那边读博士的人,因为日本本国的读人并不是很多。</p>
+<p>然后如果去他们那边读博士你也是可以拿到充足的方定,然后并不会就是特别压力很大,他可以让你慢慢的做很多事情,就是日本的一种工匠精神,他们可能跟美国有一点不一样,美国可能会一年一年的看你的,看你的表现,然后来给你方定,但是日本的话他可能会给你很长的方定,然后让你做一些更大了,更慢慢的事情,这点可能会比国内压力小一些。</p>
+<p>另外在美食上日本的美食会非常非常的多,然后另外日本就业的话,因为日本基本上没有什么互联网企业,所以日本就业可以去一些传统,比如说汽车工业等等,然后因为日本他们非常缺劳动力,所以在日本的就业还是过得去的,但是可能待遇到什么都不一定能上升空间,什么的可能比不了过来。</p>
+<p>另外他的语言是日语,所以你需要学习日语,如果你不会日语,你只会英语的话,在日本会非常困难。</p>
+<h4 id="美国"><a href="#美国" class="headerlink" title="美国"></a>美国</h4><p>就如果你要申请美国的话,一般来说你需要考GRE,托福。雅思也是可以接受,但对雅思的分数要求更高,所以最好是考托福。</p>
+<p>美国有疫情以后,有一些学校其实已经取消了GRE,然后美国毕业的话,基本上你第一年要上课,然后后面几年可能做科研,做科研做得比较好的话,就可以顺利的毕业。</p>
+<p>然后美国有些优点就是说美国的IT的互联网金融业这些非常发达,所以就业的选择会非常多。</p>
+<p>然后另外由于你在美国毕业,所以你可以直接拿到美国的工作许可,然后对你在美国上工作会非常的有意义。</p>
+<p>另外美国如果毕业以后你想回中国,你的学历中国也是比较认可的。</p>
+<p>但是美国有一个问题就是美国申请美国的永久居住,就是美国的绿卡,需要的时间可能会比较长。</p>
+<p>即使你是做科研的话,你需要科研做得很好,这样你才能够申请到美国的特殊人才绿卡。</p>
+<p>这种情况下你可以比较迅速的拿到一些东西,拿到绿卡,然后可以在美国比较自由的换工作。</p>
+]]></content>
+      <tags>
+        <tag>人工智能</tag>
+        <tag>留学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>how to be successful——samaltman</title>
     <url>/2023/20230330/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自Openai创始人Sam Altman的博客<a href="https://blog.samaltman.com/how-to-be-successful">how to be successful</a>，以下大部分为谷歌机译（不得不说，谷歌有些地方翻译得确实不好）</p>
@@ -10023,90 +10107,6 @@ scale).">
         <tag>阅读</tag>
         <tag>生活</tag>
         <tag>社会</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>全世界国家计算机方向博士申请和毕业走向粗略分析</title>
-    <url>/2023/20230401/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自B站UP主<strong>五云寨主</strong>的<a href="https://www.bilibili.com/video/BV12c411L7KS">《全世界国家计算机方向博士申请和毕业走向粗略分析》</a></p>
-<p>全世界国家计算机方向博士申请和毕业走向粗略分析（新西兰参考澳洲，瑞士参考德国和丹麦）</p>
-<hr>
-<p>视频主要简略介绍全世界各国关于申请读博士的不同的要求以及全世界各个国家的学校的博士毕业的主要的出路。</p>
-<p>澳大利亚和美国主要是Up主待的比较多的地方,但是对别的国家也有所了解。</p>
-<p>内容不算太多。</p>
-<p>简单总结：除了美国就是中国，亚洲这块HK 坡县 本子，hk需要转金融，坡县岗位一般，本子只能去汽车等传统行业且压力最小，土澳和加拿大推荐加拿大，欧陆的德国注重项目，时间久，北欧压力小，带嘤很难（牛津除外），综上：还得是美国。</p>
-<span id="more"></span>
-
-<h2 id="大陆VS港澳VS-国外"><a href="#大陆VS港澳VS-国外" class="headerlink" title="大陆VS港澳VS 国外"></a>大陆VS港澳VS 国外</h2><h3 id="大陆"><a href="#大陆" class="headerlink" title="大陆"></a>大陆</h3><p>在国内读博士的好处是你第一名的家人很近,朋友很近,你在生活上可能会比较舒适,这是非常大的优点。</p>
-<p>缺点呢,就是说有可能就是国内的博士特别多,然后会比较卷,然后而且在国内的博士里面差距会非常的大,就是说他有一个优点是如果你能够跟一个特别厉害的老板,特别厉害的组,你在这个组里面,你是这个老板比较喜欢的top的学生的话,那么你可能会在国内有很强的一些科研的资源,以及以后未来事业发展的资源,所以说尤其是你如果是在这种情况下想在国内长期的发展,比如说你以后想在国内找老师的职位,然后想申请一些科研基金,以及想在科研的道路上走得很远,主要在国内的市场上发展的话,那么你如果能在这些方向上做得很好,那在国内读博士将会是一个非常好的选择。</p>
-<p>当然,但是也有一个主要原因,是国内的博士特别多,比如说越是非常厉害的老师,他们主力的博士生是越多的,然后他们给每个人花的精力会更少,那这种情况下可能你不一定能捡过别人的情况下,有可能出国会是更好的一个选择。</p>
-<h3 id="港澳"><a href="#港澳" class="headerlink" title="港澳"></a>港澳</h3><p>然后出国呢,首先香港倒是不算出国,但是香港的极所学校的教育模式和国内的会有一点不同。</p>
-<p>第一,香港他们的教育是基本上是英语教育的,然后他们的科研的理念可能比较跟欧美国家以及澳大利亚、英国这些的比较接轨一点,首先它也是英语的教育。</p>
-<p>但是其实在香港,而且香港的学校也非常的好,比如说香港有几所所学校,香港中文大学,香港科技大学,然后这些都是非常非常不错,基本上都是亚洲最顶尖的,如果你能在香港最好的老师那里做,那也是非常好的。</p>
-<p>那在香港读博士,比如说如果计算机博士会有一点点毕业的限制,毕业以后的发展限制,就是说如果你在香港要找到IT方面的就业的工作会比较难,因为香港主要是一个金融城市,所以有很多人他们毕业以后会转入金融行业。</p>
-<p>如果说你想IT就业的话,你需要回到国内大陆再来找,因为大陆的IT会比较发达,但同样也会非常的卷。</p>
-<p>当然另外有一部分香港毕业的同学他们会选择,到第三个国家去找,比如说到美国,到美国的话因为有很多,美国有很多计算机的公司,所以机会会很多。</p>
-<p>但是有一个问题,国外的人在美国找工作你需要一些工作签证,如果你在香港毕业的学生你将会很难拿到美国的工作签证抽签啊这些的会带来巨大的不确定性,然后这是一个比较大的问题。</p>
-<p>当然香港也有一些优点就跟国内类似,比如说你可以靠近你的家人和朋友,你在香港你可以经常坐地铁去深圳找你的朋友和家人,这是一件非常好的事情。</p>
-<h3 id="国外"><a href="#国外" class="headerlink" title="国外"></a>国外</h3><h4 id="东南亚"><a href="#东南亚" class="headerlink" title="东南亚"></a>东南亚</h4><p>另外就是一些比较靠近中国的国家,比如说新加坡,新加坡的学校其实也不错,新加坡是一个很小的,很就是非常干净的环境,非常好的城市,一个国家,然后他们的极数学校非常的好,一个是新加坡国立,还有一个是南洋理工。</p>
-<p>然后他们有很多老师都非常非常强,同样在新加坡读国诗的话,相对于国内的话,他也算离得比较近,你回家也会比较近,而且新加坡的美食,他有很多东南亚的美食,也有很多中国的美食,所以说对于食物这一块会好很多。</p>
-<p>然后新加坡的博士申请几乎跟美国的或者是澳大利亚的很像,需要考GRE,托福亚斯等,然后也是英语教育。</p>
-<p>另外,他的私资学生比例可能会比国内的高校更稍微平衡一点,就是说你可能需要拿到的老师的时间会多一点,这是一件很好的事情。</p>
-<p>但是同样毕业的新加坡也是有一个问题就是,你如果在新加坡境内找IT公司,新加坡是有一些IT公司,相对于香港来说我觉得他的IT公司会多一点,然后有一些国内的IT公司也在搬往新加坡,但是它的发展空间不是太大。</p>
-<p>所以说有一部分人他们还是会选择从新加坡回到中国的更大的市场去就业,所以说这种情况下你跟在国内读博士的同学来比,你会有那么一点点的学术网络上的不同。</p>
-<p>所以说也是一个考虑的,然后新加坡读博士的话,他的毕业要求也挺高的,感觉跟香港是持平的,新加坡那边的老师他们都很厉害。</p>
-<p>另外,但是另外新加坡有一个优点是新加坡的PHD毕业以后应该会比较容易拿到新加坡的他们的永久居民在本地工作是没有太大障碍的。<br>然后还有一份选项是很多新加货币的人也会到美国的一些IT公司去工作,这一点跟香港很像,他们可能也会遇到一些工作签证的问题,所以会增加一些不确定性。</p>
-<h4 id="澳大利亚和加拿大"><a href="#澳大利亚和加拿大" class="headerlink" title="澳大利亚和加拿大"></a>澳大利亚和加拿大</h4><p>然后剩下有几个国家我觉得非常非常类似,一个是澳大利亚,一个是加拿大。</p>
-<p>然后这两个国家其实也是有学读博士首选的几个国家之一。澳大利亚和加拿大有一点比较相似的是他们都是英联邦教育制度,特别是澳大利亚是非常靠近英联邦教育制度的。</p>
-<p>然后加拿大因为靠近美国,所以他介于英联邦和美式教育之间,然后申请加拿大和申请澳大利亚基本上你都需要雅思托福或者GRE,然后他们那边有很多老师科研做的非常不错。</p>
-<p>比如说澳大利亚的一些大学,悉尼大学,莫尔本大学,奥国利大学,然后昆斯兰大学,然后澳大利亚主要有八大国家八大校这些都是比较好的。<br>然后加拿大有很多多伦多大学,然后还有就是华铁卢大学等等,加拿大的还有很多科研工作者都非常厉害。</p>
-<p>然后加拿大的华人是很多的,所以如果你生活在多人多或者是温哥华这些地方的话,在美食和生活上是相对于欧美国家来说是还不错的。<br>但是缺点呢,就是非常的寒冷,你需要适应这种天气。澳大利亚同样也是有很多移民或者是亚洲人。</p>
-<p>同样缺点呢,就是他其实算是优点吧,他气候比较像度假的,就是没有太寒冷的天气。而且大部分澳大利亚的城市都是靠近大海,所以是环境还是不错的。</p>
-<p>同样毕业的条件这两个国家比较相似吧,但有一点点区别是澳大利亚的博士一般来说他们是不上课的,他们是直接进学校就开始做科研。<br>所以他们毕业的时间会跟英国比较像是会比美国要短一年。美国的博士一般是五年毕业,然后加拿大的博士可能也会五年。</p>
-<p>但是澳大利亚可能是三年到四年,因为他们不需要上课,然后不需要上课呢,有一个优点呢,就是你可以直接进入科研,然后集中一些毕业论文等等的。</p>
-<p>缺点呢,就是你没有时间去补一些基础知识,但我个人觉得其实更好的一种方式还是你可以上一些课,然后慢慢的进入科研,这样会更好。<br>当然对不同的同学你的需求不一样,可能这个设置也是不一样的。</p>
-<p>然后同样优点呢,加拿大和澳大利亚是一名国家,所以读完博士以后申请他们国家的永久拘留权是比较容易的,因为他们国家非常缺人产。<br>但是也有一个缺点就是特别是澳大利亚的,澳大利亚本国的IT的公司行业其实不是很发达,所以你即使拿到了澳大利亚的工作签证和他的永久居民,但是你要找到一份很好的工作也不是特别容易给你。</p>
-<p>就是说你要么你就是在学校或者一些研究所里面做科研,要么你就是去工业检。</p>
-<p>但是学校研究所的科研职位并不是特别多大大量,所以其实有一部分人他们毕业以后会选择从澳大利亚去到美国,因为美国的公司会更多。<br>然后这种情况下他们也会有一些问题就是签证的问题,然后拿到工作签证许可的问题,然后这一系列的问题会造成很多不确定性。</p>
-<p>加拿大同样也有这个问题,但是加拿大因为靠近美国,在加拿大的那个温哥华等城市有很多美国的工业界的公司的分布,所以说他们那边相对早工作会比澳大利亚好很多。</p>
-<p>另外他们可能直接到美国来跳槽或者是找美国工业界的工作也会容易很多。</p>
-<p>所以加拿大的选择我个人感觉是优于澳大利亚的。</p>
-<p>另外从国家的福利上来讲,澳大利亚和加拿大这两个国家他们都是非常的就是基于矿争资源人口很稀少,所以他们的国家的福利是比较不错的。</p>
-<p>就是说基础福利是比较好的,比如说澳大利亚他们如果拿到他们的永久居民是他们的居民以后基本上工地医院开密室可以不用花钱的。</p>
-<p>然后如果是小孩上学什么的功利也不用花钱,然后上大学的话国家可以给你贷款,无息贷款基本上也不用花他钱。</p>
-<p>所以是比较就是比较适合居住的一个地方,但是工作的话机会很少,因为他大部分的产业都是很单一的那种。</p>
-<p>比如说煤矿啊矿业这一款,加拿大其实也类似,但加拿大唯一的区别是他靠近美国,所以会有一些机会。</p>
-<h4 id="欧洲"><a href="#欧洲" class="headerlink" title="欧洲"></a>欧洲</h4><h5 id="英国"><a href="#英国" class="headerlink" title="英国"></a>英国</h5><p>然后,欧洲国家其实我不是特别熟悉,但是据我所知英国那边的话,英国其实有很多很好的学校,因为英国是一个历史非常悠久的国家。</p>
-<p>然后比如说剑桥牛津等就不说了,就如果你能拿到这些学校的offer,那你不用考虑以后的出入,就直接去英国就好了。</p>
-<p>然后英国呢,一般学校博士毕业的话,他也是有一些问题就是英国他不是一名国家,所以你要拿到他的永久居民会比较困难一点。</p>
-<p>就也不是说困难,就是时间会花得长一点。</p>
-<p>然后另外英国现在他们的IT产业公司工业界不是那么发达,他有很多是美国的公司的分部,但他招的人可能没有那么多。</p>
-<p>所以其实有很多英国毕业的人,他们可能不是英国最牛逼的学校毕业的,当然英国比如说最牛逼的剑桥啊,牛津啊他去什么地方都没有问题。他们可能也不会选择回国,但回国并不是一个不好的选择,回国当然也是一个非常好的选择,因为我们国家现在发展得非常好。</p>
-<p>就是说回国你要面对更多的竞争,因为你并没有在国内完成你的学业,所以你的社会支援和学业支援导师支援这一块跟国内是有一定的,就是没有完全的接轨,可能会有一定的后悔。</p>
-<p>你需要再重新去建立一些支援,这中间需要花掉一些时间和精力。</p>
-<h5 id="德国"><a href="#德国" class="headerlink" title="德国"></a>德国</h5><p>另外德国,德国是一个非常有意思的国家,德国做科研非常注重你的这个这个项目的扎实的工地,他们不是很喜欢灌水,就说有可能你毕业以后不需要发很多容,但是你需要完成一个项目完整的做完这个项目。</p>
-<p>所以德国的博士生的时间会非常的长,我认识好几个读博士的人,德国最快的也是五年以上,甚至读七年八年的很多,但是他们有一个好处是他们会给这个博士非常多的funding,就让你不用担心做到七年八年都可以。</p>
-<p>另外呢,他们给博士的讲学生跟他们德国相当于一个全职工作可以养活自己和自己的家人都没有太大的关系,所以你在德国这种地方读博士也会压力比较小。</p>
-<p>会尽下心来认真的做一件事情,就是所以你会看到很多德国毕业的博士他们的年龄相对而言会偏大,但是他们其实的工作会非常非常的扎实,就很多很扎实的工作其实都德国的一些大学和研究所做的。</p>
-<h5 id="小众欧洲国家"><a href="#小众欧洲国家" class="headerlink" title="小众欧洲国家"></a>小众欧洲国家</h5><p>然后另外还有一些欧洲国家可能比较小众,比如说丹麦啊,北欧这些国家他可能第一是他这些国家他不是英语国家,然后第二他可能没有太多的华人,可能生活会不长得非常的不方便,比如说买菜啊,生活会非常不方便。</p>
-<p>但是优点的是比如说这些国家他们读国是压力非常小,他们会给你很充足的funding,然后他们读PhD有点像是一个那种把你当成一个工作人员,就是PhD给的那个奖学金可以足够你养活一家人。</p>
-<p>然后另外他们也不怎么加班,他们会给很充足的项目金费等等,就压力非常的小,这也是一种非常好的方式,适合做一些适合让你尽一下心来做一些科研吧,我觉得也是非常好的选择。</p>
-<h4 id="东亚"><a href="#东亚" class="headerlink" title="东亚"></a>东亚</h4><p>然后另外亚洲国家日本也是很有意思啊,日本他他有一个优点就是他跟我们中国很近,然后你可以几乎感觉你就像在国内一样的跟你的朋友他们在交流,因为没有时间,时差。<br>另外日本的学校的科研也做得非常好,比如说东京大学还有诸波大学等等这些都是非常好的学校,然后日本还有一点非常好,就是他们那边读博士的人,因为日本本国的读人并不是很多。</p>
-<p>然后如果去他们那边读博士你也是可以拿到充足的方定,然后并不会就是特别压力很大,他可以让你慢慢的做很多事情,就是日本的一种工匠精神,他们可能跟美国有一点不一样,美国可能会一年一年的看你的,看你的表现,然后来给你方定,但是日本的话他可能会给你很长的方定,然后让你做一些更大了,更慢慢的事情,这点可能会比国内压力小一些。</p>
-<p>另外在美食上日本的美食会非常非常的多,然后另外日本就业的话,因为日本基本上没有什么互联网企业,所以日本就业可以去一些传统,比如说汽车工业等等,然后因为日本他们非常缺劳动力,所以在日本的就业还是过得去的,但是可能待遇到什么都不一定能上升空间,什么的可能比不了过来。</p>
-<p>另外他的语言是日语,所以你需要学习日语,如果你不会日语,你只会英语的话,在日本会非常困难。</p>
-<h4 id="美国"><a href="#美国" class="headerlink" title="美国"></a>美国</h4><p>就如果你要申请美国的话,一般来说你需要考GRE,托福。雅思也是可以接受,但对雅思的分数要求更高,所以最好是考托福。</p>
-<p>美国有疫情以后,有一些学校其实已经取消了GRE,然后美国毕业的话,基本上你第一年要上课,然后后面几年可能做科研,做科研做得比较好的话,就可以顺利的毕业。</p>
-<p>然后美国有些优点就是说美国的IT的互联网金融业这些非常发达,所以就业的选择会非常多。</p>
-<p>然后另外由于你在美国毕业,所以你可以直接拿到美国的工作许可,然后对你在美国上工作会非常的有意义。</p>
-<p>另外美国如果毕业以后你想回中国,你的学历中国也是比较认可的。</p>
-<p>但是美国有一个问题就是美国申请美国的永久居住,就是美国的绿卡,需要的时间可能会比较长。</p>
-<p>即使你是做科研的话,你需要科研做得很好,这样你才能够申请到美国的特殊人才绿卡。</p>
-<p>这种情况下你可以比较迅速的拿到一些东西,拿到绿卡,然后可以在美国比较自由的换工作。</p>
-]]></content>
-      <tags>
-        <tag>人工智能</tag>
-        <tag>留学</tag>
       </tags>
   </entry>
   <entry>
@@ -10393,6 +10393,45 @@ scale).">
       </tags>
   </entry>
   <entry>
+    <title>Boosting Text-to-Image Diffusion Models with Fine-Grained Semantic Rewards</title>
+    <url>/2023/20230705/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的fga同学。fga同学是一位我挺佩服的同学。</p>
+<p>论文地址：<a href="https://arxiv.org/abs/2305.19599">https://arxiv.org/abs/2305.19599</a></p>
+<p>共同一作：fga和来自穆罕默德·本·扎耶德人工智能大学（MBZUAI）的Zutao Jiang</p>
+<p>其他作者还包括来自华为诺言方舟实验室的几位和梁晓丹老师。</p>
+<p>不知道这篇论文会在哪里发表（目前还是arxiv)，也不能断定这篇论文是否具有较大的学术阅读价值，但我认为阅读这篇论文能让我见识一下自己与别人的差距。</p>
+<hr>
+<p>这篇论文中，作者提出了FineRewards，通过引入两种新的细粒度语义奖励：caption奖励和SAM奖励，来改善文本到图像扩散模型中文本和图像之间的对齐。</p>
+<p>此外，还采用了集合奖励排序学习策略，使多个奖励函数能够集成，以共同指导模型训练。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图"></a>模型示意图</h2><p><img src="model.png"></p>
+<p>diffusion模型结合了2021年Lora和2023年的SAM</p>
+<p><strong>Caption Reward</strong>:这里用的是BLIP-2模型，计算分数为余弦相似度。</p>
+<p><strong>SAM Reward:</strong></p>
+<p>具体来说，我们首先使用Grounded SAM生成的图像，并获得每个掩码的语义类别标签$L=^n_i=1$，其中n表示掩码/标签的数量。然后使用大型语言模型，即Vicuna-7B，基于所提供的提示来评估所描述的场景，并基于每个类别标签出现在场景中的可能性为每个掩码分配奖励分数。每个mask $s_i$的奖励分数根据以下标准确定：</p>
+<p><img src="maskscore.png"></p>
+<p>最后：<br>$$<br>R_{sam}=\frac{1}{n}\sum^n_{i=1}s_i<br>$$<br>使用的prompt:</p>
+<p>Please assess the described scene based on the provided prompt and determine the likelihood of each tag appearing in the scene. Assign a score to each tag according to the following criteria:  If a tag is certain to appear, assign a score of 3. If a tag may appear, assign a score of 2. If a tag is unlikely to appear, assign a score of 1.</p>
+<blockquote>
+<p>额…..其实有点奇怪….为啥这里要用LLM….这感觉就是个文本相似度判定…..</p>
+</blockquote>
+<p><strong>选择图像：</strong>在后续的选择中使用排名相加而不是两个reward相加</p>
+<hr>
+<p><strong>想法：</strong></p>
+<p>1.使用Vicuna有种杀鸡用牛刀的感觉</p>
+<p>2.文中的选择图像的方法也就是Assemble Reward-Ranked Learning，使用排名相加其实也感觉由于分数相加，但感觉不如gaussrank相加。</p>
+<p>3.文中的caption由BLIP-2生成，但是BLIP生成的比较简短，且不一定贴近prompt，是不是使用一些更先进的方法效果还能进一步提升呢？<a href="https://www.kaggle.com/competitions/stable-diffusion-image-to-prompts/">比如</a>。但是注意到SAM生成的tag其实很简短，那是不是使用BLIP实际上是可行的呢，还是说引入更相似能增加模型的泛化性呢？</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+        <tag>自然语言处理</tag>
+        <tag>peer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>天文学神经网络的历史、入门和展望</title>
     <url>/2023/20230701/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#">发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？</a></p>
@@ -10554,45 +10593,6 @@ scale).">
         <tag>深度学习</tag>
         <tag>人工智能</tag>
         <tag>天文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Boosting Text-to-Image Diffusion Models with Fine-Grained Semantic Rewards</title>
-    <url>/2023/20230705/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文来自同级的fga同学。fga同学是一位我挺佩服的同学。</p>
-<p>论文地址：<a href="https://arxiv.org/abs/2305.19599">https://arxiv.org/abs/2305.19599</a></p>
-<p>共同一作：fga和来自穆罕默德·本·扎耶德人工智能大学（MBZUAI）的Zutao Jiang</p>
-<p>其他作者还包括来自华为诺言方舟实验室的几位和梁晓丹老师。</p>
-<p>不知道这篇论文会在哪里发表（目前还是arxiv)，也不能断定这篇论文是否具有较大的学术阅读价值，但我认为阅读这篇论文能让我见识一下自己与别人的差距。</p>
-<hr>
-<p>这篇论文中，作者提出了FineRewards，通过引入两种新的细粒度语义奖励：caption奖励和SAM奖励，来改善文本到图像扩散模型中文本和图像之间的对齐。</p>
-<p>此外，还采用了集合奖励排序学习策略，使多个奖励函数能够集成，以共同指导模型训练。</p>
-<span id="more"></span>
-
-<hr>
-<h2 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图"></a>模型示意图</h2><p><img src="model.png"></p>
-<p>diffusion模型结合了2021年Lora和2023年的SAM</p>
-<p><strong>Caption Reward</strong>:这里用的是BLIP-2模型，计算分数为余弦相似度。</p>
-<p><strong>SAM Reward:</strong></p>
-<p>具体来说，我们首先使用Grounded SAM生成的图像，并获得每个掩码的语义类别标签$L=^n_i=1$，其中n表示掩码/标签的数量。然后使用大型语言模型，即Vicuna-7B，基于所提供的提示来评估所描述的场景，并基于每个类别标签出现在场景中的可能性为每个掩码分配奖励分数。每个mask $s_i$的奖励分数根据以下标准确定：</p>
-<p><img src="maskscore.png"></p>
-<p>最后：<br>$$<br>R_{sam}=\frac{1}{n}\sum^n_{i=1}s_i<br>$$<br>使用的prompt:</p>
-<p>Please assess the described scene based on the provided prompt and determine the likelihood of each tag appearing in the scene. Assign a score to each tag according to the following criteria:  If a tag is certain to appear, assign a score of 3. If a tag may appear, assign a score of 2. If a tag is unlikely to appear, assign a score of 1.</p>
-<blockquote>
-<p>额…..其实有点奇怪….为啥这里要用LLM….这感觉就是个文本相似度判定…..</p>
-</blockquote>
-<p><strong>选择图像：</strong>在后续的选择中使用排名相加而不是两个reward相加</p>
-<hr>
-<p><strong>想法：</strong></p>
-<p>1.使用Vicuna有种杀鸡用牛刀的感觉</p>
-<p>2.文中的选择图像的方法也就是Assemble Reward-Ranked Learning，使用排名相加其实也感觉由于分数相加，但感觉不如gaussrank相加。</p>
-<p>3.文中的caption由BLIP-2生成，但是BLIP生成的比较简短，且不一定贴近prompt，是不是使用一些更先进的方法效果还能进一步提升呢？<a href="https://www.kaggle.com/competitions/stable-diffusion-image-to-prompts/">比如</a>。但是注意到SAM生成的tag其实很简短，那是不是使用BLIP实际上是可行的呢，还是说引入更相似能增加模型的泛化性呢？</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-        <tag>自然语言处理</tag>
-        <tag>peer</tag>
       </tags>
   </entry>
   <entry>
@@ -10926,25 +10926,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>Depth Anything-Unleashing the Power of Large-Scale Unlabeled Data</title>
-    <url>/2024/20240211/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Depth Anything是一种鲁棒的单目深度估计解决方案，其充分利用各种未标记的图像和预训练模型中丰富的语义先验，具有优异的零样本深度估计能力。</p>
-<p>由香港大学、浙江大学等人提出。</p>
-<p><a href="https://huggingface.co/spaces/Xenova/depth-anything-web?continueFlag=f04486fe34faf2ce849faa271c27a9d2">网页版Demo</a></p>
-<hr>
-<span id="more"></span>
-
-<p>Depth Anything是在1.5M标记图像和62M未标记图像上联合训练的。</p>
-<p><img src="pipeline.png"></p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-        <tag>计算机视觉</tag>
-        <tag>深度估计</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>周耀辉解析《春秋》</title>
     <url>/2024/20240206/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>全文转载自林日曦对周耀辉的记载。</p>
@@ -10969,16 +10950,22 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>Sora</title>
-    <url>/2024/20240219/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>openai 发布的人工智能文生视频大模型 (但openai并未单纯将其视为视频模型，而是作为”世界模拟器”</p>
-<span id="more"></span> 
+    <title>Depth Anything-Unleashing the Power of Large-Scale Unlabeled Data</title>
+    <url>/2024/20240211/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Depth Anything是一种鲁棒的单目深度估计解决方案，其充分利用各种未标记的图像和预训练模型中丰富的语义先验，具有优异的零样本深度估计能力。</p>
+<p>由香港大学、浙江大学等人提出。</p>
+<p><a href="https://huggingface.co/spaces/Xenova/depth-anything-web?continueFlag=f04486fe34faf2ce849faa271c27a9d2">网页版Demo</a></p>
+<hr>
+<span id="more"></span>
 
-<p><img src="mind.png"></p>
+<p>Depth Anything是在1.5M标记图像和62M未标记图像上联合训练的。</p>
+<p><img src="pipeline.png"></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
         <tag>人工智能</tag>
+        <tag>计算机视觉</tag>
+        <tag>深度估计</tag>
       </tags>
   </entry>
   <entry>
@@ -11052,6 +11039,19 @@ scale).">
         <tag>深度学习</tag>
         <tag>人工智能</tag>
         <tag>时间序列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Sora</title>
+    <url>/2024/20240219/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>openai 发布的人工智能文生视频大模型 (但openai并未单纯将其视为视频模型，而是作为”世界模拟器”</p>
+<span id="more"></span> 
+
+<p><img src="mind.png"></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -11396,39 +11396,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>残差结构的讨论</title>
-    <url>/2024/20240308/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文主要围绕《<a href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
-<p>在深度学习中，乃至当今很火的transformer，残差是一个很重要的部分。</p>
-<p>残差结构的讨论也是老生常谈的话题了，比如transformer中应该选择Pre Norm与Post Norm呢。</p>
-<span id="more"></span>
-
-<p>关于Pre Norm与Post Norm，苏神的博客“<a href="https://kexue.fm/archives/9009">为什么Pre Norm的效果不如Post Norm？</a>”有更多的讨论。</p>
-<h2 id="双残差"><a href="#双残差" class="headerlink" title="双残差"></a>双残差</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>《ResiDual: Transformer with Dual Residual Connections》结合Pre Norm与Post Norm，提出了ResiDual。</p>
-<p><img src="ResiDual.png"></p>
-<p>ResiDual吸收两者之长，避两者之短，没有了Post-LN的Gradient Vanish，也没有了Pre-LN的Representation Collapse。</p>
-<p><img src="Analysis.png"></p>
-<h3 id="实验结果："><a href="#实验结果：" class="headerlink" title="实验结果："></a>实验结果：</h3><p><img src="experiment.png"></p>
-<h2 id="残差块的有效性和改进"><a href="#残差块的有效性和改进" class="headerlink" title="残差块的有效性和改进"></a>残差块的有效性和改进</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>何恺明提出的《Identity Mappings in Deep Residual Networks》针对残差块为什么有效，以及如何改进进行了一系列实验，最终得出一个结论：identity mapping支路应该要保证“clean”，也就是不应该在该支路后做ReLU激活函数，这才能保证前向传播和反向传播过程中的信息畅通无阻. 基于此，文章提出了新的残差块，其结构如下图：</p>
-<p><img src="resnetv2.png"></p>
-<p>对于ResNet V2来说，identity mapping支路没有ReLU激活函数，在前向传播和后向传播时都能够畅通无阻，真正实现了恒等映射. ResNet V2的“最终呈现结果”也比较简单，就是把原先residual block中的卷积、BN和ReLU调换了顺序。</p>
-<h3 id="实验结果：-1"><a href="#实验结果：-1" class="headerlink" title="实验结果："></a>实验结果：</h3><p>文章更大的篇幅都在实验证明各种结构的效果。</p>
-<p>下图是不同顺序的残差块结构和实验结果，指标是分类错误率:</p>
-<p><img src="shortcut.png"></p>
-<p><img src="shortcutexp.png"></p>
-<p>不同的激活函数放置：</p>
-<p><img src="diffact.png"></p>
-<p><strong>图(b) vs 图(a)：</strong>(b)中将BN层也放到了identity mapping支路中来，进一步改变了该支路的信息流，导致信息传播更为阻塞. 这也是为什么，这个结构的结果比baseline更差.</p>
-<p><strong>图(c) vs 图(a)：</strong>(c)将identity mapping分支的ReLU激活函数前移在了residual分支中，因此residual分支的输出永远是大于等于0的，这意味着模型在前向传播的过程中，数值只会单调递增，这无疑会影响模型的表征能力. 这也是为什么，这个结构的结果比baseline更差. 【residual分支其输出应该要保证在(-∞, +∞)】</p>
-<p><strong>图(d) vs 图(a)：</strong>(d)将identity mapping分支的ReLU激活函数放在了residual分支的第一个卷积前.</p>
-<p><strong>图(e) vs 图(a)：</strong>在上图(d)的基础上，(e)又将residual分支的BN进行了前移. ResNet V2将BN和ReLU统称为activation，图(e)相当于是在图(a)baseline的基础上做了一个pre-activation. 具体转换也可以见下图. 前移之后的结构既保证了identity mapping分支“clean”，也获得更优的模型效果.</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每个人都应该掌握的快速调研法</title>
     <url>/2024/20240403/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来着Up主老蒋巨靠谱的<a href="https://www.bilibili.com/video/BV1pF411f7yD/">《面试必备！每个人都应该掌握的快速调研法》</a></p>
@@ -11560,6 +11527,39 @@ scale).">
       </tags>
   </entry>
   <entry>
+    <title>残差结构的讨论</title>
+    <url>/2024/20240308/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文主要围绕《<a href="https://arxiv.org/pdf/2304.14802.pdf">ResiDual: Transformer with Dual Residual Connections</a>》和《<a href="https://arxiv.org/abs/1603.05027">Identity Mappings in Deep Residual Networks</a>》展开。</p>
+<p>在深度学习中，乃至当今很火的transformer，残差是一个很重要的部分。</p>
+<p>残差结构的讨论也是老生常谈的话题了，比如transformer中应该选择Pre Norm与Post Norm呢。</p>
+<span id="more"></span>
+
+<p>关于Pre Norm与Post Norm，苏神的博客“<a href="https://kexue.fm/archives/9009">为什么Pre Norm的效果不如Post Norm？</a>”有更多的讨论。</p>
+<h2 id="双残差"><a href="#双残差" class="headerlink" title="双残差"></a>双残差</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>《ResiDual: Transformer with Dual Residual Connections》结合Pre Norm与Post Norm，提出了ResiDual。</p>
+<p><img src="ResiDual.png"></p>
+<p>ResiDual吸收两者之长，避两者之短，没有了Post-LN的Gradient Vanish，也没有了Pre-LN的Representation Collapse。</p>
+<p><img src="Analysis.png"></p>
+<h3 id="实验结果："><a href="#实验结果：" class="headerlink" title="实验结果："></a>实验结果：</h3><p><img src="experiment.png"></p>
+<h2 id="残差块的有效性和改进"><a href="#残差块的有效性和改进" class="headerlink" title="残差块的有效性和改进"></a>残差块的有效性和改进</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>何恺明提出的《Identity Mappings in Deep Residual Networks》针对残差块为什么有效，以及如何改进进行了一系列实验，最终得出一个结论：identity mapping支路应该要保证“clean”，也就是不应该在该支路后做ReLU激活函数，这才能保证前向传播和反向传播过程中的信息畅通无阻. 基于此，文章提出了新的残差块，其结构如下图：</p>
+<p><img src="resnetv2.png"></p>
+<p>对于ResNet V2来说，identity mapping支路没有ReLU激活函数，在前向传播和后向传播时都能够畅通无阻，真正实现了恒等映射. ResNet V2的“最终呈现结果”也比较简单，就是把原先residual block中的卷积、BN和ReLU调换了顺序。</p>
+<h3 id="实验结果：-1"><a href="#实验结果：-1" class="headerlink" title="实验结果："></a>实验结果：</h3><p>文章更大的篇幅都在实验证明各种结构的效果。</p>
+<p>下图是不同顺序的残差块结构和实验结果，指标是分类错误率:</p>
+<p><img src="shortcut.png"></p>
+<p><img src="shortcutexp.png"></p>
+<p>不同的激活函数放置：</p>
+<p><img src="diffact.png"></p>
+<p><strong>图(b) vs 图(a)：</strong>(b)中将BN层也放到了identity mapping支路中来，进一步改变了该支路的信息流，导致信息传播更为阻塞. 这也是为什么，这个结构的结果比baseline更差.</p>
+<p><strong>图(c) vs 图(a)：</strong>(c)将identity mapping分支的ReLU激活函数前移在了residual分支中，因此residual分支的输出永远是大于等于0的，这意味着模型在前向传播的过程中，数值只会单调递增，这无疑会影响模型的表征能力. 这也是为什么，这个结构的结果比baseline更差. 【residual分支其输出应该要保证在(-∞, +∞)】</p>
+<p><strong>图(d) vs 图(a)：</strong>(d)将identity mapping分支的ReLU激活函数放在了residual分支的第一个卷积前.</p>
+<p><strong>图(e) vs 图(a)：</strong>在上图(d)的基础上，(e)又将residual分支的BN进行了前移. ResNet V2将BN和ReLU统称为activation，图(e)相当于是在图(a)baseline的基础上做了一个pre-activation. 具体转换也可以见下图. 前移之后的结构既保证了identity mapping分支“clean”，也获得更优的模型效果.</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RNN与注意力</title>
     <url>/2024/20240512/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中首先将注意力其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制大成。</p>
@@ -11667,68 +11667,6 @@ scale).">
 <p><img src="imagenet.jpg"></p>
 <h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p><img src="seg1.jpg"></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Softmax Linear Units Softmax</title>
-    <url>/2024/20240605/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>出自Anthropic’s transformer circuits thread</p>
-<p><a href="https://transformer-circuits.pub/2022/solu/index.html">Softmax Linear Units Softmax</a></p>
-<p>在本文中，我们报告了一种架构变化，该变化似乎大大增加了看起来“可解释”的 MLP 神经元的比例（即响应输入的可表达属性），而对 ML 性能的影响很小甚至没有。具体来说，我们用 softmax 线性单元（我们称之为 SoLU）替换激活函数，并表明这显着增加了 MLP 层中神经元的比例，这些神经元在快速调查中似乎对应于人类容易理解的概念、短语或类别，通过随机和盲法实验测量。然后，我们研究 SoLU 模型，并使用它们来获得有关 Transformer 中信息如何处理的一些新见解。然而，我们也发现了一些证据，证明叠加假设是正确的，并且天下没有免费的午餐：SoLU 可能通过“隐藏”其他特征来使某些特征更容易解释，从而使它们更加难以解释。尽管如此，SoLU 似乎仍然是一个净胜利，因为实际上它大大增加了我们能够理解的神经元的比例。</p>
-<span id="more"></span>
-
-<h2 id="SOLU的提出"><a href="#SOLU的提出" class="headerlink" title="SOLU的提出"></a>SOLU的提出</h2><p>GeLU是一种现代transformer常用的激活函数</p>
-<p>$\mathrm{GELU}(x)=xP(X\leq x)=x\Phi(x)=x\cdot\frac{1}{2}\left[1+\mathrm{erf}(x/\sqrt{2})\right]$</p>
-<p>一种近似版本：</p>
-<p>$0.5x\Big(1+\tanh\Big[\sqrt{2/\pi}\Big(x+0.044715x^{3}\Big)\Big]\Big)$ 或$x\sigma(1.702x)$</p>
-<p>于是Anthropic研究者们考虑了将sigmoid换为softmax。</p>
-<p>将此激活函数称为“softmax 线性单元”或 SoLU：</p>
-<p>SoLU(x)=x*softmax(x)</p>
-<p>当 SoLU 应用于大值和小值的向量时，大值将抑制较小值：</p>
-<p>SoLU(4,1,4,1)=（1.9051, 0.0237, 1.9051, 0.0237）≈(2, 0, 2, 0)</p>
-<p>也许更重要的是，保留了大的基础对齐向量，而跨多个维度分布的特征将被抑制到较小的量级：</p>
-<p>SoLU(4,0,0,0) ≈ (4,0,0,0)</p>
-<p>SoLU(1,1,1,1) ≈ ($\frac{1}{4}$, $\frac{1}{4}$, $\frac{1}{4}$, $\frac{1}{4}$)</p>
-<p>初步实验发现，简单地使用 SoLU 激活函数似乎可以使神经元更容易解释，但会付出很大的性能代价。一般来说，没有任何其他改变的 SoLU 模型的性能相当于比实际尺寸小 30-50% 的模型，较大的模型受到的影响更大。  如果叠加假设成立，这正是我们所期望看到的——我们可以减少多语义性，但这样做会损害网络的机器学习性能。</p>
-<p>然而，我们凭经验发现，通过在 SoLU 之后应用额外的 LayerNorm（类似于 </p>
-<p>[25]</p>
-<p> ），可以修复这种性能损失，同时保留可解释性增益。这极大地提高了 ML 性能，因此对于我们的大多数实验，我们实际应用的函数是 2 但请注意，我们尝试解释的激活是在额外层规范之前，而不是之后：<br>$$<br>f(x)=LN(SoLU(x))=LN(x*softmax(x))<br>$$</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><strong>“请注意，以任意性能代价来构建提高可解释性的架构既微不足道又无趣。”</strong></p>
-<p><img src="train_curve.png"></p>
-<p> 如图所示，SoLU 大致相当于所有模型大小的基线，始终落在模型大小的 1.05 倍和 0.95 倍乘数之间（与大多数情况下相比，大致相当于 ±0.01 纳特的损失变化）总共损失 1.6-3 纳特）。  尽管所有差异都很小并且更有可能是随机噪声（在 50B 模型上，SoLU 相当于将模型大小增加 1.01 倍），但在大模型尺寸下，SoLU 的性能可能会比基线稍好一些。 ）。</p>
-<p><img src="downstream.png"></p>
-<p>上图为下游任务的性能。由于SoLU 使用基线的一系列超参数，并且 SoLU 的最佳超参数可能与基线模型的最佳超参数不同。但表明 SoLU 至少与基线一样好。</p>
-<p>总的来说，我们得出的结论是，与标准 Transformer 相比，带有 LayerNorm 的 SoLU 似乎实现了有竞争力的 ML 和训练性能。</p>
-<h2 id="可解释性"><a href="#可解释性" class="headerlink" title="可解释性"></a>可解释性</h2><h3 id="定量结果"><a href="#定量结果" class="headerlink" title="定量结果"></a>定量结果</h3><p>我们关于哪些部分的神经元可以初步解释的实验结果如下图 4所示。对于从 1 层到 40 层的模型，SoLU 模型的神经元比基线的神经元更具可解释性，增加了大约 25 个绝对百分点，从约 35% 可解释到约 60% 可解释。  这将可解释神经元的比例增加了 1.7 倍。  尽管效果大小适中，但样本量、一致的间隙和一致的可解释神经元绝对率表明 SoLU 模型具有真实且持久的效果。</p>
-<p><img src="fraction.png"></p>
-<p> 蓝线显示了标记为初步表明基线变换器中模型大小范围从 1 到 64 层的解释的神经元分数。  红线显示了标记为初步暗示 SoLU 转换器中的解释的神经元部分。  绿点显示了标记为初步表明 16 层模型中带有额外层范数但不带有 SoLU 的解释的神经元的分数。  总体而言，在 1 层到 40 层的模型中，SoLU 将可解释神经元的比例增加了约 25%，而在 64 层模型中，增益要小得多。</p>
-<p>我们不知道为什么 64L 模型从 SoLU 中受益较少，但一种可能的理论是，随着模型变得更大，它们的神经元代表更复杂的概念并且变得更难以理解。这表明神经元仍然是可解释的，但不再“容易解释”。</p>
-<h3 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h3><h4 id="一层模型神经元"><a href="#一层模型神经元" class="headerlink" title="一层模型神经元"></a>一层模型神经元</h4><p><img src="1layer.png"></p>
-<p>1 层 SoLU 模型中的神经元似乎对 Base64 编码的文本进行触发（左）。神经元对 logits 的扩展权重（右）增加了混合情况下很少出现在单词中的一堆标记的概率，同时降低了代表英语单词的多个标记的概率，这一事实证实了这一点。可以将其理解为一个可解释的规则，即在 Base64 文本上，下一个标记更有可能也是 Base64。</p>
-<h4 id="较大模型中的前面的神经元（”DE-TOKENIZATION”）"><a href="#较大模型中的前面的神经元（”DE-TOKENIZATION”）" class="headerlink" title="较大模型中的前面的神经元（”DE-TOKENIZATION”）"></a>较大模型中的前面的神经元（”DE-TOKENIZATION”）</h4><p>接下来我们将探索转向更大的型号——我们剩下的示例将来自 16L、24L、40L 和 64L 型号的混合。  我们最有趣的发现之一是，大型网络的早期、中期和晚期层的神经元往往扮演着非常不同类型的角色，就像已知的卷积网络视觉模型不同深度的特征是不同的一样。  我们将在各自的部分中讨论每个神经元，从前面层的神经元开始。</p>
-<p>前面层神经元似乎经常参与将标记的“人工”结构映射到更自然、语义上有意义的表示。</p>
-<ul>
-<li><strong>神经元对被分成多个标记的特定单词做出反应：</strong>“银行”、“措辞”、“胆固醇”、“自由主义者”、“平民”、“上海”、“尽管如此”……</li>
-<li><strong>神经元对名人的名字做出反应：</strong>“马丁·路德·金”、“唐纳德·特朗普”、“林登·约翰逊”、“乔治·奥威尔”、“欧内斯特·海明威”、“穆罕默德·阿里”、“奥普拉·温弗瑞”……（参见 [17] ）</li>
-<li><strong>神经元对其他名词做出反应：</strong>“人权观察”、“国际货币基金组织”、“马修飓风”、“皇家马德里”……</li>
-<li><strong>神经元对复合词做出反应：</strong>“读书俱乐部”、“社会保障”、“计算机视觉”、“有组织犯罪”、“生日聚会”、“心脏病发作”……</li>
-<li><strong>神经元响应 LaTeX“\”命令：</strong>“\left”、“\frac{”、“\begin”…</li>
-</ul>
-<h4 id="较大模型中的后层神经元（“RE-TOKENIZATION”）"><a href="#较大模型中的后层神经元（“RE-TOKENIZATION”）" class="headerlink" title="较大模型中的后层神经元（“RE-TOKENIZATION”）"></a>较大模型中的后层神经元（“RE-TOKENIZATION”）</h4><p>后期层神经元（靠近网络输出的神经元）通常会做与早期层神经元相反的事情：它们介导单词或上下文标记返回文字标记的转换。例如，最后一层中的一个神经元会触发标记“st”，同时增加后续标记是“rag”的可能性；本质上，这是一种将单词“stragglers”的表示形式逐个转换或指示为其组成标记以进行输出的方法。类似地，“nappies”输出神经元在标记“n”上触发，并增加标记“app”帮助写入“nappies”的概率。这些神经元本质上模拟了一个额外的输出词汇项，该词汇项仅在前面的标记满足某些条件时才可用。</p>
-<p><img src="retoken.png"></p>
-<h4 id="较大模型中的中间层神经元"><a href="#较大模型中的中间层神经元" class="headerlink" title="较大模型中的中间层神经元"></a>较大模型中的中间层神经元</h4><p>中间层的神经元通常代表更复杂、抽象的想法。例如，当且仅当数字涉及多个人时，有一个神经元似乎代表数字：</p>
-<p><img src="number.png"></p>
-<p>在这些层中可以发现各种各样有趣的神经元。我们观察到的一些常见类别包括：</p>
-<ul>
-<li>对特定类型的描述性从句激发的神经元：对描述声音的从句激发的神经元、对描述服装的从句激发的神经元、对音乐描述性从句激发的神经元（例如“C 大调”）、对从句激发的神经元描述写在物体上的文字，…</li>
-<li>对话语标记做出反应的神经元：对强调某件事的重要性的标记做出反应的神经元（例如“令人惊奇的是”），对对冲做出反应的神经元（例如“在我看来……”），……</li>
-<li>消除对标记的特殊解释的歧义的神经元：当用作成绩时对 A/B/C/D 做出响应的神经元，对日期的“日”部分做出响应的神经元，对数字进行响应的神经元是菜谱中的一个数量，一个响应字符串中 C 风格格式说明符（例如“%s”或“%d”）的神经元，……</li>
-</ul>
-<p>但是有很多神经元很难归入这些类别，例如似乎有助于解析 ASCII 表列的神经元。</p>
-]]></content>
-      <tags>
-        <tag>深度学习</tag>
-        <tag>可解释性</tag>
-      </tags>
   </entry>
   <entry>
     <title>图彩票</title>
@@ -11934,6 +11872,195 @@ scale).">
 ]]></content>
   </entry>
   <entry>
+    <title>Softmax Linear Units Softmax</title>
+    <url>/2024/20240605/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>出自Anthropic’s transformer circuits thread</p>
+<p><a href="https://transformer-circuits.pub/2022/solu/index.html">Softmax Linear Units Softmax</a></p>
+<p>在本文中，我们报告了一种架构变化，该变化似乎大大增加了看起来“可解释”的 MLP 神经元的比例（即响应输入的可表达属性），而对 ML 性能的影响很小甚至没有。具体来说，我们用 softmax 线性单元（我们称之为 SoLU）替换激活函数，并表明这显着增加了 MLP 层中神经元的比例，这些神经元在快速调查中似乎对应于人类容易理解的概念、短语或类别，通过随机和盲法实验测量。然后，我们研究 SoLU 模型，并使用它们来获得有关 Transformer 中信息如何处理的一些新见解。然而，我们也发现了一些证据，证明叠加假设是正确的，并且天下没有免费的午餐：SoLU 可能通过“隐藏”其他特征来使某些特征更容易解释，从而使它们更加难以解释。尽管如此，SoLU 似乎仍然是一个净胜利，因为实际上它大大增加了我们能够理解的神经元的比例。</p>
+<span id="more"></span>
+
+<h2 id="SOLU的提出"><a href="#SOLU的提出" class="headerlink" title="SOLU的提出"></a>SOLU的提出</h2><p>GeLU是一种现代transformer常用的激活函数</p>
+<p>$\mathrm{GELU}(x)=xP(X\leq x)=x\Phi(x)=x\cdot\frac{1}{2}\left[1+\mathrm{erf}(x/\sqrt{2})\right]$</p>
+<p>一种近似版本：</p>
+<p>$0.5x\Big(1+\tanh\Big[\sqrt{2/\pi}\Big(x+0.044715x^{3}\Big)\Big]\Big)$ 或$x\sigma(1.702x)$</p>
+<p>于是Anthropic研究者们考虑了将sigmoid换为softmax。</p>
+<p>将此激活函数称为“softmax 线性单元”或 SoLU：</p>
+<p>SoLU(x)=x*softmax(x)</p>
+<p>当 SoLU 应用于大值和小值的向量时，大值将抑制较小值：</p>
+<p>SoLU(4,1,4,1)=（1.9051, 0.0237, 1.9051, 0.0237）≈(2, 0, 2, 0)</p>
+<p>也许更重要的是，保留了大的基础对齐向量，而跨多个维度分布的特征将被抑制到较小的量级：</p>
+<p>SoLU(4,0,0,0) ≈ (4,0,0,0)</p>
+<p>SoLU(1,1,1,1) ≈ ($\frac{1}{4}$, $\frac{1}{4}$, $\frac{1}{4}$, $\frac{1}{4}$)</p>
+<p>初步实验发现，简单地使用 SoLU 激活函数似乎可以使神经元更容易解释，但会付出很大的性能代价。一般来说，没有任何其他改变的 SoLU 模型的性能相当于比实际尺寸小 30-50% 的模型，较大的模型受到的影响更大。  如果叠加假设成立，这正是我们所期望看到的——我们可以减少多语义性，但这样做会损害网络的机器学习性能。</p>
+<p>然而，我们凭经验发现，通过在 SoLU 之后应用额外的 LayerNorm（类似于 </p>
+<p>[25]</p>
+<p> ），可以修复这种性能损失，同时保留可解释性增益。这极大地提高了 ML 性能，因此对于我们的大多数实验，我们实际应用的函数是 2 但请注意，我们尝试解释的激活是在额外层规范之前，而不是之后：<br>$$<br>f(x)=LN(SoLU(x))=LN(x*softmax(x))<br>$$</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><strong>“请注意，以任意性能代价来构建提高可解释性的架构既微不足道又无趣。”</strong></p>
+<p><img src="train_curve.png"></p>
+<p> 如图所示，SoLU 大致相当于所有模型大小的基线，始终落在模型大小的 1.05 倍和 0.95 倍乘数之间（与大多数情况下相比，大致相当于 ±0.01 纳特的损失变化）总共损失 1.6-3 纳特）。  尽管所有差异都很小并且更有可能是随机噪声（在 50B 模型上，SoLU 相当于将模型大小增加 1.01 倍），但在大模型尺寸下，SoLU 的性能可能会比基线稍好一些。 ）。</p>
+<p><img src="downstream.png"></p>
+<p>上图为下游任务的性能。由于SoLU 使用基线的一系列超参数，并且 SoLU 的最佳超参数可能与基线模型的最佳超参数不同。但表明 SoLU 至少与基线一样好。</p>
+<p>总的来说，我们得出的结论是，与标准 Transformer 相比，带有 LayerNorm 的 SoLU 似乎实现了有竞争力的 ML 和训练性能。</p>
+<h2 id="可解释性"><a href="#可解释性" class="headerlink" title="可解释性"></a>可解释性</h2><h3 id="定量结果"><a href="#定量结果" class="headerlink" title="定量结果"></a>定量结果</h3><p>我们关于哪些部分的神经元可以初步解释的实验结果如下图 4所示。对于从 1 层到 40 层的模型，SoLU 模型的神经元比基线的神经元更具可解释性，增加了大约 25 个绝对百分点，从约 35% 可解释到约 60% 可解释。  这将可解释神经元的比例增加了 1.7 倍。  尽管效果大小适中，但样本量、一致的间隙和一致的可解释神经元绝对率表明 SoLU 模型具有真实且持久的效果。</p>
+<p><img src="fraction.png"></p>
+<p> 蓝线显示了标记为初步表明基线变换器中模型大小范围从 1 到 64 层的解释的神经元分数。  红线显示了标记为初步暗示 SoLU 转换器中的解释的神经元部分。  绿点显示了标记为初步表明 16 层模型中带有额外层范数但不带有 SoLU 的解释的神经元的分数。  总体而言，在 1 层到 40 层的模型中，SoLU 将可解释神经元的比例增加了约 25%，而在 64 层模型中，增益要小得多。</p>
+<p>我们不知道为什么 64L 模型从 SoLU 中受益较少，但一种可能的理论是，随着模型变得更大，它们的神经元代表更复杂的概念并且变得更难以理解。这表明神经元仍然是可解释的，但不再“容易解释”。</p>
+<h3 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h3><h4 id="一层模型神经元"><a href="#一层模型神经元" class="headerlink" title="一层模型神经元"></a>一层模型神经元</h4><p><img src="1layer.png"></p>
+<p>1 层 SoLU 模型中的神经元似乎对 Base64 编码的文本进行触发（左）。神经元对 logits 的扩展权重（右）增加了混合情况下很少出现在单词中的一堆标记的概率，同时降低了代表英语单词的多个标记的概率，这一事实证实了这一点。可以将其理解为一个可解释的规则，即在 Base64 文本上，下一个标记更有可能也是 Base64。</p>
+<h4 id="较大模型中的前面的神经元（”DE-TOKENIZATION”）"><a href="#较大模型中的前面的神经元（”DE-TOKENIZATION”）" class="headerlink" title="较大模型中的前面的神经元（”DE-TOKENIZATION”）"></a>较大模型中的前面的神经元（”DE-TOKENIZATION”）</h4><p>接下来我们将探索转向更大的型号——我们剩下的示例将来自 16L、24L、40L 和 64L 型号的混合。  我们最有趣的发现之一是，大型网络的早期、中期和晚期层的神经元往往扮演着非常不同类型的角色，就像已知的卷积网络视觉模型不同深度的特征是不同的一样。  我们将在各自的部分中讨论每个神经元，从前面层的神经元开始。</p>
+<p>前面层神经元似乎经常参与将标记的“人工”结构映射到更自然、语义上有意义的表示。</p>
+<ul>
+<li><strong>神经元对被分成多个标记的特定单词做出反应：</strong>“银行”、“措辞”、“胆固醇”、“自由主义者”、“平民”、“上海”、“尽管如此”……</li>
+<li><strong>神经元对名人的名字做出反应：</strong>“马丁·路德·金”、“唐纳德·特朗普”、“林登·约翰逊”、“乔治·奥威尔”、“欧内斯特·海明威”、“穆罕默德·阿里”、“奥普拉·温弗瑞”……（参见 [17] ）</li>
+<li><strong>神经元对其他名词做出反应：</strong>“人权观察”、“国际货币基金组织”、“马修飓风”、“皇家马德里”……</li>
+<li><strong>神经元对复合词做出反应：</strong>“读书俱乐部”、“社会保障”、“计算机视觉”、“有组织犯罪”、“生日聚会”、“心脏病发作”……</li>
+<li><strong>神经元响应 LaTeX“\”命令：</strong>“\left”、“\frac{”、“\begin”…</li>
+</ul>
+<h4 id="较大模型中的后层神经元（“RE-TOKENIZATION”）"><a href="#较大模型中的后层神经元（“RE-TOKENIZATION”）" class="headerlink" title="较大模型中的后层神经元（“RE-TOKENIZATION”）"></a>较大模型中的后层神经元（“RE-TOKENIZATION”）</h4><p>后期层神经元（靠近网络输出的神经元）通常会做与早期层神经元相反的事情：它们介导单词或上下文标记返回文字标记的转换。例如，最后一层中的一个神经元会触发标记“st”，同时增加后续标记是“rag”的可能性；本质上，这是一种将单词“stragglers”的表示形式逐个转换或指示为其组成标记以进行输出的方法。类似地，“nappies”输出神经元在标记“n”上触发，并增加标记“app”帮助写入“nappies”的概率。这些神经元本质上模拟了一个额外的输出词汇项，该词汇项仅在前面的标记满足某些条件时才可用。</p>
+<p><img src="retoken.png"></p>
+<h4 id="较大模型中的中间层神经元"><a href="#较大模型中的中间层神经元" class="headerlink" title="较大模型中的中间层神经元"></a>较大模型中的中间层神经元</h4><p>中间层的神经元通常代表更复杂、抽象的想法。例如，当且仅当数字涉及多个人时，有一个神经元似乎代表数字：</p>
+<p><img src="number.png"></p>
+<p>在这些层中可以发现各种各样有趣的神经元。我们观察到的一些常见类别包括：</p>
+<ul>
+<li>对特定类型的描述性从句激发的神经元：对描述声音的从句激发的神经元、对描述服装的从句激发的神经元、对音乐描述性从句激发的神经元（例如“C 大调”）、对从句激发的神经元描述写在物体上的文字，…</li>
+<li>对话语标记做出反应的神经元：对强调某件事的重要性的标记做出反应的神经元（例如“令人惊奇的是”），对对冲做出反应的神经元（例如“在我看来……”），……</li>
+<li>消除对标记的特殊解释的歧义的神经元：当用作成绩时对 A/B/C/D 做出响应的神经元，对日期的“日”部分做出响应的神经元，对数字进行响应的神经元是菜谱中的一个数量，一个响应字符串中 C 风格格式说明符（例如“%s”或“%d”）的神经元，……</li>
+</ul>
+<p>但是有很多神经元很难归入这些类别，例如似乎有助于解析 ASCII 表列的神经元。</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>可解释性</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>恋爱脑之死</title>
+    <url>/2024/20240623/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-pXnnQfHk" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+				<pre class="aplayer-lrc-content">[00:00.00]戀愛腦之死 - 陳健安
+[00:01.29]詞：Oscar
+[00:01.77]曲：陳健安/賴映彤
+[00:02.76]編曲：賴映彤
+[00:03.49]監製：賴映彤/陳健安
+[00:27.08]喜歡得轟烈 轟得開天門
+[00:32.41]懶去管 萬千種批判
+[00:40.18]喜歡得荒謬 若你也肯相伴
+[00:45.40]能隨便 用一切交換
+[00:53.01]可給我烙刑 能燃盡髮膚 燒光心性
+[01:03.95]全部勸解不會聽
+[01:07.75]蠶食了本身理性
+[01:11.06]這麼情願 消耗生命
+[01:20.89]曾話我愛你我願愛到死
+[01:25.95]用儘力沒頭沒腦似鬼魅
+[01:30.38]殺了上帝亦為你
+[01:34.15]然後愛夠你發現愛已死
+[01:38.78]望昨日就如爛透文青戲
+[01:44.27]毫無意味
+[01:52.54]單戀的思念 失戀的癡纏
+[01:57.91]我的天 我要癡戀不要臉
+[02:05.67]洶湧的執念 讓我這麼低賤
+[02:11.22]我的癲 如受騙 又愛演
+[02:15.45]磨利劍 為那天 別脫險
+[02:18.63]我太過渴望被愛
+[02:20.20]痛到向世界致哀
+[02:21.81]斷絕後路別下台
+[02:23.45]我要你看著喝采
+[02:25.15]船撞碎 就更好 別救災
+[02:31.79]你說要我學習愛
+[02:33.33]我也說真的應該
+[02:37.09]卻一早給掩蓋
+[02:40.59]無能力明白愛
+[03:25.96]曾話我愛你我願愛到死
+[03:30.59]用儘力沒頭沒腦似鬼魅
+[03:35.55]殺了上帝亦為你
+[03:39.00]然後愛夠你發現愛已死
+[03:43.67]望昨日就如爛透文青戲
+[03:49.27]毫無意味
+[03:53.93]過去了 遠去了 去到這次我已退燒
+[03:57.19]看到了 看破了
+[03:58.81]說我愛你也都不過
+[04:00.45]統統只因戀愛腦是自我擴張而惹笑
+[04:03.60]其實說破 唯獨愛我
+[04:05.22]只反映出哀傷的對照
+[04:07.00]過去了 遠去了 去到這次我已退燒
+[04:10.35]終於都得知收跟放也極重要
+[04:12.67]就來憑弔那段錯戀
+[04:14.49]太可悲 同樣也 極渺小</pre>
+			</div>
+			<script>
+				var ap = new APlayer({
+					element: document.getElementById("aplayer-pXnnQfHk"),
+					narrow: false,
+					autoplay: false,
+					showlrc: 2,
+					music: {
+						title: "恋爱脑之死",
+						author: "陈健安",
+						url: "/music/恋爱脑之死.mp3",
+						pic: "/2024/20240623/brdead.jpg",
+					}
+				});
+				window.aplayers || (window.aplayers = []);
+				window.aplayers.push(ap);
+			</script>
+
+<p>一个恋爱脑栽过去，喊打喊杀呼天抢地头昏目涨血肉模糊，就如同发了一场汹汹涌涌的梦 - 一觉醒来，此人回头发现自己原来一无所有，但也同时发肤无损，生命完好无缺。<br>摸一摸那没有伤口的额头，他问自己，我爱的是那个人？是我自己？是爱的感觉？还是我的恋爱脑？</p>
+<span id="more"></span>
+
+<hr>
+<p>陈健安</p>
+<p>《恋爱脑之死》<br>作词：Oscar<br>作曲：陈健安 / 赖映彤<br>编曲：赖映彤<br>监制：赖映彤 / 陈健安<br>喜欢得轰烈 轰得开天门<br>懒去管 万千种批判<br>喜欢得荒谬 若你也肯相伴<br>能随便 用一切交换</p>
+<p>可给我烙刑 能燃尽发肤 烧光心性<br>全部劝解不会听<br>蚕食了本身理性<br>这么情愿 消耗生命</p>
+<blockquote>
+<p>用血肉 去为你 造教堂<br>你颁布 的圣经 多好看<br>自发为你奉献 像祭典</p>
+<p>——雷深如《无神论》</p>
+</blockquote>
+<p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅</p>
+<blockquote>
+<p>爱到了自卑自贱没有人味<br>平日不必照镜也会嫌弃<br>凭贤淑纵容狂人同样也可鄙</p>
+<p>——林欣彤《忍》</p>
+</blockquote>
+<p>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p>
+<p>单恋的思念 失恋的痴缠<br>我的天 我要痴恋不要脸<br>汹涌的执念 让我这么低贱<br>我的癫 如受骗 又爱演</p>
+<blockquote>
+<p>无谓设计了布局 这样快结局 爱与痛也不到肉</p>
+<p>像战争片 最好有死有伤 未吓到尖叫哭也不流畅</p>
+<p>——陈奕迅 《 斯德哥尔摩情人》</p>
+</blockquote>
+<p>磨利剑 为那天 别脱险</p>
+<p>我太过渴望被爱</p>
+<blockquote>
+<p>求爱心急如焚 我才神化一堆凡人<br>神蹟皆小事扮亢奋</p>
+<p>——雷深如《无神论》</p>
+</blockquote>
+<p>痛到向世界致哀<br>断绝后路别下台<br>我要你看着喝采<br>船撞碎 就更好 别救灾</p>
+<blockquote>
+<p>受够苦 门徒便不想牺牲</p>
+<p>——雷深如《无神论》</p>
+</blockquote>
+<p>你说要我学习爱<br>我也说真的应该<br>却一早给掩盖<br>无能力明白爱</p>
+<p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅<br>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p>
+<blockquote>
+<p>重复的眼泪<br>就是你自欺的安慰奖<br>你擅长 创造背叛你的失意卖相<br>是你坚拒平凡对象 习惯活在遐想<br>为肤浅漂亮<br>长期舔着失恋的创伤<br>你擅长 制造你无悔的伟大形像<br>凡是歌里有悲哀这个字 才愿唱<br>忘掉现实的你<br>沉溺于悲剧美</p>
+<p>——张敬轩《悲剧人物》</p>
+</blockquote>
+<p>过去了 远去了 去到这次我已退烧</p>
+<blockquote>
+<p>别再制造神 为搏衪悲悯</p>
+<p>——雷深如《无神论》</p>
+</blockquote>
+<p>看到了 看破了<br>说我爱你也都不过<br>统统只因恋爱脑是自我扩张而惹笑<br>其实说破 唯独爱我<br>只反映出哀伤的对照</p>
+<blockquote>
+<p>那一線眼淚 欠大志 太沒意思</p>
+<p>——张敬轩《春秋》</p>
+</blockquote>
+<p>过去了 远去了 去到这次我已退烧<br>终于都得知收跟放 也极重要<br>就来凭吊 那段错恋<br>太可悲 同样也 极渺小</p>
+]]></content>
+      <tags>
+        <tag>音乐</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图鲁棒性论文速览</title>
     <url>/2024/20240629/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="《Learning-Graph-Neural-Networks-with-Noisy-Labels-（arxiv-2019-》"><a href="#《Learning-Graph-Neural-Networks-with-Noisy-Labels-（arxiv-2019-》" class="headerlink" title="《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》"></a>《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》</h2><p><strong>Motivation</strong>：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。</p>
@@ -12033,133 +12160,6 @@ scale).">
       </tags>
   </entry>
   <entry>
-    <title>恋爱脑之死</title>
-    <url>/2024/20240623/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-fJSFSwKz" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
-				<pre class="aplayer-lrc-content">[00:00.00]戀愛腦之死 - 陳健安
-[00:01.29]詞：Oscar
-[00:01.77]曲：陳健安/賴映彤
-[00:02.76]編曲：賴映彤
-[00:03.49]監製：賴映彤/陳健安
-[00:27.08]喜歡得轟烈 轟得開天門
-[00:32.41]懶去管 萬千種批判
-[00:40.18]喜歡得荒謬 若你也肯相伴
-[00:45.40]能隨便 用一切交換
-[00:53.01]可給我烙刑 能燃盡髮膚 燒光心性
-[01:03.95]全部勸解不會聽
-[01:07.75]蠶食了本身理性
-[01:11.06]這麼情願 消耗生命
-[01:20.89]曾話我愛你我願愛到死
-[01:25.95]用儘力沒頭沒腦似鬼魅
-[01:30.38]殺了上帝亦為你
-[01:34.15]然後愛夠你發現愛已死
-[01:38.78]望昨日就如爛透文青戲
-[01:44.27]毫無意味
-[01:52.54]單戀的思念 失戀的癡纏
-[01:57.91]我的天 我要癡戀不要臉
-[02:05.67]洶湧的執念 讓我這麼低賤
-[02:11.22]我的癲 如受騙 又愛演
-[02:15.45]磨利劍 為那天 別脫險
-[02:18.63]我太過渴望被愛
-[02:20.20]痛到向世界致哀
-[02:21.81]斷絕後路別下台
-[02:23.45]我要你看著喝采
-[02:25.15]船撞碎 就更好 別救災
-[02:31.79]你說要我學習愛
-[02:33.33]我也說真的應該
-[02:37.09]卻一早給掩蓋
-[02:40.59]無能力明白愛
-[03:25.96]曾話我愛你我願愛到死
-[03:30.59]用儘力沒頭沒腦似鬼魅
-[03:35.55]殺了上帝亦為你
-[03:39.00]然後愛夠你發現愛已死
-[03:43.67]望昨日就如爛透文青戲
-[03:49.27]毫無意味
-[03:53.93]過去了 遠去了 去到這次我已退燒
-[03:57.19]看到了 看破了
-[03:58.81]說我愛你也都不過
-[04:00.45]統統只因戀愛腦是自我擴張而惹笑
-[04:03.60]其實說破 唯獨愛我
-[04:05.22]只反映出哀傷的對照
-[04:07.00]過去了 遠去了 去到這次我已退燒
-[04:10.35]終於都得知收跟放也極重要
-[04:12.67]就來憑弔那段錯戀
-[04:14.49]太可悲 同樣也 極渺小</pre>
-			</div>
-			<script>
-				var ap = new APlayer({
-					element: document.getElementById("aplayer-fJSFSwKz"),
-					narrow: false,
-					autoplay: false,
-					showlrc: 2,
-					music: {
-						title: "恋爱脑之死",
-						author: "陈健安",
-						url: "/music/恋爱脑之死.mp3",
-						pic: "/2024/20240623/brdead.jpg",
-					}
-				});
-				window.aplayers || (window.aplayers = []);
-				window.aplayers.push(ap);
-			</script>
-
-<p>一个恋爱脑栽过去，喊打喊杀呼天抢地头昏目涨血肉模糊，就如同发了一场汹汹涌涌的梦 - 一觉醒来，此人回头发现自己原来一无所有，但也同时发肤无损，生命完好无缺。<br>摸一摸那没有伤口的额头，他问自己，我爱的是那个人？是我自己？是爱的感觉？还是我的恋爱脑？</p>
-<span id="more"></span>
-
-<hr>
-<p>陈健安</p>
-<p>《恋爱脑之死》<br>作词：Oscar<br>作曲：陈健安 / 赖映彤<br>编曲：赖映彤<br>监制：赖映彤 / 陈健安<br>喜欢得轰烈 轰得开天门<br>懒去管 万千种批判<br>喜欢得荒谬 若你也肯相伴<br>能随便 用一切交换</p>
-<p>可给我烙刑 能燃尽发肤 烧光心性<br>全部劝解不会听<br>蚕食了本身理性<br>这么情愿 消耗生命</p>
-<blockquote>
-<p>用血肉 去为你 造教堂<br>你颁布 的圣经 多好看<br>自发为你奉献 像祭典</p>
-<p>——雷深如《无神论》</p>
-</blockquote>
-<p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅</p>
-<blockquote>
-<p>爱到了自卑自贱没有人味<br>平日不必照镜也会嫌弃<br>凭贤淑纵容狂人同样也可鄙</p>
-<p>——林欣彤《忍》</p>
-</blockquote>
-<p>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p>
-<p>单恋的思念 失恋的痴缠<br>我的天 我要痴恋不要脸<br>汹涌的执念 让我这么低贱<br>我的癫 如受骗 又爱演</p>
-<blockquote>
-<p>无谓设计了布局 这样快结局 爱与痛也不到肉</p>
-<p>像战争片 最好有死有伤 未吓到尖叫哭也不流畅</p>
-<p>——陈奕迅 《 斯德哥尔摩情人》</p>
-</blockquote>
-<p>磨利剑 为那天 别脱险</p>
-<p>我太过渴望被爱</p>
-<blockquote>
-<p>求爱心急如焚 我才神化一堆凡人<br>神蹟皆小事扮亢奋</p>
-<p>——雷深如《无神论》</p>
-</blockquote>
-<p>痛到向世界致哀<br>断绝后路别下台<br>我要你看着喝采<br>船撞碎 就更好 别救灾</p>
-<blockquote>
-<p>受够苦 门徒便不想牺牲</p>
-<p>——雷深如《无神论》</p>
-</blockquote>
-<p>你说要我学习爱<br>我也说真的应该<br>却一早给掩盖<br>无能力明白爱</p>
-<p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅<br>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p>
-<blockquote>
-<p>重复的眼泪<br>就是你自欺的安慰奖<br>你擅长 创造背叛你的失意卖相<br>是你坚拒平凡对象 习惯活在遐想<br>为肤浅漂亮<br>长期舔着失恋的创伤<br>你擅长 制造你无悔的伟大形像<br>凡是歌里有悲哀这个字 才愿唱<br>忘掉现实的你<br>沉溺于悲剧美</p>
-<p>——张敬轩《悲剧人物》</p>
-</blockquote>
-<p>过去了 远去了 去到这次我已退烧</p>
-<blockquote>
-<p>别再制造神 为搏衪悲悯</p>
-<p>——雷深如《无神论》</p>
-</blockquote>
-<p>看到了 看破了<br>说我爱你也都不过<br>统统只因恋爱脑是自我扩张而惹笑<br>其实说破 唯独爱我<br>只反映出哀伤的对照</p>
-<blockquote>
-<p>那一線眼淚 欠大志 太沒意思</p>
-<p>——张敬轩《春秋》</p>
-</blockquote>
-<p>过去了 远去了 去到这次我已退烧<br>终于都得知收跟放 也极重要<br>就来凭吊 那段错恋<br>太可悲 同样也 极渺小</p>
-]]></content>
-      <tags>
-        <tag>音乐</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ariel Data Challenge 2023 冠军方案</title>
     <url>/2024/20240803/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="arxiv.org/abs/2309.09337">《Simulation-based Inference for Exoplanet Atmospheric Retrieval: Insights from winning the Ariel Data Challenge 2023 using Normalizing Flows》</a></p>
@@ -12170,6 +12170,27 @@ scale).">
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>数据集的生成依赖于 TauREx3 辐射传输代码，并遵循用于 2022 年数据集的类似程序。目标参数空间包含7个维度：系外行星半径、温度、H 2 O、CO 2 、CO、CH 4和NH 3的丰度。为了预测这些参数的分布，我们可以访问光谱（红外域中 52 个箱的强度和噪声），以及行星及其宿主恒星的辅助变量（恒星距离、质量、半径和温度，以及行星的质量、轨道周期、距恒星的距离和表面重力）。</p>
 <p>我们有两组不同的目标参数可供训练：1) 输入参数（即提供给 TauREx 正向模型以生成频谱的参数），稍后称为输入参数或 2) 一组样本，权重，通过使用前向模型运行嵌套采样 (NS) 获得，稍后称为NS 样本集。我们还可以访问四分位数表（即 16 个参数的每个单独参数的值） 16th , 50 th 和 84 th的 NS 样本的百分位数，在每个光谱上），但在这项工作中没有使用，因为它们只是 NS 样本数据的摘要。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</title>
+    <url>/2024/20240811/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://arxiv.org/abs/2305.03403">CAAFE</a>这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森林而不是逻辑回归所实现的改进。此外，CAAFE 可以通过为每个生成的特征提供文本解释来解释。 CAAFE 为数据科学任务中更广泛的半自动化铺平了道路，并强调了上下文感知解决方案的重要性。</p>
+<p>Team AGA等人使用该方法同autogluon结合，获得了<a href="https://www.kaggle.com/competitions/playground-series-s4e8/discussion/524752">TPS S4E8 automl比赛</a>的第二名</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><img src="motivation.png"></p>
+<p>上下文信息可以极大地简化任务。在左侧，图中没有添加任何上下文信息，并且很难预测绿色查询点的标签。在右侧添加了上下文信息，并派生出有用的附加特征（周末或工作日），从中可以找到从特征到目标的映射。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="fig4.png"></p>
+<p>上图显示了CAAFE在Tic-Tac-Toe Endgame数据集上的示例运行。用户生成的输入以蓝色显示，ml分类器生成的数据以红色显示，LLM生成的代码以语法高亮显示。生成的代码包含每个生成的特性的注释，该注释遵循我们提示中提供的模板(特性名称、有用性描述、生成代码中使用的特性以及这些特性的样例值)。在这次运行中，CAAFE在两次特征工程迭代中将验证数据集上的ROC AUC从0.888提高到1.0。</p>
+<p><img src="full.png"></p>
+<p>上图显示了CMC dataset的完整prompt。</p>
+]]></content>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>深度学习</tag>
+        <tag>表格学习</tag>
+      </tags>
   </entry>
   <entry>
     <title>RW-NSGCN：通过负采样进行结构性攻击的稳健方法</title>
@@ -12214,27 +12235,6 @@ scale).">
         <tag>人工智能</tag>
         <tag>图神经网络</tag>
         <tag>图学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</title>
-    <url>/2024/20240811/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://arxiv.org/abs/2305.03403">CAAFE</a>这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森林而不是逻辑回归所实现的改进。此外，CAAFE 可以通过为每个生成的特征提供文本解释来解释。 CAAFE 为数据科学任务中更广泛的半自动化铺平了道路，并强调了上下文感知解决方案的重要性。</p>
-<p>Team AGA等人使用该方法同autogluon结合，获得了<a href="https://www.kaggle.com/competitions/playground-series-s4e8/discussion/524752">TPS S4E8 automl比赛</a>的第二名</p>
-<span id="more"></span>
-
-<hr>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><img src="motivation.png"></p>
-<p>上下文信息可以极大地简化任务。在左侧，图中没有添加任何上下文信息，并且很难预测绿色查询点的标签。在右侧添加了上下文信息，并派生出有用的附加特征（周末或工作日），从中可以找到从特征到目标的映射。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="fig4.png"></p>
-<p>上图显示了CAAFE在Tic-Tac-Toe Endgame数据集上的示例运行。用户生成的输入以蓝色显示，ml分类器生成的数据以红色显示，LLM生成的代码以语法高亮显示。生成的代码包含每个生成的特性的注释，该注释遵循我们提示中提供的模板(特性名称、有用性描述、生成代码中使用的特性以及这些特性的样例值)。在这次运行中，CAAFE在两次特征工程迭代中将验证数据集上的ROC AUC从0.888提高到1.0。</p>
-<p><img src="full.png"></p>
-<p>上图显示了CMC dataset的完整prompt。</p>
-]]></content>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>深度学习</tag>
-        <tag>表格学习</tag>
       </tags>
   </entry>
   <entry>
