@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2024/20240828/figure1.png">
 <meta property="article:published_time" content="2024-08-28T09:49:45.000Z">
-<meta property="article:modified_time" content="2024-08-28T11:43:58.312Z">
+<meta property="article:modified_time" content="2024-08-28T11:45:06.153Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -334,9 +334,8 @@
 <p><strong>常微分方程</strong></p>
 <p><strong>偏微分方程</strong></p>
 <p><strong>系统识别（System Identification）：</strong></p>
-<p>系统辨识是利用输入和输出的测量来构建动力系统数学模型的实践。这种实践是整个科学和工程的基础，以便根据观察到的现实来建立和校准数学模型。<br>
-$\boldsymbol{\theta}$</p>
-<p>系统识别涉及通过一系列输入来定义系统的动态$w_t$,测量值$y_t$,以及初始状态 $x_{1}$ 在有限的地平线上$T$ 作为轨迹，即 $Y=[\mathbf{y}<em>1,…,\mathbf{y}<em>T]$ 。通常，假设马尔可夫动力系统，即状态$x</em> t+1=f</em> \theta(x_ t,w_t)$和观察$y_ t=g_ \theta(x_ t)$两者参数化为$ \theta$,以及状态和观测值之间的映射$g$通常被设计为简化学习问题并确保可观察性。此外，可以添加附加噪声项来捕获动态和传感器中的不确定性，从而产生可能性$p(x_ {t+1}\mid x_ t,w_ t,\theta)$ 和$p(\mathbf{y}<em>t\mid\mathbf{x}</em> t,\boldsymbol{\theta})$。由于轨迹数据不是独立同分布(IID),因此数据集上的典型回归方法可能无法产生令人满意的结果，因为随着时间的推移，预测误差可能会因累积的预测误差而发生漂移。一种可能的解决方案是通过时间反向传播，</p>
+<p>系统辨识是利用输入和输出的测量来构建动力系统数学模型的实践。这种实践是整个科学和工程的基础，以便根据观察到的现实来建立和校准数学模型。</p>
+<p>系统识别涉及通过一系列输入来定义系统的动态$w_ t$,测量值$y_ t$,以及初始状态 $x_ {1}$ 在有限的地平线上$T$ 作为轨迹，即 $Y=[ \mathbf{y}_ 1,…,\mathbf{y}_ T]$ 。通常，假设马尔可夫动力系统，即状态$x_ t+1=f_ \theta (x_ t,w_t)$和观察$y_ t=g_ \theta(x_ t)$两者参数化为$ \theta$,以及状态和观测值之间的映射$g$通常被设计为简化学习问题并确保可观察性。此外，可以添加附加噪声项来捕获动态和传感器中的不确定性，从而产生可能性$p(x_ {t+1}\mid x_ t,w_ t,\theta)$ 和$p(\mathbf{y}<em>t\mid\mathbf{x}</em> t,\boldsymbol{\theta})$。由于轨迹数据不是独立同分布(IID),因此数据集上的典型回归方法可能无法产生令人满意的结果，因为随着时间的推移，预测误差可能会因累积的预测误差而发生漂移。一种可能的解决方案是通过时间反向传播，</p>
 <p>$$<br>
 L_{BPTT}(\theta) = \sum_{k=1}^{K} \sum_{t=1}^{T-h} \sum_{j=1}^{h} L(y_{t+j+1}^{(k)}, g_{\theta}(f_{\theta} \circ \cdots \circ f_{\theta}(x_{t}^{(k)}, w_{t}^{(k)})),<br>
 $$<br>
