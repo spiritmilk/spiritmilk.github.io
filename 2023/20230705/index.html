@@ -330,20 +330,24 @@
 <p>这篇论文中，作者提出了FineRewards，通过引入两种新的细粒度语义奖励：caption奖励和SAM奖励，来改善文本到图像扩散模型中文本和图像之间的对齐。</p>
 <p>此外，还采用了集合奖励排序学习策略，使多个奖励函数能够集成，以共同指导模型训练。</p>
 <span id="more"></span>
-
 <hr>
-<h2 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图"></a>模型示意图</h2><p><img src="model.png"></p>
+<h2 id="模型示意图">模型示意图</h2>
+<p><img src="model.png" alt=""></p>
 <p>diffusion模型结合了2021年Lora和2023年的SAM</p>
 <p><strong>Caption Reward</strong>:这里用的是BLIP-2模型，计算分数为余弦相似度。</p>
 <p><strong>SAM Reward:</strong></p>
 <p>具体来说，我们首先使用Grounded SAM生成的图像，并获得每个掩码的语义类别标签$L=^n_i=1$，其中n表示掩码/标签的数量。然后使用大型语言模型，即Vicuna-7B，基于所提供的提示来评估所描述的场景，并基于每个类别标签出现在场景中的可能性为每个掩码分配奖励分数。每个mask $s_i$的奖励分数根据以下标准确定：</p>
-<p><img src="maskscore.png"></p>
-<p>最后：<br>$$<br>R_{sam}=\frac{1}{n}\sum^n_{i=1}s_i<br>$$<br>使用的prompt:</p>
+<p><img src="maskscore.png" alt=""></p>
+<p>最后：<br>
+$$<br>
+R_{sam}=\frac{1}{n}\sum^n_{i=1}s_i<br>
+$$<br>
+使用的prompt:</p>
 <p>Please assess the described scene based on the provided prompt and determine the likelihood of each tag appearing in the scene. Assign a score to each tag according to the following criteria:  If a tag is certain to appear, assign a score of 3. If a tag may appear, assign a score of 2. If a tag is unlikely to appear, assign a score of 1.</p>
 <blockquote>
-<p>额…..其实有点奇怪….为啥这里要用LLM….这感觉就是个文本相似度判定…..</p>
+<p>额…其实有点奇怪…为啥这里要用LLM…这感觉就是个文本相似度判定…</p>
 </blockquote>
-<p><strong>选择图像：</strong>在后续的选择中使用排名相加而不是两个reward相加</p>
+<p>**选择图像：**在后续的选择中使用排名相加而不是两个reward相加</p>
 <hr>
 <p><strong>想法：</strong></p>
 <p>1.使用Vicuna有种杀鸡用牛刀的感觉</p>

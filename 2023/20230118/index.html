@@ -340,68 +340,90 @@
 <hr>
 <p>self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。</p>
 <span id="more"></span>
-
-<h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>一个长度为N的句子，会得到N个key和N个query。</p>
+<h2 id="简要介绍">简要介绍</h2>
+<p>一个长度为N的句子，会得到N个key和N个query。</p>
 <p>然后两两做dot-product，得到attention matrix。</p>
 <p>然后再用attention matrix对value做weight sum。</p>
 <p>痛点在于计算这个N×N的attention matrix计算量可能会非常惊人。</p>
 <p>所以有一系列方法加速这个计算过程。</p>
-<p><img src="sat-1.jpg"></p>
-<h2 id="人为设定优化"><a href="#人为设定优化" class="headerlink" title="人为设定优化"></a>人为设定优化</h2><p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
-<h3 id="local-attention-truncated-attention"><a href="#local-attention-truncated-attention" class="headerlink" title="local attention/truncated attention"></a>local attention/truncated attention</h3><p>在self attention如果我们只看邻居，那我们就能把很远的地方的值设为0。</p>
+<p><img src="sat-1.jpg" alt=""></p>
+<h2 id="人为设定优化">人为设定优化</h2>
+<p>由于大矩阵计算占用大量资源，于是如何矩阵也是一种优化self-attention的方法。</p>
+<h3 id="local-attention-truncated-attention">local attention/truncated attention</h3>
+<p>在self attention如果我们只看邻居，那我们就能把很远的地方的值设为0。</p>
 <p>缺点：只能看到小范围的数值，跟CNN很像。</p>
-<p><img src="local-attention.jpg"></p>
-<h3 id="stride-attention"><a href="#stride-attention" class="headerlink" title="stride attention"></a>stride attention</h3><p>类似于local-attention，但是间隔更大。</p>
-<p><img src="stride-attention.jpg"></p>
-<h3 id="global-attention"><a href="#global-attention" class="headerlink" title="global attention"></a>global attention</h3><p>以上都是以某个位置为中心看左右的事情，如果我们关心整个sequence，那么我们可以用global attention。我们可以加入一个特殊token到原始的sequence里面。在这里，global attention会做两件事情：</p>
-<p>（1）每个特殊的token都加入每一个token，收集全局信息。<br>（2）每个特殊的token都被其他所有的token加入，以用来获取全局信息。</p>
-<p><img src="global-attention.jpg"></p>
-<h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><p>上面提到了三种选择，我们选择哪一种呢？小孩子才做选择，我们都选择。</p>
-<p><img src="mix.jpg"></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="data-driven方式"><a href="#data-driven方式" class="headerlink" title="data-driven方式"></a>data-driven方式</h2><h3 id="将较小值取0"><a href="#将较小值取0" class="headerlink" title="将较小值取0"></a>将较小值取0</h3><p><img src="zero.jpg"></p>
-<h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><p>Reformer和routing transformer用了类似的方法。</p>
+<p><img src="local-attention.jpg" alt=""></p>
+<h3 id="stride-attention">stride attention</h3>
+<p>类似于local-attention，但是间隔更大。</p>
+<p><img src="stride-attention.jpg" alt=""></p>
+<h3 id="global-attention">global attention</h3>
+<p>以上都是以某个位置为中心看左右的事情，如果我们关心整个sequence，那么我们可以用global attention。我们可以加入一个特殊token到原始的sequence里面。在这里，global attention会做两件事情：</p>
+<p>（1）每个特殊的token都加入每一个token，收集全局信息。<br>
+（2）每个特殊的token都被其他所有的token加入，以用来获取全局信息。</p>
+<p><img src="global-attention.jpg" alt=""></p>
+<h3 id="混合">混合</h3>
+<p>上面提到了三种选择，我们选择哪一种呢？小孩子才做选择，我们都选择。</p>
+<p><img src="mix.jpg" alt=""></p>
+<h2 id=""></h2>
+<h2 id="data-driven方式">data-driven方式</h2>
+<h3 id="将较小值取0">将较小值取0</h3>
+<p><img src="zero.jpg" alt=""></p>
+<h3 id="聚类">聚类</h3>
+<p>Reformer和routing transformer用了类似的方法。</p>
 <p>第一步先把query和key聚类。</p>
 <p>聚类的计算可以用近似（approximate）但快速（fast）的方式，从而加快计算。Reformer和routing transformer就采用了不同的clustering方式来加速计算。</p>
 <p>聚类完后，我们只计算归为同一个类别的query和key之间的attention score，其他位置的attention score直接设置为0。</p>
-<p><img src="cluster.jpg"></p>
-<p><img src="cluster2.jpg"></p>
-<h2 id="自动设定优化"><a href="#自动设定优化" class="headerlink" title="自动设定优化"></a>自动设定优化</h2><p>我们能不能学习attention matrix哪块需要，哪块不需要吗？或者说能不能学习attention weight呢？</p>
-<h3 id="Sinkhorn-Sorting-Network"><a href="#Sinkhorn-Sorting-Network" class="headerlink" title="Sinkhorn Sorting Network"></a>Sinkhorn Sorting Network</h3><p><img src="learnable.jpg"></p>
+<p><img src="cluster.jpg" alt=""></p>
+<p><img src="cluster2.jpg" alt=""></p>
+<h2 id="自动设定优化">自动设定优化</h2>
+<p>我们能不能学习attention matrix哪块需要，哪块不需要吗？或者说能不能学习attention weight呢？</p>
+<h3 id="Sinkhorn-Sorting-Network">Sinkhorn Sorting Network</h3>
+<p><img src="learnable.jpg" alt=""></p>
 <p>Sinkhorn Sorting Network做法是learn另外一个network来决定这个1-0矩阵。</p>
 <p>新的network会input一个sequence，sequence中每个位置的vector都输出一个跟sequence长度一致的vector。Sequence中每个位置都产生一个vector，拼起来就产生一个N×N的矩阵。然后将这个矩阵通过某种计算变成一个1-0矩阵，并且保证这个计算过程可以微分。</p>
 <p>产生1-0矩阵的计算和整个self-attention是jointly learned的。</p>
 <p>当然也可以选择top-k方法，而不是top-1。</p>
 <p>疑问：用了一个NN，真的比不用NN直接计算所有矩阵运算量小吗？</p>
 <p>答：不一定的。所以Sinkhorn Sorting Network会将输入的向量划分为几个部分，各个部分共用一个经过NN产生的向量。</p>
-<h3 id="linformer"><a href="#linformer" class="headerlink" title="linformer"></a>linformer</h3><p>attention matrix有很多redundant columns ，研究者计算attention matrix的rank发现是低rank的（低秩的）。</p>
+<h3 id="linformer">linformer</h3>
+<p>attention matrix有很多redundant columns ，研究者计算attention matrix的rank发现是低rank的（低秩的）。</p>
 <p>那我们能不能去掉重复，产生小的attention matrix，加快attention的速度呢？</p>
-<p><img src="linformer1.jpg"></p>
-<h4 id="具体做法"><a href="#具体做法" class="headerlink" title="具体做法"></a>具体做法</h4><p>挑出K个有代表性的key（黄色vectors），然后计算出N×K的matrix，然后再挑出K给有代表性的value（蓝色vectors）。然后把K个key（黄色vectors）对第一个query算出来的attention weight（红色框）对这个K个value（蓝色vectors）做weighted sum得到self-attention的output（绿色vector）。</p>
+<p><img src="linformer1.jpg" alt=""></p>
+<h4 id="具体做法">具体做法</h4>
+<p>挑出K个有代表性的key（黄色vectors），然后计算出N×K的matrix，然后再挑出K给有代表性的value（蓝色vectors）。然后把K个key（黄色vectors）对第一个query算出来的attention weight（红色框）对这个K个value（蓝色vectors）做weighted sum得到self-attention的output（绿色vector）。</p>
 <p>疑问：但是，为什么我们选择有代表性的keys而不选有代表性的queries？</p>
 <p>答：因为如果query减少了，output sequence length也会变小。这种做法对于sequence中每个位置都需要output的情况是不适用的。</p>
-<h4 id="如何挑选代表性的keys"><a href="#如何挑选代表性的keys" class="headerlink" title="如何挑选代表性的keys"></a>如何挑选代表性的keys</h4><p><img src="reduce-key.jpg"></p>
+<h4 id="如何挑选代表性的keys">如何挑选代表性的keys</h4>
+<p><img src="reduce-key.jpg" alt=""></p>
 <p>Compressed Attention是用CNN扫过整个句子，得到较短的output当作有代表性的keys。</p>
 <p>Linformer是直接乘上N×K矩阵，做线性变化。</p>
-<h2 id="加速self-attention计算"><a href="#加速self-attention计算" class="headerlink" title="加速self-attention计算"></a>加速self-attention计算</h2><h3 id="self-attention-运算过程"><a href="#self-attention-运算过程" class="headerlink" title="self-attention 运算过程"></a>self-attention 运算过程</h3><p><img src="acc_sat_cal_0.jpg"></p>
+<h2 id="加速self-attention计算">加速self-attention计算</h2>
+<h3 id="self-attention-运算过程">self-attention 运算过程</h3>
+<p><img src="acc_sat_cal_0.jpg" alt=""></p>
 <p>我们暂时忽略softmax后，输出O可以当成是三个矩阵相乘。</p>
-<h3 id="简单的加速"><a href="#简单的加速" class="headerlink" title="简单的加速"></a>简单的加速</h3><p><img src="acc_sat_cal_2.jpg"></p>
+<h3 id="简单的加速">简单的加速</h3>
+<p><img src="acc_sat_cal_2.jpg" alt=""></p>
 <p>将上面的运算过程变成下面的运算过程。</p>
-<p>上面的运算过程乘法次数为$（d+d’）N^2$</p>
-<p>下面的运算过程乘法次数为$2d’dN$</p>
+<p>上面的运算过程乘法次数为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>（</mtext><mi>d</mi><mo>+</mo><msup><mi>d</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mtext>）</mtext><msup><mi>N</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">（d+d&#x27;）N^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord cjk_fallback">（</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord cjk_fallback">）</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></p>
+<p>下面的运算过程乘法次数为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mi>d</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>d</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">2d&#x27;dN</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord">2</span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></p>
 <p>我们再把softmax放回。</p>
-<p><img src="acc_sat_cal_3.jpg"></p>
+<p><img src="acc_sat_cal_3.jpg" alt=""></p>
 <p>上图为原先的。</p>
-<p> <img src="acc_sat_cal_4.jpg"></p>
+<p><img src="acc_sat_cal_4.jpg" alt=""></p>
 <p>上图为变换顺序后的。</p>
-<p>其中$exp(\mathbf{q}·\mathbf{k})\approx\phi(\mathbf{q})·\phi(\mathbf{k})$</p>
+<p>其中<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false">(</mo><mi mathvariant="bold">q</mi><mo separator="true">⋅</mo><mi mathvariant="bold">k</mi><mo stretchy="false">)</mo><mo>≈</mo><mi>ϕ</mi><mo stretchy="false">(</mo><mi mathvariant="bold">q</mi><mo stretchy="false">)</mo><mo separator="true">⋅</mo><mi>ϕ</mi><mo stretchy="false">(</mo><mi mathvariant="bold">k</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">exp(\mathbf{q}·\mathbf{k})\approx\phi(\mathbf{q})·\phi(\mathbf{k})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathbf">q</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathbf">k</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ϕ</span><span class="mopen">(</span><span class="mord mathbf">q</span><span class="mclose">)</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">ϕ</span><span class="mopen">(</span><span class="mord mathbf">k</span><span class="mclose">)</span></span></span></span></p>
 <p>具体数学推导见李宏毅原视频。</p>
-<h4 id="phi-的确定"><a href="#phi-的确定" class="headerlink" title="$\phi$的确定"></a>$\phi$的确定</h4><p> <img src="phi.jpg"></p>
-<h2 id="Synthesizer"><a href="#Synthesizer" class="headerlink" title="Synthesizer"></a>Synthesizer</h2><p>不用q和v，直接学attention matrix</p>
-<p><img src="synthesizer.jpg"></p>
+<h4 id="phi的确定"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">\phi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">ϕ</span></span></span></span>的确定</h4>
+<p><img src="phi.jpg" alt=""></p>
+<h2 id="Synthesizer">Synthesizer</h2>
+<p>不用q和v，直接学attention matrix</p>
+<p><img src="synthesizer.jpg" alt=""></p>
 <p>把它当成网络里的参数</p>
-<h2 id="丢掉self-attention"><a href="#丢掉self-attention" class="headerlink" title="丢掉self-attention"></a>丢掉self-attention</h2><p><img src="att_free.jpg"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>LRA score表示方法越好，圈圈的大小代表需要用的memory大小</p>
-<p><img src="summary.jpg"></p>
+<h2 id="丢掉self-attention">丢掉self-attention</h2>
+<p><img src="att_free.jpg" alt=""></p>
+<h2 id="总结">总结</h2>
+<p>LRA score表示方法越好，圈圈的大小代表需要用的memory大小</p>
+<p><img src="summary.jpg" alt=""></p>
 
                 
               </div>

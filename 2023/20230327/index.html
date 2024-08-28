@@ -21,12 +21,12 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="来自Yann LeCun的Do large language models need sensory grounding for meaning and understanding? Spoiler: YES!  机器学习糟透了! (与人类和动物相比)监督学习(SL)需要大量的标记样本。 强化学习(RL)需要大量的试验。 自监督学习(SSL)需要大量的未标记样本。 目前大多数基于ml的人工智能系统">
+    <meta name="description" content="来自Yann LeCun的Do large language models need sensory grounding for meaning and understanding? Spoiler: YES!  机器学习糟透了!  (与人类和动物相比)监督学习(SL)需要大量的标记样本。 强化学习(RL)需要大量的试验。 自监督学习(SSL)需要大量的未标记样本。 目前大多数基于ml的人工智能系">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《大型语言模型的意义和理解需要感官基础吗?是的!》">
 <meta property="og:url" content="https://lijianxiong.work/2023/20230327/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="来自Yann LeCun的Do large language models need sensory grounding for meaning and understanding? Spoiler: YES!  机器学习糟透了! (与人类和动物相比)监督学习(SL)需要大量的标记样本。 强化学习(RL)需要大量的试验。 自监督学习(SSL)需要大量的未标记样本。 目前大多数基于ml的人工智能系统">
+<meta property="og:description" content="来自Yann LeCun的Do large language models need sensory grounding for meaning and understanding? Spoiler: YES!  机器学习糟透了!  (与人类和动物相比)监督学习(SL)需要大量的标记样本。 强化学习(RL)需要大量的试验。 自监督学习(SSL)需要大量的未标记样本。 目前大多数基于ml的人工智能系">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2023/20230327/mode1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2023/20230327/mode2.jpg">
@@ -335,12 +335,14 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自Yann LeCun的<a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1BU5bV3X5w65DwSMapKcsr0ZvrMRU_Nbi/view">Do large language models need sensory grounding for meaning and understanding? Spoiler: YES!</a></p>
 <hr>
-<h2 id="机器学习糟透了"><a href="#机器学习糟透了" class="headerlink" title="机器学习糟透了!"></a>机器学习糟透了!</h2><ul>
+<h2 id="机器学习糟透了">机器学习糟透了!</h2>
+<ul>
 <li>(与人类和动物相比)监督学习(SL)需要大量的标记样本。</li>
 <li>强化学习(RL)需要大量的试验。</li>
 <li>自监督学习(SSL)需要大量的未标记样本。</li>
 <li>目前大多数基于ml的人工智能系统:犯愚蠢的错误，不推理也不计划</li>
-<li>动物和人类:<ul>
+<li>动物和人类:
+<ul>
 <li>可以很快学习新任务。</li>
 <li>知道世界如何运行</li>
 <li>能够推理和计划</li>
@@ -349,35 +351,45 @@
 <li>人类和动物有常识，而机器却没有那么多常识(这很肤浅)。</li>
 </ul>
 <span id="more"></span>
-
-<h2 id="自我监督学习-学会填空"><a href="#自我监督学习-学会填空" class="headerlink" title="自我监督学习=学会填空"></a>自我监督学习=学会填空</h2><h2 id="自回归大型语言模型-AR-LLMs"><a href="#自回归大型语言模型-AR-LLMs" class="headerlink" title="自回归大型语言模型(AR-LLMs)"></a>自回归大型语言模型(AR-LLMs)</h2><ul>
-<li><p>Auto-Regressive Large Language Models (AR-LLMs)</p>
+<h2 id="自我监督学习-学会填空">自我监督学习=学会填空</h2>
+<h2 id="自回归大型语言模型-AR-LLMs">自回归大型语言模型(AR-LLMs)</h2>
+<ul>
+<li>
+<p>Auto-Regressive Large Language Models (AR-LLMs)</p>
 </li>
-<li><p>token可以表示单词或子单词</p>
+<li>
+<p>token可以表示单词或子单词</p>
 </li>
-<li><p>编码器/预测器是一个transformer架构</p>
+<li>
+<p>编码器/预测器是一个transformer架构</p>
 </li>
-<li><p>表现惊人，但是会犯愚蠢的错误</p>
+<li>
+<p>表现惊人，但是会犯愚蠢的错误</p>
 <ul>
 <li>事实错误、逻辑错误、前后矛盾、推理有限、毒性……</li>
 </ul>
 </li>
-<li><p><strong>LLM不了解潜在的现实，他们没有常识&amp;他们不能计划他们的答案</strong></p>
+<li>
+<p><strong>LLM不了解潜在的现实，他们没有常识&amp;他们不能计划他们的答案</strong></p>
 </li>
 </ul>
-<h3 id="关于AR-LLMs的不受欢迎的观点"><a href="#关于AR-LLMs的不受欢迎的观点" class="headerlink" title="关于AR-LLMs的不受欢迎的观点"></a>关于AR-LLMs的不受欢迎的观点</h3><ul>
+<h3 id="关于AR-LLMs的不受欢迎的观点">关于AR-LLMs的不受欢迎的观点</h3>
+<ul>
 <li>Auto-Regressive LLMs are <strong>doomed.</strong></li>
 <li>它们不可能是真实的、无毒的等等。</li>
-<li>设任何生成的令牌将我们带出正确答案集合之外的概率为$e$，则$P(correct)=(1-e)^n$。</li>
+<li>设任何生成的令牌将我们带出正确答案集合之外的概率为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow><annotation encoding="application/x-tex">e</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">e</span></span></span></span>，则<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mi>o</mi><mi>r</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>e</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">P(correct)=(1-e)^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal">correc</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">e</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span>。</li>
 <li>这是指数增长的，这是不可修复的。</li>
 </ul>
-<h3 id="自回归生成模型太烂了"><a href="#自回归生成模型太烂了" class="headerlink" title="自回归生成模型太烂了!"></a>自回归生成模型太烂了!</h3><ul>
-<li>AR-LLMs<ul>
+<h3 id="自回归生成模型太烂了">自回归生成模型太烂了!</h3>
+<ul>
+<li>AR-LLMs
+<ul>
 <li>在输入和输出之间有一个常数的计算步骤。微弱的代表性力量（Weak representational power.）。</li>
 <li>没有真正的推理和计划。</li>
 </ul>
 </li>
-<li>人和大多数动物<ul>
+<li>人和大多数动物
+<ul>
 <li>理解世界如何运行</li>
 <li>能预测动作序列</li>
 <li>可以执行无限步骤的推理链。</li>
@@ -385,10 +397,12 @@
 </ul>
 </li>
 </ul>
-<h2 id="人工智能和机器学习面临的三大挑战"><a href="#人工智能和机器学习面临的三大挑战" class="headerlink" title="人工智能和机器学习面临的三大挑战"></a>人工智能和机器学习面临的三大挑战</h2><p>1.学习世界的表征和预测模型</p>
+<h2 id="人工智能和机器学习面临的三大挑战">人工智能和机器学习面临的三大挑战</h2>
+<p>1.学习世界的表征和预测模型</p>
 <ul>
 <li>监督学习和强化学习需要太多的样本/试验</li>
-<li>自我监督学习/学习依赖/填补空白<ul>
+<li>自我监督学习/学习依赖/填补空白
+<ul>
 <li>学习以非特定于任务的方式来表示世界</li>
 <li>学习用于计划和控制的预测模型</li>
 </ul>
@@ -397,7 +411,8 @@
 <p>2.学会推理，像Daniel Kahneman的“System 2”</p>
 <ul>
 <li>Beyond feed-forward, System 1 subconscious computation.</li>
-<li>使推理与学习相容。<ul>
+<li>使推理与学习相容。
+<ul>
 <li>Reasoning and planning as energy minimization.</li>
 </ul>
 </li>
@@ -406,38 +421,47 @@
 <ul>
 <li>Learning hierarchical representations of action plans</li>
 </ul>
-<h2 id="能够推理和计划的认知架构"><a href="#能够推理和计划的认知架构" class="headerlink" title="能够推理和计划的认知架构"></a>能够推理和计划的认知架构</h2><p>​    立场论文：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=BZ5a1r-kVsf">“A path towards autonomous machine intelligence”</a></p>
+<h2 id="能够推理和计划的认知架构">能够推理和计划的认知架构</h2>
+<p>​	立场论文：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=BZ5a1r-kVsf">“A path towards autonomous machine intelligence”</a></p>
 <p>Longer talk见 YouTube上的“LeCun Berkeley” 。</p>
-<h3 id="自主人工智能的模块化架构"><a href="#自主人工智能的模块化架构" class="headerlink" title="自主人工智能的模块化架构"></a>自主人工智能的模块化架构</h3><ul>
-<li>Configurator<ul>
+<h3 id="自主人工智能的模块化架构">自主人工智能的模块化架构</h3>
+<ul>
+<li>Configurator
+<ul>
 <li>为任务配置其他模块</li>
 </ul>
 </li>
-<li>Perception<ul>
+<li>Perception
+<ul>
 <li>Estimates state of the world</li>
 </ul>
 </li>
-<li>World Model<ul>
+<li>World Model
+<ul>
 <li>Predicts future world states</li>
 </ul>
 </li>
-<li>Cost<ul>
+<li>Cost
+<ul>
 <li>Compute “discomfort”</li>
 </ul>
 </li>
-<li>Actor<ul>
+<li>Actor
+<ul>
 <li>Find optimal action sequences</li>
 </ul>
 </li>
-<li>Short-Term Memory<ul>
+<li>Short-Term Memory
+<ul>
 <li>Stores state-cost episodes</li>
 </ul>
 </li>
 </ul>
-<p><img src="mode1.jpg"></p>
-<p><img src="mode2.jpg"></p>
-<p><img src="mode3.jpg"></p>
-<h3 id="建立和训练World-Model"><a href="#建立和训练World-Model" class="headerlink" title="建立和训练World Model"></a>建立和训练World Model</h3><p>——基于能源模型的联合嵌入体系结构</p>
+<p><img src="mode1.jpg" alt=""></p>
+<p><img src="mode2.jpg" alt=""></p>
+<p><img src="mode3.jpg" alt=""></p>
+<h3 id="建立和训练World-Model">建立和训练World Model</h3>
+<p>——基于能源模型的联合嵌入体系结构</p>
 <p>我们如何表示预测中的不确定性?</p>
 <ul>
 <li>世界只有部分是可预测的</li>
@@ -446,39 +470,54 @@
 <li>生成模型必须预测世界的每一个细节</li>
 <li>我的解决方案：Joint-Embedding Predictive Architecture</li>
 </ul>
-<h4 id="世界模型的体系结构-JEPA"><a href="#世界模型的体系结构-JEPA" class="headerlink" title="世界模型的体系结构:JEPA"></a>世界模型的体系结构:JEPA</h4><p><img src="JEPA.jpg"></p>
-<h4 id="架构-Generative-vs-Joint-Embedding"><a href="#架构-Generative-vs-Joint-Embedding" class="headerlink" title="架构:Generative vs Joint Embedding"></a>架构:Generative vs Joint Embedding</h4><p><img src="JEPA_art.jpg"></p>
-<h3 id="Energy-Based-Models"><a href="#Energy-Based-Models" class="headerlink" title="Energy-Based Models:"></a>Energy-Based Models:</h3><p><img src="EB_model.jpg"></p>
-<p><img src="EBM_train.jpg"></p>
-<h3 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h3><ul>
-<li>放弃生成模型<ul>
+<h4 id="世界模型的体系结构-JEPA">世界模型的体系结构:JEPA</h4>
+<p><img src="JEPA.jpg" alt=""></p>
+<h4 id="架构-Generative-vs-Joint-Embedding">架构:Generative vs Joint Embedding</h4>
+<p><img src="JEPA_art.jpg" alt=""></p>
+<h3 id="Energy-Based-Models">Energy-Based Models:</h3>
+<p><img src="EB_model.jpg" alt=""></p>
+<p><img src="EBM_train.jpg" alt=""></p>
+<h3 id="推荐">推荐</h3>
+<ul>
+<li>放弃生成模型
+<ul>
 <li>偏向joint-embedding architectures</li>
 <li>抛弃Auto-Regressive generation</li>
 </ul>
 </li>
-<li>抛弃概率模型<ul>
+<li>抛弃概率模型
+<ul>
 <li>偏向energy-based models</li>
 </ul>
 </li>
-<li>抛弃对比方法<ul>
+<li>抛弃对比方法
+<ul>
 <li>偏向regularized methods</li>
 </ul>
 </li>
-<li>抛弃强化学习<ul>
+<li>抛弃强化学习
+<ul>
 <li>偏向model-predictive control</li>
 <li>只有当计划不能产生预期结果时，才使用RL来调整世界模型或critic。</li>
 </ul>
 </li>
 </ul>
-<h3 id="非对比学习地训练JEPA"><a href="#非对比学习地训练JEPA" class="headerlink" title="非对比学习地训练JEPA"></a>非对比学习地训练JEPA</h3><p><img src="JEPA_TRAIN.jpg"></p>
-<h3 id="VICReg-Variance-Invariance-Covariance-Regularization"><a href="#VICReg-Variance-Invariance-Covariance-Regularization" class="headerlink" title="VICReg: Variance, Invariance, Covariance Regularization"></a>VICReg: Variance, Invariance, Covariance Regularization</h3><p><img src="VICReg.jpg"></p>
-<h3 id="VICRegL"><a href="#VICRegL" class="headerlink" title="VICRegL"></a>VICRegL</h3><p><img src="VICRegL.jpg"></p>
-<h3 id="MC-JEPA-Motion-amp-Content-JEPA"><a href="#MC-JEPA-Motion-amp-Content-JEPA" class="headerlink" title="MC-JEPA: Motion &amp; Content JEPA"></a>MC-JEPA: Motion &amp; Content JEPA</h3><p><img src="MC-JEPA.JPG"></p>
-<p><img src="MC-JEPA1.JPG"></p>
-<p><img src="MC-JEPA2.JPG"></p>
-<h3 id="Image-JEPA"><a href="#Image-JEPA" class="headerlink" title="Image-JEPA"></a>Image-JEPA</h3><p><img src="IJEPA.jpg"></p>
-<h3 id="Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels"><a href="#Hierarchical-Prediction-at-Multiple-Time-Scales-amp-Abstraction-Levels" class="headerlink" title="Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels"></a>Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels</h3><p><img src="HPMTA.jpg"></p>
-<h2 id="Hierarchical-Planning-with-Uncertainty"><a href="#Hierarchical-Planning-with-Uncertainty" class="headerlink" title="Hierarchical Planning with Uncertainty"></a>Hierarchical Planning with Uncertainty</h2><ul>
+<h3 id="非对比学习地训练JEPA">非对比学习地训练JEPA</h3>
+<p><img src="JEPA_TRAIN.jpg" alt=""></p>
+<h3 id="VICReg-Variance-Invariance-Covariance-Regularization">VICReg: Variance, Invariance, Covariance Regularization</h3>
+<p><img src="VICReg.jpg" alt=""></p>
+<h3 id="VICRegL">VICRegL</h3>
+<p><img src="VICRegL.jpg" alt=""></p>
+<h3 id="MC-JEPA-Motion-Content-JEPA">MC-JEPA: Motion &amp; Content JEPA</h3>
+<p><img src="MC-JEPA.JPG" alt=""></p>
+<p><img src="MC-JEPA1.JPG" alt=""></p>
+<p><img src="MC-JEPA2.JPG" alt=""></p>
+<h3 id="Image-JEPA">Image-JEPA</h3>
+<p><img src="IJEPA.jpg" alt=""></p>
+<h3 id="Hierarchical-Prediction-at-Multiple-Time-Scales-Abstraction-Levels">Hierarchical Prediction at Multiple Time-Scales &amp; Abstraction Levels</h3>
+<p><img src="HPMTA.jpg" alt=""></p>
+<h2 id="Hierarchical-Planning-with-Uncertainty">Hierarchical Planning with Uncertainty</h2>
+<ul>
 <li>Hierarchical world model</li>
 <li>Hierarchical world model</li>
 <li>An <strong>action</strong> at level k specifies an <strong>objective</strong> for level k-1</li>
@@ -486,29 +525,36 @@
 <li>这种通过最小化“行动”变量的成本来进行规划/推理的类型是当前架构所缺少的</li>
 <li>包括AR-LLMs，多模态系统，学习机器人，…</li>
 </ul>
-<h2 id="迈向自主人工智能系统的步骤"><a href="#迈向自主人工智能系统的步骤" class="headerlink" title="迈向自主人工智能系统的步骤"></a>迈向自主人工智能系统的步骤</h2><ul>
-<li>自监督学习<ul>
+<h2 id="迈向自主人工智能系统的步骤">迈向自主人工智能系统的步骤</h2>
+<ul>
+<li>自监督学习
+<ul>
 <li>学习世界的表象</li>
 <li>学习世界的预测模型</li>
 </ul>
 </li>
-<li>处理预测中的不确定性<ul>
+<li>处理预测中的不确定性
+<ul>
 <li>Joint-embedding predictive architectures</li>
 <li>Energy-Based Model framework</li>
 </ul>
 </li>
-<li>从观察中学习世界模型<ul>
+<li>从观察中学习世界模型
+<ul>
 <li>像动物或者人类婴儿一样？</li>
 </ul>
 </li>
-<li>推理和计划<ul>
+<li>推理和计划
+<ul>
 <li>这与基于梯度的学习是兼容的</li>
 <li>没有符号，没有逻辑→向量和连续函数</li>
 </ul>
 </li>
 </ul>
-<h2 id="立场-猜想"><a href="#立场-猜想" class="headerlink" title="立场/猜想"></a>立场/猜想</h2><ul>
-<li><p>预测是智力的本质</p>
+<h2 id="立场-猜想">立场/猜想</h2>
+<ul>
+<li>
+<p>预测是智力的本质</p>
 <ul>
 <li>学习世界的预测模型是常识的基础</li>
 </ul>
@@ -518,27 +564,31 @@
 <li>通过强化、监督或模仿几乎学不到任何东西</li>
 </ul>
 </li>
-<li><p>推理==模拟/预测+目标优化</p>
+<li>
+<p>推理==模拟/预测+目标优化</p>
 <ul>
 <li>计算上比auto-regressive generation更强大。</li>
 </ul>
 </li>
-<li><p>H-JEPA和非对比训练才是关键</p>
+<li>
+<p>H-JEPA和非对比训练才是关键</p>
 <ul>
 <li>概率生成模型和对比方法注定要失败。</li>
 </ul>
 </li>
-<li><p>情感是自主智力的必要条件</p>
+<li>
+<p>情感是自主智力的必要条件</p>
 <ul>
 <li>评论家或世界模型+内在成本对结果的预期。</li>
 </ul>
 </li>
 </ul>
-<h2 id="AI研究的挑战"><a href="#AI研究的挑战" class="headerlink" title="AI研究的挑战"></a>AI研究的挑战</h2><ul>
+<h2 id="AI研究的挑战">AI研究的挑战</h2>
+<ul>
 <li>为从视频、图像、音频、文本中训练基于层次联合嵌入体系结构的世界模型寻找一个通用的方法。</li>
 <li>设计替代成本以驱动H-JEPA学习相关表示(预测只是其中之一)</li>
 <li>将H-JEPA集成到一个能够规划/推理的代理中</li>
-<li>在不确定性存在的情况下设计层次规划的推理程序(基于梯度的方法，束搜索，MCTS，….)</li>
+<li>在不确定性存在的情况下设计层次规划的推理程序(基于梯度的方法，束搜索，MCTS，…)</li>
 <li>在模型或评论家不准确并导致不可预见的结果的情况下，尽量减少RL的使用。</li>
 <li>Scaling</li>
 </ul>

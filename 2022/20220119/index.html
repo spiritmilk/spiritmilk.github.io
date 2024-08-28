@@ -322,31 +322,36 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>论文：BERT:Pre-training of Deep Bidirectional Transformers for Language Understanding</p>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1810.04805?context=cs">https://arxiv.org/abs/1810.04805?context=cs</a></p>
 <span id="more"></span>
-
 <hr>
-<h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>BERT=Bidirectional Encoder Representations from Transformers</p>
+<h5 id="介绍">介绍</h5>
+<p>BERT=Bidirectional Encoder Representations from Transformers</p>
 <p>pre-trained language representations 两类策略：</p>
 <ul>
-<li><p>基于特征的ELMo (构建和每一个下游任务相关的 NN 架构；训练好的特征（作为额外的特征） 和 输入 一起放进模型)</p>
+<li>
+<p>基于特征的ELMo (构建和每一个下游任务相关的 NN 架构；训练好的特征（作为额外的特征） 和 输入 一起放进模型)</p>
 </li>
-<li><p>基于微调参数的 GPT</p>
+<li>
+<p>基于微调参数的 GPT</p>
 </li>
 </ul>
 <p>ELMo 和 GPT 预训练时 使用 unidirectional langugage model，使用相同的目标函数</p>
 <p>语言模型是单向的、预测未来。不是给第 一句、第三句，预测第二句</p>
-<p>BERT 通过 MLM (带掩码的语言模型）作为预训练的目标，来减轻语言模型的单向约束。inspired by the Close task 1953 </p>
+<p>BERT 通过 MLM (带掩码的语言模型）作为预训练的目标，来减轻语言模型的单向约束。inspired by the Close task 1953</p>
 <blockquote>
-<p>MLM：<br>每次随机选输入的词源 tokens, 然后 mask 它们，目标函数是预测被 masked 的词；类似挖空填词、完形填空。 </p>
+<p>MLM：<br>
+每次随机选输入的词源 tokens, 然后 mask 它们，目标函数是预测被 masked 的词；类似挖空填词、完形填空。</p>
 </blockquote>
-<h5 id="贡献："><a href="#贡献：" class="headerlink" title="贡献："></a>贡献：</h5><p>1  bidirectional 双向信息的重要性</p>
+<h5 id="贡献：">贡献：</h5>
+<p>1  bidirectional 双向信息的重要性</p>
 <p>2  BERT 首个 微调模型，在 sentence-level and token-level task效果好</p>
 <p>好的预训练模型，不用对特定任务做一些模型架构的改动</p>
-<p>3 BERT 开源，随便用 </p>
-<h5 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h5><p>预训练 + 微调</p>
-<p>pre-training: 使用 unlabeled data 训练 </p>
+<p>3 BERT 开源，随便用</p>
+<h5 id="算法：">算法：</h5>
+<p>预训练 + 微调</p>
+<p>pre-training: 使用 unlabeled data 训练</p>
 <p>fine-tuning: 微调的 BERT 使用 预训练的参数 初始化，所有的权重参数通过 下游任务的 labeled data 进行微调。</p>
 <p>每一个下游任务会创建一个 新的 BERT 模型，（由预训练参数初始化），但每一个下游任务会根据自己任务的 labeled data 来微调自己的 BERT 模型。</p>
-<p>预训练和微调不是BERT的创新，CV里用的比较多。 </p>
+<p>预训练和微调不是BERT的创新，CV里用的比较多。</p>
 <p>模型调了 3 个参数：</p>
 <p>L: transform blocks的个数</p>
 <p>H: hidden size 隐藏层大小</p>
@@ -359,35 +364,37 @@
 <p><strong>BERT 的输入和 transformer 区别：</strong></p>
 <p>transformer 预训练时候的输入是一个序列对。编码器和解码器分别会输入一个序列。</p>
 <p>BERT 只有一个编码器，为了使 BERT 能处理两个句子的情况，需要把两个句子并成一个序列。</p>
-<p><strong>BERT 如何切词:</strong>﻿</p>
+<p><strong>BERT 如何切词:</strong></p>
 <p>WordPiece, 把一个出现概率低的词切开，只保留一个词出现频率高的子序列，30k token 经常出现的词（子序列）的字典。</p>
-<p>否则，空格切词 –&gt; 一个词是一个 token。数据量打的时候，词典会特别大，到百万级别。可学习的参数基本都在嵌入层了。</p>
-<p>BERT 的输入序列如何构成？ [ CLS ]  +  [ SEP ] </p>
+<p>否则，空格切词 --&gt; 一个词是一个 token。数据量打的时候，词典会特别大，到百万级别。可学习的参数基本都在嵌入层了。</p>
+<p>BERT 的输入序列如何构成？ [ CLS ]  +  [ SEP ]</p>
 <p>序列开始: [ CLS ] 输出的是句子层面的信息 sequence representation</p>
 <p>BERT 使用的是 transformer 的 encoder，self-attention layer 会看输入的每个词和其它所有词的关系。</p>
 <p>就算 [ CLS ] 这个词放在我的第一个的位置，他也是有办法能看到之后所有的词。所以他放在第一个是没关系的，不一定要放在最后。</p>
 <p>区分 两个合在一起的句子 的方法：</p>
-<p>每个句子后 + [ SEP ] 表示 seperate<br>学一个嵌入层 来表示 整个句子是第一句还是第二句</p>
-<p> [ CLS ] [Token1] …… [Token n] [SEP] [Token1’] …… [Token m]</p>
+<p>每个句子后 + [ SEP ] 表示 seperate<br>
+学一个嵌入层 来表示 整个句子是第一句还是第二句</p>
+<p>[ CLS ] [Token1] …… [Token n] [SEP] [Token1’] …… [Token m]</p>
 <p>每一个 token 进入 BERT 得到 这个 token 的embedding 表示。</p>
 <p>对于 BERT，输入一个序列，输出一个序列。</p>
 <p>最后一个 transformer 块的输出，表示 这个词源 token 的 BERT 的表示。在后面再添加额外的输出层，来得到想要的结果。</p>
 <p>For a given token, 进入 BERT 的表示 = token 本身的表示 + segment 句子的表示 + position embedding 位置表示</p>
 <p><img src="https://s4.ax1x.com/2022/01/21/7Rna8J.md.png" alt="7Rna8J.md.png"></p>
-<p>一个词源的序列 –&gt; 一个向量的序列 –&gt; 进入 transformer 块</p>
+<p>一个词源的序列 --&gt; 一个向量的序列 --&gt; 进入 transformer 块</p>
 <p>Token embeddings:  词源的embedding层，整成的embedding层， 每一个 token 有对应的词向量。</p>
 <p>Segement embeddings: 这个 token 属于第一句话 A还是第二句话 B。</p>
-<p>Position embeddings: 输入的大小 = 这个序列最长有多长？ i.e., 1024 </p>
-<p>Position embedding 的输入是 token 词源在这个序列 sequence 中的位置信息。从0开始 1 2 3 4 –&gt; 1024</p>
-<p>BERT input representation = token embeddings + segment embeddings + position embeddings </p>
-<p>BERT 的 segment embedding （属于哪个句子）和 position embedding （位置在哪里）是学习得来的，transformer 的 position embedding 是给定的 </p>
-<h5 id="Pre-training-BERT："><a href="#Pre-training-BERT：" class="headerlink" title="Pre-training BERT："></a>Pre-training BERT：</h5><p>预训练的 key factors: 目标函数，预训练的数据</p>
+<p>Position embeddings: 输入的大小 = 这个序列最长有多长？ i.e., 1024</p>
+<p>Position embedding 的输入是 token 词源在这个序列 sequence 中的位置信息。从0开始 1 2 3 4 --&gt; 1024</p>
+<p>BERT input representation = token embeddings + segment embeddings + position embeddings</p>
+<p>BERT 的 segment embedding （属于哪个句子）和 position embedding （位置在哪里）是学习得来的，transformer 的 position embedding 是给定的</p>
+<h5 id="Pre-training-BERT：">Pre-training BERT：</h5>
+<p>预训练的 key factors: 目标函数，预训练的数据</p>
 <p><strong>Task 1 MLM：</strong></p>
 <p>由 WordPiece 生成的词源序列中的词源，它有 15% 的概率会随机替换成一个掩码。但是对于特殊的词源不做替换，i.e., 第一个词源 [ CLS ] 和中间的分割词源 [SEP]。</p>
 <p>如果输入序列长度是 1000 的话，要预测 150 个词。</p>
 <p>MLM 带来的问题：预训练和微调看到的数据不一样。预训练的输入序列有 15% [MASK]，微调时的数据没有 [MASK].</p>
 <p>15% 计划被 masked 的词: 80% 的概率被替换为 [MASK], 10% 换成 random token,10% 不改变原 token。但 T_i 还是被用来做预测。</p>
-<p>unchanged 和 微调中的数据应该是一样的 </p>
+<p>unchanged 和 微调中的数据应该是一样的</p>
 <p><strong>Task 2 NSP Next Sentence Prediction</strong></p>
 <p>在问答和自然语言推理里都是句子对。</p>
 <p>如果 BERT 能学习到 sentence-level 信息，很棒。</p>
@@ -400,7 +407,8 @@
 <p>2 个数据集：BooksCorpus (800 M) + English Wikipedia (2500 M)</p>
 <p>使用一篇一篇文章，而不是随机打断的句子。 a document-level corpus rather than a shuffled sentence-level corpus</p>
 <p>transformer 可以处理较长的序列，一整个文本的输入，效果会好一些。</p>
-<h5 id="Fine-tuning-BERT"><a href="#Fine-tuning-BERT" class="headerlink" title="Fine-tuning BERT"></a>Fine-tuning BERT</h5><p>用 BERT 做微调的一般化的介绍。</p>
+<h5 id="Fine-tuning-BERT">Fine-tuning BERT</h5>
+<p>用 BERT 做微调的一般化的介绍。</p>
 <p>BERT 和一些基于encoder-decoder的架构为什么不一样？transformer 是encoder-decoder。</p>
 <p>整个句子对被放在一起输入 BERT，self-attention 能够在两个句子之间相互看。BERT 更好，但代价是 不能像 transformer 做机器翻译。</p>
 <p>在encoder-decoder的架构，编码器看不到解码器的东西。</p>
@@ -408,9 +416,11 @@
 <p>根据下游任务，设计我们任务相关的输入和输出。</p>
 <p>好处：模型不怎么变，加一个输出层 softmax 得到 标号 label</p>
 <p>怎么样把输入改成想要的句子对？</p>
-<p>有两个句子的话，当然就是句子 A 和 B。<br>只有一个句子的话，要做句子分类的话， B 没有。根据下游任务的要求，要么是 [CLS] representation is fed into an output layer for classification 拿到第一个词源 [CLS] 对应的输出做分类 such as entailment or sentiment analysis，或者是 the token representations are fed into an output layer for token-level tasks 拿到对应那些词源的输出做 sequence tagging or question answering 输出。</p>
-<p>微调比预训练便宜。TPU 1 hour, GPU a few hours. </p>
-<h5 id="对比实验（Ablation-studies）"><a href="#对比实验（Ablation-studies）" class="headerlink" title="对比实验（Ablation studies）"></a>对比实验（Ablation studies）</h5><p><strong>没有 NSP</strong></p>
+<p>有两个句子的话，当然就是句子 A 和 B。<br>
+只有一个句子的话，要做句子分类的话， B 没有。根据下游任务的要求，要么是 [CLS] representation is fed into an output layer for classification 拿到第一个词源 [CLS] 对应的输出做分类 such as entailment or sentiment analysis，或者是 the token representations are fed into an output layer for token-level tasks 拿到对应那些词源的输出做 sequence tagging or question answering 输出。</p>
+<p>微调比预训练便宜。TPU 1 hour, GPU a few hours.</p>
+<h5 id="对比实验（Ablation-studies）">对比实验（Ablation studies）</h5>
+<p><strong>没有 NSP</strong></p>
 <p>LTR 从左看到右（无 MLM ） &amp; 没有 NSP</p>
 <p>LTR 从左看到右（无 MLM ） &amp; 没有 NSP + BiLSTM （从ELMo来的想法）</p>
 <p>去掉任何一个组成部分，BERT的效果都会有打折，特别是 MRPC。</p>
@@ -421,7 +431,7 @@
 <p>现在：GPT-3 1000 亿可学习参数</p>
 <p><strong>Feature-based Approach with BERT</strong></p>
 <p>没有微调的 BERT，将pre-trained 得到的 BERT 特征作为一个静态的特征输入，效果没有 + 微调好</p>
-<p>卖点：用 BERT 需要微调。 </p>
+<p>卖点：用 BERT 需要微调。</p>
 <p><strong>BERT 是否要选择  ‘bidirectional’  双向性呢</strong></p>
 <p>可以写，但也要写 双向性带来的不足是什么？</p>
 <p>选择有得有失。</p>
@@ -429,13 +439,13 @@
 <p>BERT 用的是 encoder，不好做generative tasks：机器翻译、文本摘要。</p>
 <p>分类问题在 NLP 更常见。</p>
 <p>NLP 研究者喜欢 BERT，较容易的应用在 NLP 中自己想解决的问题。</p>
-<p>BERT，完整的解决问题的思路 —- 大家对 DL 的期望</p>
+<p>BERT，完整的解决问题的思路 ---- 大家对 DL 的期望</p>
 <p>训练一个很深、很宽的模型，在一个很大的数据集上预训练好；训练好的模型参数可以解决很多小的问题，通过微调提升小数据集上的性能。</p>
 <p>这个模型拿出来之后可以用在很多小的问题上，能够通过微调来全面提升这些小数据上的性能。这个在计算机视觉里面我们用了很多年了。</p>
 <p>BERT 把 CV 的套路搬到了 NLP，1个3亿参数的模型，展示：模型越大、效果越好。大力出奇迹。</p>
 <p><strong>为什么 BERT 被记住？</strong></p>
 <p>BERT 用了 ELMo, GPT 更大的训练数据集，效果更好；BERE 也被更大的训练数据集和更大的模型超越。</p>
-<p>BERT 的引用率是 GPT 的 10 倍，影响力 ✔ </p>
+<p>BERT 的引用率是 GPT 的 10 倍，影响力 ✔</p>
 
                 
               </div>
