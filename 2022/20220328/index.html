@@ -262,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          251 字
+          247 字
         
       </span>
     
@@ -322,7 +322,7 @@
 <p><strong>标准化</strong>。如果权重或者Logit标准化，可能不会出现这一问题。</p>
 <p>Guo等人[2]认为这是一个错误的校准问题，即神经网络对其错误分类的输入变得过度自信。</p>
 <p>Takashi Ishida等人提出了一个新的损失函数，来避免出现这一问题。（关键代码只有一行就能发顶会就很厉害。）</p>
-<p>设原来的损失函数是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">L</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{L}(\theta)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal">L</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span></span></span></span>，现在改为$ \tilde{\mathcal{L}}(\theta)=|\mathcal{L}(\theta)-b|+b$。其中b为预先设定的阈值。从而能使损失函数二次下降。</p>
+<p>设原来的损失函数是$\mathcal{L}(\theta)$，现在改为$ \tilde{\mathcal{L}}(\theta)=|\mathcal{L}(\theta)-b|+b$。其中b为预先设定的阈值。从而能使损失函数二次下降。</p>
 <p>参考资料：</p>
 <p>1.<a target="_blank" rel="noopener" href="https://github.com/thegregyang/LossUpAccUp">LossUpAccUp</a></p>
 <p>2.<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.04599">On Calibration of Modern Neural Networks</a></p>

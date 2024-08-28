@@ -262,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          511 字
+          501 字
         
       </span>
     
@@ -328,7 +328,7 @@
 <p>时间复杂度：</p>
 <p>算法的第一部分需要运行最小生成树算法两次，因此运行时间为O(Elog V)。</p>
 <p>算法的第二部分最多重复插值算法V−1次。</p>
-<p>插值算法的每次迭代都需要:(i)找到一条边，并将其加到R上，最多需要V次时间;(ii)在循环中寻找一条边从R中移除，这最多需要V个时间。因此，运行插值步骤的总时间最多为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>V</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(V^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。因此，算法的总运行时间为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>V</mi><mn>2</mn></msup><mo>+</mo><mi>E</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>V</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(V^2+  ElogV)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">El</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mclose">)</span></span></span></span>。</p>
+<p>插值算法的每次迭代都需要:(i)找到一条边，并将其加到R上，最多需要V次时间;(ii)在循环中寻找一条边从R中移除，这最多需要V个时间。因此，运行插值步骤的总时间最多为$O(V^2)$。因此，算法的总运行时间为$O(V^2+  ElogV)$。</p>
 <p>快速解决方案:这个算法的缓慢部分在于，当我们将一棵生成树插入到另一棵生成树时，在生成树中寻找环。</p>
 <p>下面是一种避免这种情况的方法:•</p>
 <ul>
