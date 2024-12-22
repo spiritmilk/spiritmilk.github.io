@@ -17568,9 +17568,9 @@ $$<br>
 <p>有（高斯分布的）噪声、给定功率情况下，信道容量为信号熵减噪声熵。<br>
 而有以下结论：<br>
 （1）当平均功率不变的情况下，信号符合高斯分布时熵最大<br>
-（2）符合高斯分布的熵为$\log{\sqrt{2\pi<em>e</em>N}}$。N为功率，$\pi$为圆周率，e为自然常数。</p>
+（2）符合高斯分布的熵为$\log{\sqrt{2\pi e N}}$。N为功率，$\pi$为圆周率，e为自然常数。</p>
 <p>故，最大信道容量为：</p>
-<p>$2w\log{\sqrt{2pi<em>e</em>(s+n)}}-2w\log{\sqrt{2pi<em>e</em>n}}=2w\log{\sqrt{1+\frac{s}{n}}}$</p>
+<p>$2w\log{\sqrt{2\pi e(s+n)}}-2w\log{\sqrt{2\pi e n}}=2w\log{\sqrt{1+\frac{s}{n}}}$</p>
 ]]></content>
       <tags>
         <tag>计算机网络</tag>
