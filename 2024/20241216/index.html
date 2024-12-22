@@ -29,7 +29,7 @@
 <meta property="og:description" content="奈奎斯特准则和香农定理是计算机网络中和信息论中的基础理论，分别给出了无噪声和有噪声信道的最大数据传输速率。但我们可能很好奇，这些式子是怎么推出来的？为什么会和对数结合信噪比这么一个奇怪的东西扯上关系？我们可以看出有$mlogn$，这是否暗藏玄机？ 这些内容其实都可以从香农本人的1949年的《通信的数学理论&#x2F;A mathematical theory of communication》中找到。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-15T18:19:49.000Z">
-<meta property="article:modified_time" content="2024-12-22T15:03:47.311Z">
+<meta property="article:modified_time" content="2024-12-22T15:29:29.419Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
@@ -262,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          383 字
+          384 字
         
       </span>
     
@@ -327,8 +327,8 @@
 <p>有（高斯分布的）噪声、给定功率情况下，信道容量为信号熵减噪声熵。<br>
 而有以下结论：<br>
 （1）当平均功率不变的情况下，信号符合高斯分布时熵最大<br>
-（2）符合高斯分布的熵为$log(\sqrt{2\pi<em>e</em>N})$，N为功率，pi为圆周率，e为自然常数。<br>
-故，最大信道容量为$2wlog(\sqrt{2pi<em>e</em>(s+n)})-2wlog(\sqrt{2pi<em>e</em>n})=2wlog\sqrt{1+s/n}$</p>
+（2）符合高斯分布的熵为$\log{\sqrt{2\pi<em>e</em>N}}$。N为功率，pi为圆周率，e为自然常数。<br>
+故，最大信道容量为$2w\log{\sqrt{2pi<em>e</em>(s+n)}}-2wlog(\sqrt{2pi<em>e</em>n})=2wlog\sqrt{1+s/n}$</p>
 
                 
               </div>
