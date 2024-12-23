@@ -17840,4 +17840,24 @@ $</p>
         <tag>漫画</tag>
       </tags>
   </entry>
+  <entry>
+    <title>生存分析</title>
+    <url>/2024/20241223/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>生存分析(survivalanalysis)是将事件的结果和出现这一结果所经历的时间结合起来分析的一类统计分析方法。不仅考虑事件是否出现,而且也考虑事件出现的时间长短,因此该类方法也被称之为事件时间分析(time-lo-event analysis)。生存分析起源于医学与生物科学。</p>
+<span id="more"></span>
+<p><strong>为什么不用直接比较样本生存时间，如中值或中位数？</strong></p>
+<p>可操作性比较差。</p>
+<p><strong>三种分析：</strong></p>
+<p>（1）描述分析：根据样本生存资料估计总体生存率或者是其他有关指标常用的就是K-M生存曲线</p>
+<p>K-M生成分析</p>
+<p>（2）比较分析</p>
+<p>对不同组生存率进行比较分析常采用log-rank检验和Breslow检验。</p>
+<p>（3）影响因素分析</p>
+<p>通过生存分析模型来探讨影响生存时间的因素，常见的COX比例风险模型就是这种影响因素分析。</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>生物信息</tag>
+      </tags>
+  </entry>
 </search>
