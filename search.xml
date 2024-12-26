@@ -17599,9 +17599,16 @@ $$<br>
 $$<br>
 h_{Y}\left(y\right)=\frac{f_{Y}(y)}{S_{Y}(y)}=\frac{f_{Y}(y)}{1-F_{Y}(y)}\=-\frac{\partial}{\partial y}log\left[1-F_{Y}\left(y\right)\right]\=-\frac{\partial}{\partial y}log\left[S_{Y}\left(y\right)\right].<br>
 $$<br>
-故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数。</p>
+故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数，也算是一种度量指标。</p>
+<h2 id="KM曲线">KM曲线</h2>
+<p><img src="km1.jpg" alt=""></p>
 <h2 id="Cox模型">Cox模型</h2>
-<p><img src="cox1.png" alt=""></p>
+<p>$$h(t)=h_0(t)\times exp(b_1x_1+b_2x_2+\ldots+b_px_p)$$</p>
+<p>x为具有预测效应的多个变量（协变量），h0(t) 是基准风险函数</p>
+<p>Cox需满足的前提：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs text">风险比(hazard ratio)  =&gt;  exp(协变量系数)<br>比例风险假定（PH 假定，proportional-hazards assumption） =&gt;  与h0(t)无关，风险比为固定值 =&gt;  协变量回归系数是固定的<br></code></pre></td></tr></table></figure>
+<p>我们也可以通过KM曲线来判断。<strong>若两条生存曲线最后交叉，这说明PH条件不成立。</strong></p>
+<p><img src="cox2.jpg" alt=""></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>

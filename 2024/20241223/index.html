@@ -28,14 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="生存分析(survivalanalysis)是将事件的结果和出现这一结果所经历的时间结合起来分析的一类统计分析方法。不仅考虑事件是否出现,而且也考虑事件出现的时间长短,因此该类方法也被称之为事件时间分析(time-lo-event analysis)。生存分析起源于医学与生物科学。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2024/20241223/cox1.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20241223/km1.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2024/20241223/cox2.jpg">
 <meta property="article:published_time" content="2024-12-23T04:29:20.000Z">
-<meta property="article:modified_time" content="2024-12-26T14:45:29.637Z">
+<meta property="article:modified_time" content="2024-12-26T14:52:21.825Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="生物信息">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2024/20241223/cox1.png">
+<meta name="twitter:image" content="https://lijianxiong.work/2024/20241223/km1.jpg">
   
   
   
@@ -265,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          429 字
+          562 字
         
       </span>
     
@@ -276,7 +277,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -337,9 +338,16 @@
 $$<br>
 h_{Y}\left(y\right)=\frac{f_{Y}(y)}{S_{Y}(y)}=\frac{f_{Y}(y)}{1-F_{Y}(y)}\=-\frac{\partial}{\partial y}log\left[1-F_{Y}\left(y\right)\right]\=-\frac{\partial}{\partial y}log\left[S_{Y}\left(y\right)\right].<br>
 $$<br>
-故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数。</p>
+故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数，也算是一种度量指标。</p>
+<h2 id="KM曲线">KM曲线</h2>
+<p><img src="km1.jpg" alt=""></p>
 <h2 id="Cox模型">Cox模型</h2>
-<p><img src="cox1.png" alt=""></p>
+<p>$$h(t)=h_0(t)\times exp(b_1x_1+b_2x_2+\ldots+b_px_p)$$</p>
+<p>x为具有预测效应的多个变量（协变量），h0(t) 是基准风险函数</p>
+<p>Cox需满足的前提：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">风险比(hazard ratio)  =&gt;  exp(协变量系数)<br>比例风险假定（PH 假定，proportional-hazards assumption） =&gt;  与h0(t)无关，风险比为固定值 =&gt;  协变量回归系数是固定的<br></code></pre></td></tr></table></figure>
+<p>我们也可以通过KM曲线来判断。<strong>若两条生存曲线最后交叉，这说明PH条件不成立。</strong></p>
+<p><img src="cox2.jpg" alt=""></p>
 
                 
               </div>
