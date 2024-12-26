@@ -17595,7 +17595,11 @@ $$<br>
 <p><strong>生存函数（survivor function）：</strong></p>
 <p>定义为$S_Y(y)=P(Y&gt;y)=1-F_Y(y)$，即表示某样本的生存时间大于时刻 y 的概率。</p>
 <p><strong>风险函数（hazard function）：</strong></p>
-<p>定义为</p>
+<p>定义为$h_Y(y)=\frac{f_Y(y)}{S_Y(y)}$，可理解为到时刻y 时存活下来的个体在此后一个无限小的时间区间$[y+\Delta y]$ 内结局事件（失效、死亡）发生的概率。<br>
+$$<br>
+h_{Y}\left(y\right)=\frac{f_{Y}(y)}{S_{Y}(y)}=\frac{f_{Y}(y)}{1-F_{Y}(y)}\=-\frac{\partial}{\partial y}log\left[1-F_{Y}\left(y\right)\right]\=-\frac{\partial}{\partial y}log\left[S_{Y}\left(y\right)\right].<br>
+$$<br>
+故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数。</p>
 <h2 id="Cox模型">Cox模型</h2>
 <p><img src="cox1.png" alt=""></p>
 ]]></content>
