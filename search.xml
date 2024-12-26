@@ -17597,7 +17597,9 @@ $$<br>
 <p><strong>风险函数（hazard function）：</strong></p>
 <p>定义为$h_Y(y)=\frac{f_Y(y)}{S_Y(y)}$，可理解为到时刻y 时存活下来的个体在此后一个无限小的时间区间$[y+\Delta y]$ 内结局事件（失效、死亡）发生的概率。<br>
 $$<br>
-h_{Y}\left(y\right)=\frac{f_{Y}(y)}{S_{Y}(y)}=\frac{f_{Y}(y)}{1-F_{Y}(y)}\=-\frac{\partial}{\partial y}log\left[1-F_{Y}\left(y\right)\right]\=-\frac{\partial}{\partial y}log\left[S_{Y}\left(y\right)\right].<br>
+h_{Y}\left(y\right)=\frac{f_{Y}(y)}{S_{Y}(y)}=\frac{f_{Y}(y)}{1-F_{Y}(y)}<br>
+\ =-\frac{\partial}{\partial y}log\left[1-F_{Y}\left(y\right)\right]<br>
+\ =-\frac{\partial}{\partial y}log\left[S_{Y}\left(y\right)\right].<br>
 $$<br>
 故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数，也算是一种度量指标。</p>
 <h2 id="KM曲线">KM曲线</h2>
@@ -17609,6 +17611,8 @@ $$<br>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs text">风险比(hazard ratio)  =&gt;  exp(协变量系数)<br>比例风险假定（PH 假定，proportional-hazards assumption） =&gt;  与h0(t)无关，风险比为固定值 =&gt;  协变量回归系数是固定的<br></code></pre></td></tr></table></figure>
 <p>我们也可以通过KM曲线来判断。<strong>若两条生存曲线最后交叉，这说明PH条件不成立。</strong></p>
 <p><img src="cox2.jpg" alt=""></p>
+<h2 id="Nelson-Aalen-累计风险函数图">Nelson-Aalen 累计风险函数图</h2>
+<p>其与与以KM估计式为基础的估计式相比，具有更好的小样本性质，由Nelson提出然后Aalen加以改进。</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
