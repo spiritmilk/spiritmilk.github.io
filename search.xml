@@ -17888,11 +17888,16 @@ $</p>
 <p>2010-2016是训练集</p>
 <p>2017是测试集的公榜</p>
 <p>2018-2019是测试集的私榜</p>
-<p>之前也有个[类似的比赛](<a href="https://www.kaggle.com/competitions/playground-series-s3e19">Forecasting Mini-Course Sales | Kaggle</a>)，所以很多solution也是参考了过去的思路。</p>
+<p>之前也有个<a href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，所以很多solution也是参考了过去的思路。</p>
+<h3 id="之前的第一名方案">之前的第一名方案</h3>
 <p>$$<br>
 \begin{equation} \text{sold} = \text{GDP}(\text{country}, \text{year}) \times \text{const}(\text{store}) \times \left[ \text{sine/cosine waves}(\text{product}) + \text{holiday} + \text{weekday} + \text{covid} \right] \end{equation}<br>
 $$</p>
+<p>假期效应用高斯分布拟合。</p>
+<p><img src="holiday.png" alt=""></p>
 <span id="more"></span>
+<h2 id="数据分析">数据分析</h2>
+<p><img src="sunday.png" alt=""></p>
 ]]></content>
       <tags>
         <tag>机器学习</tag>
