@@ -29,9 +29,14 @@
 <meta property="og:description" content="预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle是我参加最久的一次TPS，但成绩不够理想，只拿到了27&#x2F;2722，其中一个原因是一直参考@Cabaxiom的线性回归笔记本，但是其中年份product存在计算错误的问题。  数据介绍 共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。 2010-">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250210/holiday.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250210/procudt.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250210/store.ong">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250210/gdp.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250210/gdp_kenya.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250210/allbank.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250210/sunday.png">
 <meta property="article:published_time" content="2025-02-10T09:54:32.000Z">
-<meta property="article:modified_time" content="2025-02-10T10:23:56.675Z">
+<meta property="article:modified_time" content="2025-02-10T10:31:27.340Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -266,7 +271,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          189 字
+          297 字
         
       </span>
     
@@ -277,7 +282,7 @@
         
         
         
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -335,6 +340,17 @@ $$</p>
 <p><img src="holiday.png" alt=""></p>
 <span id="more"></span>
 <h2 id="数据分析">数据分析</h2>
+<p>product具有周期性。</p>
+<p><img src="procudt.png" alt=""></p>
+<p>store具有不变性。</p>
+<p><img src="store.ong" alt=""></p>
+<p>GDP和销售额具有较强相关性。</p>
+<p><img src="gdp.png" alt=""></p>
+<p>但GDP在Kenya不符合，原因可能是因为$num_{sold}=a*GDP+bias$，而我们忽视了bias。</p>
+<p><img src="gdp_kenya.png" alt=""></p>
+<p>由上，我顺带分析了所有的<a target="_blank" rel="noopener" href="https://data.worldbank.org/indicator?tab=featured">514个世界银行特殊指标</a>，其中GDP具有最高的R2，这也说明GDP已经足够了。</p>
+<p><img src="allbank.png" alt=""></p>
+<p>每周周日具有最多的销售额，且每周具有周期性。</p>
 <p><img src="sunday.png" alt=""></p>
 
                 

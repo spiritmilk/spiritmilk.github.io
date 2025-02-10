@@ -17897,6 +17897,17 @@ $$</p>
 <p><img src="holiday.png" alt=""></p>
 <span id="more"></span>
 <h2 id="数据分析">数据分析</h2>
+<p>product具有周期性。</p>
+<p><img src="procudt.png" alt=""></p>
+<p>store具有不变性。</p>
+<p><img src="store.ong" alt=""></p>
+<p>GDP和销售额具有较强相关性。</p>
+<p><img src="gdp.png" alt=""></p>
+<p>但GDP在Kenya不符合，原因可能是因为$num_{sold}=a*GDP+bias$，而我们忽视了bias。</p>
+<p><img src="gdp_kenya.png" alt=""></p>
+<p>由上，我顺带分析了所有的<a href="https://data.worldbank.org/indicator?tab=featured">514个世界银行特殊指标</a>，其中GDP具有最高的R2，这也说明GDP已经足够了。</p>
+<p><img src="allbank.png" alt=""></p>
+<p>每周周日具有最多的销售额，且每周具有周期性。</p>
 <p><img src="sunday.png" alt=""></p>
 ]]></content>
       <tags>
