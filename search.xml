@@ -17909,10 +17909,40 @@ $$</p>
 <p><img src="allbank.png" alt=""></p>
 <p>每周周日具有最多的销售额，且每周具有周期性。</p>
 <p><img src="sunday.png" alt=""></p>
+<h2 id="第一名-by-George-Koussa">第一名 by George Koussa</h2>
+<h2 id="第二名-by-Chris-Deotte">第二名 by Chris Deotte</h2>
+<h2 id="第三名-by-Konstantin-Dmitriev">第三名 by Konstantin Dmitriev</h2>
+<h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2>
+<p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>
 ]]></content>
       <tags>
         <tag>机器学习</tag>
         <tag>深度学习</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Mixture of Experts(MoE)</title>
+    <url>/2025/20250215/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。</p>
+<p>MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。</p>
+<span id="more"></span>
+<h2 id="起源">起源</h2>
+<p>MOE起源：1991 Adaptive mixture of local experts</p>
+<p>MOE发展：</p>
+<p>google</p>
+<p>learning factored representations in a deep mixture of experts</p>
+<p>ontrageouly large neural networks the sparsely-gated mexture-of-experts layer</p>
+<p>GSHARD</p>
+<h2 id=""></h2>
+<p>switch transformer</p>
+<p>编码器解码器结构</p>
+<p>1.6万亿参数的Moe, 2048个专家</p>
+<p>网络结构升级</p>
+<p>预训练速度为T5-XXL的4倍</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicExpert</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-comment"># 一个 Expert 可以是一个最简单的， linear 层即可</span><br>    <span class="hljs-comment"># 也可以是 MLP 层</span><br>    <span class="hljs-comment"># 也可以是 更复杂的 MLP 层（active function 设置为 swiglu）</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, feature_in, feature_out</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.linear = nn.Linear(feature_in, feature_out)<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        <span class="hljs-keyword">return</span> self.linear(x)<br></code></pre></td></tr></table></figure>
+<h2 id="微调">微调</h2>
+<p>（1）冻结MOE，这个更好，和全量更新相当。</p>
+<p>（2）冻结除MOE以外的，类似于迁移学习。</p>
+]]></content>
   </entry>
 </search>
