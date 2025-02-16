@@ -17716,13 +17716,14 @@ $$<br>
 \begin{equation}\Phi(x)=\int_{-\infty}^x \frac{e^{-t^2/2}}{\sqrt{2\pi}}dt=\frac{1}{2}\left[1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right]\end{equation}<br>
 $$</p>
 <p><img src="gelu.png" alt=""></p>
+<p>由于erf并不好求，故有以下近似。</p>
 <h2 id="近似1">近似1</h2>
 <p>$$<br>
 \begin{equation}x\Phi(x)\approx x\sigma(1.702 x)\label{eq:x-sigma}\end{equation}<br>
 $$</p>
 <p>$x\sigma(\beta x)$其实也被叫做swish，当$\beta=1$时，叫做SiLU</p>
 <p>Swish由Google brain于2017年提出。</p>
-<p>他遍历了所有激活函数，并得出最好的是Swish</p>
+<p>他遍历了所有激活函数，并得出最好的是Swish。</p>
 <p>定义的激活函数如下：</p>
 <p><img src="swish.jpg" alt=""></p>
 <p>其中</p>
@@ -17739,6 +17740,11 @@ $x_1 + x_2, x_1 \times x_2, x_1 - x_2, \frac{x_1}{x_2 + 1}, max(x_1, x_2), min(x
 $exp(-\beta (x_1 - x_2)^2), exp(-\beta |x_1 - x_2|), \beta x_1 + (1 - \beta)x_2$</p>
 </li>
 </ul>
+<p>也有一篇论文从数学的角度上求解最佳的$\beta$：<a href="https://core.ac.uk/download/pdf/41787448.pdf">《A logistic approximation to the cumulative normal distribution》</a></p>
+<h2 id="近似2">近似2</h2>
+<p>$$<br>
+\begin{equation}x\Phi(x)\approx \frac{1}{2} x \left[1 + \tanh\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715 x^3\right)\right)\right]\label{eq:x-phi}\end{equation}<br>
+$$</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
