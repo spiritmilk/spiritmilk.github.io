@@ -17704,7 +17704,7 @@ $$</p>
   <entry>
     <title>GELU函数以其近似</title>
     <url>/2025/20250216/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>GELU，即Gaussian Error Linear Unit，在论文《Gaussian Error Linear Units (GELUs)》提出，被广泛运用于各大LLM中。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>GELU，即Gaussian Error Linear Unit，在论文《Gaussian Error Linear Units (GELUs)》提出，被广泛运用于各大LLM中。</p>
 <span id="more"></span>
 <h2 id="GELU函数">GELU函数</h2>
 <p>正如名字所说，他与高斯分布/正态分布有关。<br>
@@ -17745,6 +17745,14 @@ $exp(-\beta (x_1 - x_2)^2), exp(-\beta |x_1 - x_2|), \beta x_1 + (1 - \beta)x_2$
 <p>$$<br>
 \begin{equation}x\Phi(x)\approx \frac{1}{2} x \left[1 + \tanh\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715 x^3\right)\right)\right]\label{eq:x-phi}\end{equation}<br>
 $$</p>
+<p>可以追述到1977年的<a href="https://www.jstor.org/stable/2346872">《Approximations to the Cumulative Normal Function and its Inverse for Use on a Pocket Calculator》</a></p>
+<p>它基于1963年Tocher提出的：<br>
+$$<br>
+F ( x )=\int_{-\infty}^{x} ! {\frac{1} {\sqrt{( 2 \pi)}}} , e^{-\frac{1}{2} u^{2}} d u \simeq e^{2 k x} / ( 1+e^{2 k x} )=\frac{1}{2}(1+tanh(kx)), \ \ k=\sqrt{( 2 / \pi)}<br>
+$$<br>
+在其论文中，进一步对$e^{2 k x} / ( 1+e^{2 k x} )$改进为$e^{2 k_1 x(1+k_2x^2)} / ( 1+e^{2 k_1 x(1+k_2x^2)} )$，并得到以上的近似。。</p>
+<p>但论文实际并没有给出具体使用什么方法求解出最佳系数。</p>
+<p>PS：<a href="https://spaces.ac.cn/archives/7309">苏神</a>对以上进一步使用程序的寻找最佳系数。</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
