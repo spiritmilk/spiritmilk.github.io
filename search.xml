@@ -17659,7 +17659,7 @@ $$<br>
   <entry>
     <title>Mixture of Experts(MoE)</title>
     <url>/2025/20250215/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。</p>
 <p>MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。</p>
 <span id="more"></span>
 <h2 id="起源">起源</h2>
@@ -17716,7 +17716,12 @@ $$</p>
 <p><strong>3、转化为数学问题求解后，我们发现挑选规则是模长最大的k个向量；</strong></p>
 <p>写成数学公式是<br>
 $$<br>
-\begin{equation}\mathop{\text{argmin}}<em>{\lambda_1,\lambda_2,\cdots,\lambda_n\in{0,1}}\left\Vert\sum</em>{i=1}^n \lambda_i \boldsymbol{v}<em>i - \sum</em>{i=1}^n\boldsymbol{v}<em>i\right\Vert^2\quad\text{s.t.}\quad \sum</em>{i=1}^n \lambda_i = k\end{equation}<br>
+\begin{equation}<br>
+\mathop{\text{argmin}}<em>{\lambda_1, \lambda_2, \dots, \lambda_n \in {0,1}}<br>
+\left\Vert \sum</em>{i=1}^n \lambda_i \boldsymbol{v}<em>i - \sum</em>{i=1}^n \boldsymbol{v}<em>i \right\Vert^2<br>
+\quad \text{s.t.} \quad<br>
+\sum</em>{i=1}^n \lambda_i = k<br>
+\end{equation}<br>
 $$<br>
 记$\gamma_i = 1 - \lambda_i$，则<br>
 $$<br>

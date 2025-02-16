@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/math1.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/deepseek-v3-model-architecture.png">
 <meta property="article:published_time" content="2025-02-15T13:26:13.000Z">
-<meta property="article:modified_time" content="2025-02-16T10:45:52.986Z">
+<meta property="article:modified_time" content="2025-02-16T10:51:18.206Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -381,7 +381,12 @@ $$</p>
 <p><strong>3、转化为数学问题求解后，我们发现挑选规则是模长最大的k个向量；</strong></p>
 <p>写成数学公式是<br>
 $$<br>
-\begin{equation}\mathop{\text{argmin}}<em>{\lambda_1,\lambda_2,\cdots,\lambda_n\in{0,1}}\left\Vert\sum</em>{i=1}^n \lambda_i \boldsymbol{v}<em>i - \sum</em>{i=1}^n\boldsymbol{v}<em>i\right\Vert^2\quad\text{s.t.}\quad \sum</em>{i=1}^n \lambda_i = k\end{equation}<br>
+\begin{equation}<br>
+\mathop{\text{argmin}}<em>{\lambda_1, \lambda_2, \dots, \lambda_n \in {0,1}}<br>
+\left\Vert \sum</em>{i=1}^n \lambda_i \boldsymbol{v}<em>i - \sum</em>{i=1}^n \boldsymbol{v}<em>i \right\Vert^2<br>
+\quad \text{s.t.} \quad<br>
+\sum</em>{i=1}^n \lambda_i = k<br>
+\end{equation}<br>
 $$<br>
 记$\gamma_i = 1 - \lambda_i$，则<br>
 $$<br>
