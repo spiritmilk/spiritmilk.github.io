@@ -29,11 +29,13 @@
 <meta property="og:description" content="MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。 MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/begin.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250215/DMOE.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250215/jeffMOE.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/basic-moe-model.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/switch-transformers-moe-model.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/deepseek-v3-model-architecture.png">
 <meta property="article:published_time" content="2025-02-15T13:26:13.000Z">
-<meta property="article:modified_time" content="2025-02-16T10:03:42.171Z">
+<meta property="article:modified_time" content="2025-02-16T10:40:45.669Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -267,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.3k 字
         
       </span>
     
@@ -278,7 +280,7 @@
         
         
         
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -330,9 +332,18 @@
 <p><img src="begin.png" alt=""></p>
 <h2 id="发展">发展</h2>
 <p>在LLM潮浪之前，谷歌多个团队都有着几篇惊艳的论文。</p>
-<p>2013年的《Learning Factored Representations in a Deep Mixture of Experts》</p>
-<p>2017年的《Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer》</p>
-<p>2020年的《GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding》</p>
+<h3 id="2013年的《Learning-Factored-Representations-in-a-Deep-Mixture-of-Experts》">2013年的《Learning Factored Representations in a Deep Mixture of Experts》</h3>
+<p>作者有Ilya Sutskever。</p>
+<p>架构图：</p>
+<p><img src="DMOE.png" alt=""></p>
+<p>可以看出在原始的基础上还更多考虑了深度。</p>
+<p>作者发现，Deep Mix of Experts 自动学习在第一层培养位置相关（“where”）的专家，在第二层自动学习培养特定于类（“what”）的专家。</p>
+<h3 id="2017年的《Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer》">2017年的《Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer》</h3>
+<p>作者有Jeff Dean和Hinton。</p>
+<p>架构图:</p>
+<p><img src="jeffMOE.png" alt=""></p>
+<p>稀疏门控函数选择两个专家来执行计算。他们的输出由门控网络的输出调制。类似于后面的Top2 MOE。</p>
+<h3 id="2020年的《GShard-Scaling-Giant-Models-with-Conditional-Computation-and-Automatic-Sharding》">2020年的《GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding》</h3>
 <h2 id="基础版本MOE">基础版本MOE</h2>
 <p>MOE是FFN的替代品，其中的Expert 一般是一个 FeadFoward Network，FFN。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicExpert</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-comment"># 一个 Expert 可以是一个最简单的， linear 层即可</span><br>    <span class="hljs-comment"># 也可以是 MLP 层</span><br>    <span class="hljs-comment"># 也可以是 更复杂的 MLP 层（active function 设置为 swiglu）</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, feature_in, feature_out</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.linear = nn.Linear(feature_in, feature_out)<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        <span class="hljs-keyword">return</span> self.linear(x)<br></code></pre></td></tr></table></figure>
@@ -356,6 +367,23 @@ $$<br>
 $$<br>
 即<br>
 $$<br>
+y = f \biggl( x \left[<br>
+\begin{array}{cccc}<br>
+W_{1}^{(A)} &amp; W_{2}^{(A)} &amp; \cdots &amp; W_{n}^{(A)}<br>
+\end{array}<br>
+\right] \biggr)<br>
+\left[<br>
+\begin{array}{c}<br>
+W_{1}^{(B)} \<br>
+W_{2}^{(B)} \<br>
+\vdots \<br>
+W_{n}^{(B)}<br>
+\end{array}<br>
+\right]<br>
+= \sum_{i=1}^{n} \underbrace{f \left( x W_{i}^{(A)} \right) W_{i}^{(B)}}<em>{v</em>{i}}<br>
+$$<br>
+asd</p>
+<p>$$<br>
 \begin{equation}\boldsymbol{y} = f\big(\boldsymbol{x}\begin{bmatrix}\boldsymbol{W}^{(A)}_1 &amp; \boldsymbol{W}^{(A)}_2 &amp; \cdots &amp; \boldsymbol{W}^{(A)}_n\end{bmatrix}\big)\begin{bmatrix}\boldsymbol{W}^{(B)}_1 \ \boldsymbol{W}^{(B)}_2 \ \vdots \ \boldsymbol{W}^{(B)}<em>n\end{bmatrix} = \sum</em>{i=1}^n \underbrace{f(\boldsymbol{x}\boldsymbol{W}^{(A)}_i)\boldsymbol{W}^{(B)}<em>i}</em>{\boldsymbol{v}_i}\end{equation}<br>
 $$</p>
 <p><strong>2、为了节省计算量，我们试图挑出k个向量求和来逼近原本的n个向量之和；</strong></p>
