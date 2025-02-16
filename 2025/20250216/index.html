@@ -29,8 +29,9 @@
 <meta property="og:description" content="GELU，即Gaussian Error Linear Unit，在论文《Gaussian Error Linear Units (GELUs)》提出，被广泛运用于各大LLM中。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250216/gelu.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250216/swish.jpg">
 <meta property="article:published_time" content="2025-02-16T01:57:59.000Z">
-<meta property="article:modified_time" content="2025-02-16T02:18:41.414Z">
+<meta property="article:modified_time" content="2025-02-16T03:02:59.777Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -264,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          85 字
+          241 字
         
       </span>
     
@@ -275,7 +276,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -329,6 +330,29 @@ $$<br>
 \begin{equation}\Phi(x)=\int_{-\infty}^x \frac{e^{-t^2/2}}{\sqrt{2\pi}}dt=\frac{1}{2}\left[1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right]\end{equation}<br>
 $$</p>
 <p><img src="gelu.png" alt=""></p>
+<h2 id="近似1">近似1</h2>
+<p>$$<br>
+\begin{equation}x\Phi(x)\approx x\sigma(1.702 x)\label{eq:x-sigma}\end{equation}<br>
+$$</p>
+<p>$x\sigma(\beta x)$其实也被叫做swish，当$\beta=1$时，叫做SiLU</p>
+<p>Swish由Google brain于2017年提出。</p>
+<p>他遍历了所有激活函数，并得出最好的是Swish</p>
+<p>定义的激活函数如下：</p>
+<p><img src="swish.jpg" alt=""></p>
+<p>其中</p>
+<ul>
+<li>
+<p>Unary functions:<br>
+$x - x, |x|, x^2, x^3, \sqrt{x}, \beta x, x + \beta, \log(|x| + t), exp(x) \sin(x), cos(x)$,<br>
+$sinh(x), cosh(x), tanh(x), sinh^{-1}(x), tan^{-1}(x), sinc(x), max(x,0), min(x,0), \sigma(x)$,<br>
+$\log(1 + exp(x)), exp(-x^2), erf(x), \beta$</p>
+</li>
+<li>
+<p>Binary functions:<br>
+$x_1 + x_2, x_1 \times x_2, x_1 - x_2, \frac{x_1}{x_2 + 1}, max(x_1, x_2), min(x_1, x_2), \sigma(x_1) \cdot x_2$,<br>
+$exp(-\beta (x_1 - x_2)^2), exp(-\beta |x_1 - x_2|), \beta x_1 + (1 - \beta)x_2$</p>
+</li>
+</ul>
 
                 
               </div>
