@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/math1.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250215/deepseek-v3-model-architecture.png">
 <meta property="article:published_time" content="2025-02-15T13:26:13.000Z">
-<meta property="article:modified_time" content="2025-02-16T10:51:18.206Z">
+<meta property="article:modified_time" content="2025-02-16T10:52:41.604Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -390,12 +390,22 @@ $$<br>
 $$<br>
 记$\gamma_i = 1 - \lambda_i$，则<br>
 $$<br>
-\begin{equation}\mathop{\text{argmin}}<em>{\gamma_1,\gamma_2,\cdots,\gamma_n\in{0,1}}\left\Vert\sum</em>{i=1}^n \gamma_i \boldsymbol{v}<em>i\right\Vert^2\quad\text{s.t.}\quad \sum</em>{i=1}^n \gamma_i = n - k\end{equation}<br>
+\begin{equation}<br>
+\mathop{\text{argmin}}<em>{\gamma_1, \gamma_2, \dots, \gamma_n \in {0,1}}<br>
+\left\Vert \sum</em>{i=1}^n \gamma_i \boldsymbol{v}<em>i \right\Vert^2<br>
+\quad \text{s.t.} \quad<br>
+\sum</em>{i=1}^n \gamma_i = n - k<br>
+\end{equation}<br>
 $$<br>
 在这里苏神强行地假设了$v_i$两两正交。（我觉得这个可以和<strong>高维空间任取两个向量几乎正交的性质</strong>结合起来）</p>
 <p>则<br>
 $$<br>
-\begin{equation}\mathop{\text{argmin}}<em>{\gamma_1,\gamma_2,\cdots,\gamma_n\in{0,1}}\left\Vert\sum</em>{i=1}^n \gamma_i \boldsymbol{v}<em>i\right\Vert^2\quad\text{s.t.}\quad \sum</em>{i=1}^n \gamma_i = n - k\end{equation}<br>
+\begin{equation}<br>
+\mathop{\text{argmin}}<em>{\gamma_1, \gamma_2, \dots, \gamma_n \in {0,1}}<br>
+\left\Vert \sum</em>{i=1}^n \gamma_i \boldsymbol{v}<em>i \right\Vert^2<br>
+\quad \text{s.t.} \quad<br>
+\sum</em>{i=1}^n \gamma_i = n - k<br>
+\end{equation}<br>
 $$<br>
 上式最优解显然就是让模长$||v_i||$最小的$n-k$个$\gamma_i$等于1。</p>
 <p><strong>4、直接去算n个Expert的模长然后选k个实际上是不省计算量的，所以要重新设计Expert；</strong></p>
