@@ -21,31 +21,26 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle是我参加最久的一次TPS，但成绩不够理想，只拿到了27&#x2F;2722，其中一个原因是一直参考@Cabaxiom的线性回归笔记本，但是其中年份product存在计算错误的问题。  数据介绍 共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。 2010-">
+    <meta name="description" content="生存分析(survivalanalysis)是将事件的结果和出现这一结果所经历的时间结合起来分析的一类统计分析方法。不仅考虑事件是否出现,而且也考虑事件出现的时间长短,因此该类方法也被称之为事件时间分析(time-lo-event analysis)。生存分析起源于医学与生物科学。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TPSS5E1 复盘">
-<meta property="og:url" content="https://lijianxiong.work/2025/20250210/index.html">
+<meta property="og:title" content="生存分析速览">
+<meta property="og:url" content="https://lijianxiong.work/2024/20241226/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle是我参加最久的一次TPS，但成绩不够理想，只拿到了27&#x2F;2722，其中一个原因是一直参考@Cabaxiom的线性回归笔记本，但是其中年份product存在计算错误的问题。  数据介绍 共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。 2010-">
+<meta property="og:description" content="生存分析(survivalanalysis)是将事件的结果和出现这一结果所经历的时间结合起来分析的一类统计分析方法。不仅考虑事件是否出现,而且也考虑事件出现的时间长短,因此该类方法也被称之为事件时间分析(time-lo-event analysis)。生存分析起源于医学与生物科学。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250210/holiday.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250210/procudt.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250210/store.ong">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250210/gdp.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250210/gdp_kenya.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250210/allbank.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250210/sunday.png">
-<meta property="article:published_time" content="2025-02-10T09:54:32.000Z">
-<meta property="article:modified_time" content="2025-02-15T13:49:17.360Z">
+<meta property="og:image" content="https://lijianxiong.work/2024/20241226/km1.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2024/20241226/cox2.jpg">
+<meta property="article:published_time" content="2024-12-26T04:29:20.000Z">
+<meta property="article:modified_time" content="2025-02-16T04:59:17.302Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="生物信息">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2025/20250210/holiday.png">
+<meta name="twitter:image" content="https://lijianxiong.work/2024/20241226/km1.jpg">
   
   
   
-  <title>TPSS5E1 复盘 - 小熊的小站</title>
+  <title>生存分析速览 - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -248,7 +243,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TPSS5E1 复盘"></span>
+            <span id="subtitle" data-typed-text="生存分析速览"></span>
           
         </div>
 
@@ -259,8 +254,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-10 17:54" pubdate>
-          2025年2月10日 下午
+        <time datetime="2024-12-26 12:29" pubdate>
+          2024年12月26日 中午
         </time>
       </span>
     
@@ -271,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          355 字
+          691 字
         
       </span>
     
@@ -282,7 +277,7 @@
         
         
         
-          3 分钟
+          6 分钟
         
       </span>
     
@@ -319,44 +314,52 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">TPSS5E1 复盘</h1>
+            <h1 id="seo-header">生存分析速览</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p><a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s5e1">预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle</a>是我参加最久的一次TPS，但成绩不够理想，只拿到了27/2722，其中一个原因是一直参考@<a target="_blank" rel="noopener" href="https://www.kaggle.com/cabaxiom">Cabaxiom</a>的线性回归笔记本，但是其中年份product存在计算错误的问题。</p>
-<hr>
-<h2 id="数据介绍">数据介绍</h2>
-<p>共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。</p>
-<p>2010-2016是训练集</p>
-<p>2017是测试集的公榜</p>
-<p>2018-2019是测试集的私榜</p>
-<p>之前也有个<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，所以很多solution也是参考了过去的思路。</p>
-<h3 id="之前的第一名方案">之前的第一名方案</h3>
-<p>$$<br>
-\begin{equation} \text{sold} = \text{GDP}(\text{country}, \text{year}) \times \text{const}(\text{store}) \times \left[ \text{sine/cosine waves}(\text{product}) + \text{holiday} + \text{weekday} + \text{covid} \right] \end{equation}<br>
-$$</p>
-<p>假期效应用高斯分布拟合。</p>
-<p><img src="holiday.png" alt=""></p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>生存分析(survivalanalysis)是将事件的结果和出现这一结果所经历的时间结合起来分析的一类统计分析方法。不仅考虑事件是否出现,而且也考虑事件出现的时间长短,因此该类方法也被称之为事件时间分析(time-lo-event analysis)。生存分析起源于医学与生物科学。</p>
 <span id="more"></span>
-<h2 id="数据分析">数据分析</h2>
-<p>product具有周期性。</p>
-<p><img src="procudt.png" alt=""></p>
-<p>store具有不变性。</p>
-<p><img src="store.ong" alt=""></p>
-<p>GDP和销售额具有较强相关性。</p>
-<p><img src="gdp.png" alt=""></p>
-<p>但GDP在Kenya不符合，原因可能是因为$num_{sold}=a*GDP+bias$，而我们忽视了bias。</p>
-<p><img src="gdp_kenya.png" alt=""></p>
-<p>由上，我顺带分析了所有的<a target="_blank" rel="noopener" href="https://data.worldbank.org/indicator?tab=featured">514个世界银行特殊指标</a>，其中GDP具有最高的R2，这也说明GDP已经足够了。</p>
-<p><img src="allbank.png" alt=""></p>
-<p>每周周日具有最多的销售额，且每周具有周期性。</p>
-<p><img src="sunday.png" alt=""></p>
-<h2 id="第一名-by-George-Koussa">第一名 by George Koussa</h2>
-<h2 id="第二名-by-Chris-Deotte">第二名 by Chris Deotte</h2>
-<h2 id="第三名-by-Konstantin-Dmitriev">第三名 by Konstantin Dmitriev</h2>
-<h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2>
-<p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>
+<p><strong>为什么不用直接比较样本生存时间，如中值或中位数？</strong></p>
+<p>数据会缺失，可操作性比较差。</p>
+<p><strong>三种分析：</strong></p>
+<p>（1）描述分析：根据样本生存资料估计总体生存率或者是其他有关指标常用的就是K-M生存曲线</p>
+<p>K-M生成分析</p>
+<p>（2）比较分析</p>
+<p>对不同组生存率进行比较分析常采用log-rank检验和Breslow检验。</p>
+<p>（3）影响因素分析</p>
+<p>通过生存分析模型来探讨影响生存时间的因素，常见的COX比例风险模型就是这种影响因素分析。</p>
+<h2 id="（一些）重要概念">（一些）重要概念</h2>
+<p><strong>生存函数（survivor function）：</strong></p>
+<p>定义为$S_Y(y)=P(Y&gt;y)=1-F_Y(y)$，即表示某样本的生存时间大于时刻 y 的概率。</p>
+<p><strong>风险函数（hazard function）：</strong></p>
+<p>定义为$h_Y(y)=\frac{f_Y(y)}{S_Y(y)}$，可理解为到时刻y 时存活下来的个体在此后一个无限小的时间区间$[y+\Delta y]$ 内结局事件（失效、死亡）发生的概率。<br>
+$$<br>
+h_{Y}\left(y\right)=\frac{f_{Y}(y)}{S_{Y}(y)}=\frac{f_{Y}(y)}{1-F_{Y}(y)}<br>
+\ =-\frac{\partial}{\partial y}log\left[1-F_{Y}\left(y\right)\right]<br>
+\ =-\frac{\partial}{\partial y}log\left[S_{Y}\left(y\right)\right].<br>
+$$<br>
+故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数，也算是一种度量指标。</p>
+<h2 id="KM曲线">KM曲线</h2>
+<p><img src="km1.jpg" alt=""></p>
+<h2 id="Cox模型">Cox模型</h2>
+<p>$$h(t)=h_0(t)\times exp(b_1x_1+b_2x_2+\ldots+b_px_p)$$</p>
+<p>x为具有预测效应的多个变量（协变量），h0(t) 是基准风险函数</p>
+<p>Cox需满足的前提：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">风险比(hazard ratio)  =&gt;  exp(协变量系数)<br>比例风险假定（PH 假定，proportional-hazards assumption） =&gt;  与h0(t)无关，风险比为固定值 =&gt;  协变量回归系数是固定的<br></code></pre></td></tr></table></figure>
+<p>我们也可以通过KM曲线来判断。<strong>若两条生存曲线最后交叉，这说明PH条件不成立。</strong></p>
+<p><img src="cox2.jpg" alt=""></p>
+<h2 id="Nelson-Aalen-累计风险函数图">Nelson-Aalen 累计风险函数图</h2>
+<p>其与与以KM估计式为基础的估计式相比，具有更好的小样本性质，由Nelson提出然后Aalen加以改进。</p>
+<p>使用以下估计：</p>
+<p>$\tilde{H}(t)=\sum_{t_i\leq t}\frac{d_i}{n_i}$</p>
+<p>$\tilde{S}(t)=exp[-\tilde{H}(t)]$</p>
+<h2 id="WeibullAFTFitter模型">WeibullAFTFitter模型</h2>
+<p>有$\lambda(x)=\exp\left(\beta_{0}+\beta_{1}x_{1}+\ldots+\beta_{n}x_{n}\right)$和$\rho(y)=\exp{(\alpha_{0}+\alpha_{1}y_{1}+\ldots+\alpha_{m}y_{m})}$</p>
+<p>则</p>
+<p>$S(t;x,y)=\exp\left(-\left(\frac{t}{\lambda(x)}\right)^{\rho(y)}\right)$</p>
+<p>$H(t;x,y)=\left(\frac t{\lambda(x)}\right)^{\rho(y)}$</p>
 
                 
               </div>
@@ -369,9 +372,9 @@ $$</p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
-      
         <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF/" class="print-no-link">#生物信息</a>
       
     </div>
   
@@ -383,8 +386,8 @@ $$</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TPSS5E1 复盘</div>
-      <div>https://lijianxiong.work/2025/20250210/</div>
+      <div>生存分析速览</div>
+      <div>https://lijianxiong.work/2024/20241226/</div>
     </div>
     <div class="license-meta">
       
@@ -396,7 +399,7 @@ $$</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年2月10日</div>
+          <div>2024年12月26日</div>
         </div>
       
       
@@ -428,9 +431,9 @@ $$</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/20250215/" title="Mixture of Experts(MoE)">
+                      <a href="/2025/20250210/" title="TPSS5E1 复盘">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mixture of Experts(MoE)</span>
+                        <span class="hidden-mobile">TPSS5E1 复盘</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -438,7 +441,7 @@ $$</p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/20241226/" title="生存分析速览">
+                      <a href="/2024/20241223/" title="生存分析速览">
                         <span class="hidden-mobile">生存分析速览</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
