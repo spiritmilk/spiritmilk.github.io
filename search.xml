@@ -17716,7 +17716,7 @@ $$<br>
   <entry>
     <title>Mixture of Experts(MoE)</title>
     <url>/2025/20250215/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。</p>
 <p>MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。</p>
 <span id="more"></span>
 <h2 id="起源">起源</h2>
@@ -17768,35 +17768,12 @@ $$<br>
 <p>MOE要解决的问题是：</p>
 <p><strong>能否只挑k个向量的和来逼近n个向量的和呢？这样就可以将计算量降低到k/n了。</strong></p>
 <p><strong>3、转化为数学问题求解后，我们发现挑选规则是模长最大的k个向量；</strong></p>
-<p>写成数学公式是<br>
-$$<br>
-\begin{equation}<br>
-\mathop{\text{argmin}}<em>{\lambda_1, \lambda_2, \dots, \lambda_n \in {0,1}}<br>
-\left\Vert \sum</em>{i=1}^n \lambda_i \boldsymbol{v}<em>i - \sum</em>{i=1}^n \boldsymbol{v}<em>i \right\Vert^2<br>
-\quad \text{s.t.} \quad<br>
-\sum</em>{i=1}^n \lambda_i = k<br>
-\end{equation}<br>
-$$<br>
-记$\gamma_i = 1 - \lambda_i$，则<br>
-$$<br>
-\begin{equation}<br>
-\mathop{\text{argmin}}<em>{\gamma_1, \gamma_2, \dots, \gamma_n \in {0,1}}<br>
-\left\Vert \sum</em>{i=1}^n \gamma_i \boldsymbol{v}<em>i \right\Vert^2<br>
-\quad \text{s.t.} \quad<br>
-\sum</em>{i=1}^n \gamma_i = n - k<br>
-\end{equation}<br>
-$$<br>
-在这里苏神强行地假设了$v_i$两两正交。（我觉得这个可以和<strong>高维空间任取两个向量几乎正交的性质</strong>结合起来）</p>
-<p>则<br>
-$$<br>
-\begin{equation}<br>
-\mathop{\text{argmin}}<em>{\gamma_1, \gamma_2, \dots, \gamma_n \in {0,1}}<br>
-\left\Vert \sum</em>{i=1}^n \gamma_i \boldsymbol{v}<em>i \right\Vert^2<br>
-\quad \text{s.t.} \quad<br>
-\sum</em>{i=1}^n \gamma_i = n - k<br>
-\end{equation}<br>
-$$<br>
-上式最优解显然就是让模长$||v_i||$最小的$n-k$个$\gamma_i$等于1。</p>
+<p>写成数学公式是</p>
+<p><img src="math2.png" alt=""></p>
+<p>记$\gamma_i = 1 - \lambda_i$，则</p>
+<p><img src="math3.png" alt=""></p>
+<p>在这里苏神强行地假设了$v_i$两两正交。（我觉得这个可以和<strong>高维空间任取两个向量几乎正交的性质</strong>结合起来）</p>
+<p>则上式最优解显然就是让模长$||v_i||$最小的$n-k$个$\gamma_i$等于1。</p>
 <p><strong>4、直接去算n个Expert的模长然后选k个实际上是不省计算量的，所以要重新设计Expert；</strong></p>
 <p><strong>5、将$v_i$归一化得到$e_i$，然后用另外的小模型（Router）预测模长$p_i$，最终的Expert为$p_ie_i$；</strong></p>
 <p>归一化即$\boldsymbol{e}_i = \boldsymbol{v}_i/ \Vert\boldsymbol{v}_i\Vert$</p>
