@@ -17663,13 +17663,15 @@ $$<br>
 <p>MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。</p>
 <span id="more"></span>
 <h2 id="起源">起源</h2>
-<p>MOE起源：1991 Adaptive mixture of local experts</p>
+<p>MOE起源于1991的《Adaptive mixture of local experts》</p>
+<p>原论文和BP比，且有着不错的性能。</p>
+<p>从其论文图像就可以看出MOE的雏形和如今很像。</p>
+<p><img src="begin.png" alt=""></p>
 <h2 id="发展">发展</h2>
-<p>MOE发展：</p>
-<p>google</p>
-<p>learning factored representations in a deep mixture of experts</p>
-<p>ontrageouly large neural networks the sparsely-gated mexture-of-experts layer</p>
-<p>GSHARD</p>
+<p>在LLM潮浪之前，谷歌多个团队都有着几篇惊艳的论文。</p>
+<p>2013年的《Learning Factored Representations in a Deep Mixture of Experts》</p>
+<p>2017年的《Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer》</p>
+<p>2020年的《GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding》</p>
 <h2 id="基础版本MOE">基础版本MOE</h2>
 <p>MOE是FFN的替代品，其中的Expert 一般是一个 FeadFoward Network，FFN。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicExpert</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-comment"># 一个 Expert 可以是一个最简单的， linear 层即可</span><br>    <span class="hljs-comment"># 也可以是 MLP 层</span><br>    <span class="hljs-comment"># 也可以是 更复杂的 MLP 层（active function 设置为 swiglu）</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, feature_in, feature_out</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.linear = nn.Linear(feature_in, feature_out)<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        <span class="hljs-keyword">return</span> self.linear(x)<br></code></pre></td></tr></table></figure>
