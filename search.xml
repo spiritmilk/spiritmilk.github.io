@@ -17681,6 +17681,9 @@ $$<br>
 <p><img src="jeffMOE.png" alt=""></p>
 <p>稀疏门控函数选择两个专家来执行计算。他们的输出由门控网络的输出调制。类似于后面的Top2 MOE。</p>
 <h3 id="2020年的《GShard-Scaling-Giant-Models-with-Conditional-Computation-and-Automatic-Sharding》">2020年的《GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding》</h3>
+<p>架构图也是类似的：</p>
+<p><img src="gshard.png" alt=""></p>
+<p>在前人的基础上增加了负载均衡、Auxiliary loss、为了能在多个GPU上并行运行的切片等相关操作。</p>
 <h2 id="基础版本MOE">基础版本MOE</h2>
 <p>MOE是FFN的替代品，其中的Expert 一般是一个 FeadFoward Network，FFN。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BasicExpert</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-comment"># 一个 Expert 可以是一个最简单的， linear 层即可</span><br>    <span class="hljs-comment"># 也可以是 MLP 层</span><br>    <span class="hljs-comment"># 也可以是 更复杂的 MLP 层（active function 设置为 swiglu）</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, feature_in, feature_out</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.linear = nn.Linear(feature_in, feature_out)<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, x</span>):</span><br>        <span class="hljs-keyword">return</span> self.linear(x)<br></code></pre></td></tr></table></figure>
@@ -17702,25 +17705,9 @@ $$<br>
 $$<br>
 \begin{equation}\boldsymbol{y} = f(\boldsymbol{x}\boldsymbol{W}^{(A)})\boldsymbol{W}^{(B)}\end{equation}<br>
 $$<br>
-即<br>
+即</p>
+<p><img src="math1.png" alt=""><br>
 $$<br>
-y = f \biggl( x \left[<br>
-\begin{array}{cccc}<br>
-W_{1}^{(A)} &amp; W_{2}^{(A)} &amp; \cdots &amp; W_{n}^{(A)}<br>
-\end{array}<br>
-\right] \biggr)<br>
-\left[<br>
-\begin{array}{c}<br>
-W_{1}^{(B)} \<br>
-W_{2}^{(B)} \<br>
-\vdots \<br>
-W_{n}^{(B)}<br>
-\end{array}<br>
-\right]<br>
-= \sum_{i=1}^{n} \underbrace{f \left( x W_{i}^{(A)} \right) W_{i}^{(B)}}<em>{v</em>{i}}<br>
-$$<br>
-asd</p>
-<p>$$<br>
 \begin{equation}\boldsymbol{y} = f\big(\boldsymbol{x}\begin{bmatrix}\boldsymbol{W}^{(A)}_1 &amp; \boldsymbol{W}^{(A)}_2 &amp; \cdots &amp; \boldsymbol{W}^{(A)}_n\end{bmatrix}\big)\begin{bmatrix}\boldsymbol{W}^{(B)}_1 \ \boldsymbol{W}^{(B)}_2 \ \vdots \ \boldsymbol{W}^{(B)}<em>n\end{bmatrix} = \sum</em>{i=1}^n \underbrace{f(\boldsymbol{x}\boldsymbol{W}^{(A)}_i)\boldsymbol{W}^{(B)}<em>i}</em>{\boldsymbol{v}_i}\end{equation}<br>
 $$</p>
 <p><strong>2、为了节省计算量，我们试图挑出k个向量求和来逼近原本的n个向量之和；</strong></p>
