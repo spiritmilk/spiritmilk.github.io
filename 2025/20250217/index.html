@@ -21,25 +21,22 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="GELU，即Gaussian Error Linear Unit，在论文《Gaussian Error Linear Units (GELUs)》提出，被广泛运用于各大LLM中。">
+    <meta name="description" content="金阁寺是三岛由纪夫所著。 我一向对日本文学除侦探小说以外的书籍不太感兴趣，诸如比较著名的村上春树，我也阅读较少。觉得它们阴沉和晦涩。 我接触三岛由纪夫的相关书籍，可以追溯到高中搬宿舍时从高中学长“继承”而来的《晓寺》。那边草草阅读了一些，就结束了对三岛由纪夫的接触。 看这本三岛由纪夫的《金阁寺》">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GELU函数以其近似">
-<meta property="og:url" content="https://lijianxiong.work/2025/20250216/index.html">
+<meta property="og:title" content="火烧金阁寺">
+<meta property="og:url" content="https://lijianxiong.work/2025/20250217/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="GELU，即Gaussian Error Linear Unit，在论文《Gaussian Error Linear Units (GELUs)》提出，被广泛运用于各大LLM中。">
+<meta property="og:description" content="金阁寺是三岛由纪夫所著。 我一向对日本文学除侦探小说以外的书籍不太感兴趣，诸如比较著名的村上春树，我也阅读较少。觉得它们阴沉和晦涩。 我接触三岛由纪夫的相关书籍，可以追溯到高中搬宿舍时从高中学长“继承”而来的《晓寺》。那边草草阅读了一些，就结束了对三岛由纪夫的接触。 看这本三岛由纪夫的《金阁寺》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250216/gelu.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250216/swish.jpg">
-<meta property="article:published_time" content="2025-02-16T01:57:59.000Z">
-<meta property="article:modified_time" content="2025-02-16T03:59:31.215Z">
+<meta property="article:published_time" content="2025-02-17T12:06:13.000Z">
+<meta property="article:modified_time" content="2025-02-17T12:57:22.987Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="阅读">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2025/20250216/gelu.png">
   
   
   
-  <title>GELU函数以其近似 - 小熊的小站</title>
+  <title>火烧金阁寺 - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -242,7 +239,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="GELU函数以其近似"></span>
+            <span id="subtitle" data-typed-text="火烧金阁寺"></span>
           
         </div>
 
@@ -253,8 +250,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-16 09:57" pubdate>
-          2025年2月16日 上午
+        <time datetime="2025-02-17 20:06" pubdate>
+          2025年2月17日 晚上
         </time>
       </span>
     
@@ -265,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          439 字
+          1.4k 字
         
       </span>
     
@@ -276,7 +273,7 @@
         
         
         
-          4 分钟
+          12 分钟
         
       </span>
     
@@ -313,60 +310,85 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">GELU函数以其近似</h1>
+            <h1 id="seo-header">火烧金阁寺</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>GELU，即Gaussian Error Linear Unit，在论文《Gaussian Error Linear Units (GELUs)》提出，被广泛运用于各大LLM中。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>金阁寺是三岛由纪夫所著。</p>
+<p>我一向对日本文学除侦探小说以外的书籍不太感兴趣，诸如比较著名的村上春树，我也阅读较少。觉得它们阴沉和晦涩。</p>
+<p>我接触三岛由纪夫的相关书籍，可以追溯到高中搬宿舍时从高中学长“继承”而来的《晓寺》。那边草草阅读了一些，就结束了对三岛由纪夫的接触。</p>
+<p>看这本三岛由纪夫的《金阁寺》</p>
 <span id="more"></span>
-<h2 id="GELU函数">GELU函数</h2>
-<p>正如名字所说，他与高斯分布/正态分布有关。<br>
-$$<br>
-\begin{equation}\text{GELU}(x)=x \Phi(x)\end{equation}<br>
-$$<br>
-其中<br>
-$$<br>
-\begin{equation}\Phi(x)=\int_{-\infty}^x \frac{e^{-t^2/2}}{\sqrt{2\pi}}dt=\frac{1}{2}\left[1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right]\end{equation}<br>
-$$</p>
-<p><img src="gelu.png" alt=""></p>
-<p>由于erf并不好求，故有以下近似。</p>
-<h2 id="近似1">近似1</h2>
-<p>$$<br>
-\begin{equation}x\Phi(x)\approx x\sigma(1.702 x)\label{eq:x-sigma}\end{equation}<br>
-$$</p>
-<p>$x\sigma(\beta x)$其实也被叫做swish，当$\beta=1$时，叫做SiLU</p>
-<p>Swish由Google brain于2017年提出。</p>
-<p>他遍历了所有激活函数，并得出最好的是Swish。</p>
-<p>定义的激活函数如下：</p>
-<p><img src="swish.jpg" alt=""></p>
-<p>其中</p>
+<h3 id="《金阁寺》"><strong>《金阁寺》</strong></h3>
+<ul>
+<li>我想当艺术家，又过于傲慢，做一名暴君或大艺术家吧，但仅仅停留于幻想，丝毫不愿意着手干一点儿实际的事情。</li>
+<li>我唯一的自豪，就是不被人理解，所以未曾有过一次让人理解我的冲动的表现。我认为，自己命中注定不为他人所注意。孤独越来越肥硕，简直就像一头猪。</li>
+<li>本来，我的生活和外界几乎无缘，所以幻想着一旦闯入外界，一切都会变得轻而易举、迎刃而解了。</li>
+<li>此时，我感到自己化作了一块顽石，意志和欲望，一切都变成了石头。同我的内心毫无关系，外界确乎再次存在于我的周围。</li>
+<li>没等我参与，现实就横在眼前，而且带着从未见过的重负。这毫无意义的浩大的黑暗的现实，不由分说，迎头向我压迫过来。</li>
+<li>我诅咒有为子快死。几个月后，我的诅咒实现了。自那之后，我确信诅咒是很灵验的。</li>
+</ul>
+<h3 id="第四章"><strong>第四章</strong></h3>
+<ul>
+<li>这时，我体内产生了异样的冲动，如同满心重要的话语被口吃妨碍着一时难于迸发，这冲动只是在喉咙管里燃烧。我想寻求解脱。</li>
+<li>我们处于同世界对立的状态，这种可怕的不满需要通过世界和我们某一方的变化获得治愈。</li>
+<li>我们突然变得残暴是在一瞬之间，就像春日和煦的午后，坐在悉心修剪的草地上，朦胧眺望由树叶间漏泄下来的阳光，那种一眨眼的工夫。</li>
+</ul>
+<h3 id="第五章"><strong>第五章</strong></h3>
+<ul>
+<li>柏木暗示于我并当着我的面表演的人生，生存和毁灭只具有同一种意义。这种人生既缺少自然，那么，也缺少金阁一般的结构之美，可以说只是一种痛楚的痉挛而已。</li>
+<li>“未知的人生是难以忍受的。”</li>
+<li>就越发证明他对人生的一片忠诚</li>
+</ul>
+<h3 id="第六章"><strong>第六章</strong></h3>
+<ul>
+<li>自少年时代起，不为人所理解成为我唯一的骄傲。</li>
+<li>鹤川暴死之后，我未曾接触过生这个东西。过了很久，才开始接触个别非薄命的、更加黯淡的生，也就是只要继续活着就不断伤害他人的生的律动，并由此而受到鼓舞。</li>
+</ul>
+<h3 id="第七章"><strong>第七章</strong></h3>
+<ul>
+<li>我若多少有些人的感情，就无法不期待对方对我也要有相应的感情，不管是爱还是憎。</li>
+<li>我一任心脏怦怦地跳动，在这之前，我从未怀着希望等待过什么，这回的作孽只是期待着老师的憎恨。然而，我又幻想着人与人之间互相理解的戏剧性的热情洋溢的场面。</li>
+<li>“我想逃避周围的一切。我的周围臭气熏天，都是些无能的气息……老师也无能，非常无能。这我很清楚。”</li>
+<li>这里才是真正的内日本的海！是我一切不幸和灰暗思想的源泉，是我所有的丑行和力量的源泉！</li>
+</ul>
+<h3 id="第八章"><strong>第八章</strong></h3>
 <ul>
 <li>
-<p>Unary functions:<br>
-$x - x, |x|, x^2, x^3, \sqrt{x}, \beta x, x + \beta, \log(|x| + t), exp(x) \sin(x), cos(x)$,<br>
-$sinh(x), cosh(x), tanh(x), sinh^{-1}(x), tan^{-1}(x), sinc(x), max(x,0), min(x,0), \sigma(x)$,<br>
-$\log(1 + exp(x)), exp(-x^2), erf(x), \beta$</p>
+<p>打过来的手指乱了，指头的力量丧失了，指尖如细冰粒落在了脸上。</p>
 </li>
 <li>
-<p>Binary functions:<br>
-$x_1 + x_2, x_1 \times x_2, x_1 - x_2, \frac{x_1}{x_2 + 1}, max(x_1, x_2), min(x_1, x_2), \sigma(x_1) \cdot x_2$,<br>
-$exp(-\beta (x_1 - x_2)^2), exp(-\beta |x_1 - x_2|), \beta x_1 + (1 - \beta)x_2$</p>
+<p>“你净给我出难题啊！干了这等事，今后就不能在寺里待下去了，你想过没有？其他还有种种……”老师说了半截，大概顾忌着在场的柏木，不再说下去了，“钱我替你还，你回去吧。”</p>
+</li>
+<li>
+<p><strong>2025/02/17 发表想法</strong></p>
+<p>回归主题，这桩不幸的经历其实是“我”不幸的心灵造就的。“我”天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。 一个选择了自我毁灭，一个选择了与金阁寺共同毁灭。</p>
+<blockquote>
+<p>原文：“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”</p>
+</blockquote>
+</li>
+<li>
+<p>“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”</p>
+</li>
+<li>
+<p>“忍耐生命有没有别的办法可想呢？”“没有。剩下的要么发狂，要么死去。”</p>
 </li>
 </ul>
-<p>也有一篇论文从数学的角度上求解最佳的$\beta$：<a target="_blank" rel="noopener" href="https://core.ac.uk/download/pdf/41787448.pdf">《A logistic approximation to the cumulative normal distribution》</a></p>
-<h2 id="近似2">近似2</h2>
-<p>$$<br>
-\begin{equation}x\Phi(x)\approx \frac{1}{2} x \left[1 + \tanh\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715 x^3\right)\right)\right]\label{eq:x-phi}\end{equation}<br>
-$$</p>
-<p>可以追述到1977年的<a target="_blank" rel="noopener" href="https://www.jstor.org/stable/2346872">《Approximations to the Cumulative Normal Function and its Inverse for Use on a Pocket Calculator》</a></p>
-<p>它基于1963年Tocher提出的：<br>
-$$<br>
-F ( x )=\int_{-\infty}^{x} ! {\frac{1} {\sqrt{( 2 \pi)}}} , e^{-\frac{1}{2} u^{2}} d u \simeq e^{2 k x} / ( 1+e^{2 k x} )=\frac{1}{2}(1+tanh(kx)), \ \ k=\sqrt{( 2 / \pi)}<br>
-$$<br>
-在其论文中，进一步对$e^{2 k x} / ( 1+e^{2 k x} )$改进为$e^{2 k_1 x(1+k_2x^2)} / ( 1+e^{2 k_1 x(1+k_2x^2)} )$，并得到以上的近似。。</p>
-<p>但论文实际并没有给出具体使用什么方法求解出最佳系数。</p>
-<p>PS：<a target="_blank" rel="noopener" href="https://spaces.ac.cn/archives/7309">苏神</a>对以上进一步使用程序的寻找最佳系数。</p>
+<h3 id="第九章"><strong>第九章</strong></h3>
+<ul>
+<li>于是，一种被所有人抛弃的感觉袭击着我。</li>
+</ul>
+<h3 id="第十章"><strong>第十章</strong></h3>
+<ul>
+<li>我的内心和外界之间这把生锈的锁顺利地打开了，内心和外界打通了，风从那里自由地吹过。</li>
+<li>从这里看不见金阁的外形，只能看见翻滚的烟雾和冲天的火光。林木之间飘扬着众多的火粉，金阁的上空像遍洒着金沙子。我紧抱膝头，</li>
+</ul>
+<h3 id="译后记"><strong>译后记</strong></h3>
+<ul>
+<li>故而，我译《金阁寺》，满心如秋风般悲凉。</li>
+</ul>
+<p>来自微信读书</p>
 
                 
               </div>
@@ -379,7 +401,7 @@ $$<br>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+        <a href="/tags/%E9%98%85%E8%AF%BB/" class="print-no-link">#阅读</a>
       
     </div>
   
@@ -391,8 +413,8 @@ $$<br>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>GELU函数以其近似</div>
-      <div>https://lijianxiong.work/2025/20250216/</div>
+      <div>火烧金阁寺</div>
+      <div>https://lijianxiong.work/2025/20250217/</div>
     </div>
     <div class="license-meta">
       
@@ -404,7 +426,7 @@ $$<br>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年2月16日</div>
+          <div>2025年2月17日</div>
         </div>
       
       
@@ -436,18 +458,12 @@ $$<br>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/20250217/" title="火烧金阁寺">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">火烧金阁寺</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/20250215/" title="Mixture of Experts(MoE)">
-                        <span class="hidden-mobile">Mixture of Experts(MoE)</span>
+                      <a href="/2025/20250216/" title="GELU函数以其近似">
+                        <span class="hidden-mobile">GELU函数以其近似</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
