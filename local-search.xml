@@ -4,11 +4,30 @@
   
   
   <entry>
+    <title>GRPO</title>
+    <link href="/2025/20250220/"/>
+    <url>/2025/20250220/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>GRPO起自deepseekmath，在deepseek-R1中也大放光彩。</p><p>看到复旦某组开源了一个简单的仅~200行的关于GRPO的项目simple_GRPO，故决定学习并写写。</p><span id="more"></span><p>GRPO是PPO的改进。</p><p><img src="PPOVSGRPO.png" alt=""></p><p>具体流程图：</p><p><img src="GRPO.png" alt=""></p><p>流程看上去有点复杂，我们可以直接来看代码。</p><h2 id="loss-部分">loss 部分</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">GRPO_step</span>(<span class="hljs-params">batch</span>):</span><br>    prompt_length = batch[<span class="hljs-string">&#x27;plen&#x27;</span>]<br>    inputs = batch[<span class="hljs-string">&#x27;inputs&#x27;</span>].to(engine.device)<br>    rewards = batch[<span class="hljs-string">&#x27;rewards&#x27;</span>].to(engine.device)<br><br>    logits = engine(inputs).logits<br>    logits = logits[:, :-<span class="hljs-number">1</span>, :]  <span class="hljs-comment"># (B, L-1, V), exclude the last logit: it corresponds to the next token pred</span><br>    input_ids = inputs[:, <span class="hljs-number">1</span>:]  <span class="hljs-comment"># (B, L-1), exclude the first input ID since we don&#x27;t have logits for it</span><br>    <br>    per_token_logps = get_per_token_logps(logits, input_ids)<br>    per_token_logps = per_token_logps[:,prompt_length-<span class="hljs-number">1</span>:]<br>    ref_per_token_logps = batch[<span class="hljs-string">&#x27;refs&#x27;</span>].to(per_token_logps.device)<br><br>    per_token_kl = torch.exp(ref_per_token_logps - per_token_logps) - (ref_per_token_logps - per_token_logps) - <span class="hljs-number">1</span><br>    completion_mask = (inputs[:, prompt_length:] != tokenizer.pad_token_id).<span class="hljs-built_in">int</span>()<br><br>    mean_grouped_rewards = rewards.view(-<span class="hljs-number">1</span>, num_pre_Q).mean(dim=<span class="hljs-number">1</span>)<br>    std_grouped_rewards = rewards.view(-<span class="hljs-number">1</span>, num_pre_Q).std(dim=<span class="hljs-number">1</span>)<br>    mean_grouped_rewards = mean_grouped_rewards.repeat_interleave(num_pre_Q, dim=<span class="hljs-number">0</span>)<br>    std_grouped_rewards = std_grouped_rewards.repeat_interleave(num_pre_Q, dim=<span class="hljs-number">0</span>)<br>    advantages = (rewards - mean_grouped_rewards) / (std_grouped_rewards + <span class="hljs-number">1e-4</span>)<br><br>    per_token_loss = torch.exp(per_token_logps - per_token_logps.detach()) * advantages.unsqueeze(<span class="hljs-number">1</span>)<br>    per_token_loss = -(per_token_loss - beta * per_token_kl)<br>    loss = ((per_token_loss * completion_mask).<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">1</span>) / completion_mask.<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">1</span>)).mean()<br>    <span class="hljs-keyword">return</span> loss<br><br></code></pre></td></tr></table></figure><h3 id="无偏小方差KL">无偏小方差KL</h3><p><a href="https://github.com/huggingface/trl/pull/2806">@ingambe在这里</a>尝试了把KL项去掉了，但也取得不错的效果。<a href="https://arxiv.org/pdf/2405.14734">SimPO</a>也删去了reference model，且取得了比DPO更好的结果。<br>这也给了我们一个反思：<strong>既然GRPO在PPO的基础上去除掉了value model，那reference model也是必要的吗？我们可以完全去掉它吗？</strong></p><h3 id="分析">分析</h3><h3 id="实际上无clip">实际上无clip</h3><p>另外，实际是代码实现上GRPO 的损失没有 clip，也直接假设ratio=1，（ TRL 源码也是这样做的。）</p><p>这是因为只update一次，如deepseekmath中所说。</p><blockquote><p>“The policy model only has a single update following each exploration stage”——deepseekmath中4.2. Training and Evaluating DeepSeekMath-RL</p></blockquote><p>所以old policy和new policy无变化。</p><h2 id="参考资料">参考资料</h2><ol><li><a href="https://github.com/lsdefine/simple_GRPO">github项目: simple_GRPO</a></li><li><a href="https://arxiv.org/pdf/2402.03300">《DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models》</a></li><li><a href="http://joschu.net/blog/kl-approx.html">Approximating KL Divergence</a></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>火烧金阁寺</title>
     <link href="/2025/20250217/"/>
     <url>/2025/20250217/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>金阁寺是三岛由纪夫所著。</p><p>我一向对日本文学除侦探小说以外的书籍不太感兴趣，诸如比较著名的村上春树，我也阅读较少。觉得它们阴沉和晦涩。</p><p>我接触三岛由纪夫的相关书籍，可以追溯到高中搬宿舍时从高中学长“继承”而来的《晓寺》。那边草草阅读了一些，就结束了对三岛由纪夫的接触。</p><p>看这本三岛由纪夫的《金阁寺》源自fabel的《风吹草动》。由林夕作词，其中写道“火烧金阁寺，是哪一位比我痴”，“分于金阁寺，大有超生的意思”。</p><span id="more"></span><p>这部《金阁寺》。但对于，可以以书中的一句话一言以蔽之：“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”回归主题，这桩不幸的经历其实是“我”不幸的心灵造就的。“我”天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。 “我”的朋友选择了自我毁灭，而“我”选择了与金阁寺共同毁灭。</p><h2 id="摘抄">摘抄</h2><h3 id="《金阁寺》"><strong>《金阁寺》</strong></h3><ul><li>我想当艺术家，又过于傲慢，做一名暴君或大艺术家吧，但仅仅停留于幻想，丝毫不愿意着手干一点儿实际的事情。</li><li>我唯一的自豪，就是不被人理解，所以未曾有过一次让人理解我的冲动的表现。我认为，自己命中注定不为他人所注意。孤独越来越肥硕，简直就像一头猪。</li><li>本来，我的生活和外界几乎无缘，所以幻想着一旦闯入外界，一切都会变得轻而易举、迎刃而解了。</li><li>此时，我感到自己化作了一块顽石，意志和欲望，一切都变成了石头。同我的内心毫无关系，外界确乎再次存在于我的周围。</li><li>没等我参与，现实就横在眼前，而且带着从未见过的重负。这毫无意义的浩大的黑暗的现实，不由分说，迎头向我压迫过来。</li><li>我诅咒有为子快死。几个月后，我的诅咒实现了。自那之后，我确信诅咒是很灵验的。</li></ul><h3 id="第四章"><strong>第四章</strong></h3><ul><li>这时，我体内产生了异样的冲动，如同满心重要的话语被口吃妨碍着一时难于迸发，这冲动只是在喉咙管里燃烧。我想寻求解脱。</li><li>我们处于同世界对立的状态，这种可怕的不满需要通过世界和我们某一方的变化获得治愈。</li><li>我们突然变得残暴是在一瞬之间，就像春日和煦的午后，坐在悉心修剪的草地上，朦胧眺望由树叶间漏泄下来的阳光，那种一眨眼的工夫。</li></ul><h3 id="第五章"><strong>第五章</strong></h3><ul><li>柏木暗示于我并当着我的面表演的人生，生存和毁灭只具有同一种意义。这种人生既缺少自然，那么，也缺少金阁一般的结构之美，可以说只是一种痛楚的痉挛而已。</li><li>“未知的人生是难以忍受的。”</li><li>就越发证明他对人生的一片忠诚</li></ul><h3 id="第六章"><strong>第六章</strong></h3><ul><li>自少年时代起，不为人所理解成为我唯一的骄傲。</li><li>鹤川暴死之后，我未曾接触过生这个东西。过了很久，才开始接触个别非薄命的、更加黯淡的生，也就是只要继续活着就不断伤害他人的生的律动，并由此而受到鼓舞。</li></ul><h3 id="第七章"><strong>第七章</strong></h3><ul><li>我若多少有些人的感情，就无法不期待对方对我也要有相应的感情，不管是爱还是憎。</li><li>我一任心脏怦怦地跳动，在这之前，我从未怀着希望等待过什么，这回的作孽只是期待着老师的憎恨。然而，我又幻想着人与人之间互相理解的戏剧性的热情洋溢的场面。</li><li>“我想逃避周围的一切。我的周围臭气熏天，都是些无能的气息……老师也无能，非常无能。这我很清楚。”</li><li>这里才是真正的内日本的海！是我一切不幸和灰暗思想的源泉，是我所有的丑行和力量的源泉！</li></ul><h3 id="第八章"><strong>第八章</strong></h3><ul><li><p>打过来的手指乱了，指头的力量丧失了，指尖如细冰粒落在了脸上。</p></li><li><p>“你净给我出难题啊！干了这等事，今后就不能在寺里待下去了，你想过没有？其他还有种种……”老师说了半截，大概顾忌着在场的柏木，不再说下去了，“钱我替你还，你回去吧。”</p></li><li><p><strong>2025/02/17 发表想法</strong></p><p>回归主题，这桩不幸的经历其实是“我”不幸的心灵造就的。“我”天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。 一个选择了自我毁灭，一个选择了与金阁寺共同毁灭。</p><blockquote><p>原文：“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”</p></blockquote></li><li><p>“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”</p></li><li><p>“忍耐生命有没有别的办法可想呢？”“没有。剩下的要么发狂，要么死去。”</p></li></ul><h3 id="第九章"><strong>第九章</strong></h3><ul><li>于是，一种被所有人抛弃的感觉袭击着我。</li></ul><h3 id="第十章"><strong>第十章</strong></h3><ul><li>我的内心和外界之间这把生锈的锁顺利地打开了，内心和外界打通了，风从那里自由地吹过。</li><li>从这里看不见金阁的外形，只能看见翻滚的烟雾和冲天的火光。林木之间飘扬着众多的火粉，金阁的上空像遍洒着金沙子。我紧抱膝头，</li></ul><h3 id="译后记"><strong>译后记</strong></h3><ul><li>故而，我译《金阁寺》，满心如秋风般悲凉。</li></ul>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>金阁寺是三岛由纪夫所著。</p><p>我一向对日本文学除侦探小说以外的书籍不太感兴趣，诸如比较著名的村上春树，我也阅读较少。觉得它们阴沉和晦涩。</p><p>我接触三岛由纪夫的相关书籍，可以追溯到高中搬宿舍时从高中学长“继承”而来的《晓寺》。那边草草阅读了一些，就结束了对三岛由纪夫的接触。</p><p>看这本三岛由纪夫的《金阁寺》源自fabel的《风吹草动》。由林夕作词，其中写道“火烧金阁寺，是哪一位比我痴”，“分于金阁寺，大有超生的意思”。</p><span id="more"></span><p>这部《金阁寺》讲述了沟口。但对于，可以以书中的一句话一言以蔽之：“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”回归主题，这桩不幸的经历其实是“我”不幸的心灵造就的。“我”天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。 “我”的朋友选择了自我毁灭，而“我”选择了与金阁寺共同毁灭。</p><p>《晓寺》拗口而晦涩，但是这部《金阁寺》反而更易懂且笔锋尖锐和深入。</p><h2 id="摘抄">摘抄</h2><h3 id="《金阁寺》"><strong>《金阁寺》</strong></h3><ul><li>我想当艺术家，又过于傲慢，做一名暴君或大艺术家吧，但仅仅停留于幻想，丝毫不愿意着手干一点儿实际的事情。</li><li>我唯一的自豪，就是不被人理解，所以未曾有过一次让人理解我的冲动的表现。我认为，自己命中注定不为他人所注意。孤独越来越肥硕，简直就像一头猪。</li><li>本来，我的生活和外界几乎无缘，所以幻想着一旦闯入外界，一切都会变得轻而易举、迎刃而解了。</li><li>此时，我感到自己化作了一块顽石，意志和欲望，一切都变成了石头。同我的内心毫无关系，外界确乎再次存在于我的周围。</li><li>没等我参与，现实就横在眼前，而且带着从未见过的重负。这毫无意义的浩大的黑暗的现实，不由分说，迎头向我压迫过来。</li><li>我诅咒有为子快死。几个月后，我的诅咒实现了。自那之后，我确信诅咒是很灵验的。</li></ul><h3 id="第四章"><strong>第四章</strong></h3><ul><li>这时，我体内产生了异样的冲动，如同满心重要的话语被口吃妨碍着一时难于迸发，这冲动只是在喉咙管里燃烧。我想寻求解脱。</li><li>我们处于同世界对立的状态，这种可怕的不满需要通过世界和我们某一方的变化获得治愈。</li><li>我们突然变得残暴是在一瞬之间，就像春日和煦的午后，坐在悉心修剪的草地上，朦胧眺望由树叶间漏泄下来的阳光，那种一眨眼的工夫。</li></ul><h3 id="第五章"><strong>第五章</strong></h3><ul><li>柏木暗示于我并当着我的面表演的人生，生存和毁灭只具有同一种意义。这种人生既缺少自然，那么，也缺少金阁一般的结构之美，可以说只是一种痛楚的痉挛而已。</li><li>“未知的人生是难以忍受的。”</li><li>就越发证明他对人生的一片忠诚</li></ul><h3 id="第六章"><strong>第六章</strong></h3><ul><li>自少年时代起，不为人所理解成为我唯一的骄傲。</li><li>鹤川暴死之后，我未曾接触过生这个东西。过了很久，才开始接触个别非薄命的、更加黯淡的生，也就是只要继续活着就不断伤害他人的生的律动，并由此而受到鼓舞。</li></ul><h3 id="第七章"><strong>第七章</strong></h3><ul><li>我若多少有些人的感情，就无法不期待对方对我也要有相应的感情，不管是爱还是憎。</li><li>我一任心脏怦怦地跳动，在这之前，我从未怀着希望等待过什么，这回的作孽只是期待着老师的憎恨。然而，我又幻想着人与人之间互相理解的戏剧性的热情洋溢的场面。</li><li>“我想逃避周围的一切。我的周围臭气熏天，都是些无能的气息……老师也无能，非常无能。这我很清楚。”</li><li>这里才是真正的内日本的海！是我一切不幸和灰暗思想的源泉，是我所有的丑行和力量的源泉！</li></ul><h3 id="第八章"><strong>第八章</strong></h3><ul><li><p>打过来的手指乱了，指头的力量丧失了，指尖如细冰粒落在了脸上。</p></li><li><p>“你净给我出难题啊！干了这等事，今后就不能在寺里待下去了，你想过没有？其他还有种种……”老师说了半截，大概顾忌着在场的柏木，不再说下去了，“钱我替你还，你回去吧。”</p></li><li><p><strong>2025/02/17 发表想法</strong></p><p>回归主题，这桩不幸的经历其实是“我”不幸的心灵造就的。“我”天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。 一个选择了自我毁灭，一个选择了与金阁寺共同毁灭。</p><blockquote><p>原文：“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”</p></blockquote></li><li><p>“如今想想，这桩不幸的恋爱其实是我不幸的心灵造就的。我天生有一副黯淡的心灵，从来没有体验过欢乐明朗的感情。”</p></li><li><p>“忍耐生命有没有别的办法可想呢？”“没有。剩下的要么发狂，要么死去。”</p></li></ul><h3 id="第九章"><strong>第九章</strong></h3><ul><li>于是，一种被所有人抛弃的感觉袭击着我。</li></ul><h3 id="第十章"><strong>第十章</strong></h3><ul><li>我的内心和外界之间这把生锈的锁顺利地打开了，内心和外界打通了，风从那里自由地吹过。</li><li>从这里看不见金阁的外形，只能看见翻滚的烟雾和冲天的火光。林木之间飘扬着众多的火粉，金阁的上空像遍洒着金沙子。我紧抱膝头，</li></ul><h3 id="译后记"><strong>译后记</strong></h3><ul><li>故而，我译《金阁寺》，满心如秋风般悲凉。</li></ul><h2 id="林夕之金阁寺">林夕之金阁寺</h2><p>既然缘起林夕，就不得不提林夕与金阁寺，他们的关系可以追述到2013年于KKBOX的专栏【非關音樂】<a href="http://cantonpopsong.blogspot.com/2013/11/kk-box.html">《拿下了你這感情包袱 ，或者反而相信愛》</a> 。</p><p>全文如下：（原文繁体，已转为简体）</p><p>亲爱的，当我们爱到透明，别误会，不是把你当透明，而是，当我们朝夕长期相看，看著见著，渐渐把感情的现象，看透了背后的本质，爱变得清晰了，却也变稀薄了。当中因果关系，大概谁都不愿意考究。</p><blockquote><p>林夕给许廷铿写过一首《爱到透明》:</p><p>从盲目爱到透明 就当我透明<br>其实我衷心高兴 你忠于本性<br>你也许每晚要给感动<br>自自然熟到感觉过剩<br>我退出只因功成 无谓反省<br>你只想搬走这布景<br>谈情像一起堆砌著模型<br>完成了想有什么反应</p></blockquote><p>当那样天天共处，有你在就有我在，应该算是爱著的时候，一切都是理所当然，习以为常的－就像长在脚趾上的甲，没有凸显出来，就好好隐藏在鞋子里，直到把脚尖弄痛了。</p><p>之前，日子赶日子，话赶话，赶忙到只觉得好受与不好受，没有爱与不爱那么严重。生活是沈重的，而感觉越来越轻，但又长了厚厚的茧，我们忙著打理一个共处的窝，多于经营关系。或者所有由聚而散的故事，都免不了这段剧情的线索，只顾著修理坏掉的电器，顾不上修剪过长的脚甲。</p><p>亲爱的，我忽然不想过著顾店般的日子，琐碎麻烦，连一个人去一趟京都，看看金阁寺的静美，都显得不太合适－我不是嫌弃有你在旁，这何尝不曾是我梦寐以求的画面，只是有时候会很想静静一个人看天赏地，而无需有熟人听我说感受、或给我当评述员，你也会偶然这样吧。</p><p>当我自诩是个重感情的人，觉得不好意思把你当包袱看待时，才又第一次怀疑，感情只像趾甲，更行更远还生，爱情呢？</p><p>于是就分了、松了、清空了。</p><p>曾经有个朋友，在失恋后表现失措，听了半杯水的寓言后，立时就没事了，痛得真快，真痛快。半杯水是半满还是半空，我并不关心这问题的答案，因为如今我像个清空了杯，水都泼光了，什么包袱都没有了。人说，空杯才容得下活水，空腹才吃得下美食，空，才容纳到福气，诸如此类。</p><blockquote><p>水的暗喻让我想到了黄伟文所写的《多喝水》：</p><p>若这天 讲到他 还是死穴<br>爱共仇 不去解决 还会作孽<br>为时未晚 怨毒每天清洁<br>饮多杯水 冲开心底那 蝴蝶结</p></blockquote><p>而我的空啊，我看著个空瓶子，玻璃般透明，却看到了爱确实存在过。不是因为什么失去才懂得珍惜，而是能把感情当作包袱看待，正因为当中有爱情，否则，如同一张坐久了的沙发，谁会起了那个劲去换掉？就一直坐下去好了。</p><p>因为我们都不够懒，才会有今天的结果吧。因为不能再这样下去，才证明我爱你、因为不能再忍受，才发现爱的感受、因为怀疑，才重新相信，这信念，可算悲欣交集。</p><p>「你是千堆雪，我是长街，怕日出一到，彼此瓦解。」这没什么可怕，谁是雪谁是街也好，爱情需要个实践的地方，如果这是一个家，烦心事就多了，要符合的条件就多了。条件即是因缘，因缘际会，家就似家，条件消失了，家不像家；如春暖雪融，家的前身，原来是条荒街。之前能冰封三尺，自非一日之寒，因为冬寒，我们有相依取暖的必要与条件，反而风和日丽就……这样的真相，很容易理解，亦很难消化，再排泄成养分。</p><blockquote><p>《临崖勒马》：</p><p>就快被破坏沦落家不似家</p><p>若嫩芽突然全部腐化</p><p>浑浊浓雾弥漫难淡化</p><p>太可怕 这代价</p></blockquote><p>这天，我轻身上路，来到京都金阁寺，没有包袱也不再是谁的包袱，心静如初雪无声。亲爱的，这种释然，竟让我流完快乐的眼泪，再微笑得有点伤感。</p>]]></content>
     
     
     
@@ -271,7 +290,7 @@
     <link href="/2024/20240623/"/>
     <url>/2024/20240623/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-KxZIiBfm" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.00]戀愛腦之死 - 陳健安[00:01.29]詞：Oscar[00:01.77]曲：陳健安/賴映彤[00:02.76]編曲：賴映彤[00:03.49]監製：賴映彤/陳健安[00:27.08]喜歡得轟烈 轟得開天門[00:32.41]懶去管 萬千種批判[00:40.18]喜歡得荒謬 若你也肯相伴[00:45.40]能隨便 用一切交換[00:53.01]可給我烙刑 能燃盡髮膚 燒光心性[01:03.95]全部勸解不會聽[01:07.75]蠶食了本身理性[01:11.06]這麼情願 消耗生命[01:20.89]曾話我愛你我願愛到死[01:25.95]用儘力沒頭沒腦似鬼魅[01:30.38]殺了上帝亦為你[01:34.15]然後愛夠你發現愛已死[01:38.78]望昨日就如爛透文青戲[01:44.27]毫無意味[01:52.54]單戀的思念 失戀的癡纏[01:57.91]我的天 我要癡戀不要臉[02:05.67]洶湧的執念 讓我這麼低賤[02:11.22]我的癲 如受騙 又愛演[02:15.45]磨利劍 為那天 別脫險[02:18.63]我太過渴望被愛[02:20.20]痛到向世界致哀[02:21.81]斷絕後路別下台[02:23.45]我要你看著喝采[02:25.15]船撞碎 就更好 別救災[02:31.79]你說要我學習愛[02:33.33]我也說真的應該[02:37.09]卻一早給掩蓋[02:40.59]無能力明白愛[03:25.96]曾話我愛你我願愛到死[03:30.59]用儘力沒頭沒腦似鬼魅[03:35.55]殺了上帝亦為你[03:39.00]然後愛夠你發現愛已死[03:43.67]望昨日就如爛透文青戲[03:49.27]毫無意味[03:53.93]過去了 遠去了 去到這次我已退燒[03:57.19]看到了 看破了[03:58.81]說我愛你也都不過[04:00.45]統統只因戀愛腦是自我擴張而惹笑[04:03.60]其實說破 唯獨愛我[04:05.22]只反映出哀傷的對照[04:07.00]過去了 遠去了 去到這次我已退燒[04:10.35]終於都得知收跟放也極重要[04:12.67]就來憑弔那段錯戀[04:14.49]太可悲 同樣也 極渺小</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-KxZIiBfm"),narrow: false,autoplay: false,showlrc: 2,music: {title: "恋爱脑之死",author: "陈健安",url: "/music/恋爱脑之死.mp3",pic: "/2024/20240623/brdead.jpg",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><p>一个恋爱脑栽过去，喊打喊杀呼天抢地头昏目涨血肉模糊，就如同发了一场汹汹涌涌的梦 - 一觉醒来，此人回头发现自己原来一无所有，但也同时发肤无损，生命完好无缺。<br>摸一摸那没有伤口的额头，他问自己，我爱的是那个人？是我自己？是爱的感觉？还是我的恋爱脑？</p><span id="more"></span><hr><p>陈健安</p><p>《恋爱脑之死》<br>作词：Oscar<br>作曲：陈健安 / 赖映彤<br>编曲：赖映彤<br>监制：赖映彤 / 陈健安<br>喜欢得轰烈 轰得开天门<br>懒去管 万千种批判<br>喜欢得荒谬 若你也肯相伴<br>能随便 用一切交换</p><p>可给我烙刑 能燃尽发肤 烧光心性<br>全部劝解不会听<br>蚕食了本身理性<br>这么情愿 消耗生命</p><blockquote><p>用血肉 去为你 造教堂<br>你颁布 的圣经 多好看<br>自发为你奉献 像祭典</p><p>——雷深如《无神论》</p></blockquote><p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅</p><blockquote><p>爱到了自卑自贱没有人味<br>平日不必照镜也会嫌弃<br>凭贤淑纵容狂人同样也可鄙</p><p>——林欣彤《忍》</p></blockquote><p>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p><p>单恋的思念 失恋的痴缠<br>我的天 我要痴恋不要脸<br>汹涌的执念 让我这么低贱<br>我的癫 如受骗 又爱演</p><blockquote><p>无谓设计了布局 这样快结局 爱与痛也不到肉</p><p>像战争片 最好有死有伤 未吓到尖叫哭也不流畅</p><p>——陈奕迅 《 斯德哥尔摩情人》</p></blockquote><p>磨利剑 为那天 别脱险</p><p>我太过渴望被爱</p><blockquote><p>求爱心急如焚 我才神化一堆凡人<br>神蹟皆小事扮亢奋</p><p>——雷深如《无神论》</p></blockquote><p>痛到向世界致哀<br>断绝后路别下台<br>我要你看着喝采<br>船撞碎 就更好 别救灾</p><blockquote><p>受够苦 门徒便不想牺牲</p><p>——雷深如《无神论》</p></blockquote><p>你说要我学习爱<br>我也说真的应该<br>却一早给掩盖<br>无能力明白爱</p><p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅<br>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p><blockquote><p>重复的眼泪<br>就是你自欺的安慰奖<br>你擅长 创造背叛你的失意卖相<br>是你坚拒平凡对象 习惯活在遐想<br>为肤浅漂亮<br>长期舔着失恋的创伤<br>你擅长 制造你无悔的伟大形像<br>凡是歌里有悲哀这个字 才愿唱<br>忘掉现实的你<br>沉溺于悲剧美</p><p>——张敬轩《悲剧人物》</p></blockquote><p>过去了 远去了 去到这次我已退烧</p><blockquote><p>别再制造神 为搏衪悲悯</p><p>——雷深如《无神论》</p></blockquote><p>看到了 看破了<br>说我爱你也都不过<br>统统只因恋爱脑是自我扩张而惹笑<br>其实说破 唯独爱我<br>只反映出哀伤的对照</p><blockquote><p>那一線眼淚 欠大志 太沒意思</p><p>——张敬轩《春秋》</p></blockquote><p>过去了 远去了 去到这次我已退烧<br>终于都得知收跟放 也极重要<br>就来凭吊 那段错恋<br>太可悲 同样也 极渺小</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="aplayer-OYFDrSFX" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.00]戀愛腦之死 - 陳健安[00:01.29]詞：Oscar[00:01.77]曲：陳健安/賴映彤[00:02.76]編曲：賴映彤[00:03.49]監製：賴映彤/陳健安[00:27.08]喜歡得轟烈 轟得開天門[00:32.41]懶去管 萬千種批判[00:40.18]喜歡得荒謬 若你也肯相伴[00:45.40]能隨便 用一切交換[00:53.01]可給我烙刑 能燃盡髮膚 燒光心性[01:03.95]全部勸解不會聽[01:07.75]蠶食了本身理性[01:11.06]這麼情願 消耗生命[01:20.89]曾話我愛你我願愛到死[01:25.95]用儘力沒頭沒腦似鬼魅[01:30.38]殺了上帝亦為你[01:34.15]然後愛夠你發現愛已死[01:38.78]望昨日就如爛透文青戲[01:44.27]毫無意味[01:52.54]單戀的思念 失戀的癡纏[01:57.91]我的天 我要癡戀不要臉[02:05.67]洶湧的執念 讓我這麼低賤[02:11.22]我的癲 如受騙 又愛演[02:15.45]磨利劍 為那天 別脫險[02:18.63]我太過渴望被愛[02:20.20]痛到向世界致哀[02:21.81]斷絕後路別下台[02:23.45]我要你看著喝采[02:25.15]船撞碎 就更好 別救災[02:31.79]你說要我學習愛[02:33.33]我也說真的應該[02:37.09]卻一早給掩蓋[02:40.59]無能力明白愛[03:25.96]曾話我愛你我願愛到死[03:30.59]用儘力沒頭沒腦似鬼魅[03:35.55]殺了上帝亦為你[03:39.00]然後愛夠你發現愛已死[03:43.67]望昨日就如爛透文青戲[03:49.27]毫無意味[03:53.93]過去了 遠去了 去到這次我已退燒[03:57.19]看到了 看破了[03:58.81]說我愛你也都不過[04:00.45]統統只因戀愛腦是自我擴張而惹笑[04:03.60]其實說破 唯獨愛我[04:05.22]只反映出哀傷的對照[04:07.00]過去了 遠去了 去到這次我已退燒[04:10.35]終於都得知收跟放也極重要[04:12.67]就來憑弔那段錯戀[04:14.49]太可悲 同樣也 極渺小</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-OYFDrSFX"),narrow: false,autoplay: false,showlrc: 2,music: {title: "恋爱脑之死",author: "陈健安",url: "/music/恋爱脑之死.mp3",pic: "/2024/20240623/brdead.jpg",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><p>一个恋爱脑栽过去，喊打喊杀呼天抢地头昏目涨血肉模糊，就如同发了一场汹汹涌涌的梦 - 一觉醒来，此人回头发现自己原来一无所有，但也同时发肤无损，生命完好无缺。<br>摸一摸那没有伤口的额头，他问自己，我爱的是那个人？是我自己？是爱的感觉？还是我的恋爱脑？</p><span id="more"></span><hr><p>陈健安</p><p>《恋爱脑之死》<br>作词：Oscar<br>作曲：陈健安 / 赖映彤<br>编曲：赖映彤<br>监制：赖映彤 / 陈健安<br>喜欢得轰烈 轰得开天门<br>懒去管 万千种批判<br>喜欢得荒谬 若你也肯相伴<br>能随便 用一切交换</p><p>可给我烙刑 能燃尽发肤 烧光心性<br>全部劝解不会听<br>蚕食了本身理性<br>这么情愿 消耗生命</p><blockquote><p>用血肉 去为你 造教堂<br>你颁布 的圣经 多好看<br>自发为你奉献 像祭典</p><p>——雷深如《无神论》</p></blockquote><p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅</p><blockquote><p>爱到了自卑自贱没有人味<br>平日不必照镜也会嫌弃<br>凭贤淑纵容狂人同样也可鄙</p><p>——林欣彤《忍》</p></blockquote><p>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p><p>单恋的思念 失恋的痴缠<br>我的天 我要痴恋不要脸<br>汹涌的执念 让我这么低贱<br>我的癫 如受骗 又爱演</p><blockquote><p>无谓设计了布局 这样快结局 爱与痛也不到肉</p><p>像战争片 最好有死有伤 未吓到尖叫哭也不流畅</p><p>——陈奕迅 《 斯德哥尔摩情人》</p></blockquote><p>磨利剑 为那天 别脱险</p><p>我太过渴望被爱</p><blockquote><p>求爱心急如焚 我才神化一堆凡人<br>神蹟皆小事扮亢奋</p><p>——雷深如《无神论》</p></blockquote><p>痛到向世界致哀<br>断绝后路别下台<br>我要你看着喝采<br>船撞碎 就更好 别救灾</p><blockquote><p>受够苦 门徒便不想牺牲</p><p>——雷深如《无神论》</p></blockquote><p>你说要我学习爱<br>我也说真的应该<br>却一早给掩盖<br>无能力明白爱</p><p>曾话我爱你我愿爱到死<br>用尽力没头没脑似鬼魅<br>杀了上帝亦为你<br>然后爱够你发现爱已死<br>望昨日就如烂透文青戏<br>毫无意味</p><blockquote><p>重复的眼泪<br>就是你自欺的安慰奖<br>你擅长 创造背叛你的失意卖相<br>是你坚拒平凡对象 习惯活在遐想<br>为肤浅漂亮<br>长期舔着失恋的创伤<br>你擅长 制造你无悔的伟大形像<br>凡是歌里有悲哀这个字 才愿唱<br>忘掉现实的你<br>沉溺于悲剧美</p><p>——张敬轩《悲剧人物》</p></blockquote><p>过去了 远去了 去到这次我已退烧</p><blockquote><p>别再制造神 为搏衪悲悯</p><p>——雷深如《无神论》</p></blockquote><p>看到了 看破了<br>说我爱你也都不过<br>统统只因恋爱脑是自我扩张而惹笑<br>其实说破 唯独爱我<br>只反映出哀伤的对照</p><blockquote><p>那一線眼淚 欠大志 太沒意思</p><p>——张敬轩《春秋》</p></blockquote><p>过去了 远去了 去到这次我已退烧<br>终于都得知收跟放 也极重要<br>就来凭吊 那段错恋<br>太可悲 同样也 极渺小</p>]]></content>
     
     
     
@@ -1685,7 +1704,7 @@
     <link href="/2022/20220509/"/>
     <url>/2022/20220509/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​</p><div id="aplayer-KsmSTyTV" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-KsmSTyTV"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​</p><div id="aplayer-PFvBZlvF" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-PFvBZlvF"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
     
     
     
@@ -2084,9 +2103,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
       <tag>深度学习</tag>
       
@@ -2292,9 +2311,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -2313,9 +2332,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
       <tag>深度学习</tag>
       
@@ -2376,9 +2395,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -2435,9 +2454,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -2515,9 +2534,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -2536,9 +2555,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -2616,9 +2635,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -2637,9 +2656,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
