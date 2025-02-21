@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250220/PPOVSGRPO.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250220/GRPO.png">
 <meta property="article:published_time" content="2025-02-20T13:14:32.000Z">
-<meta property="article:modified_time" content="2025-02-21T14:09:35.153Z">
+<meta property="article:modified_time" content="2025-02-21T14:14:36.598Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          418 字
+          529 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -334,7 +334,11 @@
 $$<br>
 K L [ q, p ]=\sum_{x} q ( x ) \operatorname{log} \frac{q ( x )} {p ( x )}=E_{x \sim q} [ \operatorname{log} \frac{q ( x )} {p ( x )} ]<br>
 $$<br>
-<a target="_blank" rel="noopener" href="https://github.com/huggingface/trl/pull/2806">@ingambe在这里</a>尝试了把KL项去掉了，但也取得不错的效果。<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2405.14734">SimPO</a>也删去了reference model，且取得了比DPO更好的结果。<br>
+如何构建一个好的估计？<strong>一个好的估计量是无偏的（它有正确的均值）并且具有低方差。</strong></p>
+<p>一个无偏估计量是$log\frac{q(x)}{p(x)}=-log r$，但他有高方差，因为他对于因为它对于一半的样本是负的，而 KL 总是正的。</p>
+<p>另一个低方差但存在偏差的是$\frac{1}{2}(log\frac{q(x)}{p(x)})^2=\frac{1}{2}(logr)^2$</p>
+<p>要满足</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/trl/pull/2806">@ingambe在这里</a>尝试了把KL项去掉了，但也取得不错的效果。<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2405.14734">SimPO</a>也删去了reference model，且取得了比DPO更好的结果。<br>
 这也给了我们一个反思：<strong>既然GRPO在PPO的基础上去除掉了value model，那reference model也是必要的吗？我们可以完全去掉它吗？</strong></p>
 <h3 id="分析">分析</h3>
 <h3 id="实际上无clip">实际上无clip</h3>
