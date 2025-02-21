@@ -17802,7 +17802,7 @@ $$<br>
   <entry>
     <title>GRPO</title>
     <url>/2025/20250220/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>GRPO起自deepseekmath，在deepseek-R1中也大放光彩。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>GRPO起自deepseekmath，在deepseek-R1中也大放光彩。</p>
 <p>看到复旦某组开源了一个简单的仅~200行的关于GRPO的项目simple_GRPO，故决定学习并写写。</p>
 <span id="more"></span>
 <p>GRPO是PPO的改进。</p>
@@ -17819,9 +17819,16 @@ $$<br>
 K L [ q, p ]=\sum_{x} q ( x ) \operatorname{log} \frac{q ( x )} {p ( x )}=E_{x \sim q} [ \operatorname{log} \frac{q ( x )} {p ( x )} ]<br>
 $$<br>
 如何构建一个好的估计？<strong>一个好的估计量是无偏的（它有正确的均值）并且具有低方差。</strong></p>
-<p>一个无偏估计量是$log\frac{q(x)}{p(x)}=-log r$，但他有高方差，因为他对于因为它对于一半的样本是负的，而 KL 总是正的。</p>
-<p>另一个低方差但存在偏差的是$\frac{1}{2}(log\frac{q(x)}{p(x)})^2=\frac{1}{2}(logr)^2$</p>
-<p>要满足</p>
+<p>一个无偏估计量k1是$k1=log\frac{q(x)}{p(x)}=-log r$，但他有高方差，因为他对于因为它对于一半的样本是负的，而 KL 总是正的。</p>
+<p>另一个低方差但存在偏差的估计量k2是$k2=\frac{1}{2}(log\frac{q(x)}{p(x)})^2=\frac{1}{2}(logr)^2$。</p>
+<p>它的期望可以从<a href="https://en.wikipedia.org/wiki/F-divergence">f-divergence</a>上考虑，其定义为凸函数f的$D_{f} ( p, q )=E_{x \sim q} [ f ( \frac{p ( x )} {q ( x )} ) ] $。</p>
+<p>而<br>
+$$<br>
+D_{f} ( p_{0}, p_{\theta} )=\frac{f^{\prime\prime} ( 1 )} {2} \theta^{T} F \theta+O ( \theta^{3} )<br>
+$$<br>
+其中F是$p_\theta=p_0$处的Fisher information matrix。</p>
+<p>$E_{q} [ k_{2} ]=E_{q} [ \frac{1} {2} ( \operatorname{log} r )^{2} ]$，而$\frac{1}{2}(log(x))^2$和传统KL对应的$-log(x)$具有相同的$f’'(1)=1$。<br>
+要满足</p>
 <p><a href="https://github.com/huggingface/trl/pull/2806">@ingambe在这里</a>尝试了把KL项去掉了，但也取得不错的效果。<a href="https://arxiv.org/pdf/2405.14734">SimPO</a>也删去了reference model，且取得了比DPO更好的结果。<br>
 这也给了我们一个反思：<strong>既然GRPO在PPO的基础上去除掉了value model，那reference model也是必要的吗？我们可以完全去掉它吗？</strong></p>
 <h3 id="分析">分析</h3>
