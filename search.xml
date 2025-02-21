@@ -17848,7 +17848,8 @@ $$<br>
 <p>由于GRPO比PPO少了value model，所以GRPO采用了一个更简单的方式来代替它的功能。<br>
 $$<br>
 {\hat{A}}<em>{i, t}={\frac{r</em>{i}-\mathrm{m e a n} ( \mathbf{r} )} {\mathrm{s t d} ( \mathbf{r} )}}<br>
-$$</p>
+$$<br>
+相当于用“多次模拟成绩平均值”代替价值函数。</p>
 <h3 id="实际上无clip">实际上无clip</h3>
 <p><img src="GRPOloss.jpg" alt=""></p>
 <p>loss函数还有一个clip，用来约束新旧策略每次迭代之间不要偏移得太远。</p>
