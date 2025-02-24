@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250224/muon_algo.png">
 <meta property="og:image" content="c:%5CUsers%5C%E6%9D%8E%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250224222623957.png">
 <meta property="article:published_time" content="2025-02-24T13:52:02.000Z">
-<meta property="article:modified_time" content="2025-02-24T14:55:12.959Z">
+<meta property="article:modified_time" content="2025-02-24T15:01:18.466Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="-深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          658 字
+          705 字
         
       </span>
     
@@ -357,9 +357,9 @@ $$<br>
 $$<br>
 msign(M)=argmin_{O^TO=I}||M-O||^2_F<br>
 $$</p>
-<p>证明：<br>
-$$<br>
-||M-O||^2_F=||M||^2_F+||O||^2_F-2\left&lt;M,O\right&gt;_F</p>
+<p>证明：</p>
+<p>$$<br>
+||M-O||^2_F=||M||^2_F+||O||^2_F-2\left&lt;M,O\right&gt; _ F</p>
 <p>\=||M||^2_F+n-2Tr(MO^T)<br>
 \=||M||^2_F+n-2Tr(U\Sigma V^TO^T)<br>
 \ =||M||^2_F+n-2Tr(\Sigma V^TO^TU)<br>
@@ -370,7 +370,10 @@ $$<br>
 <p>我们对$(M^TM)^{-\frac{1}{2}}$在$M^TM=I$进行展开到二阶，有<br>
 $$<br>
 msign(M)=M(M^TM)^{-1/2}\approx \frac{15}{8}M-\frac{5}{4}M(M^TM)+\frac{3}{8}M(M^TM)^2<br>
-$$</p>
+$$<br>
+然而泰勒展开有可能会有误差，既然我们得到了这样的形式。</p>
+<p>我们干脆假设$msign(M)\approx aM+bM(M^TM)+cM(M^TM)^2$</p>
+<p>(3.4445, -4.7750, 2.0315)</p>
 <p><img src="C:%5CUsers%5C%E6%9D%8E%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250224222623957.png" alt="image-20250224222623957"></p>
 <h2 id="参考资料">参考资料</h2>
 <ol>
