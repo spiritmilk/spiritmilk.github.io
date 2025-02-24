@@ -18277,7 +18277,27 @@ $</p>
 <p>它也与SVD有关。<br>
 $$<br>
 U, \Sigma, V^{\top}=S V D ( M ) \quad\Rightarrow\quad\mathrm{m s i g n} ( M )=U_{[ : ,: r ]} V_{[ :, : r ]}^{\top}<br>
+$$<br>
+$U\in R^{n<em>n},\Sigma\in R^{n</em>m},V\in R^{m*m}$，r是M的秩。</p>
+<p>进一步，<br>
+$$<br>
+\mathrm{m s i g n} ( M )=( M M^{\top} )^{-1 / 2} M=M ( M^{\top} M )^{-1 / 2}<br>
+$$<br>
+进一步，当m=n=r时，<br>
+$$<br>
+msign(M)=argmin_{O^TO=I}||M-O||^2_F<br>
 $$</p>
+<blockquote>
+<p>证明：<br>
+$$<br>
+||M-O||^2_F=||M||^2_F+||O||^2_F-2&lt;M,O&gt;<em>F<br>
+\=||M||^2_F+n-2Tr(MO^T)<br>
+\=||M||^2_F+n-2Tr(U\Sigma V^TO^T)<br>
+\=||M||^2_F+n-2Tr(\Sigma V^TO^TU)<br>
+\=||M||^2_F+n-2\sum_i^n \Sigma</em>{i.i}(V^TO^TU)_{i,i})<br>
+$$<br>
+最小值时$O=UV^T$</p>
+</blockquote>
 <p><img src="C:%5CUsers%5C%E6%9D%8E%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250224222623957.png" alt="image-20250224222623957"></p>
 <h2 id="参考资料">参考资料</h2>
 <ol>
