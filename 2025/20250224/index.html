@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250224/muon_algo.png">
 <meta property="article:published_time" content="2025-02-24T13:52:02.000Z">
-<meta property="article:modified_time" content="2025-02-24T15:03:57.546Z">
+<meta property="article:modified_time" content="2025-02-24T15:07:36.794Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="-深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -264,7 +264,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          752 字
+          754 字
         
       </span>
     
@@ -347,7 +347,7 @@
 $$<br>
 U, \Sigma, V^{\top}=S V D ( M ) \quad\Rightarrow\quad\mathrm{m s i g n} ( M )=U_{[ : ,: r ]} V_{[ :, : r ]}^{\top}<br>
 $$<br>
-$U\in R^{n<em>n},\Sigma\in R^{n</em>m},V\in R^{m*m}$，r是M的秩。</p>
+$U\in R^{n\times n},\Sigma\in R^{n\times m},V\in R^{m\times m}$，r是M的秩。</p>
 <p>进一步，<br>
 $$<br>
 \mathrm{m s i g n} ( M )=( M M^{\top} )^{-1 / 2} M=M ( M^{\top} M )^{-1 / 2}<br>
@@ -368,9 +368,8 @@ $=||M||^2_F+n-2\sum_i^n \Sigma_{i.i}(V^TO^TU)_{i,i})$</p>
 $$<br>
 msign(M)=M(M^TM)^{-1/2}\approx \frac{15}{8}M-\frac{5}{4}M(M^TM)+\frac{3}{8}M(M^TM)^2<br>
 $$<br>
-然而泰勒展开有可能会有误差，既然我们得到了这样的形式。</p>
-<p>我们干脆假设$msign(M)\approx aM+bM(M^TM)+cM(M^TM)^2$</p>
-<p>作者进一步优化得到(a,b,c)=(3.4445, -4.7750, 2.0315)</p>
+然而泰勒展开有可能会有误差，既然我们得到了这样的形式，我们干脆假设$msign(M)\approx aM+bM(M^TM)+cM(M^TM)^2$</p>
+<p>作者进一步优化得到(a,b,c)=(3.4445, -4.7750, 2.0315)。</p>
 <p>作者也尝试用了使用三阶和七阶多项式（注意现在是五阶），但并没有达到更好的效果。</p>
 <h2 id="参考资料">参考资料</h2>
 <ol>
