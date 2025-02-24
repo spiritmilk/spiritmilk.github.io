@@ -18248,7 +18248,7 @@ $</p>
   <entry>
     <title>Muon优化器</title>
     <url>/2025/20250224/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>近日，Moonshot开源了改进版 Muon 优化算法及用 Muon 训练的SOTA级的MoE小模型。开启了Muon在大模型应用的局面。也许新的优化器时代即将到来！</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>近日，Moonshot开源了改进版 Muon 优化算法及用 Muon 训练的SOTA级的MoE小模型。开启了Muon在大模型应用的局面。也许新的优化器时代即将到来！</p>
 <p>PS：像谷歌23年提出的Lion（Evo<strong>L</strong>ved S<strong>i</strong>gn M<strong>o</strong>me<strong>n</strong>tum）优化器也号称比AdamW好，但是缺乏在大模型上的成功实验，大多数人还是选择Adam/AdamW。</p>
 <span id="more"></span>
 <p>苏神和官方作者Keller Jordan都写了一些博客来介绍这个内容。</p>
@@ -18288,14 +18288,12 @@ $$<br>
 msign(M)=argmin_{O^TO=I}||M-O||^2_F<br>
 $$</p>
 <p>证明：</p>
-<p>$$<br>
-||M-O||^2_F=||M||^2_F+||O||^2_F-2\left&lt;M,O\right&gt; _ F</p>
-<p>\=||M||^2_F+n-2Tr(MO^T)<br>
-\=||M||^2_F+n-2Tr(U\Sigma V^TO^T)<br>
-\ =||M||^2_F+n-2Tr(\Sigma V^TO^TU)<br>
-\=||M||^2_F+n-2\sum_i^n \Sigma_{i.i}(V^TO^TU)_{i,i})<br>
-$$<br>
-最小值时$O=UV^T$</p>
+<p>$||M-O||^2_F=||M||^2_F+||O||^2_F-2\left&lt;M,O\right&gt; _ F$</p>
+<p>$=||M||^2_F+n-2Tr(MO^T)$<br>
+$=||M||^2_F+n-2Tr(U\Sigma V^TO^T)$<br>
+$=||M||^2_F+n-2Tr(\Sigma V^TO^TU)$<br>
+$=||M||^2_F+n-2\sum_i^n \Sigma_{i.i}(V^TO^TU)_{i,i})$</p>
+<p>最小值时$O=UV^T$</p>
 <p>Newton-schulz是对msign(M)的近似。</p>
 <p>我们对$(M^TM)^{-\frac{1}{2}}$在$M^TM=I$进行展开到二阶，有<br>
 $$<br>
