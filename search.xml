@@ -18289,15 +18289,18 @@ msign(M)=argmin_{O^TO=I}||M-O||^2_F<br>
 $$</p>
 <p>证明：<br>
 $$<br>
-||M-O||^2_F=||M||^2_F+||O||^2_F-2&lt;M,O&gt;<em>F<br>
-\=||M||^2_F+n-2Tr(MO^T)<br>
+||M-O||^2_F=||M||^2_F+||O||^2_F-2\left&lt;M,O\right&gt;_F</p>
+<p>\=||M||^2_F+n-2Tr(MO^T)<br>
 \=||M||^2_F+n-2Tr(U\Sigma V^TO^T)<br>
-\=||M||^2_F+n-2Tr(\Sigma V^TO^TU)<br>
-\=||M||^2_F+n-2\sum_i^n \Sigma</em>{i.i}(V^TO^TU)_{i,i})<br>
+\ =||M||^2_F+n-2Tr(\Sigma V^TO^TU)<br>
+\=||M||^2_F+n-2\sum_i^n \Sigma_{i.i}(V^TO^TU)_{i,i})<br>
 $$<br>
 最小值时$O=UV^T$</p>
 <p>Newton-schulz是对msign(M)的近似。</p>
-<p>我们对$(M^TM)^{-\frac{1}{2}}$在$M^TM=I$进行展开，有</p>
+<p>我们对$(M^TM)^{-\frac{1}{2}}$在$M^TM=I$进行展开到二阶，有<br>
+$$<br>
+msign(M)=M(M^TM)^{-1/2}\approx \frac{15}{8}M-\frac{5}{4}M(M^TM)+\frac{3}{8}M(M^TM)^2<br>
+$$</p>
 <p><img src="C:%5CUsers%5C%E6%9D%8E%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250224222623957.png" alt="image-20250224222623957"></p>
 <h2 id="参考资料">参考资料</h2>
 <ol>
