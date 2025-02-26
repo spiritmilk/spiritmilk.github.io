@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250222/cmp.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250222/MOBA.png">
 <meta property="article:published_time" content="2025-02-22T11:58:13.000Z">
-<meta property="article:modified_time" content="2025-02-26T03:57:04.762Z">
+<meta property="article:modified_time" content="2025-02-26T04:01:05.404Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.3k 字
         
       </span>
     
@@ -345,6 +345,7 @@ $$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">W_gated = torch.randn(dim, <span class="hljs-number">3</span>) <span class="hljs-comment"># mlp, dim-&gt;3: cmp, slc, win</span><br>gate = X @ W_gated<br>gate = F.sigmoid(gate) <span class="hljs-comment"># sigmoid activation</span><br><span class="hljs-built_in">print</span>(gate.shape) <span class="hljs-comment"># 1, 32, 3 , bs, q_len, gated</span><br></code></pre></td></tr></table></figure>
 <h2 id="MoBA">MoBA</h2>
 <p>也正如苏神在知乎上所说，“如果读者对比过NSA和MoBA，估计都有种MoBA是NSA的简化版的感觉：NSA用了MLP来压缩block，MoBA直接用Mean Pooling；NSA用另一块压缩的Attention来学block select，MoBA直接去掉了这部分。不得不说，NSA的设计是更符合一般人的想法，如果由我自己独立来设计MoBA，估计最终形式会更像NSA，因为MoBA这种极致简化的做法则更需要一点勇气（以及长时间的尝试）。”</p>
+<p>相比NSA，MoBA更简单，block select相当于更精细的内容，但MoBA把这部分去掉了。Mean Pooling代替MLP减少了许多参数量，这让我想到了global average pooling 中指出：”One advantage of global average pooling over the fully connected layers is that it is more native to the convolution structure. Another advantage is that there is no parameter to optimize in the global average pooling, thus overfitting is avoided at this layer.“</p>
 <p><img src="MOBA.png" alt=""></p>
 <p>同样地，MoBA也把KV分为若干个block。</p>
 <p>操作也很简单和明显，我们可以看出它具体做了什么，图中的内容无需再赘述。</p>
