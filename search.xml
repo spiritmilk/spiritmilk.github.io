@@ -18335,10 +18335,11 @@ $$<br>
 <p>即</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">p_slc = p_cmp.<span class="hljs-built_in">sum</span>(dim = <span class="hljs-number">1</span>) <span class="hljs-comment"># 在head维度上进行合并</span><br><span class="hljs-built_in">print</span>(p_cmp.shape) <span class="hljs-comment"># torch.Size([1, 4, 32, 4])</span><br><span class="hljs-built_in">print</span>(p_slc.shape) <span class="hljs-comment"># torch.Size([1, 32, 4])</span><br>select_top_k = <span class="hljs-number">2</span><br>_, idx = torch.topk(p_slc, dim = <span class="hljs-number">2</span>, k = select_top_k)<br><span class="hljs-built_in">print</span>(idx[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,:]) <span class="hljs-comment"># [3,0] 即 q0注意到第3片段和第0片段</span><br>idx.shape <span class="hljs-comment"># [1, 32, 2] : batch_size, q_len, top_k</span><br></code></pre></td></tr></table></figure>
 <h3 id="滑窗注意力">滑窗注意力</h3>
-<p>这部分是用来捕捉临近的kv片段。<br>
+<p>这部分是用来捕捉临近的kv片段。其实很简单。<br>
 $$<br>
-\tilde{K}<em>{t}^{w i n}={\bf k}</em>{t-w : t}, \tilde{V}<em>{t}^{w i n}={\bf v}</em>{t-w : t}<br>
-$$</p>
+\tilde{K}<em>{t} ^{w i n}={\bf k}</em>{t-w : t}, \tilde{V}<em>{t} ^{w i n}={\bf v}</em>{t-w : t}<br>
+$$<br>
+值得注意的是，这部分可能会跨block。</p>
 <h3 id="汇聚">汇聚</h3>
 <p>前面我们已经介绍过$g^{cmp}o^{cmp}+g^{sle}o^{sle}+g^{win}o^{win}$</p>
 <p>它实际上使用了 MLP和 sigmoid，即</p>
