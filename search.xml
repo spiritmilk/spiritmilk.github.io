@@ -18337,7 +18337,7 @@ $$<br>
 <h3 id="滑窗注意力">滑窗注意力</h3>
 <p>这部分是用来捕捉临近的kv片段。<br>
 $$<br>
-\tilde{K}<em>{t}^{\mathrm{w i n}}={\bf k}</em>{t-w : t}, \tilde{V}<em>{t}^{\mathrm{w i n}}={\bf v}</em>{t-w : t}<br>
+\tilde{K}<em>{t}^{w i n}={\bf k}</em>{t-w : t}, \tilde{V}<em>{t}^{w i n}={\bf v}</em>{t-w : t}<br>
 $$</p>
 <h3 id="汇聚">汇聚</h3>
 <p>前面我们已经介绍过$g^{cmp}o^{cmp}+g^{sle}o^{sle}+g^{win}o^{win}$</p>
