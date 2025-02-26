@@ -14,7 +14,7 @@
     
     <tags>
       
-      <tag>-深度学习</tag>
+      <tag>深度学习</tag>
       
     </tags>
     
@@ -27,7 +27,7 @@
     <link href="/2025/20250222/"/>
     <url>/2025/20250222/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Kimi公开了他们处理长文的秘密了。团队提出了MoBA (Mixture of Block Attention) ，解决了传统注意力机制在处理长文本时的效率问题。</p><p>DeepSeek 发布了一篇新论文，提出了一种改进版的注意力机制 NSA（Native Sparse Attention），加上还有创始人兼 CEO 梁文锋亲自参与。</p><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Kimi公开了他们处理长文的秘密了。团队提出了MoBA (Mixture of Block Attention) ，解决了传统注意力机制在处理长文本时的效率问题。</p><p>DeepSeek 发布了一篇新论文，提出了一种改进版的注意力机制 NSA（Native Sparse Attention），加上还有创始人兼 CEO 梁文锋亲自参与。</p><span id="more"></span><p>由于MoBA比NSA更简单，于是我们循序渐进先介绍NSA。</p><p>这两个都主要对KV进行优化。</p><h2 id="NSA">NSA</h2><p><img src="NSA.png" alt=""></p><p>其中定义了三种注意力：压缩（cmp)、选择（sle)、滑窗（win），并最后使用门控来简单汇聚，$g^{cmp}o^{cmp}+g^{sle}o^{sle}+g^{win}o^{win}$。</p><h3 id="压缩注意力">压缩注意力</h3><p>压缩注意力的本质是将一段序列的KV压成一个KV。</p><p><img src="cmp.jpg" alt=""></p><h3 id="选择注意力">选择注意力</h3><h3 id="滑窗注意力">滑窗注意力</h3><h2 id="MoBA">MoBA</h2><p>也正如苏神在知乎上所说，“如果读者对比过NSA和MoBA，估计都有种MoBA是NSA的简化版的感觉：NSA用了MLP来压缩block，MoBA直接用Mean Pooling；NSA用另一块压缩的Attention来学block select，MoBA直接去掉了这部分。不得不说，NSA的设计是更符合一般人的想法，如果由我自己独立来设计MoBA，估计最终形式会更像NSA，因为MoBA这种极致简化的做法则更需要一点勇气（以及长时间的尝试）。”</p><p>作者也介绍了一些<a href="https://www.zhihu.com/question/12696635711/answer/105709816990">心路历程</a>，也值得一看。</p><p>参考资料：</p><ol><li><a href="https://zhuanlan.zhihu.com/p/24841366485">【手撕NSA】DeepSeek新作-原生稀疏注意力-超长文(附代码)</a></li></ol>]]></content>
     
     
     
