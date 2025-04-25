@@ -21,12 +21,12 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。 TimeMixer++: A General Time Series Pattern Machine for Universal Predictive Analysis 论文地址: https:&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;1CLzLXSFNn">
+    <meta name="description" content="ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。 Joint Graph Rewiring and Feature Denoising via Spectral Resonance 论文地址: https:&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;zBbZ2vdLzH 代码: 无 摘要: 在从图数据中学习时">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ICLR25 Oral 若干（感兴趣）论文解析">
 <meta property="og:url" content="https://lijianxiong.work/2025/20250424/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。 TimeMixer++: A General Time Series Pattern Machine for Universal Predictive Analysis 论文地址: https:&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;1CLzLXSFNn">
+<meta property="og:description" content="ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。 Joint Graph Rewiring and Feature Denoising via Spectral Resonance 论文地址: https:&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;zBbZ2vdLzH 代码: 无 摘要: 在从图数据中学习时">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250424/datt1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250424/datt.jpg">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250424/llm_sr1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250424/llm_sr2.png">
 <meta property="article:published_time" content="2025-04-24T12:19:48.000Z">
-<meta property="article:modified_time" content="2025-04-25T14:16:00.642Z">
+<meta property="article:modified_time" content="2025-04-25T14:32:32.646Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.9k 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          19 分钟
+          24 分钟
         
       </span>
     
@@ -323,6 +323,15 @@
               <div class="markdown-body">
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。</p>
+<h2 id="Joint-Graph-Rewiring-and-Feature-Denoising-via-Spectral-Resonance">Joint Graph Rewiring and Feature Denoising via Spectral Resonance</h2>
+<p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=zBbZ2vdLzH">https://openreview.net/forum?id=zBbZ2vdLzH</a></p>
+<p><strong>代码:</strong> 无</p>
+<p><strong>摘要:</strong> 在从图数据中学习时，图和节点特征都会为节点标签提供噪声信息。在本文中，我们提出了一种算法来联合去噪特征和重连图（JDR），这提高了下游节点分类图神经网络（GNN）的性能。JDR 通过对齐图和特征矩阵的主谱空间来工作。它以处理具有多个类别和不同同质或异质程度图的方式，近似解决了相关的非凸优化问题。我们在一个风格化的环境中对 JDR 进行了理论证明，并表明它在广泛的合成和真实世界节点分类任务上始终优于现有的重连方法。</p>
+<span id="more"></span>
+<h2 id="Standard-Gaussian-Process-is-All-You-Need-for-High-Dimensional-Bayesian-Optimization">Standard Gaussian Process is All You Need for High-Dimensional Bayesian Optimization</h2>
+<p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=1CLzLXSFNn">https://openreview.net/forum?id=1CLzLXSFNn</a></p>
+<p><strong>代码:</strong>  <a target="_blank" rel="noopener" href="https://github.com/XZT008/Standard-GP-is-all-you-need-for-HDBO">https://github.com/XZT008/Standard-GP-is-all-you-need-for-HDBO</a></p>
+<p><strong>摘要:</strong> 长期以来，人们普遍认为，标准高斯过程（GP）的贝叶斯优化（BO）——称为标准 BO——在高维优化问题中表现不佳。虽然这种看法似乎合理，但它既缺乏稳健的实证证据，也缺乏理论上的证明。为了填补这一空白，我们进行了一项系统性的研究。首先，通过在十二个基准上的全面评估，我们发现，虽然流行的平方指数（SE）核往往导致性能不佳，但使用 Matern 核可以使标准 BO 持续取得顶级结果，经常超越专门为高维优化设计的方法。其次，我们的理论分析表明，SE 核的失败主要源于长度尺度参数的不当初始化，这些参数在实践中常用，但可能导致训练中的梯度消失。我们提供了一个概率界限来描述这个问题，表明 Matern 核对这一问题不太敏感，并且可以稳健地处理更高的维度。 第三，我们提出了一种简单且鲁棒的初始化策略，该策略显著提高了 SE 核的性能，使其接近最先进的方法，而无需额外的先验或正则化。我们证明了另一个概率界限，展示了如何使用我们的方法有效地缓解梯度消失问题。我们的发现主张重新评估标准 BO 在高维设置中的潜力。</p>
 <h2 id="TimeMixer-A-General-Time-Series-Pattern-Machine-for-Universal-Predictive-Analysis">TimeMixer++: A General Time Series Pattern Machine for Universal Predictive Analysis</h2>
 <p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=1CLzLXSFNn">https://openreview.net/forum?id=1CLzLXSFNn</a></p>
 <p><strong>代码:</strong> 无</p>
@@ -340,7 +349,6 @@
 <p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=GMwRl2e9Y1">https://openreview.net/forum?id=GMwRl2e9Y1</a></p>
 <p><strong>代码:</strong> 空</p>
 <p><strong>摘要:</strong> 向量量化变分自编码器（VQ-VAEs）旨在将连续输入压缩到离散潜在空间，并以最小失真重建。它们通过维护一组向量（通常称为码本）并量化每个编码器输出到码本中最近的向量来操作。然而，由于向量量化不可微分，梯度流向编码器是通过向量量化层“绕过”而不是“穿过”的直通近似。这种近似可能是不理想的，因为向量量化操作的所有信息都丢失了。在这项工作中，我们提出了一种通过 VQ-VAEs 的向量量化层传播梯度的方法。我们通过旋转和缩放线性变换将每个编码器输出平滑地转换为相应的码本向量，该变换在反向传播期间被视为常数。 因此，编码器输出与码本向量之间的相对幅度和角度被编码到梯度中，随着它通过向量量化层传播回编码器。在 11 种不同的 VQ-VAE 训练范式下，我们发现这种重构提高了重建指标、码本利用率和量化误差。</p>
-<span id="more"></span>
 <h2 id="LLM-SR-Scientific-Equation-Discovery-and-Symbolic-Regression-via-Programming-with-LLMs">LLM-SR: Scientific Equation Discovery and Symbolic Regression via Programming with LLMs</h2>
 <p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.18400">https://arxiv.org/abs/2404.18400</a></p>
 <p><strong>代码:</strong> <a target="_blank" rel="noopener" href="https://github.com/deep-symbolic-mathematics/LLM-SR/">https://github.com/deep-symbolic-mathematics/LLM-SR/</a></p>
