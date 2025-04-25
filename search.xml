@@ -18385,6 +18385,8 @@ $</p>
 <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.TargetEncoder.html">sklearn</a>中的相当于<a href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的JamesSteinEncoder，<a href="https://docs.rapids.ai/api/cuml/stable/api/#cuml.preprocessing.TargetEncoder.TargetEncoder">cuml</a>中的相当于<a href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的M-estimate Encoder。JamesSteinEncoder事实是可以当做一种特殊的M-estimate Encoder，所以我们先从JamesSteinEncoder介绍起。</p>
 <h2 id="JamesSteinEncoder">JamesSteinEncoder</h2>
 <h2 id="M-estimate-Encoder">M-estimate Encoder</h2>
+<h2 id="避免过拟合">避免过拟合</h2>
+<p>显然地，target encoding直接利用了目标列的信息，这难免会过拟合，有以下几种方法可以避免过拟合，交叉验证、加噪声。</p>
 <span id="more"></span>
 <p>参考资料:</p>
 <p><a href="https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/">https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/</a></p>
