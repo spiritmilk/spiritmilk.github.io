@@ -1,0 +1,841 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》 Motivation：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图鲁棒性论文速览">
+<meta property="og:url" content="https://lijianxiong.work/2024/20240629/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》 Motivation：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/1.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/idgl.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/af_moti.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/af1.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/nrgnn.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/PAKDD2021.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/evennet.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/www.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/KDD2022.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/rsgnn.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/iscapp2023.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/multiteacher.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/rtgnn.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/aaai2023.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/clnode.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/pignn_mot.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/pignn.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/arxiv2024_mot.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/a2024.png">
+<meta property="og:image" content="https://lijianxiong.work/2024/20240629/a20242.png">
+<meta property="article:published_time" content="2024-06-29T07:52:18.000Z">
+<meta property="article:modified_time" content="2024-08-22T08:57:41.304Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="图神经网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.work/2024/20240629/1.png">
+  
+  
+  
+  <title>图鲁棒性论文速览 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-pen"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于本站</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-addrcard"></i>
+                <span>关于我本人</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="图鲁棒性论文速览"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-29 15:52" pubdate>
+          2024年6月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">图鲁棒性论文速览</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h2 id="《Learning-Graph-Neural-Networks-with-Noisy-Labels-（arxiv-2019-》">《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》</h2>
+<p><strong>Motivation</strong>：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。</p>
+<span id="more"></span>
+<p><strong>Method</strong>:</p>
+<p><img src="1.png" alt=""></p>
+<p><strong>Strength</strong>: 方法简单，计算量小</p>
+<p><strong>Weakness</strong>: 结果疑似不好，根据NoisyGL</p>
+<h2 id="《Symmetric-Cross-Entropy-for-Robust-Learning-with-Noisy-Labels-（ICCV-2019）》">《Symmetric Cross Entropy for Robust Learning with Noisy Labels （ICCV 2019）》</h2>
+<p><strong>Motivation</strong>：交叉熵：（1）hard class处理不好；（2）遇到noisy label表现下降很多。作者受反向KL散度启发提出了另一种交叉熵</p>
+<p><strong>Method</strong>:</p>
+<p>交叉熵(CE)： -q(x)logp(x)</p>
+<p>RCE:  -p(x)logq(x)</p>
+<p>最终loss:  αCE+βRCE</p>
+<p><strong>Strength</strong>:</p>
+<p><strong>Weakness</strong>: 根据NoisyGL，效果比baseline高不了多少，可能是因为图数据的标签稀缺性</p>
+<h2 id="《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》">《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》</h2>
+<p><strong>Motivation</strong>：</p>
+<p><strong>Method</strong>:</p>
+<p><img src="idgl.png" alt=""></p>
+<p><strong>Strength</strong>:相似性使用了多头设置，学习能力更强。使用了历史邻接矩阵信息。<strong>Weakness</strong>:</p>
+<h2 id="《Adversarial-Label-Flipping-Attack-and-Defense-for-Graph-Neural-Networks-（ICDM-2020）》">《Adversarial Label-Flipping Attack and Defense for Graph Neural Networks （ICDM 2020）》</h2>
+<p><strong>Motivation</strong>：社区标签和GCN输出具有一致性</p>
+<p><img src="af_moti.png" alt=""></p>
+<p><strong>Method</strong>: 使用community信息来帮助分类。先Embedding再聚类（k-means+NodeVec），得到community标签。有了community label后，将训练GCN用来预测community label作为辅助自监督任务，将L-1层的隐藏特征输入，输出K-路softmax 分布。</p>
+<p><img src="af1.png" alt=""></p>
+<p><strong>Strength</strong>: 形式简单</p>
+<p><strong>Weakness</strong>: 耗时严重（根据NoisyGL，运行时间最慢的第二个）。网络部分共享结构，此处不耗时。耗时应该在社区标签计算上。此处可能有改进空间。</p>
+<h2 id="《Data-Augmentation-for-Graph-Neural-Networks-AAAI-2021）》">《Data Augmentation for Graph Neural Networks  (AAAI 2021）》</h2>
+<p><strong>Motivation</strong>：最明显的方法涉及添加或删除节点或边。但问题仍然存在，哪些边缘需要改变？</p>
+<p><strong>Method</strong>:</p>
+<p>（1）使用边缘预测器函数（文中使用的是GAE）来获取𝒢中所有可能和现有边缘的边缘概率。边缘预测器的作用是灵活的，一般可以用任何合适的方法代替。</p>
+<p>(2) 使用预测的边概率，我们确定性地添加（删除）新（现有）边以创建修改后的图𝒢 ，该图用作 GNN 节点分类器的输入。</p>
+<h2 id="《NRGNN-learning-a-lable-noise-resistant-graph-neural-network-on-sparsely-and-noisily-labeled-graphs-2021-KDD》">《NRGNN learning a lable noise-resistant graph neural network on sparsely and noisily labeled graphs 2021 KDD》</h2>
+<p><strong>Motivation</strong>：由于图上的标签稀疏，错误标记的节点可能会影响其邻域内未标记的节点，从而难以接受正确标记节点的监督。为了解决这些问题，NRGNN 首先连接具有相似特征的节点以创建精细图。基于这个精细化的图，生成精确的伪标签，使未标记的样本能够接受来自正确标记的样本的更多监督，从而减少噪声标签的影响。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="nrgnn.png" alt=""></p>
+<p><strong>Strength</strong>: 使用了单独的边预测器，更好的利用特征信息</p>
+<p><strong>Weakness</strong>: 边预测器单使用该loss而不使用分类器，疑似无增长。在理论上假设节点的特征相似性与其标签有较高的相关性</p>
+<h2 id="《Unified-Robust-Training-for-Graph-NeuralNetworks-against-Label-Noise-（PAKDD-2021-》">《Unified Robust Training for Graph NeuralNetworks against Label Noise （PAKDD 2021)》</h2>
+<p><strong>Motivation</strong>：结构邻近性（直接或间接连接）高的节点往往具有相似的标签-&gt;随机游走</p>
+<p><strong>Method</strong>:</p>
+<p><img src="PAKDD2021.png" alt=""></p>
+<p><strong>Strength</strong>: 样本有重新加权，可以让可靠标签在梯度更新时做出更多共享。标签校正在高噪声下，不能保证性能增益，而通过先验分布损失的正则化能发挥作用。</p>
+<p><strong>Weakness</strong>: 需要更多的时间复杂度和空间占用，因为要随机游走来收集</p>
+<h2 id="《EvenNet-Ignoring-Odd-Hop-Neighbors-Improves-Robustness-of-Graph-Neural-Networks-（NIPS-2022-》">《EvenNet: Ignoring Odd-Hop Neighbors Improves Robustness of Graph Neural Networks （NIPS 2022)》</h2>
+<p><strong>Motivation</strong>：源于符号网络的平衡理论提供了一个很好的视角：“敌人的敌人就是我的朋友，我朋友的朋友也是我的朋友。”</p>
+<p><strong>Method</strong>:</p>
+<p><img src="evennet.png" alt=""></p>
+<h2 id="《Towards-Unsupervised-Deep-Graph-Structure-Learning-WWW-2022-》">《Towards Unsupervised Deep Graph Structure Learning (WWW 2022)》</h2>
+<p><strong>Method</strong>:</p>
+<p><img src="www.png" alt=""></p>
+<h2 id="《Reliable-Representations-Make-A-Stronger-Defender-Unsupervised-Structure-Refinement-for-Robust-GNN（KDD-2022-》">《Reliable Representations Make A Stronger Defender: Unsupervised Structure Refinement for Robust GNN（KDD 2022)》</h2>
+<p><strong>Motivation</strong>：原始特征不能表示节点的节点的各种属性（如结构信息等）。</p>
+<p>故方法要：1）携带特征信息，同时携带尽可能多的正确结构信息；2）对结构扰动不敏感。只有少数邻居的节点比高度节点更容易受到攻击。对抗性边缘倾向于连接两个低度节点。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="KDD2022.png" alt=""></p>
+<p><strong>Strength</strong>: 图增强提高学习能力。Advanced GCN中针对低度高度做了不同的聚合权重</p>
+<p><strong>Weakness</strong>: 相似度策略比较单调。特征打乱如果按类内打乱效果会更好（（ICML 2024）Feature Distribution on Graph Topology Mediates the Effect of Graph Convolution: Homophily Perspective）。</p>
+<h2 id="《toward-robust-graph-neural-networks-for-noisy-graphs-with-sparse-labels-2022WSDM-》">《toward robust graph neural networks for noisy graphs with sparse labels (2022WSDM)》</h2>
+<p><strong>Strength</strong>:使用了单独的边预测器，更好的利用特征信息</p>
+<p><strong>Method</strong>:</p>
+<p><img src="rsgnn.png" alt=""></p>
+<h2 id="《Learning-on-Graphs-under-Label-Noise-（ICASSP-2023-》">《Learning on Graphs under Label Noise （ICASSP 2023)》</h2>
+<p><strong>Motivation</strong>：需要一种没有标签信息的正则化项，以获得针对标签噪声的卓越模型泛化能力</p>
+<p><strong>Method</strong>: 首先对图进行增强，第一种是随机丢边，第二种是随机mask节点属性。再使用对比学习和标签矫正。</p>
+<p><img src="iscapp2023.png" alt=""></p>
+<p><strong>Strength</strong>:两次图增强都公用一套GCN，耗时小。使用了多种图增强技术。图增强过程中不涉及标签。</p>
+<p><strong>Weakness</strong>:方法简单。相当于只进行了图增强+标签矫正。</p>
+<h2 id="《Multi-teacher-Self-training-for-Semi-supervised-Node-Classification-with-Noisy-Labels-（ACM-MM-2023-》">《Multi-teacher Self-training for Semi-supervised Node Classification with Noisy Labels （ACM MM 2023)》</h2>
+<p><strong>Motivation</strong>：根据文献《Selc: Self-ensemble label correction improves learning with noisy labels.》，在带有噪声标签的数据集上训练神经网络模型时，模型倾向于首先学习简单(干净)的样本。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="multiteacher.png" alt=""></p>
+<p>使用先前的作为教师模型，并积累教师模型的参数。来进行标签处理</p>
+<h2 id="《Robust-Training-of-Graph-Neural-Networks-via-Noise-Governance（WSDM-2023）》">《Robust Training of Graph Neural Networks via Noise Governance（WSDM 2023）》</h2>
+<p><strong>Motivation</strong>：作者指出，虽然 NRGNN 强调通过链接预测为未标记节点提供额外的监督，但它并没有区分错误标记和正确标记的节点。相反，它只是不加区别地连接具有相似特征的节点，这可能会导致错误标记节点的影响扩散。为了解决这个问题，作者提出了RTGNN，它在NRGNN的基础上构建，利用Co-teaching中的小损失准则来进一步区分可信和不可信节点，并纠正一些不可信节点的标签，减轻一些不可信节点的标签。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="rtgnn.png" alt=""></p>
+<p>边预测器部分类似NRGNN第二部分类似于coteaching，并对peer GCN进行KL散度正则化</p>
+<p><strong>Strength</strong>: 划分了多种节点的类型，cl、ns、sr。具有NRGNN的优点。</p>
+<p><strong>Weakness</strong>:NoisyGL中显示RTGNN疑似效果在大部分数据集上都不如GCN。多个神经网络，时间复杂度略高。</p>
+<h2 id="《Robust-Node-Classification-on-Graph-Data-with-Graph-and-Label-Noise-（AAAI-2023-》">《Robust Node Classification on Graph Data with Graph and Label Noise （AAAI 2023)》</h2>
+<p><strong>Method</strong>:</p>
+<p><img src="aaai2023.png" alt=""></p>
+<p><strong>Strength</strong>:</p>
+<p><strong>Weakness</strong>: 耗时严重。NoisyGL显示是最慢的，几千倍于GCN</p>
+<h2 id="《Clnode-Curriculum-learning-for-node-classification》（WSDM-2023）">《Clnode:Curriculum learning for node classification》（WSDM 2023）</h2>
+<p><strong>Motivation</strong>：这些工作通常假设所有训练节点的贡献相等。事实上，训练节点的质量差异很大</p>
+<p><strong>Method</strong>:</p>
+<p><img src="clnode.png" alt=""></p>
+<p><strong>Strength</strong>:将节点区分开来处理</p>
+<p><strong>Weakness</strong>:假设同质性</p>
+<h2 id="《Noise-robust-Graph-Learning-by-Estimating-and-Leveraging-Pairwise-Interactions-（TMLR-2023-》">《Noise-robust Graph Learning by Estimating and Leveraging Pairwise Interactions （TMLR 2023)》</h2>
+<p><strong>Motivation</strong>：</p>
+<p><img src="pignn_mot.png" alt=""></p>
+<p><strong>Method</strong>:</p>
+<p><img src="pignn.png" alt=""></p>
+<p><strong>Strength</strong>: 有效地利用了节点相互的关系，找到了一种比标签噪声要小的噪声特性<strong>Weakness</strong>: 只在同亲图（即，如果两个节点相连，那么它们很有可能具有相同的节点标签）上表现优异</p>
+<h2 id="《Universally-Robust-Graph-Neural-Networks-by-Preserving-Neighbor-Similarity-（arxiv-2024-》">《Universally Robust Graph Neural Networks by Preserving Neighbor Similarity （arxiv 2024)》</h2>
+<p><strong>Motivation</strong>：普通鲁棒模型依靠自我特征的相似性来检测良性链接中的潜在恶意链接。然而，这种策略可能不适合在异质性场景下增强gnn的对抗鲁棒性。攻击与节点相似度呈负相关。图攻击者倾向于连接相似度得分值较低的节点对。</p>
+<p>不同相似度矩阵下的攻击表现：相似度矩阵定义：</p>
+<p><img src="arxiv2024_mot.png" alt=""></p>
+<p><strong>Method</strong>:</p>
+<p><img src="a2024.png" alt=""></p>
+<p>其分为正knn和负knn。对于正knn，我们为每个节点挑选出最接近的top-𝑘邻居来构建相应的kNN图。对于负knn，和正knn相反，这种方式可以捕获极端不同的信息，并作为正图的对立物。在双knn图构建阶段之后，确定聚合机制的最佳选择以有效地传播节点特征，同时保持邻居相似度是很重要的。为此，我们引入了一种自适应邻居相似度引导的传播机制。节点表示学习的信息流的形式为:</p>
+<p><img src="a20242.png" alt=""></p>
+<p><strong>Strength</strong>:从正反两方面考虑问题，以往一般只考虑一边，可解释性强</p>
+<p><strong>Weakness</strong>:是否忽略了中通滤波，如arxiv2023的Robust Mid-Pass Filtering Graph Convolutional Networks</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>图鲁棒性论文速览</div>
+      <div>https://lijianxiong.work/2024/20240629/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/20240811/" title="CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CAAFE-将大型语言模型与半自动化数据科学的表格预测器相结合</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/20240623/" title="恋爱脑之死">
+                        <span class="hidden-mobile">恋爱脑之死</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

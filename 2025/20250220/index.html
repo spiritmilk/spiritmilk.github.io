@@ -1,0 +1,779 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Group Relative Policy Optimization（GRPO）起自deepseekmath，在deepseek-R1中也大放光彩。 看到复旦某组开源了一个简单的仅~200行的关于GRPO的项目simple_GRPO，故决定学习并写写。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Group Relative Policy Optimization">
+<meta property="og:url" content="https://lijianxiong.work/2025/20250220/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="Group Relative Policy Optimization（GRPO）起自deepseekmath，在deepseek-R1中也大放光彩。 看到复旦某组开源了一个简单的仅~200行的关于GRPO的项目simple_GRPO，故决定学习并写写。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250220/PPOVSGRPO.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250220/GRPO.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250220/GRPOloss.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250220/GRPOloss.jpg">
+<meta property="article:published_time" content="2025-02-20T13:14:32.000Z">
+<meta property="article:modified_time" content="2025-02-21T14:46:35.522Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.work/2025/20250220/PPOVSGRPO.png">
+  
+  
+  
+  <title>Group Relative Policy Optimization - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-pen"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于本站</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-addrcard"></i>
+                <span>关于我本人</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Group Relative Policy Optimization"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-20 21:14" pubdate>
+          2025年2月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          954 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Group Relative Policy Optimization</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Group Relative Policy Optimization（GRPO）起自deepseekmath，在deepseek-R1中也大放光彩。</p>
+<p>看到复旦某组开源了一个简单的仅~200行的关于GRPO的项目simple_GRPO，故决定学习并写写。</p>
+<span id="more"></span>
+<p>GRPO是PPO的改进。</p>
+<p><img src="PPOVSGRPO.png" alt=""></p>
+<p>具体流程图：</p>
+<p><img src="GRPO.png" alt=""></p>
+<p>流程看上去有点复杂，我们可以直接来看代码。</p>
+<h2 id="准备">准备</h2>
+<p>源代码用100行代码实现了<a target="_blank" rel="noopener" href="https://github.com/lsdefine/simple_GRPO/blob/main/ref_server.py">ref_server.py</a>，用了分布并行运行reference model。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">system_prompt = <span class="hljs-string">&quot;&quot;&quot;You are a helpful assistant. A conversation between User and Assistant. The user asks a question, and the Assistant solves it. The Assistant first thinks about the reasoning process in the mind and then provides the user with the answer. ... &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<h2 id="奖励">奖励</h2>
+<ul>
+<li>提取回答的正确性，匹配奖励为1，否则为-1。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reward_correct</span>(<span class="hljs-params">item, answer</span>):</span><br>    pattern = <span class="hljs-string">r&#x27;\d+\.\d+|\d+/\d+|\d+&#x27;</span><br>    nums = re.findall(pattern, answer)<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(nums) == <span class="hljs-number">0</span>: <span class="hljs-keyword">return</span> -<span class="hljs-number">1.0</span><br>    lastnum = nums[-<span class="hljs-number">1</span>]<br>    ans = parse(lastnum, extraction_config=[ExprExtractionConfig()])<br>    ground_truth = parse(item[<span class="hljs-string">&quot;A&quot;</span>], extraction_config=[ExprExtractionConfig()])<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> verify(ans, ground_truth) <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>如果回答符合指定格式，则奖励为 <code>1.25</code>，否则为 <code>-1</code>。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reward_format</span>(<span class="hljs-params">item, answer</span>):</span><br>    pattern = <span class="hljs-string">r&quot;^&lt;think&gt;.*?&lt;/think&gt;&lt;answer&gt;.*?&lt;/answer&gt;$&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1.25</span> <span class="hljs-keyword">if</span> re.match(pattern, answer, re.DOTALL | re.VERBOSE) <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<h2 id="loss-部分">loss 部分</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">GRPO_step</span>(<span class="hljs-params">batch</span>):</span><br>    prompt_length = batch[<span class="hljs-string">&#x27;plen&#x27;</span>]<br>    inputs = batch[<span class="hljs-string">&#x27;inputs&#x27;</span>].to(engine.device)<br>    rewards = batch[<span class="hljs-string">&#x27;rewards&#x27;</span>].to(engine.device)<br><br>    logits = engine(inputs).logits<br>    logits = logits[:, :-<span class="hljs-number">1</span>, :]  <span class="hljs-comment"># (B, L-1, V), exclude the last logit: it corresponds to the next token pred</span><br>    input_ids = inputs[:, <span class="hljs-number">1</span>:]  <span class="hljs-comment"># (B, L-1), exclude the first input ID since we don&#x27;t have logits for it</span><br>    <br>    per_token_logps = get_per_token_logps(logits, input_ids)<br>    per_token_logps = per_token_logps[:,prompt_length-<span class="hljs-number">1</span>:]<br>    ref_per_token_logps = batch[<span class="hljs-string">&#x27;refs&#x27;</span>].to(per_token_logps.device)<br><br>    per_token_kl = torch.exp(ref_per_token_logps - per_token_logps) - (ref_per_token_logps - per_token_logps) - <span class="hljs-number">1</span><br>    completion_mask = (inputs[:, prompt_length:] != tokenizer.pad_token_id).<span class="hljs-built_in">int</span>()<br><br>    mean_grouped_rewards = rewards.view(-<span class="hljs-number">1</span>, num_pre_Q).mean(dim=<span class="hljs-number">1</span>)<br>    std_grouped_rewards = rewards.view(-<span class="hljs-number">1</span>, num_pre_Q).std(dim=<span class="hljs-number">1</span>)<br>    mean_grouped_rewards = mean_grouped_rewards.repeat_interleave(num_pre_Q, dim=<span class="hljs-number">0</span>)<br>    std_grouped_rewards = std_grouped_rewards.repeat_interleave(num_pre_Q, dim=<span class="hljs-number">0</span>)<br>    advantages = (rewards - mean_grouped_rewards) / (std_grouped_rewards + <span class="hljs-number">1e-4</span>)<br><br>    per_token_loss = torch.exp(per_token_logps - per_token_logps.detach()) * advantages.unsqueeze(<span class="hljs-number">1</span>)<br>    per_token_loss = -(per_token_loss - beta * per_token_kl)<br>    loss = ((per_token_loss * completion_mask).<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">1</span>) / completion_mask.<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">1</span>)).mean()<br>    <span class="hljs-keyword">return</span> loss<br><br></code></pre></td></tr></table></figure>
+<p><img src="GRPOloss.jpg" alt=""></p>
+<h3 id="无偏小方差KL">无偏小方差KL</h3>
+<p>这里使用的并不是传统的KL，而是使用了一个无偏小方差KL，即$KL=rlogr-(r-1)$</p>
+<p>传统的KL：<br>
+$$<br>
+K L [ q, p ]=\sum_{x} q ( x ) \operatorname{log} \frac{q ( x )} {p ( x )}=E_{x \sim q} [ \operatorname{log} \frac{q ( x )} {p ( x )} ]<br>
+$$<br>
+如何构建一个好的估计？<strong>一个好的估计量是无偏的（它有正确的均值）并且具有低方差。</strong></p>
+<p><strong>一个无偏估计量k1</strong>是$k1=log\frac{q(x)}{p(x)}=-log r$，但他有高方差，因为他对于因为它对于一半的样本是负的，而 KL 总是正的。</p>
+<p><strong>另一个低方差但存在偏差的估计量k2</strong>是$k2=\frac{1}{2}(log\frac{q(x)}{p(x)})^2=\frac{1}{2}(logr)^2$。</p>
+<p>它的期望可以从<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/F-divergence">f-divergence</a>上考虑，其定义为凸函数f的$D_{f} ( p, q )=E_{x \sim q} [ f ( \frac{p ( x )} {q ( x )} ) ] $。</p>
+<p>而<br>
+$$<br>
+D_{f} ( p_{0}, p_{\theta} )=\frac{f^{\prime\prime} ( 1 )} {2} \theta^{T} F \theta+O ( \theta^{3} )<br>
+$$<br>
+其中F是$p_\theta=p_0$处的Fisher information matrix。</p>
+<p>$E_{q} [ k_{2} ]=E_{q} [ \frac{1} {2} ( \operatorname{log} r )^{2} ]$，而$\frac{1}{2}(log(x))^2$和传统KL对应的$-log(x)$具有相同的$f’'(1)=1$。</p>
+<p>另一个无偏但方差低的KL散度就是$rlogr-(r-1)$。为了降低方差，我们可以在k1的基础上再加入一个期望为0但与k1负相关的量，而$r-1$正是这个量。</p>
+<p>另外，<a target="_blank" rel="noopener" href="https://github.com/huggingface/trl/pull/2806">@ingambe在这里</a>尝试了把KL项去掉了，但也取得不错的效果。<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2405.14734">SimPO</a>也删去了reference model，且取得了比DPO更好的结果。<br>
+这也给了我们一个反思：<strong>既然GRPO在PPO的基础上去除掉了value model，那reference model也是必要的吗？我们可以完全去掉它吗？</strong></p>
+<h3 id="优势函数">优势函数</h3>
+<p>由于GRPO比PPO少了value model，所以GRPO采用了一个更简单的方式来代替它的功能。<br>
+$$<br>
+{\hat{A}}<em>{i, t}={\frac{r</em>{i}-\mathrm{m e a n} ( \mathbf{r} )} {\mathrm{s t d} ( \mathbf{r} )}}<br>
+$$<br>
+相当于用“多次模拟成绩平均值”代替价值函数。</p>
+<h3 id="实际上无clip">实际上无clip</h3>
+<p><img src="GRPOloss.jpg" alt=""></p>
+<p>loss函数还有一个clip，用来约束新旧策略每次迭代之间不要偏移得太远。</p>
+<p>但实际是代码实现上GRPO 的损失没有 clip，也直接假设ratio=1，（ TRL 源码也是这样做的。）</p>
+<p>对应代码中的<code> torch.exp(per_token_logps - per_token_logps.detach())</code>，exp内恒为0，但有梯度，且$e^0=1$。</p>
+<p>这是因为只update一次，如deepseekmath中所说。</p>
+<blockquote>
+<p>“The policy model only has a single update following each exploration stage”——deepseekmath中4.2. Training and Evaluating DeepSeekMath-RL</p>
+</blockquote>
+<p>所以old policy和new policy无变化。</p>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/lsdefine/simple_GRPO">github项目: simple_GRPO</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.03300">《DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models》</a></li>
+<li><a target="_blank" rel="noopener" href="http://joschu.net/blog/kl-approx.html">Approximating KL Divergence</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Group Relative Policy Optimization</div>
+      <div>https://lijianxiong.work/2025/20250220/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250222/" title="MoBA vs NSA">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MoBA vs NSA</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250217/" title="火烧金阁寺">
+                        <span class="hidden-mobile">火烧金阁寺</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

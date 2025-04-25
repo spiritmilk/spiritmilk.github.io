@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="此为李宏毅（Hung-yi Lee）的Understanding Deep Learning in One Day 课程的笔记。 分为四个部分： 1.深度学习简介（Introduction of Deep Learning） 2.训练深度神经网络的技巧（ Tips for Training Deep Neural Network） 3.神经网络的变体（Variants of Neural Netw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《一天学会深度学习》-李宏毅">
+<meta property="og:url" content="https://lijianxiong.work/2021/20210727/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="此为李宏毅（Hung-yi Lee）的Understanding Deep Learning in One Day 课程的笔记。 分为四个部分： 1.深度学习简介（Introduction of Deep Learning） 2.训练深度神经网络的技巧（ Tips for Training Deep Neural Network） 3.神经网络的变体（Variants of Neural Netw">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/27/W4V66x.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/27/W4VvNQ.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/27/W4mDhQ.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/27/W4K4N8.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/27/W5vFKJ.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/28/WIXQC8.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/28/WoGm1P.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/28/WoGept.jpg">
+<meta property="article:published_time" content="2021-07-27T04:45:43.000Z">
+<meta property="article:modified_time" content="2022-03-16T08:50:03.534Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/07/27/W4V66x.jpg">
+  
+  
+  
+  <title>《一天学会深度学习》-李宏毅 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-pen"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于本站</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about_me/" target="_self">
+                <i class="iconfont icon-addrcard"></i>
+                <span>关于我本人</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="《一天学会深度学习》-李宏毅"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-07-27 12:45" pubdate>
+          2021年7月27日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">《一天学会深度学习》-李宏毅</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>此为李宏毅（Hung-yi Lee）的Understanding Deep Learning in One Day 课程的笔记。</p>
+<p>分为四个部分：</p>
+<p>1.深度学习简介（Introduction of Deep Learning）</p>
+<p>2.训练深度神经网络的技巧（ Tips for Training Deep Neural Network）</p>
+<p>3.神经网络的变体（Variants of Neural Network）</p>
+<p>4.深度学习下一股浪潮（Next Wave）</p>
+<span id="more"></span>
+<hr>
+<h4 id="一、深度学习简介">一、深度学习简介</h4>
+<p>（这一章前段主要讲述了神经网络的一些基本知识，不再赘述。）</p>
+<p>Universality Theorem告诉我们：任何连续函数$f:R^N \to R^M$都能通过具有一个隐藏层的神经网络实现（只要给定足够多的隐藏神经元）</p>
+<p>相关资料：<a target="_blank" rel="noopener" href="http://neuralnetworksanddeeplearning.com/chap4.html">Reference for the reason</a></p>
+<p>那为什么我们选择使用深层（deep)神经网络而不是浅层但是更fat的神经网络呢？</p>
+<p>使用深层神经网络具有更少的感知机，也表现得更好。</p>
+<p>此外，深层也意味着模块化（Modularization）。比如一个人脸识别的神经网络，第一次可能是性别分类器，第二次可能是某某特征的分类器，诸如此类。模块化是从数据中自动学习的，无需手动设置。</p>
+<p>（另外，也可参考吴恩达《深度学习》课程中“Why deep representations?”部分）</p>
+<p>（接下来的后半段是Keras使用教程，不再赘述）</p>
+<h4 id="二、训练深度神经网络的技巧">二、训练深度神经网络的技巧</h4>
+<p>首先虽然过拟合是一个常见问题，但不要总是责怪过拟合，有可能是训练集数据的问题。</p>
+<p>为了解决过拟合，我们可以主动获取更多训练集，并创建一些训练集样本（比如手写识别中，我们可以选择将训练样本旋转一定角度）</p>
+<p>作为实验，我们还会想测试集中添加噪声。</p>
+<h5 id="深度学习的秘诀（Recipe-of-Deep-Learning）">深度学习的秘诀（Recipe of Deep Learning）</h5>
+<h6 id="1、选择合适的代价函数">1、选择合适的代价函数</h6>
+<p>比如，当你使用softmax输出层时，请选择交叉熵（ cross entropy）</p>
+<h6 id="2、使用Mini-batch">2、使用Mini-batch</h6>
+<p>Mini-batch相比原始的梯度下降法更快，但是不一定更准确，其核心思想其实就是并行计算。</p>
+<h6 id="3、选择新的激活函数（activation-function）">3、选择新的激活函数（activation function）</h6>
+<p>更深的神经网络并不一定更好，可能面对梯度消失（Vanishing Gradient Problem）等问题。</p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W4V66x.jpg" alt=""></p>
+<p>2006年，人们普遍使用 RBM pre-training（Restricted Boltzmann Machine）。<br>
+2015年，更多的人使用ReLU。</p>
+<blockquote>
+<p>Rectified Linear Unit (ReLU)</p>
+<p>使用原因：</p>
+<p>1.计算更快</p>
+<p>2.生物学原因</p>
+<p>3.带有不同biases的无限(Infinite) sigmoid</p>
+<p>4.有利于处理梯度消失的问题</p>
+<p>ReLU 的变种：</p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W4VvNQ.jpg" alt=""></p>
+<p>α也通过梯度下降法学习。</p>
+</blockquote>
+<p>此外还有Maxout，ReLU是Maxout的一个特例。</p>
+<h6 id="4、自适应学习速率（Adaptive-Learning-Rate）">4、自适应学习速率（Adaptive Learning Rate）</h6>
+<p>一个流行且简单的想法是：</p>
+<p>每隔几代（epochs）就降低学习率</p>
+<p>比如可设置$\eta ^t=\eta / \sqrt{t+1}$</p>
+<p>注意，学习率不能一刀切，不同参数不同学习率不一定相同。</p>
+<p><strong>Adagrad算法：</strong></p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W4mDhQ.jpg" alt=""></p>
+<p>设置全局学习率之后，每次的学习率逐参数的除以历史梯度平方和的平方根，使得每个参数的学习率不同。</p>
+<p>当然还有其他算法。</p>
+<blockquote>
+<p>• Adagrad [John Duchi, JMLR’11]</p>
+<p>• RMSprop</p>
+<p>​	• <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=O3sxAc4hxZU">https://www.youtube.com/watch?v=O3sxAc4hxZU</a></p>
+<p>• Adadelta [Matthew D. Zeiler, arXiv’12]</p>
+<p>• “No more pesky learning rates” [Tom Schaul, arXiv’12]</p>
+<p>• AdaSecant [Caglar Gulcehre, arXiv’14]</p>
+<p>• Adam[Diederik P. Kingma, ICLR’15]</p>
+<p>• Nadam</p>
+<p>​	• <a target="_blank" rel="noopener" href="http://cs229.stanford.edu/proj2015/054_report.pdf">http://cs229.stanford.edu/proj2015/054_report.pdf</a></p>
+</blockquote>
+<h6 id="5、动量方法（Momentum）">5、动量方法（Momentum）</h6>
+<p>模拟自然界中的物理过程。仍然不能保证一定达到全局最小值，但有一定希望。</p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W4K4N8.jpg" alt=""></p>
+<p><strong>Adam算法：</strong></p>
+<p>相当于RMSProp (Advanced Adagrad) + Momentum</p>
+<p><img src="https://z3.ax1x.com/2021/07/27/W5vFKJ.jpg" alt=""></p>
+<h6 id="6、使用早停法（early-stopping）">6、使用早停法（early stopping）</h6>
+<p><a target="_blank" rel="noopener" href="https://keras.io/getting_started/faq/#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore">keras关于早停的教程</a></p>
+<h6 id="7、权重衰减-weight-decay">7、权重衰减(<em>weight</em> <em>decay</em>)</h6>
+<p>我们的大脑会清除了神经元之间无用的联系。</p>
+<p>神经网络也应如此。</p>
+<p>权值衰减是正则化的一种技巧。</p>
+<p><img src="https://z3.ax1x.com/2021/07/28/WIXQC8.jpg" alt=""></p>
+<p><a target="_blank" rel="noopener" href="https://keras.io/api/layers/regularizers/">Keras关于权重衰减的部分</a></p>
+<h6 id="8、使用Dropout算法">8、使用Dropout算法</h6>
+<p><strong>Dropout流程：</strong></p>
+<p>每次更新参数前，每个神经元都有p%的可能性退出。</p>
+<p>所以，Dropout算法训练一堆不同结构的神经网络。</p>
+<p>那为什么Dropout会更好呢？</p>
+<p>直观理解：</p>
+<p>​	比如当团队合作时，如果每个人都希望其他partner来完成工作，那么最终什么也做不成。<br>
+​	然而，如果你知道你的partner会退出，你会做得更好。<br>
+​	在测试时，其实没有人中途退出，所以最终取得了不错的成绩。</p>
+<blockquote>
+<p>更多资料：<br>
+• More reference for dropout [Nitish Srivastava, JMLR’14] [Pierre Baldi, NIPS’13][Geoffrey E. Hinton, arXiv’12]</p>
+<p>• Dropout works better with Maxout [Ian J. Goodfellow, ICML’13]</p>
+<p>• Dropconnect [Li Wan, ICML’13]<br>
+​	• Dropout delete neurons</p>
+<p>​	• Dropconnect deletes the connection between neurons</p>
+<p>• Annealed dropout [S.J. Rennie, SLT’14] 	• Dropout rate decreases by epochs</p>
+<p>• Standout [J. Ba, NISP’13]</p>
+<p>​	• Each neural has different dropout rate</p>
+</blockquote>
+<h4 id="三、神经网络的变体">三、神经网络的变体</h4>
+<p>这一部分主要讲述CNN和RNN。</p>
+<h4 id="四、下一股浪潮">四、下一股浪潮</h4>
+<blockquote>
+<p>本节提纲:</p>
+<p>•监督学习</p>
+<p>​	•超深层网络（Ultra Deep Network）</p>
+<p>​	•Attention Model</p>
+<p>•强化学习</p>
+<p>•无监督学习</p>
+<p>​	•图片:认识世界是什么样子</p>
+<p>​	•文本:理解词语的含义</p>
+<p>​	•音频:在没有监督的情况下学习人类语言</p>
+</blockquote>
+<h5 id="监督学习">监督学习</h5>
+<h6 id="超深网络">超深网络:</h6>
+<p>近年来模型层数逐渐增加。</p>
+<p>AlexNet (2012) ：8层</p>
+<p>VGG (2014) ：19层</p>
+<p>GoogleNet (2014)：22层</p>
+<p>Residual Net (2015)：152层</p>
+<p>超深层网络是多种深层网络的集合。</p>
+<p>比如有篇论文：</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1605.06431">Residual Networks are Exponential Ensembles of Relatively Shallow Networks</a></p>
+<p>Highway Network也是一种流行的超深层网络。其能自动选取所需层数。</p>
+<h6 id="Attention-Model">Attention Model</h6>
+<p><img src="https://z3.ax1x.com/2021/07/28/WoGm1P.jpg" alt=""><br>
+<img src="https://z3.ax1x.com/2021/07/28/WoGept.jpg" alt=""></p>
+<p>（吴恩达的《深度学习》课程关于这部分讲得更具体，可参考）</p>
+<h5 id="强化学习">强化学习</h5>
+<p>强化学习是指智能体（Agent)以试错的方式进行学习。像Alpha Go就是监督学习+强化学习的产物。</p>
+<h6 id="强化学习的一些困难">强化学习的一些困难</h6>
+<p>1）为了获得更多的长期奖励，牺牲即时奖励可能会更好</p>
+<p>2）Agent的行为会影响它接收到的后续数据</p>
+<h6 id="一些应用">一些应用</h6>
+<p>• Alpha Go, Playing Video Games, Dialogue</p>
+<p>• Flying Helicopter</p>
+<p>​	• <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0JL04JJjocc">https://www.youtube.com/watch?v=0JL04JJjocc</a></p>
+<p>• Driving</p>
+<p>​	• <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0xo1Ldx3L5Q">https://www.youtube.com/watch?v=0xo1Ldx3L5Q</a></p>
+<p>• Google Cuts Its Giant Electricity Bill With DeepMind-Powered AI</p>
+<p>​	• <a target="_blank" rel="noopener" href="http://www.bloomberg.com/news/articles/2016-07-">http://www.bloomberg.com/news/articles/2016-07-</a> 19/google-cuts-its-giant-electricity-bill-with-deepmindpowered-ai</p>
+<h6 id="强化学习相关资料">强化学习相关资料</h6>
+<p>• Lectures of David Silver</p>
+<p>​	• <a target="_blank" rel="noopener" href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Te">http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Te</a> aching.html</p>
+<p>​	• 10 lectures (1:30 each)</p>
+<p>• Deep Reinforcement Learning</p>
+<p>​	• <a target="_blank" rel="noopener" href="http://videolectures.net/rldm2015_silver_reinfo">http://videolectures.net/rldm2015_silver_reinfo</a> rcement_learning/</p>
+<h5 id="无监督学习">无监督学习</h5>
+<h6 id="生成图像">生成图像</h6>
+<p>训练一个解码器来生成图像是无监督的。</p>
+<p><strong>相关方法：</strong></p>
+<p>• Variation Auto-encoder (VAE)</p>
+<p>​	• Ref: Auto-Encoding Variational Bayes, <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1312.6114">https://arxiv.org/abs/1312.6114</a></p>
+<p>• Generative Adversarial Network (GAN)</p>
+<p>​	• Ref: Generative Adversarial Networks, <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1406.2661">http://arxiv.org/abs/1406.2661</a></p>
+<h6 id="机器阅读">机器阅读</h6>
+<p>机器在没有监督的情况下，通过阅读大量的文件来学习单词的意思。</p>
+<h6 id="声音学习">声音学习</h6>
+<p>相关模型：WaveNet (DeepMind)</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>《一天学会深度学习》-李宏毅</div>
+      <div>https://lijianxiong.work/2021/20210727/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年7月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/20210805/" title="机器学习之建议与应用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">机器学习之建议与应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/20210724/" title="如何只使用一个隐层，来实现包含n元输入的任意布尔函数？">
+                        <span class="hidden-mobile">如何只使用一个隐层，来实现包含n元输入的任意布尔函数？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
