@@ -18399,11 +18399,17 @@ $</p>
   <entry>
     <title>ICLR25 Oral 若干（感兴趣）论文解析</title>
     <url>/2025/20250424/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。</p>
 <h2 id="Joint-Graph-Rewiring-and-Feature-Denoising-via-Spectral-Resonance">Joint Graph Rewiring and Feature Denoising via Spectral Resonance</h2>
 <p><strong>论文地址:</strong> <a href="https://openreview.net/forum?id=zBbZ2vdLzH">https://openreview.net/forum?id=zBbZ2vdLzH</a></p>
-<p><strong>代码:</strong> 无</p>
+<p><strong>代码:</strong> <a href="https://github.com/jlinki/JDR">https://github.com/jlinki/JDR</a></p>
 <p><strong>摘要:</strong> 在从图数据中学习时，图和节点特征都会为节点标签提供噪声信息。在本文中，我们提出了一种算法来联合去噪特征和重连图（JDR），这提高了下游节点分类图神经网络（GNN）的性能。JDR 通过对齐图和特征矩阵的主谱空间来工作。它以处理具有多个类别和不同同质或异质程度图的方式，近似解决了相关的非凸优化问题。我们在一个风格化的环境中对 JDR 进行了理论证明，并表明它在广泛的合成和真实世界节点分类任务上始终优于现有的重连方法。</p>
+<p>该文中的算法尽管也是重构边和特征，但是与图结构学习不同，它是应对内部自身携带的噪声，而非外部攻击产生的扰动。</p>
+<p>算法并不难，但是为何可以这样做的篇幅较大。</p>
+<p><img src="jdr.jpg" alt=""></p>
+<p>论文先从一种图生成模型（cSBM)入手，人工生成的图会更好分析。</p>
+<p><img src="jdrdef1.jpg" alt=""></p>
+<p>定义邻接矩阵为$A^c=\frac{\lambda}{N}yy^T+\frac{1}{\sqrt{N}}O_A$，特征为$X = \sqrt{\frac{\mu}{N}} y \zeta^T+\frac{1}{F}O_X$</p>
 <span id="more"></span>
 <h2 id="Standard-Gaussian-Process-is-All-You-Need-for-High-Dimensional-Bayesian-Optimization">Standard Gaussian Process is All You Need for High-Dimensional Bayesian Optimization</h2>
 <p><strong>论文地址:</strong> <a href="https://openreview.net/forum?id=1CLzLXSFNn">https://openreview.net/forum?id=1CLzLXSFNn</a></p>
