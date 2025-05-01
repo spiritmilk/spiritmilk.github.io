@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>Bayesian Flow Networks</title>
+    <link href="/2025/20250501/"/>
+    <url>/2025/20250501/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。</p><p>两年前，我就看到了这篇论文，但由于篇幅过长、难以理解、无闲暇时间，最终拖到两年后的今天动手写写自己的理解。</p><p>此文并不算太好，据闻youtube上也有说此文晦涩的评论。文中Alice&amp;Bob发生和接收的意图从“趣味”入手的案例反而加难了初学者对论文的理解。</p><p>本文将抛开”发生和接收“，更言简意赅地介绍该算法。</p><span id="more"></span><h2 id="作者背景">作者背景</h2><p>艾力克斯·格雷夫斯（英语：Alex Graves）是一名计算机科学家。在DeepMind担任研究科学家之前，他在爱丁堡大学获得理论物理学学士学位，并在IDSIA的于尔根·施密德胡伯指导下获得了人工智能博士学位。他还曾在慕尼黑工业大学的施密德胡伯和多伦多大学的hinton手下做过博士后。</p><p>在IDSIA，格雷夫斯通过一种称为CTCloss的新方法训练LSTM。格雷夫斯也是神经图灵机（Neural Turing machine）和密切相关的可微分神经计算机的创造者。</p><p>以上来自维基百科，可以看出作者具有很强的物理数学背景，论文中也涉及了大量数学和贝叶斯。</p><p>尽管这篇论文只发表于arxiv上，但其后续的《Protein sequence modelling with Bayesian flow networks》发表于Nature Communications，ICLR24亦有一篇以Bayesian flow networks为基础。</p><h2 id="论文引入">论文引入</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>贝叶斯</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Diffusion Model</title>
     <link href="/2025/20250427/"/>
     <url>/2025/20250427/</url>
