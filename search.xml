@@ -18629,7 +18629,7 @@ DDPM中的方差其实也是随着时间发生改变。</p>
 <p>在BFN中，我们是通过精度来进行加噪，即$\rho$。</p>
 <p>我们令时间$t\in [0,1]$，让$\alpha(t)&gt;0$，令accuracy schedule为$\beta(t)=\int_{t’=0}^t\alpha(t’)dt’$。则$\beta(0)=0,\frac{d\beta(t)}{dt}=\alpha(t)$。<br>
 $$<br>
-\rho_t=\rho_0+\int_{t’=0}^t\alpha(t’)dt’=1+\beta(t)<br>
+\rho_t=\rho_0+\int_{t’=0}^t\alpha(t’)dt’=1+\beta(t) \tag{1}<br>
 $$</p>
 <h2 id="一次性扩散">一次性扩散</h2>
 <p>一次性扩散的意思就是给定时间t，我们能求出初始和时间t的加噪数据关系。</p>
@@ -18638,7 +18638,7 @@ $$</p>
 <h3 id="初始">初始</h3>
 <p>BFN假定先验分布（/初始分布）为最简单的高斯分布。<br>
 $$<br>
-\theta ={\mu,\rho}={0,1}<br>
+\theta ={\mu,\rho}={0,1}\tag{2}<br>
 $$<br>
 $$<br>
 p(x|\theta)=N(x|\mu,\rho^{-1}I)=N(x|0,I)<br>
@@ -18661,15 +18661,14 @@ $$<br>
 我们可以扩展到更多步。</p>
 <p>即<br>
 $$<br>
-\mu_{i}\sim N(\frac{(\alpha_a+\alpha_b) x+\mu_{i-2}\rho_{i-2}}{\rho_i},\frac{(\alpha_a+\alpha_b)}{\rho_i^2} I)<br>
-\<br>
+\mu_{i}\sim N(\frac{(\alpha_a+\alpha_b) x+\mu_{i-2}\rho_{i-2}}{\rho_i},\frac{(\alpha_a+\alpha_b)}{\rho_i^2} I) \tag{5}<br>
 $$</p>
 <p>我们可以类似地把两次加和扩展到n次加和。这在文中也被称为Additive Accuracies。</p>
 <h3 id="开始加噪">开始加噪</h3>
-<p>作者说，输入分布的期望熵要线性地随时间减小，这代表数据信息要以恒定速率注入到输入分布中。</p>
+<p>作者说，输入分布的期望熵要线性地随时间减小，这代表数据信息要<strong>以恒定速率注入</strong>到输入分布中。</p>
 <p>我们知道期望熵即多维正态分布的联合熵$H(t)=\frac{1}{2}ln((2\pi e)^D|\Sigma|)$。</p>
 <p>而$|\Sigma|=(\sigma_t^2)^D=(\frac{1}{1+\beta(t)})^D$，故$H(t)=\frac{D}{2}ln(\frac{2\pi e}{1+\beta(t)})$</p>
-<p>“恒定速率注入”则通过H(t)是t的单调递减函数来实现，即<br>
+<p>“<strong>恒定速率注入</strong>”则通过H(t)是t的单调递减函数来实现，即<br>
 $$<br>
 H(t)=(1-t)H(0)+tH(1)<br>
 \<br>
