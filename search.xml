@@ -18699,7 +18699,7 @@ $$<br>
 x=\frac{\mu}{\gamma(t)}-\sqrt{\frac{1-\gamma(t)}{\gamma(t)}}\varepsilon<br>
 \end{align}<br>
 $$<br>
-类似DDPM的，我们同样使用神经网络去预测这个噪声$\varepsilon$。</p>
+类似DDPM的，我们同样使用神经网络去预测这个噪声$\varepsilon$，最终预测对x的预测为$\hat x$。</p>
 <p>以上部分的伪代码是</p>
 <p><img src="pcode1.png" alt=""></p>
 <p>类似地采样代码为</p>
@@ -18714,7 +18714,16 @@ $$<br>
 <p>若$p\sim N(\mu_1,\Sigma_1)$，$q\sim N(\mu_2,\Sigma_2)$，则$D_{KL}(p||q)=\frac{(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1-\mu_2)}{2}$</p>
 </blockquote>
 <h3 id="离散时间损失">离散时间损失</h3>
+<p>我们通过KL散度来定义。损失函数为：<br>
+$$<br>
+\begin{align}<br>
+D_{KL}(N(x,\alpha_i^{-1}I)||N(\hat x,\alpha_i^{-1}I))&amp;=\frac{\alpha_i}{2}||x-\hat x||^2\\<br>
+&amp;=\frac{\sigma_1^{-2i/n}(1-\sigma_1^{2/n})}{2}||x-\hat x||^2<br>
+\end{align}<br>
+$$<br>
+<img src="pcode2.png" alt=""></p>
 <h3 id="连续时间损失">连续时间损失</h3>
+<p><img src="pcode3.png" alt=""></p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <p>如果想要更详近的诠释（比如离散化和离散数据的处理），可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/659111986">Bayesian Flow Networks (一)：生成即压缩！结合贝叶斯统计与深度学习的生成模型 —— 贝叶斯流网络 - CW不要無聊的風格的文章 - 知乎</a></p>
