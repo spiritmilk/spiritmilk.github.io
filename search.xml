@@ -18627,7 +18627,10 @@ x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N
 $$<br>
 DDPM中的方差其实也是随着时间发生改变。</p>
 <p>在BFN中，我们是通过精度来进行加噪，即$\rho$。</p>
-<p>我们令时间$t\in [0,1]$，让$\alpha(t)&gt;0$，令accuracy schedule$\beta(t)=\int_{t’=0}^t\alpha(t’)dt’$。则$\beta(0)=0,\frac{d\beta(t)}{dt}=\alpha(t)$。</p>
+<p>我们令时间$t\in [0,1]$，让$\alpha(t)&gt;0$，令accuracy schedule为$\beta(t)=\int_{t’=0}^t\alpha(t’)dt’$。则$\beta(0)=0,\frac{d\beta(t)}{dt}=\alpha(t)$。<br>
+$$<br>
+\rho_t=\rho_0+\int_{t’=0}^t\alpha(t’)dt’=1+\beta(t)<br>
+$$</p>
 <h2 id="一次性扩散">一次性扩散</h2>
 <p>一次性扩散的意思就是给定时间t，我们能求出初始和时间t的加噪数据关系。</p>
 <p>DDPM蕴含了无限次加高斯噪声则最后会变成高斯噪声的原理，由高斯分布的性质可知，这蕴含了数据分布也是一种高斯分布的意思。</p>
@@ -18663,6 +18666,17 @@ $$<br>
 $$</p>
 <p>我们可以类似地把两次加和扩展到n次加和。这在文中也被称为Additive Accuracies。</p>
 <h3 id="开始加噪">开始加噪</h3>
+<p>作者说，输入分布的期望熵要线性地随时间减小，这代表数据信息要以恒定速率注入到输入分布中。</p>
+<p>我们知道期望熵即多维正态分布的联合熵$H(t)=\frac{1}{2}ln((2\pi e)^D|\Sigma|)$。</p>
+<p>而$|\Sigma|=(\sigma_t^2)^D=(\frac{1}{1+\beta(t)})^D$，故$H(t)=\frac{D}{2}ln(\frac{2\pi e}{1+\beta(t)})$</p>
+<p>“恒定速率注入”则通过H(t)是t的单调递减函数来实现，即<br>
+$$<br>
+H(t)=(1-t)H(0)+tH(1)<br>
+\<br>
+1<br>
+\newline<br>
+1<br>
+$$</p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <p>如果想要更详近的诠释，可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/659111986">Bayesian Flow Networks (一)：生成即压缩！结合贝叶斯统计与深度学习的生成模型 —— 贝叶斯流网络 - CW不要無聊的風格的文章 - 知乎</a></p>
