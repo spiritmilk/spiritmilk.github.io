@@ -18668,18 +18668,14 @@ $$</p>
 <p>作者说，输入分布的期望熵要线性地随时间减小，这代表数据信息要<strong>以恒定速率注入</strong>到输入分布中。</p>
 <p>我们知道期望熵即多维正态分布的联合熵$H(t)=\frac{1}{2}ln((2\pi e)^D|\Sigma|)$。</p>
 <p>而$|\Sigma|=(\sigma_t^2)^D=(\frac{1}{1+\beta(t)})^D$，故$H(t)=\frac{D}{2}ln(\frac{2\pi e}{1+\beta(t)})$</p>
-<p>“<strong>恒定速率注入</strong>”则通过H(t)是t的单调递减函数来实现，即<br>
-$$<br>
-H(t)=(1-t)H(0)+tH(1)<br>
-\\<br>
-1<br>
-\<br>
-1<br>
-$$</p>
+<p>“<strong>恒定速率注入</strong>”则通过H(t)是t的单调递减函数来实现，即</p>
 <p>$$<br>
 \begin{align}<br>
-a_{11}=b_{11}\\<br>
-a_{22}=b_{22}+c_{22}<br>
+H(t)&amp;=(1-t)H(0)+tH(1)\\<br>
+ln(\frac{2\pi e}{1+\beta(t)})&amp;=t\cdot ln(\frac{1}{1+\beta(1)})\\<br>
+\frac{1}{1+\beta(t)}&amp;=(\frac{1}{1+\beta(1)})^t\\<br>
+\frac{1}{1+\beta(t)}&amp;=(\sigma_1^2)^t\\<br>
+则\ \beta(t)&amp;=\sigma_1^{-2t}-1<br>
 \end{align}<br>
 $$</p>
 <h2 id="扩展阅读">扩展阅读</h2>

@@ -29,7 +29,7 @@
 <meta property="og:description" content="Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。 两年前，我就看到了这篇论文，但由于篇幅过长、难以理解、无闲暇时间，最终拖到两年后的今天动手写写自己的理解。 此文并不算太好，据闻youtube上也有说此文晦涩的评论。文中Alice&amp;Bob发生和接收的意图从“趣味”入手的案例反而加难了初学者对论文的理解。 本文将抛开”发生和接收">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-01T09:09:01.000Z">
-<meta property="article:modified_time" content="2025-05-01T12:50:22.623Z">
+<meta property="article:modified_time" content="2025-05-01T12:55:23.607Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="贝叶斯">
@@ -274,7 +274,7 @@
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -383,18 +383,14 @@ $$</p>
 <p>作者说，输入分布的期望熵要线性地随时间减小，这代表数据信息要<strong>以恒定速率注入</strong>到输入分布中。</p>
 <p>我们知道期望熵即多维正态分布的联合熵$H(t)=\frac{1}{2}ln((2\pi e)^D|\Sigma|)$。</p>
 <p>而$|\Sigma|=(\sigma_t^2)^D=(\frac{1}{1+\beta(t)})^D$，故$H(t)=\frac{D}{2}ln(\frac{2\pi e}{1+\beta(t)})$</p>
-<p>“<strong>恒定速率注入</strong>”则通过H(t)是t的单调递减函数来实现，即<br>
-$$<br>
-H(t)=(1-t)H(0)+tH(1)<br>
-\\<br>
-1<br>
-\<br>
-1<br>
-$$</p>
+<p>“<strong>恒定速率注入</strong>”则通过H(t)是t的单调递减函数来实现，即</p>
 <p>$$<br>
 \begin{align}<br>
-a_{11}=b_{11}\\<br>
-a_{22}=b_{22}+c_{22}<br>
+H(t)&amp;=(1-t)H(0)+tH(1)\\<br>
+ln(\frac{2\pi e}{1+\beta(t)})&amp;=t\cdot ln(\frac{1}{1+\beta(1)})\\<br>
+\frac{1}{1+\beta(t)}&amp;=(\frac{1}{1+\beta(1)})^t\\<br>
+\frac{1}{1+\beta(t)}&amp;=(\sigma_1^2)^t\\<br>
+则\ \beta(t)&amp;=\sigma_1^{-2t}-1<br>
 \end{align}<br>
 $$</p>
 <h2 id="扩展阅读">扩展阅读</h2>
