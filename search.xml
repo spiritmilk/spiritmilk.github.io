@@ -18675,7 +18675,8 @@ H(t)&amp;=(1-t)H(0)+tH(1)\\<br>
 ln(\frac{2\pi e}{1+\beta(t)})&amp;=t\cdot ln(\frac{1}{1+\beta(1)})\\<br>
 \frac{1}{1+\beta(t)}&amp;=(\frac{1}{1+\beta(1)})^t\\<br>
 \frac{1}{1+\beta(t)}&amp;=(\sigma_1^2)^t\\<br>
-则\ \beta(t)&amp;=\sigma_1^{-2t}-1<br>
+则\ \beta(t)&amp;=\sigma_1^{-2t}-1\\<br>
+\alpha(t)&amp;=\frac{-2ln(\sigma_1)}{\sigma_1^{2t}}<br>
 \end{align}<br>
 $$</p>
 <h2 id="扩展阅读">扩展阅读</h2>
