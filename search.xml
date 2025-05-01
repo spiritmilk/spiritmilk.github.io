@@ -18601,7 +18601,7 @@ $</p>
   <entry>
     <title>Bayesian Flow Networks</title>
     <url>/2025/20250501/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。</p>
 <p>两年前，我就看到了这篇论文，但由于篇幅过长、难以理解、无闲暇时间，最终拖到两年后的今天动手写写自己的理解。</p>
 <p>此文并不算太好，据闻youtube上也有说此文晦涩的评论。文中Alice&amp;Bob发生和接收的意图从“趣味”入手的案例反而加难了初学者对论文的理解。</p>
 <p>本文将抛开”发生和接收“，更言简意赅地介绍该算法。</p>
@@ -18626,7 +18626,7 @@ $$<br>
 x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N(0,I)<br>
 $$<br>
 DDPM中的方差其实也是随着时间发生改变。</p>
-<p>在BFN中，我们是通过精度来进行加噪，即$\rho$。</p>
+<p>在BFN中，我们是通过精度来进行加噪，即$\rho$。也就是说DDPM中加噪体现在均值和方差都发生了改变，那么我们干脆直接改变方差和均值以达到抽象而非具体的“加噪”的效果。</p>
 <p>我们令时间$t\in [0,1]$，让$\alpha(t)&gt;0$，令accuracy schedule为$\beta(t)=\int_{t’=0}^t\alpha(t’)dt’$。则$\beta(0)=0,\frac{d\beta(t)}{dt}=\alpha(t)$。<br>
 $$<br>
 \rho_t=\rho_0+\int_{t’=0}^t\alpha(t’)dt’=1+\beta(t) \tag{1}<br>
@@ -18636,7 +18636,7 @@ $$</p>
 <p>DDPM蕴含了无限次加高斯噪声则最后会变成高斯噪声的原理，由高斯分布的性质可知，这蕴含了数据分布也是一种高斯分布的意思。</p>
 <p>BFN也是采用了这一思想，它从某个初始的高斯分布出发，从数据样本中抽取，不断使用贝叶斯更新以获得t时间的分布。</p>
 <h3 id="初始">初始</h3>
-<p>BFN假定先验分布（/初始分布）为最简单的高斯分布。<br>
+<p>BFN假定先验分布（或初始分布）为最简单的高斯分布。<br>
 $$<br>
 \theta ={\mu,\rho}={0,1}\tag{2}<br>
 $$<br>
@@ -18680,7 +18680,7 @@ ln(\frac{2\pi e}{1+\beta(t)})&amp;=t\cdot ln(\frac{1}{1+\beta(1)})\\<br>
 \end{align}<br>
 $$</p>
 <h3 id="扩散结果">扩散结果</h3>
-<p>我们将上述结果应用于（1）（5)式则有，<br>
+<p>我们将上述结果应用于（1）（5)式则有，并注意到（2）式的$\mu=0$则有<br>
 $$<br>
 \begin{align}<br>
 \mu&amp;\sim N(\frac{\beta(t)x}{1+\beta(t)},\frac{\beta(t)}{(1+\beta(t))^2}I)\\<br>
@@ -18705,9 +18705,18 @@ $$<br>
 <p>类似地采样代码为</p>
 <p><img src="pcode4.png" alt=""></p>
 <h2 id="损失函数">损失函数</h2>
-<p>pass</p>
+<p>连续数据的所有环节已经介绍完了，还剩下损失函数没有介绍。</p>
+<p>可能有人觉得，不如我们直接（像DDPM一样）对x使用MSE来作为损失函数。</p>
+<p>但笔者以生成mnist的例子做了尝试，发现这样效果其实是不好的。</p>
+<p>论文中提到的损失函数是必要的，其实也不复杂，本质上是在MSE前面加一个系数。但系数是有一系列数学公式来推导的，类似target encoding中的处理。</p>
+<p>在此之前，我们先回忆一下两个多维正态分布之间的 KL 散度，</p>
+<blockquote>
+<p>若$p\sim N(\mu_1,\Sigma_1)$，$q\sim N(\mu_2,\Sigma_2)$，则$D_{KL}(p||q)=\frac{(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1-\mu_2)}{2}$</p>
+</blockquote>
+<h3 id="离散时间损失">离散时间损失</h3>
+<h3 id="连续时间损失">连续时间损失</h3>
 <h2 id="扩展阅读">扩展阅读</h2>
-<p>如果想要更详近的诠释，可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
+<p>如果想要更详近的诠释（比如离散化和离散数据的处理），可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/659111986">Bayesian Flow Networks (一)：生成即压缩！结合贝叶斯统计与深度学习的生成模型 —— 贝叶斯流网络 - CW不要無聊的風格的文章 - 知乎</a></p>
 ]]></content>
       <tags>
