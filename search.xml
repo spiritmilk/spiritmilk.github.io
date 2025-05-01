@@ -18601,7 +18601,7 @@ $</p>
   <entry>
     <title>Bayesian Flow Networks</title>
     <url>/2025/20250501/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。</p>
 <p>两年前，我就看到了这篇论文，但由于篇幅过长、难以理解、无闲暇时间，最终拖到两年后的今天动手写写自己的理解。</p>
 <p>此文并不算太好，据闻youtube上也有说此文晦涩的评论。文中Alice&amp;Bob发生和接收的意图从“趣味”入手的案例反而加难了初学者对论文的理解。</p>
 <p>本文将抛开”发生和接收“，更言简意赅地介绍该算法。</p>
@@ -18626,6 +18626,8 @@ $$<br>
 x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N(0,I)<br>
 $$<br>
 DDPM中的方差其实也是随着时间发生改变。</p>
+<p>在BFN中，我们是通过精度来进行加噪，即$\rho$。</p>
+<p>我们令时间$t\in [0,1]$，让$\alpha(t)&gt;0$，令accuracy schedule$\beta(t)=\int_{t’=0}^t\alpha(t’)dt’$。则$\beta(0)=0,\frac{d\beta(t)}{dt}=\alpha(t)$。</p>
 <h2 id="一次性扩散">一次性扩散</h2>
 <p>一次性扩散的意思就是给定时间t，我们能求出初始和时间t的加噪数据关系。</p>
 <p>DDPM蕴含了无限次加高斯噪声则最后会变成高斯噪声的原理，由高斯分布的性质可知，这蕴含了数据分布也是一种高斯分布的意思。</p>
@@ -18656,12 +18658,11 @@ $$<br>
 我们可以扩展到更多步。</p>
 <p>即<br>
 $$<br>
-\mu_{i}\sim N(\frac{(\alpha_a+\alpha_b) x+\mu_{i-2}\rho_{i-2}}{\rho_i},\frac{(\alpha_a+\alpha_b)}{\rho_b^2} I)<br>
+\mu_{i}\sim N(\frac{(\alpha_a+\alpha_b) x+\mu_{i-2}\rho_{i-2}}{\rho_i},\frac{(\alpha_a+\alpha_b)}{\rho_i^2} I)<br>
 \<br>
 $$</p>
 <p>我们可以类似地把两次加和扩展到n次加和。这在文中也被称为Additive Accuracies。</p>
 <h3 id="开始加噪">开始加噪</h3>
-<p>如前文所述，我们是通过精度来进行加噪，即$\rho$。</p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <p>如果想要更详近的诠释，可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/659111986">Bayesian Flow Networks (一)：生成即压缩！结合贝叶斯统计与深度学习的生成模型 —— 贝叶斯流网络 - CW不要無聊的風格的文章 - 知乎</a></p>
