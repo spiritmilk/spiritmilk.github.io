@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250501/pcode2.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250501/pcode3.png">
 <meta property="article:published_time" content="2025-05-01T09:09:01.000Z">
-<meta property="article:modified_time" content="2025-05-01T14:31:32.998Z">
+<meta property="article:modified_time" content="2025-05-01T15:00:43.513Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="贝叶斯">
@@ -268,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2k 字
         
       </span>
     
@@ -279,7 +279,7 @@
         
         
         
-          16 分钟
+          17 分钟
         
       </span>
     
@@ -396,7 +396,7 @@ ln(\frac{2\pi e}{1+\beta(t)})&amp;=t\cdot ln(\frac{1}{1+\beta(1)})\\<br>
 \frac{1}{1+\beta(t)}&amp;=(\frac{1}{1+\beta(1)})^t\\<br>
 \frac{1}{1+\beta(t)}&amp;=(\sigma_1^2)^t\\<br>
 则\ \beta(t)&amp;=\sigma_1^{-2t}-1\\<br>
-\alpha(t)&amp;=\frac{-2ln(\sigma_1)}{\sigma_1^{2t}}<br>
+\alpha(t)&amp;=\frac{-2ln(\sigma_1)}{\sigma_1^{2t}} \tag{6}<br>
 \end{align}<br>
 $$</p>
 <h3 id="扩散结果">扩散结果</h3>
@@ -427,22 +427,30 @@ $$<br>
 <h2 id="损失函数">损失函数</h2>
 <p>连续数据的所有环节已经介绍完了，还剩下损失函数没有介绍。</p>
 <p>可能有人觉得，不如我们直接（像DDPM一样）对x使用MSE来作为损失函数。</p>
-<p>但笔者以生成mnist的例子做了尝试，发现这样效果其实是不好的。</p>
-<p>论文中提到的损失函数是必要的，其实也不复杂，本质上是在MSE前面加一个系数。但系数是有一系列数学公式来推导的，类似target encoding中的处理。</p>
+<p>但笔者以生成mnist的例子做了尝试，但至少给MSE加一个系数（所有epochs都一样)的效果其实是不好的。</p>
+<p>论文中提到的损失函数是必要的，其实也不复杂，本质上是在MSE前面加一个系数。但系数是有一系列数学公式来推导的，类似target encoding中的处理，也不是随心所欲去定义一个参数。</p>
 <p>在此之前，我们先回忆一下两个多维正态分布之间的 KL 散度，</p>
 <blockquote>
 <p>若$p\sim N(\mu_1,\Sigma_1)$，$q\sim N(\mu_2,\Sigma_2)$，则$D_{KL}(p||q)=\frac{(\mu_1-\mu_2)^T\Sigma^{-1}(\mu_1-\mu_2)}{2}$</p>
 </blockquote>
 <h3 id="离散时间损失">离散时间损失</h3>
-<p>我们通过KL散度来定义。损失函数为：<br>
+<p>我们通过KL散度来定义。损失函数$L^n(x)$为：<br>
 $$<br>
 \begin{align}<br>
 D_{KL}(N(x,\alpha_i^{-1}I)||N(\hat x,\alpha_i^{-1}I))&amp;=\frac{\alpha_i}{2}||x-\hat x||^2\\<br>
+&amp;=\frac{\beta(t_i)-\beta(t_{i-1})}{2}||x-\hat x||^2\\<br>
 &amp;=\frac{\sigma_1^{-2i/n}(1-\sigma_1^{2/n})}{2}||x-\hat x||^2<br>
 \end{align}<br>
 $$<br>
-<img src="pcode2.png" alt=""></p>
+伪代码如下，可以发现其实前面还有个n，这是为什么呢？作者是从整体定义损失函数的，也就是n步，但是我们实际上（或者DDPM实际上）只对一步进行拟合，那么我们要获得完整的损失函数，我们需要乘上一个n去近似它。</p>
+<p><img src="pcode2.png" alt=""></p>
 <h3 id="连续时间损失">连续时间损失</h3>
+<p>$$<br>
+\begin{align}<br>
+L^\infty(x)=\frac{\alpha_i}{2}||x-\hat x||^2<br>
+\mathop{=}^{由(6)}=\frac{-ln(\sigma_1)}{\sigma_1^{2t}}||x-\hat x||^2<br>
+\end{align}<br>
+$$</p>
 <p><img src="pcode3.png" alt=""></p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <p>如果想要更详近的诠释（比如离散化和离散数据的处理），可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
