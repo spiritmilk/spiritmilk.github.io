@@ -18656,7 +18656,7 @@ $$<br>
 而<br>
 $$<br>
 \mu_b=\frac{\mu_a\rho_a+y\alpha}{\rho_b}=\frac{\alpha}{\rho_b} N(\mu_a,\rho_a^{-1})+\frac{\mu_a\rho_a}{\rho_b}\sim N(\frac{\alpha x+\mu_a\rho_a}{\rho_b},\frac{\alpha}{\rho_b^2} I)<br>
-\<br>
+\tag{4}<br>
 $$<br>
 我们可以扩展到更多步。</p>
 <p>即<br>
@@ -18679,6 +18679,27 @@ ln(\frac{2\pi e}{1+\beta(t)})&amp;=t\cdot ln(\frac{1}{1+\beta(1)})\\<br>
 \alpha(t)&amp;=\frac{-2ln(\sigma_1)}{\sigma_1^{2t}}<br>
 \end{align}<br>
 $$</p>
+<h3 id="扩散结果">扩散结果</h3>
+<p>我们将上述结果应用于（1）（5)式则有，<br>
+$$<br>
+\begin{align}<br>
+\mu&amp;\sim N(\frac{\beta(t)x}{1+\beta(t)},\frac{\beta(t)}{(1+\beta(t))^2}I)\\<br>
+&amp;=N(\gamma(t)x,\gamma(t)(1-\gamma(t))I)<br>
+\end{align}<br>
+$$<br>
+其中<br>
+$$<br>
+\gamma(t)=\frac{\beta(t)}{1+\beta(t)}=1-\sigma_1^{2t}<br>
+$$<br>
+同样使用运用于DDPM的重参数化则有，<br>
+$$<br>
+\mu\sim N(\gamma(t)x,\gamma(t)(1-\gamma(t))I)\\<br>
+\mu= \gamma(t)x+\sqrt{\gamma(t)(1-\gamma(t))}\varepsilon,\varepsilon\sim N(0,I)\\<br>
+x=\frac{\mu}{\gamma(t)}-\sqrt{\frac{1-\gamma(t)}{\gamma(t)}}\varepsilon<br>
+$$<br>
+类似DDPM的，我们同样使用神经网络去预测这个噪声$\varepsilon$。</p>
+<h2 id="损失函数">损失函数</h2>
+<p>pass</p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <p>如果想要更详近的诠释，可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/659111986">Bayesian Flow Networks (一)：生成即压缩！结合贝叶斯统计与深度学习的生成模型 —— 贝叶斯流网络 - CW不要無聊的風格的文章 - 知乎</a></p>
