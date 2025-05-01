@@ -17906,7 +17906,7 @@ $$<br>
   <entry>
     <title>Group Relative Policy Optimization</title>
     <url>/2025/20250220/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Group Relative Policy Optimization（GRPO）起自deepseekmath，在deepseek-R1中也大放光彩。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Group Relative Policy Optimization（GRPO）起自deepseekmath，在deepseek-R1中也大放光彩。</p>
 <p>看到复旦某组开源了一个简单的仅~200行的关于GRPO的项目simple_GRPO，故决定学习并写写。</p>
 <span id="more"></span>
 <p>GRPO是PPO的改进。</p>
@@ -17950,9 +17950,7 @@ $$<br>
 这也给了我们一个反思：<strong>既然GRPO在PPO的基础上去除掉了value model，那reference model也是必要的吗？我们可以完全去掉它吗？</strong></p>
 <h3 id="优势函数">优势函数</h3>
 <p>由于GRPO比PPO少了value model，所以GRPO采用了一个更简单的方式来代替它的功能。<br>
-$$<br>
-{\hat{A}}<em>{i,t}={\frac{r</em>{i}-mean®}{std®}}<br>
-$$<br>
+$\hat{A}_{i,t}=\frac{r_i-mean®}{std®}$<br>
 相当于用“多次模拟成绩平均值”代替价值函数。</p>
 <h3 id="实际上无clip">实际上无clip</h3>
 <p><img src="GRPOloss.jpg" alt=""></p>
