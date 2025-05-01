@@ -18621,7 +18621,7 @@ $</p>
 <p>听上去好像很抽象，但是我们注意到DDPM中从x0到xt：<br>
 $$<br>
 q(x_t|x_o)=N(x_t;\sqrt{\overline a_t }x_o,(1-\overline a_t)I)<br>
-\x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N(0,I)<br>
+\\x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N(0,I)<br>
 $$<br>
 DDPM中的方差其实也是随着时间发生改变。</p>
 <h2 id="一次性扩散">一次性扩散</h2>
@@ -18648,7 +18648,8 @@ $$<br>
 $$<br>
 \mu_b=\frac{\mu_a\rho_a+y\alpha}{\rho_b}=\frac{\alpha}{\rho_b} N(\mu_a,\rho_a^{-1})+\frac{\mu_a\rho_a}{\rho_b}\sim N(\frac{\alpha x+\mu_a}{\rho_b},\frac{\alpha}{\rho_b^2} I)<br>
 \<br>
-$$</p>
+$$<br>
+可以看到</p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <p>如果想要更详近的诠释，可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/659111986">Bayesian Flow Networks (一)：生成即压缩！结合贝叶斯统计与深度学习的生成模型 —— 贝叶斯流网络 - CW不要無聊的風格的文章 - 知乎</a></p>

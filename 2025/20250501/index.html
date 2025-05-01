@@ -29,7 +29,7 @@
 <meta property="og:description" content="Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。 两年前，我就看到了这篇论文，但由于篇幅过长、难以理解、无闲暇时间，最终拖到两年后的今天动手写写自己的理解。 此文并不算太好，据闻youtube上也有说此文晦涩的评论。文中Alice&amp;Bob发生和接收的意图从“趣味”入手的案例反而加难了初学者对论文的理解。 本文将抛开”发生和接收">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-01T09:09:01.000Z">
-<meta property="article:modified_time" content="2025-05-01T11:45:23.081Z">
+<meta property="article:modified_time" content="2025-05-01T11:47:17.111Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="贝叶斯">
@@ -336,7 +336,7 @@
 <p>听上去好像很抽象，但是我们注意到DDPM中从x0到xt：<br>
 $$<br>
 q(x_t|x_o)=N(x_t;\sqrt{\overline a_t }x_o,(1-\overline a_t)I)<br>
-\x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N(0,I)<br>
+\\x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N(0,I)<br>
 $$<br>
 DDPM中的方差其实也是随着时间发生改变。</p>
 <h2 id="一次性扩散">一次性扩散</h2>
@@ -363,7 +363,8 @@ $$<br>
 $$<br>
 \mu_b=\frac{\mu_a\rho_a+y\alpha}{\rho_b}=\frac{\alpha}{\rho_b} N(\mu_a,\rho_a^{-1})+\frac{\mu_a\rho_a}{\rho_b}\sim N(\frac{\alpha x+\mu_a}{\rho_b},\frac{\alpha}{\rho_b^2} I)<br>
 \<br>
-$$</p>
+$$<br>
+可以看到</p>
 <h2 id="扩展阅读">扩展阅读</h2>
 <p>如果想要更详近的诠释，可以阅读知乎上的一系列文章，写得还是比较详细，且遵循论文的结构来叙述。</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/659111986">Bayesian Flow Networks (一)：生成即压缩！结合贝叶斯统计与深度学习的生成模型 —— 贝叶斯流网络 - CW不要無聊的風格的文章 - 知乎</a></p>
