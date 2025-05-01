@@ -17951,7 +17951,7 @@ $$<br>
 <h3 id="优势函数">优势函数</h3>
 <p>由于GRPO比PPO少了value model，所以GRPO采用了一个更简单的方式来代替它的功能。<br>
 $$<br>
-{\hat{A}}<em>{i, t}={\frac{r</em>{i}-\mathrm{m e a n} ( \mathbf{r} )} {\mathrm{s t d} ( \mathbf{r} )}}<br>
+{\hat{A}}<em>{i,t}={\frac{r</em>{i}-mean®}{std®}}<br>
 $$<br>
 相当于用“多次模拟成绩平均值”代替价值函数。</p>
 <h3 id="实际上无clip">实际上无clip</h3>
