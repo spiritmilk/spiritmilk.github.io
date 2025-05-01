@@ -18602,12 +18602,12 @@ $</p>
     <title>Bayesian Flow Networks</title>
     <url>/2025/20250501/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。</p>
-<p>两年前，我就看到了这篇论文，但由于篇幅过长、难以理解、无闲暇时间，最终拖到两年后的今天动手写写自己的理解。</p>
+<p>两年前，我就看到了这篇论文，但由于篇幅过长、数学推导较多难以理解、无闲暇时间，最终拖到两年后的今天，才决定动手写写自己的理解。</p>
 <p>此文并不算太好，据闻youtube上也有说此文晦涩的评论。文中Alice&amp;Bob发生和接收的意图从“趣味”入手的案例反而加难了初学者对论文的理解。</p>
 <p>本文将抛开”发生和接收“，更言简意赅地介绍该算法。</p>
 <span id="more"></span>
-<p>为了简便，我们目前只讨论连续数据。</p>
-<p>（作者将数据分为连续数据、离散数据，在连续数据上又进一步分为离散化数据，即是连续但我们把它离散化，比如位图，也有点类似分箱。）</p>
+<p>作者将数据分为连续数据、离散数据，在连续数据上又进一步分为离散化数据，即是连续但我们把它离散化，比如位图，也有点类似分箱。</p>
+<p>为了简便，我们目前只讨论连续数据。<strong>（也许后续会更新更多。）</strong></p>
 <h2 id="作者背景">作者背景</h2>
 <p>艾力克斯·格雷夫斯（英语：Alex Graves）是一名计算机科学家。在DeepMind担任研究科学家之前，他在爱丁堡大学获得理论物理学学士学位，并在IDSIA的于尔根·施密德胡伯指导下获得了人工智能博士学位。他还曾在慕尼黑工业大学的施密德胡伯和多伦多大学的hinton手下做过博士后。</p>
 <p>在IDSIA，格雷夫斯通过一种称为CTCloss的新方法训练LSTM。格雷夫斯也是神经图灵机（Neural Turing machine）和密切相关的可微分神经计算机的创造者。</p>
@@ -18625,14 +18625,14 @@ $$<br>
 $$<br>
 x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N(0,I)<br>
 $$<br>
-DDPM中的方差其实也是随着时间发生改变。</p>
+DDPM中的均值和方差是随着时间发生改变的。</p>
 <p>在BFN中，我们是通过精度来进行加噪，即$\rho$。也就是说DDPM中加噪体现在均值和方差都发生了改变，那么我们干脆直接改变方差和均值以达到抽象而非具体的“加噪”的效果。</p>
 <p>我们令时间$t\in [0,1]$，让$\alpha(t)&gt;0$，令accuracy schedule为$\beta(t)=\int_{t’=0}^t\alpha(t’)dt’$。则$\beta(0)=0,\frac{d\beta(t)}{dt}=\alpha(t)$。<br>
 $$<br>
 \rho_t=\rho_0+\int_{t’=0}^t\alpha(t’)dt’=1+\beta(t) \tag{1}<br>
 $$</p>
 <h2 id="一次性扩散">一次性扩散</h2>
-<p>一次性扩散的意思就是给定时间t，我们能求出初始和时间t的加噪数据关系。</p>
+<p>一次性扩散的意思就是给定时间t，我们能求出初始和时间t的加噪数据关系，而不用一步一步去加噪。</p>
 <p>DDPM蕴含了无限次加高斯噪声则最后会变成高斯噪声的原理，由高斯分布的性质可知，这蕴含了数据分布也是一种高斯分布的意思。</p>
 <p>BFN也是采用了这一思想，它从某个初始的高斯分布出发，从数据样本中抽取，不断使用贝叶斯更新以获得t时间的分布。</p>
 <h3 id="初始">初始</h3>
@@ -18644,7 +18644,7 @@ $$<br>
 p(x|\theta)=N(x|\mu,\rho^{-1}I)=N(x|0,I)<br>
 $$</p>
 <h3 id="扩散">扩散</h3>
-<p>我们可以复习一些贝叶斯的知识。</p>
+<p>我们可以复习一些贝叶斯推断的知识。</p>
 <p>假定高斯先验，观测值x来自似然，则后验也为高斯分布。（称为共轭性）</p>
 <p>即假定高斯分布$N(\mu_a,\rho_a^{-1})$，观测值y来自$N(x,\alpha^{-1})$，则后验分布$N(\mu_b,\rho_a^{-1})$满足：<br>
 $$<br>
@@ -18702,12 +18702,12 @@ $$<br>
 类似DDPM的，我们同样使用神经网络去预测这个噪声$\varepsilon$，最终预测对x的预测为$\hat x$。</p>
 <p>以上部分的伪代码是</p>
 <p><img src="pcode1.png" alt=""></p>
-<p>类似地采样代码为</p>
+<p>类似地，采样代码为</p>
 <p><img src="pcode4.png" alt=""></p>
 <h2 id="损失函数">损失函数</h2>
-<p>连续数据的所有环节已经介绍完了，还剩下损失函数没有介绍。</p>
+<p>至此，连续数据的所有环节已经介绍完了，还剩下损失函数没有介绍。</p>
 <p>可能有人觉得，不如我们直接（像DDPM一样）对x使用MSE来作为损失函数。</p>
-<p>但笔者以生成mnist的例子做了尝试，但至少给MSE加一个系数（所有epochs都一样)的效果其实是不好的。</p>
+<p>但笔者以生成mnist的例子做了尝试，至少给MSE加一个系数（所有epochs都一样)的效果其实是不好的。</p>
 <p>论文中提到的损失函数是必要的，其实也不复杂，本质上是在MSE前面加一个系数。但系数是有一系列数学公式来推导的，类似target encoding中的处理，也不是随心所欲去定义一个参数。</p>
 <p>在此之前，我们先回忆一下两个多维正态分布之间的 KL 散度，</p>
 <blockquote>
