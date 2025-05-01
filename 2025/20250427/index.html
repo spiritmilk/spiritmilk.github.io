@@ -21,18 +21,37 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="pass">
+    <meta name="description" content="Difussion模型是当今生成领域火热的模型，过往的GAN和VAE依然退出前排。 本文主要围绕《Denoising Diffusion Probabilistic Models》 (DDPM) 展开。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Diffusion Model">
 <meta property="og:url" content="https://lijianxiong.work/2025/20250427/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="pass">
+<meta property="og:description" content="Difussion模型是当今生成领域火热的模型，过往的GAN和VAE依然退出前排。 本文主要围绕《Denoising Diffusion Probabilistic Models》 (DDPM) 展开。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion1.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion2.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion3.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion4.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion5.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion6.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion7.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion8.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion9.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion10.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion11.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion12.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion13.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion14.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion15.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion16.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion17.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250427/diffusion18.png">
 <meta property="article:published_time" content="2025-04-27T12:56:12.000Z">
-<meta property="article:modified_time" content="2025-04-27T13:00:03.099Z">
+<meta property="article:modified_time" content="2025-04-28T02:26:01.092Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.work/2025/20250427/diffusion1.png">
   
   
   
@@ -262,7 +281,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1 字
+          443 字
         
       </span>
     
@@ -273,7 +292,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -315,7 +334,43 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>pass</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Difussion模型是当今生成领域火热的模型，过往的GAN和VAE依然退出前排。</p>
+<p>本文主要围绕<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">《Denoising Diffusion Probabilistic Models》</a> (DDPM) 展开。</p>
+<span id="more"></span>
+<h2 id="简要介绍">简要介绍</h2>
+<p>Diffusion模型本质上是加噪和去噪的过程，通过加噪将一张图片转为纯噪声，通过去噪将一张噪声转为有价值的图片。</p>
+<p>这种原理其实很显然，比如像GAN和VAE，从特定分布中抽取并生成，image = f(noise)。Diffusion也是这样，只要我们能通过一个g(image)=noise，那么我们就能从g(image)=noise中得到image = f(noise)。但由于神经网络的复杂性（一个黑盒子很难找到它的反函数），所以Diffusion做的处理是，加噪使用简单的操作，去噪再使用神经网络，而不是两者都用神经网络。（这样做也更简单。）</p>
+<p><img src="diffusion1.png" alt=""></p>
+<p><img src="diffusion2.png" alt=""></p>
+<p>另一方面，由于直接预测会很难，所以内部实际上是预测残差。</p>
+<p>这有点类似GBDT，不断地去拟合残差，且不是一次拟合完。多次逐一地去拟合。</p>
+<p><img src="diffusion3.png" alt=""></p>
+<h2 id="算法">算法</h2>
+<p><img src="diffusion4.png" alt=""></p>
+<p>对于训练的第五行：</p>
+<p><img src="diffusion5.png" alt=""></p>
+<p>画红框的地方是这样来的：</p>
+<p><img src="diffusion6.png" alt=""></p>
+<p><img src="diffusion7.png" alt=""></p>
+<p><img src="diffusion8.png" alt=""></p>
+<p>对于sampling的第四行：</p>
+<p><img src="diffusion9.png" alt=""><br>
+<img src="diffusion10.png" alt=""><br>
+<img src="diffusion11.png" alt=""><br>
+<img src="diffusion12.png" alt=""><br>
+即<br>
+<img src="diffusion13.png" alt=""><br>
+对于KL散度，有以下公式。<br>
+<img src="diffusion14.png" alt=""><br>
+但是实际上方差我们假定是固定的，所以只需要均值越靠近越好。也就是相当于使用去噪神经网络直接预测左下角那一坨。<br>
+<img src="diffusion15.png" alt=""><br>
+<img src="diffusion16.png" alt=""><br>
+<img src="diffusion17.png" alt=""><br>
+另外，注意到第四行最右边还有一项加噪声，这是为了多样性。正如李宏毅课上所说的，实际上的模型也并不是每次取最优解。<br>
+<img src="diffusion18.png" alt=""></p>
+<h2 id="参考资料">参考资料</h2>
+<p>1.<a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php">李宏毅的机器学习课程</a></p>
+<p>2.<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9152">苏神的生成扩散模型漫谈一系列文章</a></p>
 
                 
               </div>
