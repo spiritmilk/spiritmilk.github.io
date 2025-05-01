@@ -18693,9 +18693,11 @@ $$<br>
 $$<br>
 同样使用运用于DDPM的重参数化则有，<br>
 $$<br>
+\begin{align}<br>
 \mu\sim N(\gamma(t)x,\gamma(t)(1-\gamma(t))I)\\<br>
 \mu= \gamma(t)x+\sqrt{\gamma(t)(1-\gamma(t))}\varepsilon,\varepsilon\sim N(0,I)\\<br>
 x=\frac{\mu}{\gamma(t)}-\sqrt{\frac{1-\gamma(t)}{\gamma(t)}}\varepsilon<br>
+\end{align}<br>
 $$<br>
 类似DDPM的，我们同样使用神经网络去预测这个噪声$\varepsilon$。</p>
 <h2 id="损失函数">损失函数</h2>
