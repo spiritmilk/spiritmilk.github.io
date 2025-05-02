@@ -18625,6 +18625,8 @@ x_t=\sqrt{\overline a_t}x_0+\sqrt{1-\overline a_t}\varepsilon,\varepsilon \sim N
 $$<br>
 DDPM中的均值和方差是随着时间发生改变的。</p>
 <p>在BFN中，我们是通过精度来进行加噪，即$\rho$。也就是说DDPM中加噪体现在均值和方差都发生了改变，那么我们干脆直接改变方差和均值以达到抽象而非具体的“加噪”的效果。</p>
+<p>当然我们也不是乱改变的，我们要保持从高斯噪声到数据分布的过程。有什么算法是类似这样的过程呢？贝叶斯推断！<strong>当我们假定先验分布是高斯噪声，那么观测值只要足够多，我们是能得到接近实际数据分布的后验分布的。中间的分布也蕴含了信息，那么我们就把它作为加噪了的数据分布。</strong></p>
+<p>天才想法！</p>
 <p>我们令时间$t\in [0,1]$，让$\alpha(t)&gt;0$，令accuracy schedule为$\beta(t)=\int_{t’=0}^t\alpha(t’)dt’$。则$\beta(0)=0,\frac{d\beta(t)}{dt}=\alpha(t)$。<br>
 $$<br>
 \rho_t=\rho_0+\int_{t’=0}^t\alpha(t’)dt’=1+\beta(t) \tag{1}<br>
@@ -18677,6 +18679,7 @@ ln(\frac{1}{1+\beta(t)})&amp;=t\cdot ln(\frac{1}{1+\beta(1)})\\<br>
 \alpha(t)&amp;=\frac{-2ln(\sigma_1)}{\sigma_1^{2t}} \tag{6}<br>
 \end{align}<br>
 $$</p>
+<p>其中$\sigma_1$是我们要主动去设定的一个超参。</p>
 <h3 id="扩散结果">扩散结果</h3>
 <p>我们将上述结果应用于（1）（5)式则有，并注意到（2）式的$\mu=0$则有<br>
 $$<br>
@@ -18743,5 +18746,10 @@ $$</p>
         <tag>深度学习</tag>
         <tag>贝叶斯</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>20250502</title>
+    <url>/2025/20250502/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
   </entry>
 </search>
