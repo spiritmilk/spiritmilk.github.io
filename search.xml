@@ -18597,7 +18597,7 @@ $</p>
       </tags>
   </entry>
   <entry>
-    <title>贝叶斯中间态作为加噪:Bayesian Flow Networks</title>
+    <title>贝叶斯中间态作为加噪：Bayesian Flow Networks</title>
     <url>/2025/20250501/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Bayesian Flow Networks是由Alex Graves提出的，使用贝叶斯技巧关于生成的模型算法。</p>
 <p>2023年，我就看到了这篇论文，但由于篇幅过长、数学推导较多难以理解、无闲暇时间，最终拖到两年后的今天，才决定动手写写自己的理解。</p>
@@ -18748,8 +18748,14 @@ $$</p>
       </tags>
   </entry>
   <entry>
-    <title>20250502</title>
+    <title>力场启发的扩散模型</title>
     <url>/2025/20250502/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文巧妙地通过力场的思想去构建扩散模型。出品自MIT，作者包括KAN一作刘子鸣等，（但对于KAN那篇个人认为噱头大于实用性。）</p>
+<span id="more"></span>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>物理</tag>
+      </tags>
   </entry>
 </search>
