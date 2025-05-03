@@ -18755,7 +18755,7 @@ $$</p>
   <entry>
     <title>力场启发的扩散模型</title>
     <url>/2025/20250502/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍两篇论文，巧妙地通过力场的思想去构建扩散模型。出品自MIT，作者包括KAN一作刘子鸣等，（但对于KAN那篇，个人认为噱头大于实用性。）</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文将介绍两篇论文，巧妙地通过力场的思想去构建扩散模型。出品自MIT，作者包括KAN一作刘子鸣等，（但对于KAN那篇，个人认为噱头大于实用性。）</p>
 <span id="more"></span>
 <p>《Poisson Flow Generative Models》NIPS22</p>
 <p>《PFGM++: Unlocking the Potential of Physics-Inspired Generative Models》ICCML2023</p>
@@ -18830,6 +18830,12 @@ $$<br>
 <h3 id="损失函数">损失函数</h3>
 <p>如果我们继续沿用PFGM的，则为：</p>
 <p><img src="++5.png" alt=""></p>
+<p>作者认为，继续沿用会有较大的开销，且是有偏估计。所以换了一种。</p>
+<p><img src="++6.png" alt=""></p>
+<p>$p_r(x)$代表一种前向过程，令其为：</p>
+<p><img src="++7.png" alt=""></p>
+<p><img src="++8.png" alt=""></p>
+<p><img src="++9.png" alt=""></p>
 <h2 id="额外阅读">额外阅读</h2>
 <p><a href="https://kexue.fm/archives/9370">https://kexue.fm/archives/9370</a></p>
 <h2 id="参考资料">参考资料</h2>
