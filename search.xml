@@ -16505,8 +16505,10 @@ $$<br>
 $$</p>
 <p>和</p>
 <p>$$<br>
-hloss_{NC}=\alpha\frac1B\sum_{i=1}^B\ell_i\</p>
+\begin{align}<br>
+loss_{NC}=\alpha\frac{1}{B}\sum_{i=1}^B\ell_i\\</p>
 <p>loss_{final}=loss_{CE}+loss_{NC}<br>
+\end{align}<br>
 $$</p>
 <h2 id="算法解释">算法解释</h2>
 <p>我们可以简化sample的过程，sim改为取向量内积。</p>
