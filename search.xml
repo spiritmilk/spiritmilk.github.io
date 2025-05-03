@@ -18752,7 +18752,7 @@ $$</p>
     <url>/2025/20250502/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍两篇论文，巧妙地通过力场的思想去构建扩散模型。出品自MIT，作者包括KAN一作刘子鸣等，（但对于KAN那篇个人认为噱头大于实用性。）</p>
 <span id="more"></span>
-<p>《Poisson Flow Generative Models》</p>
+<p>《Poisson Flow Generative Models》NIPS22</p>
 <p>《PFGM++: Unlocking the Potential of Physics-Inspired Generative Models》</p>
 <h2 id="论文引入">论文引入</h2>
 <p>前两篇分别介绍了DDPM和BFN，它们尽管采用了不同的（加噪）方式，但围绕着同一个主题，从一个熟悉的分布到数据分布的相互转换。</p>
@@ -18788,7 +18788,22 @@ $$</p>
 <p>苏神在<a href="https://kexue.fm/archives/9370#%E9%97%AE%E9%A2%98%E9%87%8D%E6%8B%BE">它的博客</a>中给出了这一点是如何得到的。</p>
 <h2 id="定义起点和终点">定义起点和终点</h2>
 <p>场强定义为$E=\frac{dx}{dt}$，则我们可以反向常微分方程以采样$d\hat x=v(\hat x)dt$</p>
-<p>我们定义为终点为到达</p>
+<p>我们定义为终点为到达z=0。<br>
+$$<br>
+d(x,z)=(\frac{dx}{dt}\frac{dt}{dz}dz,dz)=(v(x)_xv(x)_z^{-1},1)dz<br>
+$$<br>
+在半球上均匀采样并使用得到的 z 分量作为常微分方程的起始点，这很容易。但是存在一个小问题。许多常微分方程求解器要求整个批次具有相同的初始值。位于半球上的点具有许多不同的 z 值，这带来了一些小障碍。</p>
+<p>为绕过这个问题，将半球上的均匀分布投影到与半球顶部重合的超平面 zmax 上。由于泊松场在 x 趋向于无穷大时是纯径向的，因此投影是一个简单的径向投影。下面是一个 2D 示意图，其中红色线条连接球面上的紫色点到绿色线上的投影点。</p>
+<p><img src="67aa869a0c216dd7c0070adf_radial_proj.png" alt=""></p>
+<p>如红线所框住位置，几乎是平行的。</p>
+<p><img src="radio.png" alt=""></p>
+<p>初始分布可写为：</p>
+<p><img src="67aa869a45b5729b89cc0544_image-33.png" alt=""></p>
+<p>此处推导（来自苏神）：</p>
+<p><img src="td.png" alt=""></p>
+<p>我们换成超球坐标即有</p>
+<p><img src="67aa869a189eca76c7f4e844_image-34.png" alt=""></p>
+<p>即$dV=r^{N-1}dr\times d\Omega$</p>
 <h2 id="额外阅读">额外阅读</h2>
 <p><a href="https://kexue.fm/archives/9370">https://kexue.fm/archives/9370</a></p>
 <h2 id="参考资料">参考资料</h2>
