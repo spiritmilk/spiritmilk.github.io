@@ -18750,10 +18750,10 @@ $$</p>
   <entry>
     <title>力场启发的扩散模型</title>
     <url>/2025/20250502/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍两篇论文，巧妙地通过力场的思想去构建扩散模型。出品自MIT，作者包括KAN一作刘子鸣等，（但对于KAN那篇个人认为噱头大于实用性。）</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍两篇论文，巧妙地通过力场的思想去构建扩散模型。出品自MIT，作者包括KAN一作刘子鸣等，（但对于KAN那篇，个人认为噱头大于实用性。）</p>
 <span id="more"></span>
 <p>《Poisson Flow Generative Models》NIPS22</p>
-<p>《PFGM++: Unlocking the Potential of Physics-Inspired Generative Models》</p>
+<p>《PFGM++: Unlocking the Potential of Physics-Inspired Generative Models》ICCML2023</p>
 <h2 id="论文引入">论文引入</h2>
 <p>前两篇分别介绍了DDPM和BFN，它们尽管采用了不同的（加噪）方式，但围绕着同一个主题，从一个熟悉的分布到数据分布的相互转换。</p>
 <p>PFGM也是如此，但不同的是，它采用的不是高斯分布而是物理上的性质。</p>
