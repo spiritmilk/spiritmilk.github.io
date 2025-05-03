@@ -16498,8 +16498,10 @@ $$<br>
 其中</p>
 <p>sim是余弦相似度，<br>
 $$<br>
-\gamma_{ij}\begin{cases}=0,&amp;\text{node }j \ \text{is the }r\text{-hop neighbor of node }i\<br>
+\begin{align}<br>
+\gamma_{ij}\begin{cases}=0,&amp;\text{node }j \ \text{is the }r\text{-hop neighbor of node }i\\<br>
 \neq0,&amp;\text{node }j \ \text{is not the }r\text{-hop neighbor of node }i\end{cases}<br>
+\end{align}<br>
 $$</p>
 <p>和</p>
 <p>$$<br>
