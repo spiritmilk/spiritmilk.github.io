@@ -16506,8 +16506,9 @@ $$</p>
 <p>和</p>
 <p>$$<br>
 \begin{align}<br>
-loss_{NC}=\alpha\frac{1}{B}\sum_{i=1}^B\ell_i\\</p>
-<p>loss_{final}=loss_{CE}+loss_{NC}<br>
+loss_{NC}=\alpha \frac{1}{B}\sum_{i=1} ^ B\ell_i<br>
+\\<br>
+loss_{final}=loss_{CE}+loss_{NC}<br>
 \end{align}<br>
 $$</p>
 <h2 id="算法解释">算法解释</h2>
