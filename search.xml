@@ -16493,7 +16493,9 @@ $$\mathbb{E}<em>l[p(y|I)]\approx\frac{1}{M}\sum</em>{m=1}^Mp(y|I,\tilde{l}^m).$$
 <p><img src="Graph-MLP.png" alt=""></p>
 <p>constrastive loss可以写成:<br>
 $$<br>
+\begin{align}<br>
 \ell_i=-\log\frac{\sum_{j=1}^B\mathbf{1}<em>{[j\neq i]}\gamma</em>{ij}\exp\left(sim\left(\boldsymbol{z}<em>i,\boldsymbol{z}<em>j\right)/\tau\right)}{\sum</em>{k=1}^B\mathbf{1}</em>{[k\neq i]}\exp\left(sim\left(\boldsymbol{z}_i,\boldsymbol{z}_k\right)/\tau\right)}<br>
+\end{align}<br>
 $$<br>
 其中</p>
 <p>sim是余弦相似度，<br>
@@ -18610,7 +18612,7 @@ $</p>
 <p>艾力克斯·格雷夫斯（英语：Alex Graves）是一名计算机科学家。在DeepMind担任研究科学家之前，他在爱丁堡大学获得理论物理学学士学位，并在IDSIA的于尔根·施密德胡伯指导下获得了人工智能博士学位。他还曾在慕尼黑工业大学的施密德胡伯和多伦多大学的hinton手下做过博士后。</p>
 <p>在IDSIA，格雷夫斯通过一种称为CTCloss的新方法训练LSTM。格雷夫斯也是神经图灵机（Neural Turing machine）和密切相关的可微分神经计算机的创造者。</p>
 <p>以上来自维基百科，可以看出作者具有很强的物理数学背景，论文中也涉及了大量数学和贝叶斯。</p>
-<p>尽管这篇论文只发表于arxiv上，但其后续的《Protein sequence modelling with Bayesian flow networks》发表于Nature Communications，ICLR24亦有一篇以Bayesian flow networks为基础。</p>
+<p>尽管这篇论文只发表于arxiv上，但其后续的《Protein sequence modelling with Bayesian flow networks》发表于Nature Communications，ICLR24Oral亦有一篇以Bayesian flow networks为基础，即清华大学提出的《Unified Generative Modeling of 3D Molecules via Bayesian Flow Networks》。</p>
 <h2 id="论文引入">论文引入</h2>
 <p>神经网络在生成模型中可以视为一种大号的函数拟合器。在DDPM中NN充当拟合噪声的角色。</p>
 <p>类似上篇的DDPM，同样涉及加噪、一次性扩散、找到神经网络运用的场景。</p>
@@ -18804,6 +18806,27 @@ $$<br>
 <p>我们换成超球坐标即有</p>
 <p><img src="67aa869a189eca76c7f4e844_image-34.png" alt=""></p>
 <p>即$dV=r^{N-1}dr\times d\Omega$</p>
+<h2 id="进一步改进">进一步改进</h2>
+<p>一个很自然的想法是从增加一维到任意维度，给模型更多多样性的空间。</p>
+<p>PFGM++就是这样做的，还证明了当D接近无穷的时候则是DDPM。</p>
+<p><img src="muid.png" alt=""></p>
+<p>我们继续沿用PFGM的算法，$\hat x=[x,z]^T$，其中$z\in R^D$，则N+D维空间中的场为：<br>
+$$<br>
+E(\hat x)=\int \frac{1}{S_{N+D-1}(1)}\frac{\hat x-\hat y}{||\hat x-\hat y||^{N+D}}p(\hat y)d\hat y<br>
+$$<br>
+但由于这时候z是多维的，我们要把它转换为一维。</p>
+<p>我们注意到，由于对称性：</p>
+<p><img src="sym.png" alt=""></p>
+<p>所以我们可以使用离超柱面r的距离r来替代z（类似柱坐标系）。$\sum z_i^2=r^2$。</p>
+<p>我们重新记为$\hat x=[x,r]^T$，这时候r就是1维的了。</p>
+<p><img src="++1.png" alt=""></p>
+<p><img src="++2.png" alt=""></p>
+<p><img src="++3.png" alt=""></p>
+<p>并且在$r_{max}\to \infty $，</p>
+<p><img src="++4.png" alt=""></p>
+<h3 id="损失函数">损失函数</h3>
+<p>如果我们继续沿用PFGM的，则为：</p>
+<p><img src="++5.png" alt=""></p>
 <h2 id="额外阅读">额外阅读</h2>
 <p><a href="https://kexue.fm/archives/9370">https://kexue.fm/archives/9370</a></p>
 <h2 id="参考资料">参考资料</h2>
