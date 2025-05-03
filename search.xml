@@ -16493,9 +16493,7 @@ $$\mathbb{E}<em>l[p(y|I)]\approx\frac{1}{M}\sum</em>{m=1}^Mp(y|I,\tilde{l}^m).$$
 <p><img src="Graph-MLP.png" alt=""></p>
 <p>constrastive loss可以写成:<br>
 $$<br>
-\begin{align}<br>
-\ell_i=-\log\frac{\sum_{j=1}^B\mathbf{1}<em>{[j\neq i]}\gamma</em>{ij}\exp\left(sim\left(\boldsymbol{z}<em>i,\boldsymbol{z}<em>j\right)/\tau\right)}{\sum</em>{k=1}^B\mathbf{1}</em>{[k\neq i]}\exp\left(sim\left(\boldsymbol{z}_i,\boldsymbol{z}_k\right)/\tau\right)}<br>
-\end{align}<br>
+\ell_i=-\log\frac{\sum_{j=1}^B 1_{[j\neq i]}\gamma_{ij}\exp\left(sim\left(z_i,z_j\right)/\tau\right)}{\sum_{k=1}^B 1_{[k\neq i]}\exp\left(sim\left(z_i,z_k\right)/\tau\right)}<br>
 $$<br>
 其中</p>
 <p>sim是余弦相似度，<br>
