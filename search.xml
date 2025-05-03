@@ -18754,7 +18754,31 @@ $$</p>
 <span id="more"></span>
 <p>《Poisson Flow Generative Models》</p>
 <p>《PFGM++: Unlocking the Potential of Physics-Inspired Generative Models》</p>
+<h2 id="论文引入">论文引入</h2>
+<p>前两篇分别介绍了DDPM和BFN，它们尽管采用了不同的（加噪）方式，但围绕着同一个主题，从一个熟悉的分布到数据分布的相互转换。</p>
+<p>PFGM也是如此，但不同的是，它采用的不是高斯分布而是物理上的性质。</p>
+<p><strong>即在超平面中由（几乎）任何分布生成的泊松场在足够远的距离处会产生均匀的角分布。</strong></p>
+<p><strong>或者通俗地讲，无穷远处的多源引力场，等价于位于质心、质量叠加的质点引力场。</strong></p>
 <p><img src="vis.gif" alt=""></p>
+<p><img src="67aa869a17b5fe3c0c0037fc_heart_evolution.png" alt=""></p>
+<p>如果我们知道由分布产生的电场（即泊松场），那么我们可以从半球上均匀采样的点开始，在反向时间中运行动力学（沿着电场线运动），以恢复原始数据分布。</p>
+<p>电场的力可以写为<br>
+$$<br>
+F(x,y)=\frac{-1}{S_{N-1}(1)}\frac{x-y}{||x-y||^N}<br>
+$$<br>
+其中$S_{}(1)$是d维单位超球面的表面积，这个式子是d维poisson方程的格林函数的梯度，所以也被称为poisson场。<br>
+$$<br>
+G(x,y)=\frac{1}{(N-2)S_{N-1}(1)}\frac{1}{||x-y||^{N-2}}<br>
+$$</p>
+<h2 id="模式坍塌">模式坍塌</h2>
+<p>在将这一特性使用进我们的模型之前，我们要解决一个重要的事情——模式坍塌。</p>
+<p>即，比如3维的情况下，球壳内部场强为0。这时候就让我们无法到达理想的样本。</p>
+<p>作者想了一个妙招，即增加一维，尽管我在d维下可能有一些数据点达不到，但是我可以增加一维通过额外的维度绕过去以采样我想要的数据点。</p>
+<h2 id="额外阅读">额外阅读</h2>
+<p><a href="https://kexue.fm/archives/9370">https://kexue.fm/archives/9370</a></p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://www.assemblyai.com/blog/an-introduction-to-poisson-flow-generative-models">https://www.assemblyai.com/blog/an-introduction-to-poisson-flow-generative-models</a></p>
+<p><a href="https://kexue.fm/archives/9305">https://kexue.fm/archives/9305</a></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
