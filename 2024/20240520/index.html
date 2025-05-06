@@ -21,28 +21,23 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="该论文使用表格深度学习的一些新embedding。论文地址 出自NIPS 2022 Hardy Xu利用该方法获得了kaggle Playground Series - Season 3, Episode 26: Multi-Class Prediction of Cirrhosis Outcomes的第二名。  本文提出了两种不同的构建块，适用于构建数字特征的嵌入。第一种是分段线性编码，它为原始">
+    <meta name="description" content="Information Bottleneck https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;physics&#x2F;0004057 Variational Information Bottleneck 难点在于互信息很难计算。所以，我们需要使用变分推理来近似它们。 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shenchuguimo&#x2F;p&#x2F;14332100.html https:&#x2F;&#x2F;cloud.tence">
 <meta property="og:type" content="article">
-<meta property="og:title" content="On Embeddings for Numerical Features in Tabular Deep Learning">
-<meta property="og:url" content="https://lijianxiong.work/2024/20240116/index.html">
+<meta property="og:title" content="Graph Information Bottleneck">
+<meta property="og:url" content="https://lijianxiong.work/2024/20240520/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="该论文使用表格深度学习的一些新embedding。论文地址 出自NIPS 2022 Hardy Xu利用该方法获得了kaggle Playground Series - Season 3, Episode 26: Multi-Class Prediction of Cirrhosis Outcomes的第二名。  本文提出了两种不同的构建块，适用于构建数字特征的嵌入。第一种是分段线性编码，它为原始">
+<meta property="og:description" content="Information Bottleneck https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;physics&#x2F;0004057 Variational Information Bottleneck 难点在于互信息很难计算。所以，我们需要使用变分推理来近似它们。 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;shenchuguimo&#x2F;p&#x2F;14332100.html https:&#x2F;&#x2F;cloud.tence">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240116/model.png">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240116/pcf.png">
-<meta property="article:published_time" content="2024-01-16T10:52:56.000Z">
-<meta property="article:modified_time" content="2025-05-06T14:05:32.349Z">
+<meta property="article:published_time" content="2024-05-20T12:59:56.000Z">
+<meta property="article:modified_time" content="2025-05-06T14:05:52.086Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
-<meta property="article:tag" content="人工智能">
-<meta property="article:tag" content="tabular data">
+<meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2024/20240116/model.png">
   
   
   
-  <title>On Embeddings for Numerical Features in Tabular Deep Learning - 小熊的小站</title>
+  <title>Graph Information Bottleneck - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +240,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="On Embeddings for Numerical Features in Tabular Deep Learning"></span>
+            <span id="subtitle" data-typed-text="Graph Information Bottleneck"></span>
           
         </div>
 
@@ -256,8 +251,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-16 18:52" pubdate>
-          2024年1月16日 晚上
+        <time datetime="2024-05-20 20:59" pubdate>
+          2024年5月20日 晚上
         </time>
       </span>
     
@@ -268,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          134 字
+          69 字
         
       </span>
     
@@ -279,7 +274,7 @@
         
         
         
-          2 分钟
+          1 分钟
         
       </span>
     
@@ -316,24 +311,24 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">On Embeddings for Numerical Features in Tabular Deep Learning</h1>
+            <h1 id="seo-header">Graph Information Bottleneck</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>该论文使用表格深度学习的一些新embedding。<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2203.05556.pdf">论文地址</a></p>
-<p>出自NIPS 2022</p>
-<p>Hardy Xu利用该方法获得了<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s3e26/discussion/464887">kaggle Playground Series - Season 3, Episode 26</a>: Multi-Class Prediction of Cirrhosis Outcomes的第二名。</p>
-<hr>
-<p>本文提出了两种不同的构建块，适用于构建数字特征的嵌入。第一种是分段线性编码，它为原始标量值产生替代的初始表示，并基于特征装箱。第二种依赖于周期激活函数。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h2 id="Information-Bottleneck">Information Bottleneck</h2>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/physics/0004057">https://arxiv.org/abs/physics/0004057</a></p>
+<h2 id="Variational-Information-Bottleneck">Variational Information Bottleneck</h2>
+<p>难点在于互信息很难计算。所以，我们需要使用变分推理来近似它们。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shenchuguimo/p/14332100.html">https://www.cnblogs.com/shenchuguimo/p/14332100.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1783414">https://cloud.tencent.com/developer/article/1783414</a></p>
 <span id="more"></span>
-<h2 id="Piecewise-linear-encoding">Piecewise linear encoding</h2>
-<p><img src="model.png" alt=""></p>
-<p>bin的选择：</p>
-<p>（1）根据百分数</p>
-<p>（2）类似于的决策树C4.5中的处理。</p>
-<h2 id="Periodic-activation-functions">Periodic activation functions</h2>
-<p><img src="pcf.png" alt=""></p>
+<p><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/1612.00410">https://papers.cool/arxiv/1612.00410</a></p>
+<p><a target="_blank" rel="noopener" href="https://kexue.fm/archives/6181">https://kexue.fm/archives/6181</a></p>
+<p><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=ry_WPG-A-">https://openreview.net/forum?id=ry_WPG-A-</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/668443792">https://zhuanlan.zhihu.com/p/668443792</a></p>
+<h2 id="Robust-Graph-Information-Bottleneck">Robust Graph Information Bottleneck</h2>
+<h2 id="Graph-Information-Bottleneck">Graph Information Bottleneck</h2>
 
                 
               </div>
@@ -346,13 +341,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
-      
         <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
       
-        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
-      
-        <a href="/tags/tabular-data/" class="print-no-link">#tabular data</a>
+        <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
       
     </div>
   
@@ -364,8 +355,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>On Embeddings for Numerical Features in Tabular Deep Learning</div>
-      <div>https://lijianxiong.work/2024/20240116/</div>
+      <div>Graph Information Bottleneck</div>
+      <div>https://lijianxiong.work/2024/20240520/</div>
     </div>
     <div class="license-meta">
       
@@ -377,7 +368,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月16日</div>
+          <div>2024年5月20日</div>
         </div>
       
       
@@ -409,9 +400,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/20240131/" title="Mamba---Linear-Time Sequence Modeling with Selective State Spaces">
+                      <a href="/2024/20240521/" title="图彩票">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Mamba---Linear-Time Sequence Modeling with Selective State Spaces</span>
+                        <span class="hidden-mobile">图彩票</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -419,8 +410,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/20240113/" title="Self-Supervision is All You Need for Solving Rubik’s Cube">
-                        <span class="hidden-mobile">Self-Supervision is All You Need for Solving Rubik’s Cube</span>
+                      <a href="/2024/20240516/" title="MambaOut-Do We Really Need Mamba for Vision?">
+                        <span class="hidden-mobile">MambaOut-Do We Really Need Mamba for Vision?</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

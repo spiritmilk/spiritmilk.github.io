@@ -499,6 +499,27 @@
   
   
   <entry>
+    <title>Graph Information Bottleneck</title>
+    <link href="/2024/20240520/"/>
+    <url>/2024/20240520/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Information-Bottleneck">Information Bottleneck</h2><p><a href="https://arxiv.org/abs/physics/0004057">https://arxiv.org/abs/physics/0004057</a></p><h2 id="Variational-Information-Bottleneck">Variational Information Bottleneck</h2><p>难点在于互信息很难计算。所以，我们需要使用变分推理来近似它们。</p><p><a href="https://www.cnblogs.com/shenchuguimo/p/14332100.html">https://www.cnblogs.com/shenchuguimo/p/14332100.html</a></p><p><a href="https://cloud.tencent.com/developer/article/1783414">https://cloud.tencent.com/developer/article/1783414</a></p><span id="more"></span><p><a href="https://papers.cool/arxiv/1612.00410">https://papers.cool/arxiv/1612.00410</a></p><p><a href="https://kexue.fm/archives/6181">https://kexue.fm/archives/6181</a></p><p><a href="https://openreview.net/forum?id=ry_WPG-A-">https://openreview.net/forum?id=ry_WPG-A-</a></p><p><a href="https://zhuanlan.zhihu.com/p/668443792">https://zhuanlan.zhihu.com/p/668443792</a></p><h2 id="Robust-Graph-Information-Bottleneck">Robust Graph Information Bottleneck</h2><h2 id="Graph-Information-Bottleneck">Graph Information Bottleneck</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>图神经网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MambaOut-Do We Really Need Mamba for Vision?</title>
     <link href="/2024/20240516/"/>
     <url>/2024/20240516/</url>
@@ -829,7 +850,7 @@
     <link href="/2024/20240116/"/>
     <url>/2024/20240116/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文使用表格深度学习的一些新embedding。<a href="https://arxiv.org/pdf/2203.05556.pdf">论文地址</a></p><p>出自NIPS 2022</p><p>Hardy Xu利用该方法获得了<a href="https://www.kaggle.com/competitions/playground-series-s3e26/discussion/464887">kaggle Playground Series - Season 3, Episode 26</a>: Multi-Class Prediction of Cirrhosis Outcomes的第二名。</p><hr><p>本文提出了两种不同的构建块，适用于构建数字特征的嵌入。第一种是分段线性编码，它为原始标量值产生替代的初始表示，并基于特征装箱。第二种依赖于周期激活函数。</p><span id="more"></span><h2 id="Piecewise-linear-encoding">Piecewise linear encoding</h2><p><img src="model.png" alt=""></p><p>bin的选择：</p><p>（1）根据百分数</p><p>（2）类似于的决策树C4.5中的处理。</p><h2 id="Periodic-activation-functions">Periodic activation functions</h2><p><img src="paf.png" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>该论文使用表格深度学习的一些新embedding。<a href="https://arxiv.org/pdf/2203.05556.pdf">论文地址</a></p><p>出自NIPS 2022</p><p>Hardy Xu利用该方法获得了<a href="https://www.kaggle.com/competitions/playground-series-s3e26/discussion/464887">kaggle Playground Series - Season 3, Episode 26</a>: Multi-Class Prediction of Cirrhosis Outcomes的第二名。</p><hr><p>本文提出了两种不同的构建块，适用于构建数字特征的嵌入。第一种是分段线性编码，它为原始标量值产生替代的初始表示，并基于特征装箱。第二种依赖于周期激活函数。</p><span id="more"></span><h2 id="Piecewise-linear-encoding">Piecewise linear encoding</h2><p><img src="model.png" alt=""></p><p>bin的选择：</p><p>（1）根据百分数</p><p>（2）类似于的决策树C4.5中的处理。</p><h2 id="Periodic-activation-functions">Periodic activation functions</h2><p><img src="pcf.png" alt=""></p>]]></content>
     
     
     
