@@ -16616,7 +16616,7 @@ $$<br>
   <entry>
     <title>图彩票一系列论文</title>
     <url>/2024/20240521/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍一系列的图彩票论文。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文将介绍一系列的图彩票论文。</p>
 <hr>
 <h2 id="《a-unified-lottery-ticket-hypothesis-for-graph-neural-networks-2021ICML-pdf》">《a unified lottery ticket hypothesis for graph neural networks(2021ICML).pdf》</h2>
 <h3 id="相关工作">相关工作</h3>
@@ -16685,23 +16685,23 @@ $$<br>
 <p>$\text{}\left(A^{(l+1)},X^{(l+1)}\right)=\mathrm{DiFF~POOL}\left(A^{(l)},Z^{(l)}\right)$</p>
 <p>即<br>
 $$<br>
-\begin{aligned}&amp;X^{(l+1)}=S^{(l)^{T}}Z^{(l)}\in\mathbb{R}^{n_{l+1}\times d}\quad(3)\&amp;A^{(l+1)}=S^{(l)^{T}}A^{(l)}S^{(l)}\in\mathbb{R}^{n_{l+1}\times n_{l+1}}\quad(4)\end{aligned}<br>
+\begin{aligned}&amp;X^{(l+1)}=S^{(l)^{T}}Z^{(l)}\in\mathbb{R}^{n_ {l+1}\times d}\quad(3)\&amp;A^{(l+1)}=S^{(l)^{T}}A^{(l)}S^{(l)}\in\mathbb{R}^{n_ {l+1}\times n_ {l+1}}\quad(4)\end{aligned}<br>
 $$<br>
 Z称为嵌入矩阵，S称为分配矩阵。</p>
 <p>并设计了两套GNN，来获得嵌入矩阵和分配矩阵。<br>
-$$Z^{(l)}=\mathrm{GNN}_{l,\mathrm{~embed}}\left(A^{(l)},X^{(l)}\right)$$</p>
-<p>$$S^{(l)}=\mathrm{softmax}\big(\mathrm{GNN}_{l,\mathrm{pool}}\big(A^{(l)},X^{(l)}\big)\big)$$<br>
+$$Z^{(l)}=\mathrm{GNN}_ {l,\mathrm{~embed}}\left(A^{(l)},X^{(l)}\right)$$</p>
+<p>$$S^{(l)}=\mathrm{softmax}\big(\mathrm{GNN}_ {l,\mathrm{pool}}\big(A^{(l)},X^{(l)}\big)\big)$$<br>
 Note: 最后一层设置聚类分配矩阵设置输出大小为 1。</p>
 <p>作者说，4很难通过梯度进行训练，所以本文采用 最小化Frobenius norm<br>
 $$<br>
-L_{\mathrm{LP}}=\left|A^{(l)},S^{(l)}S^{(l)^{T}}\right|_{F}<br>
+L_ {\mathrm{LP}}=\left|A^{(l)},S^{(l)}S^{(l)^{T}}\right|_ {F}<br>
 $$</p>
 <blockquote>
-<p>这里写的不明白，应该是$$L_{\mathrm{LP}}=\left|A^{(l)}-S^{(l)}S^{(l)^{T}}\right|_{F}$$</p>
+<p>这里写的不明白，应该是$$L_ {\mathrm{LP}}=\left|A^{(l)}-S^{(l)}S^{(l)^{T}}\right|_ {F}$$</p>
 </blockquote>
 <p>每个聚类分配矩阵 被希望接近于一个 one-hot 向量，以便明确每个簇的隶属关系，所以本文通过最小化簇分配的熵：<br>
 $$<br>
-\bar{L}_ {E}=\frac{1}{n}\sum_{i=1}^{n}H(S_{i})<br>
+\bar{L}_ {E}=\frac{1}{n}\sum_ {i=1}^{n}H(S_ {i})<br>
 $$<br>
 其中：H为熵函数$H(X)=-\sum_x\in\tau p(x)\log(x);$<br>
 $S_i$为 $S$的第$i$行；</p>
@@ -16737,7 +16737,7 @@ loss = loss + my_reg + pool_loss</p>
 <h3 id="理论部分">理论部分</h3>
 <h4 id="时间复杂度计算">时间复杂度计算</h4>
 <p>GLT是$o(\mathcal{L}\times\left|\boldsymbol{m}_ g\odot\boldsymbol{A}\right|_ 0\times\mathcal{F}+\mathcal{L}\times\left|\boldsymbol{m}_ \theta\right|_0\times\left|\mathcal{V}\right|\times\mathcal{F}^2)$</p>
-<p>而DGLT是$\mathcal{O}\left(\left|\left|m_{A}\odot A_{all}\right|\right|<em>{0}\times F+\left|\left|m^{*}\right|\right|</em>{0}\times\left|\mathcal{V}\right|\times F^{2}\right)+\mathcal{O}\left(\mathcal{K}\right)$,其中 $m_{A}=\left{m_{A}^{0},:\hat{m}<em>{A}^{1}\ldots m</em>{A}^{L}\right}$ 所有领接矩阵的mask。$\mathcal{O}(K)$ 为学习节点嵌入和分配矩阵的推理时间复杂度。它们由多个矩阵相乘得到，推理时间复杂度为$\mathcal{O}\left(\mathcal{K}\right)=\mathcal{O}\left(L\times|\mathcal{V}|^{3}+L\times|\mathcal{V}|\times F\right).$</p>
+<p>而DGLT是$\mathcal{O}\left(\left|\left|m_ {A}\odot A_ {all}\right|\right|_ {0}\times F+\left|\left|m^{*}\right|\right|_ {0}\times\left|\mathcal{V}\right|\times F^{2}\right)+\mathcal{O}\left(\mathcal{K}\right)$,其中 $m_ {A}=\left{m_ {A}^{0},:\hat{m}_ {A}^{1}\ldots m_ {A}^{L}\right}$ 所有领接矩阵的mask。$\mathcal{O}(K)$ 为学习节点嵌入和分配矩阵的推理时间复杂度。它们由多个矩阵相乘得到，推理时间复杂度为$\mathcal{O}\left(\mathcal{K}\right)=\mathcal{O}\left(L\times|\mathcal{V}|^{3}+L\times|\mathcal{V}|\times F\right).$</p>
 <h3 id="实验-2">实验</h3>
 <p>pass</p>
 <h3 id="另外">另外</h3>
@@ -16759,7 +16759,7 @@ loss = loss + my_reg + pool_loss</p>
 <h4 id="Formulation">Formulation</h4>
 <p>本文意图解决一个更有挑战性的问题，</p>
 <p>提高模型的泛化能力。假设 $S\text{ 是环境 }^{1}$的支持（support of the environments，？），$f(·)$ 是预测函数，我们的目标是最小化不同数据分布下的经验风险：<br>
-$$\min\limits_{f}\max\limits_{e\in\mathcal{S}}\mathbb{E}_{(\mathcal{G},Y)\sim p(\mathcal{G},Y|e)}:[\mathcal{L}\left(f\left(\mathcal{G}\right),Y\right)|e]$$</p>
+$$\min\limits_ {f}\max\limits_ {e\in\mathcal{S}}\mathbb{E}_ {(\mathcal{G},Y)\sim p(\mathcal{G},Y|e)}:[\mathcal{L}\left(f\left(\mathcal{G}\right),Y\right)|e]$$</p>
 <blockquote>
 <p>我的理解是类似于最小化$L^\infty$距离</p>
 </blockquote>
@@ -16789,42 +16789,42 @@ $$\min\limits_{f}\max\limits_{e\in\mathcal{S}}\mathbb{E}_{(\mathcal{G},Y)\sim p(
 <h3 id="算法-3">算法</h3>
 <p>总所周知，两层的GCN可以表示为<br>
 $$<br>
-Z=f({ A, X },\Theta)= \mathcal{S}(\hat{A} \sigma ( \hat A X W_{(0)}) W_{(1)})<br>
+Z=f({ A, X },\Theta)= \mathcal{S}(\hat{A} \sigma ( \hat A X W_ {(0)}) W_ {(1)})<br>
 $$<br>
 设计了一个transductive semi-supervised node classification (SSNC) loss：<br>
 $$<br>
-\mathcal{L} _0 (f(\left{A, X\right}, \Theta))=-\sum _ {l \in \mathcal{Y} _{TL}} \sum _{j=1} ^C  Y _{l_j} log( Z <em>{l_j})<br>
+\mathcal{L} <em>0 (f(\left{A, X\right}, \Theta))=-\sum _ {l \in \mathcal{Y} _ {TL}} \sum _ {j=1} ^C  Y _ {l_j} log( Z _ {l_j})<br>
 $$<br>
-其中$\mathcal{Y}</em>{TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
-<p>posion 攻击者的目标是找到一个最优的扰动A '，欺骗GNN做出错误的预测。这可以表述为一个双层优化问题(Zugner et al.， 2018;zugner &amp; gunnemann, 2019):<br>
+其中$\mathcal{Y}</em> {TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
+<p>posion 攻击者的目标是找到一个最优的扰动A ‘，欺骗GNN做出错误的预测。这可以表述为一个双层优化问题(Zugner et al.， 2018;zugner &amp; gunnemann, 2019):<br>
 $$<br>
-arg \max\mathcal{L}<em>{atk}(f(\left{A’,X\right},\Theta ^\ast))\<br>
+arg \max\mathcal{L}_ {atk}(f(\left{A’,X\right},\Theta ^\ast))\<br>
 A’\in\Phi(A)\<br>
-\mathrm{s.t.}\quad\Theta^{\ast}=\arg\min</em>{\Theta}\mathcal{L}<em>{0}(f(\left{A’,X\right},\Theta))<br>
+\mathrm{s.t.}\quad\Theta^{\ast}=\arg\min_ {\Theta}\mathcal{L}_ {0}(f(\left{A’,X\right},\Theta))<br>
 $$<br>
-其中$\Phi(A)$是满足$\frac{|A’-A|{0}}{|A|{0}}\leq\Delta$的领接矩阵。$\mathcal{L}</em>{atk}$ 是攻击loss函数，$\Delta$ 是 perturbation rate，$\Theta ^\ast$是摄动图上GNN的最优参数。</p>
+其中$\Phi(A)$是满足$\frac{|A’-A|{0}}{|A|{0}}\leq\Delta$的领接矩阵。$\mathcal{L}_ {atk}$ 是攻击loss函数，$\Delta$ 是 perturbation rate，$\Theta ^\ast$是摄动图上GNN的最优参数。</p>
 <p>为了帮助消除对抗边和鼓励特征平滑，对于homophilic graphs：<br>
 $$<br>
-\mathcal{L}<em>{fs} (A’,X)=\frac{1}{2} \sum</em>{i,j=1}A_{ij}’ (x_i-x_j)^2<br>
+\mathcal{L}_ {fs} (A’,X)=\frac{1}{2} \sum_ {i,j=1}A_ {ij}’ (x_i-x_j)^2<br>
 $$<br>
 对于heterophilic graphs：<br>
 $$<br>
-\mathcal{L}<em>{fs}(A’)=\frac{1}{2}\sum</em>{i,j=1}A_{ij}'(y_{i}-y_{j})^{2}<br>
+\mathcal{L}_ {fs}(A’)=\frac{1}{2}\sum_ {i,j=1}A_ {ij}'(y_ {i}-y_ {j})^{2}<br>
 $$</p>
 <blockquote>
 <p>以上有点像<em>dirichlet</em> energy。</p>
 <p><em>dirichlet</em> energy：<br>
 $$<br>
-tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _{i,j}W[i,j] (x[j]-x[i])^2<br>
+tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _ {i,j}W[i,j] (x[j]-x[i])^2<br>
 $$<br>
 进一步归一化：<br>
 $$<br>
-tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _{i,j}W[i,j] (\frac{x[j]}{\sqrt{1+d_j}}-\frac{x[i]}{\sqrt{1+d_i}})^2<br>
+tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{2}\sum _ {i,j}W[i,j] (\frac{x[j]}{\sqrt{1+d_j}}-\frac{x[i]}{\sqrt{1+d_i}})^2<br>
 $$<br>
 （上式来自《<a href="https://proceedings.neurips.cc/paper/2021/file/b6417f112bd27848533e54885b66c288-Paper.pdf">Dirichlet Energy Constrained Learning for Deep Graph Neural Networks</a>》）</p>
 <p>或<br>
 $$<br>
-tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{4}\sum _{i,j}W[i,j]|\frac{x[j]}{\sqrt{d_j}}-\frac{x[i]}{\sqrt{d_i}}|_2^2<br>
+tr(x^\top Lx)=|\nabla_Gx|_2^2=\frac{1}{4}\sum _ {i,j}W[i,j]|\frac{x[j]}{\sqrt{d_j}}-\frac{x[i]}{\sqrt{d_i}}|_2^2<br>
 $$<br>
 （上式来自《<a href="https://openreview.net/pdf?id=kS7ED7eE74">A Fractional Graph Laplacian Approach to Oversmoothing</a>》）</p>
 <p>其中d为节点的度。</p>
@@ -16836,15 +16836,15 @@ $$<br>
 <p>迹的计算又出现了。</p>
 </blockquote>
 <p>另外，作者还训练了一个简单的两层MLP。mlp使用训练集做训练，然后对使用训练好的MLP来预测测试节点的标签。称这些标签为伪标签。最后，利用MLP预测置信度较高的测试节点计算测试节点CE损失项。</p>
-<p>设$Y_{P L}$为MLP预测置信度较高的测试节点集，$Y_{mlp}$为MLP的预测值。CE损失为：<br>
+<p>设$Y_ {P L}$为MLP预测置信度较高的测试节点集，$Y_ {mlp}$为MLP的预测值。CE损失为：<br>
 $$<br>
-\mathcal{L}<em>1(f({A’,X},\Theta))=-\sum</em>{l\in\mathcal{Y}<em>{TL}}\sum</em>{j=1}^CY_{mlp_{l_j}}\log(Z_{l_j})<br>
+\mathcal{L}<em>1(f({A’,X},\Theta))=-\sum</em> {l\in\mathcal{Y}_ {TL}}\sum_ {j=1}^CY_ {mlp_ {l_j}}\log(Z_ {l_j})<br>
 $$<br>
 最终loss为：<br>
 $$<br>
-\mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\beta\mathcal{L}<em>{fs}(m</em>{g}\odot A’,X)\+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))+\lambda_{1}||m_{g}||<em>{1}+\lambda</em>{2}||m_{\theta}||<em>{1}<br>
+\mathcal{L}_ {ARGS}=\alpha\mathcal{L}_ {0}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\beta\mathcal{L}_ {fs}(m_ {g}\odot A’,X)\+\gamma\mathcal{L}_ {1}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\lambda_ {1}||m_ {g}||_ {1}+\lambda_ {2}||m_ {\theta}||_ {1}<br>
 $$<br>
-其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m</em> \theta$用于模型权重。</p>
+其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m_ \theta$用于模型权重。</p>
 <h3 id="代码-3">代码</h3>
 <p><a href="https://github.com/SubhajitDuttaChowdhury/ARGS">github</a></p>
 <p>完全基于UGS的代码，有大量相同的地方。</p>
@@ -16853,12 +16853,12 @@ $$<br>
 <p>run_get_mask函数不同点：run_get_mask中加入了平滑项和伪标签的分类误差。</p>
 <p>即loss为<br>
 $$<br>
-\mathcal{L}<em>{run_get_mask}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\beta\mathcal{L}<em>{fs}(m</em>{g}\odot A’,X)\+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))+\lambda_{1}||m_{g}||<em>{1}+\lambda</em>{2}||m_{\theta}||_{1}<br>
+\mathcal{L}_ {run_get_mask}=\alpha\mathcal{L}_ {0}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\beta\mathcal{L}_ {fs}(m_ {g}\odot A’,X)\+\gamma\mathcal{L}_ {1}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\lambda_ {1}||m_ {g}||_ {1}+\lambda_ {2}||m_ {\theta}||_ {1}<br>
 $$</p>
 <p>run_fix_mask函数不同点：run_fix_mask中加入了伪标签的分类误差。</p>
 <p>即loss为<br>
 $$<br>
-\mathcal{L}<em>{run_fix_mask}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))<br>
+\mathcal{L}_ {run_fix_mask}=\alpha\mathcal{L}_ {0}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\gamma\mathcal{L}_ {1}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))<br>
 $$</p>
 <h3 id="实验-4">实验</h3>
 <p>pass</p>
@@ -16878,7 +16878,7 @@ $$</p>
 <p>$H=g(A,X)$</p>
 <p>每一行代表着节点的representation。故可由计算节点的重要性，<br>
 $$<br>
-s_{ij}=\sigma{(\alpha_{ij})},a_{ij} = MLP([h_i,h_j])<br>
+s_ {ij}=\sigma{(\alpha_ {ij})},a_ {ij} = MLP([h_i,h_j])<br>
 $$</p>
 <p>对于图，我们采用AutoMasker来预测每个图的所有边的重要性。然后根据掩码值对某图的边进行排序，对最小值为5%的边进行剪接，得到二值图掩码mG。</p>
 <p>对于GNN，我们根据权重量级对参数进行排序，并对最低量级的参数进行20%的修剪，得到二值模型掩码mΘ。在当前的稀疏度水平下，我们现在成功地得到了模型的稀疏化图g0 = (mG A, X)和稀疏化掩码mΘ。</p>
