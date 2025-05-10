@@ -16631,10 +16631,9 @@ $$<br>
 <h3 id="本文">本文</h3>
 <p>本文这项工作不仅是第一个将 LTH 推广到 GNN 的工作，而且也是第一个将 LTH 从简化模型扩展到新的数据模型联合简化前景的工作。</p>
 <h4 id="算法">算法</h4>
-<p><img src="image-20240518120157877.png" alt="image-20240518120157877"></p>
+<p><img src="image-20240518120157877.png" alt=""></p>
 <h5 id="复杂度分析">复杂度分析</h5>
-<p>$\boldsymbol{L}$</p>
-<p>GLT 的推理时间复杂度为,其中 L 是层数，$||\boldsymbol{m}_g\odot\boldsymbol{A}||<em>0$是稀疏图中剩余边的数量，F是节点特征的维度，$\left|\mathcal{V}\right|$是节点的数量。内存复杂度为$o(\mathcal{L}\times\left|\mathcal{V}\right|\times\mathcal{F}+\mathcal{L}\times\left|m</em>\theta\right|_0\times\mathcal{F}^2)$。在我们的实现中，剪枝的边将从$\varepsilon$ （边集合）中删除，并且不会参与下一轮的计算。</p>
+<p>GLT 的推理时间复杂度为,其中 L 是层数，$||\boldsymbol{m}<em>g\odot\boldsymbol{A}||</em> 0$是稀疏图中剩余边的数量，F是节点特征的维度，$\left|\mathcal{V}\right|$是节点的数量。内存复杂度为$o(\mathcal{L}\times\left|\mathcal{V}\right|\times\mathcal{F}+\mathcal{L}\times\left|m_\theta\right|_0\times\mathcal{F}^2)$。在我们的实现中，剪枝的边将从$\varepsilon$ （边集合）中删除，并且不会参与下一轮的计算。</p>
 <h4 id="代码"><strong>代码</strong></h4>
 <p>我们来直接看<a href="https://github.com/VITA-Group/Unified-LTH-GNN/blob/main/NodeClassification/main_pruning_imp.py">代码</a>：</p>
 <h5 id="主函数">主函数</h5>
