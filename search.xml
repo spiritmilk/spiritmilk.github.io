@@ -16736,7 +16736,7 @@ loss = loss + my_reg + pool_loss</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1000</span>):<br>    <span class="hljs-comment">###省略省略</span><br>    训练<br>    <span class="hljs-comment">###省略省略</span><br>    count = <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> model.named_parameters():<br>    	<span class="hljs-keyword">with</span> torch.no_grad():<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;weight&#x27;</span> <span class="hljs-keyword">in</span> name:<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;norms&#x27;</span> <span class="hljs-keyword">in</span> name:<br>                <span class="hljs-keyword">continue</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;bn&#x27;</span> <span class="hljs-keyword">in</span> name:<br>                <span class="hljs-keyword">continue</span><br>            param[:] = param * unmasks[count]<br>            count += <span class="hljs-number">1</span>						<br></code></pre></td></tr></table></figure>
 <h3 id="理论部分">理论部分</h3>
 <h4 id="时间复杂度计算">时间复杂度计算</h4>
-<p>GLT是$o(\mathcal{L}\times\left|\boldsymbol{m}_g\odot\boldsymbol{A}\right|<em>0\times\mathcal{F}+\mathcal{L}\times\left|\boldsymbol{m}</em>\theta\right|_0\times\left|\mathcal{V}\right|\times\mathcal{F}^2)$</p>
+<p>GLT是$o(\mathcal{L}\times\left|\boldsymbol{m}_ g\odot\boldsymbol{A}\right|_ 0\times\mathcal{F}+\mathcal{L}\times\left|\boldsymbol{m}_ \theta\right|_0\times\left|\mathcal{V}\right|\times\mathcal{F}^2)$</p>
 <p>而DGLT是$\mathcal{O}\left(\left|\left|m_{A}\odot A_{all}\right|\right|<em>{0}\times F+\left|\left|m^{*}\right|\right|</em>{0}\times\left|\mathcal{V}\right|\times F^{2}\right)+\mathcal{O}\left(\mathcal{K}\right)$,其中 $m_{A}=\left{m_{A}^{0},:\hat{m}<em>{A}^{1}\ldots m</em>{A}^{L}\right}$ 所有领接矩阵的mask。$\mathcal{O}(K)$ 为学习节点嵌入和分配矩阵的推理时间复杂度。它们由多个矩阵相乘得到，推理时间复杂度为$\mathcal{O}\left(\mathcal{K}\right)=\mathcal{O}\left(L\times|\mathcal{V}|^{3}+L\times|\mathcal{V}|\times F\right).$</p>
 <h3 id="实验-2">实验</h3>
 <p>pass</p>
@@ -16844,7 +16844,7 @@ $$<br>
 $$<br>
 \mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\beta\mathcal{L}<em>{fs}(m</em>{g}\odot A’,X)\+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))+\lambda_{1}||m_{g}||<em>{1}+\lambda</em>{2}||m_{\theta}||<em>{1}<br>
 $$<br>
-其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m</em>\theta$用于模型权重。</p>
+其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m</em> \theta$用于模型权重。</p>
 <h3 id="代码-3">代码</h3>
 <p><a href="https://github.com/SubhajitDuttaChowdhury/ARGS">github</a></p>
 <p>完全基于UGS的代码，有大量相同的地方。</p>
