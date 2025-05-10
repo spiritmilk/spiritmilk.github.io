@@ -16701,8 +16701,8 @@ $$L_{\mathrm{LP}}=\left|A^{(l)},S^{(l)}S^{(l)^{T}}\right|_{F}$$</p>
 $$<br>
 \bar{L}<em>{\mathrm{E}}=\frac{1}{n}\sum</em>{i=1}^{n}H\left(S_{i}\right)其中：<br>
 $$<br>
-$\circ H$为熵函数$H(X)=-\sum_x\in\tau p(x)\log(x);$<br>
-o $S_i$为 $S$的第$i$行；</p>
+H为熵函数$H(X)=-\sum_x\in\tau p(x)\log(x);$<br>
+$S_i$为 $S$的第$i$行；</p>
 <blockquote>
 <p>然而，据作者<a href="https://github.com/RexYing/diffpool/issues/24">所说</a>，原因是由于分配预测包含 [0,1] 之间的值，因此交叉熵比 Frobenius 范数中的 l2 更有效。<a href="https://github.com/RexYing/diffpool">官方的代码</a>是使用了交叉熵来代替 Frobenius 范数。</p>
 <p>具体而言：</p>
