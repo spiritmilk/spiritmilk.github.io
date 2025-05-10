@@ -16614,9 +16614,9 @@ $$<br>
       </tags>
   </entry>
   <entry>
-    <title>图彩票</title>
+    <title>图彩票一系列论文</title>
     <url>/2024/20240521/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文将介绍一系列的图彩票论文。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍一系列的图彩票论文。</p>
 <hr>
 <h2 id="《a-unified-lottery-ticket-hypothesis-for-graph-neural-networks-2021ICML-pdf》">《a unified lottery ticket hypothesis for graph neural networks(2021ICML).pdf》</h2>
 <h3 id="相关工作">相关工作</h3>
@@ -16633,7 +16633,8 @@ $$<br>
 <h4 id="算法">算法</h4>
 <p><img src="image-20240518120157877.png" alt="image-20240518120157877"></p>
 <h5 id="复杂度分析">复杂度分析</h5>
-<p>GLT 的推理时间复杂度为$o(\mathcal{L}\times\left|\boldsymbol{m}_g\odot\boldsymbol{A}\right|<em>0\times\mathcal{F}+\mathcal{L}\times\left|\boldsymbol{m}</em>\theta\right|_0\times\left|\mathcal{V}\right|\times\mathcal{F}^2)$,其中 L 是层数，$\left|\boldsymbol{m}_g\odot\boldsymbol{A}\right|<em>0$是稀疏图中剩余边的数量，F是节点特征的维度，$\left|\mathcal{V}\right|$是节点的数量。内存复杂度为$o(\mathcal{L}\times\left|\mathcal{V}\right|\times\mathcal{F}+\mathcal{L}\times\left|m</em>\theta\right|_0\times\mathcal{F}^2)$。在我们的实现中，剪枝的边将从$\varepsilon$ （边集合）中删除，并且不会参与下一轮的计算。</p>
+<p>$\mathcal{L}$</p>
+<p>GLT 的推理时间复杂度为,其中 L 是层数，$\left|\boldsymbol{m}_g\odot\boldsymbol{A}\right|<em>0$是稀疏图中剩余边的数量，F是节点特征的维度，$\left|\mathcal{V}\right|$是节点的数量。内存复杂度为$o(\mathcal{L}\times\left|\mathcal{V}\right|\times\mathcal{F}+\mathcal{L}\times\left|m</em>\theta\right|_0\times\mathcal{F}^2)$。在我们的实现中，剪枝的边将从$\varepsilon$ （边集合）中删除，并且不会参与下一轮的计算。</p>
 <h4 id="代码"><strong>代码</strong></h4>
 <p>我们来直接看<a href="https://github.com/VITA-Group/Unified-LTH-GNN/blob/main/NodeClassification/main_pruning_imp.py">代码</a>：</p>
 <h5 id="主函数">主函数</h5>
