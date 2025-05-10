@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2024/20240521/image-20240518132924951.png">
 <meta property="og:image" content="https://lijianxiong.work/2024/20240521/image-20240518133345382.png">
 <meta property="article:published_time" content="2024-05-21T07:42:47.000Z">
-<meta property="article:modified_time" content="2025-05-10T11:37:19.800Z">
+<meta property="article:modified_time" content="2025-05-10T11:55:56.397Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.work/2024/20240521/image-20240518120157877.png">
@@ -567,7 +567,10 @@ $$<br>
 <p>run_get_mask函数不同点：run_get_mask中加入了平滑项和伪标签的分类误差。</p>
 <p>即loss为<br>
 $$<br>
-\mathcal{L}_ {run_get_mask}=\alpha\mathcal{L}_ {0}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\beta\mathcal{L}_ {fs}(m_ {g}\odot A’,X)\+\gamma\mathcal{L}_ {1}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\lambda_ {1}||m_ {g}||_ {1}+\lambda_ {2}||m_ {\theta}||_ {1}<br>
+\begin{align}<br>
+\mathcal{L}_ {run_get_mask}=\alpha\mathcal{L}_ {0}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\beta\mathcal{L}_ {fs}(m_ {g}\odot A’,X)\\<br>
++\gamma\mathcal{L}_ {1}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\lambda_ {1}||m_ {g}||_ {1}+\lambda_ {2}||m_ {\theta}||_ {1}<br>
+\end{align}<br>
 $$</p>
 <p>run_fix_mask函数不同点：run_fix_mask中加入了伪标签的分类误差。</p>
 <p>即loss为<br>

@@ -16857,7 +16857,10 @@ $$<br>
 <p>run_get_mask函数不同点：run_get_mask中加入了平滑项和伪标签的分类误差。</p>
 <p>即loss为<br>
 $$<br>
-\mathcal{L}_ {run_get_mask}=\alpha\mathcal{L}_ {0}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\beta\mathcal{L}_ {fs}(m_ {g}\odot A’,X)\+\gamma\mathcal{L}_ {1}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\lambda_ {1}||m_ {g}||_ {1}+\lambda_ {2}||m_ {\theta}||_ {1}<br>
+\begin{align}<br>
+\mathcal{L}_ {run_get_mask}=\alpha\mathcal{L}_ {0}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\beta\mathcal{L}_ {fs}(m_ {g}\odot A’,X)\\<br>
++\gamma\mathcal{L}_ {1}(f({m_ {g}\odot A’,X},m_ {\theta}\odot\Theta))+\lambda_ {1}||m_ {g}||_ {1}+\lambda_ {2}||m_ {\theta}||_ {1}<br>
+\end{align}<br>
 $$</p>
 <p>run_fix_mask函数不同点：run_fix_mask中加入了伪标签的分类误差。</p>
 <p>即loss为<br>
