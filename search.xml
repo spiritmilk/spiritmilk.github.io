@@ -16701,7 +16701,7 @@ $$</p>
 </blockquote>
 <p>每个聚类分配矩阵 被希望接近于一个 one-hot 向量，以便明确每个簇的隶属关系，所以本文通过最小化簇分配的熵：<br>
 $$<br>
-\bar{L}<em>{E}=\frac{1}{n}\sum</em>{i=1}^{n}H(S_{i})<br>
+\bar{L}_ {E}=\frac{1}{n}\sum_{i=1}^{n}H(S_{i})<br>
 $$<br>
 其中：H为熵函数$H(X)=-\sum_x\in\tau p(x)\log(x);$<br>
 $S_i$为 $S$的第$i$行；</p>
