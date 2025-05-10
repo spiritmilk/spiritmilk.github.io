@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2024/20240521/image-20240518132924951.png">
 <meta property="og:image" content="https://lijianxiong.work/2024/20240521/image-20240518133345382.png">
 <meta property="article:published_time" content="2024-05-21T07:42:47.000Z">
-<meta property="article:modified_time" content="2025-05-10T11:33:45.856Z">
+<meta property="article:modified_time" content="2025-05-10T11:34:31.364Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.work/2024/20240521/image-20240518120157877.png">
@@ -503,7 +503,7 @@ Z=f({ A, X },\Theta)= \mathcal{S}(\hat{A} \sigma ( \hat A X W_ {(0)}) W_ {(1)})<
 $$<br>
 设计了一个transductive semi-supervised node classification (SSNC) loss：<br>
 $$<br>
-\mathcal{L} _ 0 (f(\left{A, X\right}, \Theta))=-\sum _ {l \in \mathcal{Y} _ {TL}} \sum _ {j=1} ^C  Y _ {l_j} log( Z _ {l_j})<br>
+\mathcal{L} _ 0 (f({A, X}, \Theta))=-\sum _ {l \in \mathcal{Y} _ {TL}} \sum _ {j=1} ^C  Y _ {l_j} log( Z _ {l_j})<br>
 $$<br>
 其中$\mathcal{Y}_ {TL}$是训练节点的索引，C是类总数，$Y_l$是$v_l$one hot 标签。</p>
 <p>posion 攻击者的目标是找到一个最优的扰动A ‘，欺骗GNN做出错误的预测。这可以表述为一个双层优化问题(Zugner et al.， 2018;zugner &amp; gunnemann, 2019):<br>
