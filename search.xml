@@ -16616,7 +16616,7 @@ $$<br>
   <entry>
     <title>图彩票一系列论文</title>
     <url>/2024/20240521/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文将介绍一系列的图彩票论文。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍一系列的图彩票论文。</p>
 <hr>
 <h2 id="《a-unified-lottery-ticket-hypothesis-for-graph-neural-networks-2021ICML-pdf》">《a unified lottery ticket hypothesis for graph neural networks(2021ICML).pdf》</h2>
 <h3 id="相关工作">相关工作</h3>
@@ -16840,7 +16840,7 @@ $$<br>
 <p>另外，作者还训练了一个简单的两层MLP。mlp使用训练集做训练，然后对使用训练好的MLP来预测测试节点的标签。称这些标签为伪标签。最后，利用MLP预测置信度较高的测试节点计算测试节点CE损失项。</p>
 <p>设$Y_ {P L}$为MLP预测置信度较高的测试节点集，$Y_ {mlp}$为MLP的预测值。CE损失为：<br>
 $$<br>
-\mathcal{L}<em>1(f({A’,X},\Theta))=-\sum</em> {l\in\mathcal{Y}_ {TL}}\sum_ {j=1}^CY_ {mlp_ {l_j}}\log(Z_ {l_j})<br>
+\mathcal{L} _ 1(f({A’,X},\Theta))=-\sum_ {l\in\mathcal{Y}_ {TL}}\sum_ {j=1}^C Y_ {mlp_ {l_j}}\log(Z_ {l_j})<br>
 $$<br>
 最终loss为：<br>
 $$<br>
