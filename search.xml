@@ -16616,7 +16616,7 @@ $$<br>
   <entry>
     <title>图彩票一系列论文</title>
     <url>/2024/20240521/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文将介绍一系列的图彩票论文。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍一系列的图彩票论文。</p>
 <hr>
 <h2 id="《a-unified-lottery-ticket-hypothesis-for-graph-neural-networks-2021ICML-pdf》">《a unified lottery ticket hypothesis for graph neural networks(2021ICML).pdf》</h2>
 <h3 id="相关工作">相关工作</h3>
@@ -16737,7 +16737,7 @@ loss = loss + my_reg + pool_loss</p>
 <h3 id="理论部分">理论部分</h3>
 <h4 id="时间复杂度计算">时间复杂度计算</h4>
 <p>GLT是$o(\mathcal{L}\times\left|\boldsymbol{m}_ g\odot\boldsymbol{A}\right|_ 0\times\mathcal{F}+\mathcal{L}\times\left|\boldsymbol{m}_ \theta\right|_0\times\left|\mathcal{V}\right|\times\mathcal{F}^2)$</p>
-<p>而DGLT是$\mathcal{O}\left(\left|\left|m_ {A}\odot A_ {all}\right|\right|_ {0}\times F+\left|\left|m^{*}\right|\right|_ {0}\times\left|\mathcal{V}\right|\times F^{2}\right)+\mathcal{O}\left(\mathcal{K}\right)$,其中 $m_ {A}=\left{m_ {A}^{0},:\hat{m}_ {A}^{1}\ldots m_ {A}^{L}\right}$ 所有领接矩阵的mask。$\mathcal{O}(K)$ 为学习节点嵌入和分配矩阵的推理时间复杂度。它们由多个矩阵相乘得到，推理时间复杂度为$\mathcal{O}\left(\mathcal{K}\right)=\mathcal{O}\left(L\times|\mathcal{V}|^{3}+L\times|\mathcal{V}|\times F\right).$</p>
+<p>而DGLT是$\mathcal{O}\left(\left|\left|m_ {A}\odot A_ {all}\right|\right|_ {0}\times F+\left|\left|m^{*}\right|\right|_ {0}\times\left|\mathcal{V}\right|\times F^{2}\right)+\mathcal{O}\left(\mathcal{K}\right)$,其中 $m_ {A}= \left{ m_ {A}^{0},:\hat{m}_ {A}^{1}\ldots m_ {A}^{L} \right}$ 所有领接矩阵的mask。$\mathcal{O}(K)$ 为学习节点嵌入和分配矩阵的推理时间复杂度。它们由多个矩阵相乘得到，推理时间复杂度为$\mathcal{O}\left(\mathcal{K}\right)=\mathcal{O}\left(L\times|\mathcal{V}|^{3}+L\times|\mathcal{V}|\times F\right).$</p>
 <h3 id="实验-2">实验</h3>
 <p>pass</p>
 <h3 id="另外">另外</h3>
