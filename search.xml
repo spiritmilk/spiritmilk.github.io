@@ -16769,9 +16769,9 @@ $$L_{\mathrm{LP}}=\left\|A^{(l)},S^{(l)}S^{(l)^{T}}\right\|_{F}$$
 > 这里写的不明白，应该是$$L_{\mathrm{LP}}=\left\|A^{(l)}-S^{(l)}S^{(l)^{T}}\right\|_{F}$$
 
 每个聚类分配矩阵 被希望接近于一个 one-hot 向量，以便明确每个簇的隶属关系，所以本文通过最小化簇分配的熵：
-$$\bar{L}_{\mathrm{E}}=\frac{1}{n}\sum_{i=1}^{n}H\left(S_{i}\right)$$
-其中：
-
+$$
+\bar{L}_{\mathrm{E}}=\frac{1}{n}\sum_{i=1}^{n}H\left(S_{i}\right)其中：
+$$
 $\circ H$为熵函数$H(X)=-\sum_x\in\tau p(x)\log(x);$
 o $S_i$为 $S$的第$i$行；
 
