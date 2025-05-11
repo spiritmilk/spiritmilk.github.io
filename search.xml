@@ -18899,4 +18899,25 @@ $</p>
         <tag>漫画</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Fourier Position Embedding</title>
+    <url>/2025/20250511/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><span id="more"></span>
+<p>提出：<a href="https://kexue.fm/archives/8265">https://kexue.fm/archives/8265</a></p>
+<p>完备：<a href="https://kexue.fm/archives/9403">https://kexue.fm/archives/9403</a></p>
+<p>讨论：<a href="https://www.kexue.fm/archives/10862">https://www.kexue.fm/archives/10862</a></p>
+<p>代码：<a href="https://github.com/TsinghuaC3I/Fourier-Position-Embedding">https://github.com/TsinghuaC3I/Fourier-Position-Embedding</a></p>
+<h2 id="动机">动机</h2>
+<h2 id="怎么做">怎么做</h2>
+<p>我们直接来看代码。</p>
+<p><strong>ROPE：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply_rotary_pos_emb</span>(<span class="hljs-params">self, sin, cos, x, inverse=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-comment"># 先把最后一半维度右移（rotate-half）</span><br>    <span class="hljs-comment"># x.shape = [..., 2*(dim//2)]</span><br>    rot = self.rotate_half(x)<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> inverse:<br>        <span class="hljs-keyword">return</span> x * cos + rot * sin<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> x * cos - rot * sin<br><br></code></pre></td></tr></table></figure>
+<p><strong>FOPE：</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply_rotary_pos_emb</span>(<span class="hljs-params">self, sin, cos, x, inverse=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-comment"># 1) 先把 sin/cos 从 (…, input_dim*2) 投影到 (…, output_dim)</span><br>    <span class="hljs-comment">#    支持两种系数：sin_coef/cos_coef 或者 一个 fourier_coef</span><br>    fourier_sin = torch.einsum(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.input_shape&#125;</span>, <span class="hljs-subst">&#123;self.coef_shape&#125;</span> -&gt; <span class="hljs-subst">&#123;self.output_shape&#125;</span>&quot;</span>,<br>                               sin, self.sin_coef)<br>    fourier_cos = torch.einsum(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.input_shape&#125;</span>, <span class="hljs-subst">&#123;self.coef_shape&#125;</span> -&gt; <span class="hljs-subst">&#123;self.output_shape&#125;</span>&quot;</span>,<br>                               cos, self.cos_coef)<br>    <span class="hljs-comment"># 2) pad 到原始 head_dim，拼接成 (…, head_dim)</span><br>    fourier_sin = torch.cat((fourier_sin, fourier_sin), dim=-<span class="hljs-number">1</span>)<br>    fourier_cos = torch.cat((fourier_cos, fourier_cos), dim=-<span class="hljs-number">1</span>)<br><br>    <span class="hljs-comment"># 3) 再做 rotate-half + 加权</span><br>    rot = self.rotate_half(x)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> inverse:<br>        <span class="hljs-keyword">return</span> x * fourier_cos + rot * fourier_sin<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> x * fourier_cos - rot * fourier_sin<br><br></code></pre></td></tr></table></figure>
+<p>这里采用的是einsum，其实相当于做了个线性层变换(<code>nn.Linear(input_dim, output_dim, bias=False</code>)。</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
 </search>
