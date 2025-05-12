@@ -32,8 +32,10 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250512/1603215-20231031155025693-1474591626.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250512/theo.jpg">
 <meta property="article:published_time" content="2025-05-12T13:35:27.000Z">
-<meta property="article:modified_time" content="2025-05-12T14:04:09.330Z">
+<meta property="article:modified_time" content="2025-05-12T14:13:10.807Z">
 <meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.work/2025/20250512/x1.png">
   
@@ -265,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          387 字
+          497 字
         
       </span>
     
@@ -276,7 +278,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -326,6 +328,25 @@
 <p>同质性可以分为：</p>
 <p>标签同质性：即同一类别的节点更易相连</p>
 <p>特征同质性：具有相似特征向量的节点，比特征差异很大的节点，更有可能通过一条边相连。</p>
+<p>业界一致认为同质性是GNN的必要前提。</p>
+<p>比如像《A Unified View on Graph Neural Networks as Graph Signal Denoising》(CIKM), 2021.。甚至认为这些GNN（GCN、GAT、PPAP等）其实都是以下问题的形式：<br>
+$$<br>
+argmin_F L=||F-S||_F^2+c*tr(F^TLF)<br>
+$$<br>
+我们在这里只讲一下GCN。</p>
+<p>$$<br>
+\nabla L=2||F-S||+2cLF<br>
+\mathop{=}^{F=S}2cLS<br>
+$$</p>
+<p>如果我们采用梯度下降求解：<br>
+$$<br>
+\begin{align}<br>
+F&amp;=S-\lambda (2cLS)=(1-2\lambda c)S+2\lambda cAS<br>
+\\<br>
+&amp;\mathop{=}^{\lambda=1/2c,S=X’}AX’<br>
+\end{align}<br>
+$$<br>
+即GCN的aggregation。</p>
 <h2 id="我们真的需要同质性吗">我们真的需要同质性吗</h2>
 <p>论文首先举了个这个例子，可以发现这个图中所有蓝色节点将具有1的表示，而橙色节点将具有0的表示。</p>
 <p><img src="x1.png" alt=""></p>
@@ -344,6 +365,15 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
+      
+    </div>
   
 </div>
 
