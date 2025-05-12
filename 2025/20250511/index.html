@@ -21,18 +21,20 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="提出：https:&#x2F;&#x2F;kexue.fm&#x2F;archives&#x2F;8265 完备：https:&#x2F;&#x2F;kexue.fm&#x2F;archives&#x2F;9403 讨论：https:&#x2F;&#x2F;www.kexue.fm&#x2F;archives&#x2F;10862 代码：https:&#x2F;&#x2F;github.com&#x2F;TsinghuaC3I&#x2F;Fourier-Position-Embedding 动机 怎么做 我们直接来看代码。 ROPE： 12345678">
+    <meta name="description" content="Fourier Position Embedding（FOPE)出自ICML2025，对当前LLM常用的ROPE进行了改进，认为ROPE默认“每一维只存在单一频率的语义”是过于理想的，所以提出了增加更多的频率（比如基于傅里叶）的方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fourier Position Embedding">
 <meta property="og:url" content="https://lijianxiong.work/2025/20250511/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="提出：https:&#x2F;&#x2F;kexue.fm&#x2F;archives&#x2F;8265 完备：https:&#x2F;&#x2F;kexue.fm&#x2F;archives&#x2F;9403 讨论：https:&#x2F;&#x2F;www.kexue.fm&#x2F;archives&#x2F;10862 代码：https:&#x2F;&#x2F;github.com&#x2F;TsinghuaC3I&#x2F;Fourier-Position-Embedding 动机 怎么做 我们直接来看代码。 ROPE： 12345678">
+<meta property="og:description" content="Fourier Position Embedding（FOPE)出自ICML2025，对当前LLM常用的ROPE进行了改进，认为ROPE默认“每一维只存在单一频率的语义”是过于理想的，所以提出了增加更多的频率（比如基于傅里叶）的方法。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250511/sinxx.png">
 <meta property="article:published_time" content="2025-05-11T13:27:12.000Z">
-<meta property="article:modified_time" content="2025-05-11T14:08:18.231Z">
+<meta property="article:modified_time" content="2025-05-12T02:15:56.484Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.work/2025/20250511/sinxx.png">
   
   
   
@@ -262,7 +264,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          224 字
+          690 字
         
       </span>
     
@@ -273,7 +275,7 @@
         
         
         
-          2 分钟
+          6 分钟
         
       </span>
     
@@ -315,19 +317,35 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><span id="more"></span>
-<p>提出：<a target="_blank" rel="noopener" href="https://kexue.fm/archives/8265">https://kexue.fm/archives/8265</a></p>
-<p>完备：<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9403">https://kexue.fm/archives/9403</a></p>
-<p>讨论：<a target="_blank" rel="noopener" href="https://www.kexue.fm/archives/10862">https://www.kexue.fm/archives/10862</a></p>
-<p>代码：<a target="_blank" rel="noopener" href="https://github.com/TsinghuaC3I/Fourier-Position-Embedding">https://github.com/TsinghuaC3I/Fourier-Position-Embedding</a></p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Fourier Position Embedding（FOPE)出自ICML2025，对当前LLM常用的ROPE进行了改进，认为ROPE默认“每一维只存在单一频率的语义”是过于理想的，所以提出了增加更多的频率（比如基于傅里叶）的方法。</p>
+<span id="more"></span>
+<h2 id="旋转位置编码">旋转位置编码</h2>
+<p>旋转式位置编码（Rotary Position Embedding，RoPE）由苏神提出，<a target="_blank" rel="noopener" href="https://kexue.fm/archives/8265">在其博客中也有介绍</a>。</p>
+<p>我们也可以重温一下。</p>
 <h2 id="动机">动机</h2>
+<p><strong>线性层会混杂频率：</strong></p>
+<p>线性层WX由于是对所有元素进行操作，自然而然会产生混杂。</p>
+<p><strong>激活函数会混杂频率：</strong></p>
+<p>作者以非线性函数和泰勒展开的角度，假设非线性函数可以展开为$\sum ax^n$。这样会有交互项，比如$(sin\theta+cos\theta)^2=1+sin2\theta$，这会引入一个新频率。</p>
+<blockquote>
+<p>我感觉这里怪怪的</p>
+</blockquote>
+<p><strong>时域截断：</strong></p>
+<p>即由于时域截断，也会产生新的频率。</p>
+<p>即正常的应为只在0处有值，但经过时域截断后，会变为：</p>
+<p><img src="sinxx.png" alt=""></p>
 <h2 id="怎么做">怎么做</h2>
-<p>我们直接来看代码。</p>
+<p>① 既然每一维中不可避免的混杂其他频率的分量，那就干脆在一开始就把每一维都建模成一个傅里叶级数（Fourier Series）。即使这样的建模不会避免频谱破坏，FoPE却可以在每一维中分解出更多频率的信息（利用三角函数的正交性），从而让更多的频率分量保持周期延拓性；</p>
+<p>② 既然极低频的分量周期过长，会导致这些频率分量的周期特性无法被学习到，那就将他们裁剪成频率为0的直流分量。考虑到直流分量的良好性质（既可以看作周期无限短，又可以看作周期无限长），</p>
+<p>第一点听起来有点晦涩，我们直接来看代码。</p>
+<p>代码：<a target="_blank" rel="noopener" href="https://github.com/TsinghuaC3I/Fourier-Position-Embedding">https://github.com/TsinghuaC3I/Fourier-Position-Embedding</a></p>
 <p><strong>ROPE：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply_rotary_pos_emb</span>(<span class="hljs-params">self, sin, cos, x, inverse=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-comment"># 先把最后一半维度右移（rotate-half）</span><br>    <span class="hljs-comment"># x.shape = [..., 2*(dim//2)]</span><br>    rot = self.rotate_half(x)<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> inverse:<br>        <span class="hljs-keyword">return</span> x * cos + rot * sin<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> x * cos - rot * sin<br><br></code></pre></td></tr></table></figure>
 <p><strong>FOPE：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply_rotary_pos_emb</span>(<span class="hljs-params">self, sin, cos, x, inverse=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-comment"># 1) 先把 sin/cos 从 (…, input_dim*2) 投影到 (…, output_dim)</span><br>    <span class="hljs-comment">#    支持两种系数：sin_coef/cos_coef 或者 一个 fourier_coef</span><br>    fourier_sin = torch.einsum(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.input_shape&#125;</span>, <span class="hljs-subst">&#123;self.coef_shape&#125;</span> -&gt; <span class="hljs-subst">&#123;self.output_shape&#125;</span>&quot;</span>,<br>                               sin, self.sin_coef)<br>    fourier_cos = torch.einsum(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.input_shape&#125;</span>, <span class="hljs-subst">&#123;self.coef_shape&#125;</span> -&gt; <span class="hljs-subst">&#123;self.output_shape&#125;</span>&quot;</span>,<br>                               cos, self.cos_coef)<br>    <span class="hljs-comment"># 2) pad 到原始 head_dim，拼接成 (…, head_dim)</span><br>    fourier_sin = torch.cat((fourier_sin, fourier_sin), dim=-<span class="hljs-number">1</span>)<br>    fourier_cos = torch.cat((fourier_cos, fourier_cos), dim=-<span class="hljs-number">1</span>)<br><br>    <span class="hljs-comment"># 3) 再做 rotate-half + 加权</span><br>    rot = self.rotate_half(x)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> inverse:<br>        <span class="hljs-keyword">return</span> x * fourier_cos + rot * fourier_sin<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> x * fourier_cos - rot * fourier_sin<br><br></code></pre></td></tr></table></figure>
 <p>这里采用的是einsum，其实相当于做了个线性层变换(<code>nn.Linear(input_dim, output_dim, bias=False</code>)。</p>
+<h2 id="原作回应">原作回应</h2>
+<p>ROPE作者和FOPE的作者也有<a target="_blank" rel="noopener" href="https://www.kexue.fm/archives/10862">讨论</a>。苏神给出的回应是”基于<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9403%EF%BC%8C%E7%90%86%E8%AE%BA%E4%B8%8ARoPE%E7%9A%84%E5%BD%93%E5%89%8D%E5%BD%A2%E5%BC%8F%E6%98%AF%E5%AE%8C%E5%A4%87%E7%9A%84%E3%80%82%E2%80%9C">https://kexue.fm/archives/9403，理论上RoPE的当前形式是完备的。“</a></p>
 
                 
               </div>
