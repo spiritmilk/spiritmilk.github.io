@@ -10170,13 +10170,13 @@ b是模型的一个可调参数，b越大，权重衰减越快，分数越低。
 <span id="more"></span>
 <p>我们可以参考其方法来利用金星凌日、火星冲、小行星冲等天象测定太阳赤道地平视差。</p>
 <p>设地球上有两位观测者P、P’（不同维度），P点的观测者看到金星从A点穿过太阳到B点。</p>
-<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1a.gif" alt="Track of Venus across the Sun"></p>
+<p><img src="Venus1a.gif" alt="Track of Venus across the Sun"></p>
 <p>金星的轨道平面和地球的轨道平面非常接近，通常被称为黄道平面(很接近，但不完全相同——如果是，每次金星超过地球都会发生凌日)。<br>
 因此AB线几乎与天球上标记黄道的线平行，也就是黄道平面与我们看到的天空相交的那条线。</p>
 <p>如果我们测量AB和A’ B '之间的距离D，原则上我们可以应用一些简单的三角函数，利用金地距离或其他相关数据等来推导出日地平均距离（AU)，进一步得到太阳视差。</p>
-<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus1b.gif" alt="Geometry of the Transit"></p>
+<p><img src="Venus1b.gif" alt="Geometry of the Transit"></p>
 <p>开始我们的推导过程，符号由图所示，其中A、B两点为金星内切太阳平面时的中心，所以到太阳中心的距离为R-r。</p>
-<p><img src="https://pwg.gsfc.nasa.gov/stargaze/Sfigs/Venus4.gif" alt="Variables used in the calculation"></p>
+<p><img src="Venus4.gif" alt="Variables used in the calculation"></p>
 <p>$h=(R-r)cos\theta$</p>
 <p>由于过境时间T正比于距离AB，故$T=k·AB=2k(R-r)cos\theta$</p>
 <p>我们设A’B’的角为$\theta+\delta$，则：</p>
