@@ -18334,28 +18334,6 @@ $$<br>
       </tags>
   </entry>
   <entry>
-    <title>Target Encoding</title>
-    <url>/2025/20250425/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>target encoding又名mean encoding。正如其名，实际上是把。</p>
-<p>在kaggle的S5E2和这个月正在进行的S5E4等比赛都获得了耀眼的表现。</p>
-<p>最简单的形式是</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df.groupby(<span class="hljs-string">&quot;xxx&quot;</span>).mean()<br></code></pre></td></tr></table></figure>
-<p>注意到，有多个库提供了“target encoder”，但它们实际上并不是完全同一个东西。</p>
-<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.TargetEncoder.html">sklearn</a>中的相当于<a href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的JamesSteinEncoder，<a href="https://docs.rapids.ai/api/cuml/stable/api/#cuml.preprocessing.TargetEncoder.TargetEncoder">cuml</a>中的相当于<a href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的M-estimate Encoder。JamesSteinEncoder事实是可以当做一种特殊的M-estimate Encoder，所以我们先从JamesSteinEncoder介绍起。</p>
-<h2 id="JamesSteinEncoder">JamesSteinEncoder</h2>
-<h2 id="M-estimate-Encoder">M-estimate Encoder</h2>
-<h2 id="避免过拟合">避免过拟合</h2>
-<p>显然地，target encoding直接利用了目标列的信息，这难免会过拟合，有以下几种方法可以避免过拟合，交叉验证、加噪声。</p>
-<span id="more"></span>
-<p>参考资料:</p>
-<p><a href="https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/">https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/</a></p>
-<p><a href="https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/">https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/</a></p>
-]]></content>
-      <tags>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>消息传递与特征变换分离的图神经网络</title>
     <url>/2025/20250426/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>在研究图神经网络的鲁棒性的时候，发现消息传递和特征变化分离开会更有鲁棒性，但未找到是否有前人做过。后来我才发现这正是PPNP的结构。</p>
@@ -18694,7 +18672,7 @@ $$<br>
 <p><strong>线性层会混杂频率：</strong></p>
 <p>线性层WX由于是对所有元素进行操作，自然而然会产生混杂。</p>
 <p><strong>激活函数会混杂频率：</strong></p>
-<p>作者以非线性函数和泰勒展开的角度，假设非线性函数可以展开为$\sum ax^n$。这样会有交互项，比如$(sin\theta+cos\theta)^2=1+sin2\theta$，这会引入一个新频率。</p>
+<p>作者以非线性函数和泰勒展开的角度，假设非线性函数可以展开为$\sum ax^n$，这样会有交互项。比如$(sin\theta+cos\theta)^2=1+sin2\theta$，这会引入一个新频率。</p>
 <blockquote>
 <p>我感觉这里怪怪的</p>
 </blockquote>
@@ -18947,5 +18925,18 @@ $$<br>
       <tags>
         <tag>生活</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>同质性对图神经网络是必需的吗？</title>
+    <url>/2025/20250512/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>出自《Is homophily a necessity for graph neural networks? 》ICLR, 2022.</p>
+<p>GNNs 通常被认为由于同质性假设（“物以类聚”）而工作良好，但在异质性图中（不同节点相连）泛化能力较差。</p>
+<p>这篇论文则认为，如果图中的同一类的结点具有相似的邻居的分布, 则 Homophily 不是必须的。</p>
+<span id="more"></span>
+<h2 id="同质性假设">同质性假设</h2>
+<h2 id="我们真的需要吗">我们真的需要吗</h2>
+<p>论文首先举了个这个例子，可以发现这个图中所有蓝色节点将具有1的表示，而橙色节点将具有0的表示。</p>
+<p><img src="x1.png" alt=""></p>
+]]></content>
   </entry>
 </search>
