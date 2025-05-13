@@ -128,6 +128,27 @@
   
   
   <entry>
+    <title>Target Encoding</title>
+    <link href="/2025/20250425/"/>
+    <url>/2025/20250425/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Target Encoding又名mean encoding。正如其名，实际上是把符合条件的y的均值作为这个条件的所有样本的新特征。</p><p>在kaggle的S5E2和这个月正在进行的S5E4等比赛都获得了耀眼的表现。</p><p>最简单的形式是</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">df.groupby(<span class="hljs-string">&quot;xxx&quot;</span>).mean()<br></code></pre></td></tr></table></figure><span id="more"></span><p>为了避免数据泄露，Target Encoding往往采用的是$(1-\alpha)y_{类内}+\alpha y_{all}$。我们当然可以手动指定$\alpha$，但更好的选择是我们通过一系列数学方法来确定，这也就引出了各种的target encoder。</p><p>python上有多个库提供了“target encoder”，<strong>但它们实际上并不是完全同一个东西。</strong></p><p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.TargetEncoder.html">sklearn</a>中的相当于<a href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的JamesSteinEncoder，<a href="https://docs.rapids.ai/api/cuml/stable/api/#cuml.preprocessing.TargetEncoder.TargetEncoder">cuml</a>中的相当于<a href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的M-estimate Encoder。JamesSteinEncoder事实是可以当做一种特殊的M-estimate Encoder，所以我们先从JamesSteinEncoder介绍起。</p><h2 id="JamesSteinEncoder">JamesSteinEncoder</h2><h2 id="M-estimate-Encoder">M-estimate Encoder</h2><h2 id="避免过拟合">避免过拟合</h2><p>显然地，target encoding直接利用了目标列的信息，这难免会过拟合，有以下几种方法可以避免过拟合，交叉验证、加噪声。</p><!--more--><h2 id="参考资料">参考资料:</h2><p><a href="https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/">https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/</a></p><p><a href="https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/">https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>kaggle</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ICLR25 Oral 若干（感兴趣）论文解析</title>
     <link href="/2025/20250424/"/>
     <url>/2025/20250424/</url>
@@ -267,7 +288,7 @@
     <link href="/2025/20250210/"/>
     <url>/2025/20250210/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://www.kaggle.com/competitions/playground-series-s5e1">预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle</a>是我参加最久的一次TPS（<strong>2025/04/01更新：</strong> 3月TPS是最久的一次了，排名18/4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27/2722，其中一个原因是一直参考@<a href="https://www.kaggle.com/cabaxiom">Cabaxiom</a>的线性回归笔记本，但是其中年份product存在计算错误的问题。</p><hr><h2 id="数据介绍">数据介绍</h2><p>共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。</p><p>2010-2016是训练集</p><p>2017是测试集的公榜</p><p>2018-2019是测试集的私榜</p><p>之前也有个<a href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，所以很多solution也是参考了过去的思路。</p><h3 id="之前的第一名方案">之前的第一名方案</h3><p>$$<br>\begin{equation} \text{sold} = \text{GDP}(\text{country}, \text{year}) \times \text{const}(\text{store}) \times \left[ \text{sine/cosine waves}(\text{product}) + \text{holiday} + \text{weekday} + \text{covid} \right] \end{equation}<br>$$</p><p>假期效应用高斯分布拟合。</p><p><img src="holiday.png" alt=""></p><span id="more"></span><h2 id="数据分析">数据分析</h2><p>product具有周期性。</p><p><img src="procudt.png" alt=""></p><p>store具有不变性。</p><p><img src="store.ong" alt=""></p><p>GDP和销售额具有较强相关性。</p><p><img src="gdp.png" alt=""></p><p>但GDP在Kenya不符合，原因可能是因为$num_{sold}=a*GDP+bias$，而我们忽视了bias。</p><p><img src="gdp_kenya.png" alt=""></p><p>由上，我顺带分析了所有的<a href="https://data.worldbank.org/indicator?tab=featured">514个世界银行特殊指标</a>，其中GDP具有最高的R2，这也说明GDP已经足够了。</p><p><img src="allbank.png" alt=""></p><p>每周周日具有最多的销售额，且每周具有周期性。</p><p><img src="sunday.png" alt=""></p><h2 id="第一名-by-George-Koussa">第一名 by George Koussa</h2><h2 id="第二名-by-Chris-Deotte">第二名 by Chris Deotte</h2><h2 id="第三名-by-Konstantin-Dmitriev">第三名 by Konstantin Dmitriev</h2><h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2><p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://www.kaggle.com/competitions/playground-series-s5e1">预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle</a>是我参加最久的一次TPS（<strong>2025/04/01更新：</strong> 3月TPS是最久的一次了，排名18/4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27/2722，其中一个原因是一直参考@<a href="https://www.kaggle.com/cabaxiom">Cabaxiom</a>的线性回归笔记本，但是其中年份product存在计算错误的问题。</p><hr><h2 id="数据介绍">数据介绍</h2><p>共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。</p><p>2010-2016是训练集</p><p>2017是测试集的公榜</p><p>2018-2019是测试集的私榜</p><p>之前也有个<a href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，所以很多solution也是参考了过去的思路。</p><h3 id="之前的第一名方案">之前的第一名方案</h3><p>$$<br>\begin{equation} \text{sold} = \text{GDP}(\text{country}, \text{year}) \times \text{const}(\text{store}) \times \left[ \text{sine/cosine waves}(\text{product}) + \text{holiday} + \text{weekday} + \text{covid} \right] \end{equation}<br>$$</p><p>假期效应用高斯分布拟合。</p><p><img src="holiday.png" alt=""></p><span id="more"></span><h2 id="数据分析">数据分析</h2><p>product具有周期性。</p><p><img src="product.png" alt=""></p><p>store具有不变性。</p><p><img src="store.png" alt=""></p><p>GDP和销售额具有较强相关性。</p><p><img src="gdp.png" alt=""></p><p>但GDP在Kenya不符合，原因可能是因为$num_{sold}=a*GDP+bias$，而我们忽视了bias。</p><p><img src="gdp_kenya.png" alt=""></p><p>由上，我顺带分析了所有的<a href="https://data.worldbank.org/indicator?tab=featured">514个世界银行特殊指标</a>，其中GDP具有最高的R2，这也说明GDP已经足够了。</p><p><img src="allbank.png" alt=""></p><p>每周周日具有最多的销售额，且每周具有周期性。</p><p><img src="sunday.png" alt=""></p><h2 id="第一名-by-George-Koussa">第一名 by George Koussa</h2><h2 id="第二名-by-Chris-Deotte">第二名 by Chris Deotte</h2><h2 id="第三名-by-Konstantin-Dmitriev">第三名 by Konstantin Dmitriev</h2><h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2><p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>]]></content>
     
     
     
