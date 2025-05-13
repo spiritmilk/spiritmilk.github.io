@@ -29,7 +29,7 @@
 <meta property="og:description" content="Target Encoding又名mean encoding。正如其名，实际上是把符合条件的y的均值作为这个条件的所有样本的新特征。 在kaggle的S5E2和这个月正在进行的S5E4等比赛都获得了耀眼的表现。 最简单的形式是 1df.groupby(&quot;xxx&quot;).mean()">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-25T09:44:39.000Z">
-<meta property="article:modified_time" content="2025-05-13T15:43:41.556Z">
+<meta property="article:modified_time" content="2025-05-13T15:55:47.797Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="kaggle">
@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          486 字
+          580 字
         
       </span>
     
@@ -328,8 +328,21 @@
 <p>$$<br>
 \alpha=\frac{Var(y_i)}{Var(y_i)+Var(y)}=\frac{\sigma^2/n_i}{\sigma^2/n_i+\tau^2}<br>
 $$</p>
-<p>它可以从贝叶斯中得出：</p>
-<p>假定高斯分布$N(\mu,\tau^2)$，似然y来自$N(xi,\sigma_i^2/n_i)$，则后验分布$N(\mu_b,)$满足：<br>
+<p>如果你熟悉James-Stein 估计量的话，可以得到：<br>
+$$<br>
+\begin{align}<br>
+\alpha&amp;=\frac{(k-3)\hat\sigma^2}{\sum(xi-\bar X)^2}<br>
+\\<br>
+&amp;\approx \frac{(k-1)\hat\sigma^2}{\sum(xi-\bar X)^2}<br>
+\\<br>
+&amp;= \frac{\hat\sigma^2}{\sum(xi-\bar X)^2/(k-1)}<br>
+\\<br>
+&amp;=\frac{Var(y_i)}{Var(y_i)+Var(y)}<br>
+\end{align}<br>
+$$<br>
+（唉，怎么k-3=k-1了）<del>我们实际上是天文学家，它们都是同一数量级的。</del></p>
+<p>它也可以从贝叶斯中得出：</p>
+<p>比如假定高斯分布$N(\mu,\tau^2)$，似然y来自$N(xi,\sigma_i^2/n_i)$，则后验分布$N(\mu_b,)$满足：<br>
 $$<br>
 \mu_b=\frac{\frac{x_in_i}{\sigma_i^2}+\frac{\mu}{\tau^2}}{\frac{1}{\tau^2}+\frac{n_i}{\sigma_i^2}}<br>
 $$<br>

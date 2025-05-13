@@ -18304,8 +18304,21 @@ $$<br>
 <p>$$<br>
 \alpha=\frac{Var(y_i)}{Var(y_i)+Var(y)}=\frac{\sigma^2/n_i}{\sigma^2/n_i+\tau^2}<br>
 $$</p>
-<p>它可以从贝叶斯中得出：</p>
-<p>假定高斯分布$N(\mu,\tau^2)$，似然y来自$N(xi,\sigma_i^2/n_i)$，则后验分布$N(\mu_b,)$满足：<br>
+<p>如果你熟悉James-Stein 估计量的话，可以得到：<br>
+$$<br>
+\begin{align}<br>
+\alpha&amp;=\frac{(k-3)\hat\sigma^2}{\sum(xi-\bar X)^2}<br>
+\\<br>
+&amp;\approx \frac{(k-1)\hat\sigma^2}{\sum(xi-\bar X)^2}<br>
+\\<br>
+&amp;= \frac{\hat\sigma^2}{\sum(xi-\bar X)^2/(k-1)}<br>
+\\<br>
+&amp;=\frac{Var(y_i)}{Var(y_i)+Var(y)}<br>
+\end{align}<br>
+$$<br>
+（唉，怎么k-3=k-1了）<del>我们实际上是天文学家，它们都是同一数量级的。</del></p>
+<p>它也可以从贝叶斯中得出：</p>
+<p>比如假定高斯分布$N(\mu,\tau^2)$，似然y来自$N(xi,\sigma_i^2/n_i)$，则后验分布$N(\mu_b,)$满足：<br>
 $$<br>
 \mu_b=\frac{\frac{x_in_i}{\sigma_i^2}+\frac{\mu}{\tau^2}}{\frac{1}{\tau^2}+\frac{n_i}{\sigma_i^2}}<br>
 $$<br>
