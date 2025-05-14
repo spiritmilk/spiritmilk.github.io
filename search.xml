@@ -6698,7 +6698,26 @@ E_w[cos(w^Tx+b)+2b]+E_w[cos(w^T(x-y))]<br>
 \\&amp;=<br>
 0+E_w[cos(w^T(x-y))]<br>
 \end{align}<br>
+$$<br>
+故可定义:<br>
+$$z(x) = \begin{bmatrix} \frac{1}{\sqrt{R}} z_{w_1}(x) \ \frac{1}{\sqrt{R}} z_{w_2}(x) \ \vdots \ \frac{1}{\sqrt{R}} z_{w_R}(x) \end{bmatrix}$$</p>
+<p>因此<br>
+$$<br>
+\begin{align}<br>
+z(x)^Tz(y)&amp;=\frac{1}{R}\sum_{r=1}^R z_{w_r}(x)z_{w_r}(y)<br>
+\\<br>
+&amp;=\frac{1}{R}\sum_{r=1}^R 2cos(w_r^Tx+b_r)cos(w_r^Ty+b_r)<br>
+\\<br>
+&amp;=\frac{1}{R}\sum_{r=1}^R cos(w_r^T(x-y))<br>
+\\<br>
+&amp;\approx E_w[cos(w_r^T(x-y))]<br>
+\\<br>
+&amp;=k(x,y)<br>
+\end{align}<br>
 $$</p>
+<h2 id="应用——高斯核近似">应用——高斯核近似</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span>   sklearn.metrics.pairwise <span class="hljs-keyword">import</span> rbf_kernel<br><span class="hljs-keyword">from</span>   sklearn.datasets <span class="hljs-keyword">import</span> make_s_curve<br><br>fig, axes = plt.subplots(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>)<br>fig.set_size_inches(<span class="hljs-number">15</span>, <span class="hljs-number">4</span>)<br>font = &#123;<span class="hljs-string">&#x27;fontname&#x27;</span>: <span class="hljs-string">&#x27;arial&#x27;</span>, <span class="hljs-string">&#x27;fontsize&#x27;</span>: <span class="hljs-number">18</span>&#125;<br><br>N    = <span class="hljs-number">1000</span><br>D    = <span class="hljs-number">3</span><br>X, t = make_s_curve(N, noise=<span class="hljs-number">0.1</span>)<br>X    = X[t.argsort()]<br><span class="hljs-comment"># The RBF kernel is the Gaussian kernel if we let \gamma = 1 / (2 \sigma^2).</span><br>K    = rbf_kernel(X, gamma=<span class="hljs-number">1</span>/<span class="hljs-number">2.</span>)<br><br>axes[<span class="hljs-number">0</span>].imshow(K, cmap=plt.cm.Blues)<br>axes[<span class="hljs-number">0</span>].set_title(<span class="hljs-string">&#x27;Exact RBF kernel&#x27;</span>, **font)<br>axes[<span class="hljs-number">0</span>].set_xticks([])<br>axes[<span class="hljs-number">0</span>].set_yticks([])<br><br><span class="hljs-keyword">for</span> R, ax <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>([<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1000</span>], axes[<span class="hljs-number">1</span>:]):<br>    W    = np.random.normal(loc=<span class="hljs-number">0</span>, scale=<span class="hljs-number">1</span>, size=(R, D))<br>    b    = np.random.uniform(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*np.pi, size=R)<br>    B    = np.repeat(b[:, np.newaxis], N, axis=<span class="hljs-number">1</span>)<br>    norm = <span class="hljs-number">1.</span>/ np.sqrt(R)<br>    Z    = norm * np.sqrt(<span class="hljs-number">2</span>) * np.cos(W @ X.T + B)<br>    ZZ   = Z.T@Z<br><br>    ax.imshow(ZZ, cmap=plt.cm.Blues)<br>    ax.set_title(<span class="hljs-string">r&#x27;$\mathbf&#123;Z&#125; \mathbf&#123;Z&#125;^&#123;\top&#125;$, $R=%s$&#x27;</span> % R, **font)<br>    ax.set_xticks([])<br>    ax.set_yticks([])<br><br>plt.tight_layout()<br>plt.show()<br></code></pre></td></tr></table></figure>
+<p><img src="rbf.png" alt=""></p>
 ]]></content>
       <tags>
         <tag>机器学习</tag>
