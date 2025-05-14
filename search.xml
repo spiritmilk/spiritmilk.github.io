@@ -19271,6 +19271,7 @@ $$<br>
 <h2 id="什么样的替代函数是好的">什么样的替代函数是好的</h2>
 <p>但是我们也不是随心所欲地去选替代函数，</p>
 <p>高尉、周志华的一篇<a href="https://arxiv.org/abs/1208.0645">《On the Consistency of AUC Pairwise Optimization》</a>进一步探索了替代函数的一致性（指优化该替代损失函数的期望风险是否收敛到贝叶斯风险），提供了新的 AUC 一致性充分条件，并指出了校准性对于 AUC 一致性是必要的但不足够的。</p>
+<p>论文指出充分条件：<strong>若替代函数是凸函数，且0处导小于0，则它与AUC一致。</strong></p>
 <p>值得注意到是，hinge loss 并不具有一致性，而q-norm loss才具有一致性。</p>
 ]]></content>
       <tags>

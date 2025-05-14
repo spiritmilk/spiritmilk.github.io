@@ -29,7 +29,7 @@
 <meta property="og:description" content="在最新的TPS中，是以AUC为指标，故有了直接优化AUC的想法。（最终它帮助我获得了rank 18&#x2F;4381)。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-14T13:27:42.000Z">
-<meta property="article:modified_time" content="2025-05-14T13:50:44.273Z">
+<meta property="article:modified_time" content="2025-05-14T13:56:12.957Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="kaggle">
@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          262 字
+          291 字
         
       </span>
     
@@ -328,6 +328,7 @@ $$<br>
 <h2 id="什么样的替代函数是好的">什么样的替代函数是好的</h2>
 <p>但是我们也不是随心所欲地去选替代函数，</p>
 <p>高尉、周志华的一篇<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1208.0645">《On the Consistency of AUC Pairwise Optimization》</a>进一步探索了替代函数的一致性（指优化该替代损失函数的期望风险是否收敛到贝叶斯风险），提供了新的 AUC 一致性充分条件，并指出了校准性对于 AUC 一致性是必要的但不足够的。</p>
+<p>论文指出充分条件：<strong>若替代函数是凸函数，且0处导小于0，则它与AUC一致。</strong></p>
 <p>值得注意到是，hinge loss 并不具有一致性，而q-norm loss才具有一致性。</p>
 
                 
