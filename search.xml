@@ -19180,7 +19180,7 @@ $</p>
   </entry>
   <entry>
     <title>高斯混合模型和EM算法</title>
-    <url>/2025/20220801/</url>
+    <url>/2022/20220801/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Tabular Playground Series - Jul 2022是一场无监督聚类，<a href="https://www.kaggle.com/competitions/tabular-playground-series-jul-2022/discussion/341023">第一名采用了不到一百行代码</a>，主要核心内容是使用GMM和EM。</p>
 <span id="more"></span>
 <h2 id="1-模型定义">1. 模型定义</h2>
@@ -19251,7 +19251,7 @@ N_k = \sum_{i=1}^N \gamma_{ik}.<br>
 </li>
 </ol>
 <p>不断迭代 E 步和 M 步，直到参数收敛（对数似然增益低于阈值或达到最大迭代次数）。</p>
-<hr>
+<p><img src="gaussian-mixture-models-em-method-math.gif" alt=""></p>
 <h2 id="4-EM-算法伪代码">4. EM 算法伪代码</h2>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs text">输入：数据 X=&#123;x₁,…,xₙ&#125;，组件数 K，收敛阈值 ε，最大迭代 T<br>初始化：随机或用 K-Means 给出 &#123;πₖ, μₖ, Σₖ&#125;<br><br>for t = 1 to T:<br>  — E 步 —<br>  对 i=1…N, k=1…K 计算责任度 γᵢₖ<br><br>  — M 步 —<br>  对 k=1…K 计算 Nₖ = ∑ᵢ γᵢₖ<br>  更新：<br>    πₖ ← Nₖ / N<br>    μₖ ← (1/Nₖ) ∑ᵢ γᵢₖ xᵢ<br>    Σₖ ← (1/Nₖ) ∑ᵢ γᵢₖ (xᵢ − μₖ)(xᵢ − μₖ)ᵀ<br><br>  计算对数似然 Lᵗ<br>  如果 |Lᵗ − Lᵗ⁻¹| &lt; ε: 退出<br><br>返回：&#123;πₖ, μₖ, Σₖ&#125;ₖ₌₁…K<br></code></pre></td></tr></table></figure>
 <h2 id="参考资料">参考资料</h2>
