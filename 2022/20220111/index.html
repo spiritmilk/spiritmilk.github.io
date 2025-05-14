@@ -29,7 +29,7 @@
 <meta property="og:description" content="SVM是一个强有力的机器学习算法，很多算法（比如RCNN）的分类器也使用SVM作为分类器，帮助我获得了智数杯准确率排行榜的第二名（我使用的是VGG+Quasi-SVM。 但困难的是，如何把SVM和神经网络合并起来，且共同训练。于是有了近似SVM，我们可以使用hingeloss。 更幸运的是，keras提供了另一种方法，Random Fourier Features。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-11T03:09:47.000Z">
-<meta property="article:modified_time" content="2025-05-14T04:01:35.620Z">
+<meta property="article:modified_time" content="2025-05-14T04:04:49.648Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          460 字
+          618 字
         
       </span>
     
@@ -274,7 +274,7 @@
         
         
         
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -328,7 +328,7 @@
 <p>Random Fourier Features出自2007 年的《Random Features for Large-Scale Kernel Machines》，并于十年后获得了NeurIPS 2017的Test of Time Award。</p>
 <p>他们的想法是使用一个随机化的特征图 $z: \mathbb{R}^D \to \mathbb{R}^d$ 来近似核函数 $k(x,y)$：</p>
 <p>$$<br>
-k(x,y) = \langle \phi(x), \phi(y) \rangle_V \approx z(x)^\top z(y). \quad (1)<br>
+k(x,y) = \langle \phi(x), \phi(y) \rangle_V \approx z(x)^\top z(y)<br>
 $$</p>
 <p>这里，$V$ 是一个（可能是无限维的）希尔伯特空间，$D$ 是输入空间的维度，$d$ 是随机特征空间的维度。关键在于，如果 $d \ll N$，那么在特征空间中工作的计算成本要低得多。</p>
 <p>根据 <a target="_blank" rel="noopener" href="http://www.argmin.net/2017/12/05/kitchen-sinks/">作者的blog</a>，它的想法受到了以下观察的启发，设w是一个随机的D维向量，$w\sim N_D(0,I)$</p>
@@ -347,6 +347,10 @@ $$<br>
 <p>实际上它是一个Bochner 定理（Rudin，1962 年）——更一般结果的特定实例，即</p>
 <p>Bochner 定理：一个在 $R^D$ 上的连续核$k(x,y)=k(x-y)$是正定的，当且仅当$k(\Delta)$ 是一个非负测度的傅里叶变换。</p>
 <p>非负测度的傅里叶变换是$\int p(w)exp(iw\Delta)dw$</p>
+<p>故有<br>
+$$<br>
+\begin{align*} k(\mathbf{x}, \mathbf{y}) &amp;= k(\mathbf{x} - \mathbf{y}) \ &amp;= \int p(\boldsymbol{\omega}) \exp(i \boldsymbol{\omega}^{\top} (\mathbf{x} - \mathbf{y})) d\boldsymbol{\omega} \ &amp;= \mathbb{E}<em>{\boldsymbol{\omega}}[\exp(i \boldsymbol{\omega}^{\top} (\mathbf{x} - \mathbf{y}))] \ &amp;\approx \frac{1}{R} \sum</em>{r=1}^{R} \exp(i \boldsymbol{\omega}<em>{r}^{\top} (\mathbf{x} - \mathbf{y})) \ &amp;= \begin{bmatrix} \frac{1}{\sqrt{R}} \exp(i \boldsymbol{\omega}</em>{1}^{\top} \mathbf{x}) \ \frac{1}{\sqrt{R}} \exp(i \boldsymbol{\omega}<em>{2}^{\top} \mathbf{x}) \ \vdots \ \frac{1}{\sqrt{R}} \exp(i \boldsymbol{\omega}</em>{R}^{\top} \mathbf{x}) \end{bmatrix}^{\top} \begin{bmatrix} \frac{1}{\sqrt{R}} \exp(-i \boldsymbol{\omega}<em>{1}^{\top} \mathbf{y}) \ \frac{1}{\sqrt{R}} \exp(-i \boldsymbol{\omega}</em>{2}^{\top} \mathbf{y}) \ \vdots \ \frac{1}{\sqrt{R}} \exp(-i \boldsymbol{\omega}_{R}^{\top} \mathbf{y}) \end{bmatrix} \ &amp;{=} \mathbf{h}(\mathbf{x}) \mathbf{h}(\mathbf{y})^{<em>} \end{align</em>}<br>
+$$</p>
 
                 
               </div>
