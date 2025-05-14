@@ -523,10 +523,56 @@
        <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
     </div>
   
+
   
+    <div style="margin-top: 8px;"> 
+      我们已经一起走过了 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+  </div>
+  
+
+  
+
   
 </div>
 
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
   </footer>
 
   <!-- Scripts -->
