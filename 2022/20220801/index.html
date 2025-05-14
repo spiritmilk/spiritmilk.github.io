@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2022/20220801/gaussian-mixture-models-em-method-math.gif">
 <meta property="article:published_time" content="2022-08-01T09:56:56.000Z">
-<meta property="article:modified_time" content="2025-05-14T10:43:46.440Z">
+<meta property="article:modified_time" content="2025-05-14T10:50:39.064Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="kaggle">
@@ -340,11 +340,7 @@ $$</p>
 <h2 id="2-目标：最大化对数似然">2. 目标：最大化对数似然</h2>
 <p>我们希望找到参数集合 $\Theta={\pi_k,\mu_k,\Sigma_k}_ {k=1}^K$，使得观测数据的对数似然最大：<br>
 $$<br>
-\mathcal{L}(\Theta)<br>
-= ln<br>
-\prod_{i=1}^N<br>
-\sum_{k=1}^K \pi_k,\mathcal{N}(x_i \mid \mu _k,\Sigma <em>k)<br>
-= \sum</em>{i=1}^N ln(\sum _ {k=1}^K \pi _ k,\mathcal{N}(x_i\mid\mu_k,\Sigma _ k))<br>
+\mathcal{L}(\Theta)=ln\prod_{i=1}^N \sum_{k=1}^K \pi_k,\mathcal{N}(x_i \mid \mu _k,\Sigma <em>k) = \sum</em>{i=1}^N ln(\sum _ {k=1}^K \pi _ k,\mathcal{N}(x_i\mid\mu_k,\Sigma _ k))<br>
 $$<br>
 直接对上式求导并解出闭式解困难，因此引入 EM 算法来迭代优化。</p>
 <h2 id="3-EM-算法概览">3. EM 算法概览</h2>
