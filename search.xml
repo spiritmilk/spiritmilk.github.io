@@ -19181,7 +19181,7 @@ $</p>
   <entry>
     <title>高斯混合模型和EM算法</title>
     <url>/2022/20220801/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Tabular Playground Series - Jul 2022是一场无监督聚类，<a href="https://www.kaggle.com/competitions/tabular-playground-series-jul-2022/discussion/341023">第一名采用了不到一百行代码</a>，主要核心内容是使用GMM和EM。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Tabular Playground Series - Jul 2022是一场无监督聚类比赛，<a href="https://www.kaggle.com/competitions/tabular-playground-series-jul-2022/discussion/341023">第一名采用了不到一百行代码</a>，主要核心内容是使用GMM和EM。</p>
 <span id="more"></span>
 <h2 id="1-模型定义">1. 模型定义</h2>
 <p>假设观测数据集为 ${x_1, x_2, \dots, x_N}$，每个 $x_i\in\mathbb{R}^D$。GMM 假设数据的生成过程为：</p>
@@ -19197,18 +19197,18 @@ $$</li>
 </ol>
 <p>因此，对任意一个观测 $x$ 的似然为：<br>
 $$<br>
-p(x\mid {\pi_k,\mu_k,\Sigma_k}<em>{k=1}^K)<br>
-= \sum</em>{k=1}^K \pi_k,\mathcal{N}(x\mid\mu_k,\Sigma_k).<br>
+p(x\mid {\pi_k,\mu_k,\Sigma_k}_ {k=1}^K)<br>
+= \sum_ {k=1}^K \pi_k,\mathcal{N}(x\mid\mu_k,\Sigma_k).<br>
 $$</p>
 <hr>
 <h2 id="2-目标：最大化对数似然">2. 目标：最大化对数似然</h2>
-<p>我们希望找到参数集合 $\Theta={\pi_k,\mu_k,\Sigma_k}<em>{k=1}^K$，使得观测数据的对数似然最大：<br>
+<p>我们希望找到参数集合 $\Theta={\pi_k,\mu_k,\Sigma_k}_ {k=1}^K$，使得观测数据的对数似然最大：<br>
 $$<br>
 \mathcal{L}(\Theta)<br>
 = \ln<br>
-\prod</em>{i=1}^N<br>
-\sum_{k=1}^K \pi_k,\mathcal{N}(x_i\mid\mu_k,\Sigma_k)<br>
-= \sum_{i=1}^N \ln\Bigl(\sum_{k=1}^K \pi_k,\mathcal{N}(x_i\mid\mu_k,\Sigma_k)\Bigr).<br>
+\prod_{i=1}^N<br>
+\sum_{k=1}^K \pi_k,\mathcal{N}(x_i \mid \mu _k,\Sigma <em>k)<br>
+= \sum</em>{i=1}^N \ln\Bigl(\sum _ {k=1}^K \pi _ k,\mathcal{N}(x_i\mid\mu_k,\Sigma _ k)\Bigr).<br>
 $$<br>
 直接对上式求导并解出闭式解困难，因此引入 EM 算法来迭代优化。</p>
 <hr>
