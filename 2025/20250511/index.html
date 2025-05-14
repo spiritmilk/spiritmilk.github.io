@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250511/rope2.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250511/sinxx.png">
 <meta property="article:published_time" content="2025-05-11T13:27:12.000Z">
-<meta property="article:modified_time" content="2025-05-12T02:53:03.167Z">
+<meta property="article:modified_time" content="2025-05-14T05:39:36.578Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          827 字
+          868 字
         
       </span>
     
@@ -277,7 +277,7 @@
         
         
         
-          7 分钟
+          8 分钟
         
       </span>
     
@@ -348,10 +348,12 @@ $$<br>
 <p>即正常的应为只在0处有值，但经过时域截断后，会变为：</p>
 <p><img src="sinxx.png" alt=""></p>
 <p>其他地方也会有频率掺杂进来了。</p>
+<p>（比较经典的信号与系统知识。）</p>
 <h2 id="怎么做">怎么做</h2>
 <p>① 既然每一维中不可避免的混杂其他频率的分量，那就干脆在一开始就把每一维都建模成一个傅里叶级数（Fourier Series）。即使这样的建模不会避免频谱破坏，FoPE却可以在每一维中分解出更多频率的信息（利用三角函数的正交性），从而让更多的频率分量保持周期延拓性；</p>
 <p>② 既然极低频的分量周期过长，会导致这些频率分量的周期特性无法被学习到，那就将他们裁剪成频率为0的直流分量。考虑到直流分量的良好性质（既可以看作周期无限短，又可以看作周期无限长），</p>
 <p>第一点听起来有点晦涩，我们直接来看代码。</p>
+<p>代码就像照妖镜，不管故事讲得多么动听，它总能抓住背后的核心本质。</p>
 <p>代码：<a target="_blank" rel="noopener" href="https://github.com/TsinghuaC3I/Fourier-Position-Embedding">https://github.com/TsinghuaC3I/Fourier-Position-Embedding</a></p>
 <p><strong>ROPE：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply_rotary_pos_emb</span>(<span class="hljs-params">self, sin, cos, x, inverse=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-comment"># 先把最后一半维度右移（rotate-half）</span><br>    <span class="hljs-comment"># x.shape = [..., 2*(dim//2)]</span><br>    rot = self.rotate_half(x)<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> inverse:<br>        <span class="hljs-keyword">return</span> x * cos + rot * sin<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> x * cos - rot * sin<br><br></code></pre></td></tr></table></figure>

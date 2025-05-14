@@ -29,7 +29,7 @@
 <meta property="og:description" content="有人曾说，最可悲的是两条平行线">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-21T15:02:28.000Z">
-<meta property="article:modified_time" content="2025-05-14T05:27:08.610Z">
+<meta property="article:modified_time" content="2025-05-14T05:41:25.413Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -261,7 +261,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          87 字
+          638 字
         
       </span>
     
@@ -272,7 +272,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -318,6 +318,164 @@
 <hr>
 <p>全文已删。</p>
 <hr>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>烟花动画</title>
+<style>
+  body {
+    background-color: #000; /* 深色背景更适合烟花 */
+    overflow: hidden; /* 防止滚动条出现 */
+    margin: 0;
+  }
+<p>.firework {<br>
+position: absolute;<br>
+width: 4px;<br>
+height: 4px;<br>
+background-color: white; /* 粒子颜色 <em>/<br>
+border-radius: 50%;<br>
+opacity: 1;<br>
+pointer-events: none; /</em> 确保烟花不会干扰页面交互 */<br>
+}<br>
+</style></p>
+</head>
+<body>
+<p><canvas id="fireworksCanvas"></canvas></p>
+<script>
+  const canvas = document.getElementById('fireworksCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  // 设置Canvas占据整个窗口
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // 窗口大小改变时调整Canvas
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // 粒子类
+  class Particle {
+    constructor(x, y, color, velocity) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.velocity = velocity;
+      this.alpha = 1; // 透明度
+      this.size = Math.random() * 3 + 1; // 粒子大小
+      this.gravity = 0.05; // 重力效果
+      this.resistance = 0.98; // 空气阻力
+    }
+
+    draw() {
+      ctx.globalAlpha = this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.closePath();
+      ctx.globalAlpha = 1; // 重置透明度
+    }
+    
+    update() {
+      this.velocity.x *= this.resistance;
+      this.velocity.y *= this.resistance;
+      this.velocity.y += this.gravity; // 应用重力
+      this.x += this.velocity.x;
+      this.y += this.velocity.y;
+      this.alpha -= 0.015; // 逐渐消失
+      if (this.alpha < 0) this.alpha = 0;
+    }
+  }
+
+  // 烟花类
+  class Firework {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.color = `hsl(${Math.random() * 360}, 100%, 70%)`; // 随机颜色
+      this.particles = [];
+      this.particleCount = 100; // 爆炸产生的粒子数量
+
+      // 创建上升的火箭
+      this.rocket = new Particle(this.x, canvas.height, this.color, {
+        x: (Math.random() - 0.5) * 3, // 水平方向的随机速度
+        y: -(Math.random() * 5 + 5)   // 向上发射的速度
+      });
+      this.rocket.size = 3;
+      this.exploded = false;
+    }
+    
+    explode() {
+      this.exploded = true;
+      for (let i = 0; i < this.particleCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 6 + 1;
+        const velocity = {
+          x: Math.cos(angle) * speed,
+          y: Math.sin(angle) * speed
+        };
+        this.particles.push(new Particle(this.rocket.x, this.rocket.y, this.color, velocity));
+      }
+    }
+    
+    update() {
+      if (!this.exploded) {
+        this.rocket.update();
+        // 当火箭速度接近0或者到达一定高度时爆炸
+        if (this.rocket.velocity.y >= -1 || this.rocket.y < canvas.height * 0.3) {
+          this.explode();
+          this.rocket.alpha = 0; // 隐藏火箭
+        }
+      } else {
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          this.particles[i].update();
+          if (this.particles[i].alpha <= 0) {
+            this.particles.splice(i, 1);
+          }
+        }
+      }
+    }
+    
+    draw() {
+      if (!this.exploded) {
+        this.rocket.draw();
+      }
+      this.particles.forEach(particle => particle.draw());
+    }
+  }
+
+  let fireworks = [];
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // 带拖尾效果的背景
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 随机生成烟花
+    if (Math.random() < 0.05) { // 控制烟花生成频率
+      fireworks.push(new Firework(Math.random() * canvas.width, canvas.height));
+    }
+    
+    for (let i = fireworks.length - 1; i >= 0; i--) {
+      fireworks[i].update();
+      fireworks[i].draw();
+      // 如果烟花的所有粒子都消失了，则移除该烟花
+      if (fireworks[i].exploded && fireworks[i].particles.length === 0) {
+        fireworks.splice(i, 1);
+      }
+    }
+  }
+
+  animate(); // 开始动画
+
+</script>
+</body>
+</html>
 
                 
               </div>
