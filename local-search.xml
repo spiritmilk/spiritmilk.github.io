@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>Quasi-SVM</title>
+    <link href="/2025/20220111/"/>
+    <url>/2025/20220111/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>SVM是一个强有力的机器学习算法，很多算法（比如RCNN）的分类器也使用SVM作为分类器，帮助我获得了智数杯准确率排行榜的第二名（我使用的是VGG+Quasi-SVM。</p><p>但困难的是，如何把SVM和神经网络合并起来，且共同训练。于是有了近似SVM，我们可以使用hingeloss。</p><p>更幸运的是，keras提供了另一种方法，Random Fourier Features。</p><span id="more"></span><p><strong>链接：</strong></p><p><a href="https://keras.io/examples/keras_recipes/quasi_svm">https://keras.io/examples/keras_recipes/quasi_svm</a></p><p><strong>2025年更新：</strong> keras现在已经删掉了RandomFourierFeatures</p><h2 id="Random-Fourier-Features">Random Fourier Features</h2><p>SVM的核心是核技巧和最大间隔，SVM具体实现我们不再赘述。</p><p>Random Fourier Features出自2007 年的《Random Features for Large-Scale Kernel Machines》，并于十年后获得了NeurIPS 2017的Test of Time Award。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>同质性对图神经网络是必需的吗？</title>
     <link href="/2025/20250512/"/>
     <url>/2025/20250512/</url>
@@ -362,19 +383,6 @@
       <tag>计算机网络</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>思想验证区域（The Community）人物介绍</title>
-    <link href="/2024/20240830/"/>
-    <url>/2024/20240830/</url>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>第三届青龙最佳综艺作品**《思想验证区域：The Community》<strong>，是一档汇集了12名不同理念人们的</strong>政治生存类综艺**，参与者皆为来自各行业的素人，男女各占一半，分别从<strong>政治、性别、阶级、开放性</strong>这四个领域划分了属性。</p><p>测试链接：<a href="https://thecommunity.co.kr/">https://thecommunity.co.kr/</a></p><p>为了方便，记录人物介绍。</p><hr><span id="more"></span><h2 id="李承国">李承国</h2><p><img src="1.png" alt=""></p><p>代名：TED</p><p>油管博主 右派 女权 富有 开放</p><h2 id="YUNB">YUNB</h2><p><img src="2.jpg" alt=""></p><p>代名：迈克尔</p><p>资深玩家</p><p>右派 平权 富有 传统</p><h2 id="河马">河马</h2><p><img src="3.jpg" alt=""></p><p>代名：河马</p><p>作家</p><p>左派 女权 平民  开放</p><h2 id="金娜静">金娜静</h2><p><img src="4.jpg" alt=""></p><p>代名：SUGAR</p><p>男性杂志模特 、自由职业播音员。梨花女子大学出身。喜欢玛丽莲梦露。</p><p>右派 平权 富有 开放</p><h2 id="金宰变">金宰变</h2><p><img src="5.jpg" alt=""></p><p>代名：超人</p><p>国民力量党。反对共产主义的家庭。有家人朝鲜战争去世。</p><p>右派 平权 富有 传统</p><h2 id="朴成珉">朴成珉</h2><p><img src="6.jpg" alt=""></p><p>代名：北极熊</p><p>政治人。文在寅党青瓦台最年轻的秘书官。</p><p>左派 女权 平民  开放</p><h2 id="李昌俊">李昌俊</h2><p><img src="7.jpg" alt=""></p><p>代名：黑暗骑士</p><p>特种部队13年</p><p>右派 平权 平民 传统</p><h2 id="李智娜">李智娜</h2><p><img src="8.jpg" alt=""></p><p>代名：GENIE</p><p>精英职员。毕业于香港大学。唯一富有拿到3分的人。市场营销。</p><p>右派 女权 富有 传统</p><h2 id="林贤瑞">林贤瑞</h2><p><img src="9.jpg" alt=""></p><p>代名：本杰明</p><p>律师。首尔大学法学院。</p><p>右派 平权 平民 开放</p><p>（不良分子）</p><h2 id="李秀莲">李秀莲</h2><p><img src="10.jpg" alt=""></p><p>代名：浪子</p><p>警卫员出身的演员</p><p>右派 平权 富有 传统</p><h2 id="全民基">全民基</h2><p><img src="11.jpg" alt=""></p><p>代名：GREY</p><p>播音员出身的大数据专家</p><p>左派 女权 富有 开放</p><h2 id="安跟英">安跟英</h2><p><img src="12.jpg" alt=""></p><p>代名：高爱信</p><p>从小打冰球。现任冰球指导。</p><p>左派 女权 富有 传统</p>]]></content>
-    
-    
     
   </entry>
   
