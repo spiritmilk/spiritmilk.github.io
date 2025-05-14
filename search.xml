@@ -6639,7 +6639,7 @@ axis不给定具体值，就把numpy数组当成一个一维数组。</p>
   <entry>
     <title>Quasi-SVM</title>
     <url>/2022/20220111/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>SVM是一个强有力的机器学习算法，很多算法（比如RCNN）的分类器也使用SVM作为分类器，帮助我获得了智数杯准确率排行榜的第二名（我使用的是VGG+Quasi-SVM。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>SVM是一个强有力的机器学习算法，很多算法（比如RCNN）的分类器也使用SVM作为分类器，帮助我获得了智数杯准确率排行榜的第二名（我使用的是VGG+Quasi-SVM。</p>
 <p>但困难的是，如何把SVM和神经网络合并起来，且共同训练。于是有了近似SVM，我们可以使用hingeloss。</p>
 <p>更幸运的是，keras提供了另一种方法，Random Fourier Features。</p>
 <span id="more"></span>
@@ -6675,8 +6675,8 @@ $$<br>
 \begin{align}<br>
 k(x,y) &amp;= k(x-y)<br>
 \\ &amp;= \int p(w) \exp(i w^T (x-y)) dw<br>
-\\ &amp;= \mathbb{E}<em>{w}[\exp(i w^T (x-y))]<br>
-\\ &amp;\approx \frac{1}{R} \sum</em>{r=1}^{R} \exp(i w_r^T (x-y)) \\ &amp;=<br>
+\\ &amp;= \mathbb{E}_ {w}[\exp(i w^T (x-y))]<br>
+\\ &amp;\approx \frac{1}{R} \sum_ {r=1}^{R} \exp(i w_r^T (x-y)) \\ &amp;=<br>
 \begin{bmatrix} \frac{1}{\sqrt{R}} \exp(i w_{1}^T x) \ \frac{1}{\sqrt{R}} \exp(i w_{2}^T x) \ \vdots \ \frac{1}{\sqrt{R}} \exp(i w_{R}^T x) \end{bmatrix}^T \begin{bmatrix} \frac{1}{\sqrt{R}} \exp(-i w_{1}^T y) \ \frac{1}{\sqrt{R}} \exp(-i w_{2}^T y) \ \vdots \ \frac{1}{\sqrt{R}} \exp(-i w_{R}^T y) \end{bmatrix} \\ &amp;{=} \mathbf{h}(x) \mathbf{h}(y)^{*} \end{align}<br>
 $$<br>
 为了避免虚数，我们定义：<br>
@@ -6688,14 +6688,16 @@ b\sim Uniform(0,2\pi)<br>
 \\<br>
 z_w(x)=\sqrt{2}cos(w^Tx+b)<br>
 \end{align}<br>
+$$</p>
+<p>则<br>
 $$<br>
-则<br>
-$$<br>
+\begin{align}<br>
 E_w(z_w(x)z_w(y))&amp;=E_w[\sqrt{2}cos(w^Tx+b)\sqrt{2}cos(w^Ty+b)]<br>
 \\&amp;=<br>
 E_w[cos(w^Tx+b)+2b]+E_w[cos(w^T(x-y))]<br>
 \\&amp;=<br>
 0+E_w[cos(w^T(x-y))]<br>
+\end{align}<br>
 $$</p>
 ]]></content>
       <tags>
