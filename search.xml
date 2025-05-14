@@ -1352,10 +1352,11 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
   <entry>
     <title>她</title>
     <url>/2020/20201221/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>有人曾说，最可悲的是两条平行线<span id="more"></span>，永远没有交点。有人曾说，最可悲的是两条相交的线，终究渐行渐远。可殊不知，最可悲的是异面直线，永远不相交，在某一刻有着最近的距离，以为相遇却渐行渐远，不再相见。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>有人曾说，最可悲的是两条平行线<span id="more"></span>，永远没有交点。有人曾说，最可悲的是两条相交的线，终究渐行渐远。可殊不知，最可悲的是异面直线，永远不相交，在某一刻有着最近的距离，以为相遇却渐行渐远，不再相见。</p>
 <hr>
 <p>全文已删。</p>
 <hr>
+<p>来看场烟花吧。</p>
 <div id="fireworks-container" style="width: 100%; height: 450px; background-color: #000; position: relative; margin-bottom: 20px;">   <canvas id="fireworksCanvas"></canvas> </div>
 
 <script>
@@ -1368,20 +1369,20 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
       console.error("烟花容器或画布元素未找到!");
       return;
     }
-
+    
     const ctx = canvas.getContext('2d');
-
+    
     // 设置画布大小为容器大小
     function resizeCanvas() {
       canvas.width = canvasContainer.offsetWidth;
       canvas.height = canvasContainer.offsetHeight;
     }
     resizeCanvas(); // 初始调整大小
-
+    
     const fireworks = [];
     const particles = [];
     let hue = 120; // 基础色调
-
+    
     // 烟花类
     class Firework {
       constructor() {
@@ -1394,28 +1395,28 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
         this.angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
         this.brightness = Math.random() * 50 + 50;
         this.targetRadius = 1;
-
+    
         this.coordinates = [];
         this.coordinateCount = 3;
         while (this.coordinateCount--) {
           this.coordinates.push([this.x, this.y]);
         }
       }
-
+    
       update(index) {
         this.coordinates.pop();
         this.coordinates.unshift([this.x, this.y]);
-
+    
         if (this.targetRadius < 8) {
           this.targetRadius += 0.3;
         } else {
           this.targetRadius = 1;
         }
-
+    
         const dx = this.targetX - this.x;
         const dy = this.targetY - this.y;
         const distanceToTarget = Math.sqrt(dx * dx + dy * dy);
-
+    
         // 检查是否接近目标点
         if (distanceToTarget < this.speed * 1.5) { // 调整此阈值以确保到达
           fireworks.splice(index, 1);
@@ -1425,21 +1426,21 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
           this.y += Math.sin(this.angle) * this.speed;
         }
       }
-
+    
       draw() {
         ctx.beginPath();
         ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
         ctx.lineTo(this.x, this.y);
         ctx.strokeStyle = `hsl(${hue}, 100%, ${this.brightness}%)`;
         ctx.stroke();
-
+    
         // 可选：绘制目标指示器
         // ctx.beginPath();
         // ctx.arc(this.targetX, this.targetY, this.targetRadius, 0, Math.PI * 2);
         // ctx.stroke();
       }
     }
-
+    
     // 粒子类
     class Particle {
       constructor(x, y) {
@@ -1459,7 +1460,7 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
           this.coordinates.push([this.x, this.y]);
         }
       }
-
+    
       update(index) {
         this.coordinates.pop();
         this.coordinates.unshift([this.x, this.y]);
@@ -1467,12 +1468,12 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
         this.x += Math.cos(this.angle) * this.speed;
         this.y += Math.sin(this.angle) * this.speed + this.gravity;
         this.alpha -= this.decay;
-
+    
         if (this.alpha <= this.decay) {
           particles.splice(index, 1);
         }
       }
-
+    
       draw() {
         ctx.beginPath();
         ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
@@ -1481,7 +1482,7 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
         ctx.stroke();
       }
     }
-
+    
     // 创建粒子效果
     function createParticles(x, y) {
       let particleCount = Math.floor(Math.random() * 50) + 80; // 粒子数量随机化
@@ -1489,46 +1490,46 @@ $a,x,y,z$均为自然数，且$a&gt;1$<br>
         particles.push(new Particle(x, y));
       }
     }
-
+    
     let animationFrameId;
     // 动画循环
     function loop() {
       animationFrameId = requestAnimationFrame(loop);
       hue += 0.5; // 色调随时间变化
-
+    
       // 使用 destination-out 创建拖尾效果，而不是完全清除
       ctx.globalCompositeOperation = 'destination-out';
       ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'; // 拖尾透明度，值越小拖尾越长
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.globalCompositeOperation = 'lighter'; // 粒子叠加时颜色更亮
-
+    
       let i = fireworks.length;
       while (i--) {
         fireworks[i].draw();
         fireworks[i].update(i);
       }
-
+    
       let j = particles.length;
       while (j--) {
         particles[j].draw();
         particles[j].update(j);
       }
-
+    
       // 随机发射烟花
       if (Math.random() < 0.04) { // 调整此值控制烟花密度
         fireworks.push(new Firework());
       }
     }
-
+    
     // 监听窗口大小变化，重新设置画布大小
     // 对于嵌入式canvas，其容器大小变化时才需要调整
     // 如果容器大小是固定的，则不需要监听 window resize
     // 如果容器大小是百分比的，则 window resize 时容器会变，canvas 也需要变
     window.addEventListener('resize', resizeCanvas);
-
+    
     // 启动动画
     loop();
-
+    
     // 可选：如果此 canvas 只在当前页面，当用户离开页面时停止动画以节省资源
     // 这需要更复杂的逻辑来检测页面是否还可见或元素是否还在DOM中
   });
