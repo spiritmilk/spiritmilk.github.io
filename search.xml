@@ -18304,7 +18304,7 @@ $$<br>
 <p>$$<br>
 \alpha=\frac{Var(y_i)}{Var(y_i)+Var(y)}=\frac{\sigma^2/n_i}{\sigma^2/n_i+\tau^2}<br>
 $$</p>
-<p>如果你熟悉James-Stein 估计量的话，可以得到：<br>
+<p><a href="https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/">Chris Said</a>认为，如果你熟悉James-Stein 估计量的话，可以得到（注意我们要减去一个自由度）：<br>
 $$<br>
 \begin{align}<br>
 \alpha&amp;=\frac{(k-3)\hat\sigma^2}{\sum(xi-\bar X)^2}<br>
