@@ -21,27 +21,23 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="出自《Is homophily a necessity for graph neural networks? 》ICLR, 2022. GNNs 通常被认为由于同质性假设（“物以类聚”）而工作良好，但在异质性图中（不同节点相连）泛化能力较差。 这篇论文则认为，如果图中的同一类的结点具有相似的邻居的分布, 则 Homophily 不是必须的。">
+    <meta name="description" content="在最新的TPS中，是以AUC为指标，故有了直接优化AUC的想法。（最终它帮助我获得了rank 18&#x2F;4381)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="同质性对图神经网络是必需的吗？">
-<meta property="og:url" content="https://lijianxiong.work/2025/20250512/index.html">
+<meta property="og:title" content="AUC损失">
+<meta property="og:url" content="https://lijianxiong.work/2025/20250321/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="出自《Is homophily a necessity for graph neural networks? 》ICLR, 2022. GNNs 通常被认为由于同质性假设（“物以类聚”）而工作良好，但在异质性图中（不同节点相连）泛化能力较差。 这篇论文则认为，如果图中的同一类的结点具有相似的邻居的分布, 则 Homophily 不是必须的。">
+<meta property="og:description" content="在最新的TPS中，是以AUC为指标，故有了直接优化AUC的想法。（最终它帮助我获得了rank 18&#x2F;4381)。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250512/x1.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250512/1603215-20231031155025693-1474591626.png">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250512/theo.jpg">
-<meta property="article:published_time" content="2025-05-12T13:35:27.000Z">
-<meta property="article:modified_time" content="2025-05-12T14:13:10.807Z">
+<meta property="article:published_time" content="2025-05-14T13:27:42.000Z">
+<meta property="article:modified_time" content="2025-05-14T13:50:44.273Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="深度学习">
-<meta property="article:tag" content="图神经网络">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="kaggle">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2025/20250512/x1.png">
   
   
   
-  <title>同质性对图神经网络是必需的吗？ - 小熊的小站</title>
+  <title>AUC损失 - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -244,7 +240,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="同质性对图神经网络是必需的吗？"></span>
+            <span id="subtitle" data-typed-text="AUC损失"></span>
           
         </div>
 
@@ -255,8 +251,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-12 21:35" pubdate>
-          2025年5月12日 晚上
+        <time datetime="2025-05-14 21:27" pubdate>
+          2025年5月14日 晚上
         </time>
       </span>
     
@@ -267,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          497 字
+          262 字
         
       </span>
     
@@ -278,7 +274,7 @@
         
         
         
-          5 分钟
+          3 分钟
         
       </span>
     
@@ -315,48 +311,24 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">同质性对图神经网络是必需的吗？</h1>
+            <h1 id="seo-header">AUC损失</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>出自<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.06134">《Is homophily a necessity for graph neural networks? 》ICLR, 2022.</a></p>
-<p>GNNs 通常被认为由于同质性假设（“物以类聚”）而工作良好，但在异质性图中（不同节点相连）泛化能力较差。</p>
-<p>这篇论文则认为，如果图中的同一类的结点具有相似的邻居的分布, 则 Homophily 不是必须的。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>在最新的TPS中，是以AUC为指标，故有了直接优化AUC的想法。（最终它帮助我获得了rank 18/4381)。</p>
 <span id="more"></span>
-<h2 id="同质性假设">同质性假设</h2>
-<p>同质性可以分为：</p>
-<p>标签同质性：即同一类别的节点更易相连</p>
-<p>特征同质性：具有相似特征向量的节点，比特征差异很大的节点，更有可能通过一条边相连。</p>
-<p>业界一致认为同质性是GNN的必要前提。</p>
-<p>比如像《A Unified View on Graph Neural Networks as Graph Signal Denoising》(CIKM), 2021.。甚至认为这些GNN（GCN、GAT、PPAP等）其实都是以下问题的形式：<br>
+<h2 id="AUC直接优化">AUC直接优化</h2>
+<p>根据定义<br>
 $$<br>
-argmin_F L=||F-S||_F^2+c*tr(F^TLF)<br>
+AUC=E_{x^+\sim P+,x^-\sim P-}[1(f(x+)-f(x-)&gt;)]<br>
 $$<br>
-我们在这里只讲一下GCN。</p>
-<p>$$<br>
-\nabla L=2||F-S||+2cLF<br>
-\mathop{=}^{F=S}2cLS<br>
-$$</p>
-<p>如果我们采用梯度下降求解：<br>
-$$<br>
-\begin{align}<br>
-F&amp;=S-\lambda (2cLS)=(1-2\lambda c)S+2\lambda cAS<br>
-\\<br>
-&amp;\mathop{=}^{\lambda=1/2c,S=X’}AX’<br>
-\end{align}<br>
-$$<br>
-即GCN的aggregation。</p>
-<h2 id="我们真的需要同质性吗">我们真的需要同质性吗</h2>
-<p>论文首先举了个这个例子，可以发现这个图中所有蓝色节点将具有1的表示，而橙色节点将具有0的表示。</p>
-<p><img src="x1.png" alt=""></p>
-<p>如果图中的同一类的结点具有相似的邻居的分布, 则 Homophily 不是必须的，比如：</p>
-<p><img src="1603215-20231031155025693-1474591626.png" alt=""></p>
-<p>严谨地，论文同样从contextual stochastic block model(CSBM)入手，证明了</p>
-<p><img src="theo.jpg" alt=""></p>
-<p>$CBSM(\mu_1,\mu_2,p,q)$表示两个社区，若节点i和j属于同一社区，则它们之间有边的概率为$P(A_{ij}=1)=p$，若节点i和j属于不同社区，则它们之间有边的概率为$P(A_{ij}=1)=q$，</p>
-<p>同质性为$\frac{p}{p+q}$。</p>
-<p>这句话的意思是，比如在极端情况下，p=9q或q=9p，则$（p+q）^2/(p-q)^2=1.23$，只要节点度数大于1（这个条件很容易达到），是可以被区分的，故没有同质性并不会影响GCN的性能。</p>
+其中1为指示函数。</p>
+<p>AUC的不可导是由于指示函数的存在，故我们需要替代函数。其实它类似与0-1损失，所以我们也可以采取类似的替代函数，比如SVM中对hinge loss，比如逻辑回归中的logistic loss。</p>
+<h2 id="什么样的替代函数是好的">什么样的替代函数是好的</h2>
+<p>但是我们也不是随心所欲地去选替代函数，</p>
+<p>高尉、周志华的一篇<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1208.0645">《On the Consistency of AUC Pairwise Optimization》</a>进一步探索了替代函数的一致性（指优化该替代损失函数的期望风险是否收敛到贝叶斯风险），提供了新的 AUC 一致性充分条件，并指出了校准性对于 AUC 一致性是必要的但不足够的。</p>
+<p>值得注意到是，hinge loss 并不具有一致性，而q-norm loss才具有一致性。</p>
 
                 
               </div>
@@ -369,9 +341,9 @@ $$<br>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
       
-        <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
+        <a href="/tags/kaggle/" class="print-no-link">#kaggle</a>
       
     </div>
   
@@ -383,8 +355,8 @@ $$<br>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>同质性对图神经网络是必需的吗？</div>
-      <div>https://lijianxiong.work/2025/20250512/</div>
+      <div>AUC损失</div>
+      <div>https://lijianxiong.work/2025/20250321/</div>
     </div>
     <div class="license-meta">
       
@@ -396,7 +368,7 @@ $$<br>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月12日</div>
+          <div>2025年5月14日</div>
         </div>
       
       
@@ -428,18 +400,12 @@ $$<br>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/20250513/" title="随机块模型">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">随机块模型</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/20250511/" title="Fourier Position Embedding">
-                        <span class="hidden-mobile">Fourier Position Embedding</span>
+                      <a href="/2025/20250513/" title="随机块模型">
+                        <span class="hidden-mobile">随机块模型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
