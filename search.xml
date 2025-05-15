@@ -19251,36 +19251,30 @@ $=\frac{1}{N}\sum_{i}log(1+exp(d_{i}^{+}-d_{i}^{-}))$ . [cite: 306]<br>
 <h2 id="统一有监督对比损失">统一有监督对比损失</h2>
 <p>从统一InfoNCE的式子来看，定义：</p>
 <p>$q_{\phi}(j|i)=\frac{exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{j})/\tau)}{\sum_{k\ne i}exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{k})/\tau)}$ [cite: 309]</p>
-<p>$p_{\theta}(j|i)=\frac{1}{K_{i}-1}1[i \text{ and } j \text{ share the same label}]$, [cite: 309]</p>
-<p>where $f_{\phi}$ is the mapping to deep feature space and $K_{i}$ is the number of samples in the class of i. [cite: 309] Substituting these definitions into the I-Con framework recovers the Supervised Contrastive Loss. [cite: 310]</p>
-<p>$\Pi$ [cite: 310]</p>
-<p>— PAGE 22 —</p>
-<p><strong>Theorem 7.</strong> <em>The X-Sample Contrastive Learning Loss (Sobal et al., 2025) is an instance of the I-Con framework.</em> [cite: 311]<br>
-<em>Proof.</em> Consier the following p distribution over corresponding features (e.g. caption embeddings for images): [cite: 312]</p>
-<p>$\frac{exp(g_{\theta}(x_{i})\cdot g_{\theta}(x_{j}))}{\sum_{k\ne i}exp(g_{\theta}(x_{i})\cdot_{\theta}(x_{k}))}$ [cite: 312]<br>
-where g could be either a parametric or a non-parametric mapper to the corresponding embeddings $g_{\theta}(x_{i})$ On the other hand, similar to most feature learning methods, the learned distribution is a Gaussian over learned embeddings with cosine distance [cite: 312]</p>
-<p>$q_{\phi}(j|i)=\frac{exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{j}))}{\sum_{k\ne i}exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{k}))}$ [cite: 312]</p>
-<p>where $f_{\phi}$ is the mapping to deep feature space. [cite: 312] $\Pi$ [cite: 313]</p>
-<p><strong>Theorem 8.</strong> <em>Contrastive Multiview Coding (CMC) and CLIP are instances of the I-Con framework.</em> [cite: 313]</p>
-<p><em>Proof.</em> Since we have already established that InfoNCE is an instance of the I-Con framework, this corollary follows naturally. [cite: 314] The key difference in Contrastive Multiview Coding (CMC) and CLIP is that they optimize alignment across different modalities. [cite: 315] The target probability distribution $p_{\theta}(j|i)$ can be expressed as: [cite: 316]</p>
-<p>$p_{\theta}(j|i)=\frac{1}{Z}1[i \text{ and } j \text{ are positive pairs and } V_{i}\ne V_{j}]$, [cite: 316]</p>
-<p>where $V_{i}$ and $V_{j}$ represent the modality sets of $x_{i}$ and $x_{j}$, respectively. [cite: 316] Here, $p_{\theta}(j|i)$ assigns uniform probability over positive pairs drawn from different modalities. [cite: 317] The learned distribution $q_{\phi}(j|i)$, in this case, is based on a Gaussian similarity between deep features, but conditioned on points from the opposite modality set. [cite: 318] Thus, the learned distribution is defined as: [cite: 319]</p>
-<p>$q_{\phi}(j|i)=\frac{exp(-||f_{\phi}(x_{i})-f_{\phi}(x_{j})||^{2})}{\sum_{k\in V_{j}}exp(-||f_{\phi}(x_{i})-f_{\phi}(x_{k})||^{2})}$ [cite: 319]</p>
-<p>This formulation shows that CMC and CLIP follow the same principles as InfoNCE but apply them in a multiview setting, fitting seamlessly within the I-Con framework by minimizing the divergence between the target and learned distributions across different modalities. [cite: 319]</p>
-<p><strong>Theorem 9.</strong> <em>Cross-Entropy classification is an instance of the I-Con framework.</em> [cite: 320]</p>
-<p>$\Pi$ [cite: 320]</p>
-<p><em>Proof.</em> Cross-Entropy can be viewed as a special case of the CMC loss, where one “view” corresponds to the data point features and the other to the class logits. [cite: 321] The affinity between a data point and a class is based on whether the point belongs to that class. [cite: 322] This interpretation has been explored in prior work, where Cross-Entropy was shown to be related to the CLIP loss (Yang et al., 2022). [cite: 323]</p>
-<p><strong>Theorem 10.</strong> <em>Harmonic Loss for classification is an instance of the I-Con framework.</em> [cite: 324]</p>
-<p><em>Proof.</em> This is the equivalent of moving from a Gaussian distribution for $q(j|i)$ in Cross-Entropy to a Student-T distribution analogs to moving from SNE to t-SNE. [cite: 325] More specifically, let V be the set of data points, C the set of class prototypes, $\phi_{i}$ be the learned class prototype for class i, and n be the harmonic loss degree. [cite: 326] Consider the following p, which is a data-label indicator [cite: 327]</p>
-<p>$p(j|i)=1[i \text{ belongs to class } j]$ [cite: 327]</p>
-<p>— PAGE 23 —</p>
-<p>and the following q, which is a Student-T distribution with $2n-1$ degrees for freedom. [cite: 328] It can be rewritten as [cite: 329]</p>
-<p>$lim_{\sigma\rightarrow0}\frac{(1+||f_{\phi}(x_{i})-\phi_{j}||^{2}/((2n-1)\sigma^{2}))^{-n}}{\sum_{k\in C}(1+||f_{\phi}(x_{i})-\phi_{k}||^{2}/((2n-1)\sigma^{2}))^{-n}}$<br>
-$lim_{\sigma\rightarrow0}\frac{(((2n-1)\sigma^{2})+||f_{\phi}(x_{i})-\phi_{j}||^{2})^{-n}}{\sum_{k\in C}((2n-1)\sigma^{2})+||f_{\phi}(x_{i})-\phi_{k}||^{2}/)^{-n}}$<br>
-$\mathcal{L}=\sum_{i\in C}\frac{(||f_{\phi}(x_{i})-\phi_{j}||^{2})^{-n}}{\sum_{k\in C}(||f_{\phi}(x_{i})-\phi_{k}||^{2}/)^{-n}}$</p>
-<p>As $\sigma\rightarrow\infty$ the loss function approaches [cite: 329]</p>
-<p>which’s the Harmonic Loss for classification as introduced by 10 [cite: 329]</p>
-<p>$\Pi$ [cite: 329]</p>
+<p>$p_{\theta}(j|i)=\frac{1}{K_{i}-1}1[i \text{ and } j \text{ share the same label}]$</p>
+<p>其中 $f_{\phi}$ 是映射到 deep feature space 的， $K_{i}$ 是类i样本数。</p>
+<h2 id="统一X-Sample对比损失">统一X-Sample对比损失</h2>
+<p>考虑以下p在相应特征（例如图像的caption embeddings）上的分布</p>
+<p>$\frac{exp(g_{\theta}(x_{i})\cdot g_{\theta}(x_{j}))}{\sum_{k\ne i}exp(g_{\theta}(x_{i})\cdot_{\theta}(x_{k}))}$<br>
+和大多数特征学习方法类似，学习到的分布是关于学习嵌入的余弦距离的高斯分布</p>
+<p>$q_{\phi}(j|i)=\frac{exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{j}))}{\sum_{k\ne i}exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{k}))}$</p>
+<h2 id="统一CMC和CLIP">统一CMC和CLIP</h2>
+<p>CMC（Contrastive Multiview Coding） 和 CLIP 的关键区别在于它们优化了跨不同模态的alignment， $p_{\theta}(j|i)$ 可以表示为</p>
+<p>$p_{\theta}(j|i)=\frac{1}{Z}1[i \text{ and } j \text{ are positive pairs and } V_{i}\ne V_{j}]$</p>
+<p>其中 $V_{i}$ and $V_{j}$ 表示 $x_{i}$ and $x_{j}$的模态集。在这里 $p_{\theta}(j|i)$ 对从不同模态中抽取的正样本对赋予均匀概率。这个学习到的分布 $q_{\phi}(j|i)$是基于深度特征之间的高斯相似度，但条件是来自相反模态集的点。因此，学习到的分布定义为：</p>
+<p>$q_{\phi}(j|i)=\frac{exp(-||f_{\phi}(x_{i})-f_{\phi}(x_{j})||^{2})}{\sum_{k\in V_{j}}exp(-||f_{\phi}(x_{i})-f_{\phi}(x_{k})||^{2})}$</p>
+<h2 id="统一交叉熵">统一交叉熵</h2>
+<p>交叉熵可以看作是CMC的特例，其中一个视角对应数据点特征，另一个对应类别logit。</p>
+<h2 id="统一Harmonic-Loss">统一Harmonic Loss</h2>
+<p>这相当于从交叉熵中的 $q(j|i)$ 高斯分布移动到student-t分布，类似于从 SNE 移动到 t-SNE。更具体地说，令V 为数据点集，C为类原型集， $\phi_{i}$ 为第 i 类的学习到的类原型， n为谐波损失度。</p>
+<p>考虑以下p这是一个数据标签指示器（ data-label indicator）。</p>
+<p>$p(j|i)=1[i \text{ belongs to class } j]$</p>
+<p>和以下q，这是一个2n-1自由度的student-t分布：</p>
+<p>$lim_{\sigma\rightarrow0}\frac{(1+||f_{\phi}(x_{i})-\phi_{j}||^{2}/((2n-1)\sigma^{2}))^{-n}}{\sum_{k\in C}(1+||f_{\phi}(x_{i})-\phi_{k}||^{2}/((2n-1)\sigma^{2}))^{-n}}$</p>
+<p>它可以写成：</p>
+<p>$lim_{\sigma\rightarrow0}\frac{(((2n-1)\sigma^{2})+||f_{\phi}(x_{i})-\phi_{j}||^{2})^{-n}}{\sum_{k\in C}((2n-1)\sigma^{2})+||f_{\phi}(x_{i})-\phi_{k}||^{2}/)^{-n}}$</p>
+<p>当 $\sigma\rightarrow\infty$ 损失函数为$\mathcal{L}=\sum_{i\in C}\frac{(||f_{\phi}(x_{i})-\phi_{j}||^{2})^{-n}}{\sum_{k\in C}(||f_{\phi}(x_{i})-\phi_{k}||^{2}/)^{-n}}$</p>
+<h2 id="统一Masked-Language-Modeling-MLM">统一Masked Language Modeling (MLM)</h2>
 <p><strong>Theorem 11.</strong> <em>Masked Language Modeling (MLM) (Devlin et al., 2019) loss is an instance of the I-Con framework.</em> [cite: 329]<br>
 <em>Proof.</em> In Masked Language Modeling, the objective is to predict a masked token j given its surrounding context $x_{i}$. [cite: 330] This setup fits naturally within the I-Con framework by defining appropriate target and learned distributions. [cite: 330] The target distribution $p_{\theta}(j|i)$ is the empirical distribution over contexts i and tokens j, defined as: [cite: 331]</p>
 <p>$p_{\theta}(j|i)=\frac{1}{Z}#[\text{Context } i \text{ precedes token } j]$, [cite: 331]</p>
