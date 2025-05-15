@@ -19275,9 +19275,9 @@ $=\frac{1}{N}\sum_{i}log(1+exp(d_{i}^{+}-d_{i}^{-}))$ . [cite: 306]<br>
 <p>$lim_{\sigma\rightarrow0}\frac{(((2n-1)\sigma^{2})+||f_{\phi}(x_{i})-\phi_{j}||^{2})^{-n}}{\sum_{k\in C}((2n-1)\sigma^{2})+||f_{\phi}(x_{i})-\phi_{k}||^{2}/)^{-n}}$</p>
 <p>当 $\sigma\rightarrow\infty$ 损失函数为$\mathcal{L}=\sum_{i\in C}\frac{(||f_{\phi}(x_{i})-\phi_{j}||^{2})^{-n}}{\sum_{k\in C}(||f_{\phi}(x_{i})-\phi_{k}||^{2}/)^{-n}}$</p>
 <h2 id="统一Masked-Language-Modeling-MLM">统一Masked Language Modeling (MLM)</h2>
-<p><strong>Theorem 11.</strong> <em>Masked Language Modeling (MLM) (Devlin et al., 2019) loss is an instance of the I-Con framework.</em> [cite: 329]<br>
-<em>Proof.</em> In Masked Language Modeling, the objective is to predict a masked token j given its surrounding context $x_{i}$. [cite: 330] This setup fits naturally within the I-Con framework by defining appropriate target and learned distributions. [cite: 330] The target distribution $p_{\theta}(j|i)$ is the empirical distribution over contexts i and tokens j, defined as: [cite: 331]</p>
-<p>$p_{\theta}(j|i)=\frac{1}{Z}#[\text{Context } i \text{ precedes token } j]$, [cite: 331]</p>
+<p>在掩码语言建模中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
+<p>目标分布 $p_{\theta}(j|i)$ 是关于上下文i和tokens j的经验分布，定义为：</p>
+<p>$p_{\theta}(j|i)=\frac{1}{Z}#[\text{Context } i \text{ precedes token } j]$</p>
 <p>where $#[\text{Context } i \text{ precedes token } j]$ counts the number of times token j follows context $x_{i}$ in the training corpus and Z is a normalization constant ensuring that $\sum_{j}p_{\theta}(j|i)=1$. [cite: 331]</p>
 <p>The learned distribution $q_{\phi}(j|i)$ is modeled using the neural network’s output logits for token predictions. [cite: 331] It is defined as a softmax over the dot product between the context embedding $f_{\phi}(x_{i})$ and the token embeddings $\phi_{j}$ : [cite: 332]</p>
 <p>$q_{\phi}(j|i)=\frac{exp(f_{\phi}(x_{i})\cdot\phi_{j})}{\sum_{k\in\mathcal{V}}exp(f_{\phi}(x_{i})\cdot\phi_{k})}$ [cite: 332]</p>
