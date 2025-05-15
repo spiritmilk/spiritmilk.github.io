@@ -10266,7 +10266,15 @@ $$</li>
 <p>考虑一个GMM，$\epsilon$是被所有分量共享的方差参数。<br>
 $$<br>
 P(x|\mu_k,\Sigma_k)=\frac{1}{(2\pi \epsilon)^{D/2}}exp(-\frac{1}{2\epsilon}||x-\mu_K||)<br>
-$$</p>
+$$<br>
+我们把$\epsilon$看作一个固定的常数，则责任度为：<br>
+$$<br>
+\frac{\pi_k exp(-\frac{||x_n-\mu_k||^2}{2\epsilon})}<br>
+{\sum_{j=1}^K \pi_j exp(-\frac{||x_n-\mu_j||^2}{2\epsilon})}.<br>
+$$<br>
+当我们考虑$\epsilon \to0$，则项j责任度趋向于趋向于1，其他趋向于0。相当于对数据点聚类的硬分配。</p>
+<p>进一步的$\epsilon \to0$时，对数似然函数为：</p>
+<p>$-\frac{1}{2}\sum_{n=1}^N\sum_{k=1}^K r_{nk}||x_n-\mu_k||^2$</p>
 <h2 id="参考资料">参考资料</h2>
 <p>PRML</p>
 <p><a href="https://www.kaggle.com/competitions/tabular-playground-series-jul-2022/discussion/334887">https://www.kaggle.com/competitions/tabular-playground-series-jul-2022/discussion/334887</a></p>
