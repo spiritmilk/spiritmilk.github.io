@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/model.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/detail.jpg">
 <meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
-<meta property="article:modified_time" content="2025-05-15T14:42:32.436Z">
+<meta property="article:modified_time" content="2025-05-15T14:50:55.795Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -267,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          4.6k 字
         
       </span>
     
@@ -278,7 +278,7 @@
         
         
         
-          38 分钟
+          39 分钟
         
       </span>
     
@@ -379,7 +379,7 @@ $=-2Var(X)$</p>
 <p>$q_{\phi}(j|i)$ 基于 $f_{\phi}(x_{i})$ 和 $f_{\phi}(x_{j})$之间相似度，并约束在单位范数上 $(||f_{\phi}(x_{i})||=1)$ 。使用一个带温度系数的高斯核为：</p>
 <p>$q_{\phi}(j|i)=\frac{exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{j})/\tau)}{\sum_{k\ne i}exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{k})/\tau)}$</p>
 <p>$||f_{\phi}(x_{i})||=1$， $f_{\phi}(x_{i})$ 和 $f_{\phi}(x_{j})$ 之间的欧氏距离为 $2-2(f_{\phi}(x_{i})\cdot f_{\phi}(x_{j}))$</p>
-<p>而$\mathcal{L}<em>{InfoNCE}=-\sum</em>{i}log\frac{exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{i}^{+})/\tau)}{\sum_{k}exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{k})/\tau)}$</p>
+<p>而$\mathcal{L} _ {InfoNCE}=-\sum _ {i}log\frac{exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{i}^{+})/\tau)}{\sum_{k}exp(f_{\phi}(x_{i})\cdot f_{\phi}(x_{k})/\tau)}$</p>
 <p>故$\mathcal{L}<em>{InfoNCE}\propto\sum</em>{i}\sum_{j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta},q_{\phi})$ , [cite: 290]</p>
 <p>H表示交叉熵，因为 $p_{\theta}(j|i)$ 是固定的，所以最小化交叉熵等价于最小化KL散度。</p>
 <h2 id="统一VICReg">统一VICReg</h2>
@@ -442,14 +442,16 @@ $=\frac{1}{N}\sum_{i}log(1+exp(d_{i}^{+}-d_{i}^{-}))$ . [cite: 306]<br>
 <p>在掩码语言建模中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
 <p>目标分布 $p_{\theta}(j|i)$ 是关于上下文i和tokens j的经验分布，定义为：</p>
 <p>$p_{\theta}(j|i)=\frac{1}{Z}#[\text{Context } i \text{ precedes token } j]$</p>
-<p>where $#[\text{Context } i \text{ precedes token } j]$ counts the number of times token j follows context $x_{i}$ in the training corpus and Z is a normalization constant ensuring that $\sum_{j}p_{\theta}(j|i)=1$. [cite: 331]</p>
-<p>The learned distribution $q_{\phi}(j|i)$ is modeled using the neural network’s output logits for token predictions. [cite: 331] It is defined as a softmax over the dot product between the context embedding $f_{\phi}(x_{i})$ and the token embeddings $\phi_{j}$ : [cite: 332]</p>
+<p>其中 $#[\text{Context } i \text{ precedes token } j]$ 表示在训练语料库中tokensj与上下文x_i之后出现的次数， Z是一个归一化常数，以确保 $\sum_{j}p_{\theta}(j|i)=1$。</p>
+<p>$q_{\phi}(j|i)$ 使用神经网络输出的tokens预测logits进行建模，它被定义为上下文嵌入 $f_{\phi}(x_{i})$ 和 token 嵌入 $\phi_{j}$ 的点积的softmax：</p>
 <p>$q_{\phi}(j|i)=\frac{exp(f_{\phi}(x_{i})\cdot\phi_{j})}{\sum_{k\in\mathcal{V}}exp(f_{\phi}(x_{i})\cdot\phi_{k})}$ [cite: 332]</p>
-<p>where $f_{\phi}(x_{i})$ is the embedding of the context $x_{i}$ produced by the model, $\phi_{j}$ is the embedding of token j, and V is the vocabulary of all possible tokens. [cite: 332] The MLM loss aims to minimize the cross-entropy between the target distribution $p_{\theta}(j|i)$ and the learned distribution $q_{\phi}(j|i)$: [cite: 333]</p>
-<p>$\mathcal{L}<em>{MLM}=-\sum</em>{i}\sum_{j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta},q_{\phi})$ [cite: 333]</p>
-<p>Since in practice, for each context $x_{i}$ only the true masked token $j_{i}^{*}$ is considered, the target distribution simplifies to: [cite: 333]</p>
-<p>$p_{\theta}(j|i)=\delta_{j,j_{i}^{*}}$ [cite: 333]</p>
-<p>where $\delta_{j.j_{i}^{<em>}}$ is the Kronecker delta function, equal to 1 if $j=j_{i}^{</em>}$ and 0 otherwise. [cite: 333] Substituting this into the loss function, the MLM loss becomes: [cite: 334]</p>
+<p>其中 $f_{\phi}(x_{i})$ 是模型生成的上下文 $x_{i}$ 的嵌入, $\phi_{j}$ 是token j的嵌入，V是所有可能tokens的词汇表。</p>
+<p>MLM 损失旨在最小化目标分布p和学习分布q之间的交叉熵：</p>
+<p>$\mathcal{L}<em>{MLM}=-\sum</em>{i}\sum_{j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta},q_{\phi})$</p>
+<p>由于在实践中，对于每个 $x_{i}$ 仅考虑真实的masked token $j_{i}^{*}$ ,目标分布简化为：</p>
+<p>$p_{\theta}(j|i)=\delta_{j,j_{i}^{*}}$</p>
+<p>其中 $\delta_{j.j_{i}^{<em>}}$ 是 Kronecker delta function, 当 $j=j_{i}^{</em>}$ 时等于1，否则为0</p>
+<p>代入损失函数，MLM损失变为：</p>
 <p>$\mathcal{L}<em>{MLM}=-\sum</em>{i}log~q_{\phi}(j_{i}^{*}|x_{i})$ [cite: 334]</p>
 <p>$\Pi$ [cite: 334]</p>
 <p>— PAGE 24 —</p>
