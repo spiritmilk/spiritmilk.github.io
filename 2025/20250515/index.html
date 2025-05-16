@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/model.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/detail.jpg">
 <meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
-<meta property="article:modified_time" content="2025-05-15T15:01:56.486Z">
+<meta property="article:modified_time" content="2025-05-16T01:05:59.417Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -390,14 +390,24 @@ $$</p>
 <p>故最小化 L 等于最大化方差，这与PCA的目标一致.如果我们限制 $f _ {\phi}$为一个线性投影映射，则等同于PCA。</p>
 <h2 id="统一InfoNCE">统一InfoNCE</h2>
 <p>InfoNCE 旨在最大化正样本对之间的相似度，同时最小化负样本对之间的相似度，在学习的特征空间中。在 I-Con 框架中，这可以解释为最小化两个分布之间的散度：原始空间中的邻域分布和学习到的嵌入空间中的分布。</p>
-<p>$p_{\theta}(j|i)=\begin{cases}\frac{1}{k},x_j为x_i的k \  positive \ views\ 0\end{cases}$</p>
+<p>$$<br>
+p_{\theta}(j|i)=\begin{cases}\frac{1}{k},x_j为x_i的k \  positive \ views\ 0\end{cases}<br>
+$$</p>
 <p>其中 k 是$x _ {i}$ 的positive pairs数量。</p>
 <p>$q_{\phi}(j|i)$ 基于 $f _ {\phi}(x _ {i})$ 和 $f _ {\phi}(x _ {j})$之间相似度，并约束在单位范数上 $(||f _ {\phi}(x _ {i})||=1)$ 。使用一个带温度系数的高斯核为：</p>
-<p>$q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j})/\tau)}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})/\tau)}$</p>
+<p>$$<br>
+q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j})/\tau)}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})/\tau)}<br>
+$$</p>
 <p>$||f _ {\phi}(x _ {i})||=1$， $f _ {\phi}(x _ {i})$ 和 $f _ {\phi}(x _ {j})$ 之间的欧氏距离为 $2-2(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j}))$</p>
-<p>而$\mathcal{L} _ {InfoNCE}=-\sum _ {i}log\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {i}^{+})/\tau)}{\sum _ {k}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})/\tau)}$</p>
-<p>故$\mathcal{L} _ {InfoNCE}\propto\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta},q_{\phi})$ , [cite: 290]</p>
-<p>H表示交叉熵，因为 $p_{\theta}(j|i)$ 是固定的，所以最小化交叉熵等价于最小化KL散度。</p>
+<p>而<br>
+$$<br>
+\mathcal{L} _ {InfoNCE}=-\sum _ {i}log\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {i}^{+})/\tau)}{\sum _ {k}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})/\tau)}<br>
+$$</p>
+<p>故<br>
+$$<br>
+\mathcal{L} _ {InfoNCE}\propto\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta},q_{\phi})<br>
+$$<br>
+H表示交叉熵，因为 $p_{\theta}(j|i)$ 是固定的，所以最小化交叉熵等价于最小化KL散度。</p>
 <h2 id="统一VICReg">统一VICReg</h2>
 <p><strong>Theorem 4.</strong> <em>VICReg Bardes et al. (2021) without a covariance term is an instance of the I-Con framework.</em> [cite: 296]<br>
 Given Proposition 1, we know that any loss in the cohesion variance form is an instance of I-Con: [cite: 297]</p>
@@ -406,17 +416,31 @@ $\mathcal{L}=\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i^{+}})|
 <p>If we choose $p_{j|i}$ to be an indicator over positive pairs, i and $i^{+}$, we obtain [cite: 297]</p>
 <p>which is the VICReg loss without the covariance term and with an invariance-to-variance term ratio of 1:2. [cite: 297] Observe that VICReg does not have negative pairs because it applies an equal repulsion force to all points. [cite: 298] This is equivalent to taking $\sigma\rightarrow\infty$ in the conditional Gaussian distribution over the embeddings. [cite: 299]</p>
 <h2 id="统一Triplet-Loss">统一Triplet Loss</h2>
-<p>$P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \ 0 &amp; \text{otherwise,} \end{cases}$</p>
-<p>$q_{\phi}(j|i)=\frac{exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})^{2}}$</p>
-<p>特别仅考虑两个邻居的特殊情况下，一个是正视图，一个是负视图。</p>
-<p>为了简化，我们设置 $\sigma=1$ 。</p>
-<p>$\mathcal{L}=-\frac{1}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2})}{\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})}$ [cite: 305]</p>
-<p>在锚点 $x _ {i}$ 恰好有一个正例 $x _ {i}^{+}$ 和一个负例 $x _ {i}^{-}$ 的情况下，分母简化为：</p>
-<p>$\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})=exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{+})||^{2})+exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{-})||^{2})$<br>
-让 $d_{i}^{+}=||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{+})||^{2}$ 和 $d_{i}^{-}=||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{-})||^{2}$. 代入损失函数，我们得到：</p>
-<p>$\mathcal{L}=-\frac{1}{N}\sum _ {i}log\frac{exp(-d_{i}^{+})}{exp(-d_{i}^{+})+exp(-d_{i}^{-})}$<br>
-$=-\frac{1}{N}\sum _ {i}log(\frac{1}{1+exp(d_{i}^{-}-d_{i}^{+})})$<br>
-$=\frac{1}{N}\sum _ {i}log(1+exp(d_{i}^{+}-d_{i}^{-}))$ . [cite: 306]<br>
+<p>$$<br>
+P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \ 0 &amp; \text{otherwise,} \end{cases}<br>
+$$</p>
+<p>$$<br>
+q_{\phi}(j|i)=\frac{exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})^{2}}<br>
+$$<br>
+特别仅考虑两个邻居的特殊情况下，一个是正视图，一个是负视图。</p>
+<p>为了简化，我们设置 $\sigma=1$ 。<br>
+$$<br>
+\mathcal{L}=-\frac{1}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2})}{\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})}<br>
+$$<br>
+在锚点 $x _ {i}$ 恰好有一个正例 $x _ {i}^{+}$ 和一个负例 $x _ {i}^{-}$ 的情况下，分母简化为：<br>
+$$<br>
+\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})=exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{+})||^{2})+exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{-})||^{2})<br>
+$$<br>
+让 $d_{i}^{+}=||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{+})||^{2}$ 和 $d_{i}^{-}=||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{-})||^{2}$. 代入损失函数，我们得到：<br>
+$$<br>
+\begin{align}<br>
+\mathcal{L}&amp;=-\frac{1}{N}\sum _ {i}log\frac{exp(-d_{i}^{+})}{exp(-d_{i}^{+})+exp(-d_{i}^{-})}<br>
+\\<br>
+&amp;=-\frac{1}{N}\sum _ {i}log(\frac{1}{1+exp(d_{i}^{-}-d_{i}^{+})})<br>
+\\<br>
+&amp;=\frac{1}{N}\sum _ {i}log(1+exp(d_{i}^{+}-d_{i}^{-}))<br>
+\end{align}<br>
+$$<br>
 我们知道：</p>
 <p>$max(z,0)\le log(1+exp(z))\le max(z,0)+log(2)$ [cite: 307]</p>
 <p>则有：</p>
@@ -429,8 +453,8 @@ $=\frac{1}{N}\sum _ {i}log(1+exp(d_{i}^{+}-d_{i}^{-}))$ . [cite: 306]<br>
 <p>$\mathcal{L} _ {\sigma}=-\frac{\sigma^{2}}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-\frac{||f _ {\sigma}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})}$ [cite: 308]</p>
 <p>当 $\sigma\to 0$, $\mathcal{L} _ {Triplet}$ 接近于 $\mathcal{L} _ {\sigma}$</p>
 <h2 id="统一有监督对比损失">统一有监督对比损失</h2>
-<p>从统一InfoNCE的式子来看，定义：</p>
-<p>$$<br>
+<p>从统一InfoNCE的式子来看，定义：<br>
+$$<br>
 q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j})/\tau)}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})/\tau)}<br>
 $$</p>
 <p>$$<br>
@@ -461,7 +485,7 @@ $$</p>
 <h2 id="统一Masked-Language-Modeling-MLM">统一Masked Language Modeling (MLM)</h2>
 <p>在掩码语言建模中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
 <p>目标分布 $p_{\theta}(j|i)$ 是关于上下文i和tokens j的经验分布，定义为：</p>
-<p>$p_{\theta}(j|i)=\frac{1}{Z}#[\text{Context } i \text{ precedes token } j]$</p>
+<p>$$p_{\theta}(j|i)=\frac{1}{Z}#[\text{Context } i \text{ precedes token } j]$$</p>
 <p>其中 $#[\text{Context } i \text{ precedes token } j]$ 表示在训练语料库中tokensj与上下文x_i之后出现的次数， Z是一个归一化常数，以确保 $\sum _ {j}p_{\theta}(j|i)=1$。</p>
 <p>$q_{\phi}(j|i)$ 使用神经网络输出的tokens预测logits进行建模，它被定义为上下文嵌入 $f _ {\phi}(x _ {i})$ 和 token 嵌入 $\phi_{j}$ 的点积的softmax：</p>
 <p>$q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot\phi_{j})}{\sum _ {k\in\mathcal{V}}exp(f _ {\phi}(x _ {i})\cdot\phi_{k})}$ [cite: 332]</p>
