@@ -19267,7 +19267,7 @@ $$</p>
 <p>$$<br>
 q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
 $$</p>
-<h2 id="I-Con-作为变分法">I-Con 作为变分法</h2>
+<h2 id="统一变分法">统一变分法</h2>
 <p>互信息的变分界限被广泛探索，并与 InfoNCE 等损失函数联系起来，其中最小化 InfoNCE 最大化互信息下界（Oord 等人，2018；Poole 等人，2019）。证明通常从重写互信息开始：</p>
 <p>$$<br>
 I(X;Y)=\mathbb{E} _ {p(x，y)}[log\frac{q(x|y)}{p(x)}]+\mathbb{E} _ {p(y)}[D_{KL}(p(x|y)||q(x|y))]<br>
