@@ -19294,7 +19294,9 @@ $$</p>
 \mathcal{L} _ {\sigma}-\sigma^{2}log(2)\le\mathcal{L} _ {Triplet}\le\mathcal{L} _ {\sigma}<br>
 $$</p>
 <p>其中</p>
-<p>$\mathcal{L} _ {\sigma}=-\frac{\sigma^{2}}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-\frac{||f _ {\sigma}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})}$ [cite: 308]</p>
+<p>$$<br>
+\mathcal{L} _ {\sigma}=-\frac{\sigma^{2}}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-\frac{||f _ {\sigma}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})}<br>
+$$</p>
 <p>当 $\sigma\to 0$， $\mathcal{L} _ {Triplet}$ 接近于 $\mathcal{L} _ {\sigma}$</p>
 <h2 id="统一有监督对比损失">统一有监督对比损失</h2>
 <p>从统一InfoNCE的式子来看，定义：<br>
@@ -19307,49 +19309,79 @@ $$</p>
 <p>其中 $f _ {\phi}$ 是映射到 deep feature space 的， $K_{i}$ 是类i样本数。</p>
 <h2 id="统一X-Sample对比损失">统一X-Sample对比损失</h2>
 <p>考虑以下p在相应特征（例如图像的caption embeddings）上的分布</p>
-<p>$\frac{exp(g _ {\theta}(x _ {i})\cdot g _ {\theta}(x _ {j}))}{\sum _ {k\ne i}exp(g _ {\theta}(x _ {i})\cdot_{\theta}(x _ {k}))}$<br>
+<p>$$<br>
+\frac{exp(g _ {\theta}(x _ {i})\cdot g _ {\theta}(x _ {j}))}{\sum _ {k\ne i}exp(g _ {\theta}(x _ {i})\cdot_{\theta}(x _ {k}))}<br>
+$$<br>
 和大多数特征学习方法类似，学习到的分布是关于学习嵌入的余弦距离的高斯分布</p>
-<p>$q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j}))}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k}))}$</p>
+<p>$$<br>
+q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j}))}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k}))}<br>
+$$</p>
 <h2 id="统一CMC和CLIP">统一CMC和CLIP</h2>
 <p>CMC（Contrastive Multiview Coding） 和 CLIP 的关键区别在于它们优化了跨不同模态的alignment， $p_{\theta}(j|i)$ 可以表示为</p>
-<p>$p_{\theta}(j|i)=\frac{1}{Z}1[i \text{ and } j \text{ are positive pairs and } V_{i}\ne V_{j}]$</p>
+<p>$$<br>
+p_{\theta}(j|i)=\frac{1}{Z}1[i \text{ and } j \text{ are positive pairs and } V_{i}\ne V_{j}]<br>
+$$</p>
 <p>其中 $V_{i}$ and $V_{j}$ 表示 $x _ {i}$ and $x _ {j}$的模态集。在这里 $p_{\theta}(j|i)$ 对从不同模态中抽取的正样本对赋予均匀概率。这个学习到的分布 $q_{\phi}(j|i)$是基于深度特征之间的高斯相似度，但条件是来自相反模态集的点。因此，学习到的分布定义为：</p>
-<p>$q_{\phi}(j|i)=\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2})}{\sum _ {k\in V_{j}}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})}$</p>
+<p>$$<br>
+q_{\phi}(j|i)=\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2})}{\sum _ {k\in V_{j}}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})}<br>
+$$</p>
 <h2 id="统一交叉熵">统一交叉熵</h2>
 <p>交叉熵可以看作是CMC的特例，其中一个视角对应数据点特征，另一个对应类别logit。</p>
 <h2 id="统一Harmonic-Loss">统一Harmonic Loss</h2>
 <p>这相当于从交叉熵中的 $q(j|i)$ 高斯分布移动到student-t分布，类似于从 SNE 移动到 t-SNE。更具体地说，令V 为数据点集，C为类原型集， $\phi_{i}$ 为第 i 类的学习到的类原型， n为谐波损失度。</p>
 <p>考虑以下p这是一个数据标签指示器（ data-label indicator）。</p>
-<p>$p(j|i)=1[i \text{ belongs to class } j]$</p>
+<p>$$<br>
+p(j|i)=1[i \text{ belongs to class } j]<br>
+$$</p>
 <p>和以下q，这是一个2n-1自由度的student-t分布：</p>
-<p>$lim_{\sigma\rightarrow0}\frac{(1+||f _ {\phi}(x _ {i})-\phi_{j}||^{2}/((2n-1)\sigma^{2}))^{-n}}{\sum _ {k\in C}(1+||f _ {\phi}(x _ {i})-\phi_{k}||^{2}/((2n-1)\sigma^{2}))^{-n}}$</p>
+<p>$$<br>
+lim_{\sigma\rightarrow0}\frac{(1+||f _ {\phi}(x _ {i})-\phi_{j}||^{2}/((2n-1)\sigma^{2}))^{-n}}{\sum _ {k\in C}(1+||f _ {\phi}(x _ {i})-\phi_{k}||^{2}/((2n-1)\sigma^{2}))^{-n}}<br>
+$$</p>
 <p>它可以写成：</p>
-<p>$lim_{\sigma\rightarrow0}\frac{(((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{j}||^{2})^{-n}}{\sum _ {k\in C}((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{k}||^{2}/)^{-n}}$</p>
+<p>$$<br>
+lim_{\sigma\rightarrow0}\frac{(((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{j}||^{2})^{-n}}{\sum _ {k\in C}((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{k}||^{2}/)^{-n}}<br>
+$$</p>
 <p>当 $\sigma\rightarrow\infty$ 损失函数为$\mathcal{L}=\sum _ {i\in C}\frac{(||f _ {\phi}(x _ {i})-\phi_{j}||^{2})^{-n}}{\sum _ {k\in C}(||f _ {\phi}(x _ {i})-\phi_{k}||^{2}/)^{-n}}$</p>
-<h2 id="统一Masked-Language-Modeling-MLM">统一Masked Language Modeling (MLM)</h2>
-<p>在掩码语言建模中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
+<h2 id="统一MLM">统一MLM</h2>
+<p>在掩码语言建模（MLM）中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
 <p>目标分布 $p_{\theta}(j|i)$ 是关于上下文i和tokens j的经验分布，定义为：</p>
-<p>$$p_{\theta}(j|i)=\frac{1}{Z}\#[\text{Context } i \text{ precedes token } j]$$</p>
-<p>其中 $#[\text{Context } i \text{ precedes token } j]$ 表示在训练语料库中tokensj与上下文x_i之后出现的次数， Z是一个归一化常数，以确保 $\sum _ {j}p_{\theta}(j|i)=1$。</p>
+<p>$$<br>
+p_{\theta}(j|i)=\frac{1}{Z}\#[\text{Context } i \text{ precedes token } j]<br>
+$$</p>
+<p>其中 $\#[\text{Context } i \text{ precedes token } j]$ 表示在训练语料库中tokensj与上下文x_i之后出现的次数， Z是一个归一化常数，以确保 $\sum _ {j}p_{\theta}(j|i)=1$。</p>
 <p>$q_{\phi}(j|i)$ 使用神经网络输出的tokens预测logits进行建模，它被定义为上下文嵌入 $f _ {\phi}(x _ {i})$ 和 token 嵌入 $\phi_{j}$ 的点积的softmax：</p>
-<p>$q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot\phi_{j})}{\sum _ {k\in\mathcal{V}}exp(f _ {\phi}(x _ {i})\cdot\phi_{k})}$ [cite: 332]</p>
+<p>$$<br>
+q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot\phi_{j})}{\sum _ {k\in\mathcal{V}}exp(f _ {\phi}(x _ {i})\cdot\phi_{k})}<br>
+$$</p>
 <p>其中 $f _ {\phi}(x _ {i})$ 是模型生成的上下文 $x _ {i}$ 的嵌入， $\phi_{j}$ 是token j的嵌入，V是所有可能tokens的词汇表。</p>
 <p>MLM 损失旨在最小化目标分布p和学习分布q之间的交叉熵：</p>
-<p>$\mathcal{L} _ {MLM}=-\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta}，q_{\phi})$</p>
+<p>$$<br>
+\mathcal{L} _ {MLM}=-\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta}，q_{\phi})<br>
+$$</p>
 <p>由于在实践中，对于每个 $x _ {i}$ 仅考虑真实的masked token $j_{i}^{*}$ ，目标分布简化为：</p>
-<p>$p_{\theta}(j|i)=\delta_{j，j_{i}^{*}}$</p>
+<p>$$<br>
+p_{\theta}(j|i)=\delta_{j，j_{i}^{*}}<br>
+$$</p>
 <p>其中 $\delta_{j.j_{i}^{<em>}}$ 是 Kronecker delta function， 当 $j=j_{i}^{</em>}$ 时等于1，否则为0</p>
 <p>代入损失函数，MLM损失变为：</p>
-<p>$\mathcal{L} _ {MLM}=-\sum _ {i}log~q_{\phi}(j_{i}^{*}|x _ {i})$</p>
+<p>$$<br>
+\mathcal{L} _ {MLM}=-\sum _ {i}log~q_{\phi}(j_{i}^{*}|x _ {i})<br>
+$$</p>
 <h2 id="统一Kmeans">统一Kmeans</h2>
 <p><strong>经典Kmeans的定义：</strong>** <em>(Classical K-means).</em> Let $x _ {1}，x _ {2}，…，x _ {N}\in\mathbb{R}^{n}$ denote the data points， and $\mu_{1}，\mu_{2}，…，\mu_{m}\in\mathbb{R}^{n}$ be the cluster centers. [cite: 339] The objective of classical K-means is to minimize the following loss function: [cite: 340]</p>
-<p>$\mathcal{L} _ {k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\mathfrak{I}(c^{(i)}=c)||x _ {i}-\mu_{c}||^{2}$ [cite: 340]</p>
+<p>$$<br>
+\mathcal{L} _ {k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\mathfrak{I}(c^{(i)}=c)||x _ {i}-\mu_{c}||^{2}<br>
+$$</p>
 <p>where $c^{(i)}$ represents the cluster assignment for data point $x _ {i}$， and is defined as:<br>
-$c^{(i)}=arg~min_{c}||x _ {i}-\mu_{c}||^{2}$ [cite: 340]</p>
+$$<br>
+c^{(i)}=arg~min_{c}||x _ {i}-\mu_{c}||^{2}<br>
+$$</p>
 <h3 id="似然-K-means-松弛">似然 K-means 松弛</h3>
 <p>In probabilistic K-means， the cluster assignments are relaxed by assuming that each data point $x _ {i}$ belongs to a cluster with probability $\phi_{ic}$. [cite: 340] In other words， $\phi_{i}$ represents the cluster assignments vector for $x _ {i}$. [cite: 340]</p>
 <p><strong>Proposition 2.</strong> <em>The relaxed loss function for probabilistic K-means is given by:</em> [cite: 340]</p>
-<p>$\mathcal{L} _ {Pmb\cdot k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ [cite: 340]</p>
+<p>$$<br>
+\mathcal{L} _ {Pmb\cdot k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}<br>
+$$</p>
 <p><em>and is equivalent to the original K-means objective $\mathcal{L} _ {k-Means}$ The optimal assignment probabilities $\phi_{ic}$ are deterministic， assigning probability 1 to the closest cluster and 0 to others.</em> [cite: 340]</p>
 <p><em>Proof.</em> For each data point $x _ {i}$ ， the term $\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ is minimized when the assignment probabilities $\phi_{ic}$ are deterministic， i.e.， [cite: 341]</p>
 <p>$\phi_{ic}=\begin{cases}1&amp;if~c=arg~min_{j}||x _ {i}-\mu_{j}||^{2}，\ 0&amp;otherwise.\end{cases}$ [cite: 341]</p>
