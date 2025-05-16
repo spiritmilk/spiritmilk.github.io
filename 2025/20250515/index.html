@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/model.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/detail.jpg">
 <meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
-<meta property="article:modified_time" content="2025-05-16T01:05:59.417Z">
+<meta property="article:modified_time" content="2025-05-16T01:39:12.657Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -485,7 +485,7 @@ $$</p>
 <h2 id="统一Masked-Language-Modeling-MLM">统一Masked Language Modeling (MLM)</h2>
 <p>在掩码语言建模中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
 <p>目标分布 $p_{\theta}(j|i)$ 是关于上下文i和tokens j的经验分布，定义为：</p>
-<p>$$p_{\theta}(j|i)=\frac{1}{Z}#[\text{Context } i \text{ precedes token } j]$$</p>
+<p>$$p_{\theta}(j|i)=\frac{1}{Z}\#[\text{Context } i \text{ precedes token } j]$$</p>
 <p>其中 $#[\text{Context } i \text{ precedes token } j]$ 表示在训练语料库中tokensj与上下文x_i之后出现的次数， Z是一个归一化常数，以确保 $\sum _ {j}p_{\theta}(j|i)=1$。</p>
 <p>$q_{\phi}(j|i)$ 使用神经网络输出的tokens预测logits进行建模，它被定义为上下文嵌入 $f _ {\phi}(x _ {i})$ 和 token 嵌入 $\phi_{j}$ 的点积的softmax：</p>
 <p>$q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot\phi_{j})}{\sum _ {k\in\mathcal{V}}exp(f _ {\phi}(x _ {i})\cdot\phi_{k})}$ [cite: 332]</p>
