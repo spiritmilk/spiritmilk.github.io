@@ -19424,62 +19424,106 @@ $$</p>
 $$</p>
 <h3 id="PROBABILISTIC-K-MEANS-作为-I-Con-方法">PROBABILISTIC K-MEANS 作为 I-Con 方法</h3>
 <p>令 $q_{\phi}(j|i)$ 表示从$x _ {i}$的聚类中随机选择 $x _ {j}$ 的概率：</p>
-<p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$</p>
+<p>$$<br>
+q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
+$$</p>
 <p>定义：</p>
-<p>$p_{\theta}(j|i)=\frac{exp(-||x _ {i}-x _ {j}||^{2}/2\sigma^{2})}{\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2}/2\sigma^{2})}$</p>
-<p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$</p>
+<p>$$<br>
+p_{\theta}(j|i)=\frac{exp(-||x _ {i}-x _ {j}||^{2}/2\sigma^{2})}{\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2}/2\sigma^{2})}<br>
+$$</p>
+<p>$$<br>
+q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
+$$</p>
 <p>则</p>
-<p>$\mathcal{L} _ {c\cdot SNE}=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))$<br>
-$\mathcal{L} _ {c\cdot SNE}=\frac{1}{2\sigma^{2}}\mathcal{L} _ {Pmb\cdot k\cdot Means}-\sum _ {i}H(q_{\phi}(\cdot|i))$</p>
+<p>$$<br>
+\mathcal{L} _ {c\cdot SNE}=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))<br>
+$$<br>
+$$<br>
+\mathcal{L} _ {c\cdot SNE}=\frac{1}{2\sigma^{2}}\mathcal{L} _ {Pmb\cdot k\cdot Means}-\sum _ {i}H(q_{\phi}(\cdot|i))<br>
+$$</p>
 <p>证明：假设 $2\sigma^{2}=1$。记 $\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2})$ 为 $Z_{i}$，则有：</p>
-<p>$log~p_{\theta}(j|i)=-||x _ {i}-x _ {j}||^{2}-log~Z_{i}$ [cite: 357]</p>
+<p>$$<br>
+log~p_{\theta}(j|i)=-||x _ {i}-x _ {j}||^{2}-log~Z_{i}<br>
+$$</p>
 <p>令 $\mathcal{L} _ {i}$ 为 $-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ ，则：</p>
-<p>$\mathcal{L} _ {i}=-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ (2) [cite: 357]</p>
-<p>$=\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)$ (3) [cite: 357]</p>
-<p>$=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})$ (4) [cite: 357]</p>
-<p>$=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})$ (5) [cite: 357]</p>
-<p>$=H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})$ (6) [cite: 357]</p>
-<p>$=D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})$. (7) [cite: 358]</p>
-<p>故：</p>
-<p>$\mathcal{L} _ {Prob\cdot KMeans}=-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)=\sum _ {i}\mathcal{L} _ {i}$ (8) [cite: 358]</p>
-<p>$=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})$ (9) [cite: 358]</p>
-<p>$=\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant$. (10) [cite: 358]<br>
+<p>$$<br>
+\begin{align}<br>
+\mathcal{L} _ {i}&amp;-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)</p>
+<p>\\&amp;=\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)</p>
+<p>\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})</p>
+<p>\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})</p>
+<p>\\&amp;=H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})</p>
+<p>\\&amp;=D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})</p>
+<p>\end{align}<br>
+$$</p>
+<p>故：<br>
+$$<br>
+\begin{align}<br>
+\mathcal{L} _ {Prob\cdot KMeans}&amp;=-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)=\sum _ {i}\mathcal{L} _ {i}</p>
+<p>\\&amp;=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})</p>
+<p>\\&amp;=\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant<br>
+\end{align}<br>
+$$<br>
 因此，</p>
-<p>$\mathcal{L} _ {c\cdot SNE}=\mathcal{L} _ {Prob-KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))$ [cite: 359]</p>
+<p>$$<br>
+\mathcal{L} _ {c\cdot SNE}=\mathcal{L} _ {Prob-KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))<br>
+$$</p>
 <p>如果我们允许 $\sigma$ 为任何值：</p>
-<p>$\mathcal{L} _ {c\cdot SNE}=\frac{1}{2\sigma^{2}}\mathcal{L} _ {Prob\cdot KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))$ [cite: 359]</p>
+<p>$$<br>
+\mathcal{L} _ {c\cdot SNE}=\frac{1}{2\sigma^{2}}\mathcal{L} _ {Prob\cdot KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))<br>
+$$</p>
 <p>注意上述关系仅差一个加性常数。这意味着最小化具有熵正则化的对比概率 K-means 损失，等价于最小化KL 散度之和。</p>
 <h2 id="统一谱聚类">统一谱聚类</h2>
 <p>谱聚类通过首先使用归一化拉普拉斯矩阵的前 k 个特征向量将数据嵌入到低维空间中，扩展了这个想法。亲和矩阵 A是通过相似性度量（例如径向基函数核）构建的，并编码了数据点之间的分配概率。在这个转换下，谱聚类是投影嵌入上的 I-Con 的一个实例。</p>
 <h2 id="统一Normalized-Cuts">统一Normalized Cuts</h2>
 <p>其损失函数定义为：</p>
-<p>$\mathcal{L} _ {NomCus}=\sum _ {c=1}^{m}\frac{cut(A_{c}，\overline{A} _ {c})}{vol(A_{c})}$ [cite: 366]</p>
+<p>$$<br>
+\mathcal{L} _ {NomCus}=\sum _ {c=1}^{m}\frac{cut(A_{c}，\overline{A} _ {c})}{vol(A_{c})}<br>
+$$</p>
 <p>其中 $A_{c}$ 为对应于聚类c的数据子集， $\overline{A} _ {c}$ 是其补集，  $cut(A_{c}，\overline{A_{c}})$ 表示 $A_{c}$ 和 $\overline{A} _ {c}$之间的边权重之和，而 $vol(A_{c})$ 是聚类 $A_{c}$ 的总体积/边权重之和。</p>
 <p>类似于 K-Means，通过以软分配的对比方式重新表述这一点，学习到的分布可以表示为概率簇分配 $\phi_{ic}=p(c|x _ {i})$ ：</p>
-<p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}d_{j}}{\sum _ {k=1}^{N}\phi_{kc}d_{k}}$ [cite: 367]</p>
+<p>$$<br>
+q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}d_{j}}{\sum _ {k=1}^{N}\phi_{kc}d_{k}}<br>
+$$</p>
 <p>其中d为节点的度数。</p>
 <h2 id="统一互信息聚类">统一互信息聚类</h2>
 <p>鉴于 SimCLR、K-Means 和 I-Con 框架之间已建立的联系，这一结果自然而然地得出。具体来说，目标分布 $p_{\theta}(j|i)$ 是观测到的正对的一个均匀分布：</p>
-<p>$P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \\ 0 &amp; \text{otherwise.} \end{cases}$</p>
+<p>$$<br>
+P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \\ 0 &amp; \text{otherwise.} \end{cases}<br>
+$$</p>
 <p>另一方面，学习到的嵌入 $\phi_{i}$ 表示 $x _ {i}$ 被分配到聚类中的概率。因此，类似于 K-Means 连接的分析，学习到的分布被建模为：</p>
-<p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$</p>
+<p>$$<br>
+q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
+$$</p>
 <h2 id="I-Con-作为变分法">I-Con 作为变分法</h2>
 <p>互信息的变分界限被广泛探索，并与 InfoNCE 等损失函数联系起来，其中最小化 InfoNCE 最大化互信息下界（Oord 等人，2018；Poole 等人，2019）。证明通常从重写互信息开始：</p>
-<p>$I(X;Y)=\mathbb{E} _ {p(x，y)}[log\frac{q(x|y)}{p(x)}]+\mathbb{E} _ {p(y)}[D_{KL}(p(x|y)||q(x|y))]$ [cite: 376]</p>
-<p>This expression is typically used to derive a lower bound for $I(X;Y)$. [cite: 376] The proof usually begins by assuming that p is uniform over discrete data points $\mathcal{X}={x _ {i}} _ {i=1}^{N}$ (i.e.， we use uniform sampling [cite: 376]</p>
-<p>— PAGE 28 —</p>
-<p>for data points). [cite: 377] By using the fact that $p(x _ {i})=\frac{1}{N}$ we can write $p(x，y)=\frac{1}{N}p(x|y)$. [cite: 378] Therefore， the mutual information lower bound becomes [cite: 378]</p>
-<p>$I(X;Y)\ge\mathbb{E} _ {p(x，y)}[log~q(x|y)]-\mathbb{E} _ {p(x，y)}[log~p(x)]$<br>
-$=\mathbb{E} _ {p(x，y)}[log~q(x|y)]+log(N)$ [cite: 378]</p>
-<p>$=\frac{1}{N}\sum _ {x，y\in\mathcal{X}\times\mathcal{X}}p(x|y)log~q(x|y)+log(N)$<br>
-$=\frac{1}{N}\sum _ {y\in\mathcal{X}}\sum _ {x\in\mathcal{X}}p(x|y)log~q(x|y)+log(N)$<br>
-$=-H(p(x|y)，q(x|y))+log(N)$ [cite: 378]</p>
-<p>Therefore， maximizing the cross-entropy between the two distributions maximizes the mutual information between samples. [cite: 378] On the hand， Variational Bayesian (VB) methods are fundamental in approximating intractable posterior distributions $p(z|x)$ with tractable variational distributions $q_{\phi}(z)$. [cite: 379] This approximation is achieved by minimizing the Kullback-Leibler (KL) divergence between the variational distribution and the true posterior: [cite: 380]</p>
-<p>$KL(q_{\phi}(z)||p(z|x))=\mathbb{E} _ {q_{\phi}(z)}[log\frac{q_{\phi}(z)}{p(z|x)}]$ (11) [cite: 380]</p>
-<p>The optimization objective， known as the Evidence Lower Bound (ELBO)， is given by: [cite: 380]</p>
-<p>$ELBO=\mathbb{E} _ {q_{\varphi}(z)}[log~p(x，z)]-\mathbb{E} _ {q_{\varphi}(z)}[log~q_{\phi}(z)]$. (12) [cite: 381]</p>
-<p>Maximizing the ELBO is equivalent to minimizing the KL divergence， thereby ensuring that $q_{\phi}(z)$ closely approximates $p(z|x)$ (Blei et al.， 2017). [cite: 381] VB can be framed within the I-Con framework by making specific mappings between the variables and distributions. [cite: 382] Let i correspond to the data point z， and j correspond to the latent variable z. [cite: 383] We can set the supervisory distribution $p_{\theta}(z|x\overline{)}$ to be the true posterior $p(z|x)$. [cite: 384] This allow us to define the learned distribution $q_{\phi}(z|x)$ to be independent of z， i.e.， $q_{\phi}(z|x)=q_{\phi}(z)$. [cite: 385] Under these settings， the I-Con loss simplifies to: [cite: 386]</p>
-<p>$\mathcal{L}(\phi)=\int_{x\in\mathcal{X}}KL(p(z|x)||q_{\phi}(z))dx=\mathbb{E} _ {p(x)}[KL(p(z|x)||q_{\phi}(z))]$</p>
+<p>$$<br>
+I(X;Y)=\mathbb{E} _ {p(x，y)}[log\frac{q(x|y)}{p(x)}]+\mathbb{E} _ {p(y)}[D_{KL}(p(x|y)||q(x|y))]<br>
+$$</p>
+<p>我们一般假设 $p(x _ {i})=\frac{1}{N}$ ，则 $p(x，y)=\frac{1}{N}p(x|y)$。互信息下界变为<br>
+$$<br>
+\begin{align}<br>
+I(X;Y)&amp;\geq \mathbb{E} _ {p(x，y)}[log~q(x|y)]-\mathbb{E} _ {p(x，y)}[log p(x)]<br>
+\\&amp;=\mathbb{E} _ {p(x，y)}[log~q(x|y)]+log(N)<br>
+\\&amp;=\frac{1}{N}\sum _ {x，y\in\mathcal{X}\times\mathcal{X}}p(x|y)log~q(x|y)+log(N)<br>
+\\&amp;=\frac{1}{N}\sum _ {y\in\mathcal{X}}\sum _ {x\in\mathcal{X}}p(x|y)log~q(x|y)+log(N)<br>
+\\&amp;=-H(p(x|y)，q(x|y))+log(N)<br>
+\end{align}<br>
+$$</p>
+<p>因此，最大化两个分布之间的交叉熵会最大化样本之间的互信息。</p>
+<p>变分贝叶斯中的近似是通过最小化变分分布和真实后验之间的 KL散度来实现的：</p>
+<p>$$<br>
+KL(q_{\phi}(z)||p(z|x))=\mathbb{E} _ {q_{\phi}(z)}[log\frac{q_{\phi}(z)}{p(z|x)}]<br>
+$$</p>
+<p>优化目标（被称为ELBO）：</p>
+<p>$$<br>
+ELBO=\mathbb{E} _ {q_{\varphi}(z)}[log~p(x，z)]-\mathbb{E} _ {q_{\varphi}(z)}[log~q_{\phi}(z)]<br>
+$$</p>
+<p>最大化 ELBO 等价于最小化 KL 散度，从而确保 $q_{\phi}(z)$ 接近 $p(z|x)$。VB 可以通过在变量和分布之间进行特定映射，在 I-Con 框架内进行描述。让i对应数据点x，j对应潜变量z，我们可以将监督分布 $p_{\theta}(z|x)$ 设置为真实后验$p(z|x)$。我们可以定义学习到的分布 $q_{\phi}(z|x)$ 与x无关，即 $q_{\phi}(z|x)=q_{\phi}(z)$。</p>
+<p>则I-Con loss 简化为：</p>
+<p>$$<br>
+\mathcal{L}(\phi)=\int_{x\in\mathcal{X}}KL(p(z|x)||q_{\phi}(z))dx=\mathbb{E} _ {p(x)}[KL(p(z|x)||q_{\phi}(z))]<br>
+$$</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
