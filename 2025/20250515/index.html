@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/model.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/detail.jpg">
 <meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
-<meta property="article:modified_time" content="2025-05-16T04:01:58.202Z">
+<meta property="article:modified_time" content="2025-05-16T05:01:43.846Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -267,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          4.4k 字
         
       </span>
     
@@ -278,7 +278,7 @@
         
         
         
-          38 分钟
+          37 分钟
         
       </span>
     
@@ -320,7 +320,7 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I-Con （I-Con: A Unifying Framework for Representation Learning ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I-Con （<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.16929">I-Con: A Unifying Framework for Representation Learning</a> ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
 <span id="more"></span>
 <p><img src="I-Con.jpg" alt=""></p>
 <p><img src="model.jpg" alt=""></p>
@@ -391,7 +391,7 @@ $$</p>
 <h2 id="统一InfoNCE">统一InfoNCE</h2>
 <p>InfoNCE 旨在最大化正样本对之间的相似度，同时最小化负样本对之间的相似度，在学习的特征空间中。在 I-Con 框架中，这可以解释为最小化两个分布之间的散度：原始空间中的邻域分布和学习到的嵌入空间中的分布。</p>
 <p>$$<br>
-p_{\theta}(j|i)=\begin{cases}\frac{1}{k}，x_j为x_i的k \  positive \ views\ 0\end{cases}<br>
+p_{\theta}(j|i)=\begin{cases}\frac{1}{k}，x_j为x_i的k \  positive \ views\\ 0\end{cases}<br>
 $$</p>
 <p>其中 k 是$x _ {i}$ 的positive pairs数量。</p>
 <p>$q_{\phi}(j|i)$ 基于 $f _ {\phi}(x _ {i})$ 和 $f _ {\phi}(x _ {j})$之间相似度，并约束在单位范数上 $(||f _ {\phi}(x _ {i})||=1)$ 。使用一个带温度系数的高斯核为：</p>
@@ -417,7 +417,9 @@ $\mathcal{L}=\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i^{+}})|
 <p>which is the VICReg loss without the covariance term and with an invariance-to-variance term ratio of 1:2. [cite: 297] Observe that VICReg does not have negative pairs because it applies an equal repulsion force to all points. [cite: 298] This is equivalent to taking $\sigma\rightarrow\infty$ in the conditional Gaussian distribution over the embeddings. [cite: 299]</p>
 <h2 id="统一Triplet-Loss">统一Triplet Loss</h2>
 <p>$$<br>
-P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \ 0 &amp; \text{otherwise，} \end{cases}<br>
+P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i}<br>
+\\<br>
+0 &amp; \text{otherwise，} \end{cases}<br>
 $$</p>
 <p>$$<br>
 q_{\phi}(j|i)=\frac{exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})^{2}}<br>
@@ -532,52 +534,58 @@ $$</p>
 \mathcal{L} _ {MLM}=-\sum _ {i}log~q_{\phi}(j_{i}^{*}|x _ {i})<br>
 $$</p>
 <h2 id="统一Kmeans">统一Kmeans</h2>
-<p><strong>经典Kmeans的定义：</strong>** <em>(Classical K-means).</em> Let $x _ {1}，x _ {2}，…，x _ {N}\in\mathbb{R}^{n}$ denote the data points， and $\mu_{1}，\mu_{2}，…，\mu_{m}\in\mathbb{R}^{n}$ be the cluster centers. [cite: 339] The objective of classical K-means is to minimize the following loss function: [cite: 340]</p>
-<p>$$<br>
-\mathcal{L} _ {k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\mathfrak{I}(c^{(i)}=c)||x _ {i}-\mu_{c}||^{2}<br>
+<p>经典Kmeans的定义：<br>
+$$<br>
+\mathcal{L} _ {k-Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}1(c^{(i)}=c)||x _ {i}-\mu_{c}||^{2}<br>
 $$</p>
-<p>where $c^{(i)}$ represents the cluster assignment for data point $x _ {i}$， and is defined as:<br>
+<p>$c^{(i)}$代表聚类分配：<br>
 $$<br>
 c^{(i)}=arg~min_{c}||x _ {i}-\mu_{c}||^{2}<br>
 $$</p>
-<h3 id="似然-K-means-松弛">似然 K-means 松弛</h3>
-<p>In probabilistic K-means， the cluster assignments are relaxed by assuming that each data point $x _ {i}$ belongs to a cluster with probability $\phi_{ic}$. [cite: 340] In other words， $\phi_{i}$ represents the cluster assignments vector for $x _ {i}$. [cite: 340]</p>
-<p><strong>Proposition 2.</strong> <em>The relaxed loss function for probabilistic K-means is given by:</em> [cite: 340]</p>
+<h3 id="Probabilistic-K-means-松弛">Probabilistic K-means 松弛</h3>
+<p>在probabilistic K-means， $x _ {i}$ 属于c类的概率为 $\phi_{ic}$。</p>
 <p>$$<br>
-\mathcal{L} _ {Pmb\cdot k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}<br>
+\mathcal{L} _ {Prob-k-Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}<br>
 $$</p>
-<p><em>and is equivalent to the original K-means objective $\mathcal{L} _ {k-Means}$ The optimal assignment probabilities $\phi_{ic}$ are deterministic， assigning probability 1 to the closest cluster and 0 to others.</em> [cite: 340]</p>
-<p><em>Proof.</em> For each data point $x _ {i}$ ， the term $\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ is minimized when the assignment probabilities $\phi_{ic}$ are deterministic， i.e.， [cite: 341]</p>
-<p>$\phi_{ic}=\begin{cases}1&amp;if~c=arg~min_{j}||x _ {i}-\mu_{j}||^{2}，\ 0&amp;otherwise.\end{cases}$ [cite: 341]</p>
-<p>With these deterministic probabilities， $\mathcal{L} _ {Prob-k-Mcans}$ simplifies to the classical K-means objective， confirming that the relaxation introduces no gap. [cite: 341]</p>
+<p>为了能融入到我们的框架中，我们尽量把它融入到对比学习那一套中。</p>
 <h3 id="似然-K-means-的对比公式">似然 K-means 的对比公式</h3>
-<p><strong>Definition 2.</strong> Let ${x _ {i}} _ {i=1}^{N}$ be a set of data points. [cite: 342] Define the conditional probablity $q_{\phi}(j|i)$ as: [cite: 343]</p>
-<p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$ [cite: 343]</p>
-<p>where $\phi_{i}$ is the soft-cluster assignments for $x _ {i}$ [cite: 343]</p>
-<p>$\Pi$ [cite: 343]</p>
-<p>Given $q_{\phi}(j|i)$， we can reformulate probabilistic K-means as a contrastive loss:<br>
-<strong>Theorem 12.</strong> <em>Let ${x _ {i}} _ {i=1}^{N}\in\mathbb{R}^{n}$ and ${\phi_{ic}} _ {i=1}^{N}$ be the corresponding assignment probabilities.</em> Define the objective function Las: [cite: 344]</p>
-<p>$\mathcal{L}=-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)$ . [cite: 344]</p>
-<p><em>Minimizing L with respect to the assignment probabilities ${\phi_{ic}}$ yields optimal cluster assignments equivalent to those obtained by K-means.</em> [cite: 344]</p>
-<p>— PAGE 25 —</p>
-<p><em>Proof.</em> The relaxed probabilistic K-means objective $\mathcal{L} _ {Prob-k-Means}$ is: [cite: 346]</p>
-<p>$\mathcal{L} _ {Prob\cdot k:Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ [cite: 346]</p>
-<p>Expanding this， we obtain: $\mathcal{L} _ {Prob\cdot k\cdot Means}=\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic})||\mu_{c}||^{2}-2\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic}x _ {i})\cdot\mu_{c}+\sum _ {i=1}^{N}||x _ {i}||^{2}$ [cite: 346]</p>
-<p>The cluster centers $\mu_{c}$ that minimize this loss are given by: [cite: 346]</p>
-<p>$\mu_{c}=\frac{\sum _ {i=1}^{N}\phi_{ic}x _ {i}}{\sum _ {i=1}^{N}\phi_{ic}}$ [cite: 346]</p>
-<p>Substituting $\mu_{c}$ back into the loss function， we get: [cite: 346]</p>
-<p>$\mathcal{L}=-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)$ [cite: 346]</p>
-<p>which proves that minimizing this contrastive formulation leads to the same clustering assignments as classical K-means. [cite: 346]</p>
-<p><strong>Corollary 3.</strong> <em>The alternative loss function:</em> [cite: 347]</p>
-<p>$\mathcal{L}=-\sum _ {i，j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ [cite: 347]</p>
-<p><em>yields the same optimal clustering assignments when minimized with respect to ${\phi_{ic}}$</em> [cite: 347]</p>
-<p><em>Proof.</em> Expanding the squared norm in the loss function gives: [cite: 348]</p>
-<p>$\mathcal{L}=-\sum _ {i，j}(||x _ {i}||^{2}-2x _ {i}\cdot x _ {j}+||x _ {j}||^{2})q_{\phi}(j|i)$<br>
-$\mathcal{L}=2(-\sum _ {i，j}x _ {i}\cdot x _ {j}q_{\phi}(j|i))$ [cite: 348]</p>
-<p>The terms involving $||x _ {i}||^{2}$ and $||x _ {j}||^{2}$ simplify since $\sum _ {j}q_{\phi}(j|i)=1$ reducing the loss to: [cite: 348]</p>
-<p>which is equivalent to the objective in the previous theorem. [cite: 348]</p>
-<p>$\Pi$ [cite: 349]</p>
-<p>$\Pi$ [cite: 349]</p>
+<p>定义条件概率为 $q_{\phi}(j|i)$ ：</p>
+<p>$$<br>
+q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
+$$</p>
+<p>我们可以将probabilistic K-means 重新表述为对比损失：</p>
+<p>$$<br>
+\mathcal{L}=-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)<br>
+$$</p>
+<p>证明：</p>
+<p>$$<br>
+\mathcal{L} _ {Prob-k-Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}<br>
+$$</p>
+<p>展开：</p>
+<p>$$<br>
+\mathcal{L} _ {Prob\cdot k\cdot Means}=\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic})||\mu_{c}||^{2}-2\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic}x _ {i})\cdot\mu_{c}+\sum _ {i=1}^{N}||x _ {i}||^{2}<br>
+$$</p>
+<p>使该损失最小化的聚类中心由下式给出：</p>
+<p>$$<br>
+\mu_{c}=\frac{\sum _ {i=1}^{N}\phi_{ic}x _ {i}}{\sum _ {i=1}^{N}\phi_{ic}}<br>
+$$</p>
+<p>代回损失函数的式子，得到：</p>
+<p>$$<br>
+\mathcal{L}=-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)<br>
+$$</p>
+<p>备选损失函数：</p>
+<p>$$<br>
+\mathcal{L}=-\sum _ {i，j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)<br>
+$$</p>
+<p>在${\phi_{ic}}$的最小化下，它会产生相同的最佳聚类分配。</p>
+<p>证明：在损失函数中展开平方范数得到：</p>
+<p>$$<br>
+\begin{align}<br>
+\mathcal{L}&amp;=-\sum _ {i，j}(||x _ {i}||^{2}-2x _ {i}\cdot x _ {j}+||x _ {j}||^{2})q_{\phi}(j|i)$<br>
+\\<br>
+&amp;=2(-\sum _ {i，j}x _ {i}\cdot x _ {j}q_{\phi}(j|i))<br>
+\end{align}<br>
+$$</p>
 <h2 id="PROBABILISTIC-K-MEANS-AS-AN-I-CON-METHOD">PROBABILISTIC K-MEANS AS AN I-CON METHOD</h2>
 <p>In the I-Con framework， the target and learned distributions represent affinities between data points based on specific measures. [cite: 349] For instance， in SNE， these measures are Euclidean distances in high- and low-dimensional spaces， while in SupCon， the distances reflect whether data points belong to the same class. [cite: 350] Similarly， we can define a measure of neighborhood probabilities in the context of clustering， where two points are considered neighbors if they belong to the same cluster. [cite: 351] The probability of selecting $x _ {j}$ as $x _ {i}$ neighbor is the probability that a point， chosen uniformly at random from $x _ {i}$ 's cluster， is $x _ {j}$. [cite: 352] More explicitly， let $q_{\phi}(j|i)$ represent the probability that $x _ {j}$ is selected uniformly at random from $x _ {i}$ cluster: [cite: 353]</p>
 <p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$ [cite: 353]</p>
