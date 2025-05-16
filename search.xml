@@ -18928,7 +18928,7 @@ $</p>
   <entry>
     <title>（几乎涵盖一切的）表示学习统一框架</title>
     <url>/2025/20250515/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>I-Con （<a href="https://arxiv.org/abs/2504.16929">I-Con: A Unifying Framework for Representation Learning</a> ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I-Con （<a href="https://arxiv.org/abs/2504.16929">I-Con: A Unifying Framework for Representation Learning</a> ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
 <span id="more"></span>
 <p><img src="I-Con.jpg" alt=""></p>
 <p><img src="model.jpg" alt=""></p>
@@ -19220,20 +19220,20 @@ $$</p>
 <p>令 $\mathcal{L} _ {i}$ 为 $-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ ，则：</p>
 <p>$$<br>
 \begin{align}<br>
-\mathcal{L} _ {i}&amp;-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)</p>
-<p>\\&amp;=\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)</p>
-<p>\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})</p>
-<p>\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})</p>
-<p>\\&amp;=H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})</p>
-<p>\\&amp;=D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})</p>
-<p>\end{align}<br>
+\mathcal{L} _ {i}&amp;=-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)<br>
+\\&amp;=\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)<br>
+\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})<br>
+\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})<br>
+\\&amp;=H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})<br>
+\\&amp;=D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})<br>
+\end{align}<br>
 $$</p>
 <p>故：<br>
 $$<br>
 \begin{align}<br>
-\mathcal{L} _ {Prob\cdot KMeans}&amp;=-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)=\sum _ {i}\mathcal{L} _ {i}</p>
-<p>\\&amp;=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})</p>
-<p>\\&amp;=\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant<br>
+\mathcal{L} _ {Prob-KMeans}&amp;=-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)=\sum _ {i}\mathcal{L} _ {i}<br>
+\\&amp;=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})<br>
+\\&amp;=\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant<br>
 \end{align}<br>
 $$<br>
 因此，</p>

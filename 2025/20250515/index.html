@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/model.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/detail.jpg">
 <meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
-<meta property="article:modified_time" content="2025-05-16T05:33:22.134Z">
+<meta property="article:modified_time" content="2025-05-16T05:39:13.631Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -612,20 +612,20 @@ $$</p>
 <p>令 $\mathcal{L} _ {i}$ 为 $-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ ，则：</p>
 <p>$$<br>
 \begin{align}<br>
-\mathcal{L} _ {i}&amp;-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)</p>
-<p>\\&amp;=\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)</p>
-<p>\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})</p>
-<p>\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})</p>
-<p>\\&amp;=H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})</p>
-<p>\\&amp;=D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})</p>
-<p>\end{align}<br>
+\mathcal{L} _ {i}&amp;=-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)<br>
+\\&amp;=\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)<br>
+\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})<br>
+\\&amp;=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})<br>
+\\&amp;=H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})<br>
+\\&amp;=D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})<br>
+\end{align}<br>
 $$</p>
 <p>故：<br>
 $$<br>
 \begin{align}<br>
-\mathcal{L} _ {Prob\cdot KMeans}&amp;=-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)=\sum _ {i}\mathcal{L} _ {i}</p>
-<p>\\&amp;=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})</p>
-<p>\\&amp;=\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant<br>
+\mathcal{L} _ {Prob-KMeans}&amp;=-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)=\sum _ {i}\mathcal{L} _ {i}<br>
+\\&amp;=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})<br>
+\\&amp;=\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant<br>
 \end{align}<br>
 $$<br>
 因此，</p>
