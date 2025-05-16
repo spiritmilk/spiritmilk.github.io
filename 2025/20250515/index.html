@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/model.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250515/detail.jpg">
 <meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
-<meta property="article:modified_time" content="2025-05-16T01:39:12.657Z">
+<meta property="article:modified_time" content="2025-05-16T03:57:52.048Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -267,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          4.5k 字
         
       </span>
     
@@ -325,7 +325,7 @@
 <p><img src="I-Con.jpg" alt=""></p>
 <p><img src="model.jpg" alt=""></p>
 <p><img src="detail.jpg" alt=""></p>
-<p>我们首先定义 $x _ {i}\in\mathbb{R}^{d}$ 代表高维数据点,  $\phi_{i}\in\mathbb{R}^{m}$ 代表低维嵌，其中 $m\ll d$.</p>
+<p>我们首先定义 $x _ {i}\in\mathbb{R}^{d}$ 代表高维数据点，  $\phi_{i}\in\mathbb{R}^{m}$ 代表低维嵌，其中 $m\ll d$.</p>
 <h2 id="统一SNE">统一SNE</h2>
 <p>基于SNE的定义，其目标分布（监督部分），由高维空间中的领域分布描述：</p>
 <p>$$<br>
@@ -345,37 +345,37 @@ $$</p>
 q_{\phi}(j|i)=\frac{(1+||\phi_{i}-\phi_{j}||^{2})^{-1}}{\sum _ {k\ne i}(1+||\phi_{i}-\phi_{k}||^{2})^{-1}}<br>
 $$</p>
 <h2 id="统一PCA">统一PCA</h2>
-<p><strong>引理1.</strong> <em>Let $X:={x _ {i}} _ {i=1}^{n}$, then the following cohesion variance loss</em></p>
+<p><strong>引理1.</strong> <em>Let $X:={x _ {i}} _ {i=1}^{n}$， then the following cohesion variance loss</em></p>
 <p>$$<br>
 L_{cohesion-var}=\frac{1}{n}\sum _ {ij}w_{ij}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>
 $$</p>
 <p><em>is an instance of I-Con in the special case $w_{ij}=p(j|i)$ and $q_{\phi}$ is Gaussian as with a large width as $\sigma\rightarrow\infty$</em></p>
 <blockquote>
-<p>证明：By using AM-GM inequality, we have [cite: 269]</p>
+<p>证明：By using AM-GM inequality， we have [cite: 269]</p>
 <p>$\frac{1}{n}\sum _ {k=1}^{n}e^{-z_{k}}\ge(\Pi_{k=1}^{n}e^{-z_{k}})^{\frac{1}{n}}\Rightarrow\frac{1}{n}\sum _ {k=1}^{n}e^{-z_{k}}\ge(e^{-\sum _ {k=1}^{n}z_{k}})^{\frac{1}{n}}$</p>
 <p>which implies that</p>
 <p>$log\sum _ {k=1}^{n}e^{-z_{k}}-log~n\ge log(e^{-\sum _ {k=1}^{n}z_{k}})^{\frac{1}{n}}\Rightarrow log\sum _ {k=1}^{n}e^{-z_{k}}\ge-\frac{1}{n}\sum _ {k=1}^{n}z_{k}+log(n)$</p>
-<p>Alternatively, this can be written as</p>
+<p>Alternatively， this can be written as</p>
 <p>$-log\sum _ {k=1}^{n}e^{-z_{k}}\le\frac{1}{n}\sum _ {k=1}^{n}z_{k}-log(n)$</p>
 <p>Now assume that we have a Gaussian Kernel $q_{\phi}$ [cite: 269]</p>
 <p>$q_{\phi}(j|i)=\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}/\sigma^{2})}{\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}/\sigma^{2})}$</p>
-<p>Therefore, given the inequality of exp-sum that we showed above, we have [cite: 269]</p>
+<p>Therefore， given the inequality of exp-sum that we showed above， we have [cite: 269]</p>
 <p>$log~q_{\phi}(j|i)=-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}}-log\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})$<br>
 $\le-\frac{1}{\sigma^{2}}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n\sigma^{2}}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}-log(n)$<br>
 $=-\frac{1}{\sigma^{2}}(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n)$</p>
-<p>Therefore, the cross entropy $H(p_{\theta},q_{\phi})$ is bounded by [cite: 269]</p>
-<p>$H(p_{\theta},q_{\phi})=-\frac{1}{n}\sum _ {i}\sum _ {j}p(j|i)log~q_{\phi}(j|i)$</p>
+<p>Therefore， the cross entropy $H(p_{\theta}，q_{\phi})$ is bounded by [cite: 269]</p>
+<p>$H(p_{\theta}，q_{\phi})=-\frac{1}{n}\sum _ {i}\sum _ {j}p(j|i)log~q_{\phi}(j|i)$</p>
 <p>$\le\frac{1}{n}\sum _ {i}\sum _ {j}p(j|i)(\frac{1}{\sigma^{2}}(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n))$<br>
 $=\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-\frac{1}{n^{2}}\sum _ {ijk}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n)$<br>
 $=\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X))+log(n)$<br>
 $=\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X))+log(n)$<br>
 $=\frac{1}{\sigma^{2}}\mathcal{L} _ {cohesion-var}+log(n)$</p>
-<p>On the other hand, the L.H.S. can be upper bounded by using second order bound $e^{-z}\le1-z+z^{2}/2$, which implies that [cite: 270]</p>
+<p>On the other hand， the L.H.S. can be upper bounded by using second order bound $e^{-z}\le1-z+z^{2}/2$， which implies that [cite: 270]</p>
 <p>$-log\sum _ {k=1}^{n}e^{-z_{k}}\ge log(1-\frac{1}{n}\sum _ {k=1}^{n}z_{k}+\frac{1}{n}\sum _ {k=1}^{n}z_{k}^{2})-log(n)$ [cite: 270]</p>
 <p>— PAGE 19 —</p>
-<p>On the other hand, $log(1+u)\ge u-u^{2}/2$, therefore, [cite: 271]</p>
+<p>On the other hand， $log(1+u)\ge u-u^{2}/2$， therefore， [cite: 271]</p>
 <p>$-log\sum _ {k=1}^{n}e^{-z_{k}}\ge(1-\frac{1}{n}\sum _ {k=1}^{n}z_{k}+\frac{1}{n}\sum _ {k=1}^{n}z_{k}^{2})-\frac{1}{2}(1-\frac{1}{n}\sum _ {k=1}^{n}z_{k}+\frac{1}{n}\sum _ {k=1}^{n}z_{k}^{2})^{2}-log(n)$</p>
-<p>Therefore, in the limit $\sigma\rightarrow\infty$ the bounds become tighter and the I-Con loss approaches the cohesion variance loss. [cite: 271] $\Pi$ [cite: 272]</p>
+<p>Therefore， in the limit $\sigma\rightarrow\infty$ the bounds become tighter and the I-Con loss approaches the cohesion variance loss. [cite: 271] $\Pi$ [cite: 272]</p>
 </blockquote>
 <p>根据引理1， 当 $p_{j|i}=1[i=j]$ 我们有</p>
 <p>$$<br>
@@ -391,7 +391,7 @@ $$</p>
 <h2 id="统一InfoNCE">统一InfoNCE</h2>
 <p>InfoNCE 旨在最大化正样本对之间的相似度，同时最小化负样本对之间的相似度，在学习的特征空间中。在 I-Con 框架中，这可以解释为最小化两个分布之间的散度：原始空间中的邻域分布和学习到的嵌入空间中的分布。</p>
 <p>$$<br>
-p_{\theta}(j|i)=\begin{cases}\frac{1}{k},x_j为x_i的k \  positive \ views\ 0\end{cases}<br>
+p_{\theta}(j|i)=\begin{cases}\frac{1}{k}，x_j为x_i的k \  positive \ views\ 0\end{cases}<br>
 $$</p>
 <p>其中 k 是$x _ {i}$ 的positive pairs数量。</p>
 <p>$q_{\phi}(j|i)$ 基于 $f _ {\phi}(x _ {i})$ 和 $f _ {\phi}(x _ {j})$之间相似度，并约束在单位范数上 $(||f _ {\phi}(x _ {i})||=1)$ 。使用一个带温度系数的高斯核为：</p>
@@ -405,19 +405,19 @@ $$<br>
 $$</p>
 <p>故<br>
 $$<br>
-\mathcal{L} _ {InfoNCE}\propto\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta},q_{\phi})<br>
+\mathcal{L} _ {InfoNCE}\propto\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta}，q_{\phi})<br>
 $$<br>
 H表示交叉熵，因为 $p_{\theta}(j|i)$ 是固定的，所以最小化交叉熵等价于最小化KL散度。</p>
 <h2 id="统一VICReg">统一VICReg</h2>
 <p><strong>Theorem 4.</strong> <em>VICReg Bardes et al. (2021) without a covariance term is an instance of the I-Con framework.</em> [cite: 296]<br>
-Given Proposition 1, we know that any loss in the cohesion variance form is an instance of I-Con: [cite: 297]</p>
+Given Proposition 1， we know that any loss in the cohesion variance form is an instance of I-Con: [cite: 297]</p>
 <p>$\mathcal{L}=\frac{1}{n}\sum _ {ij}p_{j|i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)$<br>
 $\mathcal{L}=\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i^{+}})||^{2}-2Var(X)$</p>
-<p>If we choose $p_{j|i}$ to be an indicator over positive pairs, i and $i^{+}$, we obtain [cite: 297]</p>
+<p>If we choose $p_{j|i}$ to be an indicator over positive pairs， i and $i^{+}$， we obtain [cite: 297]</p>
 <p>which is the VICReg loss without the covariance term and with an invariance-to-variance term ratio of 1:2. [cite: 297] Observe that VICReg does not have negative pairs because it applies an equal repulsion force to all points. [cite: 298] This is equivalent to taking $\sigma\rightarrow\infty$ in the conditional Gaussian distribution over the embeddings. [cite: 299]</p>
 <h2 id="统一Triplet-Loss">统一Triplet Loss</h2>
 <p>$$<br>
-P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \ 0 &amp; \text{otherwise,} \end{cases}<br>
+P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \ 0 &amp; \text{otherwise，} \end{cases}<br>
 $$</p>
 <p>$$<br>
 q_{\phi}(j|i)=\frac{exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})^{2}}<br>
@@ -442,16 +442,24 @@ $$<br>
 \end{align}<br>
 $$<br>
 我们知道：</p>
-<p>$max(z,0)\le log(1+exp(z))\le max(z,0)+log(2)$ [cite: 307]</p>
+<p>$$<br>
+max(z，0)\le log(1+exp(z))\le max(z，0)+log(2)<br>
+$$</p>
 <p>则有：</p>
-<p>$\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-},0)\le\mathcal{L}\le\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-},0)+log(2)$ [cite: 307]</p>
-<p>左侧是 Triplet loss $\mathcal{L} _ {Triplet}=\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-},0)$. [cite: 307] 故有以下bounds:</p>
-<p>$\mathcal{L}-log(2)\le\mathcal{L} _ {Triplet}\le\mathcal{L}$</p>
-<p>对于一般的 $\sigma$, 不等式界限为：</p>
-<p>$\mathcal{L} _ {\sigma}-\sigma^{2}log(2)\le\mathcal{L} _ {Triplet}\le\mathcal{L} _ {\sigma}$ [cite: 308]</p>
+<p>$$<br>
+\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-}，0)\le\mathcal{L}\le\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-}，0)+log(2)<br>
+$$</p>
+<p>左侧是 Triplet loss $\mathcal{L} _ {Triplet}=\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-}，0)$，故有以下bounds:</p>
+<p>$$<br>
+\mathcal{L}-log(2)\le\mathcal{L} _ {Triplet}\le\mathcal{L}<br>
+$$</p>
+<p>对于一般的 $\sigma$， 不等式界限为：</p>
+<p>$$<br>
+\mathcal{L} _ {\sigma}-\sigma^{2}log(2)\le\mathcal{L} _ {Triplet}\le\mathcal{L} _ {\sigma}<br>
+$$</p>
 <p>其中</p>
 <p>$\mathcal{L} _ {\sigma}=-\frac{\sigma^{2}}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-\frac{||f _ {\sigma}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})}$ [cite: 308]</p>
-<p>当 $\sigma\to 0$, $\mathcal{L} _ {Triplet}$ 接近于 $\mathcal{L} _ {\sigma}$</p>
+<p>当 $\sigma\to 0$， $\mathcal{L} _ {Triplet}$ 接近于 $\mathcal{L} _ {\sigma}$</p>
 <h2 id="统一有监督对比损失">统一有监督对比损失</h2>
 <p>从统一InfoNCE的式子来看，定义：<br>
 $$<br>
@@ -489,120 +497,120 @@ $$</p>
 <p>其中 $#[\text{Context } i \text{ precedes token } j]$ 表示在训练语料库中tokensj与上下文x_i之后出现的次数， Z是一个归一化常数，以确保 $\sum _ {j}p_{\theta}(j|i)=1$。</p>
 <p>$q_{\phi}(j|i)$ 使用神经网络输出的tokens预测logits进行建模，它被定义为上下文嵌入 $f _ {\phi}(x _ {i})$ 和 token 嵌入 $\phi_{j}$ 的点积的softmax：</p>
 <p>$q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot\phi_{j})}{\sum _ {k\in\mathcal{V}}exp(f _ {\phi}(x _ {i})\cdot\phi_{k})}$ [cite: 332]</p>
-<p>其中 $f _ {\phi}(x _ {i})$ 是模型生成的上下文 $x _ {i}$ 的嵌入, $\phi_{j}$ 是token j的嵌入，V是所有可能tokens的词汇表。</p>
+<p>其中 $f _ {\phi}(x _ {i})$ 是模型生成的上下文 $x _ {i}$ 的嵌入， $\phi_{j}$ 是token j的嵌入，V是所有可能tokens的词汇表。</p>
 <p>MLM 损失旨在最小化目标分布p和学习分布q之间的交叉熵：</p>
-<p>$\mathcal{L} _ {MLM}=-\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta},q_{\phi})$</p>
-<p>由于在实践中，对于每个 $x _ {i}$ 仅考虑真实的masked token $j_{i}^{*}$ ,目标分布简化为：</p>
-<p>$p_{\theta}(j|i)=\delta_{j,j_{i}^{*}}$</p>
-<p>其中 $\delta_{j.j_{i}^{<em>}}$ 是 Kronecker delta function, 当 $j=j_{i}^{</em>}$ 时等于1，否则为0</p>
+<p>$\mathcal{L} _ {MLM}=-\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta}，q_{\phi})$</p>
+<p>由于在实践中，对于每个 $x _ {i}$ 仅考虑真实的masked token $j_{i}^{*}$ ，目标分布简化为：</p>
+<p>$p_{\theta}(j|i)=\delta_{j，j_{i}^{*}}$</p>
+<p>其中 $\delta_{j.j_{i}^{<em>}}$ 是 Kronecker delta function， 当 $j=j_{i}^{</em>}$ 时等于1，否则为0</p>
 <p>代入损失函数，MLM损失变为：</p>
 <p>$\mathcal{L} _ {MLM}=-\sum _ {i}log~q_{\phi}(j_{i}^{*}|x _ {i})$</p>
 <h2 id="统一Kmeans">统一Kmeans</h2>
-<p><strong>经典Kmeans的定义：</strong>** <em>(Classical K-means).</em> Let $x _ {1},x _ {2},…,x _ {N}\in\mathbb{R}^{n}$ denote the data points, and $\mu_{1},\mu_{2},…,\mu_{m}\in\mathbb{R}^{n}$ be the cluster centers. [cite: 339] The objective of classical K-means is to minimize the following loss function: [cite: 340]</p>
+<p><strong>经典Kmeans的定义：</strong>** <em>(Classical K-means).</em> Let $x _ {1}，x _ {2}，…，x _ {N}\in\mathbb{R}^{n}$ denote the data points， and $\mu_{1}，\mu_{2}，…，\mu_{m}\in\mathbb{R}^{n}$ be the cluster centers. [cite: 339] The objective of classical K-means is to minimize the following loss function: [cite: 340]</p>
 <p>$\mathcal{L} _ {k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\mathfrak{I}(c^{(i)}=c)||x _ {i}-\mu_{c}||^{2}$ [cite: 340]</p>
-<p>where $c^{(i)}$ represents the cluster assignment for data point $x _ {i}$, and is defined as:<br>
+<p>where $c^{(i)}$ represents the cluster assignment for data point $x _ {i}$， and is defined as:<br>
 $c^{(i)}=arg~min_{c}||x _ {i}-\mu_{c}||^{2}$ [cite: 340]</p>
 <h3 id="似然-K-means-松弛">似然 K-means 松弛</h3>
-<p>In probabilistic K-means, the cluster assignments are relaxed by assuming that each data point $x _ {i}$ belongs to a cluster with probability $\phi_{ic}$. [cite: 340] In other words, $\phi_{i}$ represents the cluster assignments vector for $x _ {i}$. [cite: 340]</p>
+<p>In probabilistic K-means， the cluster assignments are relaxed by assuming that each data point $x _ {i}$ belongs to a cluster with probability $\phi_{ic}$. [cite: 340] In other words， $\phi_{i}$ represents the cluster assignments vector for $x _ {i}$. [cite: 340]</p>
 <p><strong>Proposition 2.</strong> <em>The relaxed loss function for probabilistic K-means is given by:</em> [cite: 340]</p>
 <p>$\mathcal{L} _ {Pmb\cdot k.Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ [cite: 340]</p>
-<p><em>and is equivalent to the original K-means objective $\mathcal{L} _ {k-Means}$ The optimal assignment probabilities $\phi_{ic}$ are deterministic, assigning probability 1 to the closest cluster and 0 to others.</em> [cite: 340]</p>
-<p><em>Proof.</em> For each data point $x _ {i}$ , the term $\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ is minimized when the assignment probabilities $\phi_{ic}$ are deterministic, i.e., [cite: 341]</p>
-<p>$\phi_{ic}=\begin{cases}1&amp;if~c=arg~min_{j}||x _ {i}-\mu_{j}||^{2},\ 0&amp;otherwise.\end{cases}$ [cite: 341]</p>
-<p>With these deterministic probabilities, $\mathcal{L} _ {Prob-k-Mcans}$ simplifies to the classical K-means objective, confirming that the relaxation introduces no gap. [cite: 341]</p>
+<p><em>and is equivalent to the original K-means objective $\mathcal{L} _ {k-Means}$ The optimal assignment probabilities $\phi_{ic}$ are deterministic， assigning probability 1 to the closest cluster and 0 to others.</em> [cite: 340]</p>
+<p><em>Proof.</em> For each data point $x _ {i}$ ， the term $\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ is minimized when the assignment probabilities $\phi_{ic}$ are deterministic， i.e.， [cite: 341]</p>
+<p>$\phi_{ic}=\begin{cases}1&amp;if~c=arg~min_{j}||x _ {i}-\mu_{j}||^{2}，\ 0&amp;otherwise.\end{cases}$ [cite: 341]</p>
+<p>With these deterministic probabilities， $\mathcal{L} _ {Prob-k-Mcans}$ simplifies to the classical K-means objective， confirming that the relaxation introduces no gap. [cite: 341]</p>
 <h3 id="似然-K-means-的对比公式">似然 K-means 的对比公式</h3>
 <p><strong>Definition 2.</strong> Let ${x _ {i}} _ {i=1}^{N}$ be a set of data points. [cite: 342] Define the conditional probablity $q_{\phi}(j|i)$ as: [cite: 343]</p>
 <p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$ [cite: 343]</p>
 <p>where $\phi_{i}$ is the soft-cluster assignments for $x _ {i}$ [cite: 343]</p>
 <p>$\Pi$ [cite: 343]</p>
-<p>Given $q_{\phi}(j|i)$, we can reformulate probabilistic K-means as a contrastive loss:<br>
+<p>Given $q_{\phi}(j|i)$， we can reformulate probabilistic K-means as a contrastive loss:<br>
 <strong>Theorem 12.</strong> <em>Let ${x _ {i}} _ {i=1}^{N}\in\mathbb{R}^{n}$ and ${\phi_{ic}} _ {i=1}^{N}$ be the corresponding assignment probabilities.</em> Define the objective function Las: [cite: 344]</p>
-<p>$\mathcal{L}=-\sum _ {i,j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)$ . [cite: 344]</p>
+<p>$\mathcal{L}=-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)$ . [cite: 344]</p>
 <p><em>Minimizing L with respect to the assignment probabilities ${\phi_{ic}}$ yields optimal cluster assignments equivalent to those obtained by K-means.</em> [cite: 344]</p>
 <p>— PAGE 25 —</p>
 <p><em>Proof.</em> The relaxed probabilistic K-means objective $\mathcal{L} _ {Prob-k-Means}$ is: [cite: 346]</p>
 <p>$\mathcal{L} _ {Prob\cdot k:Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}$ [cite: 346]</p>
-<p>Expanding this, we obtain: $\mathcal{L} _ {Prob\cdot k\cdot Means}=\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic})||\mu_{c}||^{2}-2\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic}x _ {i})\cdot\mu_{c}+\sum _ {i=1}^{N}||x _ {i}||^{2}$ [cite: 346]</p>
+<p>Expanding this， we obtain: $\mathcal{L} _ {Prob\cdot k\cdot Means}=\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic})||\mu_{c}||^{2}-2\sum _ {c=1}^{m}(\sum _ {i=1}^{N}\phi_{ic}x _ {i})\cdot\mu_{c}+\sum _ {i=1}^{N}||x _ {i}||^{2}$ [cite: 346]</p>
 <p>The cluster centers $\mu_{c}$ that minimize this loss are given by: [cite: 346]</p>
 <p>$\mu_{c}=\frac{\sum _ {i=1}^{N}\phi_{ic}x _ {i}}{\sum _ {i=1}^{N}\phi_{ic}}$ [cite: 346]</p>
-<p>Substituting $\mu_{c}$ back into the loss function, we get: [cite: 346]</p>
-<p>$\mathcal{L}=-\sum _ {i,j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)$ [cite: 346]</p>
+<p>Substituting $\mu_{c}$ back into the loss function， we get: [cite: 346]</p>
+<p>$\mathcal{L}=-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)$ [cite: 346]</p>
 <p>which proves that minimizing this contrastive formulation leads to the same clustering assignments as classical K-means. [cite: 346]</p>
 <p><strong>Corollary 3.</strong> <em>The alternative loss function:</em> [cite: 347]</p>
-<p>$\mathcal{L}=-\sum _ {i,j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ [cite: 347]</p>
+<p>$\mathcal{L}=-\sum _ {i，j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ [cite: 347]</p>
 <p><em>yields the same optimal clustering assignments when minimized with respect to ${\phi_{ic}}$</em> [cite: 347]</p>
 <p><em>Proof.</em> Expanding the squared norm in the loss function gives: [cite: 348]</p>
-<p>$\mathcal{L}=-\sum _ {i,j}(||x _ {i}||^{2}-2x _ {i}\cdot x _ {j}+||x _ {j}||^{2})q_{\phi}(j|i)$<br>
-$\mathcal{L}=2(-\sum _ {i,j}x _ {i}\cdot x _ {j}q_{\phi}(j|i))$ [cite: 348]</p>
+<p>$\mathcal{L}=-\sum _ {i，j}(||x _ {i}||^{2}-2x _ {i}\cdot x _ {j}+||x _ {j}||^{2})q_{\phi}(j|i)$<br>
+$\mathcal{L}=2(-\sum _ {i，j}x _ {i}\cdot x _ {j}q_{\phi}(j|i))$ [cite: 348]</p>
 <p>The terms involving $||x _ {i}||^{2}$ and $||x _ {j}||^{2}$ simplify since $\sum _ {j}q_{\phi}(j|i)=1$ reducing the loss to: [cite: 348]</p>
 <p>which is equivalent to the objective in the previous theorem. [cite: 348]</p>
 <p>$\Pi$ [cite: 349]</p>
 <p>$\Pi$ [cite: 349]</p>
 <h2 id="PROBABILISTIC-K-MEANS-AS-AN-I-CON-METHOD">PROBABILISTIC K-MEANS AS AN I-CON METHOD</h2>
-<p>In the I-Con framework, the target and learned distributions represent affinities between data points based on specific measures. [cite: 349] For instance, in SNE, these measures are Euclidean distances in high- and low-dimensional spaces, while in SupCon, the distances reflect whether data points belong to the same class. [cite: 350] Similarly, we can define a measure of neighborhood probabilities in the context of clustering, where two points are considered neighbors if they belong to the same cluster. [cite: 351] The probability of selecting $x _ {j}$ as $x _ {i}$ neighbor is the probability that a point, chosen uniformly at random from $x _ {i}$ 's cluster, is $x _ {j}$. [cite: 352] More explicitly, let $q_{\phi}(j|i)$ represent the probability that $x _ {j}$ is selected uniformly at random from $x _ {i}$ cluster: [cite: 353]</p>
+<p>In the I-Con framework， the target and learned distributions represent affinities between data points based on specific measures. [cite: 349] For instance， in SNE， these measures are Euclidean distances in high- and low-dimensional spaces， while in SupCon， the distances reflect whether data points belong to the same class. [cite: 350] Similarly， we can define a measure of neighborhood probabilities in the context of clustering， where two points are considered neighbors if they belong to the same cluster. [cite: 351] The probability of selecting $x _ {j}$ as $x _ {i}$ neighbor is the probability that a point， chosen uniformly at random from $x _ {i}$ 's cluster， is $x _ {j}$. [cite: 352] More explicitly， let $q_{\phi}(j|i)$ represent the probability that $x _ {j}$ is selected uniformly at random from $x _ {i}$ cluster: [cite: 353]</p>
 <p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$ [cite: 353]</p>
-<p><strong>Theorem 13</strong> <em>(K-means as an instance of I-Con).</em> Given data points ${x _ {i}} _ {i=1}^{N}$, define the neighborhood probabilities $p_{\theta}(j|i)$ and $q_{\phi}(j|i)$ as: [cite: 354]</p>
+<p><strong>Theorem 13</strong> <em>(K-means as an instance of I-Con).</em> Given data points ${x _ {i}} _ {i=1}^{N}$， define the neighborhood probabilities $p_{\theta}(j|i)$ and $q_{\phi}(j|i)$ as: [cite: 354]</p>
 <p>$p_{\theta}(j|i)=\frac{exp(-||x _ {i}-x _ {j}||^{2}/2\sigma^{2})}{\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2}/2\sigma^{2})}$ [cite: 354]</p>
 <p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$ [cite: 354]</p>
 <p>— PAGE 26 —</p>
 <p>Let the loss function $\mathcal{L} _ {C-SNE}$ be the sum of KL divergences between the distributions $q_{\phi}(j|i)$ and $p_{\theta}(j|i)$: [cite: 355]</p>
-<p>Then, [cite: 355]</p>
+<p>Then， [cite: 355]</p>
 <p>$\mathcal{L} _ {c\cdot SNE}=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))$<br>
 $\mathcal{L} _ {c\cdot SNE}=\frac{1}{2\sigma^{2}}\mathcal{L} _ {Pmb\cdot k\cdot Means}-\sum _ {i}H(q_{\phi}(\cdot|i))$ [cite: 355]</p>
 <p>where $H(q_{\phi}(\cdot|i))$ is the entropy of $q_{\phi}(\cdot|i)$. [cite: 355]<br>
-<em>Proof.</em> For simplicity, assume that $2\sigma^{2}=1$. [cite: 356] Denote $\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2})$ by $Z_{i}$. [cite: 356] Then we have: [cite: 357]</p>
+<em>Proof.</em> For simplicity， assume that $2\sigma^{2}=1$. [cite: 356] Denote $\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2})$ by $Z_{i}$. [cite: 356] Then we have: [cite: 357]</p>
 <p>$log~p_{\theta}(j|i)=-||x _ {i}-x _ {j}||^{2}-log~Z_{i}$ [cite: 357]</p>
-<p>Let $\mathcal{L} _ {i}$ be defined as $-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ Using the equation above, $\mathcal{L} _ {i}$ can be rewritten as: [cite: 357]</p>
+<p>Let $\mathcal{L} _ {i}$ be defined as $-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ Using the equation above， $\mathcal{L} _ {i}$ can be rewritten as: [cite: 357]</p>
 <p>$\mathcal{L} _ {i}=-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ (2) [cite: 357]</p>
 <p>$=\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)$ (3) [cite: 357]</p>
 <p>$=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})$ (4) [cite: 357]</p>
 <p>$=\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})$ (5) [cite: 357]</p>
-<p>$=H(q_{\phi}(\cdot|i),p_{\theta}(\cdot|i))+log(Z_{i})$ (6) [cite: 357]</p>
+<p>$=H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})$ (6) [cite: 357]</p>
 <p>$=D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})$. (7) [cite: 358]</p>
-<p>Therefore, $\mathcal{L} _ {Prob-KMeitns}$ as defined in Corollary 3, can be rewritten as: [cite: 358]</p>
+<p>Therefore， $\mathcal{L} _ {Prob-KMeitns}$ as defined in Corollary 3， can be rewritten as: [cite: 358]</p>
 <p>$\mathcal{L} _ {Prob\cdot KMeans}=-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)=\sum _ {i}\mathcal{L} _ {i}$ (8) [cite: 358]</p>
 <p>$=\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})$ (9) [cite: 358]</p>
 <p>$=\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant$. (10) [cite: 358]<br>
-Therefore, [cite: 359]</p>
+Therefore， [cite: 359]</p>
 <p>$\mathcal{L} _ {c\cdot SNE}=\mathcal{L} _ {Prob-KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))$ [cite: 359]</p>
-<p>If we allow $\sigma$ to take any value, the entropy penalty will be weighted accordingly: [cite: 359]</p>
+<p>If we allow $\sigma$ to take any value， the entropy penalty will be weighted accordingly: [cite: 359]</p>
 <p>$\mathcal{L} _ {c\cdot SNE}=\frac{1}{2\sigma^{2}}\mathcal{L} _ {Prob\cdot KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))$ [cite: 359]</p>
 <p>Note that the relation above is up to an additive constant. [cite: 359] This implies that minimizing the contrastive probabilistic K-means loss with entropy regularization minimizes the sum of KL divergences between $q_{\phi}(\cdot|i)$ and $p_{\theta}(\cdot|i)$ [cite: 360]</p>
 <h2 id="统一谱聚类">统一谱聚类</h2>
 <p><strong>Corollary 4.</strong> <em>Spectral Clustering is an instance of the I-Con framework.</em> [cite: 360]<br>
-<em>Proof.</em> From Theorem 13, we know that K-Means clustering can be formulated as an instance of the I-Con framework, where the clustering assignments depend on the inner products of the data points. [cite: 361] Spectral Clustering extends this idea by first embedding the data into a lower-dimensional space using the top k eigenvectors of the normalized Laplacian derived from the affinity matrix A. [cite: 362] The affinity matrix A is constructed using a similarity measure (e.g., an RBF kernel) and encodes the probabilities of assignments between data points. [cite: 362] Given this transformation, spectral clustering is an instance of I-Con on the projected embeddings. [cite: 363]</p>
+<em>Proof.</em> From Theorem 13， we know that K-Means clustering can be formulated as an instance of the I-Con framework， where the clustering assignments depend on the inner products of the data points. [cite: 361] Spectral Clustering extends this idea by first embedding the data into a lower-dimensional space using the top k eigenvectors of the normalized Laplacian derived from the affinity matrix A. [cite: 362] The affinity matrix A is constructed using a similarity measure (e.g.， an RBF kernel) and encodes the probabilities of assignments between data points. [cite: 362] Given this transformation， spectral clustering is an instance of I-Con on the projected embeddings. [cite: 363]</p>
 <h2 id="统一Normalized-Cuts">统一Normalized Cuts</h2>
-<p><strong>Theorem 14.</strong> <em>Normalized Cuts (Shi &amp; Malik, 2000) is an instance of I-Con.</em> [cite: 364]<br>
+<p><strong>Theorem 14.</strong> <em>Normalized Cuts (Shi &amp; Malik， 2000) is an instance of I-Con.</em> [cite: 364]<br>
 <em>Proof.</em> The proof for this follows naturally from our work on K-Means analysis. [cite: 365] The loss function for normalized cuts is defined as: [cite: 366]</p>
-<p>$\mathcal{L} _ {NomCus}=\sum _ {c=1}^{m}\frac{cut(A_{c},\overline{A} _ {c})}{vol(A_{c})}$ [cite: 366]</p>
-<p>where $A_{c}$ is a subset of the data corresponding to cluster c. [cite: 366] $\overline{A} _ {c}$ is its complement, and $cut(A_{c},\overline{A_{c}})$ represents the sum of edge weights between $A_{c}$ and $\overline{A} _ {c}$, while $vol(A_{c})$ is the total volume of cluster $A_{c}$ i.e., the sum of edge weights within $A_{c}$. [cite: 367]</p>
-<p>Similar to K-Means, by reformulating this in a contrastive style with soft-assignments, the learned distribution can be expressed using the probabilistic cluster assignments $\phi_{ic}=p(c|x _ {i})$ as: [cite: 367]</p>
+<p>$\mathcal{L} _ {NomCus}=\sum _ {c=1}^{m}\frac{cut(A_{c}，\overline{A} _ {c})}{vol(A_{c})}$ [cite: 366]</p>
+<p>where $A_{c}$ is a subset of the data corresponding to cluster c. [cite: 366] $\overline{A} _ {c}$ is its complement， and $cut(A_{c}，\overline{A_{c}})$ represents the sum of edge weights between $A_{c}$ and $\overline{A} _ {c}$， while $vol(A_{c})$ is the total volume of cluster $A_{c}$ i.e.， the sum of edge weights within $A_{c}$. [cite: 367]</p>
+<p>Similar to K-Means， by reformulating this in a contrastive style with soft-assignments， the learned distribution can be expressed using the probabilistic cluster assignments $\phi_{ic}=p(c|x _ {i})$ as: [cite: 367]</p>
 <p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}d_{j}}{\sum _ {k=1}^{N}\phi_{kc}d_{k}}$ [cite: 367]</p>
-<p>where $d_{j}$ is the degree of node $x _ {j}$, and the volume and cut terms can be viewed as weighted sums over the soft-assignments of data points to clusters. [cite: 367] This reformulation shows that normalized cuts can be written in a manner consistent with the I-Con framework, where the target distribution $p_{\theta}(j|i)$ and the learned distribution $q_{\phi}(j|i)$ represent affinity relationships based on graph structure and cluster assignments. [cite: 368] Thus, normalized cuts is an instance of I-Con, where the loss function optimizes the neighborhood structure based on the cut and volume of clusters in a manner similar to K-Means and its probabilistic relaxations. [cite: 369]</p>
+<p>where $d_{j}$ is the degree of node $x _ {j}$， and the volume and cut terms can be viewed as weighted sums over the soft-assignments of data points to clusters. [cite: 367] This reformulation shows that normalized cuts can be written in a manner consistent with the I-Con framework， where the target distribution $p_{\theta}(j|i)$ and the learned distribution $q_{\phi}(j|i)$ represent affinity relationships based on graph structure and cluster assignments. [cite: 368] Thus， normalized cuts is an instance of I-Con， where the loss function optimizes the neighborhood structure based on the cut and volume of clusters in a manner similar to K-Means and its probabilistic relaxations. [cite: 369]</p>
 <h2 id="统一互信息聚类">统一互信息聚类</h2>
 <p>$\Pi$ [cite: 370]</p>
-<p><em>Proof.</em> Given the connection established between SimCLR, K-Means, and the I-Con framework, this result follows naturally. [cite: 371] Specifically, the target distribution $p_{\theta}(j|i)$ (the supervised part) is a uniform distribution over observed positive pairs: [cite: 372]</p>
+<p><em>Proof.</em> Given the connection established between SimCLR， K-Means， and the I-Con framework， this result follows naturally. [cite: 371] Specifically， the target distribution $p_{\theta}(j|i)$ (the supervised part) is a uniform distribution over observed positive pairs: [cite: 372]</p>
 <p>$P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \ 0 &amp; \text{otherwise.} \end{cases}$ [cite: 373]</p>
-<p>On the other hand, the learned embeddings $\phi_{i}$ represent the probabilistic assignments of $x _ {i}$ into clusters. [cite: 373] Therefore, similar to the analysis of the K-Means connection, the learned distribution is modeled as: [cite: 374]</p>
+<p>On the other hand， the learned embeddings $\phi_{i}$ represent the probabilistic assignments of $x _ {i}$ into clusters. [cite: 373] Therefore， similar to the analysis of the K-Means connection， the learned distribution is modeled as: [cite: 374]</p>
 <p>$q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}$ [cite: 374]</p>
-<p>This shows that Mutual Information Clustering can be viewed as a method within the I-Con framework, where the learned distribution $q_{\phi}(j|i)$ aligns with the target distribution $p_{\theta}(j|i)$ completing the proof. [cite: 374]</p>
+<p>This shows that Mutual Information Clustering can be viewed as a method within the I-Con framework， where the learned distribution $q_{\phi}(j|i)$ aligns with the target distribution $p_{\theta}(j|i)$ completing the proof. [cite: 374]</p>
 <h2 id="I-Con-作为变分法">I-Con 作为变分法</h2>
 <p>$\Pi$ [cite: 375]</p>
-<p>Variational bounds for mutual information are widely explored and have been connected to loss functions such as InfoNCE, where minimizing InfoNCE maximizes the mutual information lower bound (Oord et al., 2018; Poole et al., 2019). [cite: 375] The proof usually starts by rewriting the mutual information: [cite: 376]</p>
-<p>$I(X;Y)=\mathbb{E} _ {p(x,y)}[log\frac{q(x|y)}{p(x)}]+\mathbb{E} _ {p(y)}[D_{KL}(p(x|y)||q(x|y))]$ [cite: 376]</p>
-<p>This expression is typically used to derive a lower bound for $I(X;Y)$. [cite: 376] The proof usually begins by assuming that p is uniform over discrete data points $\mathcal{X}={x _ {i}} _ {i=1}^{N}$ (i.e., we use uniform sampling [cite: 376]</p>
+<p>Variational bounds for mutual information are widely explored and have been connected to loss functions such as InfoNCE， where minimizing InfoNCE maximizes the mutual information lower bound (Oord et al.， 2018; Poole et al.， 2019). [cite: 375] The proof usually starts by rewriting the mutual information: [cite: 376]</p>
+<p>$I(X;Y)=\mathbb{E} _ {p(x，y)}[log\frac{q(x|y)}{p(x)}]+\mathbb{E} _ {p(y)}[D_{KL}(p(x|y)||q(x|y))]$ [cite: 376]</p>
+<p>This expression is typically used to derive a lower bound for $I(X;Y)$. [cite: 376] The proof usually begins by assuming that p is uniform over discrete data points $\mathcal{X}={x _ {i}} _ {i=1}^{N}$ (i.e.， we use uniform sampling [cite: 376]</p>
 <p>— PAGE 28 —</p>
-<p>for data points). [cite: 377] By using the fact that $p(x _ {i})=\frac{1}{N}$ we can write $p(x,y)=\frac{1}{N}p(x|y)$. [cite: 378] Therefore, the mutual information lower bound becomes [cite: 378]</p>
-<p>$I(X;Y)\ge\mathbb{E} _ {p(x,y)}[log~q(x|y)]-\mathbb{E} _ {p(x,y)}[log~p(x)]$<br>
-$=\mathbb{E} _ {p(x,y)}[log~q(x|y)]+log(N)$ [cite: 378]</p>
-<p>$=\frac{1}{N}\sum _ {x,y\in\mathcal{X}\times\mathcal{X}}p(x|y)log~q(x|y)+log(N)$<br>
+<p>for data points). [cite: 377] By using the fact that $p(x _ {i})=\frac{1}{N}$ we can write $p(x，y)=\frac{1}{N}p(x|y)$. [cite: 378] Therefore， the mutual information lower bound becomes [cite: 378]</p>
+<p>$I(X;Y)\ge\mathbb{E} _ {p(x，y)}[log~q(x|y)]-\mathbb{E} _ {p(x，y)}[log~p(x)]$<br>
+$=\mathbb{E} _ {p(x，y)}[log~q(x|y)]+log(N)$ [cite: 378]</p>
+<p>$=\frac{1}{N}\sum _ {x，y\in\mathcal{X}\times\mathcal{X}}p(x|y)log~q(x|y)+log(N)$<br>
 $=\frac{1}{N}\sum _ {y\in\mathcal{X}}\sum _ {x\in\mathcal{X}}p(x|y)log~q(x|y)+log(N)$<br>
-$=-H(p(x|y),q(x|y))+log(N)$ [cite: 378]</p>
-<p>Therefore, maximizing the cross-entropy between the two distributions maximizes the mutual information between samples. [cite: 378] On the hand, Variational Bayesian (VB) methods are fundamental in approximating intractable posterior distributions $p(z|x)$ with tractable variational distributions $q_{\phi}(z)$. [cite: 379] This approximation is achieved by minimizing the Kullback-Leibler (KL) divergence between the variational distribution and the true posterior: [cite: 380]</p>
+$=-H(p(x|y)，q(x|y))+log(N)$ [cite: 378]</p>
+<p>Therefore， maximizing the cross-entropy between the two distributions maximizes the mutual information between samples. [cite: 378] On the hand， Variational Bayesian (VB) methods are fundamental in approximating intractable posterior distributions $p(z|x)$ with tractable variational distributions $q_{\phi}(z)$. [cite: 379] This approximation is achieved by minimizing the Kullback-Leibler (KL) divergence between the variational distribution and the true posterior: [cite: 380]</p>
 <p>$KL(q_{\phi}(z)||p(z|x))=\mathbb{E} _ {q_{\phi}(z)}[log\frac{q_{\phi}(z)}{p(z|x)}]$ (11) [cite: 380]</p>
-<p>The optimization objective, known as the Evidence Lower Bound (ELBO), is given by: [cite: 380]</p>
-<p>$ELBO=\mathbb{E} _ {q_{\varphi}(z)}[log~p(x,z)]-\mathbb{E} _ {q_{\varphi}(z)}[log~q_{\phi}(z)]$. (12) [cite: 381]</p>
-<p>Maximizing the ELBO is equivalent to minimizing the KL divergence, thereby ensuring that $q_{\phi}(z)$ closely approximates $p(z|x)$ (Blei et al., 2017). [cite: 381] VB can be framed within the I-Con framework by making specific mappings between the variables and distributions. [cite: 382] Let i correspond to the data point z, and j correspond to the latent variable z. [cite: 383] We can set the supervisory distribution $p_{\theta}(z|x\overline{)}$ to be the true posterior $p(z|x)$. [cite: 384] This allow us to define the learned distribution $q_{\phi}(z|x)$ to be independent of z, i.e., $q_{\phi}(z|x)=q_{\phi}(z)$. [cite: 385] Under these settings, the I-Con loss simplifies to: [cite: 386]</p>
+<p>The optimization objective， known as the Evidence Lower Bound (ELBO)， is given by: [cite: 380]</p>
+<p>$ELBO=\mathbb{E} _ {q_{\varphi}(z)}[log~p(x，z)]-\mathbb{E} _ {q_{\varphi}(z)}[log~q_{\phi}(z)]$. (12) [cite: 381]</p>
+<p>Maximizing the ELBO is equivalent to minimizing the KL divergence， thereby ensuring that $q_{\phi}(z)$ closely approximates $p(z|x)$ (Blei et al.， 2017). [cite: 381] VB can be framed within the I-Con framework by making specific mappings between the variables and distributions. [cite: 382] Let i correspond to the data point z， and j correspond to the latent variable z. [cite: 383] We can set the supervisory distribution $p_{\theta}(z|x\overline{)}$ to be the true posterior $p(z|x)$. [cite: 384] This allow us to define the learned distribution $q_{\phi}(z|x)$ to be independent of z， i.e.， $q_{\phi}(z|x)=q_{\phi}(z)$. [cite: 385] Under these settings， the I-Con loss simplifies to: [cite: 386]</p>
 <p>$\mathcal{L}(\phi)=\int_{x\in\mathcal{X}}KL(p(z|x)||q_{\phi}(z))dx=\mathbb{E} _ {p(x)}[KL(p(z|x)||q_{\phi}(z))]$</p>
 
                 
