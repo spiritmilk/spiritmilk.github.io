@@ -18928,7 +18928,7 @@ $</p>
   <entry>
     <title>（几乎涵盖一切的）表示学习统一框架</title>
     <url>/2025/20250515/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I-Con （<a href="https://arxiv.org/abs/2504.16929">I-Con: A Unifying Framework for Representation Learning</a> ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>I-Con （<a href="https://arxiv.org/abs/2504.16929">I-Con: A Unifying Framework for Representation Learning</a> ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
 <span id="more"></span>
 <p><img src="I-Con.jpg" alt=""></p>
 <p><img src="model.jpg" alt=""></p>
@@ -19017,12 +19017,15 @@ $$<br>
 $$<br>
 H表示交叉熵，因为 $p_{\theta}(j|i)$ 是固定的，所以最小化交叉熵等价于最小化KL散度。</p>
 <h2 id="统一VICReg">统一VICReg</h2>
-<p><strong>Theorem 4.</strong> <em>VICReg Bardes et al. (2021) without a covariance term is an instance of the I-Con framework.</em> [cite: 296]<br>
-Given Proposition 1， we know that any loss in the cohesion variance form is an instance of I-Con: [cite: 297]</p>
-<p>$\mathcal{L}=\frac{1}{n}\sum _ {ij}p_{j|i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)$<br>
-$\mathcal{L}=\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i^{+}})||^{2}-2Var(X)$</p>
-<p>If we choose $p_{j|i}$ to be an indicator over positive pairs， i and $i^{+}$， we obtain [cite: 297]</p>
-<p>which is the VICReg loss without the covariance term and with an invariance-to-variance term ratio of 1:2. [cite: 297] Observe that VICReg does not have negative pairs because it applies an equal repulsion force to all points. [cite: 298] This is equivalent to taking $\sigma\rightarrow\infty$ in the conditional Gaussian distribution over the embeddings. [cite: 299]</p>
+<p>根据引理 1，我们知道任何凝聚方差形式的损失都是I-Con 的一个实例。</p>
+<p>$$<br>
+\mathcal{L}=\frac{1}{n}\sum _ {ij}p_{j|i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>
+$$</p>
+<p>若我们选择 $p_{j|i}$ 作为正样本对的指示器， i and $i^{+}$， 则：</p>
+<p>$$<br>
+\mathcal{L}=\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i^{+}})||^{2}-2Var(X)<br>
+$$</p>
+<p>这是没有协方差项且不变性-方差项比例为 1:2 的 VICReg 损失。观察到 VICReg 没有负样本，因为它对所有点施加相等的排斥力。这相当于在嵌入上的条件高斯分布中取 $\sigma\rightarrow\infty$ 。</p>
 <h2 id="统一Triplet-Loss">统一Triplet Loss</h2>
 <p>$$<br>
 P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i}<br>
