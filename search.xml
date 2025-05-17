@@ -16955,7 +16955,7 @@ $$<br>
   <entry>
     <title>Graph Information Bottleneck</title>
     <url>/2024/20240520/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。</p>
 <span id="more"></span>
 <h2 id="Information-Bottleneck">Information Bottleneck</h2>
 <p>最早来自2000年Naftali Tishby等人的的<a href="https://arxiv.org/abs/physics/0004057">《The information bottleneck method》</a></p>
@@ -17042,13 +17042,13 @@ $$</p>
 <p><strong>2. 近似 $I(X;Z)$ (压缩信息项)</strong></p>
 <p>我们希望最小化 $I(X;Z)$。<br>
 $$<br>
+\begin{align}<br>
 I(X;Z) = H(Z) - H(Z|X)<br>
-$$<br>
-$$<br>
+\\<br>
 H(Z|X) = - \mathbb{E} _ {p(x)} \left[ \int p _ {\theta}(z|x) \log p _ {\theta}(z|x) dz \right]<br>
-$$<br>
-$$<br>
+\\<br>
 H(Z) = - \int p(z) \log p(z) dz<br>
+\end{align}<br>
 $$<br>
 其中 $p(z) = \int p _ {\theta}(z|x) p(x) dx$。</p>
 <p>直接计算 $p(z)$ 非常困难。VIB在这里引入另一个<strong>固定的、简单的先验分布 $r(z)$</strong> (例如，标准正态分布 $\mathcal{N}(0,I)$)。然后，目标是将 $p(z)$ 推向 $r(z)$。<br>
