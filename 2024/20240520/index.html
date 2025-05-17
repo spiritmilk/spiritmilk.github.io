@@ -29,7 +29,7 @@
 <meta property="og:description" content="Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-20T12:59:56.000Z">
-<meta property="article:modified_time" content="2025-05-17T14:37:35.302Z">
+<meta property="article:modified_time" content="2025-05-17T14:49:41.201Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -276,7 +276,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.3k 字
         
       </span>
     
@@ -287,7 +287,7 @@
         
         
         
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -351,7 +351,7 @@ $$</p>
 </ul>
 <p>即最大化:</p>
 <p>$$<br>
-\mathcal{L}_{IB}[p(z|x)] = I(Z;Y) - \beta I(X;Z)<br>
+\mathcal{L} _ {IB}[p(z|x)] = I(Z;Y) - \beta I(X;Z)<br>
 $$</p>
 <p>其中：</p>
 <ul>
@@ -363,96 +363,108 @@ $$</p>
 <ol>
 <li><strong>$I(Z;Y)$ 的计算</strong>：<br>
 $$<br>
-I(Z;Y) = \mathbb{E}<em>{p(z,y)} \left[ \log \frac{p(z,y)}{p(z)p(y)} \right] = H(Y) - H(Y|Z)<br>
+I(Z;Y) = \mathbb{E} _ {p(z,y)} \left[ \log \frac{p(z,y)}{p(z)p(y)} \right] = H(Y) - H(Y|Z)<br>
 $$<br>
-其中 $H(Y)$ 是Y的熵（通常是常数，不影响优化），而 $H(Y|Z) = - \mathbb{E}</em>{p(z)} \left[ \mathbb{E}_{p(y|z)} [\log p(y|z)] \right]$。</li>
+其中 $H(Y)$ 是Y的熵（通常是常数，不影响优化），而 $H(Y|Z) = - \mathbb{E} _ {p(z)} \left[ \mathbb{E} _ {p(y|z)} [\log p(y|z)] \right]$。</li>
 </ol>
 <p>要计算 $p(y|z)$，我们需要知道从Z到Y的真实条件概率，这在复杂模型中是未知的。而且，即使知道了 $p(y|z)$，计算期望也可能涉及难以处理的积分。边缘分布 $p(z) = \int p(z|x)p(x)dx$ 的计算也可能非常复杂。</p>
 <ol start="2">
 <li><strong>$I(X;Z)$ 的计算</strong>：<br>
 $$<br>
-I(X;Z) = \mathbb{E}_{p(x,z)} \left[ \log \frac{p(x,z)}{p(x)p(z)} \right] = H(Z) - H(Z|X)<br>
+I(X;Z) = \mathbb{E} _ {p(x,z)} \left[ \log \frac{p(x,z)}{p(x)p(z)} \right] = H(Z) - H(Z|X)<br>
 $$</li>
 </ol>
-<p>这里同样涉及到难以计算的边缘分布 $p(z)$ 和条件熵 $H(Z|X) = - \mathbb{E}<em>{p(x)} \left[ \mathbb{E}</em>{p(z|x)} [\log p(z|x)] \right]$。对于连续高维的Z，或者当 $p(z|x)$ 是一个复杂的神经网络时，$p(z)$ 的计算和期望的计算都非常棘手。</p>
+<p>这里同样涉及到难以计算的边缘分布 $p(z)$ 和条件熵 $H(Z|X) = - \mathbb{E} _ {p(x)} \left[ \mathbb{E} _ {p(z|x)} [\log p(z|x)] \right]$。对于连续高维的Z，或者当 $p(z|x)$ 是一个复杂的神经网络时，$p(z)$ 的计算和期望的计算都非常棘手。</p>
 <p><strong>变分推断的引入</strong></p>
 <p>变分推断的核心思想是，当直接处理一个复杂的概率分布或量（如互信息）很困难时，我们引入一个更简单、更易于处理的<strong>变分分布</strong>（通常带有可学习的参数），并优化这个变分分布来逼近我们感兴趣的真实分布或量。</p>
 <p>在VIB中，我们主要对 $I(Z;Y)$ 和 $I(X;Z)$ 进行变分近似。</p>
 <p><strong>1. 近似 $I(Z;Y)$ (保留相关信息项)</strong></p>
 <p>我们希望最大化 $I(Z;Y) = H(Y) - H(Y|Z)$。由于 $H(Y)$ 相对于编码器 $p(z|x)$ 是常数，所以最大化 $I(Z;Y)$ 等价于最小化条件熵 $H(Y|Z)$。</p>
 <p>$$<br>
-H(Y|Z) = - \mathbb{E}<em>{p(z,y)}[\log p(y|z)] = - \mathbb{E}</em>{p(x)p(y|x)p(z|x)}[\log p(y|z)]<br>
+H(Y|Z) = - \mathbb{E} _ {p(z,y)}[\log p(y|z)] = - \mathbb{E} _ {p(x)p(y|x)p(z|x)}[\log p(y|z)]<br>
 $$</p>
-<p>这里的 $p(y|z)$ 是真实的从Z到Y的后验概率，我们通常不知道它。因此，我们引入一个<strong>变分近似分布 $q_{\phi}(y|z)$</strong>，这是一个由参数 $\phi$（例如神经网络的权重）控制的、试图从Z预测Y的模型。</p>
+<p>这里的 $p(y|z)$ 是真实的从Z到Y的后验概率，我们通常不知道它。因此，我们引入一个<strong>变分近似分布 $q _ {\phi}(y|z)$</strong>，这是一个由参数 $\phi$（例如神经网络的权重）控制的、试图从Z预测Y的模型。</p>
 <p>我们可以推导出 $I(Z;Y)$ 的一个<strong>变分下界 (Variational Lower Bound)</strong>：</p>
 <p>$$<br>
 I(Z;Y) = H(Y) - H(Y|Z)<br>
 $$</p>
 <p>$$<br>
-H(Y|Z) = - \mathbb{E}<em>{p(z)} [ \sum_y p(y|z) \log p(y|z) ]<br>
+H(Y|Z) = - \mathbb{E} _ {p(z)} [ \sum_y p(y|z) \log p(y|z) ]<br>
 $$<br>
-我们知道 $KL(p(y|z) || q</em>{\phi}(y|z)) \ge 0$，即 $\mathbb{E}<em>{p(y|z)}[\log \frac{p(y|z)}{q</em>{\phi}(y|z)}] \ge 0$<br>
+我们知道 $KL(p(y|z) || q _ {\phi}(y|z)) \ge 0$，即 $\mathbb{E} _ {p(y|z)}[\log \frac{p(y|z)}{q _ {\phi}(y|z)}] \ge 0$<br>
 所以<br>
 $$<br>
-\mathbb{E}<em>{p(y|z)}[\log p(y|z)] \ge \mathbb{E}</em>{p(y|z)}[\log q_{\phi}(y|z)]<br>
+\mathbb{E} _ {p(y|z)}[\log p(y|z)] \ge \mathbb{E} _ {p(y|z)}[\log q _ {\phi}(y|z)]<br>
 $$</p>
 <p>因此，<br>
 $$<br>
--H(Y|Z) \ge \mathbb{E}<em>{p(z)} [ \mathbb{E}</em>{p(y|z)}[\log q_{\phi}(y|z)] ]<br>
+-H(Y|Z) \ge \mathbb{E} _ {p(z)} [ \mathbb{E} _ {p(y|z)}[\log q _ {\phi}(y|z)] ]<br>
 $$</p>
 <p>或者说，<br>
 $$<br>
-H(Y|Z) \leq - \mathbb{E}<em>{p(z,y)}[\log q</em>{\phi}(y|z)]<br>
+H(Y|Z) \leq - \mathbb{E} _ {p(z,y)}[\log q _ {\phi}(y|z)]<br>
 $$</p>
 <p>所以，<br>
 $$<br>
-I(Z;Y) \ge H(Y) + \mathbb{E}<em>{p(z,y)}[\log q</em>{\phi}(y|z)]<br>
+I(Z;Y) \ge H(Y) + \mathbb{E} _ {p(z,y)}[\log q _ {\phi}(y|z)]<br>
 $$<br>
-由于 $H(Y)$ 是常数，最大化 $I(Z;Y)$ 的下界就等价于最大化 $\mathbb{E}<em>{p(z,y)}[\log q</em>{\phi}(y|z)]$，或者说最小化负对数似然 $-\mathbb{E}<em>{p(z,y)}[\log q</em>{\phi}(y|z)]$。这个期望可以写作：<br>
+由于 $H(Y)$ 是常数，最大化 $I(Z;Y)$ 的下界就等价于最大化 $\mathbb{E} _ {p(z,y)}[\log q _ {\phi}(y|z)]$，或者说最小化负对数似然 $-\mathbb{E} _ {p(z,y)}[\log q _ {\phi}(y|z)]$。这个期望可以写作：<br>
 $$<br>
-\mathbb{E}<em>{p(x)p(y|x)} [ \mathbb{E}</em>{p_{\theta}(z|x)} [\log q_{\phi}(y|z)] ]<br>
+\mathbb{E} _ {p(x)p(y|x)} [ \mathbb{E} _ {p _ {\theta}(z|x)} [\log q _ {\phi}(y|z)] ]<br>
 $$</p>
-<p>这一项实际上就是训练一个从Z预测Y的模型（解码器/预测器 $q_{\phi}(y|z)$）时的标准监督学习损失（例如，对于分类问题是交叉熵，对于回归问题是均方误差的负数）。我们希望通过学习编码器 $p_{\theta}(z|x)$（参数为 $\theta$）和解码器 $q_{\phi}(y|z)$ 来最大化这个下界。</p>
+<p>这一项实际上就是训练一个从Z预测Y的模型（解码器/预测器 $q _ {\phi}(y|z)$）时的标准监督学习损失（例如，对于分类问题是交叉熵，对于回归问题是均方误差的负数）。我们希望通过学习编码器 $p _ {\theta}(z|x)$（参数为 $\theta$）和解码器 $q _ {\phi}(y|z)$ 来最大化这个下界。</p>
 <p><strong>2. 近似 $I(X;Z)$ (压缩信息项)</strong></p>
 <p>我们希望最小化 $I(X;Z)$。<br>
 $$<br>
 I(X;Z) = H(Z) - H(Z|X)<br>
 $$<br>
 $$<br>
-H(Z|X) = - \mathbb{E}<em>{p(x)} \left[ \int p</em>{\theta}(z|x) \log p_{\theta}(z|x) dz \right]<br>
+H(Z|X) = - \mathbb{E} _ {p(x)} \left[ \int p _ {\theta}(z|x) \log p _ {\theta}(z|x) dz \right]<br>
 $$<br>
 $$<br>
 H(Z) = - \int p(z) \log p(z) dz<br>
 $$<br>
-其中 $p(z) = \int p_{\theta}(z|x) p(x) dx$。</p>
+其中 $p(z) = \int p _ {\theta}(z|x) p(x) dx$。</p>
 <p>直接计算 $p(z)$ 非常困难。VIB在这里引入另一个<strong>固定的、简单的先验分布 $r(z)$</strong> (例如，标准正态分布 $\mathcal{N}(0,I)$)。然后，目标是将 $p(z)$ 推向 $r(z)$。<br>
 我们可以利用KL散度的性质：<br>
 $$<br>
 \begin{align}<br>
-I(X;Z)&amp;=  \mathbb{E}<em>{p</em>(x,z)} [ \log \frac{p_{\theta}(z|x)p(x)}{p(x)p(z)} ]<br>
-\\&amp;= \mathbb{E}<em>{p(x)} [ \mathbb{E}</em>{p_{\theta}(z|x)} [ \log \frac{p_{\theta}(z|x)}{p(z)} ] ]<br>
-\\&amp;= \mathbb{E}<em>{p(x)} [KL(p</em>{\theta}(z|x) || p(z))]<br>
+I(X;Z)&amp;=  \mathbb{E} _ {p_(x,z)} [ \log \frac{p _ {\theta}(z|x)p(x)}{p(x)p(z)} ]<br>
+\\&amp;= \mathbb{E} _ {p(x)} [ \mathbb{E} _ {p _ {\theta}(z|x)} [ \log \frac{p _ {\theta}(z|x)}{p(z)} ] ]<br>
+\\&amp;= \mathbb{E} _ {p(x)} [KL(p _ {\theta}(z|x) || p(z))]<br>
+\\&amp;=\mathbb{E} _ {p(x)}[\int p _ {\theta}(z|x) \log \frac{p _ {\theta}(z|x)}{p(z)} dz]<br>
+\\&amp;=\mathbb{E} _ {p(x)}[ \int p _ {\theta}(z|x) \log \left( \frac{p _ {\theta}(z|x)}{r(z)} \cdot \frac{r(z)}{p(z)} \right) dz]<br>
+\\&amp;=\mathbb{E} _ {p(x)}[ \int p _ {\theta}(z|x) \left( \log \frac{p _ {\theta}(z|x)}{r(z)} + \log \frac{r(z)}{p(z)} \right) dz]</p>
+<p>\\&amp;=\mathbb{E} _ {p(x)}[\int p _ {\theta}(z|x) \log \frac{p _ {\theta}(z|x)}{r(z)} dz+\int p _ {\theta}(z|x) \log \frac{r(z)}{p(z)} dz]<br>
+\\&amp;=\mathbb{E} _ {p(x)}[KL(p{\theta}(z|x) || r(z))+\mathbb{E}{p _ {\theta}(z|x)} \left[\log \frac{r(z)}{p(z)}\right]]<br>
 \end{align}<br>
 $$<br>
+而<br>
 $$<br>
-\begin{align*} KL(p_{\theta}(z|x) || p(z)) &amp;= \int p_{\theta}(z|x) \log \frac{p_{\theta}(z|x)}{p(z)} dz \ &amp;= \int p_{\theta}(z|x) \log \left( \frac{p_{\theta}(z|x)}{r(z)} \cdot \frac{r(z)}{p(z)} \right) dz \ &amp;= \int p_{\theta}(z|x) \left( \log \frac{p_{\theta}(z|x)}{r(z)} + \log \frac{r(z)}{p(z)} \right) dz \ &amp;= \underbrace{\int p_{\theta}(z|x) \log \frac{p_{\theta}(z|x)}{r(z)} dz}{KL(p{\theta}(z|x) || r(z))} + \underbrace{\int p_{\theta}(z|x) \log \frac{r(z)}{p(z)} dz}{\mathbb{E}{p_{\theta}(z|x)} \left[\log \frac{r(z)}{p(z)}\right]} \end{align*}<br>
-$$</p>
-<p>我们可以证明：<br>
+\begin{align}<br>
+\mathbb{E} _ {p(x)}\left[\mathbb{E}{p _ {\theta}(z|x)} \left[\log \frac{r(z)}{p(z)}\right]\right]&amp;=\mathbb{E}{p(x,z)} \left[\log \frac{r(z)}{p(z)}\right]<br>
+\\&amp;=\int_z \int_x p(x)p_\theta(z|x)log\frac{r(z)}{p(z)}dxdz<br>
+\\&amp;=\int_z \left(\int_x p(x)p_\theta(z|x)dx\right)log\frac{r(z)}{p(z)}dz<br>
+\\&amp;=\int_z p(z)log\frac{r(z)}{p(z)}dz<br>
+\\&amp;=-KL(p(z)||r(z))<br>
+\end{align}<br>
 $$<br>
-I(X;Z) \le \mathbb{E}<em>{p(x)}[KL(p</em>{\theta}(z|x) || r(z))]<br>
+故利用非负性即有：<br>
+$$<br>
+I(X;Z) \le \mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]<br>
 $$</p>
-<p>(这个不等式可以通过引入 $r(z)$ 并利用 Jensen 不等式得到，或者更直接地，很多VIB的推导直接将 $KL(p_{\theta}(z|x) || r(z))$ 作为要优化的项，因为它鼓励 $p(z)$ 接近 $r(z)$ 从而间接压缩信息。)</p>
-<p>一个更直接且在VIB论文中被采用的思路是，我们希望 $Z$ 尽可能独立于 $X$，同时又保留预测 $Y$ 所需的信息。如果 $Z$ 对 $X$ 的依赖性很小，那么 $p_{\theta}(z|x)$ 对于不同的 $x$ 应该看起来都差不多，并且都接近某个简单的先验 $r(z)$。因此，我们直接将 $I(X;Z)$ 替换为一个可以计算的上界或一个相关的量，即 $\mathbb{E}<em>{p(x)}[KL(p</em>{\theta}(z|x) || r(z))]$。</p>
-<p>当 $r(z)$ 是一个固定的先验分布时，最小化 $\mathbb{E}<em>{p(x)}[KL(p</em>{\theta}(z|x) || r(z))]$ 会迫使编码器 $p_{\theta}(z|x)$ 的输出（对于所有x）都接近这个先验 $r(z)$。这就限制了Z中能包含的关于X的特定信息量，从而达到了压缩的目的。</p>
+<p>(这个不等式可以通过引入 $r(z)$ 并利用 Jensen 不等式得到，或者更直接地，很多VIB的推导直接将 $KL(p _ {\theta}(z|x) || r(z))$ 作为要优化的项，因为它鼓励 $p(z)$ 接近 $r(z)$ 从而间接压缩信息。)</p>
+<p>一个更直接且在VIB论文中被采用的思路是，我们希望 $Z$ 尽可能独立于 $X$，同时又保留预测 $Y$ 所需的信息。如果 $Z$ 对 $X$ 的依赖性很小，那么 $p _ {\theta}(z|x)$ 对于不同的 $x$ 应该看起来都差不多，并且都接近某个简单的先验 $r(z)$。因此，我们直接将 $I(X;Z)$ 替换为一个可以计算的上界或一个相关的量，即 $\mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]$。</p>
+<p>当 $r(z)$ 是一个固定的先验分布时，最小化 $\mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]$ 会迫使编码器 $p _ {\theta}(z|x)$ 的输出（对于所有x）都接近这个先验 $r(z)$。这就限制了Z中能包含的关于X的特定信息量，从而达到了压缩的目的。</p>
 <p><strong>组合得到最终的VIB目标函数</strong></p>
 <p>将上述两部分的近似代入原始IB目标 $\max [I(Z;Y) - \beta I(X;Z)]$，我们得到VIB的目标（通常是最小化其负值）：</p>
-<p>最小化 $\mathcal{L}<em>{VIB}(\theta, \phi) = \mathbb{E}</em>{p(x)p(y|x)} \left[ - \mathbb{E}<em>{p</em>{\theta}(z|x)}[\log q_{\phi}(y|z)] + \beta KL(p_{\theta}(z|x) || r(z)) \right]$</p>
+<p>最小化 $\mathcal{L} _ {VIB}(\theta, \phi) = \mathbb{E} _ {p(x)p(y|x)} \left[ - \mathbb{E} _ {p _ {\theta}(z|x)}[\log q _ {\phi}(y|z)] + \beta KL(p _ {\theta}(z|x) || r(z)) \right]$</p>
 <p>这里：</p>
 <ul>
-<li>第一项 $-\mathbb{E}<em>{p</em>{\theta}(z|x)}[\log q_{\phi}(y|z)]$ 是<strong>预测损失</strong>（或重构损失，取决于任务）。我们希望它小，对应于最大化 $I(Z;Y)$ 的下界。</li>
-<li>第二项 $KL(p_{\theta}(z|x) || r(z))$ 是<strong>压缩损失</strong>或正则化项。我们希望它小，对应于最小化（或约束）$I(X;Z)$。</li>
-<li>$p_{\theta}(z|x)$ 是编码器网络，将输入X映射到潜在表示Z的分布。</li>
-<li>$q_{\phi}(y|z)$ 是解码器/预测器网络，从Z预测Y。</li>
+<li>第一项 $-\mathbb{E} _ {p _ {\theta}(z|x)}[\log q _ {\phi}(y|z)]$ 是<strong>预测损失</strong>（或重构损失，取决于任务）。我们希望它小，对应于最大化 $I(Z;Y)$ 的下界。</li>
+<li>第二项 $KL(p _ {\theta}(z|x) || r(z))$ 是<strong>压缩损失</strong>或正则化项。我们希望它小，对应于最小化（或约束）$I(X;Z)$。</li>
+<li>$p _ {\theta}(z|x)$ 是编码器网络，将输入X映射到潜在表示Z的分布。</li>
+<li>$q _ {\phi}(y|z)$ 是解码器/预测器网络，从Z预测Y。</li>
 <li>$r(z)$ 是一个预先选择的简单先验分布（例如，$\mathcal{N}(0,I)$）。</li>
 <li>$\beta$ 是权衡这两个损失项的超参数。</li>
 </ul>
