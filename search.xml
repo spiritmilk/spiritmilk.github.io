@@ -17876,20 +17876,20 @@ $$</p>
     <title>TPSS5E1 复盘</title>
     <url>/2025/20250210/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://www.kaggle.com/competitions/playground-series-s5e1">预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle</a>是我参加最久的一次TPS（<strong>2025/04/01更新：</strong> 3月TPS是最久的一次了，排名18/4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27/2722，其中一个原因是一直参考@<a href="https://www.kaggle.com/cabaxiom">Cabaxiom</a>的线性回归笔记本，但是其中年份product存在计算错误的问题。</p>
+<span id="more"></span>
 <hr>
 <h2 id="数据介绍">数据介绍</h2>
 <p>共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。</p>
 <p>2010-2016是训练集</p>
 <p>2017是测试集的公榜</p>
 <p>2018-2019是测试集的私榜</p>
-<p>之前也有个<a href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，所以很多solution也是参考了过去的思路。</p>
+<p>之前也有个<a href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，可以说是之前的翻版，所以很多solution也是参考了过去的思路。</p>
 <h3 id="之前的第一名方案">之前的第一名方案</h3>
 <p>$$<br>
 \begin{equation} \text{sold} = \text{GDP}(\text{country}, \text{year}) \times \text{const}(\text{store}) \times \left[ \text{sine/cosine waves}(\text{product}) + \text{holiday} + \text{weekday} + \text{covid} \right] \end{equation}<br>
 $$</p>
 <p>假期效应用高斯分布拟合。</p>
 <p><img src="holiday.png" alt=""></p>
-<span id="more"></span>
 <h2 id="数据分析">数据分析</h2>
 <p>product具有周期性。</p>
 <p><img src="product.png" alt=""></p>
@@ -17905,7 +17905,35 @@ $$</p>
 <p><img src="sunday.png" alt=""></p>
 <h2 id="第一名-by-George-Koussa">第一名 by George Koussa</h2>
 <h2 id="第二名-by-Chris-Deotte">第二名 by Chris Deotte</h2>
+<h3 id="后处理">后处理</h3>
+<p>对于未来，我们会抱有更好的态度。</p>
+<p>所以Chris采用了两种策略，第一种是全乘以1.06，第二种是乘上1.06 + slope * (year - 2017)。</p>
+<p><img src="future.png" alt=""></p>
+<h3 id="模型一">模型一</h3>
+<p>Transformer，大致代码为：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">build_model</span>():</span><br>        <br>    <span class="hljs-comment"># INPUT </span><br>    inp = tf.keras.Input(shape=(LEN,<span class="hljs-number">2</span>))<br>    <br>    <span class="hljs-comment"># POSITIONAL ENCODING</span><br>    x = layers.Dense(feat_dim)(inp)<br>    p = positional_encoding(<span class="hljs-number">1440</span>,feat_dim)<br>    x = x + p<br>    <br>    <span class="hljs-comment"># THREE BLOCKS of WAVENET and TRANSFORMER</span><br>    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_blocks):<br>        skip = x<br>        x = wave_block(x, feat_dim, <span class="hljs-number">3</span>, <span class="hljs-number">12</span>)<br>        x = wave_block(x, feat_dim, <span class="hljs-number">3</span>, <span class="hljs-number">12</span>)<br>        x = TransformerBlock(embed_dim, feat_dim, num_heads, ff_dim, dropout_rate)(x)<br>        x = <span class="hljs-number">0.9</span>*x + <span class="hljs-number">0.1</span>*skip <br><br>    <span class="hljs-comment"># HEAD</span><br>    x = tf.keras.layers.GlobalAveragePooling1D()(x)<br>    x = tf.keras.layers.Dense(<span class="hljs-number">64</span>, activation=<span class="hljs-string">&#x27;relu&#x27;</span>)(x)<br>    x = tf.keras.layers.Dense(<span class="hljs-number">32</span>,activation=<span class="hljs-string">&#x27;linear&#x27;</span>, dtype=<span class="hljs-string">&#x27;float32&#x27;</span>)(x)<br>    <br>    <span class="hljs-comment"># COMPILE MODEL</span><br>    model = tf.keras.Model(inputs=inp, outputs=x)<br>    opt = tf.keras.optimizers.Adam(learning_rate = <span class="hljs-number">1e-3</span>)<br>    loss = tf.keras.losses.MeanSquaredError()<br>    model.<span class="hljs-built_in">compile</span>(loss=loss, optimizer = opt)<br>    <br>    <span class="hljs-keyword">return</span> model<br></code></pre></td></tr></table></figure>
+<p>另外：</p>
+<ul>
+<li>在所有5个产品上训练1个模型（15个时期余弦调度）</li>
+<li>添加30个布尔特征用于30个节假日</li>
+<li>使用第一次预测（2017年，2018年）作为伪标签来训练第二次预测</li>
+<li>使用第二次预测（2017年、2018年、2019年）作为伪标签来训练第三次预测</li>
+<li>使用用不同种子训练的5个模型的中位数（用于第一次、第二次、第三次预测）</li>
+<li>提交第三轮预测</li>
+</ul>
+<blockquote>
+<p>事实上，我另外设计了一套大卷积核神经网络和类似FITS的傅里叶网络优于Chris的transformer模型，不过可惜没有像chris做那么多操作，使得最终分数并不是很好。</p>
+</blockquote>
+<h3 id="模型二">模型二</h3>
+<p>类似第三名的线性回归</p>
+<h3 id="ensemble">ensemble</h3>
+<p>通过在transformer上叠加线性回归来预测残差</p>
 <h2 id="第三名-by-Konstantin-Dmitriev">第三名 by Konstantin Dmitriev</h2>
+<p>假期效应，同样使用高斯曲线来描述：<br>
+$$<br>
+H(t)=exp(-\frac{(d-d_h-d_0)^2}{2\sigma_0^2})<br>
+$$</p>
+<h3 id="后处理-2">后处理</h3>
 <h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2>
 <p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>
 ]]></content>
