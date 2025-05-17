@@ -19557,7 +19557,7 @@ $$</p>
 <p>比如像graphormer（第一个Graph transfomrer），采用了三种位置编码：</p>
 <p>（1）Centrality Encoding</p>
 <p>即</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">node_feature = (<br>    node_feature<br>    + nn.Embedding(in_degree)<br>    + nn.Embedding(out_degree)<br>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">node_feature = (<br>    node_feature<br>    + nn.Embedding()(in_degree)<br>    + nn.Embedding()(out_degree)<br>)<br></code></pre></td></tr></table></figure>
 <p>（2）Spatial Encoding</p>
 <p>给定一个合理的距离度量 ϕ(v_i, v_j), 根据两个节点(v_i, v_j)之间的距离，为其分配相应的编码向量。距离度量 ϕ(⋅) 的选择多种多样，对于一般性的图数据可以选择无权或带权的最短路径，而对于特别的图数据则可以有针对性的选择距离度量，例如物流节点之间的最大流量，化学分子 3D 结构中原子之间的欧氏距离等等。</p>
 <p>为了不失一般性，Graphormer 在实验中采取了无权的最短路径作为空间编码的距离度量。</p>
