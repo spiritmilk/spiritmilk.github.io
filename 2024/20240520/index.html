@@ -29,7 +29,7 @@
 <meta property="og:description" content="Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-20T12:59:56.000Z">
-<meta property="article:modified_time" content="2025-05-17T14:49:41.201Z">
+<meta property="article:modified_time" content="2025-05-17T14:52:12.578Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -287,7 +287,7 @@
         
         
         
-          20 分钟
+          19 分钟
         
       </span>
     
@@ -453,7 +453,6 @@ $$<br>
 $$<br>
 I(X;Z) \le \mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]<br>
 $$</p>
-<p>(这个不等式可以通过引入 $r(z)$ 并利用 Jensen 不等式得到，或者更直接地，很多VIB的推导直接将 $KL(p _ {\theta}(z|x) || r(z))$ 作为要优化的项，因为它鼓励 $p(z)$ 接近 $r(z)$ 从而间接压缩信息。)</p>
 <p>一个更直接且在VIB论文中被采用的思路是，我们希望 $Z$ 尽可能独立于 $X$，同时又保留预测 $Y$ 所需的信息。如果 $Z$ 对 $X$ 的依赖性很小，那么 $p _ {\theta}(z|x)$ 对于不同的 $x$ 应该看起来都差不多，并且都接近某个简单的先验 $r(z)$。因此，我们直接将 $I(X;Z)$ 替换为一个可以计算的上界或一个相关的量，即 $\mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]$。</p>
 <p>当 $r(z)$ 是一个固定的先验分布时，最小化 $\mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]$ 会迫使编码器 $p _ {\theta}(z|x)$ 的输出（对于所有x）都接近这个先验 $r(z)$。这就限制了Z中能包含的关于X的特定信息量，从而达到了压缩的目的。</p>
 <p><strong>组合得到最终的VIB目标函数</strong></p>
