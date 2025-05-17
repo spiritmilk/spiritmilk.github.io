@@ -16955,9 +16955,19 @@ $$<br>
   <entry>
     <title>Graph Information Bottleneck</title>
     <url>/2024/20240520/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Information Bottleneck</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。</p>
+<span id="more"></span>
 <h2 id="Information-Bottleneck">Information Bottleneck</h2>
-<p><a href="https://arxiv.org/abs/physics/0004057">https://arxiv.org/abs/physics/0004057</a></p>
+<p>最早来自2000年Naftali Tishby等人的的<a href="https://arxiv.org/abs/physics/0004057">《The information bottleneck method》</a></p>
+<p>具体来说，它试图优化以下两个目标：</p>
+<ol>
+<li><strong>压缩性 (Compression)</strong>：压缩表示T应该包含尽可能少的关于原始变量X的信息。这通过最小化互信息 I(X;T) 来实现。</li>
+<li><strong>相关性 (Relevance)</strong>：压缩表示T应该尽可能多地保留关于相关变量Y的信息。这通过最大化互信息 I(T;Y) 来实现。</li>
+</ol>
+<p>故信息瓶颈可以表示为一个带权衡参数 β 的优化问题：<br>
+$$<br>
+L[p(t∣x)]=I(X;T)−βI(T;Y)<br>
+$$</p>
 <h2 id="Variational-Information-Bottleneck">Variational Information Bottleneck</h2>
 <p>难点在于互信息很难计算。所以，我们需要使用变分推理来近似它们。</p>
 <p><a href="https://www.cnblogs.com/shenchuguimo/p/14332100.html">https://www.cnblogs.com/shenchuguimo/p/14332100.html</a></p>
@@ -16966,7 +16976,7 @@ $$<br>
 <p><a href="https://papers.cool/arxiv/1810.00821">https://papers.cool/arxiv/1810.00821</a></p>
 <p><a href="https://arxiv.org/abs/1911.03722">https://arxiv.org/abs/1911.03722</a></p>
 <p><a href="https://arxiv.org/abs/1912.13480">https://arxiv.org/abs/1912.13480</a></p>
-<span id="more"></span>
+<!--more-->
 <p><a href="https://papers.cool/arxiv/1612.00410">https://papers.cool/arxiv/1612.00410</a></p>
 <p><a href="https://kexue.fm/archives/6181">https://kexue.fm/archives/6181</a></p>
 <p><a href="https://openreview.net/forum?id=ry_WPG-A-">https://openreview.net/forum?id=ry_WPG-A-</a></p>
@@ -18192,6 +18202,7 @@ $$</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># %% [code] &#123;&quot;execution&quot;:&#123;...&#125;&#125;</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">optimization_pipeline2</span>(<span class="hljs-params">df_train, df_test, cols, countries_groups, initial_guess_struct, optimization_steps_config</span>):</span><br>    x_params_list = [] <span class="hljs-comment"># 存储每个国家组优化后的参数</span><br>    df1, df2 = df_train.copy(), df_test.copy() <span class="hljs-comment"># 使用副本操作</span><br>    df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0</span> <span class="hljs-comment"># 初始化预测列</span><br>    df2[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-comment"># 遍历国家组</span><br>    <span class="hljs-keyword">for</span> countries_subset <span class="hljs-keyword">in</span> countries_groups:<br>        <span class="hljs-comment"># 如果测试集没有该国家组的数据，则跳过</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(df2[df2.country.isin(countries_subset)]) == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">continue</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;\tDo optimization on the countries: &#x27;</span> + <span class="hljs-string">&#x27;, &#x27;</span>.join(countries_subset))<br>        <br>        <span class="hljs-comment"># 为当前国家子集运行一级优化流程</span><br>        res, (train_score, test_score) = optimization_pipeline(<br>            df1[df1.country.isin(countries_subset)],  <span class="hljs-comment"># 该国家子集的训练数据</span><br>            df2[df2.country.isin(countries_subset)],  <span class="hljs-comment"># 该国家子集的测试数据</span><br>            cols,                                     <span class="hljs-comment"># 特征列</span><br>            initial_guess_struct,                     <span class="hljs-comment"># 初始参数猜测 (结构化)</span><br>            optimization_steps_config                 <span class="hljs-comment"># 优化步骤配置</span><br>        )<br>        <br>        <span class="hljs-comment"># 存储该国家组优化后的参数</span><br>        x_params_list.append(res.x)<br><br>        <span class="hljs-comment"># 为该国家组在训练集和测试集上生成并存储预测</span><br>        df1.loc[df1.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(res.x, df1[df1.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-literal">True</span>)<br>        df2.loc[df2.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(res.x, df2[df2.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># 整合结果</span><br>    res_final = &#123;<span class="hljs-string">&#x27;x&#x27;</span>: x_params_list&#125; <span class="hljs-comment"># 存储参数集列表 (每个国家组一个)</span><br>    <span class="hljs-comment"># 使用合并的预测计算完整训练集上的总体MAPE</span><br>    train_score_overall = mean_absolute_percentage_error(df1[<span class="hljs-string">&#x27;num_sold&#x27;</span>], df1[<span class="hljs-string">&#x27;prediction&#x27;</span>])<br>    <span class="hljs-comment"># 计算完整测试集上的总体MAPE (如果有效)</span><br>    test_score_overall = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> pd.isna(df2[<span class="hljs-string">&#x27;num_sold&#x27;</span>]).<span class="hljs-built_in">any</span>() <span class="hljs-keyword">else</span> mean_absolute_percentage_error(df2[<span class="hljs-string">&#x27;num_sold&#x27;</span>], df2[<span class="hljs-string">&#x27;prediction&#x27;</span>])<br><br>    <span class="hljs-keyword">return</span> res_final, (train_score_overall, test_score_overall)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict2</span>(<span class="hljs-params">coef_list, df, cols, countries_groups, <span class="hljs-built_in">round</span>=<span class="hljs-literal">False</span></span>):</span><br>    df1 = df.copy()<br>    df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0.0</span> <span class="hljs-comment"># 初始化预测列</span><br>    <span class="hljs-comment"># 遍历参数集 (coef_list) 和对应的国家组</span><br>    <span class="hljs-keyword">for</span> x_params, countries_subset <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(coef_list, countries_groups):<br>        <span class="hljs-comment"># 使用其特定参数为当前国家组生成预测</span><br>        df1.loc[df1.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(x_params, df1[df1.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-built_in">round</span>)<br>    <span class="hljs-keyword">return</span> df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] <span class="hljs-comment"># 返回整合的预测序列</span><br></code></pre></td></tr></table></figure>
 <h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2>
 <p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>
+<p>对三者进行ensemble。</p>
 ]]></content>
       <tags>
         <tag>机器学习</tag>
