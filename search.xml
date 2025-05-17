@@ -17885,25 +17885,44 @@ $$</p>
 <p>2018-2019是测试集的私榜</p>
 <p>之前也有个<a href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，可以说是之前的翻版，所以很多solution也是参考了过去的思路。</p>
 <h3 id="之前的第一名方案">之前的第一名方案</h3>
-<p>$$<br>
+<p>线性模型：<br>
+$$<br>
 \begin{equation} \text{sold} = \text{GDP}(\text{country}, \text{year}) \times \text{const}(\text{store}) \times \left[ \text{sine/cosine waves}(\text{product}) + \text{holiday} + \text{weekday} + \text{covid} \right] \end{equation}<br>
 $$</p>
 <p>假期效应用高斯分布拟合。</p>
 <p><img src="holiday.png" alt=""></p>
-<h2 id="数据分析">数据分析</h2>
-<p>product具有周期性。</p>
+<h2 id="EDA">EDA</h2>
+<p>@BROCCOLI BEEF指出，product具有周期性、store具有不变性、GDP和销售额具有较强相关性。</p>
 <p><img src="product.png" alt=""></p>
-<p>store具有不变性。</p>
 <p><img src="store.png" alt=""></p>
-<p>GDP和销售额具有较强相关性。</p>
 <p><img src="gdp.png" alt=""></p>
-<p>但GDP在Kenya不符合，原因可能是因为$num_{sold}=a*GDP+bias$，而我们忽视了bias。</p>
+<p>@Konstantin Dmitriev发现GDP在Kenya不符合，我和@BROCCOLI BEEF发现原因可能是因为$num_{sold}=a*GDP+bias$，而我们忽视了bias。</p>
 <p><img src="gdp_kenya.png" alt=""></p>
 <p>由上，我顺带分析了所有的<a href="https://data.worldbank.org/indicator?tab=featured">514个世界银行特殊指标</a>，其中GDP具有最高的R2，这也说明GDP已经足够了。</p>
 <p><img src="allbank.png" alt=""></p>
-<p>每周周日具有最多的销售额，且每周具有周期性。</p>
+<p>我发现，每周周日具有最多的销售额，且每周具有周期性。</p>
 <p><img src="sunday.png" alt=""></p>
+<p>@BROCCOLI BEEF指出了节假日效应：</p>
+<p><img src="inbox_1048539_0951cf95b72d72e0ff3275e22dcb96ac_Capture.png" alt=""></p>
+<p>并分析了节假日效应大概的持续时间：</p>
+<p><img src="inbox_1048539_9d65b667a572ec2e70fba2464f5c71c1_Capture.png" alt=""></p>
+<p>我指出圣诞节和元旦的节假日效应可能会出现覆盖或影响的情况：</p>
+<p><img src="nochris.jpg" alt=""></p>
+<p><img src="chris.jpg" alt=""></p>
+<p>我将介绍前6的solutions（solution类似的则只叙述最高排名的solution）</p>
+<p>其中“圣诞节和元旦的节假日效应可能会出现覆盖或影响的情况”这个性质，在前6名中，只被第一名所使用，也许这也是第一名能优于其他人的原因之一。</p>
 <h2 id="第一名-by-George-Koussa">第一名 by George Koussa</h2>
+<p>线性模型</p>
+<p>闰年特征</p>
+<p>正弦余弦特征</p>
+<p>是否在节假日的十天内特征：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df[<span class="hljs-string">&#x27;near_holiday&#x27;</span>] = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> country <span class="hljs-keyword">in</span> df[<span class="hljs-string">&#x27;country&#x27;</span>].unique():<br>    days = [day <span class="hljs-keyword">for</span> day <span class="hljs-keyword">in</span> holidays.CountryHoliday(country, years=df[<span class="hljs-string">&#x27;year&#x27;</span>].unique())]<br>    <span class="hljs-keyword">for</span> day <span class="hljs-keyword">in</span> days:<br>        df.loc[(df.country == country) &amp; (df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.date &lt; day + dt.timedelta(days=<span class="hljs-number">10</span>)) &amp; (df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.date &gt; day - dt.timedelta(days=<span class="hljs-number">10</span>)), <span class="hljs-string">&#x27;near_holiday&#x27;</span>] = <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>gdp采用bias</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df[<span class="hljs-string">&#x27;gdp_factor&#x27;</span>] =  (-<span class="hljs-number">17643.346899</span>+<span class="hljs-number">85.42355636</span>*df[<span class="hljs-string">&#x27;gdp&#x27;</span>]) / <span class="hljs-number">365</span><br></code></pre></td></tr></table></figure>
+<p>商店因子排除加拿大和肯尼亚进行考虑</p>
+<p>通过ridge来预测未来因子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df[<span class="hljs-string">&#x27;ratio&#x27;</span>] = df[<span class="hljs-string">&#x27;store_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;gdp_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;product_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;day_of_week_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;sincos_factor&#x27;</span>]<br>df[<span class="hljs-string">&#x27;total&#x27;</span>] = df[<span class="hljs-string">&#x27;num_sold&#x27;</span>] / df[<span class="hljs-string">&#x27;ratio&#x27;</span>]<br><span class="hljs-comment"># ... (模型拟合和绘图代码) ...</span><br>model = Ridge(alpha=<span class="hljs-number">0.1</span>) <span class="hljs-comment"># 使用岭回归</span><br>model.fit(X, y)<br>df[<span class="hljs-string">&#x27;trend_factor&#x27;</span>] = model.predict(df[<span class="hljs-string">&#x27;n_day&#x27;</span>].to_numpy().reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>df.loc[df[<span class="hljs-string">&#x27;date&#x27;</span>] &lt; dt.datetime(<span class="hljs-number">2013</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), <span class="hljs-string">&#x27;trend_factor&#x27;</span>] = <span class="hljs-number">1</span> <span class="hljs-comment"># 2013年前趋势因子设为1</span><br><span class="hljs-comment"># ... (可视化) ...</span><br>df[<span class="hljs-string">&#x27;ratio&#x27;</span>] = df[<span class="hljs-string">&#x27;store_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;gdp_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;product_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;day_of_week_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;sincos_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;trend_factor&#x27;</span>]<br>df[<span class="hljs-string">&#x27;total&#x27;</span>] = df[<span class="hljs-string">&#x27;num_sold&#x27;</span>] / df[<span class="hljs-string">&#x27;ratio&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<p>新年因子：为新年设置一个节假日因子，以应对“圣诞节和元旦的节假日效应可能会出现覆盖或影响的情况”。</p>
 <h2 id="第二名-by-Chris-Deotte">第二名 by Chris Deotte</h2>
 <h3 id="后处理">后处理</h3>
 <p>对于未来，我们会抱有更好的态度。</p>
@@ -17939,6 +17958,8 @@ $$</p>
 <h3 id="模型">模型</h3>
 <p>线性模型</p>
 <p>使用<code>scipy.optimize.minimize</code> 来优化MAPE</p>
+<p>给每个国家都训练一个模型，具体而言：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># %% [code] &#123;&quot;execution&quot;:&#123;...&#125;&#125;</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">optimization_pipeline2</span>(<span class="hljs-params">df_train, df_test, cols, countries_groups, initial_guess_struct, optimization_steps_config</span>):</span><br>    x_params_list = [] <span class="hljs-comment"># 存储每个国家组优化后的参数</span><br>    df1, df2 = df_train.copy(), df_test.copy() <span class="hljs-comment"># 使用副本操作</span><br>    df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0</span> <span class="hljs-comment"># 初始化预测列</span><br>    df2[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-comment"># 遍历国家组</span><br>    <span class="hljs-keyword">for</span> countries_subset <span class="hljs-keyword">in</span> countries_groups:<br>        <span class="hljs-comment"># 如果测试集没有该国家组的数据，则跳过</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(df2[df2.country.isin(countries_subset)]) == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">continue</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;\tDo optimization on the countries: &#x27;</span> + <span class="hljs-string">&#x27;, &#x27;</span>.join(countries_subset))<br>        <br>        <span class="hljs-comment"># 为当前国家子集运行一级优化流程</span><br>        res, (train_score, test_score) = optimization_pipeline(<br>            df1[df1.country.isin(countries_subset)],  <span class="hljs-comment"># 该国家子集的训练数据</span><br>            df2[df2.country.isin(countries_subset)],  <span class="hljs-comment"># 该国家子集的测试数据</span><br>            cols,                                     <span class="hljs-comment"># 特征列</span><br>            initial_guess_struct,                     <span class="hljs-comment"># 初始参数猜测 (结构化)</span><br>            optimization_steps_config                 <span class="hljs-comment"># 优化步骤配置</span><br>        )<br>        <br>        <span class="hljs-comment"># 存储该国家组优化后的参数</span><br>        x_params_list.append(res.x)<br><br>        <span class="hljs-comment"># 为该国家组在训练集和测试集上生成并存储预测</span><br>        df1.loc[df1.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(res.x, df1[df1.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-literal">True</span>)<br>        df2.loc[df2.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(res.x, df2[df2.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># 整合结果</span><br>    res_final = &#123;<span class="hljs-string">&#x27;x&#x27;</span>: x_params_list&#125; <span class="hljs-comment"># 存储参数集列表 (每个国家组一个)</span><br>    <span class="hljs-comment"># 使用合并的预测计算完整训练集上的总体MAPE</span><br>    train_score_overall = mean_absolute_percentage_error(df1[<span class="hljs-string">&#x27;num_sold&#x27;</span>], df1[<span class="hljs-string">&#x27;prediction&#x27;</span>])<br>    <span class="hljs-comment"># 计算完整测试集上的总体MAPE (如果有效)</span><br>    test_score_overall = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> pd.isna(df2[<span class="hljs-string">&#x27;num_sold&#x27;</span>]).<span class="hljs-built_in">any</span>() <span class="hljs-keyword">else</span> mean_absolute_percentage_error(df2[<span class="hljs-string">&#x27;num_sold&#x27;</span>], df2[<span class="hljs-string">&#x27;prediction&#x27;</span>])<br><br>    <span class="hljs-keyword">return</span> res_final, (train_score_overall, test_score_overall)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict2</span>(<span class="hljs-params">coef_list, df, cols, countries_groups, <span class="hljs-built_in">round</span>=<span class="hljs-literal">False</span></span>):</span><br>    df1 = df.copy()<br>    df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0.0</span> <span class="hljs-comment"># 初始化预测列</span><br>    <span class="hljs-comment"># 遍历参数集 (coef_list) 和对应的国家组</span><br>    <span class="hljs-keyword">for</span> x_params, countries_subset <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(coef_list, countries_groups):<br>        <span class="hljs-comment"># 使用其特定参数为当前国家组生成预测</span><br>        df1.loc[df1.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(x_params, df1[df1.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-built_in">round</span>)<br>    <span class="hljs-keyword">return</span> df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] <span class="hljs-comment"># 返回整合的预测序列</span><br></code></pre></td></tr></table></figure>
 <h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2>
 <p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>
 ]]></content>
