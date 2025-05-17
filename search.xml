@@ -17875,14 +17875,9 @@ $$</p>
   <entry>
     <title>TPSS5E1 复盘</title>
     <url>/2025/20250210/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p><a href="https://www.kaggle.com/competitions/playground-series-s5e1">预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle</a>是我参加最久的一次TPS（<strong>2025/04/01更新：</strong> 3月又全力参加了一次，排名18/4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27/2722，其中一个原因是一直参考@<a href="https://www.kaggle.com/cabaxiom">Cabaxiom</a>的线性回归笔记本，但是其中年份product存在计算错误的问题。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="https://www.kaggle.com/competitions/playground-series-s5e1">预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle</a>是我参加最久的一次TPS（<strong>2025/04/01更新：</strong> 3月又全力参加了一次，排名18/4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27/2722，其中一个原因是一直参考@<a href="https://www.kaggle.com/cabaxiom">Cabaxiom</a>的线性回归笔记本，但是其中年份product存在计算错误的问题。</p>
 <span id="more"></span>
 <hr>
-<h2 id="数据介绍">数据介绍</h2>
-<p>共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。</p>
-<p>2010-2016是训练集</p>
-<p>2017是测试集的公榜</p>
-<p>2018-2019是测试集的私榜</p>
 <p>之前TPS也有个<a href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，可以说是之前的翻版，所以很多solution也是参考了过去的思路。</p>
 <h2 id="之前的第一名方案">之前的第一名方案</h2>
 <p><a href="https://www.kaggle.com/code/ivyzang/1st-place-solution-less-is-more">https://www.kaggle.com/code/ivyzang/1st-place-solution-less-is-more</a></p>
@@ -18116,6 +18111,11 @@ $$</p>
 <p>使用<code>Pipeline</code>包含<code>StandardScaler</code>（标准化）和<code>Ridge(alpha=150, tol=0.00001, max_iter=10000)</code>（岭回归）。<code>alpha=150</code>是正则化强度，通过调优选择。</p>
 <h4 id="后处理">后处理</h4>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Argentina&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">3.372</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Spain&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">1.6</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Japan&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">1.394</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Estonia&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">1.651</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Canada&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">0.850</span><br>result_2 = result_2.loc[result_2[<span class="hljs-string">&#x27;date&#x27;</span>] &gt;= dt.datetime(<span class="hljs-number">2022</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), [<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;predict_exp&#x27;</span>]]<br></code></pre></td></tr></table></figure>
+<h2 id="数据介绍">数据介绍</h2>
+<p>共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。</p>
+<p>2010-2016是训练集</p>
+<p>2017是测试集的公榜</p>
+<p>2018-2019是测试集的私榜</p>
 <h2 id="EDA-2">EDA</h2>
 <p>@BROCCOLI BEEF指出，product具有周期性、store具有不变性、GDP和销售额具有较强相关性。</p>
 <p><img src="product.png" alt=""></p>
