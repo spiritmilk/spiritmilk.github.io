@@ -17934,6 +17934,11 @@ $$<br>
 H(t)=exp(-\frac{(d-d_h-d_0)^2}{2\sigma_0^2})<br>
 $$</p>
 <h3 id="后处理-2">后处理</h3>
+<p><img src="inbox_4308868_04bdd76209c6db4a5d94e6679101c685_pgs501.png" alt=""></p>
+<p>使用$trend(d)=1+s*ReLU(d-d1)$来描述，其中s和$d_1$是斜率和位移参数。</p>
+<h3 id="模型">模型</h3>
+<p>线性模型</p>
+<p>使用<code>scipy.optimize.minimize</code> 来优化MAPE</p>
 <h2 id="第六名-by-Pascal-Terpstra">第六名 by Pascal Terpstra</h2>
 <p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>
 ]]></content>
