@@ -17052,20 +17052,20 @@ H(Z) = - \int p(z) \log p(z) dz<br>
 $$<br>
 其中 $p(z) = \int p _ {\theta}(z|x) p(x) dx$。</p>
 <p>直接计算 $p(z)$ 非常困难。VIB在这里引入另一个<strong>固定的、简单的先验分布 $r(z)$</strong> (例如，标准正态分布 $\mathcal{N}(0,I)$)。然后，目标是将 $p(z)$ 推向 $r(z)$。<br>
-我们可以利用KL散度的性质：<br>
-$$<br>
+我们可以利用KL散度的性质：</p>
+<p>$$<br>
 \begin{align}<br>
 I(X;Z)&amp;=  \mathbb{E} _ {p_(x,z)} [ \log \frac{p _ {\theta}(z|x)p(x)}{p(x)p(z)} ]<br>
 \\&amp;= \mathbb{E} _ {p(x)} [ \mathbb{E} _ {p _ {\theta}(z|x)} [ \log \frac{p _ {\theta}(z|x)}{p(z)} ] ]<br>
 \\&amp;= \mathbb{E} _ {p(x)} [KL(p _ {\theta}(z|x) || p(z))]<br>
 \\&amp;=\mathbb{E} _ {p(x)}[\int p _ {\theta}(z|x) \log \frac{p _ {\theta}(z|x)}{p(z)} dz]<br>
 \\&amp;=\mathbb{E} _ {p(x)}[ \int p _ {\theta}(z|x) \log \left( \frac{p _ {\theta}(z|x)}{r(z)} \cdot \frac{r(z)}{p(z)} \right) dz]<br>
-\\&amp;=\mathbb{E} _ {p(x)}[ \int p _ {\theta}(z|x) \left( \log \frac{p _ {\theta}(z|x)}{r(z)} + \log \frac{r(z)}{p(z)} \right) dz]</p>
-<p>\\&amp;=\mathbb{E} _ {p(x)}[\int p _ {\theta}(z|x) \log \frac{p _ {\theta}(z|x)}{r(z)} dz+\int p _ {\theta}(z|x) \log \frac{r(z)}{p(z)} dz]<br>
+\\&amp;=\mathbb{E} _ {p(x)}[ \int p _ {\theta}(z|x) \left( \log \frac{p _ {\theta}(z|x)}{r(z)} + \log \frac{r(z)}{p(z)} \right) dz]<br>
+\\&amp;=\mathbb{E} _ {p(x)}[\int p _ {\theta}(z|x) \log \frac{p _ {\theta}(z|x)}{r(z)} dz+\int p _ {\theta}(z|x) \log \frac{r(z)}{p(z)} dz]<br>
 \\&amp;=\mathbb{E} _ {p(x)}[KL(p{\theta}(z|x) || r(z))+\mathbb{E}{p _ {\theta}(z|x)} \left[\log \frac{r(z)}{p(z)}\right]]<br>
 \end{align}<br>
-$$<br>
-而<br>
+$$</p>
+<p>而<br>
 $$<br>
 \begin{align}<br>
 \mathbb{E} _ {p(x)}\left[\mathbb{E}{p _ {\theta}(z|x)} \left[\log \frac{r(z)}{p(z)}\right]\right]&amp;=\mathbb{E}{p(x,z)} \left[\log \frac{r(z)}{p(z)}\right]<br>
@@ -17074,16 +17074,19 @@ $$<br>
 \\&amp;=\int_z p(z)log\frac{r(z)}{p(z)}dz<br>
 \\&amp;=-KL(p(z)||r(z))<br>
 \end{align}<br>
-$$<br>
-故利用非负性即有：<br>
-$$<br>
+$$</p>
+<p>故利用非负性即有：</p>
+<p>$$<br>
 I(X;Z) \le \mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]<br>
 $$</p>
 <p>一个更直接且在VIB论文中被采用的思路是，我们希望 $Z$ 尽可能独立于 $X$，同时又保留预测 $Y$ 所需的信息。如果 $Z$ 对 $X$ 的依赖性很小，那么 $p _ {\theta}(z|x)$ 对于不同的 $x$ 应该看起来都差不多，并且都接近某个简单的先验 $r(z)$。因此，我们直接将 $I(X;Z)$ 替换为一个可以计算的上界或一个相关的量，即 $\mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]$。</p>
 <p>当 $r(z)$ 是一个固定的先验分布时，最小化 $\mathbb{E} _ {p(x)}[KL(p _ {\theta}(z|x) || r(z))]$ 会迫使编码器 $p _ {\theta}(z|x)$ 的输出（对于所有x）都接近这个先验 $r(z)$。这就限制了Z中能包含的关于X的特定信息量，从而达到了压缩的目的。</p>
 <p><strong>组合得到最终的VIB目标函数</strong></p>
 <p>将上述两部分的近似代入原始IB目标 $\max [I(Z;Y) - \beta I(X;Z)]$，我们得到VIB的目标（通常是最小化其负值）：</p>
-<p>最小化 $\mathcal{L} _ {VIB}(\theta, \phi) = \mathbb{E} _ {p(x)p(y|x)} \left[ - \mathbb{E} _ {p _ {\theta}(z|x)}[\log q _ {\phi}(y|z)] + \beta KL(p _ {\theta}(z|x) || r(z)) \right]$</p>
+<p>最小化<br>
+$$<br>
+\mathcal{L} _ {VIB}(\theta, \phi) = \mathbb{E} _ {p(x)p(y|x)} \left[ - \mathbb{E} _ {p _ {\theta}(z|x)}[\log q _ {\phi}(y|z)] + \beta KL(p _ {\theta}(z|x) || r(z)) \right]<br>
+$$</p>
 <p>这里：</p>
 <ul>
 <li>第一项 $-\mathbb{E} _ {p _ {\theta}(z|x)}[\log q _ {\phi}(y|z)]$ 是<strong>预测损失</strong>（或重构损失，取决于任务）。我们希望它小，对应于最大化 $I(Z;Y)$ 的下界。</li>
