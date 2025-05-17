@@ -16955,7 +16955,7 @@ $$<br>
   <entry>
     <title>Graph Information Bottleneck</title>
     <url>/2024/20240520/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。</p>
 <span id="more"></span>
 <h2 id="Information-Bottleneck">Information Bottleneck</h2>
 <p>最早来自2000年Naftali Tishby等人的的<a href="https://arxiv.org/abs/physics/0004057">《The information bottleneck method》</a></p>
@@ -17055,7 +17055,7 @@ $$<br>
 我们可以利用KL散度的性质：</p>
 <p>$$<br>
 \begin{align}<br>
-I(X;Z)&amp;=  \mathbb{E} _ {p_(x,z)} [ \log \frac{p _ {\theta}(z|x)p(x)}{p(x)p(z)} ]<br>
+I(X;Z)&amp;=\mathbb{E} _ {p_(x,z)} [ \log \frac{p _ {\theta}(z|x)p(x)}{p(x)p(z)}]<br>
 \\&amp;= \mathbb{E} _ {p(x)} [ \mathbb{E} _ {p _ {\theta}(z|x)} [ \log \frac{p _ {\theta}(z|x)}{p(z)} ] ]<br>
 \\&amp;= \mathbb{E} _ {p(x)} [KL(p _ {\theta}(z|x) || p(z))]<br>
 \\&amp;=\mathbb{E} _ {p(x)}[\int p _ {\theta}(z|x) \log \frac{p _ {\theta}(z|x)}{p(z)} dz]<br>
@@ -17065,8 +17065,8 @@ I(X;Z)&amp;=  \mathbb{E} _ {p_(x,z)} [ \log \frac{p _ {\theta}(z|x)p(x)}{p(x)p(z
 \\&amp;=\mathbb{E} _ {p(x)}[KL(p{\theta}(z|x) || r(z))+\mathbb{E}{p _ {\theta}(z|x)} \left[\log \frac{r(z)}{p(z)}\right]]<br>
 \end{align}<br>
 $$</p>
-<p>而<br>
-$$<br>
+<p>而</p>
+<p>$$<br>
 \begin{align}<br>
 \mathbb{E} _ {p(x)}\left[\mathbb{E}{p _ {\theta}(z|x)} \left[\log \frac{r(z)}{p(z)}\right]\right]&amp;=\mathbb{E}{p(x,z)} \left[\log \frac{r(z)}{p(z)}\right]<br>
 \\&amp;=\int_z \int_x p(x)p_\theta(z|x)log\frac{r(z)}{p(z)}dxdz<br>
