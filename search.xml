@@ -20586,7 +20586,7 @@ $$</p>
   <entry>
     <title>模型参数与目标无关的模型</title>
     <url>/2025/20250521/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。</p>
 <span id="more"></span>
 <p>有点类似于之前提过的PMLP，把其中一个模块和其他模块分离开。</p>
 <p>在此基础上，我们能不能扩展到更多模型？</p>
@@ -20602,14 +20602,14 @@ $$</p>
 <p>作者假设，一个能够很好泛化的模型，其样本外预测 ($f^o$) 的分布应该与真实观测数据 (y) 的分布大致相同 。</p>
 <p>故最小化:<br>
 $$<br>
-\abs{\frac{1}{n}\sum^n y_i^2-\frac{1}{n_o}\sum^{n_o} (\hat f_i^o)^2}=\abs{y^T(\frac{1}{n}I_n-\frac{1}{n_o}S_o^TS_o^T)y}=\abs{y^TAy}<br>
+|\frac{1}{n}\sum^n y_i^2-\frac{1}{n_o}\sum^{n_o} (\hat f_i^o)^2|=|y^T(\frac{1}{n}I_n-\frac{1}{n_o}S_o^TS_o^T)y|=|y^TAy|<br>
 $$<br>
 有两种方法来让这条式子y-free：</p>
 <p>（1）使用随机标签 $y_R$ (基于迹半范数)</p>
 <p>如果 $y_R$ 的元素不相关，均值为0，方差为 $\sigma_y^2$，那么最小化$|y_R^TAy_R|$的期望就等价于最小化$|E_{y_R}(y_R^TAy_R)|=|Tr(A)|\sigma_y^2$</p>
 <p>（2）利用不等式<br>
 $$<br>
-|y^TAy|\leq||A||<em>2\cdot||y||^2_2\leq||A||</em>{<em>}\cdot||y||^2_2<br>
+|y^TAy|\leq||A|| _ 2\cdot||y||^2 _ 2\leq||A|| _ {<em>}\cdot||y||^2 _ 2<br>
 $$<br>
 其中</em>代表核范数。</p>
 <h2 id="对于神经网络">对于神经网络</h2>
