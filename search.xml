@@ -19916,6 +19916,11 @@ $$<br>
 P(||h_i-E[h_i]||_2\ge t)\le 2l\cdot exp(-\frac{deg(i)t^2}{2\rho^2(W)B^2l})<br>
 $$</p>
 <p>其中$\rho$代表最大奇异值，$l$代表特征维度。</p>
+<p>对于CSBM模型$G\sim CSBM(\mu_1,\mu_2,p,q)$，我们可以认为邻域分布$D_{c1}=[\frac{p}{p+q},\frac{q}{p+q}],D_{c2}=[\frac{q}{p+q},\frac{p}{p+q}]$。</p>
+<p>基于领域分布，对于$i\in C_1$：<br>
+$$<br>
+h_i\sim N(\frac{p\mu_1+q\mu_2}{p+q},\frac{1}{\sqrt{deg(i)}})<br>
+$$</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
