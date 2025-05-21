@@ -20584,11 +20584,12 @@ $$</p>
       </tags>
   </entry>
   <entry>
-    <title>模型参数与目标无关的模型</title>
+    <title>模型参数与标签无关的模型</title>
     <url>/2025/20250521/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>我们可以减轻标签的作用吗？</p>
+<p>完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y=f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。</p>
+<p>听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。</p>
 <span id="more"></span>
-<p>有点类似于之前提过的PMLP，把其中一个模块和其他模块分离开。</p>
 <p>在此基础上，我们能不能扩展到更多模型？</p>
 <p>这正是《Supervised Models Can Generalize Also When Trained on Random Labels 》要做的。</p>
 <p>我们先规定一些符号：</p>
@@ -20623,6 +20624,7 @@ $$<br>
 <p>使用随机标签训练神经网络时，需要一个标准来决定何时停止训练。使用 Frobenius 范数版本的 y-free SSMM 来决定训练的时机。</p>
 ]]></content>
       <tags>
+        <tag>机器学习</tag>
         <tag>深度学习</tag>
       </tags>
   </entry>

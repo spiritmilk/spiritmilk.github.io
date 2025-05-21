@@ -267,14 +267,14 @@
       <h2 class="index-header">
         
         <a href="/2025/20250521/" target="_self">
-          模型参数与目标无关的模型
+          模型参数与标签无关的模型
         </a>
       </h2>
 
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/20250521/" target="_self">
         <div>
-          回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。
+          我们可以减轻标签的作用吗？ 完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y=f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。 听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且
         </div>
       </a>
 
@@ -291,6 +291,8 @@
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
             
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">#深度学习</a>
             
@@ -1030,7 +1032,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"笔记","value":29},{"name":"机器学习","value":28},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}],
+                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"机器学习","value":29},{"name":"笔记","value":29},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -1044,7 +1046,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"笔记","value":29},{"name":"机器学习","value":28},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"机器学习","value":29},{"name":"笔记","value":29},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });

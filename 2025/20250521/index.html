@@ -21,22 +21,23 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。">
+    <meta name="description" content="我们可以减轻标签的作用吗？ 完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y&#x3D;f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。 听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}Xy$，即可以写成Sy的形式，且">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模型参数与目标无关的模型">
+<meta property="og:title" content="模型参数与标签无关的模型">
 <meta property="og:url" content="https://lijianxiong.work/2025/20250521/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。">
+<meta property="og:description" content="我们可以减轻标签的作用吗？ 完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y&#x3D;f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。 听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}Xy$，即可以写成Sy的形式，且">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-21T08:49:49.000Z">
-<meta property="article:modified_time" content="2025-05-21T09:49:57.577Z">
+<meta property="article:modified_time" content="2025-05-21T09:56:42.890Z">
 <meta property="article:author" content="LJX">
+<meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>模型参数与目标无关的模型 - 小熊的小站</title>
+  <title>模型参数与标签无关的模型 - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -239,7 +240,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="模型参数与目标无关的模型"></span>
+            <span id="subtitle" data-typed-text="模型参数与标签无关的模型"></span>
           
         </div>
 
@@ -262,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          564 字
+          648 字
         
       </span>
     
@@ -273,7 +274,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -310,14 +311,15 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">模型参数与目标无关的模型</h1>
+            <h1 id="seo-header">模型参数与标签无关的模型</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>我们可以减轻标签的作用吗？</p>
+<p>完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y=f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。</p>
+<p>听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}=Xw$，最佳权重可以写成$w=(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。</p>
 <span id="more"></span>
-<p>有点类似于之前提过的PMLP，把其中一个模块和其他模块分离开。</p>
 <p>在此基础上，我们能不能扩展到更多模型？</p>
 <p>这正是《Supervised Models Can Generalize Also When Trained on Random Labels 》要做的。</p>
 <p>我们先规定一些符号：</p>
@@ -362,6 +364,8 @@ $$<br>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
         <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
       
     </div>
@@ -374,7 +378,7 @@ $$<br>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>模型参数与目标无关的模型</div>
+      <div>模型参数与标签无关的模型</div>
       <div>https://lijianxiong.work/2025/20250521/</div>
     </div>
     <div class="license-meta">
@@ -965,7 +969,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"笔记","value":29},{"name":"机器学习","value":28},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}],
+                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"机器学习","value":29},{"name":"笔记","value":29},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -979,7 +983,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"笔记","value":29},{"name":"机器学习","value":28},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":66},{"name":"人工智能","value":45},{"name":"机器学习","value":29},{"name":"笔记","value":29},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":12},{"name":"图神经网络","value":11}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });
