@@ -29,7 +29,7 @@
 <meta property="og:description" content="在笔者之前研究图神经网络的时候，一直苦于难以使用数学去之间建模图数据。但似乎这一切有了转机，笔者最近发现了一种特殊的分析方法来分析GNN，对此这就不得不读了。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-13T15:04:26.000Z">
-<meta property="article:modified_time" content="2025-05-21T10:41:44.148Z">
+<meta property="article:modified_time" content="2025-05-21T13:59:12.460Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          551 字
+          715 字
         
       </span>
     
@@ -274,7 +274,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -318,7 +318,7 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>在笔者之前研究图神经网络的时候，一直苦于难以使用数学去之间建模图数据。但似乎这一切有了转机，笔者最近发现了一种特殊的分析方法来分析GNN，对此这就不得不读了。</p>
 <span id="more"></span>
-<p>像之前提到的《Joint Graph Rewiring and Feature Denoising via Spectral Resonance》（ICLR2025）、上篇的ICLR2022、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2207.11311">《Understanding Non-linearity in Graph Neural Networks from the Bayesian-Inference Perspective》</a>(NIPS2022)、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.14274">《When Do Graph Neural Networks Help with Node Classification? Investigating the Impact of Homophily Principle on Node Distinguishability》</a>（NIPS2023）都使用到了stochastic block model或contextual stochastic block model（SBM/CSBM)。</p>
+<p>像之前提到的《Joint Graph Rewiring and Feature Denoising via Spectral Resonance》（ICLR2025）、上篇的《Is homophily a necessity for graph neural networks? 》ICLR2022、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2207.11311">《Understanding Non-linearity in Graph Neural Networks from the Bayesian-Inference Perspective》</a>(NIPS2022)、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.14274">《When Do Graph Neural Networks Help with Node Classification? Investigating the Impact of Homophily Principle on Node Distinguishability》</a>（NIPS2023）都使用到了stochastic block model或contextual stochastic block model（SBM/CSBM)。</p>
 <h2 id="SBM">SBM</h2>
 <p>SBM 的基本参数包括：节点数 n、将节点划分为r个社区的分区集合 {C1,…,Cr}，以及一个对称的 r×r边概率矩阵 P。<br>
 对于任意两个节点 $u∈C_i，v\in C_j$，在 SBM 中它们以概率 $P_{ij}$ 相连。</p>
@@ -330,6 +330,15 @@
 <li>边的生成仍遵循 SBM 的 $P_{ij}$；节点属性生成由社区-条件分布控制。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generate_contextual_sbm</span>(<span class="hljs-params">n, pi, p_matrix, theta, feature_dist=<span class="hljs-string">&#x27;gaussian&#x27;</span>, seed=<span class="hljs-literal">None</span></span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Generate a graph with attributes from the Contextual SBM (cSBM).</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Parameters:</span><br><span class="hljs-string">    ----------</span><br><span class="hljs-string">    n : int</span><br><span class="hljs-string">        Total number of nodes.</span><br><span class="hljs-string">    pi : list or np.ndarray of shape (r,)</span><br><span class="hljs-string">        Mixing proportions for each of r communities.</span><br><span class="hljs-string">    p_matrix : 2D array-like of shape (r, r)</span><br><span class="hljs-string">        Connection probability matrix between communities.</span><br><span class="hljs-string">    theta : list of dict</span><br><span class="hljs-string">        Parameters for each community&#x27;s feature distribution.</span><br><span class="hljs-string">        For Gaussian: &#123;&#x27;mean&#x27;: array, &#x27;cov&#x27;: array&#125;</span><br><span class="hljs-string">    feature_dist : str</span><br><span class="hljs-string">        Distribution type (&#x27;gaussian&#x27;).</span><br><span class="hljs-string">    seed : int, optional</span><br><span class="hljs-string">        Random seed for reproducibility.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    -------</span><br><span class="hljs-string">    G : networkx.Graph</span><br><span class="hljs-string">        Generated cSBM graph with node attributes &#x27;block&#x27; and &#x27;features&#x27;.</span><br><span class="hljs-string">    labels : np.ndarray of shape (n,)</span><br><span class="hljs-string">        Community label for each node.</span><br><span class="hljs-string">    X : np.ndarray of shape (n, d)</span><br><span class="hljs-string">        Feature matrix.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> seed <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>        np.random.seed(seed)<br>    r = <span class="hljs-built_in">len</span>(pi)<br>    <span class="hljs-keyword">assert</span> p_matrix.shape == (r, r), <span class="hljs-string">&quot;p_matrix must be r x r&quot;</span><br>    <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(theta) == r, <span class="hljs-string">&quot;theta must have one entry per community&quot;</span><br><br>    <span class="hljs-comment"># Sample community labels</span><br>    labels = np.random.choice(r, size=n, p=pi)<br>    <span class="hljs-comment"># Generate features</span><br>    <span class="hljs-comment"># Assume Gaussian mixture</span><br>    d = theta[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;mean&#x27;</span>].shape[<span class="hljs-number">0</span>]<br>    X = np.zeros((n, d))<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        z = labels[i]<br>        params = theta[z]<br>        X[i] = np.random.multivariate_normal(mean=params[<span class="hljs-string">&#x27;mean&#x27;</span>], cov=params[<span class="hljs-string">&#x27;cov&#x27;</span>])<br><br>    <span class="hljs-comment"># Generate adjacency</span><br>    A = np.zeros((n, n), dtype=<span class="hljs-built_in">int</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i + <span class="hljs-number">1</span>, n):<br>            <span class="hljs-keyword">if</span> np.random.rand() &lt; p_matrix[labels[i], labels[j]]:<br>                A[i, j] = A[j, i] = <span class="hljs-number">1</span><br><br>    <span class="hljs-comment"># Build graph</span><br>    G = nx.from_numpy_array(A)<br>    <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        G.nodes[idx][<span class="hljs-string">&#x27;block&#x27;</span>] = <span class="hljs-built_in">int</span>(labels[idx])<br>        G.nodes[idx][<span class="hljs-string">&#x27;features&#x27;</span>] = X[idx]<br><br>    <span class="hljs-keyword">return</span> G, labels, X<br></code></pre></td></tr></table></figure>
+<h2 id="分析">分析</h2>
+<p>形式确实很简单，有点类似回归中解释是高斯分布。</p>
+<p>我们可以来看上篇的《Is homophily a necessity for graph neural networks? 》是怎么使用的。</p>
+<p>我们考虑一个图 G，其中每个节点 i 具有特征 x∈ R 标签 y。</p>
+<p>我们假设</p>
+<p>(1) 节点 i 的特征从特征分布 F 中采样，即 x∼ F，μ(F)表示其均值；</p>
+<p>(2) x 的维度之间相互独立；</p>
+<p>(3) X 中的特征被一个正标量 B 所限制，即 max|X[i, j]| ≤ B；</p>
+<p>(4) 对于节点 i，其邻居的标签从邻居分布 D 中独立采样。采样重复 deg(i)次以采样 deg(i)个邻居的标签。</p>
 
                 
               </div>
