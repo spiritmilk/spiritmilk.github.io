@@ -20471,7 +20471,7 @@ $$</p>
   <entry>
     <title>MCMC之前尘后事</title>
     <url>/2025/20250520/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
 <h2 id="前尘">前尘</h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
@@ -20545,10 +20545,10 @@ z&amp;=h(y)=\int_0^y p(y)dy<br>
 \\<br>
 &amp;=1-exp(-\lambda y)<br>
 \end{align}<br>
-$$<br>
-另外统计学中还有一个Box-Muller⽅法⽤于⽣成⾼斯概率分布的样本。</p>
+$$</p>
 <p>故我们均匀生成z，并通过$y=-\lambda^{-1}ln(1-z)$来生成指数分布。</p>
-<p>我们这种方法只能用于⼀些⾮常有限的简单的概率分布可⾏，因此我们必须寻找⼀些更加⼀般的⽅法。</p>
+<p>另外统计学中还有一个Box-Muller⽅法⽤于⽣成⾼斯概率分布的样本。</p>
+<p>但是我们这种方法只能用于⼀些⾮常有限的简单的概率分布可⾏，因此我们必须寻找⼀些更加⼀般的⽅法。</p>
 <h3 id="拒绝采样">拒绝采样</h3>
 <p>为了应⽤拒绝采样⽅法，我们需要⼀些简单的概率分布q(z)，有时被称为提议分布（proposal distribution）。满足对所有的z，都要$kq(z)\ge \tilde p(z)$，函数kq(z)被称为⽐较函数。</p>
 <p>⾸先，我们从概率分布q(z)中⽣成⼀个数z0。</p>
