@@ -19947,9 +19947,9 @@ $x_i$和$h_i’$具有相同的方差。</p>
 <p>为了比较误分类概率，我们只需比较期望值到决策边界的距离，具体而言：<br>
 $$<br>
 \begin{align}<br>
-dis_{x_i}&amp;=\frac{||\mu_1-\mu_2||<em>2}{2}<br>
+dis_{x_i}&amp;=\frac{||\mu_1-\mu_2|| _ 2}{2}<br>
 \\<br>
-dis</em>{h_i’}&amp;=\frac{\sqrt{deg(i)}|p-q|}{p+q}\frac{||\mu_1-\mu_2||_2}{2}<br>
+dis_{h_i’}&amp;=\frac{\sqrt{deg(i)}|p-q|}{p+q}\frac{||\mu_1-\mu_2||_2}{2}<br>
 \end{align}<br>
 $$<br>
 得证。</p>
