@@ -19907,11 +19907,11 @@ $$<br>
 <p>(2) x 的维度之间相互独立；</p>
 <p>(3) X 中的特征被一个正标量 B 所限制，即 max|X[i, j]| ≤ B；</p>
 <p>(4) 对于节点 i，其邻居的标签从邻居分布 D 中独立采样。采样重复 deg(i)次以采样 deg(i)个邻居的标签。</p>
-<p>定理一：单个GCN操作激活前的输出的期望是：<br>
+<p><strong>定理1：</strong> 单个GCN操作激活前的输出的期望是：<br>
 $$<br>
 E[h_i]=W(E_{c\sim D_{y_i},x\sim F_c}[x])<br>
 $$<br>
-a<br>
+以及对于任何 t &gt; 0，观测值与其期望的距离大于 t 的概率是有界的：<br>
 $$<br>
 P(||h_i-E[h_i]||_2\ge t)\le 2l\cdot exp(-\frac{deg(i)t^2}{2\rho^2(W)B^2l})<br>
 $$</p>
@@ -19919,7 +19919,20 @@ $$</p>
 <p>对于CSBM模型$G\sim CSBM(\mu_1,\mu_2,p,q)$，我们可以认为邻域分布$D_{c1}=[\frac{p}{p+q},\frac{q}{p+q}],D_{c2}=[\frac{q}{p+q},\frac{p}{p+q}]$。</p>
 <p>基于领域分布，对于$i\in C_1$：<br>
 $$<br>
-h_i\sim N(\frac{p\mu_1+q\mu_2}{p+q},\frac{1}{\sqrt{deg(i)}})<br>
+h_i\sim N(\frac{p\mu_1+q\mu_2}{p+q},\frac{I}{\sqrt{deg(i)}})<br>
+$$<br>
+根据高斯分布的性质，很容易看出定理1成立。</p>
+<p><strong>命题1：</strong> $(E_{c1}[x_i],E_{c2}[x_i])$和$(E_{c1}[h_i],E_{c2}[h_i])$具有相同的中点m，且$E_{c1}[x_i]-E_{c2}[x_i]$和$E_{c1}[h_i]-E_{c2}[h_i]$具有相同的方向w。$m=\frac{\mu_1+\mu_2}{2},w=\frac{\mu_1-\mu_2}{||\mu_1-\mu_2||_2}$。</p>
+<p><strong>定理2：</strong> 图符合CSBM，则对于任意节点i，当deg(i)&gt;(p+q)/(p-q)时，由决策边界 P 定义的线性分类器误分类$h_i$的概率低于误分类$x_i$的概率。</p>
+<p><strong>证明：</strong></p>
+<p>我们仅对来自类$C_0$的节点进行证明。因为对称性，其他的证明相同。</p>
+<p>对于节点$i\in C_0$，<br>
+$$<br>
+\begin{align}<br>
+P(x_i \ \text{is mis-classfied})=P(w^Tx_i+b\le0)<br>
+\\<br>
+P(h_i \ \text{is mis-classfied})=P(w^Th_i+b\le0)<br>
+\end{align}<br>
 $$</p>
 ]]></content>
       <tags>
