@@ -19934,6 +19934,15 @@ P(x_i \ \text{is mis-classfied})=P(w^Tx_i+b\le0)<br>
 P(h_i \ \text{is mis-classfied})=P(w^Th_i+b\le0)<br>
 \end{align}<br>
 $$</p>
+<p>w和$b=-w^T(\mu_1+\mu_2)/2$是决策边界P的参数。</p>
+<p>我们有：<br>
+$$<br>
+P(w^Th_i+b\le 0)=P(w^T\sqrt{deg(i)}h_i+\sqrt{deg(i)}b\le 0)<br>
+$$<br>
+令$h_i’=\sqrt{deg(i)}h_i$，故：<br>
+$$<br>
+h_i’=\sqrt{deg(i)}h_i\sim N(\frac{\sqrt{deg(i)}(p\mu_0+q\mu_1)}{p+q},I)<br>
+$$</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>

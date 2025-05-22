@@ -29,7 +29,7 @@
 <meta property="og:description" content="在笔者之前研究图神经网络的时候，一直苦于难以使用数学去之间建模图数据。但似乎这一切有了转机，笔者最近发现了一种特殊的分析方法来分析GNN，对此这就不得不读了。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-13T15:04:26.000Z">
-<meta property="article:modified_time" content="2025-05-22T02:33:22.820Z">
+<meta property="article:modified_time" content="2025-05-22T02:37:03.778Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -274,7 +274,7 @@
         
         
         
-          9 分钟
+          10 分钟
         
       </span>
     
@@ -365,6 +365,15 @@ P(x_i \ \text{is mis-classfied})=P(w^Tx_i+b\le0)<br>
 \\<br>
 P(h_i \ \text{is mis-classfied})=P(w^Th_i+b\le0)<br>
 \end{align}<br>
+$$</p>
+<p>w和$b=-w^T(\mu_1+\mu_2)/2$是决策边界P的参数。</p>
+<p>我们有：<br>
+$$<br>
+P(w^Th_i+b\le 0)=P(w^T\sqrt{deg(i)}h_i+\sqrt{deg(i)}b\le 0)<br>
+$$<br>
+令$h_i’=\sqrt{deg(i)}h_i$，故：<br>
+$$<br>
+h_i’=\sqrt{deg(i)}h_i\sim N(\frac{\sqrt{deg(i)}(p\mu_0+q\mu_1)}{p+q},I)<br>
 $$</p>
 
                 
