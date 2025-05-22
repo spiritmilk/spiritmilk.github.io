@@ -20634,7 +20634,7 @@ $$<br>
 <h2 id="Metropolis-Hastings算法">Metropolis-Hastings算法</h2>
 <p>这种情形下，提议分布不再是参数的⼀个对称函数。<br>
 $$<br>
-A_k(z^{\text{<em>}},z^{(\tau)})=min(1,\frac{\tilde p(z^{\text{</em>}})q_k(z^{(\tau)}|z^{\text{<em>}})}{\tilde p(z^{(\tau)})q_k(z^{\text{</em>}}|z^{\tau})})<br>
+A_k(z^{*},z^{(\tau)})=min(1,\frac{\tilde p(z^{*})q_k(z^{(\tau)}|z^{*})}{\tilde p(z^{(\tau)})q_k(z^{*}|z^{\tau})})<br>
 $$</p>
 <h2 id="总结">总结</h2>
 <p><strong>MCMC的核心步骤</strong>可以概括为：</p>
