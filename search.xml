@@ -20471,7 +20471,7 @@ $$</p>
   <entry>
     <title>MCMC之前尘后事</title>
     <url>/2025/20250520/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
 <h2 id="前尘">前尘</h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
@@ -20630,13 +20630,8 @@ $$<br>
 <p>很容易看到，满足关于特定概率分布的细节平衡性质的转移概率会使得那个概率分布具有不变性，因为</p>
 <p>$$\sum_{z’} p^<em>(z’) T(z’, z) = \sum_{z’} p^</em>(z) T(z, z’) = p^<em>(z) \sum_{z’} T(z, z’) = p^</em>(z)$$</p>
 <p>满足细节平衡性质的马尔可夫链被称为可翻转的 (reversible)。</p>
-<p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^*(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可 (Neal, 1993)。</p>
-<p>在实际中，我们经常可以从一组“基”转移 $B_1, \ldots, B_K$ 中构建转移概率，方法为：将各个“基”转移表示为混合概率分布，形式为</p>
-<p>$$T(z, z’) = \sum_{k=1}^K \alpha_k B_k(z, z’) \quad (11.42)$$</p>
-<p>混合系数 $\alpha_1, \ldots, \alpha_K$ 满足 $\alpha_k \ge 0$ 且 $\sum_k \alpha_k = 1$。此外，基转移可以通过连续的应用组合到一起，即</p>
-<p>$$T(z, z’) = \sum_{z_1} \ldots \sum_{z_{K-1}} B_1(z, z_1) \ldots B_k(z_{K-2}, z_{K-1}) B_K(z_{K-1}, z’) \quad (11.43)$$</p>
-<p>如果一个概率分布关于每个基转移都是不变的，那么显然它关于公式 (11.42) 和 (11.43) 也是不变的。对于公式 (11.42) 的混合分布，如果每个基转移满足细节平衡，那么混合转移T也满足细节平衡。这对于使用公式 (11.43) 构造的转移概率不成立，虽然通过将基转移的顺序对称化，即采用 $B_1, B_2, \ldots, B_K, B_K, \ldots, B_2, B_1$ 的形式，细节平衡的性质可以被恢复。使用组合转移概率的一个常见的例子是基于将基转移只改变变量的一个子集的情形。</p>
-<h2 id="MCMC的基本原理">MCMC的基本原理</h2>
+<p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^*(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可。</p>
+<h2 id="总结">总结</h2>
 <p><strong>MCMC的核心步骤</strong>可以概括为：</p>
 <ol>
 <li><strong>构造马尔可夫链</strong>：设计一个状态转移机制（通常由一个转移核或转移概率矩阵 $P$ 定义），使得该马尔可夫链的平稳分布是目标分布 $\pi(x)$。一个关键的条件是<strong>细致平稳条件（Detailed Balance Condition）</strong>，即对于任意两个状态 $i$ 和 $j$，满足 $\pi(i)P(i,j) = \pi(j)P(j,i)$。满足细致平稳条件的马尔可夫链，其平稳分布就是 $\pi(x)$。</li>
@@ -20644,13 +20639,11 @@ $$<br>
 <li><strong>达到平稳分布后收集样本</strong>：由于马尔可夫链需要一段时间才能达到平稳分布，通常会舍弃初始阶段产生的一批样本（称为“老化期”或“burn-in period”）。之后产生的样本则被认为是来自目标分布 $\pi(x)$ 的近似独立同分布样本（尽管它们在链中是相关的）。</li>
 <li><strong>利用样本进行估计</strong>：使用收集到的有效样本来进行蒙特卡罗积分，例如估计某个函数 $f(x)$ 在目标分布 $\pi(x)$ 下的期望值：$E[f(x)] \approx \frac{1}{M} \sum_{i=1}^{M} f(x^{(i)})$，其中 $M$ 是有效样本的数量。</li>
 </ol>
-<hr>
-<h2 id="常见的MCMC算法-⚙️">常见的MCMC算法 ⚙️</h2>
-<p>有多种具体的MCMC算法，其中最著名的包括：</p>
+<p>有多种具体的MCMC算法：</p>
 <ul>
 <li>
-<p><strong>Metropolis-Hastings (MH) 算法</strong>：这是一个非常通用和基础的MCMC算法。它通过一个“提议分布”（proposal distribution）$q(x’|x)$ 来生成候选样本 $x’$，然后根据一个接受概率 $\alpha(x, x’)$ 来决定是否接受这个新样本。接受概率通常定义为：<br>
-$$\alpha(x, x’) = \min\left(1, \frac{\pi(x’)q(x|x’)}{\pi(x)q(x’|x)}\right)$$<br>
+<p><strong>Metropolis-Hastings (MH) 算法</strong>：这是一个非常通用和基础的MCMC算法。它通过一个“提议分布”（proposal distribution）$q(x’|x)$ 来生成候选样本 $x’$，然后根据一个接受概率 $A(x, x’)$ 来决定是否接受这个新样本。接受概率通常定义为：<br>
+$$A(x, x’) = \min\left(1, \frac{\pi(x’)q(x|x’)}{\pi(x)q(x’|x)}\right)$$<br>
 如果提议分布是对称的，即 $q(x’|x) = q(x|x’)$，则MH算法简化为Metropolis算法。MH算法的优点在于它只需要计算目标分布 $\pi(x)$ 的比例，而不需要知道其归一化常数。</p>
 </li>
 <li>
