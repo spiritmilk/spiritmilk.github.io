@@ -20471,7 +20471,7 @@ $$</p>
   <entry>
     <title>MCMC之前尘后事</title>
     <url>/2025/20250520/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
 <h2 id="前尘">前尘</h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
@@ -20616,7 +20616,14 @@ p(z^{(\tau+1)}=z^{(\tau)}+1)=0.5<br>
 p(z^{(\tau+1)}=z^{(\tau)}-1)=0.5<br>
 \end{align}<br>
 $$<br>
-则根据对称性,$E[z^{(\tau)}]=0$，$E[(z^{(\tau)})^2]=\frac{\tau}{2}$。</p>
+则根据对称性,$E[z^{(\tau)}]=0$。且</p>
+<p>$$<br>
+\begin{align}<br>
+E_{\tau} [l(z^{(\tau)})^2] &amp;= 0.5 \cdot E_{\tau-1}[l(z^{(\tau-1)})^2] + 0.25 \cdot E_{\tau-1}[l(z^{(\tau-1)}+1)^2] + 0.25 \cdot E_{\tau-1}[l(z^{(\tau-1)}-1)^2]<br>
+\\&amp;= E_{\tau-1}[l(z^{(\tau-1)})^2] + 0.5<br>
+\end{align}<br>
+$$</p>
+<p>故$E[(z^{(\tau)})^2]=\frac{\tau}{2}$。</p>
 <p>可以看出随机游⾛在探索状态空间时是很低效的。所以设计马尔科夫链蒙特卡罗⽅法的⼀个中⼼⽬标就是避免随机游⾛⾏为。</p>
 <h3 id="马尔科夫链">马尔科夫链</h3>
 <p>我们可以按照下面的方式具体化一个马尔可夫链：给定初始变量的概率分布 $p(z^{(0)})$，以及后续变量的条件概率，用转移概率 (transition probability) $T_m(z^{(m)}, z^{(m+1)}) \equiv p(z^{(m+1)} | z^{(m)})$ 的形式表示。</p>
