@@ -20594,10 +20594,11 @@ $$</p>
 <p>伪代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs text">Function Importance_Sampling_Normalized(N, f, tilde_p, q_sampler, tilde_q):<br>  // 初始化<br>  sum_weighted_f_numerator = 0.0<br>  sum_weights_denominator = 0.0<br><br>  // 抽样和计算权重阶段<br>  For i from 1 to N:<br>    1. // 从提议分布 q(x) 中抽取一个样本<br>       x_i = q_sampler()<br><br>    2. // 计算该样本在目标分布下的未归一化值<br>       tilde_p_value_at_x_i = tilde_p(x_i)<br><br>    3. // 计算该样本在提议分布下的未归一化值<br>       tilde_q_value_at_x_i = tilde_q(x_i)<br><br>    4. // 安全检查：避免除以零<br>       If tilde_q_value_at_x_i == 0:<br>         // 如果 tilde_p_value_at_x_i 也为零，则此样本贡献为0，可以跳过或赋权重0<br>         // 如果 tilde_p_value_at_x_i 不为零，这是一个严重问题，说明 q(x) 在 p(x) 有值的地方取了0<br>         // 实践中需要更稳健的错误处理或确保 q 的选择是合适的<br>         raw_weight_i = 0.0 // 简单处理：赋权重0<br>         // 也可以打印警告信息: print &quot;Warning: tilde_q(x_i) is zero!&quot;<br>       Else:<br>         // 计算原始（未归一化的）重要性权重<br>         raw_weight_i = tilde_p_value_at_x_i / tilde_q_value_at_x_i<br>       End If<br><br>    5. // 累加分子项：f(x_i) * 原始权重<br>       sum_weighted_f_numerator = sum_weighted_f_numerator + f(x_i) * raw_weight_i<br><br>    6. // 累加分母项：原始权重之和<br>       sum_weights_denominator = sum_weights_denominator + raw_weight_i<br>  End For<br><br>  // 计算最终估计值<br>  If sum_weights_denominator == 0:<br>    // 如果所有权重都为零，可能表示 p 和 q 的重叠非常差，或者 N 太小<br>    // 或者 f(x_i) * raw_weight_i 始终为0<br>    print &quot;Warning: Sum of weights is zero. Estimate might be unreliable.&quot;<br>    estimate_E_p_f = 0.0 // 或返回 NaN 或根据具体情况处理<br>  Else:<br>    estimate_E_p_f = sum_weighted_f_numerator / sum_weights_denominator<br>  End If<br><br>  Return estimate_E_p_f<br>End Function<br></code></pre></td></tr></table></figure>
 <h2 id="MCMC">MCMC</h2>
+<h3 id="基本方法">基本方法</h3>
 <p>与拒绝采样和重要采样相同，我们再⼀次从提议分布中采样。但是这次我们记录下当前状态$z^{(\tau)}$，以及依赖于这个当前状态的提议分布$z^{(\tau)}$，从⽽样本序列$z^{(1)}$,$z^{(2)}$, . . .组成了⼀个马尔科夫链。与之前⼀样，如果我们有$p(z)=\frac{\tilde p(z)}{Z_p}$，那么我们会假定对于任意的值z都可以计算<em>p</em>˜(<strong>z</strong>)，虽然$Z_p$的值可能位置。提议分布本⾝被选择为⾜够简单，从⽽直接采样很容易。在算法的每次迭代中，我们从提议分布中⽣成⼀个候选样本$z^{*}$，然后根据⼀个恰当的准则接受这个样本。</p>
 <p>在基本的Metropolis算法中，我们假定提议分布是对称的，即$q(z_A|z_B)=q(z_B|z_A)$，则候选的样本被接受的概率为：<br>
 $$<br>
-A(z^{<em>},z^{(\tau)})=min(1,\frac{\tilde p(z^{</em>})}{\tilde p(z^{(\tau)})})<br>
+A(z^{*},z^{(\tau)})=min(1,\frac{\tilde p(z^{*})}{\tilde p(z^{(\tau)})})<br>
 $$<br>
 若候选样本被接受，则$z^{(\tau+1)}=z^{*}$，否则候选样本点被丢弃，再设置$z^{\tau+1}=z^{\tau}$，然后从概率分布$q(z|z^{(\tau+1)})$​中再次抽取⼀个候选样本。与拒绝采样不同，那⾥拒绝的样本被简单地丢弃。在Metropolis算法中，当⼀个候选点被拒绝时，前⼀个样本点会被包含到最终的样本的列表中，从⽽产⽣了样本点的多个副本。</p>
 <p>使⽤Metropolis算法从⼀个⾼斯分布中采样的简单例⼦，我们可以看出采样过程是连着的，这也就是链。</p>
@@ -20615,6 +20616,7 @@ p(z^{(\tau+1)}=z^{(\tau)}-1)=0.5<br>
 $$<br>
 则根据对称性,$E[z^{(\tau)}]=0$，$E[(z^{(\tau)})^2]=\frac{\tau}{2}$。</p>
 <p>可以看出随机游⾛在探索状态空间时是很低效的。所以设计马尔科夫链蒙特卡罗⽅法的⼀个中⼼⽬标就是避免随机游⾛⾏为。</p>
+<h3 id="马尔科夫链">马尔科夫链</h3>
 <h2 id="MCMC的基本原理">MCMC的基本原理</h2>
 <p><strong>MCMC的核心步骤</strong>可以概括为：</p>
 <ol>
