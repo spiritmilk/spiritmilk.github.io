@@ -20480,19 +20480,19 @@ J=\int F(\theta)exp(-E(\theta)/kT)d\theta / \int exp(-E(\theta)/kT)d\theta<br>
 $$<br>
 $\theta$表示$R^2$上一组N个粒子（particles），能量E为：<br>
 $$<br>
-E(\theta)=\frac{1}{2}\sum_{i=1}^N\sum_{j=1,j\ne i}^NV(d_{ij})<br>
+E(\theta)=\frac{1}{2}\sum _ {i=1}^N\sum _ {j=1,j\ne i}^NV(d _ {ij})<br>
 $$<br>
 其中V是势函数，d是粒子i和j在$\theta$中的欧几里得距离。玻尔兹曼分布$exp(-E(\theta))$。</p>
 <p>考虑到问题的维度很大，即使是标准的蒙特卡洛技术也无法正确地近似$J$。</p>
 <p>因为对于粒子系统（在 2N 的正方形中均匀分布）的随机构型的大多数实现，exp{−E(θ)/kT }非常小。为了提高蒙特卡洛方法的效率，Metropolis 等人（1953 年）提出了对 N 个粒子的随机游走修改，即<br>
 $$<br>
 \begin{align}<br>
-x_i’=x_i+\sigma\xi_{1i}<br>
+x_i’=x_i+\sigma\xi _ {1i}<br>
 \\<br>
-y_i’=y_i+\sigma\xi_{2i}<br>
+y_i’=y_i+\sigma\xi _ {2i}<br>
 \end{align}<br>
 $$<br>
-$\xi_{1i}、\xi_{2i}$都是均匀分布U(-1,1)。</p>
+$\xi _ {1i}、\xi _ {2i}$都是均匀分布U(-1,1)。</p>
 <p>然后计算新配置（configuration）和旧配置之间的能量差∆E，并以概率接受新配置。<br>
 $$<br>
 min(1,exp(-\Delta E/KT))<br>
@@ -20533,7 +20533,7 @@ p(y)=p(z)\left|\frac{dz}{dy}\right|<br>
 $$<br>
 我们的⽬标是选择⼀个函数<em>f</em>(<em>z</em>)使得产⽣出的<em>y</em>值具有某种所需的具体的分布形式p(y)，对上式进行积分有：<br>
 $$<br>
-z=h(y)=\int_{-\infty}^y p(\hat y)d\hat y<br>
+z=h(y)=\int _ {-\infty}^y p(\hat y)d\hat y<br>
 $$<br>
 它是p(y)的不定积分。因此，$y=h^-1(z)$，因此我们必须使⽤⼀个函数来对这个均匀分布的随机数进⾏变换</p>
 <p>假如指数分布（exponential distribution）$p(y)=\lambda exp(-\lambda y)$，其中$0\le y&lt;\infty$，故有<br>
@@ -20620,15 +20620,15 @@ $$<br>
 <p>我们可以按照下面的方式具体化一个马尔可夫链：给定初始变量的概率分布 $p(z^{(0)})$，以及后续变量的条件概率，用转移概率 (transition probability) $T_m(z^{(m)}, z^{(m+1)}) \equiv p(z^{(m+1)} | z^{(m)})$ 的形式表示。</p>
 <p>如果对于所有的 $m$，转移概率都相同，那么这个马尔可夫链被称为同质的 (homogeneous)。</p>
 <p>对于一个特定的变量，边缘概率可以根据前一个变量的边缘概率用链式乘积的方式表示出来，形式为</p>
-<p>$$p(z^{(m+1)}) = \sum_{z^{(m)}} p(z^{(m+1)} | z^{(m)}) p(z^{(m)}) $$</p>
+<p>$$p(z^{(m+1)}) = \sum _ {z^{(m)}} p(z^{(m+1)} | z^{(m)}) p(z^{(m)}) $$</p>
 <p>对于一个概率分布来说，如果马尔可夫链中的每一步都让这个概率分布保持不变，那么我们说这个概率分布关于这个马尔可夫链是不变的，或者静止的。因此，对于一个转移概率为 $T(z’, z)$ 的同质的马尔可夫链来说，如果</p>
-<p>$$\sum_{z’} T(z’, z) p^\ast(z’) = p^\ast(z) $$</p>
+<p>$$\sum _ {z’} T(z’, z) p^\ast(z’) = p^\ast(z) $$</p>
 <p>那么概率分布 $p^\ast(z)$ 是不变的。</p>
 <p>确保所求的概率分布 $p(z)$ 不变的一个充分（非必要）条件是令转移概率满足细节平衡 (detailed balance) 性质，定义为</p>
 <p>$$p^\ast(z) T(z, z’) = p^\ast(z’) T(z’, z)$$</p>
 <p>对特定的概率分布 $p^\ast(z)$ 成立。</p>
 <p>很容易看到，满足关于特定概率分布的细节平衡性质的转移概率会使得那个概率分布具有不变性，因为</p>
-<p>$$\sum_{z’} p^\ast(z’) T(z’, z) = \sum_{z’} p^\ast(z) T(z, z’) = p^\ast(z) \sum_{z’} T(z, z’) = p^\ast(z)$$</p>
+<p>$$\sum _ {z’} p^\ast(z’) T(z’, z) = \sum _ {z’} p^\ast(z) T(z, z’) = p^\ast(z) \sum _ {z’} T(z, z’) = p^\ast(z)$$</p>
 <p>满足细节平衡性质的马尔可夫链被称为可翻转的 (reversible)。</p>
 <p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^\ast(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可。</p>
 <h3 id="Metropolis-Hastings算法">Metropolis-Hastings算法</h3>
@@ -20656,9 +20656,9 @@ $$<br>
 </ol>
 <p>为了证明这个步骤能够从所需的概率分布中采样，我们⾸先注意到对于吉布斯采样的每个步骤来说，概率分布p(z)是不变的，因此对于整个马尔科夫链来说也是不变的。这是由于当我们从$p(z_i|z _ {\backslash  i})$中采样时，边缘概率分布$p(z _ {\backslash i})$显然是不变的，因为$z _ {\backslash i }$的值是不变的。并且，根据定义，对于每个步骤中来⾃正确条件概率分布$p(z_i|z _ {\backslash  i})$的样本，条件概率分布都是不变的。由于条件概率分布和边缘概率分布共同确定的联合概率分布，因此我们看到联合概率分布本⾝是不变的。</p>
 <p>为了让吉布斯采样能够从正确的概率分布中得到样本，第⼆个需要满⾜的要求为各态历经性。各态历经性的⼀个充分条件是没有条件概率分布处处为零。如果这个要求满⾜，那么z空间中的任意⼀点都可以从其他的任意⼀点经过有限步骤达到，这些步骤中每次对⼀个变量进⾏更新。如果这个要求没有满⾜，即某些条件概率分布为零，那么在这种情况下应⽤吉布斯采样时，必须显式地证明各态历经性。</p>
-<p>吉布斯采样是MH算法的一个特例。考虑一个Metropolis-Hastings采样的步骤，它涉及到变量 $z_k$，同时保持剩余的变量 $z_{\setminus k}$ 不变，并且对于这种情形来说，从 $z$ 到 $z^<em>$ 的转移概率为 $q_k(z^</em> | z) = p(z^<em><em>k | z</em>{\setminus k})$。我们注意到 $z^</em><em>{\setminus k} = z</em>{\setminus k}$，因为在采样的步骤中，向量的各个元素都不改变。并且，$p(z) = p(z_k | z_{\setminus k})p(z_{\setminus k})$。因此，确定Metropolis-Hastings算法中的接受概率的因子为<br>
+<p>吉布斯采样是MH算法的一个特例。考虑一个Metropolis-Hastings采样的步骤，它涉及到变量 $z_k$，同时保持剩余的变量 $z _ {\setminus k}$ 不变，并且对于这种情形来说，从 $z$ 到 $z^<em>$ 的转移概率为 $q_k(z^</em> | z) = p(z^<em>_k | z _ {\setminus k})$。我们注意到 $z^</em> _ {\setminus k} = z _ {\setminus k}$，因为在采样的步骤中，向量的各个元素都不改变。并且，$p(z) = p(z_k | z _ {\setminus k})p(z _ {\setminus k})$。因此，确定Metropolis-Hastings算法中的接受概率的因子为<br>
 $$<br>
-A(z^<em>, z) = \frac{p(z^</em>)q_k(z | z^<em>)}{p(z)q_k(z^</em> | z)} = \frac{p(z^<em>_k | z^</em><em>{\setminus k})p(z^*</em>{\setminus k})p(z_k | z^<em><em>{\setminus k})}{p(z_k | z</em>{\setminus k})p(z_{\setminus k})p(z^</em><em>k | z</em>{\setminus k})} = 1<br>
+A(z^<em>, z) = \frac{p(z^</em>)q_k(z | z^<em>)}{p(z)q_k(z^</em> | z)} = \frac{p(z^<em>_k | z^</em> _ {\setminus k})p(z^* _ {\setminus k})p(z_k | z^* _ {\setminus k})}{p(z_k | z _ {\setminus k})p(z _ {\setminus k})p(z^*_k | z _ {\setminus k})} = 1<br>
 $$<br>
 注意我们用到了$z _ {\backslash  k}^\ast=z _ {\backslash  k}$。</p>
 <h2 id="更多">更多</h2>
@@ -20669,7 +20669,7 @@ $$<br>
 <li><strong>构造马尔可夫链</strong>：设计一个状态转移机制（通常由一个转移核或转移概率矩阵 $P$ 定义），使得该马尔可夫链的平稳分布是目标分布 $\pi(x)$。一个关键的条件是<strong>细致平稳条件（Detailed Balance Condition）</strong>，即对于任意两个状态 $i$ 和 $j$，满足 $\pi(i)P(i,j) = \pi(j)P(j,i)$。满足细致平稳条件的马尔可夫链，其平稳分布就是 $\pi(x)$。</li>
 <li><strong>从初始状态开始迭代采样</strong>：选择一个初始状态 $x^{(0)}$，然后根据构造的马尔可夫链的转移规则，不断从当前状态转移到下一个状态，生成一系列样本 $x^{(1)}, x^{(2)}, \ldots, x^{(N)}$。</li>
 <li><strong>达到平稳分布后收集样本</strong>：由于马尔可夫链需要一段时间才能达到平稳分布，通常会舍弃初始阶段产生的一批样本（称为“老化期”或“burn-in period”）。之后产生的样本则被认为是来自目标分布 $\pi(x)$ 的近似独立同分布样本（尽管它们在链中是相关的）。</li>
-<li><strong>利用样本进行估计</strong>：使用收集到的有效样本来进行蒙特卡罗积分，例如估计某个函数 $f(x)$ 在目标分布 $\pi(x)$ 下的期望值：$E[f(x)] \approx \frac{1}{M} \sum_{i=1}^{M} f(x^{(i)})$，其中 $M$ 是有效样本的数量。</li>
+<li><strong>利用样本进行估计</strong>：使用收集到的有效样本来进行蒙特卡罗积分，例如估计某个函数 $f(x)$ 在目标分布 $\pi(x)$ 下的期望值：$E[f(x)] \approx \frac{1}{M} \sum _ {i=1}^{M} f(x^{(i)})$，其中 $M$ 是有效样本的数量。</li>
 </ol>
 <p>有多种具体的MCMC算法：</p>
 <ul>
