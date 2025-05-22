@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250520/reject.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250520/mcmc.jpg">
 <meta property="article:published_time" content="2025-05-20T15:27:34.000Z">
-<meta property="article:modified_time" content="2025-05-22T11:29:59.964Z">
+<meta property="article:modified_time" content="2025-05-22T12:19:14.704Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="概率论">
 <meta property="article:tag" content="机器学习">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          4.8k 字
         
       </span>
     
@@ -277,7 +277,7 @@
         
         
         
-          33 分钟
+          41 分钟
         
       </span>
     
@@ -465,6 +465,25 @@ $$<br>
 则根据对称性,$E[z^{(\tau)}]=0$，$E[(z^{(\tau)})^2]=\frac{\tau}{2}$。</p>
 <p>可以看出随机游⾛在探索状态空间时是很低效的。所以设计马尔科夫链蒙特卡罗⽅法的⼀个中⼼⽬标就是避免随机游⾛⾏为。</p>
 <h3 id="马尔科夫链">马尔科夫链</h3>
+<p>我们可以按照下面的方式具体化一个马尔可夫链：给定初始变量的概率分布 $p(z^{(0)})$，以及后续变量的条件概率，用转移概率 (transition probability) $T_m(z^{(m)}, z^{(m+1)}) \equiv p(z^{(m+1)} | z^{(m)})$ 的形式表示。</p>
+<p>如果对于所有的 $m$，转移概率都相同，那么这个马尔可夫链被称为同质的 (homogeneous)。</p>
+<p>对于一个特定的变量，边缘概率可以根据前一个变量的边缘概率用链式乘积的方式表示出来，形式为</p>
+<p>$$p(z^{(m+1)}) = \sum_{z^{(m)}} p(z^{(m+1)} | z^{(m)}) p(z^{(m)}) $$</p>
+<p>对于一个概率分布来说，如果马尔可夫链中的每一步都让这个概率分布保持不变，那么我们说这个概率分布关于这个马尔可夫链是不变的，或者静止的。因此，对于一个转移概率为 $T(z’, z)$ 的同质的马尔可夫链来说，如果</p>
+<p>$$\sum_{z’} T(z’, z) p^<em>(z’) = p^</em>(z) $$</p>
+<p>那么概率分布 $p^*(z)$ 是不变的。</p>
+<p>确保所求的概率分布 $p(z)$ 不变的一个充分（非必要）条件是令转移概率满足细节平衡 (detailed balance) 性质，定义为</p>
+<p>$$p^<em>(z) T(z, z’) = p^</em>(z’) T(z’, z)$$</p>
+<p>对特定的概率分布 $p^*(z)$ 成立。</p>
+<p>很容易看到，满足关于特定概率分布的细节平衡性质的转移概率会使得那个概率分布具有不变性，因为</p>
+<p>$$\sum_{z’} p^<em>(z’) T(z’, z) = \sum_{z’} p^</em>(z) T(z, z’) = p^<em>(z) \sum_{z’} T(z, z’) = p^</em>(z)$$</p>
+<p>满足细节平衡性质的马尔可夫链被称为可翻转的 (reversible)。</p>
+<p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^*(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可 (Neal, 1993)。</p>
+<p>在实际中，我们经常可以从一组“基”转移 $B_1, \ldots, B_K$ 中构建转移概率，方法为：将各个“基”转移表示为混合概率分布，形式为</p>
+<p>$$T(z, z’) = \sum_{k=1}^K \alpha_k B_k(z, z’) \quad (11.42)$$</p>
+<p>混合系数 $\alpha_1, \ldots, \alpha_K$ 满足 $\alpha_k \ge 0$ 且 $\sum_k \alpha_k = 1$。此外，基转移可以通过连续的应用组合到一起，即</p>
+<p>$$T(z, z’) = \sum_{z_1} \ldots \sum_{z_{K-1}} B_1(z, z_1) \ldots B_k(z_{K-2}, z_{K-1}) B_K(z_{K-1}, z’) \quad (11.43)$$</p>
+<p>如果一个概率分布关于每个基转移都是不变的，那么显然它关于公式 (11.42) 和 (11.43) 也是不变的。对于公式 (11.42) 的混合分布，如果每个基转移满足细节平衡，那么混合转移T也满足细节平衡。这对于使用公式 (11.43) 构造的转移概率不成立，虽然通过将基转移的顺序对称化，即采用 $B_1, B_2, \ldots, B_K, B_K, \ldots, B_2, B_1$ 的形式，细节平衡的性质可以被恢复。使用组合转移概率的一个常见的例子是基于将基转移只改变变量的一个子集的情形。</p>
 <h2 id="MCMC的基本原理">MCMC的基本原理</h2>
 <p><strong>MCMC的核心步骤</strong>可以概括为：</p>
 <ol>
