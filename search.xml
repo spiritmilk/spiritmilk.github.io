@@ -20471,7 +20471,7 @@ $$</p>
   <entry>
     <title>MCMC之前尘后事</title>
     <url>/2025/20250520/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
 <h2 id="前尘">前尘</h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
@@ -20660,7 +20660,7 @@ $$<br>
 <p>为了让吉布斯采样能够从正确的概率分布中得到样本，第⼆个需要满⾜的要求为各态历经性。各态历经性的⼀个充分条件是没有条件概率分布处处为零。如果这个要求满⾜，那么z空间中的任意⼀点都可以从其他的任意⼀点经过有限步骤达到，这些步骤中每次对⼀个变量进⾏更新。如果这个要求没有满⾜，即某些条件概率分布为零，那么在这种情况下应⽤吉布斯采样时，必须显式地证明各态历经性。</p>
 <p>吉布斯采样是MH算法的一个特例。考虑一个Metropolis-Hastings采样的步骤，它涉及到变量 $z_k$，同时保持剩余的变量 $z _ {\setminus k}$ 不变，并且对于这种情形来说，从 $z$ 到 $z^\ast$ 的转移概率为 $q _ k(z^\ast | z) = p(z^\ast_k | z _ {\setminus k})$。我们注意到 $z^\ast  _ {\setminus k} = z _ {\setminus k}$，因为在采样的步骤中，向量的各个元素都不改变。并且，$p(z) = p(z_k | z _ {\setminus k})p(z _ {\setminus k})$。因此，确定Metropolis-Hastings算法中的接受概率的因子为</p>
 <p>$$<br>
-A(z^<em>, z) = \frac{p(z^</em>)q_k(z | z^<em>)}{p(z)q_k(z^</em> | z)} = \frac{p(z^<em>_k | z^</em> _ {\setminus k})p(z^* _ {\setminus k})p(z_k | z^* _ {\setminus k})}{p(z_k | z _ {\setminus k})p(z _ {\setminus k})p(z^*_k | z _ {\setminus k})} = 1<br>
+A(z^\ast, z) = \frac{p(z^\ast)q_k(z | z^\ast)}{p(z)q_k(z^\ast | z)} = \frac{p(z^\ast_k | z^\ast _ {\setminus k})p(z^\ast _ {\setminus k})p(z_k | z^\ast _ {\setminus k})}{p(z_k | z _ {\setminus k})p(z _ {\setminus k})p(z^\ast_k | z _ {\setminus k})} = 1<br>
 $$</p>
 <p>注意我们用到了$z _ {\backslash  k}^\ast=z _ {\backslash  k}$。</p>
 <p><strong>代码：</strong></p>
