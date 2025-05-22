@@ -20469,11 +20469,11 @@ $$</p>
       </tags>
   </entry>
   <entry>
-    <title>MCMC</title>
+    <title>MCMC之前尘后事</title>
     <url>/2025/20250520/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
-<h2 id="前事">前事</h2>
+<h2 id="前尘">前尘</h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
 $$<br>
 J=\int F(\theta)exp(-E(\theta)/kT)d\theta / \int exp(-E(\theta)/kT)d\theta<br>
@@ -20498,7 +20498,7 @@ $$<br>
 min(1,exp(-\Delta E/KT))<br>
 $$<br>
 否则，先前配置将被复制，即在随机游走 τ 步的 F (θ) 的最终平均中，其计数器增加一 。但Metropolis 等人一次移动一个粒子，而不是一起移动所有粒子，这使得初始算法看起来像是一种原始的吉布斯采样器。</p>
-<h2 id="采样方法">采样方法</h2>
+<h2 id="基本采样方法">基本采样方法</h2>
 <p>像变分贝叶斯推断是基于确定性近似的推断⽅法，考虑基于数值采样的近似推断⽅法，也被称为蒙特卡罗方法。</p>
 <p>MCMC方法巧妙地将两个核心概念结合起来：<strong>蒙特卡罗方法</strong>和<strong>马尔可夫链</strong>。</p>
 <ul>
@@ -20509,6 +20509,7 @@ $$<br>
 <p><strong>马尔可夫链</strong>：一个马尔可夫链是一个随机过程，其中未来的状态仅依赖于当前状态，而与过去的状态无关（即“无记忆性”）。在MCMC中，我们构造一个特殊的马尔可夫链，使其<strong>平稳分布</strong>恰好是我们想要抽样的目标概率分布 $\pi(x)$。这意味着，当马尔可夫链运行足够长的时间后，它所产生的样本将近似服从目标分布 $\pi(x)$。</p>
 </li>
 </ul>
+<p>在介绍MCMC之前，我们先介绍一些基本概念和基本方法。</p>
 <p>我们希望解决的基本的问题涉及到关于⼀个概率分布p(z)寻找某个函数f(z)的期望。即:<br>
 $$<br>
 E[f]=\int f(z)p(z)dz<br>
@@ -20581,17 +20582,18 @@ $$<br>
 我们可以计算比值Zp/Zq：<br>
 $$<br>
 \frac{Z_p}{Z_q}=\frac{1}{Z_q}\int \tilde p(z)dz=\int \frac{\tilde p(z)}{\tilde q(z)}q(z)dz\approx \frac{1}{L}\sum \tilde r_l<br>
+$$<br>
+故<br>
+$$<br>
+E(f)\approx\sum w_lf(z^{(l)})<br>
+$$<br>
+其中<br>
+$$<br>
+w_l=\frac{\tilde r_l}{\sum_m \tilde r_m}=\frac{\frac{\tilde p^{(l)}}{q(z^{(l)})}}{\frac{\sum_m \tilde p(z^{(m)})}{q(z^{(m)})}}<br>
 $$</p>
+<h2 id="MCMC">MCMC</h2>
+<p>与拒绝采样和重要采样相同，我们再⼀次从提议分布中采样。但是这次我们记录下当前状态$z^{(\tau)}$，以及依赖于这个当前状态的提议分布$z^{(\tau)}$，从⽽样本序列$z^{(1)}$,$z^{(2)}$, . . .组成了⼀个马尔科夫链。与之前⼀样，如果我们有$p(z)=\frac{\tilde p(z)}{Z_p}$，那么我们会假定对于任意的值z都可以计算<em>p</em>˜(<strong>z</strong>)，虽然$Z_p$的值可能位置。提议分布本⾝被选择为⾜够简单，从⽽直接采样很容易。在算法的每次迭代中，我们从提议分布中⽣成⼀个候选样本$z^{*}$，然后根据⼀个恰当的准则接受这个样本。</p>
 <h2 id="MCMC的基本原理">MCMC的基本原理</h2>
-<p>MCMC方法巧妙地将两个核心概念结合起来：<strong>蒙特卡罗方法</strong>和<strong>马尔可夫链</strong>。</p>
-<ul>
-<li>
-<p><strong>蒙特卡罗方法</strong>：这是一种通过大量随机抽样来估计复杂问题数值解的方法。例如，如果我们想计算一个不规则图形的面积，可以在包含该图形的一个规则矩形内随机撒点，通过计算落在图形内部的点的比例来估算其面积。在概率分布中，蒙特卡罗方法可以通过从该分布中抽取大量样本，然后用这些样本的经验分布来近似目标分布，进而估计期望、方差等统计量。</p>
-</li>
-<li>
-<p><strong>马尔可夫链</strong>：一个马尔可夫链是一个随机过程，其中未来的状态仅依赖于当前状态，而与过去的状态无关（即“无记忆性”）。在MCMC中，我们构造一个特殊的马尔可夫链，使其<strong>平稳分布</strong>恰好是我们想要抽样的目标概率分布 $\pi(x)$。这意味着，当马尔可夫链运行足够长的时间后，它所产生的样本将近似服从目标分布 $\pi(x)$。</p>
-</li>
-</ul>
 <p><strong>MCMC的核心步骤</strong>可以概括为：</p>
 <ol>
 <li><strong>构造马尔可夫链</strong>：设计一个状态转移机制（通常由一个转移核或转移概率矩阵 $P$ 定义），使得该马尔可夫链的平稳分布是目标分布 $\pi(x)$。一个关键的条件是<strong>细致平稳条件（Detailed Balance Condition）</strong>，即对于任意两个状态 $i$ 和 $j$，满足 $\pi(i)P(i,j) = \pi(j)P(j,i)$。满足细致平稳条件的马尔可夫链，其平稳分布就是 $\pi(x)$。</li>
@@ -20618,34 +20620,6 @@ $$\alpha(x, x’) = \min\left(1, \frac{\pi(x’)q(x|x’)}{\pi(x)q(x’|x)}\righ
 </ol>
 </li>
 </ul>
-<hr>
-<h2 id="MCMC的应用领域-🌐">MCMC的应用领域 🌐</h2>
-<p>MCMC方法因其强大的通用性和处理复杂分布的能力，在众多领域都有广泛应用，例如：</p>
-<ul>
-<li><strong>贝叶斯统计 (Bayesian Statistics)</strong>：MCMC是贝叶斯推断中估计后验分布参数、计算可信区间以及进行模型选择的核心工具。在复杂的贝叶斯模型中，后验分布往往没有解析形式，MCMC提供了一种数值近似的方法。</li>
-<li><strong>计算物理 (Computational Physics)</strong>：例如在统计力学中模拟系统的状态，如伊辛模型。</li>
-<li><strong>计算生物学 (Computational Biology)</strong>：例如在系统发育分析、基因序列分析和种群动态建模中。</li>
-<li><strong>机器学习 (Machine Learning)</strong>：用于各种概率模型的推断，如隐马尔可夫模型 (HMM)、主题模型 (如LDA)、以及深度学习中的变分推断和某些优化问题。</li>
-<li><strong>金融工程 (Financial Engineering)</strong>：例如在随机波动率模型中估计参数，进行风险评估。</li>
-<li><strong>社会科学 (Social Sciences)</strong>：在复杂网络分析、社会交互建模等领域。</li>
-</ul>
-<hr>
-<h2 id="MCMC的优缺点-👍👎">MCMC的优缺点 👍👎</h2>
-<p><strong>优点</strong>：</p>
-<ul>
-<li><strong>通用性强</strong>：能够处理各种复杂、高维的概率分布，特别是那些难以直接抽样的分布。</li>
-<li><strong>理论保证收敛</strong>：在满足一定条件下（如马尔可夫链的遍历性和平稳性），MCMC算法理论上能收敛到目标分布。</li>
-<li><strong>处理复杂模型</strong>：尤其擅长处理具有多峰、非对称甚至无限维的复杂概率分布。</li>
-<li><strong>无需归一化常数</strong>：许多MCMC算法（如MH算法）只需要知道目标分布的函数值（或其比例），而不需要计算难以处理的归一化常数。</li>
-</ul>
-<p><strong>缺点</strong>：</p>
-<ul>
-<li><strong>收敛速度可能较慢</strong>：对于某些复杂问题，马尔可夫链可能需要很长时间才能达到平稳分布。</li>
-<li><strong>样本相关性</strong>：MCMC产生的样本序列通常是相关的，这意味着为了获得与独立抽样相当的信息量，可能需要更多的样本。可以通过“减薄”（thinning）来降低样本相关性，即每隔若干个样本取一个。</li>
-<li><strong>收敛诊断困难</strong>：判断马尔可夫链是否已经收敛到平稳分布是一个具有挑战性的问题。虽然有一些诊断方法（如迹图、自相关图、Gelman-Rubin统计量等），但没有绝对可靠的方法。</li>
-<li><strong>参数调整</strong>：某些MCMC算法（如MH算法）的性能可能依赖于提议分布的选择和参数调整，这可能需要经验和反复试验。</li>
-</ul>
-<hr>
 <h2 id="MCMC的收敛性诊断">MCMC的收敛性诊断</h2>
 <p>评估MCMC算法是否收敛到目标平稳分布至关重要，因为基于未收敛的链进行的推断可能是错误的。常用的收敛诊断方法包括：</p>
 <ul>
