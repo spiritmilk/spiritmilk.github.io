@@ -25,11 +25,11 @@
   
   
   <entry>
-    <title>MCMC</title>
+    <title>MCMC史</title>
     <link href="/2025/20250520/"/>
     <url>/2025/20250520/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>pass</p><span id="more"></span><h2 id="参考资料">参考资料</h2><p>A Short History of Markov Chain Monte Carlo: Subjective Recollections from Incomplete Data</p><p>PRML</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即</p><span id="more"></span><p>Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>$$<br>J=\int F(\theta)exp(-E(\theta)/kT)d\theta / \int exp(-E(\theta)/kT)d\theta<br>$$<br>$\theta$表示$R^2$上一组N个粒子（particles），能量E为：<br>$$<br>E(\theta)=\frac{1}{2}\sum_{i=1}^N\sum_{j=1,j\ne i}^NV(d_{ij})<br>$$<br>其中V是势函数，d是粒子i和j在$\theta$中的欧几里得距离。玻尔兹曼分布$exp(-E(\theta))$。</p><p>考虑到问题的维度很大，即使是标准的蒙特卡洛技术也无法正确地近似J。</p><p>因为对于粒子系统（在 2N 的正方形中均匀分布）的随机构型的大多数实现，exp{−E(θ)/kT }非常小。为了提高蒙特卡洛方法的效率，Metropolis 等人（1953 年）提出了对 N 个粒子的随机游走修改，即<br>$$<br>x_i’=x_i+\sigma<br>\\<br>y_i’=y_i+\sigma<br>$$</p><h2 id="参考资料">参考资料</h2><p>A Short History of Markov Chain Monte Carlo: Subjective Recollections from Incomplete Data</p><p>PRML</p>]]></content>
     
     
     
