@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250520/reject.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250520/mcmc.jpg">
 <meta property="article:published_time" content="2025-05-20T15:27:34.000Z">
-<meta property="article:modified_time" content="2025-05-22T14:36:47.661Z">
+<meta property="article:modified_time" content="2025-05-22T14:46:21.676Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="概率论">
 <meta property="article:tag" content="机器学习">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.6k 字
+          5.8k 字
         
       </span>
     
@@ -277,7 +277,7 @@
         
         
         
-          47 分钟
+          49 分钟
         
       </span>
     
@@ -486,7 +486,7 @@ $$<br>
 $$<br>
 A_k(z^{\ast},z^{(\tau)})=min(1,\frac{\tilde p(z^{\ast})q_k(z^{(\tau)}|z^{\ast})}{\tilde p(z^{(\tau)})q_k(z^{\ast}|z^{\tau})})<br>
 $$</p>
-<p>我们可以证明该定义的马尔科夫链是⼀个不变的概率分布：<br>
+<p>我们可以证明该定义的马尔科夫链是⼀个不变的概率分布，我们可以先证细节平衡，再利用充分性：<br>
 $$<br>
 \begin{align}<br>
 p(z)q_k(z’|z)A_k(z’,z)&amp;=min(p(z)q_k(z’|z),p(z’)q_k(z|z’))<br>
@@ -511,7 +511,17 @@ $$<br>
 A(z^\ast, z) = \frac{p(z^\ast)q_k(z | z^\ast)}{p(z)q_k(z^\ast | z)} = \frac{p(z^\ast_k | z^\ast _ {\setminus k})p(z^\ast _ {\setminus k})p(z_k | z^\ast _ {\setminus k})}{p(z_k | z _ {\setminus k})p(z _ {\setminus k})p(z^\ast_k | z _ {\setminus k})} = 1<br>
 $$</p>
 <p>注意我们用到了$z _ {\backslash  k}^\ast=z _ {\backslash  k}$。</p>
-<p><strong>代码：</strong></p>
+<p>我们也可以证明吉布斯采样是细节平衡的。<br>
+$$<br>
+\begin{align}<br>
+p^\ast(z) T(z, z’) &amp;=p(z_1^\tau,z_2^\tau,…,z_M^\tau)p(z_j^{\tau+1}|z_{\backslash j}^\tau)<br>
+\\&amp;=p(z_j^\tau|z_{\backslash j}^\tau)p(z_{\backslash j}^\tau)p(z_j^{\tau+1}|z_{\backslash j}^\tau)<br>
+\\&amp;=p(z_j^\tau|z_{\backslash j}^{\tau+1})p(z_{\backslash j}^{\tau+1})p(z_j^{\tau+1}|z_{\backslash j}^{\tau+1})<br>
+\\&amp;=p(z_j^{\tau}|z_{\backslash j}^{\tau+1})p(z_1^{\tau+1},z_2^{\tau+1},…,z_M^{\tau+1})<br>
+\\&amp;= p^\ast(z’) T(z’, z)<br>
+\end{align}<br>
+$$<br>
+<strong>代码：</strong></p>
 <p>比如我们对$p(x,y)=exp(-x^2y^2)$，则：<br>
 $$<br>
 \begin{align}<br>
