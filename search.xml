@@ -20471,7 +20471,7 @@ $$</p>
   <entry>
     <title>MCMC之前尘后事</title>
     <url>/2025/20250520/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
 <h2 id="前尘">前尘</h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
@@ -20675,6 +20675,7 @@ $$</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">x, y = <span class="hljs-number">0.01</span>, <span class="hljs-number">0.01</span><br>samples = [(x, y)]<br><br>seed(<span class="hljs-number">31</span>)<br><span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1_000</span>):<br>    sigma_x = np.sqrt(<span class="hljs-number">1</span> / (<span class="hljs-number">2</span> * y ** <span class="hljs-number">2</span>))<br>    x_giv_y = norm(loc=<span class="hljs-number">0</span>, scale=sigma_x)<br>    x = x_giv_y.rvs()<br>    samples.append([x, y])<br>    <br>    sigma_y = np.sqrt(<span class="hljs-number">1</span> / (<span class="hljs-number">2</span> * x ** <span class="hljs-number">2</span>))<br>    y_giv_x = norm(loc=<span class="hljs-number">0</span>, scale=sigma_y)<br>    y = y_giv_x.rvs()<br>    samples.append([x, y])<br>    <br>samples = np.r_[samples]<br></code></pre></td></tr></table></figure>
 <h2 id="更多">更多</h2>
 <p>此外，还有切⽚采样、源于模拟哈密顿动⼒学的混合蒙特卡罗⽅法等，我们在这里不再赘述。</p>
+<p>我们也可以结合神经网络来改进MCMC。比如可以使用神经网络（例如，归一化流 Normalizing Flows）来学习复杂的、自适应的提议分布，即训练一个归一化流模型来学习并逼近目标后验分布，然后利用这个训练好的流模型作为 MCMC 算法中的提议分布。像今年新出的《Can Transformers Learn Full Bayesian Inference in Context?》</p>
 <h2 id="总结">总结</h2>
 <p><strong>MCMC的核心步骤</strong>可以概括为：</p>
 <ol>
