@@ -20471,7 +20471,7 @@ $$</p>
   <entry>
     <title>MCMC之前尘后事</title>
     <url>/2025/20250520/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
 <h2 id="前尘">前尘</h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
@@ -20598,7 +20598,7 @@ $$</p>
 <p>与拒绝采样和重要采样相同，我们再⼀次从提议分布中采样。但是这次我们记录下当前状态$z^{(\tau)}$，以及依赖于这个当前状态的提议分布$z^{(\tau)}$，从⽽样本序列$z^{(1)}$,$z^{(2)}$, . . .组成了⼀个马尔科夫链。与之前⼀样，如果我们有$p(z)=\frac{\tilde p(z)}{Z_p}$，那么我们会假定对于任意的值z都可以计算<em>p</em>˜(<strong>z</strong>)，虽然$Z_p$的值可能位置。提议分布本⾝被选择为⾜够简单，从⽽直接采样很容易。在算法的每次迭代中，我们从提议分布中⽣成⼀个候选样本$z^{*}$，然后根据⼀个恰当的准则接受这个样本。</p>
 <p>在基本的Metropolis算法中，我们假定提议分布是对称的，即$q(z_A|z_B)=q(z_B|z_A)$，则候选的样本被接受的概率为：<br>
 $$<br>
-A(z^{*},z^{(\tau)})=min(1,\frac{\tilde p(z^{*})}{\tilde p(z^{(\tau)})})<br>
+A(z^{\ast},z^{(\tau)})=min(1,\frac{\tilde p(z^{\ast})}{\tilde p(z^{(\tau)})})<br>
 $$<br>
 若候选样本被接受，则$z^{(\tau+1)}=z^{*}$，否则候选样本点被丢弃，再设置$z^{\tau+1}=z^{\tau}$，然后从概率分布$q(z|z^{(\tau+1)})$​中再次抽取⼀个候选样本。与拒绝采样不同，那⾥拒绝的样本被简单地丢弃。在Metropolis算法中，当⼀个候选点被拒绝时，前⼀个样本点会被包含到最终的样本的列表中，从⽽产⽣了样本点的多个副本。</p>
 <p>使⽤Metropolis算法从⼀个⾼斯分布中采样的简单例⼦，我们可以看出采样过程是连着的，这也就是链。</p>
@@ -20622,15 +20622,15 @@ $$<br>
 <p>对于一个特定的变量，边缘概率可以根据前一个变量的边缘概率用链式乘积的方式表示出来，形式为</p>
 <p>$$p(z^{(m+1)}) = \sum_{z^{(m)}} p(z^{(m+1)} | z^{(m)}) p(z^{(m)}) $$</p>
 <p>对于一个概率分布来说，如果马尔可夫链中的每一步都让这个概率分布保持不变，那么我们说这个概率分布关于这个马尔可夫链是不变的，或者静止的。因此，对于一个转移概率为 $T(z’, z)$ 的同质的马尔可夫链来说，如果</p>
-<p>$$\sum_{z’} T(z’, z) p^*(z’) = p^*(z) $$</p>
-<p>那么概率分布 $p^*(z)$ 是不变的。</p>
+<p>$$\sum_{z’} T(z’, z) p^\ast(z’) = p^\ast(z) $$</p>
+<p>那么概率分布 $p^\ast(z)$ 是不变的。</p>
 <p>确保所求的概率分布 $p(z)$ 不变的一个充分（非必要）条件是令转移概率满足细节平衡 (detailed balance) 性质，定义为</p>
-<p>$$p^*(z) T(z, z’) = p^*(z’) T(z’, z)$$</p>
-<p>对特定的概率分布 $p^*(z)$ 成立。</p>
+<p>$$p^\ast(z) T(z, z’) = p^\ast(z’) T(z’, z)$$</p>
+<p>对特定的概率分布 $p^\ast(z)$ 成立。</p>
 <p>很容易看到，满足关于特定概率分布的细节平衡性质的转移概率会使得那个概率分布具有不变性，因为</p>
-<p>$$\sum_{z’} p^*(z’) T(z’, z) = \sum_{z’} p^*(z) T(z, z’) = p^*(z) \sum_{z’} T(z, z’) = p^*(z)$$</p>
+<p>$$\sum_{z’} p^\ast(z’) T(z’, z) = \sum_{z’} p^\ast(z) T(z, z’) = p^\ast(z) \sum_{z’} T(z, z’) = p^\ast(z)$$</p>
 <p>满足细节平衡性质的马尔可夫链被称为可翻转的 (reversible)。</p>
-<p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^*(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可。</p>
+<p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^\ast(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可。</p>
 <h3 id="Metropolis-Hastings算法">Metropolis-Hastings算法</h3>
 <p>这种情形下，提议分布不再是参数的⼀个对称函数。<br>
 $$<br>
@@ -20656,7 +20656,11 @@ $$<br>
 </ol>
 <p>为了证明这个步骤能够从所需的概率分布中采样，我们⾸先注意到对于吉布斯采样的每个步骤来说，概率分布p(z)是不变的，因此对于整个马尔科夫链来说也是不变的。这是由于当我们从$p(z_i|z _ {\backslash  i})$中采样时，边缘概率分布$p(z _ {\backslash i})$显然是不变的，因为$z _ {\backslash i }$的值是不变的。并且，根据定义，对于每个步骤中来⾃正确条件概率分布$p(z_i|z _ {\backslash  i})$的样本，条件概率分布都是不变的。由于条件概率分布和边缘概率分布共同确定的联合概率分布，因此我们看到联合概率分布本⾝是不变的。</p>
 <p>为了让吉布斯采样能够从正确的概率分布中得到样本，第⼆个需要满⾜的要求为各态历经性。各态历经性的⼀个充分条件是没有条件概率分布处处为零。如果这个要求满⾜，那么z空间中的任意⼀点都可以从其他的任意⼀点经过有限步骤达到，这些步骤中每次对⼀个变量进⾏更新。如果这个要求没有满⾜，即某些条件概率分布为零，那么在这种情况下应⽤吉布斯采样时，必须显式地证明各态历经性。</p>
-<p>吉布斯采样是MH算法的一个特例。</p>
+<p>吉布斯采样是MH算法的一个特例。考虑一个Metropolis-Hastings采样的步骤，它涉及到变量 $z_k$，同时保持剩余的变量 $z_{\setminus k}$ 不变，并且对于这种情形来说，从 $z$ 到 $z^<em>$ 的转移概率为 $q_k(z^</em> | z) = p(z^<em><em>k | z</em>{\setminus k})$。我们注意到 $z^</em><em>{\setminus k} = z</em>{\setminus k}$，因为在采样的步骤中，向量的各个元素都不改变。并且，$p(z) = p(z_k | z_{\setminus k})p(z_{\setminus k})$。因此，确定Metropolis-Hastings算法中的接受概率的因子为<br>
+$$<br>
+A(z^<em>, z) = \frac{p(z^</em>)q_k(z | z^<em>)}{p(z)q_k(z^</em> | z)} = \frac{p(z^<em>_k | z^</em><em>{\setminus k})p(z^*</em>{\setminus k})p(z_k | z^<em><em>{\setminus k})}{p(z_k | z</em>{\setminus k})p(z_{\setminus k})p(z^</em><em>k | z</em>{\setminus k})} = 1<br>
+$$<br>
+注意我们用到了$z _ {\backslash  k}^\ast=z _ {\backslash  k}$。</p>
 <h2 id="更多">更多</h2>
 <p>此外，还有切⽚采样、源于模拟哈密顿动⼒学的混合蒙特卡罗⽅法等，我们在这里不再赘述。</p>
 <h2 id="总结">总结</h2>
