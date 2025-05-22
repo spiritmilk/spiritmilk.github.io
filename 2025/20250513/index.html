@@ -29,7 +29,7 @@
 <meta property="og:description" content="在笔者之前研究图神经网络的时候，一直苦于难以使用数学去之间建模图数据。但似乎这一切有了转机，笔者最近发现了一种特殊的分析方法来分析GNN，对此这就不得不读了。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-13T15:04:26.000Z">
-<meta property="article:modified_time" content="2025-05-22T02:37:03.778Z">
+<meta property="article:modified_time" content="2025-05-22T02:49:14.846Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.2k 字
         
       </span>
     
@@ -357,8 +357,8 @@ $$<br>
 <p><strong>命题1：</strong> $(E_{c1}[x_i],E_{c2}[x_i])$和$(E_{c1}[h_i],E_{c2}[h_i])$具有相同的中点m，且$E_{c1}[x_i]-E_{c2}[x_i]$和$E_{c1}[h_i]-E_{c2}[h_i]$具有相同的方向w。$m=\frac{\mu_1+\mu_2}{2},w=\frac{\mu_1-\mu_2}{||\mu_1-\mu_2||_2}$。</p>
 <p><strong>定理2：</strong> 图符合CSBM，则对于任意节点i，当deg(i)&gt;(p+q)/(p-q)时，由决策边界 P 定义的线性分类器误分类$h_i$的概率低于误分类$x_i$的概率。</p>
 <p><strong>证明：</strong></p>
-<p>我们仅对来自类$C_0$的节点进行证明。因为对称性，其他的证明相同。</p>
-<p>对于节点$i\in C_0$，<br>
+<p>我们仅对来自类$C_1$的节点进行证明。因为对称性，其他的证明相同。</p>
+<p>对于节点$i\in C_1$，<br>
 $$<br>
 \begin{align}<br>
 P(x_i \ \text{is mis-classfied})=P(w^Tx_i+b\le0)<br>
@@ -373,8 +373,18 @@ P(w^Th_i+b\le 0)=P(w^T\sqrt{deg(i)}h_i+\sqrt{deg(i)}b\le 0)<br>
 $$<br>
 令$h_i’=\sqrt{deg(i)}h_i$，故：<br>
 $$<br>
-h_i’=\sqrt{deg(i)}h_i\sim N(\frac{\sqrt{deg(i)}(p\mu_0+q\mu_1)}{p+q},I)<br>
-$$</p>
+h_i’=\sqrt{deg(i)}h_i\sim N(\frac{\sqrt{deg(i)}(p\mu_1+q\mu_2)}{p+q},I)<br>
+$$<br>
+$x_i$和$h_i’$具有相同的方差。</p>
+<p>为了比较误分类概率，我们只需比较期望值到决策边界的距离，具体而言：<br>
+$$<br>
+\begin{align}<br>
+dis_{x_i}&amp;=\frac{||\mu_1-\mu_2||<em>2}{2}<br>
+\\<br>
+dis</em>{h_i’}&amp;=\frac{\sqrt{deg(i)}|p-q|}{p+q}\frac{||\mu_1-\mu_2||_2}{2}<br>
+\end{align}<br>
+$$<br>
+得证。</p>
 
                 
               </div>
