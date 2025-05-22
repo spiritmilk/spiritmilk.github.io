@@ -20512,6 +20512,23 @@ $$<br>
 <p>我们希望解决的基本的问题涉及到关于⼀个概率分布p(z)寻找某个函数f(z)的期望。即:<br>
 $$<br>
 E[f]=\int f(z)p(z)dz<br>
+$$<br>
+采样⽅法背后的⼀般思想是得到从概率分布p(z)中独⽴抽取的⼀组变量$z^{(l)}$。这使得期望可以通过有限和的⽅式计算，即<br>
+$$<br>
+\hat f=\frac{1}{L}\sum f(z^{(l)})<br>
+$$<br>
+且估计的精度不依赖于z的维度，且原则上数量较少也能达到较高的精度。</p>
+<blockquote>
+<p><strong>hoeffding不等式：</strong></p>
+<p>一系列随机有界独立变量，$z_1…z_n$，$z_i\in[a,b]$，对所有的i，有：<br>
+$$<br>
+P(\frac{1}{n}\sum(z_i-E(z_i))\ge t)\le exp(-\frac{2nt^2}{(b-a)^2})<br>
+$$</p>
+</blockquote>
+<h3 id="基本采样">基本采样</h3>
+<p>我们考虑如何从简单的⾮均匀分布中⽣成随机数，假定我们已经有了⼀个均匀分布的随机数的来源。假设<em>z</em>在区间(0*,* 1)上均匀分布，我们使⽤某个函数f(·)对z的值进⾏变换，即y=f(z)。y上的概率分布为:<br>
+$$<br>
+p(y)=p(z)\left|\frac{dz}{dy}\right|<br>
 $$</p>
 <h2 id="MCMC的基本原理">MCMC的基本原理</h2>
 <p>MCMC方法巧妙地将两个核心概念结合起来：<strong>蒙特卡罗方法</strong>和<strong>马尔可夫链</strong>。</p>
