@@ -21163,6 +21163,26 @@ $$<br>
 <p>假设$U_l=[u_{k+1},…,u_{min(q,l)}]$,$V_l=[v_{k+1},…,v_{min(q,l)}]$,$\Sigma_l=diag(\sigma_{k+1},…,\sigma_{min(q,l)})$，则：<br>
 $$<br>
 W’=W_k+U_l\Sigma_lV_l^T<br>
+$$<br>
+为了优化奇异值，我们使用训练数据重新训练它们以提取关键信息，这导致了以下优化问题：<br>
+$$<br>
+\begin{align}<br>
+min_{\Sigma_l}||XW’-Y||^2_F<br>
+\\<br>
+s.t. \quad W’=W_k+U_l\Sigma_lV_l^T<br>
+\end{align}<br>
+$$<br>
+上式重写为：<br>
+$$<br>
+min_{\Sigma_l}||X(W_k+\sum_{i=k+1}^{min(q,l)}\sigma_iu_iv_i^T)-Y||^2_F<br>
+$$<br>
+我们可以直接求导求出来，（所以是免训练的）：<br>
+$$<br>
+\begin{align}<br>
+\sigma_j&amp;=\frac{u_j^TX^T(Y-XW_k)v_j}{u_j^TX^TXu_j}<br>
+\\<br>
+\Sigma_l^\ast&amp;=\frac{diag(U_l^TX^T(Y-XW_k)V_l)}{diag(U_l^TX^TXU_l)}<br>
+\end{align}<br>
 $$</p>
 ]]></content>
       <tags>
