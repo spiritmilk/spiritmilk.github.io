@@ -29,8 +29,9 @@
 <meta property="og:description" content="上交东南大学出品（arxiv)。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250523/1.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250523/2.png">
 <meta property="article:published_time" content="2025-05-23T14:42:02.000Z">
-<meta property="article:modified_time" content="2025-05-23T14:55:08.933Z">
+<meta property="article:modified_time" content="2025-05-23T15:25:41.683Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -265,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          390 字
+          568 字
         
       </span>
     
@@ -276,7 +277,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -331,6 +332,35 @@ $$<br>
 \phi (V,V’,i,j)=\frac{||V_{:i}^TV_{:j}^T||_F^2}{min(i,j)}\in[0,1]<br>
 $$<br>
 随着标签不准确性的增加，V 和 V‘的子空间之间的整体差异变得更加明显。但在一定范围内的标签不准确度，权重的主体子空间基本不受影响，甚至几乎完全相同。</p>
+<p><img src="2.png" alt=""></p>
+<h2 id="理论">理论</h2>
+<p>考虑以下分类器（或损失）：<br>
+$$<br>
+min_W||XW-G||_F^2+\lambda||W||_F^2<br>
+$$<br>
+闭式解：<br>
+$$<br>
+W=(X^TX+\lambda I)^{-1}X^TG=K^{-1}X^TG<br>
+$$</p>
+<blockquote>
+<p>其实这就是个岭回归线性模型，可能不能代表所有的模型，但是可以作为一个启发。</p>
+</blockquote>
+<p>标签扰动可以表示为$Y=G+M$，其中Y是噪声标签，G是groud truth，M是扰动。<br>
+$$<br>
+W’=K^{-1}X^TY=K^{-1}X^TG+K^{-1}X^TM=W+\Delta W<br>
+$$<br>
+而<br>
+$$<br>
+||\Delta W||_F \le||K^{-1}X^T||_2||M||_F\le||K^{-1}||_2||X^T||_2||M||_F<br>
+$$<br>
+由于通常情况下 q ≪ n ，X 预期是满秩的。因此有：<br>
+$$<br>
+\begin{align}<br>
+||K^{-1}||_2&amp;=||(X^TX+\lambda I)^{-1}||<em>2=\frac{1}{\lambda</em>{min}(X^TX)+\lambda}<br>
+\\<br>
+||X^T||_2&amp;=||X||<em>2=\sigma</em>{max}(X)<br>
+\end{align}<br>
+$$</p>
 
                 
               </div>
