@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250523/1.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250523/2.png">
 <meta property="article:published_time" content="2025-05-23T14:42:02.000Z">
-<meta property="article:modified_time" content="2025-05-23T15:25:41.683Z">
+<meta property="article:modified_time" content="2025-05-23T15:35:26.121Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          568 字
+          743 字
         
       </span>
     
@@ -277,7 +277,7 @@
         
         
         
-          5 分钟
+          7 分钟
         
       </span>
     
@@ -356,10 +356,23 @@ $$<br>
 由于通常情况下 q ≪ n ，X 预期是满秩的。因此有：<br>
 $$<br>
 \begin{align}<br>
-||K^{-1}||_2&amp;=||(X^TX+\lambda I)^{-1}||<em>2=\frac{1}{\lambda</em>{min}(X^TX)+\lambda}<br>
+||K^{-1}||<em>2&amp;=||(X^TX+\lambda I)^{-1}||<em>2=\frac{1}{\lambda</em>{min}(X^TX)+\lambda}<br>
 \\<br>
-||X^T||_2&amp;=||X||<em>2=\sigma</em>{max}(X)<br>
+||X^T||<em>2&amp;=||X||<em>2=\sigma</em>{max}(X)<br>
 \end{align}<br>
+$$<br>
+我们定义标签不准确的程度为 p，即$P(M</em>{ij}\ne0)=p$，则$||M||<em>F=\sqrt{pnl}$，故有<br>
+$$<br>
+||\Delta W||<em>F\le \frac{\sigma</em>{max}(X)\sqrt{nl}}{\lambda</em>{min}(X^TX)+\lambda}\sqrt{p}<br>
+$$<br>
+根据Davis-Kahan 正弦定理，W 和 W’ 扰动后子空间之间的角度θ的正弦值被限制为$sin\theta\le\frac{||\Delta W||<em>2}{\delta}$，故$sin\theta\le \frac{\sigma</em>{max}(X)\sqrt{nl}}{\delta \lambda</em>{min}(X^TX)+\lambda}\sqrt{p}$。</p>
+<p>故p比较小的情况下，角度也小。</p>
+<h2 id="方法">方法</h2>
+<p>W 进行奇异值分解，选择前k个。</p>
+<p>我们还可以再对剩余的再做一些处理。</p>
+<p>假设$U_l=[u_{k+1},…,u_{min(q,l)}]$,$V_l=[v_{k+1},…,v_{min(q,l)}]$,$\Sigma_l=diag(\sigma_{k+1},…,\sigma_{min(q,l)})$，则：<br>
+$$<br>
+W’=W_k+U_l\Sigma_lV_l^T<br>
 $$</p>
 
                 
