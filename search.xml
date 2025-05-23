@@ -20973,7 +20973,7 @@ $</p>
     <url>/2022/20220507/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>暗通道去雾由何恺明提出，其基于一个观察：在绝大多数户外无雾图像的<strong>非天空区域</strong>，<strong>至少有一个颜色通道的强度值非常低，趋近于零</strong>。这个“非常低的强度值”就是所谓的“暗像素”，而由这些暗像素构成的图像就是“暗通道”。</p>
 <span id="more"></span>
-<h2 id="算法步骤">算法步骤</h2>
+<h2 id="算法">算法</h2>
 <p>暗通道去雾算法主要包含以下几个关键步骤：</p>
 <ol>
 <li>
