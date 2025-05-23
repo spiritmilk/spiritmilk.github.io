@@ -21119,7 +21119,7 @@ $J(x) = \frac{I(x) - A}{\max(t(x), t_0)} + A$</li>
 <p>可以观察到权重矩阵的前几个奇异值在标签不准确度的一定范围内没有显著差异。然而，一旦标签不准确度超过某个阈值，前几个奇异值会迅速下降。</p>
 <p>作者又评估了由 V 中前 i 个奇异向量张成的子空间与由 V 中前 j 个奇异向量张成的子空间的相似性。我们基于格拉斯曼距离计算归一化子空间相似度，即<br>
 $$<br>
-\phi (V,V’,i,j)=\frac{||V_{:i}^TV_{:j}^T||_F^2}{min(i,j)}\in[0,1]<br>
+\phi (V,V’,i,j)=\frac{||V _ {:i}^TV _ {:j}^T||_F^2}{min(i,j)}\in[0,1]<br>
 $$<br>
 随着标签不准确性的增加，V 和 V‘的子空间之间的整体差异变得更加明显。但在一定范围内的标签不准确度，权重的主体子空间基本不受影响，甚至几乎完全相同。</p>
 <p><img src="2.png" alt=""></p>
@@ -21146,35 +21146,35 @@ $$<br>
 由于通常情况下 q ≪ n ，X 预期是满秩的。因此有：<br>
 $$<br>
 \begin{align}<br>
-||K^{-1}||<em>2&amp;=||(X^TX+\lambda I)^{-1}||<em>2=\frac{1}{\lambda</em>{min}(X^TX)+\lambda}<br>
+||K^{-1}||_2&amp;=||(X^TX+\lambda I)^{-1}||_2=\frac{1}{\lambda _ {min}(X^TX)+\lambda}<br>
 \\<br>
-||X^T||<em>2&amp;=||X||<em>2=\sigma</em>{max}(X)<br>
+||X^T||_2&amp;=||X||_2=\sigma _ {max}(X)<br>
 \end{align}<br>
 $$<br>
-我们定义标签不准确的程度为 p，即$P(M</em>{ij}\ne0)=p$，则$||M||<em>F=\sqrt{pnl}$，故有<br>
+我们定义标签不准确的程度为 p，即$P(M _ {ij}\ne0)=p$，则$||M||_F=\sqrt{pnl}$，故有<br>
 $$<br>
-||\Delta W||<em>F\le \frac{\sigma</em>{max}(X)\sqrt{nl}}{\lambda</em>{min}(X^TX)+\lambda}\sqrt{p}<br>
+||\Delta W||_F\le \frac{\sigma _ {max}(X)\sqrt{nl}}{\lambda _ {min}(X^TX)+\lambda}\sqrt{p}<br>
 $$<br>
-根据Davis-Kahan 正弦定理，W 和 W’ 扰动后子空间之间的角度θ的正弦值被限制为$sin\theta\le\frac{||\Delta W||<em>2}{\delta}$，故$sin\theta\le \frac{\sigma</em>{max}(X)\sqrt{nl}}{\delta \lambda</em>{min}(X^TX)+\lambda}\sqrt{p}$。</p>
+根据Davis-Kahan 正弦定理，W 和 W’ 扰动后子空间之间的角度θ的正弦值被限制为$sin\theta\le\frac{||\Delta W||_2}{\delta}$，故$sin\theta\le \frac{\sigma _ {max}(X)\sqrt{nl}}{\delta \lambda _ {min}(X^TX)+\lambda}\sqrt{p}$。</p>
 <p>故p比较小的情况下，角度也小。</p>
 <h2 id="方法">方法</h2>
 <p>W 进行奇异值分解，选择前k个。</p>
 <p>我们还可以再对剩余的再做一些处理。</p>
-<p>假设$U_l=[u_{k+1},…,u_{min(q,l)}]$,$V_l=[v_{k+1},…,v_{min(q,l)}]$,$\Sigma_l=diag(\sigma_{k+1},…,\sigma_{min(q,l)})$，则：<br>
+<p>假设$U_l=[u _ {k+1},…,u _ {min(q,l)}]$,$V_l=[v _ {k+1},…,v _ {min(q,l)}]$,$\Sigma_l=diag(\sigma _ {k+1},…,\sigma _ {min(q,l)})$，则：<br>
 $$<br>
 W’=W_k+U_l\Sigma_lV_l^T<br>
 $$<br>
 为了优化奇异值，我们使用训练数据重新训练它们以提取关键信息，这导致了以下优化问题：<br>
 $$<br>
 \begin{align}<br>
-min_{\Sigma_l}||XW’-Y||^2_F<br>
+min _ {\Sigma_l}||XW’-Y||^2_F<br>
 \\<br>
 s.t. \quad W’=W_k+U_l\Sigma_lV_l^T<br>
 \end{align}<br>
 $$<br>
 上式重写为：<br>
 $$<br>
-min_{\Sigma_l}||X(W_k+\sum_{i=k+1}^{min(q,l)}\sigma_iu_iv_i^T)-Y||^2_F<br>
+min _ {\Sigma_l}||X(W_k+\sum _ {i=k+1}^{min(q,l)}\sigma_iu_iv_i^T)-Y||^2_F<br>
 $$<br>
 我们可以直接求导求出来，（所以是免训练的）：<br>
 $$<br>
