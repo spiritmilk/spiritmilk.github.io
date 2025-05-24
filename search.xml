@@ -21276,7 +21276,7 @@ $$</p>
 $$<br>
 Pr(X\ge\sigma_r^2)\approx\frac{\zeta(\alpha,\sigma_r^2)-\zeta(\alpha,d_{max}+1)}{\zeta(\alpha,d_{min})-\zeta(\alpha,d_{max}+1)}&lt;\tau<br>
 $$<br>
-其中$\zeta(\alpha,x)=\sum_{k=0}^\infty(k+x)^{-\alpha}$，$\alpha\approx 1+|D_G|\left[\sum_{d_i\in D_G} log \frac{d_I}{d_{min-\frac{1}{2}}}\right]$，$D_G=\left{d_v^G|v\in V,d_v^G\ge d_{min}\right}$。</p>
+其中$\zeta(\alpha,x)=\sum_{k=0}^\infty(k+x)^{-\alpha}$，$\alpha\approx 1+|D_G|\left[\sum_{d_i\in D_G} log \frac{d_I}{d_{min-\frac{1}{2}}}\right]$，$D_G=\left\{d_v^G|v\in V,d_v^G\ge d_{min}\right\}$。</p>
 ]]></content>
       <tags>
         <tag>机器学习</tag>
