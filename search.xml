@@ -11298,7 +11298,7 @@ d) 取长补短地与数值模拟模拟（例如作者刚刚开源的<a href="ht
   <entry>
     <title>图深度学习</title>
     <url>/2023/20230221/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>基于《图深度学习》马耀，汤继良。跳过了一些专用于二分图、超图等章节。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于《图深度学习》马耀，汤继良。跳过了一些专用于二分图、超图等章节。</p>
 <span id="more"></span>
 <hr>
 <h2 id="图基础">图基础</h2>
@@ -11422,12 +11422,12 @@ $$</p>
 <h4 id="灰盒攻击">灰盒攻击</h4>
 <p><strong>Nettack：</strong><br>
 $$<br>
-argmax (max\quad lnZ’<em>{i,c}-lnZ’</em>{i,y_i})<br>
+argmax (max\quad lnZ’ _ {i,c}-lnZ’ _ {i,y_i})<br>
 $$<br>
 其中$Z’=f _ {GNN}(A’,F’;\Theta’)$。</p>
 <p>代理损失：<br>
 $$<br>
-L_{sur}(A,F;\Theta,v_i)=max_{c\ne y_i}([\tilde A^2F\Theta]<em>{i,c}-[\tilde A^2F\Theta]</em>{i,y_i})<br>
+L _ {sur}(A,F;\Theta,v_i)=max _ {c\ne y_i}([\tilde A^2F\Theta] _ {i,c}-[\tilde A^2F\Theta] _ {i,y_i})<br>
 $$<br>
 <strong>Metatack：</strong></p>
 <p>攻击者的目标可以数学地表示为一个双层优化问题：</p>
@@ -11435,13 +11435,13 @@ $$<br>
 <p>$f _ {GNN}$代表受害模型；tr表示用于训练模型的损失函数。</p>
 <p>定义$L _ {atk}$的一种方法可以是将其设为训练模型的负值。另一种方法是首先使用原图g上经过良好训练的代理模型预测无标签节点的标签，然后将预测用作无标签节点的“标签”。<br>
 $$<br>
-L_{atk}=-L_{tr}-\beta L_{self}<br>
+L _ {atk}=-L _ {tr}-\beta L _ {self}<br>
 $$<br>
 使用元梯度：<br>
 $$<br>
 \begin{align}<br>
-\nabla_G^{\text{meta}} &amp;= \nabla_G \mathcal{L}<em>{\text{atk}}(f</em>{\text{GNN}}(G; \Theta_T))<br>
-\\&amp;= \nabla_f \mathcal{L}<em>{\text{atk}}(f</em>{\text{GNN}}(G; \Theta_T)) \cdot \left[ \nabla_G f_{\text{GNN}}(G; \Theta_T) + \nabla_{\Theta_T} f_{\text{GNN}}(G; \Theta_T) \cdot \nabla_G \Theta_T \right]<br>
+\nabla_G^{\text{meta}} &amp;= \nabla_G \mathcal{L} _ {\text{atk}}(f _ {\text{GNN}}(G; \Theta_T))<br>
+\\&amp;= \nabla_f \mathcal{L} _ {\text{atk}}(f _ {\text{GNN}}(G; \Theta_T)) \cdot \left[ \nabla_G f _ {\text{GNN}}(G; \Theta_T) + \nabla _ {\Theta_T} f _ {\text{GNN}}(G; \Theta_T) \cdot \nabla_G \Theta_T \right]<br>
 \end{align}<br>
 $$</p>
 <p>计算元梯度 $\nabla_G^{\text{meta}} = \frac{d \mathcal{L} _ {\text{atk}}}{d G}$，即攻击损失对图 $G$ 的总导数。根据链式法则，$\mathcal{L} _ {\text{atk}}$ 对 $G$ 的导数首先会涉及到 $\mathcal{L} _ {\text{atk}}$ 对 $f$ 的导数，然后再乘以 $f$ 对 $G$ 的导数：<br>
@@ -11450,7 +11450,7 @@ $\frac{\partial \mathcal{L} _ {\text{atk}}}{\partial f}$ 即 $\nabla_f \mathcal{
 $$ \frac{d f}{d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} \cdot \frac{d y}{d x} $$</p>
 <p>反转元梯度的符号：<br>
 $$<br>
-s(i,j)=\nabla_{A_{i,j}}^{meta}(-2A_{i,j}+1)<br>
+s(i,j)=\nabla _ {A _ {i,j}}^{meta}(-2A _ {i,j}+1)<br>
 $$</p>
 <h4 id="黑盒攻击">黑盒攻击</h4>
 <p>在黑盒攻击设定中，攻击者无法获取受害者模型信息。攻击者只能查询受害者模型的预测结果。这类方法大多采用强化学习来学习攻击策略。它们将受害者模型视为一台黑盒查询机，利用查询结果设计强化学习的奖励。</p>
@@ -11468,7 +11468,7 @@ $$</p>
 <h4 id="图结构学习">图结构学习</h4>
 <p>**Pro-GNN：**m<br>
 $$<br>
-min_{\Theta,S}L_train(S,F;\Theta)+||A-S||_F^2+\beta_1||S||<em>1+\beta_2||S||</em>\ast+\beta_3\cdot tr(F^TLF)<br>
+min _ {\Theta,S}L_train(S,F;\Theta)+||A-S||_F^2+\beta_1||S||<em>1+\beta_2||S||</em>\ast+\beta_3\cdot tr(F^TLF)<br>
 $$</p>
 <h2 id="图上的其他深度模型">图上的其他深度模型</h2>
 <h3 id="图上的自编码器">图上的自编码器</h3>
