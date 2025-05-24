@@ -18613,7 +18613,7 @@ $$</p>
   <entry>
     <title>ARIMA</title>
     <url>/2025/20250115/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>ARIMA 模型，全称为<strong>自回归整合移动平均模型 (Autoregressive Integrated Moving Average model)</strong>。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ARIMA 模型，全称为<strong>自回归整合移动平均模型 (Autoregressive Integrated Moving Average model)</strong>。</p>
 <span id="more"></span>
 <p>ARIMA 模型通常表示为 $ARIMA(p, d, q)$，其中：</p>
 <ul>
@@ -18648,8 +18648,8 @@ sin(x)&amp;: Amplitude=1, T=2\pi<br>
 \end{align}<br>
 $$</p>
 <p><img src="sinx.jpg" alt=""></p>
+<p>多次差分可以接近于平稳序列。</p>
 <p>参数 $d$ 表示使原始序列达到平稳状态所需的差分次数。如果序列已经是平稳的，则 $d=0$，模型就变成了 ARMA(p,q) 模型。</p>
-<hr>
 <h2 id="MA">MA</h2>
 <p>移动平均 部分与 AR 部分不同，它不是直接使用过去观测值的线性组合，而是使用过去预测误差的线性组合来预测当前值。一个 $q$ 阶的移动平均模型，记作 $MA(q)$，其数学表达式为：</p>
 <p>$Y_t = \mu + \varepsilon_t + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2} + \dots + \theta_q \varepsilon_{t-q}$</p>
@@ -18662,11 +18662,11 @@ $$</p>
 <li>$\varepsilon_{t-1}, \varepsilon_{t-2}, \dots, \varepsilon_{t-q}$ 是过去 $q$ 个时刻的预测误差项。</li>
 </ul>
 <p><strong>简单来说，MA 模型假设当前值受到过去随机冲击或预测误差的影响。</strong> 例如，如果昨天的预测过于乐观（即 $\varepsilon_{t-1}$ 为负），模型可能会在今天的预测中进行调整。参数 $q$ 的选择决定了模型考虑多少个历史预测误差项。</p>
-<h2 id="4-ARIMA-p-d-q-模型">4. ARIMA(p,d,q) 模型</h2>
+<h2 id="滞后算子">滞后算子</h2>
 <p>将 AR、I、MA 三个部分结合起来，就构成了 $ARIMA(p,d,q)$ 模型。如果一个时间序列 $Y_t$ 经过 $d$ 次差分后得到平稳序列 $W_t = \Delta^d Y_t$，并且 $W_t$ 服从一个 $ARMA(p,q)$ 模型，那么原始序列 $Y_t$ 就服从 $ARIMA(p,d,q)$ 模型。</p>
 <p>$W_t$ 的 $ARMA(p,q)$ 模型可以表示为：<br>
 $W_t = c + \phi_1 W_{t-1} + \dots + \phi_p W_{t-p} + \varepsilon_t + \theta_1 \varepsilon_{t-1} + \dots + \theta_q \varepsilon_{t-q}$</p>
-<p>或者更紧凑地使用滞后算子 $B$ (其中 $B^k Y_t = Y_{t-k}$):<br>
+<p>或者更紧凑地使用 $B$ (其中 $B^k Y_t = Y_{t-k}$):<br>
 $(1 - \phi_1 B - \dots - \phi_p B^p)(1-B)^d Y_t = c + (1 + \theta_1 B + \dots + \theta_q B^q)\varepsilon_t$</p>
 <p>其中 $\Phi(B) = (1 - \phi_1 B - \dots - \phi_p B^p)$ 是自回归算子多项式，$\Theta(B) = (1 + \theta_1 B + \dots + \theta_q B^q)$ 是移动平均算子多项式。</p>
 <h2 id="如何确定模型的阶数-p-d-q">如何确定模型的阶数 (p, d, q)</h2>
