@@ -11424,27 +11424,52 @@ $$</p>
 $$<br>
 argmax (max\quad lnZ’<em>{i,c}-lnZ’</em>{i,y_i})<br>
 $$<br>
-其中$Z’=f_{GNN}(A’,F’;\Theta’)$。</p>
+其中$Z’=f _ {GNN}(A’,F’;\Theta’)$。</p>
 <p>代理损失：<br>
 $$<br>
 L_{sur}(A,F;\Theta,v_i)=max_{c\ne y_i}([\tilde A^2F\Theta]<em>{i,c}-[\tilde A^2F\Theta]</em>{i,y_i})<br>
 $$<br>
 <strong>Metatack：</strong></p>
 <p>攻击者的目标可以数学地表示为一个双层优化问题：</p>
-<p>$$ \min_{G’ \in \Phi(G)} \mathcal{L}<em>{\text{atk}}(f</em>{\text{GNN}}(G’; \Theta^<em>)) \quad \text{s.t.} \quad \Theta^</em> = \arg \min_{\Theta} \mathcal{L}<em>{\text{tr}}(f</em>{\text{GNN}}(G; \Theta)) $$</p>
-<p>$f_{GNN}$代表受害模型；tr表示用于训练模型的损失函数。</p>
-<p>定义$L_{atk}$的一种方法可以是将其设为训练模型的负值。另一种方法是首先使用原图g上经过良好训练的代理模型预测无标签节点的标签，然后将预测用作无标签节点的“标签”。<br>
+<p>$$ \min _ {G’ \in \Phi(G)} \mathcal{L} _ {\text{atk}}(f _ {\text{GNN}}(G’; \Theta^<em>)) \quad \text{s.t.} \quad \Theta^</em> = \arg \min _ {\Theta} \mathcal{L} _ {\text{tr}}(f _ {\text{GNN}}(G; \Theta)) $$</p>
+<p>$f _ {GNN}$代表受害模型；tr表示用于训练模型的损失函数。</p>
+<p>定义$L _ {atk}$的一种方法可以是将其设为训练模型的负值。另一种方法是首先使用原图g上经过良好训练的代理模型预测无标签节点的标签，然后将预测用作无标签节点的“标签”。<br>
 $$<br>
 L_{atk}=-L_{tr}-\beta L_{self}<br>
+$$<br>
+使用元梯度：<br>
+$$<br>
+\begin{align}<br>
+\nabla_G^{\text{meta}} &amp;= \nabla_G \mathcal{L}<em>{\text{atk}}(f</em>{\text{GNN}}(G; \Theta_T))<br>
+\\&amp;= \nabla_f \mathcal{L}<em>{\text{atk}}(f</em>{\text{GNN}}(G; \Theta_T)) \cdot \left[ \nabla_G f_{\text{GNN}}(G; \Theta_T) + \nabla_{\Theta_T} f_{\text{GNN}}(G; \Theta_T) \cdot \nabla_G \Theta_T \right]<br>
+\end{align}<br>
+$$</p>
+<p>计算元梯度 $\nabla_G^{\text{meta}} = \frac{d \mathcal{L} _ {\text{atk}}}{d G}$，即攻击损失对图 $G$ 的总导数。根据链式法则，$\mathcal{L} _ {\text{atk}}$ 对 $G$ 的导数首先会涉及到 $\mathcal{L} _ {\text{atk}}$ 对 $f$ 的导数，然后再乘以 $f$ 对 $G$ 的导数：<br>
+$$ \frac{d \mathcal{L} _ {\text{atk}}}{d G} = \frac{\partial \mathcal{L} _ {\text{atk}}}{\partial f} \cdot \frac{d f}{d G} $$<br>
+$\frac{\partial \mathcal{L} _ {\text{atk}}}{\partial f}$ 即 $\nabla_f \mathcal{L} _ {\text{atk}}(f _ {\text{GNN}}(G; \Theta_T))$。由于 $f = f _ {\text{GNN}}(G, \Theta_T(G))$，其全导数为：<br>
+$$ \frac{d f}{d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} \cdot \frac{d y}{d x} $$</p>
+<p>反转元梯度的符号：<br>
+$$<br>
+s(i,j)=\nabla_{A_{i,j}}^{meta}(-2A_{i,j}+1)<br>
 $$</p>
 <h4 id="黑盒攻击">黑盒攻击</h4>
-<p>6.3 图对抗防御142</p>
-<p>6.3.1 图对抗训练142</p>
-<p>6.3.2 图净化144</p>
-<p>6.3.3 图注意力机制144</p>
-<p>6.3.4 图结构学习148</p>
-<p>6.4 小结149</p>
-<p>6.5 扩展阅读149</p>
+<p>在黑盒攻击设定中，攻击者无法获取受害者模型信息。攻击者只能查询受害者模型的预测结果。这类方法大多采用强化学习来学习攻击策略。它们将受害者模型视为一台黑盒查询机，利用查询结果设计强化学习的奖励。</p>
+<h4 id="图净化">图净化</h4>
+<ol>
+<li>
+<p>除去特征相似度低的节点之间的边<br>
+实验研究表明，许多对抗攻击方法（如Nettack和IG-FGSM ）倾向于添加边来连接节点特征明显不同的节点。类似地，当除去边时，这些攻击方法倾向于移除具有相似特征的节点之间的边。故有该方法试图除去特征差异很大的节点之间的边。更具体地说，它提出了一个评分函数度量节点特征之间的相似度。</p>
+</li>
+<li>
+<p>邻接矩阵的低秩近似<br>
+对Nettack等攻击产生的对抗扰动进行实验探究，结果表明，Nettack往往会扰动图结构，从而增加邻接矩阵的秩。同时，邻接矩阵取值最小的奇异值的数量也会增加。因此，有方法基于奇异值分解（SVD），以消除加入图结构中的对抗扰动。具体而言，给定一个图的邻接矩阵A,用SVD分解它， 只保留top-k个奇异值来重构邻接矩阵。重构后的邻接矩阵可以近似地认为是净化后的图结构，可直接用于图神经网络模型。</p>
+</li>
+</ol>
+<h4 id="图结构学习">图结构学习</h4>
+<p>**Pro-GNN：**m<br>
+$$<br>
+min_{\Theta,S}L_train(S,F;\Theta)+||A-S||_F^2+\beta_1||S||<em>1+\beta_2||S||</em>\ast+\beta_3\cdot tr(F^TLF)<br>
+$$</p>
 <h2 id="图上的其他深度模型">图上的其他深度模型</h2>
 <h3 id="图上的自编码器">图上的自编码器</h3>
 <p>编码器:$Z=f _ {GNN}(A,X;\theta _ {GNN})$</p>
