@@ -11370,7 +11370,32 @@ $$<br>
 f’=\sum \theta_k L^kf<br>
 $$<br>
 <strong>Cheby-Filter：</strong></p>
-<p>切比雪夫多项式$T_k(y)=2yT_{k-1}(y)-T_{k-2}(y)$，</p>
+<p>切比雪夫多项式$T_k(y)=2yT_{k-1}(y)-T_{k-2}(y)$，其中$T_0=1,T_y=y$。</p>
+<p>对于$y\in[-1,1]$，$T_k(y)=cos(k\cdot arccos(y))$。</p>
+<p>此外，切比雪夫多项式满足以下关系：<br>
+$$<br>
+\int_{-1}^{1} \frac{T_l(y)T_m(y)}{\sqrt{1-y^2}} dy =<br>
+\begin{cases}<br>
+\delta_{l,m} \pi/2, &amp; m, l &gt; 0, \\<br>
+\pi, &amp; m = l = 0,<br>
+\end{cases}<br>
+$$<br>
+因此，这些切比雪夫多项式形成了关于$dy/\sqrt{1-y^2}$的平方可积函数的希尔伯特空间（Hillbert Space）的正交基。</p>
+<p><strong>GCN-Filter：</strong></p>
+<p>将切比雪夫多项式的阶数设为K = l,并把最大特征值近似为2。即：<br>
+$$<br>
+\begin{align}<br>
+\gamma(\Lambda)&amp;=\theta_0T_0(\tilde\Lambda)+\theta_1T_1(\tilde\Lambda)</p>
+<p>\\&amp;=\theta_0 I+\theta_1\tilde\Lambda</p>
+<p>\\&amp;=\theta_0I+\theta_1(\Lambda-I)<br>
+\end{align}<br>
+$$<br>
+用于f’时$f’=\theta_0f-\theta_1(D^{-1/2}AD^{1/2})f$，令$\theta=\theta_0=-\theta_1$，$f’=\theta(I+D^{-1/2}AD^{1/2})f$。</p>
+<p>矩阵$I+D^{-1/2}AD^{1/2}$的特征值的范围是[0,2],故对信号f重复滤波时有可能出现数值不稳定的现象。</p>
+<p>因此，再归一化(renormalization)技巧被提出用来解决该问题。即用$\tilde D^{-1/2}\tilde A\tilde D^{1/2}$代替$I+D^{-1/2}AD^{1/2}$,其中$\tilde A=A+I$和$\tilde D_ii=\sum_j \tilde A_{i,j}$。经过这些简化步骤，GCN-Filter最后可被表示为：<br>
+$$<br>
+f’=\theta \tilde D^{-1/2}\tilde A\tilde D^{1/2}f<br>
+$$</p>
 <p>5.3.2 基于空间的图滤波器114</p>
 <p>5.4 图池化120</p>
 <p>5.4.1 平面图池化120</p>
