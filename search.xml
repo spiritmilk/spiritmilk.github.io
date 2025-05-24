@@ -11298,7 +11298,7 @@ d) 取长补短地与数值模拟模拟（例如作者刚刚开源的<a href="ht
   <entry>
     <title>图深度学习</title>
     <url>/2023/20230221/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>基于《图深度学习》马耀，汤继良。跳过了一些专用于二分图、超图等章节。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于《图深度学习》马耀，汤继良。跳过了一些专用于二分图、超图等章节。</p>
 <span id="more"></span>
 <hr>
 <h2 id="图基础">图基础</h2>
@@ -11355,7 +11355,22 @@ $$</p>
 <p>超图嵌入常使用MLP做辅助。</p>
 <h2 id="图神经网络">图神经网络</h2>
 <h3 id="图滤波器">图滤波器</h3>
-<p>5.3.1 基于谱的图滤波器104</p>
+<p><strong>基于谱的图滤波器</strong></p>
+<p>使用图傅里叶变换，我们可以得到$f’=U\cdot\gamma(\Lambda)\cdot U^Tf$。</p>
+<p>若假设有一个定义在图G上的噪声图信号$y=f_0+\eta$，其中$\eta$是附加</p>
+<p>的与原信号不相关的高斯噪声，模型的目标是从噪声信号y中恢复原始信号$f_0$。设原始信号九相对于图G是平滑的。为了利用信号$f_0$的平滑性的先验信息，在优化问题中引入形式为$f^TLf$的正则项：<br>
+$$<br>
+argmin_f ||f-y||^2+cf^TLf<br>
+$$<br>
+求导有$f’=U(I+c\Lambda)^{-1}U^Ty$。</p>
+<p><strong>Poly-Filter：</strong></p>
+<p>对$\gamma(\cdot)$用K阶截断多项式建模，即$\gamma(\lambda_l)=\sum\theta_k\Lambda^k$。</p>
+<p>根据$U\cdot\Lambda^k\cdot U^T=L^k$：<br>
+$$<br>
+f’=\sum \theta_k L^kf<br>
+$$<br>
+<strong>Cheby-Filter：</strong></p>
+<p>切比雪夫多项式$T_k(y)=2yT_{k-1}(y)-T_{k-2}(y)$，</p>
 <p>5.3.2 基于空间的图滤波器114</p>
 <p>5.4 图池化120</p>
 <p>5.4.1 平面图池化120</p>
