@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2023/20230221/randowwalk.png">
 <meta property="og:image" content="https://lijianxiong.work/2023/20230221/RNN.png">
 <meta property="article:published_time" content="2023-02-21T11:03:41.000Z">
-<meta property="article:modified_time" content="2025-05-24T03:57:52.004Z">
+<meta property="article:modified_time" content="2025-05-24T04:03:07.656Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.4k 字
         
       </span>
     
@@ -277,7 +277,7 @@
         
         
         
-          19 分钟
+          21 分钟
         
       </span>
     
@@ -451,6 +451,13 @@ $$<br>
 L_{sur}(A,F;\Theta,v_i)=max_{c\ne y_i}([\tilde A^2F\Theta]<em>{i,c}-[\tilde A^2F\Theta]</em>{i,y_i})<br>
 $$<br>
 <strong>Metatack：</strong></p>
+<p>攻击者的目标可以数学地表示为一个双层优化问题：</p>
+<p>$$ \min_{G’ \in \Phi(G)} \mathcal{L}<em>{\text{atk}}(f</em>{\text{GNN}}(G’; \Theta^<em>)) \quad \text{s.t.} \quad \Theta^</em> = \arg \min_{\Theta} \mathcal{L}<em>{\text{tr}}(f</em>{\text{GNN}}(G; \Theta)) $$</p>
+<p>$f_{GNN}$代表受害模型；tr表示用于训练模型的损失函数。</p>
+<p>定义$L_{atk}$的一种方法可以是将其设为训练模型的负值。另一种方法是首先使用原图g上经过良好训练的代理模型预测无标签节点的标签，然后将预测用作无标签节点的“标签”。<br>
+$$<br>
+L_{atk}=-L_{tr}-\beta L_{self}<br>
+$$</p>
 <h4 id="黑盒攻击">黑盒攻击</h4>
 <p>6.3 图对抗防御142</p>
 <p>6.3.1 图对抗训练142</p>
