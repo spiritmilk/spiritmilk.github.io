@@ -11313,7 +11313,7 @@ d) 取长补短地与数值模拟模拟（例如作者刚刚开源的<a href="ht
 <p>图信号的谱域基础是图傅里叶变换 (Graph Fourier Transform, GFT)，它是建立在谱图论之上的。</p>
 <p>传统的傅里叶变换可表示为:</p>
 <p>$$<br>
-\hat{f}(\xi) = &lt;f(t), \exp(-2\pi i \xi t)&gt; = \int_{-\infty}^{\infty} f(t) \exp(-2\pi i \xi t) dt<br>
+\hat{f}(\xi) = &lt;f(t), \exp(-2\pi i \xi t)&gt; = \int _ {-\infty}^{\infty} f(t) \exp(-2\pi i \xi t) dt<br>
 $$</p>
 <p>式中，$ \hat{f} $ 是 $ f $ 的傅里叶变换；$ \xi $ 表示相应指数的频率。它将信号 $ f(t) $ 分解为一系列复指数形式 $ \exp(-2\pi i \xi t) $，这些指数是思维拉普拉斯算子（或二阶微分算子）的特征函数，因为：</p>
 <p>$$<br>
@@ -11321,7 +11321,7 @@ $$</p>
 $$</p>
 <p>类似地，一个在图 $ G $ 上的信号 $ f $ 的图傅里叶变换可表示为：</p>
 <p>$$<br>
-\hat{f}[l] = &lt;f, u_l&gt; = \sum_{i=1}^{N} f[i] u_l[i]<br>
+\hat{f}[l] = &lt;f, u_l&gt; = \sum _ {i=1}^{N} f[i] u_l[i]<br>
 $$</p>
 <p>式中，$ u_l $ 表示图的拉普拉斯矩阵 $ L $ 的第 $ l $ 个特征向量，其对应的特征值 $ \lambda_l $ 表示 $ u_l $ 的频率（或平滑度）。向量 $ \hat{f} $ 是 $ f $ 的图傅里叶变换，$ \hat{f}[l] $ 表示它的第 $ l $ 个元素。这些特征向量是图 $ G $ 上傅里叶基，而 $ \hat{f} $ 由信号 $ f $ 对应这些傅里叶基的图傅里叶系数组成。$ f $ 的图傅里叶变换也可以用矩阵形式表示为：</p>
 <p>$$<br>
@@ -11336,7 +11336,7 @@ $$</p>
 <p><strong>node2vec:</strong><br>
 设 $G = {V, E}$ 表示一个连通图。考虑以图 $G$ 中的 $v^{(0)} \in V$ 为起始节点的随机游走。假设随机游走规则从节点 $v^{(t-1)}$ 走到节点 $v^{(t)}$，现在停留在节点 $v^{(t)}$。接着随机游走需要决定下一步访问哪个节点。不同于 DeepWalk 中均匀地从 $v^{(t)}$ 的邻居中选择 $v^{(t+1)}$，node2vec 基于 $v^{(t)}$ 和 $v^{(t-1)}$ 定义节点的采样概率。特别地，选择下一个节点的未归一化“概率”定义如下：<br>
 $$<br>
-\alpha_{pq}(v^{(t+1)}|v^{(t-1)}, v^{(t)}) = \begin{cases} \frac{1}{p}, &amp; \text{dis}(v^{(t-1)}, v^{(t+1)}) = 0, \\ 1, &amp; \text{dis}(v^{(t-1)}, v^{(t+1)}) = 1, \\ \frac{1}{q}, &amp; \text{dis}(v^{(t-1)}, v^{(t+1)}) = 2, \end{cases}<br>
+\alpha _ {pq}(v^{(t+1)}|v^{(t-1)}, v^{(t)}) = \begin{cases} \frac{1}{p}, &amp; \text{dis}(v^{(t-1)}, v^{(t+1)}) = 0, \\ 1, &amp; \text{dis}(v^{(t-1)}, v^{(t+1)}) = 1, \\ \frac{1}{q}, &amp; \text{dis}(v^{(t-1)}, v^{(t+1)}) = 2, \end{cases}<br>
 $$</p>
 <p>式中，$\text{dis}(v^{(t-1)}, v^{(t+1)})$ 表示节点 $v^{(t-1)}$ 和 $v^{(t+1)}$ 之间的最短路径的长度。</p>
 <p>对于DeepWalk，有以下定理：</p>
@@ -11345,11 +11345,11 @@ $$</p>
 $$<br>
 log(\frac{vol(G)}{T}\sum _ {r=1}^T(AP^r)D^{-1})-log(k)<br>
 $$<br>
-其中$P=D^{-1}A$，$vol(G)=\sum_{i=1}^|V|\sum_{j=1}^|V A_{i,j}$,k为负样本数量</p>
+其中$P=D^{-1}A$，$vol(G)=\sum _ {i=1}^|V|\sum _ {j=1}^|V A _ {i,j}$,k为负样本数量</p>
 </blockquote>
 <p>社区模块度:<br>
 $$<br>
-Q=\frac{1}{2*vol(G)}\sum_{ij}(A_{i,j}-\frac{d(v_i)d(v_j)}{vol(G)})h_ih_j<br>
+Q=\frac{1}{2*vol(G)}\sum _ {ij}(A _ {i,j}-\frac{d(v_i)d(v_j)}{vol(G)})h_ih_j<br>
 $$</p>
 <p>其中，$h_i$为节点i为哪个社区的指示值。</p>
 <p>超图嵌入常使用MLP做辅助。</p>
@@ -11370,13 +11370,13 @@ $$<br>
 f’=\sum \theta_k L^kf<br>
 $$<br>
 <strong>Cheby-Filter：</strong></p>
-<p>切比雪夫多项式$T_k(y)=2yT_{k-1}(y)-T_{k-2}(y)$，其中$T_0=1,T_y=y$。</p>
+<p>切比雪夫多项式$T_k(y)=2yT _ {k-1}(y)-T _ {k-2}(y)$，其中$T_0=1,T_y=y$。</p>
 <p>对于$y\in[-1,1]$，$T_k(y)=cos(k\cdot arccos(y))$。</p>
 <p>此外，切比雪夫多项式满足以下关系：<br>
 $$<br>
-\int_{-1}^{1} \frac{T_l(y)T_m(y)}{\sqrt{1-y^2}} dy =<br>
+\int _ {-1}^{1} \frac{T_l(y)T_m(y)}{\sqrt{1-y^2}} dy =<br>
 \begin{cases}<br>
-\delta_{l,m} \pi/2, &amp; m, l &gt; 0, \\<br>
+\delta _ {l,m} \pi/2, &amp; m, l &gt; 0, \\<br>
 \pi, &amp; m = l = 0,<br>
 \end{cases}<br>
 $$<br>
@@ -11392,7 +11392,7 @@ $$<br>
 $$<br>
 用于f’时$f’=\theta_0f-\theta_1(D^{-1/2}AD^{1/2})f$，令$\theta=\theta_0=-\theta_1$，$f’=\theta(I+D^{-1/2}AD^{1/2})f$。</p>
 <p>矩阵$I+D^{-1/2}AD^{1/2}$的特征值的范围是[0,2],故对信号f重复滤波时有可能出现数值不稳定的现象。</p>
-<p>因此，再归一化(renormalization)技巧被提出用来解决该问题。即用$\tilde D^{-1/2}\tilde A\tilde D^{1/2}$代替$I+D^{-1/2}AD^{1/2}$,其中$\tilde A=A+I$和$\tilde D_ii=\sum_j \tilde A_{i,j}$。经过这些简化步骤，GCN-Filter最后可被表示为：<br>
+<p>因此，再归一化(renormalization)技巧被提出用来解决该问题。即用$\tilde D^{-1/2}\tilde A\tilde D^{1/2}$代替$I+D^{-1/2}AD^{1/2}$,其中$\tilde A=A+I$和$\tilde D_ii=\sum_j \tilde A _ {i,j}$。经过这些简化步骤，GCN-Filter最后可被表示为：<br>
 $$<br>
 f’=\theta \tilde D^{-1/2}\tilde A\tilde D^{1/2}f<br>
 $$</p>
@@ -11426,7 +11426,7 @@ $$</p>
 <p>6.5 扩展阅读149</p>
 <h2 id="图上的其他深度模型">图上的其他深度模型</h2>
 <h3 id="图上的自编码器">图上的自编码器</h3>
-<p>编码器:$Z=f_{GNN}(A,X;\theta_{GNN})$</p>
+<p>编码器:$Z=f _ {GNN}(A,X;\theta _ {GNN})$</p>
 <p>解码器：$\hat A=\sigma(ZZ^T)$</p>
 <h3 id="图上的循环神经网络">图上的循环神经网络</h3>
 <p><img src="RNN.png" alt=""></p>
@@ -11434,7 +11434,7 @@ $$</p>
 <blockquote>
 <p>定理：令G表示一个以A作为其邻接矩阵的连通的非二分图，对于任何特征$f\in R^N$，则：<br>
 $$<br>
-lim_{L\to \infty} (D^{-\frac{1}{2}}AD^{-\frac{1}{2}})^Lf=\theta_1 u_1<br>
+lim _ {L\to \infty} (D^{-\frac{1}{2}}AD^{-\frac{1}{2}})^Lf=\theta_1 u_1<br>
 $$<br>
 其中，u1是$D^{-1/2}AD^{-1/2}$与其最大特征值相关的特征向量，且$\theta_1 u_1^T f$</p>
 </blockquote>
