@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2023/20230221/randowwalk.png">
 <meta property="og:image" content="https://lijianxiong.work/2023/20230221/RNN.png">
 <meta property="article:published_time" content="2023-02-21T11:03:41.000Z">
-<meta property="article:modified_time" content="2025-05-24T03:43:02.438Z">
+<meta property="article:modified_time" content="2025-05-24T03:57:52.004Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.3k 字
         
       </span>
     
@@ -406,9 +406,9 @@ $$<br>
 <p>将切比雪夫多项式的阶数设为K = l,并把最大特征值近似为2。即：<br>
 $$<br>
 \begin{align}<br>
-\gamma(\Lambda)&amp;=\theta_0T_0(\tilde\Lambda)+\theta_1T_1(\tilde\Lambda)</p>
-<p>\\&amp;=\theta_0 I+\theta_1\tilde\Lambda</p>
-<p>\\&amp;=\theta_0I+\theta_1(\Lambda-I)<br>
+\gamma(\Lambda)&amp;=\theta_0T_0(\tilde\Lambda)+\theta_1T_1(\tilde\Lambda)<br>
+\\&amp;=\theta_0 I+\theta_1\tilde\Lambda<br>
+\\&amp;=\theta_0I+\theta_1(\Lambda-I)<br>
 \end{align}<br>
 $$<br>
 用于f’时$f’=\theta_0f-\theta_1(D^{-1/2}AD^{1/2})f$，令$\theta=\theta_0=-\theta_1$，$f’=\theta(I+D^{-1/2}AD^{1/2})f$。</p>
@@ -438,9 +438,19 @@ $$</p>
 <p><strong>PGD拓扑攻击：</strong></p>
 <p><strong>基于积分梯度的攻击：</strong></p>
 <p>由于攻击者仅被允许执行从0到1或从1到0的修改，梯度信息可能没有太大帮助，因为考虑到图神经网络模型是非线性的，单个点上的梯度并不能反映诸如从0到1或从1到0的大变化的影响。因此，受积分梯度(Integrated Gradients)的启发，利用离散积分梯度来设计分数，称为积分梯度分数（IG-Score）。</p>
-<p>$IG_H(i,j) = \sum_{k=1}^{m} \frac{\partial \mathcal{L}<em>i(\frac{k}{m}(H</em>{i,j} - 0))}{\partial H_{i,j}}; \quad 1 \to 0, H_{i,j}=1,$</p>
-<p>$IG_H(i,j) = \sum_{k=1}^{m} \frac{\partial \mathcal{L}<em>i(0 + \frac{k}{m}(1 - H</em>{i,j}))}{\partial H_{i,j}}; \quad 0 \to 1, H_{i,j}=0$</p>
+<p>$IG_H(i,j) = \sum _ {k=1}^{m} \frac{\partial \mathcal{L}_i(\frac{k}{m}(H _ {i,j} - 0))}{\partial H _ {i,j}}; \quad 1 \to 0, H _ {i,j}=1,$</p>
+<p>$IG_H(i,j) = \sum _ {k=1}^{m} \frac{\partial \mathcal{L}_i(0 + \frac{k}{m}(1 - H _ {i,j}))}{\partial H _ {i,j}}; \quad 0 \to 1, H _ {i,j}=0$</p>
 <h4 id="灰盒攻击">灰盒攻击</h4>
+<p><strong>Nettack：</strong><br>
+$$<br>
+argmax (max\quad lnZ’<em>{i,c}-lnZ’</em>{i,y_i})<br>
+$$<br>
+其中$Z’=f_{GNN}(A’,F’;\Theta’)$。</p>
+<p>代理损失：<br>
+$$<br>
+L_{sur}(A,F;\Theta,v_i)=max_{c\ne y_i}([\tilde A^2F\Theta]<em>{i,c}-[\tilde A^2F\Theta]</em>{i,y_i})<br>
+$$<br>
+<strong>Metatack：</strong></p>
 <h4 id="黑盒攻击">黑盒攻击</h4>
 <p>6.3 图对抗防御142</p>
 <p>6.3.1 图对抗训练142</p>
