@@ -21267,6 +21267,16 @@ $$<br>
 \Sigma_l^\ast&amp;=\frac{diag(U_l^TX^T(Y-XW_k)V_l)}{diag(U_l^TX^TXU_l)}<br>
 \end{align}<br>
 $$</p>
+<h2 id="题外">题外</h2>
+<p>图神经网络中也有使用SVD来抵御对抗攻击的。比如WSDM '20的《All You Need Is Low (Rank): Defending Against Adversarial Attacks on Graphs》。</p>
+<p><img src="lowrank.png" alt=""></p>
+<p>作者发现，Nettack是一种高秩攻击，这是因为Nettack带来的对抗扰动只会影响图中少量的节点，攻击给图结构谱域带来的影响较小，故主要反映在rank较高的奇异值上。</p>
+<p>作者同样截断前k个特征值大的作为SVD的近似。但没有对余下的SVD做处理。</p>
+<p>作者分析了，说这种近似可能检测不到大于节点度数&gt;$\sigma_r^2-2$的，作者进一步证明了。<br>
+$$<br>
+Pr(X\ge\sigma_r^2)\approx\frac{\zeta(\alpha,\sigma_r^2)-\zeta(\alpha,d_{max}+1)}{\zeta(\alpha,d_{min})-\zeta(\alpha,d_{max}+1)}&lt;\tau<br>
+$$<br>
+其中$\zeta(\alpha,x)=\sum_{k=0}^\infty(k+x)^{-\alpha}$，$\alpha\approx 1+|D_G|\left[\sum_{d_i\in D_G} log \frac{d_I}{d_{min-\frac{1}{2}}}\right]$，$D_G=\left{d_v^G|v\in V,d_v^G\ge d_{min}\right}$。</p>
 ]]></content>
       <tags>
         <tag>机器学习</tag>
