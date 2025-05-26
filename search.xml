@@ -21390,18 +21390,18 @@ $$</p>
 <h3 id="平衡态">平衡态</h3>
 <p>福克-普朗克方程描述了在随机过程中概率密度函数 P(x,t) 如何随时间演化。我们采样的目标分布实际上是一个平稳解。</p>
 <p>福克-普朗克方程描述了概率密度 $P({x}, t)$ 如何随时间演化。</p>
-<p>对于一个由随机微分方程 $d{X}_t = {b}({X}_t)dt + \sqrt{2{D}({X}<em>t)}d{W}<em>t$ 描述的系统，其福克-普朗克方程为：<br>
+<p>对于一个由随机微分方程 $d{X}_t = {b}({X}_t)dt + \sqrt{2{D}({X}_t)}d{W}_t$ 描述的系统，其福克-普朗克方程为：<br>
 $$<br>
-\frac{\partial P(\mathbf{x}, t)}{\partial t} = -\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P(\mathbf{x}, t)] + \sum</em>{i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D</em>{ij}(\mathbf{x}) P(\mathbf{x}, t)]<br>
+\frac{\partial P(\mathbf{x}, t)}{\partial t} = -\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P(\mathbf{x}, t)] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}(\mathbf{x}) P(\mathbf{x}, t)]<br>
 $$<br>
 这里 ${b}({x})$ 是漂移向量，$D _ {ij}({x})$ 是扩散张量。</p>
 <p>平稳解 $P_s({x})$ 是指不随时间变化的解，即 $\frac{\partial P_s({x})}{\partial t} = 0$。所以，我们需要解以下偏微分方程：<br>
 $$<br>
--\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P_s(\mathbf{x})] + \sum_{i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D_{ij}(\mathbf{x}) P_s(\mathbf{x})] = 0<br>
+-\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P_s(\mathbf{x})] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}(\mathbf{x}) P_s(\mathbf{x})] = 0<br>
 $$<br>
 这个方程通常可以写作 $\nabla \cdot [-{b}({x}) P_s({x}) + \nabla \cdot ({D}({x}) P_s({x}))] = 0$。更清晰的写法是定义概率流 (probability current) ${J}(P_s)$:<br>
 $$<br>
-J_k(P_s) = b_k(\mathbf{x}) P_s(\mathbf{x}) - \sum_j \frac{\partial}{\partial x_j} [D_{kj}(\mathbf{x}) P_s(\mathbf{x})]<br>
+J_k(P_s) = b_k(\mathbf{x}) P_s(\mathbf{x}) - \sum_j \frac{\partial}{\partial x_j} [D _ {kj}(\mathbf{x}) P_s(\mathbf{x})]<br>
 $$<br>
 则平稳的福克-普朗克方程变为散度为零：<br>
 $$<br>
@@ -21446,9 +21446,9 @@ $$<br>
 d{x}(t) ={b}({x}(t)) dt + \sigma({x}(t)) d{W}(t)<br>
 $$</p>
 <p>欧拉-丸山法的离散化更新规则如下：<br>
-给定当前状态 ${x}<em>k$ 在时间 $t_k$，下一个状态 ${x} _ {k+1}$ 在时间 $t _ {k+1} = t_k + \Delta t$ 可以近似为：<br>
+给定当前状态 ${x}_k$ 在时间 $t_k$，下一个状态 ${x} _ {k+1}$ 在时间 $t _ {k+1} = t_k + \Delta t$ 可以近似为：<br>
 $$<br>
-{x}</em>{k+1} ={x}_k +{b}({x}_k) \Delta t + \sigma({x}_k) \sqrt{\Delta t}{Z}_k<br>
+{x} _ {k+1} ={x}_k +{b}({x}_k) \Delta t + \sigma({x}_k) \sqrt{\Delta t}{Z}_k<br>
 $$</p>
 <p>其中：</p>
 <ul>
@@ -21460,7 +21460,34 @@ $$</p>
 <p>在p(x)较小的低密度区域，模型可能很难学习，从而导致效果不佳：</p>
 <p><img src="pitfalls.jpg" alt=""></p>
 <p>一个可行的办法是加大噪声以遍历更多的空间。</p>
+<h2 id="具有多重噪声扰动的生成模型">具有多重噪声扰动的生成模型</h2>
+<p>但我们如何选取噪声的大小呢？</p>
+<p>yang song提出了同时使用多个尺度的噪声扰动。</p>
+<p><img src="multi_scale.jpg" alt=""></p>
+<p>定义一个逐渐增加的方差$\sigma_1&lt;\sigma_2&lt;…&lt;\sigma_L$，定义一个逐步扰动的数据分布序列：<br>
+$$<br>
+p _ {\sigma_t}({x}_t) = \int p({x})\mathcal{N}({x}_t; {x}, \sigma_t^2\textbf{I})d{x}<br>
+$$</p>
+<p>使用神经网络同时学习所有噪声级别的得分函数：<br>
+$$<br>
+\underset{\arg\min}, \sum _ {t=1}^T\lambda(t)\mathbb{E} _ {p _ {\sigma_t}({x}_t)}\left[\left\lVert {s} _ ({x}, t) - \nabla\log p _ {\sigma_t}({x}_t)\right\rVert_2^2\right]<br>
+$$<br>
+其中通常定义$\lambda(i)=\sigma_i^2$。</p>
+<p>使用退火朗之万动力学采样作为生成过程，其中通过依次对每个 $t=T,T-1…$运行朗之万动力学来生成样本。</p>
+<p>song yang也提出来一些实用建议：</p>
+<ul>
+<li>
+<p>将$\sigma$选择为等比数列，其中$\sigma_1$足够小， $\sigma_L$与所有训练数据点之间的最大成对距离数量级相同。L为数百或数千的数量级。</p>
+</li>
+<li>
+<p>用 U-Net 跳跃连接参数化模型</p>
+</li>
+<li>
+<p>在测试时对权重应用指数移动平均</p>
+</li>
+</ul>
 <h2 id="参考资料">参考资料</h2>
+<p>参考于yang song的博客，更多的内容也可以在该处查看。</p>
 <p><a href="http://yang-song.net/blog/2021/score/">http://yang-song.net/blog/2021/score/</a></p>
 ]]></content>
       <tags>
