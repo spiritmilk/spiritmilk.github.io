@@ -21287,8 +21287,8 @@ $$<br>
   <entry>
     <title>Langevin</title>
     <url>/2025/20250526/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><span id="more"></span>
-<p>tweedie’s formula为$E[x\mid y]=y+\sigma^2\nabla log p(y)$。其中$\nabla logp(y)$被称为score。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><span id="more"></span>
+<p>Tweedie公式为$E[x\mid y]=y+\sigma^2\nabla log p(y)$。其中$\nabla logp(y)$被称为score。</p>
 <blockquote>
 <p>证明：</p>
 <p>$$<br>
@@ -21309,6 +21309,18 @@ $$<br>
 $$<br>
 而$\nabla log p(y)=\frac{\nabla p(y)}{p(y)}$</p>
 </blockquote>
+<p>沿用DDPM的$q(x_t\mid x_0) = \mathcal{N}(x_{t} ; \sqrt{\bar\alpha_t}x_0, \left(1 - \bar\alpha_t\right)\textbf{I})$，由Tweedie公式有：<br>
+$$<br>
+\begin{align}<br>
+\mathbb{E}\left[\mu_{x_t}\mid x_t\right] = x_t + (1 - \bar\alpha_t)\nabla_{x_t}\log p(x_t)<br>
+\\<br>
+\therefore \sqrt{\bar\alpha_t}x_0 = x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)<br>
+\\<br>
+\therefore x_0 = \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}<br>
+\end{align}<br>
+$$<br>
+对比DDPM中的$x_0=\frac{x_t - \sqrt{1 - \bar\alpha_t}\epsilon_0}{\sqrt{\bar\alpha_t}}$，可以发现$\nabla\log p(x_t) = -\frac{1}{\sqrt{1 - \bar\alpha_t}}\epsilon_0$。</p>
+<p>DDPM其实也是基于score来去噪。</p>
 ]]></content>
   </entry>
 </search>
