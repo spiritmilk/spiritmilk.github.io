@@ -21287,7 +21287,7 @@ $$<br>
   <entry>
     <title>Langevin动力学和diffusion</title>
     <url>/2025/20250526/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><span id="more"></span>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><span id="more"></span>
 <h2 id="Tweedie公式和DDPM">Tweedie公式和DDPM</h2>
 <p>Tweedie公式为$E[x\mid y]=y+\sigma^2\nabla log p(y)$。其中$\nabla logp(y)$被称为score。</p>
 <blockquote>
@@ -21359,7 +21359,12 @@ $$<br>
 <p>当我们知道score，那我们就可以采样了，被称为朗之万动力学采样：<br>
 $$<br>
 {x}_{i+1} \leftarrow {x}_i + c\nabla\log p({x}_i) + \sqrt{2c}{\epsilon},\quad i = 0, 1, …, K<br>
-$$</p>
+$$<br>
+$\epsilon$为噪声。</p>
+<h2 id="出现的问题">出现的问题</h2>
+<p>在p(x)较小的低密度区域，模型可能很难学习，从而导致效果不佳：</p>
+<p><img src="pitfalls.jpg" alt=""></p>
+<p>一个可行的办法是加大噪声以遍历更多的空间。</p>
 <h2 id="参考资料">参考资料</h2>
 <p><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">https://lilianweng.github.io/posts/2021-07-11-diffusion-models/</a></p>
 ]]></content>
