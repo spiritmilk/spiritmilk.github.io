@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250526/pitfalls.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250526/multi_scale.jpg">
 <meta property="article:published_time" content="2025-05-26T03:06:50.000Z">
-<meta property="article:modified_time" content="2025-05-26T12:08:08.551Z">
+<meta property="article:modified_time" content="2025-05-26T12:11:56.176Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="物理">
@@ -361,7 +361,7 @@ $$<br>
 $$<br>
 对比DDPM中的$x _ 0=\frac{x _ t - \sqrt{1 - \bar \alpha _ t} \epsilon _ 0}{\sqrt{\bar\alpha _ t}}$，可以发现$\nabla \log p(x _ t) = -\frac{1}{ \sqrt{1 - \bar \alpha _ t}}\epsilon _ 0$。</p>
 <p>DDPM其实也是基于分数函数来去噪。</p>
-<h2 id="Langevin动力学">Langevin动力学</h2>
+<h2 id="去噪分数匹配">去噪分数匹配</h2>
 <p>我们不妨考虑以下分布，被称为能量函数：<br>
 $$<br>
 \begin{align}<br>
