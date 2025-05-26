@@ -21287,7 +21287,7 @@ $$<br>
   <entry>
     <title>朗之万动力学和diffusion</title>
     <url>/2025/20250526/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>朗之万动力学是一种描述粒子在流体中运动的物理模型，它考虑了两种主要的力：<span id="more"></span></p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>朗之万动力学是一种描述粒子在流体中运动的物理模型，它考虑了两种主要的力：<span id="more"></span></p>
 <ol>
 <li><strong>耗散力 (Dissipative Force)</strong>：也称为摩擦力或阻尼力。这种力与粒子的速度成正比，方向相反，模拟了粒子在运动时由于与周围流体分子碰撞而受到的能量损失。数学上通常表示为 −γv，其中 γ 是阻尼系数，v 是粒子的速度。</li>
 <li><strong>随机力 (Random Force)</strong>：也称为噪声项。这种力模拟了流体中分子对粒子的随机碰撞，这些碰撞是无规则且快速变化的。它通常被建模为一个均值为零的高斯白噪声，其强度与系统的温度和阻尼系数有关。这个力是系统能量的来源，使得粒子能够克服耗散力并进行持续的随机运动（布朗运动）。</li>
@@ -21383,7 +21383,7 @@ $$</p>
 $$<br>
 d{x}(t) = \frac{1}{\gamma}{F}({x}(t)) dt + \sqrt{2D} d{W}(t)<br>
 $$</p>
-<p>我们依旧使用采样的目标分布是 $p({x}) \propto e^{-U({x})/(k_B T)}$，我们可以令 $U({x}) = -\log p({x})$ 并常写为：</p>
+<p>我们依旧使用采样的目标分布是 $p({x}) \propto e^{-U({x})/(k_B T)}$，我们可以令 $U({x}) = -\log p({x})$ 并简写为：</p>
 <p>$$<br>
 d{x}(t) = \nabla \log p({x}(t)) dt + \sqrt{2} d{W}(t)<br>
 $$</p>
