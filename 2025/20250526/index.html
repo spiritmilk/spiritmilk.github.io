@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250526/pitfalls.jpg">
 <meta property="article:published_time" content="2025-05-26T03:06:50.000Z">
-<meta property="article:modified_time" content="2025-05-26T09:15:08.436Z">
+<meta property="article:modified_time" content="2025-05-26T11:31:02.013Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="物理">
@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          2.2k 字
         
       </span>
     
@@ -277,7 +277,7 @@
         
         
         
-          23 分钟
+          19 分钟
         
       </span>
     
@@ -415,56 +415,73 @@ $$</p>
 $$<br>
 d{x}(t) = \frac{1}{\gamma}{F}({x}(t)) dt + \sqrt{2D} d{W}(t)<br>
 $$</p>
-<p>或者，如果我们希望采样的目标分布是 $p({x}) \propto e^{-U({x})/(k_B T)}$，我们可以令 $U({x}) = -\log p({x})$ 并吸收常数项到 $D$ 或时间步长中，简化后的形式常写为：</p>
+<p>我们依旧使用采样的目标分布是 $p({x}) \propto e^{-U({x})/(k_B T)}$，我们可以令 $U({x}) = -\log p({x})$ 并常写为：</p>
 <p>$$<br>
 d{x}(t) = \nabla \log p({x}(t)) dt + \sqrt{2} d{W}(t)<br>
 $$</p>
-<p>这里我们暂时忽略了 $1/\gamma$ 和 $k_B T$ 等物理常数，将其吸收到一个有效的步长或时间尺度中，以便更直接地看到与目标分布 $p({x})$ 的关系。在实际的LMC算法中，这些常数会被一个步长参数 $\epsilon$ 所取代。</p>
-<p><strong>平衡态的证明通常通过福克-普朗克方程 (Fokker-Planck Equation) 来实现。</strong></p>
-<p>福克-普朗克方程描述了在随机过程中概率密度函数 $P({x}, t)$ 如何随时间演化。对于上述形式的朗之万方程（为清晰起见，我们使用 $d{x}(t) ={b}({x}(t)) dt + \sqrt{2{D}({x}(t))} d{W}(t)$ 的一般形式，其中 ${b}({x}) = \nabla \log p({x})$ 且扩散矩阵 ${D}({x}) ={I}$ (单位矩阵)），其对应的福克-普朗克方程为：</p>
-<p>$$<br>
-\frac{\partial P({x}, t)}{\partial t} = -\sum_i \frac{\partial}{\partial x_i} [b_i({x}) P({x}, t)] + \sum_{i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D_{ij}({x}) P({x}, t)]<br>
-$$</p>
-<p>在我们的特定情况下，${b}({x}) = \nabla \log p({x})$ 且 ${D} ={I}$，所以福克-普朗克方程变为：</p>
-<p>$$<br>
-\frac{\partial P({x}, t)}{\partial t} = -\nabla \cdot [\nabla \log p({x}) P({x}, t)] + \nabla^2 P({x}, t)<br>
-$$</p>
-<p>我们想要证明当系统达到平衡态 (stationary state) 时，即 $\frac{\partial P({x}, t)}{\partial t} = 0$，此时的概率密度 $P_s({x})$ 正比于我们想要采样的目标分布 $p({x})$。</p>
-<p>设平衡态分布为 $P_s({x})$。我们希望证明 $P_s({x}) = C p({x})$，其中 $C$ 是归一化常数。<br>
-将 $P_s({x}) = C p({x})$ 代入福克-普朗克方程的右侧：</p>
-<p>$$<br>
-\text{RHS} = -\nabla \cdot [\nabla \log p({x}) C p({x})] + \nabla^2 [C p({x})]<br>
-$$</p>
-<p>注意到 $\nabla \log p({x}) = \frac{\nabla p({x})}{p({x})}$，所以第一项为：</p>
-<p>$$<br>
--\nabla \cdot \left[ \frac{\nabla p({x})}{p({x})} C p({x}) \right] = -\nabla \cdot [C \nabla p({x})] = -C \nabla^2 p({x})<br>
-$$</p>
-<p>第二项为：</p>
-<p>$$<br>
-\nabla^2 [C p({x})] = C \nabla^2 p({x})<br>
-$$</p>
-<p>因此，右侧变为：</p>
-<p>$$<br>
-\text{RHS} = -C \nabla^2 p({x}) + C \nabla^2 p({x}) = 0<br>
-$$</p>
-<p>这表明，如果 $P_s({x}) = C p({x})$，那么 $\frac{\partial P_s({x})}{\partial t} = 0$。这意味着 $p({x})$ 确实是该朗之万动力学的平稳分布（或平衡态分布）。</p>
-<p><strong>直观解释：</strong></p>
-<ul>
-<li><strong>漂移项 $\nabla \log p({x})$</strong>：这个项将粒子推向概率密度 $p({x})$ 较高的区域。如果粒子处于概率较低的区域，$\log p({x})$ 的梯度会指向概率增加的方向。</li>
-<li><strong>扩散项 $\sqrt{2} d{W}(t)$</strong>：这个随机噪声项使得粒子能够探索整个空间，并从局部高概率区域跳出，避免陷入局部最优。</li>
-</ul>
-<p>这两个项的作用相互平衡：漂移项试图将粒子集中到高概率区域，而扩散项则试图将粒子散开。当达到平衡时，这种集聚和散开的效应达到动态平衡，使得粒子在空间中的分布与目标分布 $p({x})$ 成正比。</p>
-<hr>
-<h2 id="使用欧拉-丸山法进行离散化-💻">使用欧拉-丸山法进行离散化 💻</h2>
-<p>朗之万动力学是一个连续时间的随机微分方程 (SDE)。为了在计算机上模拟它，我们需要将其离散化。欧拉-丸山法 (Euler-Maruyama method) 是离散化SDE最简单的方法之一。</p>
+<h3 id="平衡态">平衡态</h3>
+<p>福克-普朗克方程描述了在随机过程中概率密度函数 P(x,t) 如何随时间演化。我们采样的目标分布实际上是一个平稳解。</p>
+<p>好的，这是您要求的 Markdown 代码：</p>
+<h2 id="寻找福克-普朗克方程的平稳解-📝">寻找福克-普朗克方程的平稳解 📝</h2>
+<p>福克-普朗克方程 (FPE) 描述了概率密度 $P({x}, t)$ 如何随时间演化。</p>
+<p>对于一个由随机微分方程 $d{X}_t = {b}({X}<em>t)dt + \sqrt{2{D}({X}<em>t)}d{W}<em>t$ 描述的系统，其福克-普朗克方程为：<br>
+$$<br>
+\frac{\partial P(\mathbf{x}, t)}{\partial t} = -\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P(\mathbf{x}, t)] + \sum</em>{i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D</em>{ij}(\mathbf{x}) P(\mathbf{x}, t)]<br>
+$$<br>
+这里 ${b}({x})$ 是漂移向量，$D</em>{ij}({x})$ 是扩散张量。</p>
+<p>平稳解 $P_s({x})$ 是指不随时间变化的解，即 $\frac{\partial P_s({x})}{\partial t} = 0$。所以，我们需要解以下偏微分方程：<br>
+$$<br>
+-\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P_s(\mathbf{x})] + \sum_{i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D_{ij}(\mathbf{x}) P_s(\mathbf{x})] = 0<br>
+$$<br>
+这个方程通常可以写作 $\nabla \cdot [-{b}({x}) P_s({x}) + \nabla \cdot ({D}({x}) P_s({x}))] = 0$。更清晰的写法是定义概率流 (probability current) ${J}(P_s)$:<br>
+$$<br>
+J_k(P_s) = b_k(\mathbf{x}) P_s(\mathbf{x}) - \sum_j \frac{\partial}{\partial x_j} [D_{kj}(\mathbf{x}) P_s(\mathbf{x})]<br>
+$$<br>
+则平稳的福克-普朗克方程变为散度为零：<br>
+$$<br>
+\sum_k \frac{\partial J_k(P_s)}{\partial x_k} = \nabla \cdot \mathbf{J}(P_s) = 0<br>
+$$<br>
+寻找这个方程的通解可能非常困难，具体方法取决于漂移项 ${b}({x})$ 和扩散项 ${D}({x})$ 的形式以及边界条件。</p>
+<p>为了简便，在这里我们只讨论一维情况。</p>
+<p>在一维情况下，方程简化为：<br>
+$$<br>
+-\frac{d}{dx}[b(x) P_s(x)] + D \frac{d^2 P_s(x)}{dx^2} = 0<br>
+$$<br>
+这可以写成：<br>
+$$<br>
+\frac{d}{dx} \left[ -b(x) P_s(x) + D \frac{dP_s(x)}{dx} \right] = 0<br>
+$$<br>
+这意味着方括号内的项（即概率流 $J(x)$）是一个常数，记为 $J_0$：<br>
+$$<br>
+-b(x) P_s(x) + D \frac{dP_s(x)}{dx} = J_0<br>
+$$<br>
+对于大多数物理系统，尤其是在无限区域或者有反射边界的情况下，我们期望平稳态下没有净的概率流动，即 $J_0 = 0$。如果 $J_0 = 0$，则：<br>
+$$<br>
+D \frac{dP_s(x)}{dx} = b(x) P_s(x)<br>
+$$<br>
+这是一个可分离变量的一阶常微分方程：<br>
+$$<br>
+\frac{1}{P_s(x)} dP_s(x) = \frac{b(x)}{D} dx<br>
+$$<br>
+两边积分：<br>
+$$<br>
+\ln P_s(x) = \int \frac{b(x)}{D} dx + \text{const}<br>
+$$<br>
+所以，平稳解为：<br>
+$$<br>
+P_s(x) = A \exp\left(\int \frac{b(x)}{D} dx\right)<br>
+$$<br>
+其中 $A$ 是归一化常数，通过 $\int P_s(x) dx = 1$ 来确定。</p>
+<p>这与我们假设的 $P_s({x}) \propto e^{-U({x})/(k_B T)}$ 形式类似。</p>
+<h3 id="离散化">离散化</h3>
+<p>欧拉-丸山法 (Euler-Maruyama method) 是离散化SDE最简单的方法之一。</p>
 <p>考虑过阻尼朗之万方程的简化形式：</p>
 <p>$$<br>
 d{x}(t) ={b}({x}(t)) dt + \sigma({x}(t)) d{W}(t)<br>
 $$</p>
-<p>在我们的朗之万动力学采样中，${b}({x}) = \nabla \log p({x})$ 且 $\sigma({x})$ 通常是一个常数，例如 $\sqrt{2}$ （或者更一般地，$\sqrt{2\Delta t \cdot \text{step_size_related_params}}$，其中 $\Delta t$ 是离散时间步长）。</p>
 <p>欧拉-丸山法的离散化更新规则如下：<br>
-给定当前状态 ${x}<em>k$ 在时间 $t_k$，下一个状态 ${x}</em>{k+1}$ 在时间 $t_{k+1} = t_k + \Delta t$ 可以近似为：</p>
-<p>$$<br>
+给定当前状态 ${x}<em>k$ 在时间 $t_k$，下一个状态 ${x}</em>{k+1}$ 在时间 $t_{k+1} = t_k + \Delta t$ 可以近似为：<br>
+$$<br>
 {x}_{k+1} ={x}_k +{b}({x}_k) \Delta t + \sigma({x}_k) \sqrt{\Delta t}{Z}_k<br>
 $$</p>
 <p>其中：</p>
@@ -473,22 +490,6 @@ $$</p>
 <li>${Z}_k$ 是一个从标准多元正态分布（均值为0，协方差矩阵为单位矩阵 ${I}$）中抽取的随机向量。</li>
 <li>$d{W}(t)$ 在离散时间步长 $\Delta t$ 内的增量 $\Delta{W}<em>k ={W}(t</em>{k+1}) -{W}(t_k)$ 服从均值为0、协方差矩阵为 $\Delta t \cdot{I}$ 的正态分布。因此，$\Delta{W}_k$ 可以表示为 $\sqrt{\Delta t}{Z}_k$。</li>
 </ul>
-<p><strong>应用于朗之万动力学采样：</strong></p>
-<p>对于目标分布 $p({x})$，我们有 ${b}({x}) = \nabla \log p({x})$。假设我们将扩散项的系数（包含温度、阻尼等）合并到一个整体的步长参数 $\epsilon$ 中。朗之万蒙特卡洛 (LMC) 的更新规则通常写为：</p>
-<p>$$<br>
-{x}_{k+1} ={x}_k + \frac{\epsilon^2}{2} \nabla \log p({x}_k) + \epsilon{Z}_k<br>
-$$</p>
-<p>这里的 $\epsilon$ 可以看作是与 $\sqrt{2 \Delta t’}$ 相关的量，其中 $\Delta t’$ 是一个有效的离散时间步。</p>
-<ul>
-<li><strong>漂移项</strong>: $\frac{\epsilon^2}{2} \nabla \log p({x}_k)$。这里的 $\frac{\epsilon^2}{2}$ 对应于上述欧拉-丸山法中的 ${b}({x}_k) \Delta t$ 部分（经过参数调整）。</li>
-<li><strong>扩散项</strong>: $\epsilon{Z}_k$。这里的 $\epsilon$ 对应于 $\sigma \sqrt{\Delta t}$ 部分。${Z}_k \sim \mathcal{N}(0,{I})$。</li>
-</ul>
-<p><strong>解释系数 $\frac{\epsilon^2}{2}$ 和 $\epsilon$：</strong></p>
-<p>这种特定的系数选择 ($\frac{\epsilon^2}{2}$ for drift, $\epsilon$ for noise) 是LMC算法的标准形式。<br>
-严格的欧拉-丸山离散化对于 $d{x}(t) = f({x})dt + g({x})dW_t$ 是 ${x}_{n+1} ={x}_n + f({x}_n) \Delta t + g({x}_n) \sqrt{\Delta t} Z_n$。<br>
-如果我们考虑SDE $d{X}_t = \nabla \log p({X}_t) dt + \sqrt{2} d{W}<em>t$，<br>
-令 $\Delta t = \delta^2/2$ （这里用 $\delta$ 避免与上面的 $\epsilon$ 混淆），那么离散化是：<br>
-${x}</em>{n+1} ={x}_n + \nabla \log p({x}_n) \frac{\delta^2}{2} + \sqrt{2} \sqrt{\frac{\delta^2}{2}} Z_n ={x}_n + \frac{\delta^2}{2} \nabla \log p({x}_n) + \delta Z_n$。</p>
 <h2 id="出现的问题">出现的问题</h2>
 <p>在p(x)较小的低密度区域，模型可能很难学习，从而导致效果不佳：</p>
 <p><img src="pitfalls.jpg" alt=""></p>
