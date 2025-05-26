@@ -21285,11 +21285,14 @@ $$<br>
       </tags>
   </entry>
   <entry>
-    <title>Langevin动力学和diffusion</title>
+    <title>朗之万动力学和diffusion</title>
     <url>/2025/20250526/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><span id="more"></span>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>朗之万</p>
+<span id="more"></span>
+<p>粗略而言，朗之万动力学采样依赖于分数（score）函数。而Tweedie公式提供了估计分数函数的方法。</p>
+<p>故我们先介绍Tweedie公式和一些基本概念。</p>
 <h2 id="Tweedie公式和DDPM">Tweedie公式和DDPM</h2>
-<p>Tweedie公式为$E[x\mid y]=y+\sigma^2\nabla log p(y)$。其中$\nabla logp(y)$被称为score。</p>
+<p>Tweedie公式为$E[x\mid y]=y+\sigma^2\nabla log p(y)$。其中$\nabla logp(y)$被称为分数（score）。</p>
 <blockquote>
 <p>证明：</p>
 <p>$$<br>
@@ -21321,7 +21324,7 @@ $$<br>
 \end{align}<br>
 $$<br>
 对比DDPM中的$x _ 0=\frac{x _ t - \sqrt{1 - \bar \alpha _ t} \epsilon _ 0}{\sqrt{\bar\alpha _ t}}$，可以发现$\nabla \log p(x _ t) = -\frac{1}{ \sqrt{1 - \bar \alpha _ t}}\epsilon _ 0$。</p>
-<p>DDPM其实也是基于score来去噪。</p>
+<p>DDPM其实也是基于分数函数来去噪。</p>
 <h2 id="Langevin动力学">Langevin动力学</h2>
 <p>我们不妨考虑以下分布，被称为能量函数：<br>
 $$<br>
@@ -21355,12 +21358,13 @@ $$<br>
 \mathbb{E} _ {p(\tilde x,x)}\left[\frac{1}{2}\lVert s_\theta(\tilde x)- \frac{x-\tilde x}{\sigma^2}\rVert^2\right]<br>
 $$<br>
 其中$\tilde x$是加噪后的，或者是x是去噪后的。</p>
-<p>这样就变得很好求了。</p>
-<p>当我们知道score，那我们就可以采样了，被称为朗之万动力学采样：<br>
+<p>逐渐有了现在去噪分数匹配的雏形，这样的形式就变得很好求了。</p>
+<p>当我们知道score，那我们就可以进行采样了，下式被称为（未调整的）朗之万动力学采样（Unadjusted Langevin Algorithm）：<br>
 $$<br>
 {x} _ {i+1} \leftarrow {x}_i + c\nabla\log p({x}_i) + \sqrt{2c}{\epsilon},\quad i = 0, 1, …, K<br>
 $$<br>
-$\epsilon$为噪声。</p>
+$\epsilon$为噪声，以实现更好的多样性。</p>
+<h2 id="朗之万动力学采样">朗之万动力学采样</h2>
 <h2 id="出现的问题">出现的问题</h2>
 <p>在p(x)较小的低密度区域，模型可能很难学习，从而导致效果不佳：</p>
 <p><img src="pitfalls.jpg" alt=""></p>
@@ -21370,6 +21374,7 @@ $\epsilon$为噪声。</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
+        <tag>物理</tag>
         <tag>生成模型</tag>
       </tags>
   </entry>
