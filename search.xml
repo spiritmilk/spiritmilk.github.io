@@ -21378,4 +21378,30 @@ $\epsilon$为噪声，以实现更好的多样性。</p>
         <tag>生成模型</tag>
       </tags>
   </entry>
+  <entry>
+    <title>5%&gt;100%-Breaking Performance Shackles of Full Fine-Tuning on Visual Recognition Tasks</title>
+    <url>/2025/20250522/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>算是adapter的改进。5%&gt;100%指的是微调大于全量。</p>
+<span id="more"></span>
+<h2 id="adapter类架构">adapter类架构</h2>
+<p>adapter：用于NLP</p>
+<p><a href="https://arxiv.org/abs/1902.00751">https://arxiv.org/abs/1902.00751</a></p>
+<p><img src="adapter.png" alt=""></p>
+<p><img src="adapter1.png" alt=""></p>
+<p>adaptformer：用于CV</p>
+<p><a href="https://arxiv.org/abs/2205.13535">https://arxiv.org/abs/2205.13535</a></p>
+<p><img src="adaptformer.png" alt=""></p>
+<p><img src="adaptformer1.png" alt=""></p>
+<h2 id="论文架构">论文架构</h2>
+<p><img src="arch.png" alt=""></p>
+<p>典型的线性adapter在应用于视觉任务时会遇到两个问题。首先，固定层参数无法微调以匹配新任务的分布，导致传递给adapter的特征分布存在偏差。</p>
+<p>作者使 Mona 能够调整输入分布以及来自固定层的输入比例。具体来说，作者在 Mona 的顶部添加了一个范数层和两个可学习权重，以调整输入分布。</p>
+<h2 id="结果">结果</h2>
+<p><img src="miou.png" alt=""></p>
+<p><img src="res.png" alt=""></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
 </search>
