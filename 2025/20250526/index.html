@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250526/pitfalls.jpg">
 <meta property="article:published_time" content="2025-05-26T03:06:50.000Z">
-<meta property="article:modified_time" content="2025-05-26T06:25:11.596Z">
+<meta property="article:modified_time" content="2025-05-26T06:26:41.822Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.work/2025/20250526/pitfalls.jpg">
@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          701 字
+          706 字
         
       </span>
     
@@ -339,10 +339,10 @@ $$<br>
 $$<br>
 而$\nabla log p(y)=\frac{\nabla p(y)}{p(y)}$，两边同除$p(y)$即可得到。</p>
 </blockquote>
-<p>沿用DDPM的$q(x_t\mid x_0) = \mathcal{N}(x_{t} ; \sqrt{\bar\alpha_t}x_0, \left(1 - \bar\alpha_t\right)\textbf{I})$，由Tweedie公式有：<br>
+<p>沿用DDPM的$q(x_t\mid x_0) = \mathcal{N}(x _ {t} ; \sqrt{\bar\alpha_t}x_0, \left(1 - \bar\alpha_t\right)\textbf{I})$，由Tweedie公式有：<br>
 $$<br>
 \begin{align}<br>
-\mathbb{E}\left[\mu_{x_t}\mid x_t\right] = x_t + (1 - \bar\alpha_t)\nabla_{x_t}\log p(x_t)<br>
+\mathbb{E}\left[\mu _ {x_t}\mid x_t\right] = x_t + (1 - \bar\alpha_t)\nabla _ {x_t}\log p(x_t)<br>
 \\<br>
 \therefore \sqrt{\bar\alpha_t}x_0 = x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)<br>
 \\<br>
@@ -355,39 +355,39 @@ $$<br>
 <p>我们不妨考虑以下分布，被称为能量函数：<br>
 $$<br>
 \begin{align}<br>
-p_{\boldsymbol{\theta}}(\boldsymbol{x}) = \frac{1}{Z_{\boldsymbol{\theta}}}e^{-f_{\boldsymbol{\theta}}(\boldsymbol{x})}<br>
+p _ {\boldsymbol{\theta}}(\boldsymbol{x}) = \frac{1}{Z _ {\boldsymbol{\theta}}}e^{-f _ {\boldsymbol{\theta}}(\boldsymbol{x})}<br>
 \end{align}<br>
 $$<br>
 我们可以通过神经网络来对学习$\nabla \log p(x)$：<br>
 $$<br>
 \begin{align}<br>
-\nabla_{x} \log p_{\theta}(x)<br>
-&amp;= \nabla_{x}\log(\frac{1}{Z_{\theta}}e^{-f_{\theta}(x)})<br>
+\nabla _ {x} \log p _ {\theta}(x)<br>
+&amp;= \nabla _ {x}\log(\frac{1}{Z _ {\theta}}e^{-f _ {\theta}(x)})<br>
 \\<br>
-&amp;= \nabla_{x}\log\frac{1}{Z_{\theta}} + \nabla_{x}\log e^{-f_{\theta}(x)}\\<br>
-&amp;= -\nabla_{x} f_{\theta}(x)\\<br>
-&amp;= s_{\theta}(x)<br>
+&amp;= \nabla _ {x}\log\frac{1}{Z _ {\theta}} + \nabla _ {x}\log e^{-f _ {\theta}(x)}\\<br>
+&amp;= -\nabla _ {x} f _ {\theta}(x)\\<br>
+&amp;= s _ {\theta}(x)<br>
 \end{align}<br>
 $$<br>
 具体而言，即我们可以使用神经网络f进行建模，通过任意计算其负梯度来查询分数；或者，更常见的是，我们可以直接使用神经网络对s进行建模。<br>
 $$<br>
-\mathbb{E}<em>{p(x)}\left[\left\lVert s</em>{\theta}(x) - \nabla\log p({x})\right\rVert_2^2\right]<br>
+\mathbb{E} _ {p(x)}\left[\left\lVert s _ {\theta}(x) - \nabla\log p({x})\right\rVert_2^2\right]<br>
 $$<br>
 但接下来的一个难点是，我们很难知道$\nabla\log p({x})$。</p>
 <p>2005年Aapo Hyvarinen在他的《Estimation of Non-Normalized Statistical Models by Score Matching》中提出了：<br>
 $$<br>
-\mathbb{E}<em>{p(x)}\left[tr(\nabla s</em>\theta(x) )+\frac{1}{2}\lVert s_\theta(x) \rVert^2\right]<br>
+\mathbb{E} _ {p(x)}\left[tr(\nabla s_\theta(x) )+\frac{1}{2}\lVert s_\theta(x) \rVert^2\right]<br>
 $$<br>
-这种方法也被叫做Implicit Score Matching。但是这种方法随着应用场景的维度的升高，迹变得更加难求。</p>
+这种没有使用p的方法也被叫做Implicit Score Matching。但是这种方法随着应用场景的维度的升高，迹变得更加难求。</p>
 <p>2010年Pascal Vincent在他的《A connection between score matching and denoising autoencoders》中提出了：<br>
 $$<br>
-\mathbb{E}<em>{p(\tilde x,x)}\left[\frac{1}{2}\lVert s</em>\theta(\tilde x)- \frac{x-\tilde x}{\sigma^2}\rVert^2\right]<br>
+\mathbb{E} _ {p(\tilde x,x)}\left[\frac{1}{2}\lVert s_\theta(\tilde x)- \frac{x-\tilde x}{\sigma^2}\rVert^2\right]<br>
 $$<br>
 其中$\tilde x$是加噪后的，或者是x是去噪后的。</p>
 <p>这样就变得很好求了。</p>
 <p>当我们知道score，那我们就可以采样了，被称为朗之万动力学采样：<br>
 $$<br>
-{x}_{i+1} \leftarrow {x}_i + c\nabla\log p({x}_i) + \sqrt{2c}{\epsilon},\quad i = 0, 1, …, K<br>
+{x} _ {i+1} \leftarrow {x}_i + c\nabla\log p({x}_i) + \sqrt{2c}{\epsilon},\quad i = 0, 1, …, K<br>
 $$<br>
 $\epsilon$为噪声。</p>
 <h2 id="出现的问题">出现的问题</h2>
@@ -395,7 +395,7 @@ $\epsilon$为噪声。</p>
 <p><img src="pitfalls.jpg" alt=""></p>
 <p>一个可行的办法是加大噪声以遍历更多的空间。</p>
 <h2 id="参考资料">参考资料</h2>
-<p><a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">https://lilianweng.github.io/posts/2021-07-11-diffusion-models/</a></p>
+<p><a target="_blank" rel="noopener" href="http://yang-song.net/blog/2021/score/">http://yang-song.net/blog/2021/score/</a></p>
 
                 
               </div>
