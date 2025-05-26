@@ -21392,20 +21392,20 @@ $$</p>
 <p>福克-普朗克方程描述了概率密度 $P({x}, t)$ 如何随时间演化。</p>
 <p>对于一个由随机微分方程 $d{X}_t = {b}({X}_t)dt + \sqrt{2{D}({X}_t)}d{W}_t$ 描述的系统，其福克-普朗克方程为：<br>
 $$<br>
-\frac{\partial P(\mathbf{x}, t)}{\partial t} = -\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P(\mathbf{x}, t)] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}(\mathbf{x}) P(\mathbf{x}, t)]<br>
+\frac{\partial P({x}, t)}{\partial t} = -\sum_i \frac{\partial}{\partial x_i} [b_i({x}) P({x}, t)] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}({x}) P({x}, t)]<br>
 $$<br>
 这里 ${b}({x})$ 是漂移向量，$D _ {ij}({x})$ 是扩散张量。</p>
 <p>平稳解 $P_s({x})$ 是指不随时间变化的解，即 $\frac{\partial P_s({x})}{\partial t} = 0$。所以，我们需要解以下偏微分方程：<br>
 $$<br>
--\sum_i \frac{\partial}{\partial x_i} [b_i(\mathbf{x}) P_s(\mathbf{x})] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}(\mathbf{x}) P_s(\mathbf{x})] = 0<br>
+-\sum_i \frac{\partial}{\partial x_i} [b_i({x}) P_s({x})] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}({x}) P_s({x})] = 0<br>
 $$<br>
 这个方程通常可以写作 $\nabla \cdot [-{b}({x}) P_s({x}) + \nabla \cdot ({D}({x}) P_s({x}))] = 0$。更清晰的写法是定义概率流 (probability current) ${J}(P_s)$:<br>
 $$<br>
-J_k(P_s) = b_k(\mathbf{x}) P_s(\mathbf{x}) - \sum_j \frac{\partial}{\partial x_j} [D _ {kj}(\mathbf{x}) P_s(\mathbf{x})]<br>
+J_k(P_s) = b_k({x}) P_s({x}) - \sum_j \frac{\partial}{\partial x_j} [D _ {kj}({x}) P_s({x})]<br>
 $$<br>
 则平稳的福克-普朗克方程变为散度为零：<br>
 $$<br>
-\sum_k \frac{\partial J_k(P_s)}{\partial x_k} = \nabla \cdot \mathbf{J}(P_s) = 0<br>
+\sum_k \frac{\partial J_k(P_s)}{\partial x_k} = \nabla \cdot {J}(P_s) = 0<br>
 $$<br>
 寻找这个方程的通解可能非常困难，具体方法取决于漂移项 ${b}({x})$ 和扩散项 ${D}({x})$ 的形式以及边界条件。</p>
 <p>为了简便，在这里我们只讨论一维情况。</p>
