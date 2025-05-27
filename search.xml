@@ -21352,7 +21352,7 @@ $$<br>
   <entry>
     <title>DDPM加速</title>
     <url>/2025/20250527/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><span id="more"></span>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><span id="more"></span>
 <p>让我们回忆一下DDPM。</p>
 <p><img src="diffusion13.png" alt=""></p>
 <p>延续符号：</p>
@@ -21365,11 +21365,11 @@ $$<br>
 x_0&amp;=\frac{x_t-\sqrt{1-\bar\alpha_t}\epsilon}{\sqrt{\bar\alpha_t}}<br>
 \\<br>
 q(x _ {t-1}\mid x_t,x_0)&amp;=N(\frac{\sqrt{\alpha _ {t-1}}\beta_tx_0+\sqrt{\alpha_t}(1-\bar\alpha _ {t-1})x_t}{1-\bar\alpha_t},\frac{1-\bar \alpha _ {t-1}}{1-\bar \alpha _ {t}}\beta_tI)<br>
-\\&amp;=N(\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon\right),\frac{1-\bar \alpha _ {t-1}}{1-\bar \alpha _ {t}}\beta_tI)</p>
-<p>\end{align}<br>
-$$<br>
-我们将方差分离开，（或者叫做重参数化），即：<br>
-$$<br>
+\\&amp;=N(\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon\right),\frac{1-\bar \alpha _ {t-1}}{1-\bar \alpha _ {t}}\beta_tI)<br>
+\end{align}<br>
+$$</p>
+<p>我们将方差分离开，（或者叫做重参数化），即：</p>
+<p>$$<br>
 \begin{align}<br>
 q(x _ {t-1}\mid x_t,x_0)&amp;=\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon\right)+\sqrt{\tilde \beta_t}N(0,1)<br>
 \\&amp;=\frac{1}{\sqrt{\alpha_t}}x_t-\frac{1}{\sqrt{\alpha_t}}\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon+\sqrt{\tilde \beta_t}N(0,1)<br>
@@ -21392,8 +21392,8 @@ q(x _ {t-1}\mid x_t,x_0)&amp;=\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{1-\alpha_
 +\sqrt{1-\alpha _ {t-1}-\tilde\beta_t}\epsilon<br>
 +\sqrt{\tilde \beta_t}N(0,1)<br>
 \end{align}<br>
-$$<br>
-我们干脆把$\sqrt{\tilde\beta_t}$定义为超参数$\sigma_t$，即$\sigma_t^2=\eta \tilde\beta_t$。当$\eta=0$为DDIM，当$\eta=1$时为DDPM。</p>
+$$</p>
+<p>我们干脆把$\sqrt{\tilde\beta_t}$定义为超参数$\sigma_t$，即$\sigma_t^2=\eta \tilde\beta_t$。当$\eta=0$为DDIM，当$\eta=1$时为DDPM。</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
