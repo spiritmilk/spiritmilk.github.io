@@ -21352,7 +21352,7 @@ $$<br>
   <entry>
     <title>DDPM加速</title>
     <url>/2025/20250527/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
 <p>DDPM等扩散模型的慢速度一直被诟病。</p>
 <span id="more"></span>
 <p>在这篇博客中，将介绍一部分的加速模型。</p>
@@ -21444,21 +21444,21 @@ $$</p>
 <p>扩散模型的 ODE 通常可以被看作或转化为 $dx/d\lambda=LinearPart(\lambda,x)+NonLinearPart(\lambda,\epsilon_\theta(x,\lambda))$，其中$\lambda_t=log(\bar\alpha_t/\sigma_t^2)$。</p>
 <p>我们定义为：</p>
 <p>$$<br>
-\frac{d\mathbf{x}}{d\lambda} = F(\lambda)\mathbf{x} + G(\lambda)\mathbf{\epsilon}_\theta(\mathbf{x}, \lambda)<br>
+\frac{d{x}}{d\lambda} = F(\lambda){x} + G(\lambda){\epsilon}_\theta({x}, \lambda)<br>
 $$</p>
 <p>其中：</p>
 <ul>
-<li>$\mathbf{x}$ 是当前的样本。</li>
+<li>${x}$ 是当前的样本。</li>
 <li>$\lambda$ 是重新参数化后的时间或噪声水平。</li>
-<li>$F(\lambda)\mathbf{x}$ 是关于 $\mathbf{x}$ 的线性部分。</li>
-<li>$G(\lambda)\mathbf{\epsilon}<em>\theta(\mathbf{x}, \lambda)$ 是非线性部分，其中 $\mathbf{\epsilon}</em>\theta(\mathbf{x}, \lambda)$ 是神经网络对噪声的预测。</li>
+<li>$F(\lambda){x}$ 是关于 ${x}$ 的线性部分。</li>
+<li>$G(\lambda){\epsilon}<em>\theta({x}, \lambda)$ 是非线性部分，其中 ${\epsilon}</em>\theta({x}, \lambda)$ 是神经网络对噪声的预测。</li>
 </ul>
-<p>在从当前时间 $\lambda_i$ 到下一个时间 $\lambda _ {i+1}$ 的一个小子区间内，我们将非线性相关的部分（即神经网络的输出 $\mathbf{\epsilon}<em>\theta(\mathbf{x}, \lambda)$）近似为在该区间开始时的值，即 $\mathbf{\epsilon} _ {\theta,i} = \mathbf{\epsilon}</em>\theta(\mathbf{x}_i, \lambda_i)$，并将其视为常数。</p>
+<p>在从当前时间 $\lambda_i$ 到下一个时间 $\lambda _ {i+1}$ 的一个小子区间内，我们将非线性相关的部分（即神经网络的输出 ${\epsilon}<em>\theta({x}, \lambda)$）近似为在该区间开始时的值，即 ${\epsilon} _ {\theta,i} = {\epsilon}</em>\theta({x}_i, \lambda_i)$，并将其视为常数。</p>
 <p>这样，ODE 变为：</p>
 <p>$$<br>
-\frac{d\mathbf{x}}{d\lambda} = F(\lambda)\mathbf{x} + G(\lambda)\mathbf{\epsilon} _ {\theta,i}<br>
+\frac{d{x}}{d\lambda} = F(\lambda){x} + G(\lambda){\epsilon} _ {\theta,i}<br>
 $$</p>
-<p>这是一个关于 $\mathbf{x}$ 的一阶线性非齐次微分方程。</p>
+<p>这是一个关于 ${x}$ 的一阶线性非齐次微分方程。</p>
 <p>代入定义的：<br>
 $$<br>
 \begin{align}<br>
