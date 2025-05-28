@@ -21352,7 +21352,7 @@ $$<br>
   <entry>
     <title>DDPM加速</title>
     <url>/2025/20250527/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
 <p>DDPM等扩散模型的慢速度一直被诟病。</p>
 <p>在这篇博客中，将介绍一部分的加速模型。</p>
 <span id="more"></span>
@@ -21489,12 +21489,14 @@ $$<br>
 <p>对于任何$f$,都有$f(x_\epsilon，\epsilon)=x_\epsilon$</p>
 <p>故$f$可设为：<br>
 $$<br>
+\begin{align}<br>
 f_\theta (x,t)=\left{\begin{matrix}x\quad &amp;t=\epsilon<br>
 \\<br>
 F_\theta(x,t)\quad &amp;t\in(\epsilon ,T]<br>
 \end{matrix}\right.<br>
-$$<br>
-或$f_\theta(x,t)=c_{skip}(t)x+c_{out}F_\theta(x,t)$，其中c是可微函数，且$c_{skip}(\epsilon)=1$和$c_{out}(\epsilon)=0$。</p>
+\end{align}<br>
+$$</p>
+<p>或$f_\theta(x,t)=c_{skip}(t)x+c_{out}F_\theta(x,t)$，其中c是可微函数，且$c_{skip}(\epsilon)=1$和$c_{out}(\epsilon)=0$。</p>
 <p>有两种训练方法：</p>
 <p>（1）一致性蒸馏（Consistency Distillation ，CD）</p>
 <p>它依赖于一个已经训练好的扩散模型（教师模型）。</p>
