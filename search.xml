@@ -21353,10 +21353,11 @@ $$<br>
     <title>DDPM加速</title>
     <url>/2025/20250527/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
-<p>DDPM等扩散模型的慢速度一直被诟病</p>
+<p>DDPM等扩散模型的慢速度一直被诟病。</p>
 <span id="more"></span>
 <p>在这篇博客中，将介绍一部分的加速模型。</p>
 <h2 id="DDIM">DDIM</h2>
+<p>ICLR 2021。2010年10月发表。</p>
 <p>让我们回忆一下DDPM。</p>
 <p><img src="diffusion13.png" alt=""></p>
 <p>延续符号：</p>
@@ -21398,8 +21399,36 @@ q(x _ {t-1}\mid x_t,x_0)&amp;=\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{1-\alpha_
 \end{align}<br>
 $$</p>
 <p>我们干脆把$\sqrt{\tilde\beta_t}$定义为超参数$\sigma_t$，即$\sigma_t^2=\eta \tilde\beta_t$。当$\eta=0$为DDIM，当$\eta=1$时为DDPM。</p>
-<p>我们破坏了DDPM$q(x _ {t-1}\mid x_t,x_0)$中原有的性质，但是我们并未破坏$q(x _ t\mid x_0)$的性质。这从推导过程中是可以看出来的。</p>
+<p>方差为0有个好处，就是它变为了确定性的，我们就可以像GAN那样进行插值。</p>
+<p>虽然我们破坏了DDPM$q(x _ {t-1}\mid x_t,x_0)$中原有的性质，但是我们并未破坏$q(x _ t\mid x_0)$的性质。这从推导过程中是可以看出来的。所以这样做也是可行的。</p>
+<h2 id="IDDPM">IDDPM</h2>
+<p>2021年2月发表。</p>
+<p>《Improved Denoising Diffusion Probabilistic Models》</p>
+<p>我们同样对方差进行操作，不过我们让神经网络去学习它。我们预测一个参数v，并令：<br>
+$$<br>
+\sigma_t^2(x,t)=exp(vlog\beta_t+(1-v)log\tilde\beta_t)<br>
+$$<br>
+同时我们也在损失函数中加入与这个项相关的。</p>
+<h2 id="TDPM">TDPM</h2>
+<p>ICLR 2023。2022年2月发表。</p>
+<p>《Truncated Diffusion Probabilistic Models and Diffusion-based Adversarial Auto-Encoders》</p>
+<p><img src="tdpm.png" alt=""></p>
+<p>作者选择不是被扩散到纯高斯噪声 xT，而是只扩散到一个中间的、噪声程度较低的时刻$T _ {trunc}$。</p>
+<p>且$q(x _ {trunc}\mid x_0)$仍然遵循标准的扩散定义:<br>
+$$<br>
+X _ {trunc}=\sqrt{\bar\alpha}x_0+\sqrt{1-\bar\alpha}\epsilon<br>
+$$<br>
+但是$q(X _ {trunc})$不再是高斯分布，所以作者使用GAN去生成它。</p>
+<h2 id="渐进式蒸馏">渐进式蒸馏</h2>
+<p>另一个常用于加速/量化的策略是知识蒸馏。</p>
+<p>这篇正是这样做的。</p>
+<p>ICLR2022，2022二月发表。</p>
+<p>《Progressive Distillation for Fast Sampling of Diffusion Models》</p>
+<p><img src="tea1.png" alt=""></p>
+<p>使用学生模型去学习如何用<strong>一步</strong>来模拟教师模型<strong>多步</strong>（通常是两步）的去噪效果。</p>
+<p><img src="tea.png" alt=""></p>
 <h2 id="DPMSolver">DPMSolver</h2>
+<p>Neurips 2022。2022年6月发表。</p>
 <p>DPMSolver由于涉及到更高维度，比如从ODE/SDE的角度上俯瞰问题。</p>
 <p>并非主要是模型上的改进，故我们不在这里做过多描述。</p>
 <p>具体而言，扩散模型可以写成ODE的形式，但是标准的一阶 ODE 求解器（如欧拉法，注意与上一章中的欧拉-丸山法作区分）在求解上述 ODE 时，为了保证精度，通常需要非常小的步长，导致采样步数很多（例如 1000 步）。</p>
@@ -21407,9 +21436,9 @@ $$</p>
 <p>我们简要介绍一下一阶DPMSolver。</p>
 <h3 id="欧拉法">欧拉法</h3>
 <p>欧拉法是最简单、最基础的 ODE 数值求解器。它的核心思想是用当前点的导数（即切线斜率）来线性外推到下一个点。</p>
-<p>假设我们知道在时刻$t_i$的样本$x_i$，以及此时的导数$F(x_i,t_i)$。如果我们想前进一个时间步长$h=t_{i+1}-t_i$：<br>
+<p>假设我们知道在时刻$t_i$的样本$x_i$，以及此时的导数$F(x_i,t_i)$。如果我们想前进一个时间步长$h=t _ {i+1}-t_i$：<br>
 $$<br>
-x_{i+1}\approx x_i+hF(x_i,t_i)<br>
+x _ {i+1}\approx x_i+hF(x_i,t_i)<br>
 $$</p>
 <h3 id="一阶-DPMSolver">一阶 DPMSolver</h3>
 <p>扩散模型的 ODE 通常可以被看作或转化为 $dx/d\lambda=LinearPart(\lambda,x)+NonLinearPart(\lambda,\epsilon_\theta(x,\lambda))$，其中$\lambda_t=log(\bar\alpha_t/\sigma_t^2)$。</p>
@@ -21424,23 +21453,23 @@ $$</p>
 <li>$F(\lambda)\mathbf{x}$ 是关于 $\mathbf{x}$ 的线性部分。</li>
 <li>$G(\lambda)\mathbf{\epsilon}<em>\theta(\mathbf{x}, \lambda)$ 是非线性部分，其中 $\mathbf{\epsilon}</em>\theta(\mathbf{x}, \lambda)$ 是神经网络对噪声的预测。</li>
 </ul>
-<p>在从当前时间 $\lambda_i$ 到下一个时间 $\lambda_{i+1}$ 的一个小子区间内，我们将非线性相关的部分（即神经网络的输出 $\mathbf{\epsilon}<em>\theta(\mathbf{x}, \lambda)$）近似为在该区间开始时的值，即 $\mathbf{\epsilon}</em>{\theta,i} = \mathbf{\epsilon}_\theta(\mathbf{x}_i, \lambda_i)$，并将其视为常数。</p>
+<p>在从当前时间 $\lambda_i$ 到下一个时间 $\lambda _ {i+1}$ 的一个小子区间内，我们将非线性相关的部分（即神经网络的输出 $\mathbf{\epsilon}<em>\theta(\mathbf{x}, \lambda)$）近似为在该区间开始时的值，即 $\mathbf{\epsilon} _ {\theta,i} = \mathbf{\epsilon}</em>\theta(\mathbf{x}_i, \lambda_i)$，并将其视为常数。</p>
 <p>这样，ODE 变为：</p>
 <p>$$<br>
-\frac{d\mathbf{x}}{d\lambda} = F(\lambda)\mathbf{x} + G(\lambda)\mathbf{\epsilon}_{\theta,i}<br>
+\frac{d\mathbf{x}}{d\lambda} = F(\lambda)\mathbf{x} + G(\lambda)\mathbf{\epsilon} _ {\theta,i}<br>
 $$</p>
 <p>这是一个关于 $\mathbf{x}$ 的一阶线性非齐次微分方程。</p>
 <p>代入定义的：<br>
 $$<br>
 \begin{align}<br>
-F(\lambda)=\frac{1}{2}\frac{dlog\sigma_\lambda^2}{d\lambda}<br>
+F(\lambda)&amp;=\frac{1}{2}\frac{dlog\sigma_\lambda^2}{d\lambda}<br>
 \\<br>
-G(\lambda)=-\frac{\sigma_\lambda}{2\alpha_\lambda}\frac{dlog\sigma_\lambda^2}{d\lambda}<br>
+G(\lambda)&amp;=-\frac{\sigma_\lambda}{2\alpha_\lambda}\frac{dlog\sigma_\lambda^2}{d\lambda}<br>
 \end{align}<br>
 $$</p>
 <p>可得更新公式为：<br>
 $$<br>
-x_{i+1}=\frac{\sigma(\lambda_{i+1})}{\sigma(\lambda_{i})}x_I-\sigma(\lambda_{i+1})(e^k-1)\epsilon_\theta(x_i,\lambda_i))<br>
+x _ {i+1}=\frac{\sigma(\lambda _ {i+1})}{\sigma(\lambda _ {i})}x_I-\sigma(\lambda _ {i+1})(e^k-1)\epsilon_\theta(x_i,\lambda_i))<br>
 $$</p>
 ]]></content>
       <tags>
