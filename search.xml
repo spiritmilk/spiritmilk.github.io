@@ -21476,44 +21476,48 @@ $$</p>
 <p>ICML 2023,2023 5月发表。</p>
 <p>Consistency Models 的基石是<strong>概率流常微分方程 (Probability Flow Ordinary Differential Equation, PF ODE)</strong>。在扩散模型的连续时间视角下，存在一个 PF ODE，其轨迹可以将任何数据点平滑地转换到不同噪声水平 t 下的含噪版本，反之亦然。</p>
 <p><strong>”一致性“定义为：</strong></p>
-<p>对于任何沿着同一条轨迹的数据点$(x_t,t)$和$(x_{t’},t’)$，通过一致性函数$f$的映射，都应该得到相同的轨迹起点，即原始数据$x_0$。<br>
+<p>对于任何沿着同一条轨迹的数据点$(x_t,t)$和$(x _ {t’},t’)$，通过一致性函数$f$的映射，都应该得到相同的轨迹起点，即原始数据$x_0$。<br>
 $$<br>
 f(x_t,t)=x_0\quad \text{for all}\quad t\in[\epsilon,T]<br>
 $$<br>
 其中$\epsilon$是一个接近于0很小的正数，T是总的扩散时间。</p>
 <p>对于同一轨迹上的任意两个点，我们期望：<br>
 $$<br>
-f(x_t,t)=f(x_{t’},t’)<br>
+f(x_t,t)=f(x _ {t’},t’)<br>
 $$<br>
 <strong>边界条件：</strong></p>
 <p>对于任何$f$,都有$f(x_\epsilon，\epsilon)=x_\epsilon$</p>
 <p>故$f$可设为：<br>
 $$<br>
-\begin{align}<br>
-f_\theta (x,t)=\left{\begin{matrix}x\quad &amp;t=\epsilon<br>
+f_\theta (x,t)=<br>
+\begin{cases}x\quad &amp;t=\epsilon<br>
 \\<br>
 F_\theta(x,t)\quad &amp;t\in(\epsilon ,T]<br>
-\end{matrix}\right.<br>
-\end{align}<br>
+\end{cases}<br>
 $$</p>
-<p>或$f_\theta(x,t)=c_{skip}(t)x+c_{out}F_\theta(x,t)$，其中c是可微函数，且$c_{skip}(\epsilon)=1$和$c_{out}(\epsilon)=0$。</p>
+<p>或$f_\theta(x,t)=c _ {skip}(t)x+c _ {out}F_\theta(x,t)$，其中c是可微函数，且$c _ {skip}(\epsilon)=1$和$c _ {out}(\epsilon)=0$。</p>
 <p>有两种训练方法：</p>
 <p>（1）一致性蒸馏（Consistency Distillation ，CD）</p>
 <p>它依赖于一个已经训练好的扩散模型（教师模型）。一致性蒸馏损失定义为:<br>
 $$<br>
 \begin{aligned}<br>
 \mathcal{L}^N_\text{CD} (\theta, \theta^-; \phi) &amp;= \mathbb{E}<br>
-[\lambda(t_n)d(f_\theta({x}<em>{t</em>{n+1}}, t_{n+1}), f_{\theta^-}(\hat^\phi_{t_n}, t_n)]<br>
+[\lambda(t_n)d(f_\theta({x} _ {t _ {n+1}}, t _ {n+1}), f _ {\theta^-}(\hat^\phi _ {t_n}, t_n)]<br>
 \end{aligned}<br>
 $$<br>
 其中<br>
-$x\sim p_{data}$<br>
+$x\sim p _ {data}$<br>
 $n \sim \mathcal{U}[1, N-1]$<br>
-$x_{t_{n+1}}\sim N(x;t_{n+1}^2I)$<br>
-$\hat^\phi_{t_n} = {x}<em>{t</em>{n+1}} - (t_n - t_{n+1}) \Phi({x}<em>{t</em>{n+1}}, t_{n+1}; \phi)$<br>
+$x _ {t _ {n+1}}\sim N(x;t _ {n+1}^2I)$<br>
+$\hat^\phi _ {t_n} = {x} _ {t _ {n+1}} - (t_n - t _ {n+1}) \Phi({x} _ {t _ {n+1}}, t _ {n+1}; \phi)$<br>
 $\theta^-$是$\theta$ 的移动平均。<br>
 $d(x,y)\ge 0$ $d(x,y)=0$ 仅当$x=y$<br>
 $\lambda$是正权重函数，论文定义为1。</p>
+<p>作者还发现设置stopgrad效果会更好，且稳定训练过程。</p>
+<p>即$\theta^-\leftarrow stopgrad(\mu\theta^-+(1-\mu)\theta)$。</p>
+<p><img src="cd.jpg" alt=""></p>
+<p>(2)一致性训练(Consistency Training)</p>
+<p><img src="ct.jpg" alt=""></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
