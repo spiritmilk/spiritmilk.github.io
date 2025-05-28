@@ -21471,6 +21471,12 @@ $$</p>
 $$<br>
 x _ {i+1}=\frac{\sigma(\lambda _ {i+1})}{\sigma(\lambda _ {i})}x_I-\sigma(\lambda _ {i+1})(e^k-1)\epsilon_\theta(x_i,\lambda_i))<br>
 $$</p>
+<h2 id="Consistency-Models">Consistency Models</h2>
+<p>一作Yang Song。</p>
+<p>ICML 2023,2023 5月发表。</p>
+<p>Consistency Models 的基石是<strong>概率流常微分方程 (Probability Flow Ordinary Differential Equation, PF ODE)</strong>。在扩散模型的连续时间视角下，存在一个 PF ODE，其轨迹可以将任何数据点平滑地转换到不同噪声水平 t 下的含噪版本，反之亦然。</p>
+<p><strong>”一致性“定义为：</strong></p>
+<p>对于任何沿着同一条轨迹的数据点$(x_t,t)$和$(x_{t’},t’)$</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
