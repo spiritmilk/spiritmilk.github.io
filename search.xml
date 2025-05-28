@@ -21518,8 +21518,23 @@ $\lambda$是正权重函数，论文定义为1。</p>
 <p><img src="ct.jpg" alt=""></p>
 <p>在前面的CD中，使用预训练的score model来近似真实的分数函数$\nabla logp_t(x)$。而<br>
 $$<br>
-\nabla logp_t(x_t)=E\left[\frac{x_t-x}{t^2}\mid x_t\right]<br>
+\nabla logp_t(x_t)=-E\left[\frac{x_t-x}{t^2}\mid x_t\right]<br>
 $$</p>
+<blockquote>
+<p>若 $x \sim p_{\text{data}}(x)$, $x_t \sim \mathcal{N}(x; t^2 I)$, $p_t(x_t) = p_{\text{data}}(x) \otimes \mathcal{N}(0, t^2 I)$。则有 $\nabla \log p_t(x_t) = -\mathbb{E}[\frac{x_t - x}{t^2} | x_t]$.</p>
+<p>证明：根据 $p_t(x_t)$的定义, 我们有$\nabla \log p_t(x_t) = \nabla_{x_t} \log \int p_{\text{data}}(x) p(x_t | x) dx$, 其中 $p(x_t | x) = \mathcal{N}(x_t; x, t^2 I)$.<br>
+$$<br>
+\begin{align}<br>
+\nabla \log p_t(x_t) &amp;= \frac{\int p_{\text{data}}(x) \nabla_{x_t} p(x_t | x) dx}{\int p_{\text{data}}(x) p(x_t | x) dx} \\<br>
+&amp;= \frac{\int p_{\text{data}}(x) p(x_t | x) \nabla_{x_t} \log p(x_t | x) dx}{\int p_{\text{data}}(x) p(x_t | x) dx} \\<br>
+&amp;= \frac{\int p_{\text{data}}(x) p(x_t | x) \nabla_{x_t} \log p(x_t | x) dx}{p_t(x_t)} \\<br>
+&amp;= \int \frac{p_{\text{data}}(x) p(x_t | x)}{p_t(x_t)} \nabla_{x_t} \log p(x_t | x) dx \\<br>
+&amp;\stackrel{(Bayes’rule)}{=} \int p(x | x_t) \nabla_{x_t} \log p(x_t | x) dx \\<br>
+&amp;= \mathbb{E}[\nabla_{x_t} \log p(x_t | x) | x_t] \\<br>
+&amp;= -\mathbb{E}\left[\frac{x_t - x}{t^2} | x_t\right]<br>
+\end{align}<br>
+$$</p>
+</blockquote>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
