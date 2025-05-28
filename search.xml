@@ -21507,7 +21507,7 @@ $$<br>
 $$<br>
 其中<br>
 $x\sim p _ {data}$，$n \sim \mathcal{U}[1, N-1]$，$x _ {t _ {n+1}}\sim N(x;t _ {n+1}^2I)$。<br>
-$\hat{x}^\phi _ {t_n} = {x} _ {t _ {n+1}} - (t_n - t _ {n+1}) \Phi(x _ {t _ {n+1}}, t _ {n+1}; \phi)$，$\Phi$是一步的ODE求解器的更新函数。</p>
+$\hat{x}^\phi _ {t_n} = {x} _ {t _ {n+1}} - (t_n - t _ {n+1}) \Phi(x _ {t _ {n+1}}, t _ {n+1}; \phi)$，$\Phi$是在执行一步欧拉法，$\phi$代表教师模型。</p>
 <p>$\theta^-$是$\theta$ 的移动平均。<br>
 d是距离函数满足$d(x,y)\ge 0$ ，$d(x,y)=0$ 仅当$x=y$。论文中考虑L1、L2、LPIPS损失。<br>
 $\lambda$是正权重函数，论文定义为1。</p>
