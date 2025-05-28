@@ -21453,7 +21453,7 @@ $$</p>
 <li>$F(\lambda){x}$ 是关于 ${x}$ 的线性部分。</li>
 <li>$G(\lambda){\epsilon}<em>\theta({x}, \lambda)$ 是非线性部分，其中 ${\epsilon}</em>\theta({x}, \lambda)$ 是神经网络对噪声的预测。</li>
 </ul>
-<p>在从当前时间 $\lambda_i$ 到下一个时间 $\lambda _ {i+1}$ 的一个小子区间内，我们将非线性相关的部分（即神经网络的输出 ${\epsilon}<em>\theta({x}, \lambda)$）近似为在该区间开始时的值，即 ${\epsilon} _ {\theta,i} = {\epsilon}</em>\theta({x}_i, \lambda_i)$，并将其视为常数。</p>
+<p>在从当前时间 $\lambda_i$ 到下一个时间 $\lambda _ {i+1}$ 的一个小子区间内，我们将非线性相关的部分（即神经网络的输出 ${\epsilon} _ \theta({x}, \lambda)$）近似为在该区间开始时的值，即 $\epsilon _ {\theta,i} = {\epsilon}_\theta({x}_i, \lambda _ i)$，并将其视为常数。</p>
 <p>这样，ODE 变为：</p>
 <p>$$<br>
 \frac{d{x}}{d\lambda} = F(\lambda){x} + G(\lambda){\epsilon} _ {\theta,i}<br>
