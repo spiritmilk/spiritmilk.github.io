@@ -21352,10 +21352,10 @@ $$<br>
   <entry>
     <title>DDPM加速</title>
     <url>/2025/20250527/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
 <p>DDPM等扩散模型的慢速度一直被诟病。</p>
-<span id="more"></span>
 <p>在这篇博客中，将介绍一部分的加速模型。</p>
+<span id="more"></span>
 <h2 id="DDIM">DDIM</h2>
 <p>ICLR 2021。2010年10月发表。</p>
 <p>让我们回忆一下DDPM。</p>
@@ -21472,11 +21472,32 @@ $$<br>
 x _ {i+1}=\frac{\sigma(\lambda _ {i+1})}{\sigma(\lambda _ {i})}x_I-\sigma(\lambda _ {i+1})(e^k-1)\epsilon_\theta(x_i,\lambda_i))<br>
 $$</p>
 <h2 id="Consistency-Models">Consistency Models</h2>
-<p>一作Yang Song。</p>
+<p>一作Yang Song。Ilya Sutskever通讯。</p>
 <p>ICML 2023,2023 5月发表。</p>
 <p>Consistency Models 的基石是<strong>概率流常微分方程 (Probability Flow Ordinary Differential Equation, PF ODE)</strong>。在扩散模型的连续时间视角下，存在一个 PF ODE，其轨迹可以将任何数据点平滑地转换到不同噪声水平 t 下的含噪版本，反之亦然。</p>
 <p><strong>”一致性“定义为：</strong></p>
-<p>对于任何沿着同一条轨迹的数据点$(x_t,t)$和$(x_{t’},t’)$</p>
+<p>对于任何沿着同一条轨迹的数据点$(x_t,t)$和$(x_{t’},t’)$，通过一致性函数$f$的映射，都应该得到相同的轨迹起点，即原始数据$x_0$。<br>
+$$<br>
+f(x_t,t)=x_0\quad \text{for all}\quad t\in[\epsilon,T]<br>
+$$<br>
+其中$\epsilon$是一个接近于0很小的正数，T是总的扩散时间。</p>
+<p>对于同一轨迹上的任意两个点，我们期望：<br>
+$$<br>
+f(x_t,t)=f(x_{t’},t’)<br>
+$$<br>
+<strong>边界条件：</strong></p>
+<p>对于任何$f$,都有$f(x_\epsilon，\epsilon)=x_\epsilon$</p>
+<p>故$f$可设为：<br>
+$$<br>
+f_\theta (x,t)=\left{\begin{matrix}x\quad &amp;t=\epsilon<br>
+\\<br>
+F_\theta(x,t)\quad &amp;t\in(\epsilon ,T]<br>
+\end{matrix}\right.<br>
+$$<br>
+或$f_\theta(x,t)=c_{skip}(t)x+c_{out}F_\theta(x,t)$，其中c是可微函数，且$c_{skip}(\epsilon)=1$和$c_{out}(\epsilon)=0$。</p>
+<p>有两种训练方法：</p>
+<p>（1）一致性蒸馏（Consistency Distillation ，CD）</p>
+<p>它依赖于一个已经训练好的扩散模型（教师模型）。</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
