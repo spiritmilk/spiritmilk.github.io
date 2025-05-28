@@ -21502,12 +21502,12 @@ $$</p>
 $$<br>
 \begin{aligned}<br>
 \mathcal{L}^N_\text{CD} (\theta, \theta^-; \phi) &amp;= \mathbb{E}<br>
-[\lambda(t_n)d(f_\theta({x} _ {t _ {n+1}}, t _ {n+1}), f _ {\theta^-}(\hat^\phi _ {t_n}, t_n)]<br>
+[\lambda(t_n)d(f_\theta(x _ {t _ {n+1}}, t _ {n+1}), f _ {\theta^-}(\hat{x}^\phi _ {t_n}, t_n)]<br>
 \end{aligned}<br>
 $$<br>
 其中<br>
 $x\sim p _ {data}$，$n \sim \mathcal{U}[1, N-1]$，$x _ {t _ {n+1}}\sim N(x;t _ {n+1}^2I)$。<br>
-$\hat^\phi _ {t_n} = {x} _ {t _ {n+1}} - (t_n - t _ {n+1}) \Phi({x} _ {t _ {n+1}}, t _ {n+1}; \phi)$，$\Phi$是一步的ODE求解器的更新函数。</p>
+$\hat{x}^\phi _ {t_n} = {x} _ {t _ {n+1}} - (t_n - t _ {n+1}) \Phi(x _ {t _ {n+1}}, t _ {n+1}; \phi)$，$\Phi$是一步的ODE求解器的更新函数。</p>
 <p>$\theta^-$是$\theta$ 的移动平均。<br>
 d是距离函数满足$d(x,y)\ge 0$ ，$d(x,y)=0$ 仅当$x=y$。论文中考虑L1、L2、LPIPS损失。<br>
 $\lambda$是正权重函数，论文定义为1。</p>
@@ -21521,8 +21521,8 @@ $$<br>
 \nabla logp_t(x_t)=-E\left[\frac{x_t-x}{t^2}\mid x_t\right]<br>
 $$</p>
 <blockquote>
-<p>若 $x \sim p_{\text{data}}(x)$, $x_t \sim \mathcal{N}(x; t^2 I)$, $p_t(x_t) = p_{\text{data}}(x) \otimes \mathcal{N}(0, t^2 I)$。则有 $\nabla \log p_t(x_t) = -\mathbb{E}[\frac{x_t - x}{t^2} | x_t]$.</p>
-<p>证明：根据 $p_t(x_t)$的定义, 我们有$\nabla \log p_t(x_t) = \nabla_{x_t} \log \int p_{\text{data}}(x) p(x_t | x) dx$, 其中 $p(x_t | x) = \mathcal{N}(x_t; x, t^2 I)$.<br>
+<p>若 $x \sim p _ {\text{data}}(x)$, $x_t \sim \mathcal{N}(x; t^2 I)$, $p_t(x_t) = p _ {\text{data}}(x) \otimes \mathcal{N}(0, t^2 I)$，或者写作$p_t(x_t)=\int p _ {\text{data}}(x)  \mathcal{N}(x_t;x, t^2 I)dx$。则有 $\nabla \log p_t(x_t) = -\mathbb{E}[\frac{x_t - x}{t^2} | x_t]$。</p>
+<p>证明：根据 $p_t(x_t)$的定义, 我们有$\nabla \log p_t(x_t) = \nabla _ {x_t} \log \int p _ {\text{data}}(x) p(x_t | x) dx$, 其中 $p(x_t | x) = \mathcal{N}(x_t; x, t^2 I)$.<br>
 $$<br>
 \begin{align}<br>
 \nabla \log p_t(x_t) &amp;= \frac{\int p_{\text{data}}(x) \nabla_{x_t} p(x_t | x) dx}{\int p_{\text{data}}(x) p(x_t | x) dx} \\<br>
@@ -21535,6 +21535,12 @@ $$<br>
 \end{align}<br>
 $$</p>
 </blockquote>
+<p>损失函数变为：<br>
+$$<br>
+\mathcal{L}^N_\text{CT} (\theta, \theta^-; \phi) = \mathbb{E}<br>
+[\lambda(t_n)d(f_\theta({x} + t_{n+1} {z},;t_{n+1}), f_{\theta^-}({x} + t_n {z},;t_n)]<br>
+\text{ where }{z} \in \mathcal{N}({0}, {I})<br>
+$$</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
