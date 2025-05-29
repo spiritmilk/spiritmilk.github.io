@@ -1,0 +1,1180 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="这是一个需要引用的观点 [1]。爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。 假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x&#x3D;f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因为每个潜在样本 $z^{">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flow模型">
+<meta property="og:url" content="https://lijianxiong.work/2025/20250529/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="这是一个需要引用的观点 [1]。爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。 假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x&#x3D;f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因为每个潜在样本 $z^{">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-29T14:24:45.000Z">
+<meta property="article:modified_time" content="2025-05-29T14:50:23.439Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="生成模型">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Flow模型 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Flow模型"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-29 22:24" pubdate>
+          2025年5月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Flow模型</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>这是一个需要引用的观点 <sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="张三. (2020). *一篇重要的文章*. 某某期刊, 10(2), 45-56.">[1]</span></a></sup>。爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。</p>
+<p>假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x=f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因为每个潜在样本 $z^{<em>}\sim p_{z}(z)$ 只是简单地通过神经网络来生成相应的数据样本 $x^{</em>}=f(z^{*},w)$。 [cite: 3]</p>
+<p>为了计算此模型的似然函数,我们需要数据空间分布,这取决于神经网络的逆函数。我们将其写为 $z=g(x,w)$,它满足 $z=g(f(z,w),w)$。这要求,对于w的每个值,函数 $f(z,w)$ 和 $g(x,w)$ 是可逆的,也称为双射,以便每个x值对应一个唯一的z值,反之亦然。然后我们可以使用变量变换公式来计算数据密度: [cite: 3]</p>
+<p>$p_{x}(x|w)=p_{z}(g(x,w))$ det $J(x)|$ (18.1) [cite: 3]</p>
+<p>where $J(x)$ 是偏导数雅可比矩阵,其元素给出 [cite: 3]</p>
+<p>$J_{ij}(x)=\frac{\partial g_{i}(x,w)}{\partial x_{j}}$ (18.2) [cite: 3]</p>
+<p>并且 $|\cdot|$ 表示模数或绝对值。我们将继续将z称为一个“隐式”变量,尽管确定性映射意味着任何给定的数据值x对应于一个唯一的z值,因此该值不再不确定。</p>
+<p>映射函数 $f(z,w)$ 将以一种特殊的神经网络形式定义,我们将很快讨论其结构。要求可逆映射的一个后果是,隐式空间的维度必须与数据空间的维度相同,这可能导致高维数据(如图像)的大型模型。此外,通常,计算 $D\times D$ 矩阵的行列式的成本是 $\mathcal{O}(D^{3})$,因此我们将寻求对模型施加一些进一步的限制,以便更有效地计算雅可比矩阵行列式。 [cite: 3]</p>
+<p>如果我们考虑一个独立数据点训练集 $\mathcal{D}={x_{1},…,x_{N}}$,则根据(18.1)给出的对数似然函数是 [cite: 3]</p>
+<p>$ln~p(\mathcal{D}|w)=\sum_{n=1}^{N}ln~p_{x}(x_{n}|w)$ (18.3) [cite: 3]<br>
+$=\sum_{n=1}^{N}{ln~p_{z}(g(x_{n},w))+ln|det~J(x_{n})|}$ (18.4) [cite: 3]</p>
+<p>并且我们的目标是通过似然函数来训练神经网络。为了能够模拟各种分布,我们希望转换函数 $x=f(z,w)$ 具有高度的灵活性,因此我们使用深度神经网络架构。如果我们使网络中的每一层都是可逆的,那么我们可以确保整个函数是可逆的。为了看到这一点,考虑三个连续的变换,每个变换对应网络的一层,形式如下: [cite: 3]</p>
+<p>$x=f^{A}(f^{B}(f^{C}(z))).$ (18.5) [cite: 3]</p>
+<p>那么逆函数由下式给出 [cite: 3]</p>
+<p>$z=g^{C}(g^{B}(g^{A}(x)))$ (18.6) [cite: 3]</p>
+<p>18.1.耦合流 549</p>
+<p>其中 $g^{A},g^{B}$ 以及 $g^{C}$ 分别是 $f^{A},f^{B}$ 和 $f^{C}$ 的逆函数。此外,利用微积分的链式法则,可以轻松地通过每个单独层的雅可比行列式来评估这种分层结构的雅可比行列式: [cite: 4]</p>
+<p>$J_{ij}=\frac{\partial z_{i}}{\partial x_{j}}=\sum_{k}\sum_{l}\frac{\partial g_{i}^{C}}{\partial g_{k}^{B}}\frac{\partial g_{k}^{B}}{\partial g_{l}^{A}}\frac{\partial g_{l}^{A}}{\partial x_{j}}.$ (18.7) [cite: 4]</p>
+<p>我们识别出右侧是三个矩阵的乘积,而乘积的行列式是各行列式的乘积。因此,对数行列式整体雅可比的对数行列式将是每个层对应的对数行列式的总和。 [cite: 4]</p>
+<p>这种建模柔性分布的方法称为归一化流,因为通过一系列映射转换概率分布的过程与流体的流动有些类似。此外,逆映射的效果是将复杂的数据分布转换为归一化形式,通常是高斯或正态分布。Kobyzev、Prince 和 Brubaker (2019)以及Papamakarios 等人(2019)已经综述了归一化流。在这里,我们讨论实践中使用的两种主要归一化流类别的核心概念:耦合流和自回归流。我们还研究了使用神经微分方程来定义可逆映射,从而得到连续流。 [cite: 4]</p>
+<h2 id="18-1-耦合流-cite-5">18.1. 耦合流 [cite: 5]</h2>
+<p>我们的目标是为单个可逆函数层,以便我们可以将许多层组合在一起来定义一个高度灵活的可逆函数类。首先考虑一个形式为 [cite: 5]</p>
+<p>$x=az+b.$ (18.8) [cite: 5]</p>
+<p>这很容易求逆,得到 [cite: 5]</p>
+<p>$z=\frac{1}{a}(x-b)$ . (18.9) [cite: 5]</p>
+<p>然而,线性变换在复合下是封闭的,这意味着一系列线性变换等效于一个整体线性变换。此外,高斯分布的线性变换仍然是高斯分布。因此,即使我们有许多这样的“层”线性变换,我们也只会得到一个高斯分布。问题是,我们能否在保持线性变换可逆性的同时,允许额外的灵活性,以便结果分布是非高斯的。 [cite: 5]</p>
+<p>这个问题的一个解决方案是由一种称为真实NVP(Dinh, Krueger, and Bengio, 2014; Dinh, Sohl-Dickstein, and Bengio, 2016)的归一化流模型给出,它是“实值非体积保持”的缩写。想法是将潜在变量向量z分成两部分 $z=(z_{A},z_{B})$,使得如果z的维度是 $D_{i}$ 而 $Z_{A}$ 的维度是d,那么 $z_{B}$ 的维度是 $D-d_{n}$ 我们同样 [cite: 5]</p>
+<p>550 18. 归一化流</p>
+<p>将输出向量 $x=(x_{A},x_{B})$ 划分,其中 $x_{A}$ 的维度为d,而对于输出向量的第一部分,我们简单地复制输入: [cite: 6]</p>
+<p>$x_{A}=z_{A}$ (18.10) [cite: 6]</p>
+<p>$x_{B}$ 的维度为 $D-d_{\circ}$ [cite: 6]</p>
+<p>向量的第二部分经过线性变换,但现在线性变换中的系数由 $Z_{A}$ 的非线性函数给出: [cite: 6]</p>
+<p>$x_{B}=exp(s(z_{A},w))\odot z_{B}+b(z_{A},w)$ (18.11) [cite: 6]</p>
+<p>其中 $s(z_{A},w)$ 和 $b(z_{A},w)$ 是神经网络的实值输出,指数函数确保乘法项为非负。这里表示涉及两个向量逐元素乘法的Hadamard积。类似地,(18.11)中的指数也是逐元素取的。注意,我们在两个网络函数中都显示了相同的向量w。在实践中,这些可以分别作为具有各自参数的独立网络实现,或者作为具有两组输出的单个网络实现。 [cite: 6]</p>
+<p>由于使用了神经网络函数, $x_{B}$ 的值可以是非常灵活的函数 $x_{A^{\circ}}$ [cite: 6]<br>
+整体变换很容易可逆:给定一个 $x=$ 的值 $(x_{A},x_{B})$,我们首先计算 [cite: 6]</p>
+<p>$z_{A}=x_{A}$ (18.12) [cite: 7]</p>
+<p>然后我们评估 $s(z_{A},w)$ 和 $b(z_{A},w)$,最后我们使用 $z_{B}$ 进行计算 [cite: 7]<br>
+$z_{B}=exp(-s(z_{A},w))\odot(x_{B}-b(z_{A},w))$. (18.13) [cite: 7]</p>
+<p>整体转换如图18.1所示。注意,单个神经网络函数 $S(Z;w)$ 和 $b(z;w)$ 无需可逆。 [cite: 7]</p>
+<p>现在考虑由(18.2)定义的雅可比矩阵及其行列式。我们可以将雅可比矩阵分成块,对应于z和x的划分,得到 [cite: 7]</p>
+<p>$J=[\begin{matrix}I_{d}&amp;0\ \frac{\partial z_{B}}{\partial x_{A}}&amp;diag(exp(-s))\end{matrix}]$ (18.14) [cite: 7]</p>
+<p>18.1. 耦合流 551</p>
+<p>左上角的块对应于 $Z_{A}$ 对 $x_{A}$ 的导数,因此根据(18.12)由 $d\times d$ 单位矩阵给出。右上角的块对应于 $z_{A}$ 对 $x_{B}$ 的导数,这些项再次根据(18.12)消失。左下角的块对应于 $z_{B}$ 对 $x_{A}$ 的导数。根据(18.13),这些是涉及神经网络函数的复杂表达式。最后,右下角的块对应于 $z_{B}$ 对 $x_{B}$ 的导数,根据(18.13)由一个对角矩阵给出,其对角线元素由 $s(z_{A},w)$ 的负元素的指数给出。因此我们看到雅可比矩阵(18.14)是一个下三角矩阵,这意味着主对角线以上的所有元素都为零。对于这种矩阵,行列式仅仅是主对角线元素的乘积,因此它不依赖于左下角块中的复杂表达式。因此,雅可比行列式简单地由 $exp(-s(z_{A},w))$ 的元素乘积给出。 [cite: 8]</p>
+<p>这种方法的一个明显限制是 $z_{A}$ 的值不受变换的影响。这很容易通过添加另一层来解决,在该层中 $z_{A}$ 和 $z_{B}$ 的角色被反转,如图图18.2所示。然后可以重复这种双层结构多次,以促进非常灵活的一类生成模型。 [cite: 8]</p>
+<p>整体训练过程涉及创建数据点的mini-batches,其中每个数据点对对数似然函数的贡献来自(18.4)。对于形式为 $\mathcal{N}(z|0,I)$ 的潜在分布,对数密度简单地是 $-||z||^{2}/2$,仅差一个加性常数。逆变换 $z=g(x)$ 是使用形式为(18.13)的逆变换序列计算的。类似地,雅可比行列式对数的值由每个层中对数行列式的和给出,其中每个项本身是形式为 $-s_{i}(x,w)$ 的项的和。可以使用自动微分评估对数似然的梯度,并通过随机梯度下降更新网络参数。 [cite: 8]</p>
+<p>真实 NVP 模型属于一类称为耦合流的正则化流,其中线性变换(18.11)被更一般的形式所替代 [cite: 8]</p>
+<p>552 18. 归一化流</p>
+<p>$x_{B}=h(z_{B},g(z_{A},w))$ (18.15) [cite: 9]</p>
+<p>其中 $h(z_{B}g)$ 是一个关于 $z_{B}$ 的函数,对于任何给定的g值都是可逆的,称为耦合函数。函数 $g(z_{A},w)$ 称为条件器,通常由神经网络表示。 [cite: 9]</p>
+<p>我们可以使用一个简单的数据集,有时称为“双月”,来演示真实 NVP 归一化流,如图18.3所示。这里,一个二维高斯分布通过使用两个连续的层被转换为更复杂的分布,每层都包含对两个维度之一的交替变换。 [cite: 9]</p>
+<h2 id="18-2-自回归流">18.2. 自回归流</h2>
+<p>一个与正则化流相关的公式可以从注意到一组变量的联合分布总是可以表示为每个变量的条件分布的乘积来推导。我们首先选择变量的一个排序顺序在 [cite: 9]</p>
+<p>18.2.自回归流 553</p>
+<p>向量 $x,$ 我们可以不失一般性地写出, [cite: 10]</p>
+<p>$p(x_{1},…,x_{D})=\prod_{i=1}^{D}p(x_{i}|x_{1:i-1})$ (18.16) [cite: 10]</p>
+<p>其中 $x_{1:i-1}$ 表示 $x_{1},…,x_{i-10}$ 这种分解可用于构建一类称为风格化自回归流(MAF, Papamakarios、Pavlakou 和 Murray, 2017)的归一化流,其定义为 [cite: 10]</p>
+<p>$x_{i}=h(z_{i},g_{i}(x_{1:i-1},w_{i}))$ (18.17) [cite: 10]</p>
+<p>其如图18.4(a)所示。这里 $h(z_{i},\cdot)$ 是耦合函数,其被选择为相对于易于 $z_{i}$ 求逆的,而g是条件器,通常由深度神经网络表示。术语风格化指的是使用单个神经网络来实现一组形式为(18.17)的方程式以及一个二元掩码(Germain等人。,2015),该掩码强制网络权重的子集为零以实现自回归约束(18.16)。 [cite: 10]</p>
+<p>在这种情况下,用于评估似然函数的逆向计算需要给出 [cite: 10]</p>
+<p>$z_{i}=h^{-1}(x_{i},g_{i}(x_{1:i-1},w_{i}))$ (18.18) [cite: 10]</p>
+<p>因此可以在现代硬件上高效执行,因为(18.18)中用于评估的各个函数 $z_{1},…,z_{D}$ 可以并行评估。与转换集(18.18)对应的雅可比矩阵的元素 $\partial z_{i}/\partial x_{j},$ 它们形成一个上三角矩阵,其行列式由对角元素的乘积给出,因此也可以高效评估。然而,从这个模型中进行采样必须通过评估(18.17)来完成,这本质上是有序的,因此很慢,因为 $x_{1},…,x_{i-1}$ 的值必须评估 $x_{i}$ 才能计算。 [cite: 10]</p>
+<p>为了避免这种低效的采样,我们可以定义一个逆自回归流,或IAF(Kingma等人,2016),给出 [cite: 10]</p>
+<p>$x_{i}=h(z_{i},\tilde{g}<em>{i}(z</em>{1:i-1},w_{i}))$ (18.19) [cite: 10]</p>
+<p>554 18. NORMALIZING FLOWS</p>
+<p>as illustrated in Figure 18.4(b). Sampling is now efficient since, for a given choice of z, the evaluation of the elements $x_{1},…,x_{D}$ using (18.19) can be performed in parallel. [cite: 11]</p>
+<p>However, the inverse function, which is needed to evaluate the likelihood, requires a series of calculations of the form [cite: 12]</p>
+<p>$z_{i}=h^{-1}(x_{i},\tilde{g}<em>{i}(z</em>{1:i-1},w_{i}))$, (18.20) [cite: 12]</p>
+<p>它们本质上具有序列性,因此速度较慢。是选择掩码自回归流还是逆自回归流,将取决于具体应用。 [cite: 12]</p>
+<p>We see that coupling flows and autoregressive flows are closely related. [cite: 12]<br>
+Although autoregressive flows introduce considerable flexibility, this comes with a computational cost that grows linearly in the dimensionality D of the data space due to the need for sequential ancestral sampling. [cite: 13]<br>
+Coupling flows can be viewed as a special case of autoregressive flows in which some of this generality is sacrificed for efficiency by dividing the variables into two groups instead of D groups. [cite: 14]</p>
+<h2 id="18-3-连续流">18.3. 连续流</h2>
+<p>本章考虑的用于正则化流的最终方法将使用定义为常微分方程(ODE)的深度神经网络。这可以看作是一个具有无限层数的深度网络。我们首先介绍神经 ODE的概念,然后看看如何将其应用于正则化流模型的形式化。 [cite: 15]</p>
+<h3 id="18-3-1-神经微分方程">18.3.1 神经微分方程</h3>
+<p>我们已经看到,当神经网络包含许多处理层时特别有用,因此我们可以问如果我们探索无限层数的极限会发生什么。考虑一个残差网络,其中每一层的处理生成的输出由输入向量与输入向量的某些参数化非线性函数相加给出: [cite: 15]</p>
+<p>$z^{(t+1)}=z^{(t)}+f(z^{(t)},w)$ (18.21) [cite: 15]</p>
+<p>其中 $t=1,…,T$ 标记网络中的层。请注意,我们在每一层都使用了相同的函数,并共享参数向量w,因为这样可以让我们在保持参数数量有界的同时考虑任意多的此类层。想象一下,我们增加层数,同时确保每一层引入的变化相应地变小。在极限情况下,隐藏单元激活向量成为连续变量的函数 $z(t)$,我们可以将此向量在网络中的演变表示为一个微分方程: [cite: 15]</p>
+<p>$\frac{dz(t)}{dt}=f(z(t),w)$ (18.22) [cite: 15]</p>
+<p>在通常被称为“时间”。(18.22)中的公式被称为一个神经常微分方程或神经 ODE (Chen等,2018)。这里的“常” [cite: 15]</p>
+<p>18.3. 连续流 555</p>
+<p>意味着存在一个单一变量。如果我们用向量 $z(0)$ 表示网络的输入,那么输出 $z(T)$ 是通过积分微分方程获得的 [cite: 19, 17]</p>
+<p>$z(T)=\int_{0}^{T}f(z(t),w)dt$ . (18.23) [cite: 19]</p>
+<p>这个积分可以使用标准的数值积分包来评估。求解微分方程的最简单方法是欧拉前向积分方法,它对应于表达式(18.21)。在实践中,更强大的数值积分算法可以自适应地调整它们的函数评估以实现。特别是,它们可以自适应地选择的值,这些值通常不是均匀分布的。此类评估的数量取代了传统层状网络中深度概念。标准层状神经网络和神经微分方程的比较显示在图18.50 [cite: 20]</p>
+<h3 id="18-3-2-神经-ODE反向传播">18.3.2 神经 ODE反向传播</h3>
+<p>我们现在需要解决如何训练神经ODE的挑战,即如何通过优化损失函数来确定w的值。让我们假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管 [cite: 20]</p>
+<p>556 18. NORMALIZING FLOWS</p>
+<p>这很直接,但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。相反,Chen 等(2018)将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。回想一下,反向传播涉及每个数据点的三个连续阶段:首先进行前向传播以评估网络每层的激活向量,其次从输出开始利用微积分的链式法则通过网络反向传播以评估损失相对于每层激活的导数,第三通过形成前向传递的激活乘积和反向传递的梯度来评估相对于网络参数的导数。我们将看到在计算神经ODE的梯度时也有类似步骤。 [cite: 21]</p>
+<p>前向传播以评估网络每层的激活向量,其次从输出开始利用微积分的链式法则通过网络反向传播以评估损失相对于每层激活的导数,第三通过形成前向传递的激活乘积和反向传递的梯度来评估相对于网络参数的导数。我们将看到在计算神经 ODE的梯度时也有类似步骤。 [cite: 21]</p>
+<p>为了将反向传播应用于神经ODE,我们定义一个称为伴随的量,其定义为 [cite: 21]</p>
+<p>$a(t)=\frac{dL}{dz(t)}.$ (18.24) [cite: 21]</p>
+<p>我们看到 $a(T)$ 对应于损失关于输出向量的常规导数。伴随子满足其自身的微分方程,该方程为 [cite: 21]</p>
+<p>$\frac{da(t)}{dt}=-a(t)^{T}\nabla_{z}f(z(t),w)$ , (18.25) [cite: 21]</p>
+<p>这是一个微积分链式法则的连续版本。这可以通过从 $a(T)$ 开始反向积分来求解,这同样可以使用黑盒ODE求解器来完成。原则上,这要求我们存储在正向阶段计算的轨迹 $z(t)$ 这可能存在问题,因为逆求解器可能希望在不同于正向求解器的值处评估 $z(t)_{c}$ 相反,我们简单地允许反向求解器通过从输出值 $z(T)$ 开始与(18.25)一起积分(18.22)来重新计算任何所需的 $z(t)$ 值。反向传播方法的第三步是通过形成适当的激活和梯度的乘积来评估损失 [cite: 21]</p>
+<p>关于网络参数的导数。当一个参数值在网络的多个连接中共享时,总导数由每个连接的导数之和形成。对于我们的神经ODE,其中相同的参数向量 w在整个网络中共享,这个求和变成了对的积分,其形式为 [cite: 21]</p>
+<p>$\nabla_{w}L=-\int_{0}^{T}a(t)^{T}\nabla_{w}f(z(t),w)dt$ . (18.26) [cite: 22]</p>
+<p>公式(18.25)中的导数 $\nabla_{z}f$ 和公式(18.26)中的导数 $\nabla_{w}f$ 可以使用自动微分高效地计算。注意,上述结果同样适用于一个更通用的神经网络函数 $f(z(t),t,w)$ 它在除了通过 $z(t)$ 隐式依赖之外,还对有显式依赖。 [cite: 22]</p>
+<p>使用伴随方法训练的神经ODE相比于传统层状网络的一个优点是,不需要存储前向传播的中间结果,因此内存成本是恒定的。此外, [cite: 22]</p>
+<p>18.3. 连续流 557</p>
+<p>神经 ODE可以自然地处理连续时间数据,其中观测值在任意时间发生。如果误差函数 L 取决于除输出值之外的 $z(t)$ 的值,那么需要多次运行反向模型求解器,每次运行对应一对连续的输出,以便将单个解分解为多个连续解,从而访问中间状态(Chenet al., 2018)。请注意,在训练期间可以使用求解器的高精度,而在计算资源有限的应用中,在推理期间可以使用较低精度,因此函数评估次数更少。 [cite: 23]</p>
+<h3 id="18-3-3-神经-ODEflows">18.3.3 神经 ODEflows</h3>
+<p>我们可以利用神经常微分方程来定义一种替代方法,用于构建可处理的归一化流模型。神经ODE定义了一种高度灵活的从输入向量 $z(0)$ 到输出向量 $z(T)$ 的变换,该变换以微分方程的形式给出 [cite: 23]</p>
+<p>$\frac{dz(t)}{dt}=f(z(t),w)$ . (18.27) [cite: 24]</p>
+<p>如果我们定义一个关于输入向量 $p(z(0))$ 的基础分布,那么神经ODE 会将其随时间向前传播,为每个的值给出一个分布 $p(z(t))$,从而得到一个关于输出向量 $p(z(T))$ 的分布。 [cite: 24] Chen et al. (2018)表明,对于神经ODE,密度的变换可以通过积分一个由下式给出的微分方程来评估 [cite: 25, 24]</p>
+<p>$\frac{d~lnp(z(t))}{dt}=-Tr(\frac{\partial f}{\partial z(t)})$ (18.28) [cite: 25]</p>
+<p>其中 $\partial f/\partial z$ 表示雅可比矩阵,其元素为 $\partial f_{i}/\partial z_{jc}$ 这个积分可以使用标准的ODE 求解器来执行。同样,可以从基础密度 $p(z(0))$ 中采样,该分布被选择为一个简单的分布,例如高斯分布,并通过再次使用ODE 求解器积分(18.27)将值传播到输出。由此产生的框架被称为一个连续归一化流,并如图18.6所示。连续归一化流可以使用用于神经ODE的伴随敏感性方法进行训练,这可以看作是反向传播的连续时间等价物。 [cite: 25]</p>
+<p>由于(18.28)涉及雅可比矩阵的迹而不是在离散归一化流中出现的行列式,因此它可能看起来在计算上更高效。通常,计算一个 $D\times D$ 矩阵的行列式需要 $\mathcal{O}(D^{3})$ 次操作,而计算迹只需要 $\mathcal{O}(D)$ 次操作。然而,如果行列式是下三角形的,如在许多归一化流的形式中,那么行列式是主对角线项的乘积,因此也涉及 $\mathcal{O}(D)$ 次操作。由于计算雅可比矩阵的各个元素需要单独的前向传播,而前向传播本身需要 $\mathcal{O}(D)$ 次操作,因此计算迹或行列式(对于下三角矩阵)总共需要 $\mathcal{O}(D^{2})$ 次操作。然而,通过使用 Hutchinson 的迹估计器(Grathwohl et al., 2018),可以将计算迹的成本降低到 $\mathcal{O}(D),$ 该估计器对于一个矩阵 [cite: 25]</p>
+<p>558 18. 归一化流</p>
+<p>A采用以下形式 [cite: 26]</p>
+<p>$Tr(A)=\mathbb{E}_{\epsilon}[\epsilon^{T}A\epsilon]$ (18.29) [cite: 26]</p>
+<p>其中是一个均值为零、协方差为一的随机向量,例如,高斯 $\mathcal{N}(0,I)$。对于特定的,矩阵-向量积A∈可以使用反向自动微分在一次遍历中高效地计算。然后我们可以使用有限数量的样本来近似迹,形式为 [cite: 26]</p>
+<p>$Tr(A)\simeq\frac{1}{M}\sum_{m=1}^{M}\epsilon_{m}^{T}A\epsilon_{m}.$ (18.30) [cite: 26]</p>
+<p>在实践中,我们可以设置 $M=1$ 并仅使用一个样本,该样本为每个新数据点刷新。虽然这是一个有噪声的估计,但这可能并不重要,因为它构成了一个有噪声的随机梯度下降过程的一部分。重要的是它是无偏的,这意味着估计值的期望等于真实值。 [cite: 26]</p>
+<p>连续归一化流在训练效率方面可以实现显著改进,这可以通过一种称为流匹配(Lipman et al., 2022)的技术来实现。这使得归一化流更接近扩散模型,并避免了反向传播的需要,同时显著减少了内存需求,并使推理速度更快、训练更稳定。在积分器中传播,同时显著减少内存需求,并使推理速度更快、训练更稳定。 [cite: 26]</p>
+<span id="more"></span>
+<h2 id="参考资料">参考资料</h2>
+<p>PRML</p>
+<p>AE可以帮助realnvp。<a target="_blank" rel="noopener" href="https://github.com/ispamm/realnvp-demo-pytorch/blob/master/Normalizing_Flow_for_Embedding_Generation.ipynb">https://github.com/ispamm/realnvp-demo-pytorch/blob/master/Normalizing_Flow_for_Embedding_Generation.ipynb</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a></p>
+<p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp">https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp</a></p>
+<p><strong>参考文献</strong></p>
+<p>[^Einstein1905]: Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. <em>Annalen der Physik</em>, 322(10), 891-921.</p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>张三. (2020). <em>一篇重要的文章</em>. 某某期刊, 10(2), 45-56.
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" class="print-no-link">#生成模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Flow模型</div>
+      <div>https://lijianxiong.work/2025/20250529/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-09-26",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-11-24",1],["2020-12-07",1],["2020-12-10",2],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-04-28",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-08","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,2,4,3,5,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,5,1,2,2,7,3,5,15],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":67},{"name":"人工智能","value":42},{"name":"机器学习","value":31},{"name":"笔记","value":29},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":11},{"name":"图神经网络","value":11}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":67},{"name":"人工智能","value":42},{"name":"机器学习","value":31},{"name":"笔记","value":29},{"name":"数学","value":25},{"name":"阅读","value":14},{"name":"自然语言处理","value":11},{"name":"图神经网络","value":11}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>
