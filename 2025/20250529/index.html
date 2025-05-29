@@ -21,15 +21,15 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这是一个需要引用的观点 [1]。爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。 假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x&#x3D;f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因为每个潜在样本 $z^{">
+    <meta name="description" content="这是一个需要引用的观点 [1]。 爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。 jajja [2]。 假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x&#x3D;f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flow模型">
 <meta property="og:url" content="https://lijianxiong.work/2025/20250529/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="这是一个需要引用的观点 [1]。爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。 假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x&#x3D;f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因为每个潜在样本 $z^{">
+<meta property="og:description" content="这是一个需要引用的观点 [1]。 爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。 jajja [2]。 假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x&#x3D;f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-29T14:24:45.000Z">
-<meta property="article:modified_time" content="2025-05-29T14:50:23.439Z">
+<meta property="article:modified_time" content="2025-05-29T14:53:51.385Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="生成模型">
@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.1k 字
+          6.2k 字
         
       </span>
     
@@ -316,7 +316,10 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>这是一个需要引用的观点 <sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="张三. (2020). *一篇重要的文章*. 某某期刊, 10(2), 45-56.">[1]</span></a></sup>。爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>这是一个需要引用的观点 <sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="张三. (2020). *一篇重要的文章*. 某某期刊, 10(2), 45-56.
+[^Einstein1905]: Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. *Annalen der Physik*, 322(10), 891-921.">[1]</span></a></sup>。<br>
+爱因斯坦在他的某篇著名论文中提出了这个理论 [^Einstein1905]。<br>
+jajja <sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="张三. (2020). *一篇重要的文章*. 某某期刊, 10(2), 45-56.">[2]</span></a></sup>。</p>
 <p>假设我们定义了一个分布 $p_{z}(z)$,有时也称为基础分布,在潜在变量z上,以及一个由深度神经网络给出的非线性函数 $x=f(z,w)$,该函数将潜在空间转换为数据空间。假设 $p_{z}(z)$ 是一个简单的分布,例如高斯分布,从这种模型中进行采样很容易,因为每个潜在样本 $z^{<em>}\sim p_{z}(z)$ 只是简单地通过神经网络来生成相应的数据样本 $x^{</em>}=f(z^{*},w)$。 [cite: 3]</p>
 <p>为了计算此模型的似然函数,我们需要数据空间分布,这取决于神经网络的逆函数。我们将其写为 $z=g(x,w)$,它满足 $z=g(f(z,w),w)$。这要求,对于w的每个值,函数 $f(z,w)$ 和 $g(x,w)$ 是可逆的,也称为双射,以便每个x值对应一个唯一的z值,反之亦然。然后我们可以使用变量变换公式来计算数据密度: [cite: 3]</p>
 <p>$p_{x}(x|w)=p_{z}(g(x,w))$ det $J(x)|$ (18.1) [cite: 3]</p>
@@ -437,9 +440,10 @@ Coupling flows can be viewed as a special case of autoregressive flows in which 
 <p><a target="_blank" rel="noopener" href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a></p>
 <p><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp">https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp</a></p>
 <p><strong>参考文献</strong></p>
-<p>[^Einstein1905]: Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. <em>Annalen der Physik</em>, 322(10), 891-921.</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>张三. (2020). <em>一篇重要的文章</em>. 某某期刊, 10(2), 45-56.
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+[^Einstein1905]: Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. <em>Annalen der Physik</em>, 322(10), 891-921.
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>张三. (2020). <em>一篇重要的文章</em>. 某某期刊, 10(2), 45-56.
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
