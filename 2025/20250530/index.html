@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250530/sleep3.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250530/sleep31.png">
 <meta property="article:published_time" content="2025-05-30T13:21:22.000Z">
-<meta property="article:modified_time" content="2025-05-30T15:16:29.554Z">
+<meta property="article:modified_time" content="2025-05-30T15:20:55.822Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="kaggle">
 <meta name="twitter:card" content="summary_large_image">
@@ -272,7 +272,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.7k 字
         
       </span>
     
@@ -283,7 +283,7 @@
         
         
         
-          26 分钟
+          32 分钟
         
       </span>
     
@@ -415,7 +415,7 @@
 <p>当在相同的小时、分钟和秒内，同一系列中重复出现完全相同的值时，这基本上就是噪声。红线是检测到的噪声。</p>
 <p><img src="sleep31.png" alt=""></p>
 <h2 id="问题性互联网使用">问题性互联网使用</h2>
-<p>shakeup的比赛</p>
+<p><strong>shakeup的比赛</strong></p>
 <h3 id="比赛数据介绍-2">比赛数据介绍</h3>
 <p>6.73GB</p>
 <ul>
@@ -434,6 +434,38 @@
 <p>目标 <code>sii</code> ： <code>0</code> 对应 <code>None</code> ， <code>1</code> 对应 <code>Mild</code> ， <code>2</code> 对应 <code>Moderate</code> ， <code>3</code> 对应 <code>Severe</code> 。</p>
 <h3 id="评估指标-2">评估指标</h3>
 <p>基于二次加权 kappa 系数</p>
+<h3 id="第一名-LENNART-HAUPTS">第一名@LENNART HAUPTS</h3>
+<p>模型为投票集成，包括：</p>
+<ul>
+<li>LGBMRegressor</li>
+<li>两个 XGBoost 回归器</li>
+<li>CatBoostRegressor</li>
+<li>ExtraTreesRegressor</li>
+</ul>
+<h4 id="数据清洗、特征工程和插补">数据清洗、特征工程和插补</h4>
+<p><strong>数据清洗：</strong></p>
+<ul>
+<li>移除了不合理的值，例如超过 60%的身体脂肪百分比或负的骨矿物质含量，并用 NaN 替换。</li>
+</ul>
+<p><strong>特征工程：</strong></p>
+<ul>
+<li>创建了多种描述性的活动追踪器特征，并为白天和夜晚设置了不同的掩码。</li>
+<li>使用 PCA 对活动追踪器数据进行降维保留了 15 个成分。</li>
+<li>额外包含的特征基于年龄组均值进行归一化的值，以及其他看似合理的特征，如每日能量消耗与基础代谢率之间的差异。</li>
+<li>对大部分特征应用了分位数分箱来处理噪声，效果出奇地好。</li>
+</ul>
+<p><strong>插补：</strong></p>
+<ul>
+<li>Lasso 用于特征插补，由于维度较高且存在噪声。</li>
+<li>使用 Lasso 进行特征插补。对于每个目标列，使用缺失值少于 40%的特征训练模型，并基于训练好的模型插补这些特征中的缺失值。如果找不到可用于插补的有效特征（即缺失值少于 40%的特征），或者有效样本数量过少，解决方案则默认采用均值插补。</li>
+</ul>
+<h4 id="参数调优和特征选择"><strong>参数调优和特征选择</strong></h4>
+<p>在比赛早期，很明显常规的参数调优与交叉验证设置会导致结果不稳定。<br>
+为解决这一问题：</p>
+<ul>
+<li>在参数调优过程中采用了重复分层 K 折交叉验证。重复次数为 10 到 20 次。计算成本更高，但得到了更稳健的结果。</li>
+<li>基于特征重要性手动进行特征选择，将数据集减少到 39 个特征</li>
+</ul>
 <h3 id="第三名-JOBAYER-HOSSAIN">第三名@JOBAYER HOSSAIN</h3>
 <p><strong>交叉验证</strong><br>
 主要关注点之一是建立一个稳定可靠的 CV 框架。</p>
@@ -450,6 +482,7 @@ LightGBM</p>
 <li>仪器数据：</li>
 <li>从公共笔记本开始，检查每个特征是否真的对模型有贡献。之后，根据我自己的实验添加了一些自定义特征。</li>
 </ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">feature_engineering</span>(<span class="hljs-params">df</span>):</span><br><br>    <span class="hljs-keyword">for</span> col, (col_min, col_max) <span class="hljs-keyword">in</span> min_max_dict.items():<br>        df[col] = df[col].clip(lower=col_min, upper=col_max)<br><br>    bins = [<span class="hljs-number">0</span>, <span class="hljs-number">6</span>, <span class="hljs-number">12</span>, <span class="hljs-number">18</span>, <span class="hljs-number">100</span>]<br>    labels = [<span class="hljs-string">&#x27;1 to 6&#x27;</span>, <span class="hljs-string">&#x27;7 to 12&#x27;</span>, <span class="hljs-string">&#x27;13 to 18&#x27;</span>, <span class="hljs-string">&#x27;19 to 100&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;Age_Binned&#x27;</span>] = pd.cut(df[<span class="hljs-string">&#x27;Basic_Demos-Age&#x27;</span>], bins=bins, labels=labels, right=<span class="hljs-literal">True</span>)<br>    df[<span class="hljs-string">&#x27;Age_Sex&#x27;</span>] = df[<span class="hljs-string">&#x27;Age_Binned&#x27;</span>].astype(<span class="hljs-built_in">str</span>) + <span class="hljs-string">&#x27;_&#x27;</span> + df[<span class="hljs-string">&#x27;Basic_Demos-Sex&#x27;</span>].astype(<span class="hljs-built_in">str</span>)<br>    <br>    df[<span class="hljs-string">&#x27;BFP_BMI&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_Fat&#x27;</span>] / df[<span class="hljs-string">&#x27;BIA-BIA_BMI&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;BFP_BMR&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_Fat&#x27;</span>] * df[<span class="hljs-string">&#x27;BIA-BIA_BMR&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;BMR_Weight&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_BMR&#x27;</span>] / df[<span class="hljs-string">&#x27;Physical-Weight&#x27;</span>]<br>    <br>    df[<span class="hljs-string">&#x27;Muscle_to_Fat&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_SMM&#x27;</span>] / df[<span class="hljs-string">&#x27;BIA-BIA_FMI&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;Hydration_Status&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_TBW&#x27;</span>] / df[<span class="hljs-string">&#x27;Physical-Weight&#x27;</span>]<br>    <br>    df[<span class="hljs-string">&#x27;PreInt_FGC_CU_PU&#x27;</span>] = df[<span class="hljs-string">&#x27;PreInt_EduHx-computerinternet_hoursday&#x27;</span>] * df[<span class="hljs-string">&#x27;FGC-FGC_CU&#x27;</span>] * df[<span class="hljs-string">&#x27;FGC-FGC_PU&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;FGC_GSND_GSD_Age&#x27;</span>] = df[<span class="hljs-string">&#x27;FGC-FGC_GSND&#x27;</span>] * df[<span class="hljs-string">&#x27;FGC-FGC_GSD&#x27;</span>] * df[<span class="hljs-string">&#x27;Basic_Demos-Age&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;SDS_Activity&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_Activity_Level_num&#x27;</span>] * df[<span class="hljs-string">&#x27;SDS-SDS_Total_T&#x27;</span>]<br>    <br>    df[<span class="hljs-string">&#x27;CGasync_Score_Normalized&#x27;</span>] = df[<span class="hljs-string">&#x27;CGAS-CGAS_Score&#x27;</span>] - df.groupby(<span class="hljs-string">&#x27;Basic_Demos-Enroll_Season&#x27;</span>)[<span class="hljs-string">&#x27;CGAS-CGAS_Score&#x27;</span>].transform(<span class="hljs-string">&#x27;mean&#x27;</span>)<br>    df[<span class="hljs-string">&#x27;Internet_Physical_Difference&#x27;</span>] = df[<span class="hljs-string">&#x27;PreInt_EduHx-computerinternet_hoursday&#x27;</span>] - df[<span class="hljs-string">&#x27;PAQ_A-PAQ_A_Total&#x27;</span>]<br>   <br>    df[df.select_dtypes(include=<span class="hljs-string">&#x27;object&#x27;</span>).columns] = df.select_dtypes(include=<span class="hljs-string">&#x27;object&#x27;</span>).astype(<span class="hljs-string">&#x27;category&#x27;</span>)<br>    <span class="hljs-keyword">return</span> df<br></code></pre></td></tr></table></figure>
 <p><strong>数据增强</strong></p>
 <ul>
 <li>
