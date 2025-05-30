@@ -19122,7 +19122,7 @@ $$<br>
   <entry>
     <title>Muon优化器</title>
     <url>/2025/20250224/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>近日，Moonshot开源了改进版 Muon 优化算法及用 Muon 训练的SOTA级的MoE小模型。开启了Muon在大模型应用的局面。也许新的优化器时代即将到来！</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>近日，Moonshot开源了改进版 Muon 优化算法及用 Muon 训练的SOTA级的MoE小模型。开启了Muon在大模型应用的局面。也许新的优化器时代即将到来！</p>
 <p>PS：像谷歌23年提出的Lion（Evo<strong>L</strong>ved S<strong>i</strong>gn M<strong>o</strong>me<strong>n</strong>tum）优化器也号称比AdamW好，但是缺乏在大模型上的成功实验，大多数人还是选择Adam/AdamW。</p>
 <span id="more"></span>
 <p>苏神和官方作者Keller Jordan都写了一些博客来介绍这个内容。</p>
@@ -19139,7 +19139,7 @@ $$<br>
 </ul>
 <h3 id="什么是NewtonSchulz5">什么是NewtonSchulz5</h3>
 <p>我们初看，可能很疑惑，怎么突然出现了NewtonSchulz5，这是怎么来的？</p>
-<p>事实上，该算法和msign（<a href="https://en.wikipedia.org/wiki/Matrix_sign_function">矩阵符号函数</a>）有关。**Newton-schulz就是用来求（或近似）msign(M)的。**在这里可以认为二者就是同个东西。</p>
+<p>事实上，该算法和msign（<a href="https://en.wikipedia.org/wiki/Matrix_sign_function">矩阵符号函数</a>）有关。<strong>Newton-schulz就是用来求（或近似）msign(M)的。</strong> 在这里可以认为二者就是同个东西。</p>
 <p>对于msign，我们有以下求法：</p>
 <p><strong>（1）SVD</strong></p>
 <p>有以下性质，当m=n=r时，<br>
