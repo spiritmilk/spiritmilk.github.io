@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250224/muon_algo.png">
 <meta property="article:published_time" content="2025-02-24T13:52:02.000Z">
-<meta property="article:modified_time" content="2025-02-25T04:40:32.908Z">
+<meta property="article:modified_time" content="2025-05-30T11:26:17.044Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -264,7 +264,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          754 字
+          794 字
         
       </span>
     
@@ -332,27 +332,17 @@
 <li>持续在扩展到 774M 和 1.5B 参数时展示训练速度提升。</li>
 <li>训练了一个 1.5B 参数的 Transformer，在 HellaSwag 上达到 GPT-2 XL 级别的性能，耗时 10 个 8xH100 小时。使用 AdamW 达到相同结果需要 13.3 小时。</li>
 </ul>
-<h3 id="为何选择NewtonSchulz5">为何选择NewtonSchulz5</h3>
-<p>正交化矩阵有好几种方法，但并不好用或会出现问题。</p>
-<p><strong>（1）SVD</strong></p>
-<p>易于理解，但太慢了。</p>
-<p><strong>（2）耦合牛顿迭代（Coupled Newton iteration）</strong></p>
-<p>Shampoo中用于执行逆四次方根，并且可以轻松地适应进行正交化。</p>
-<p>但它在至少 float32 精度下运行以避免数值不稳定性，这使得它在现代 GPU 上运行缓慢。</p>
-<p><strong>（3）NewtonSchulz5</strong></p>
-<p>可以在bfloat16 中稳定运行</p>
-<h3 id="NewtonSchulz5介绍">NewtonSchulz5介绍</h3>
-<p>该算法和msign（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matrix_sign_function">矩阵符号函数</a>）有关。</p>
-<p>它也与SVD有关。<br>
+<h3 id="什么是NewtonSchulz5">什么是NewtonSchulz5</h3>
+<p>我们初看，可能很疑惑，怎么突然出现了NewtonSchulz5，这是怎么来的？</p>
+<p>事实上，该算法和msign（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matrix_sign_function">矩阵符号函数</a>）有关。</p>
+<p>Newton-schulz是用来求msign(M)的。</p>
+<p>我们有以下求法：</p>
+<p><strong>（1）SVD</strong><br>
 $$<br>
 U, \Sigma, V^{\top}=S V D ( M ) \quad\Rightarrow\quad\mathrm{m s i g n} ( M )=U_{[ : ,: r ]} V_{[ :, : r ]}^{\top}<br>
 $$<br>
 $U\in R^{n\times n},\Sigma\in R^{n\times m},V\in R^{m\times m}$，r是M的秩。</p>
-<p>进一步，<br>
-$$<br>
-\mathrm{m s i g n} ( M )=( M M^{\top} )^{-1 / 2} M=M ( M^{\top} M )^{-1 / 2}<br>
-$$<br>
-进一步，当m=n=r时，<br>
+<p>进一步有以下性质，当m=n=r时，<br>
 $$<br>
 msign(M)=argmin_{O^TO=I}||M-O||^2_F<br>
 $$</p>
@@ -363,7 +353,16 @@ $=||M||^2_F+n-2Tr(U\Sigma V^TO^T)$<br>
 $=||M||^2_F+n-2Tr(\Sigma V^TO^TU)$<br>
 $=||M||^2_F+n-2\sum_i^n \Sigma_{i.i}(V^TO^TU)_{i,i})$</p>
 <p>最小值时$O=UV^T$</p>
-<p>Newton-schulz是对msign(M)的近似。</p>
+<p>SVD易于理解，但太慢了。</p>
+<p><strong>（2）耦合牛顿迭代（Coupled Newton iteration）</strong></p>
+<p>Shampoo中用于执行逆四次方根，并且可以轻松地适应进行正交化。</p>
+<p>但它在至少 float32 精度下运行以避免数值不稳定性，这使得它在现代 GPU 上运行缓慢。</p>
+<p><strong>（3）NewtonSchulz5</strong></p>
+<p>可以在bfloat16 中稳定运行</p>
+<p>$$<br>
+\mathrm{m s i g n} ( M )=( M M^{\top} )^{-1 / 2} M=M ( M^{\top} M )^{-1 / 2}<br>
+$$<br>
+我们也可以联想一下标量中的sign函数，sgn(x)和$x(x^2)^{-\frac{1}{2}}=\frac{x}{\sqrt{x^2}}$是一样的。</p>
 <p>我们对$(M^TM)^{-\frac{1}{2}}$在$M^TM=I$进行展开到二阶，有<br>
 $$<br>
 msign(M)=M(M^TM)^{-1/2}\approx \frac{15}{8}M-\frac{5}{4}M(M^TM)+\frac{3}{8}M(M^TM)^2<br>
