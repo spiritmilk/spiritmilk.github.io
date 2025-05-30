@@ -21083,6 +21083,7 @@ $$<br>
 <p>当在相同的小时、分钟和秒内，同一系列中重复出现完全相同的值时，这基本上就是噪声。红线是检测到的噪声。</p>
 <p><img src="sleep31.png" alt=""></p>
 <h2 id="问题性互联网使用">问题性互联网使用</h2>
+<p>shakeup的比赛</p>
 <h3 id="比赛数据介绍-2">比赛数据介绍</h3>
 <p>6.73GB</p>
 <ul>
@@ -21101,6 +21102,36 @@ $$<br>
 <p>目标 <code>sii</code> ： <code>0</code> 对应 <code>None</code> ， <code>1</code> 对应 <code>Mild</code> ， <code>2</code> 对应 <code>Moderate</code> ， <code>3</code> 对应 <code>Severe</code> 。</p>
 <h3 id="评估指标-2">评估指标</h3>
 <p>基于二次加权 kappa 系数</p>
+<h3 id="第三名-JOBAYER-HOSSAIN">第三名@JOBAYER HOSSAIN</h3>
+<p><strong>交叉验证</strong><br>
+主要关注点之一是建立一个稳定可靠的 CV 框架。</p>
+<p>在整个过程中，避免使用任何固定的随机种子。进行了 100 次 5 折分层 KFold 重复实验获得稳定的结果，而在 Optuna 超参数调优时使用了 20 次重复。<br>
+为了优化最终的 QWK 阈值，使用了所有这些重复实验的 OOF 预测。</p>
+<p><strong>模型</strong><br>
+LightGBM</p>
+<p><strong>特征工程</strong></p>
+<ul>
+<li>活动记录数据：</li>
+<li>计算了 X、Y、Z 和 AngleZ 的标准差，以及 Elmo 的平均值。</li>
+<li>使用 Elmo 表示的五组最长的非活跃和活跃连续时间特征。</li>
+<li>将&quot;light&quot;列按从黄昏到直射阳光的范围分类，并统计每个类别的值计数。</li>
+<li>仪器数据：</li>
+<li>从公共笔记本开始，检查每个特征是否真的对模型有贡献。之后，根据我自己的实验添加了一些自定义特征。</li>
+</ul>
+<p><strong>数据增强</strong></p>
+<ul>
+<li>
+<p>NaN 增强：<br>
+最初在已有缺失值的列中随机填充 NaN。<br>
+后来在所有含有 NaN 的列中填充了 20%的 NaN 数据，并将这种增强数据与原始数据集合并。</p>
+</li>
+<li>
+<p>高斯噪声和填充：<br>
+进行了简单填充，并向 20%的数据中添加了高斯噪声。这种增强数据随后与原始数据集合并。</p>
+</li>
+</ul>
+<p><strong>后处理</strong><br>
+我使用了’PCIAT-PCIAT_Total’这一列进行训练。为了最终确定预测结果，我应用了优化后的阈值来计算每个 100*5 模型的 sii，并取众数来生成最终预测。</p>
 ]]></content>
       <tags>
         <tag>kaggle</tag>
