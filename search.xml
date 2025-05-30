@@ -20997,7 +20997,7 @@ $$<br>
 <span id="more"></span>
 <h2 id="识别睡眠状态"><a href="https://www.kaggle.com/competitions/child-mind-institute-detect-sleep-states/overview">识别睡眠状态</a></h2>
 <h3 id="比赛数据介绍">比赛数据介绍</h3>
-<p>数据量986.46Mb</p>
+<p>数据量986.46MB</p>
 <p>该数据集包含大约500个手腕佩戴的加速度计数据的多日记录，这些记录被注释为两种事件类型：睡眠开始，和睡眠结束。任务是检测加速度计序列中这两种事件的发生。</p>
 <p>对于这些数据，有以下几条具体的指导方针：</p>
 <ul>
@@ -21009,6 +21009,7 @@ $$<br>
 <li>睡眠事件不需要跨越日界线，因此没有硬性规定定义在给定时间内可能发生的次数。然而，每晚不应分配超过一个窗口。例如，同一天内，一个人有01:00-06:00和19:00-23:30的睡眠窗口是有效的，尽管分配在连续的夜晚。</li>
 <li>记录的夜晚数大致等于该系列中的24小时周期数。</li>
 </ul>
+<h3 id="评估指标">评估指标</h3>
 <p>评估指标是mean average precision（mAP）</p>
 <h3 id="第一名-sakami">第一名@sakami</h3>
 <p><img src="model_structure.jpeg" alt=""></p>
@@ -21082,7 +21083,24 @@ $$<br>
 <p>当在相同的小时、分钟和秒内，同一系列中重复出现完全相同的值时，这基本上就是噪声。红线是检测到的噪声。</p>
 <p><img src="sleep31.png" alt=""></p>
 <h2 id="问题性互联网使用">问题性互联网使用</h2>
-<h2 id="比赛数据介绍-2">比赛数据介绍</h2>
+<h3 id="比赛数据介绍-2">比赛数据介绍</h3>
+<p>6.73GB</p>
+<ul>
+<li><code>Demographics</code> - 参与者的年龄和性别信息。</li>
+<li><code>Internet Use</code> - 每天使用电脑/互联网的小时数。</li>
+<li><code>Children's Global Assessment Scale</code> - 心理健康临床医生用于评估 18 岁以下青少年一般功能的数值量表。</li>
+<li><code>Physical Measures</code> - 血压、心率、身高、体重和腰围、臀围的测量数据集合。</li>
+<li><code>FitnessGram Vitals and Treadmill</code> - 使用 NHANES 跑步机协议评估的心血管健康测量。</li>
+<li><code>FitnessGram Child</code> - 健康相关的体能评估，测量五个不同参数，包括有氧能力、肌肉力量、肌肉耐力、柔韧性和身体成分。</li>
+<li><code>Bio-electric Impedance Analysis</code> - 关键身体成分指标的测量，包括 BMI、脂肪、肌肉和水分含量。</li>
+<li><code>Physical Activity Questionnaire</code> - 关于儿童在过去 7 天内参与剧烈活动的情况。</li>
+<li><code>Sleep Disturbance Scale</code> - 用于对儿童睡眠障碍进行分类的量表。</li>
+<li><code>Actigraphy</code> - 通过研究级生物追踪器对生态物理活动进行客观测量。</li>
+<li><code>Parent-Child Internet Addiction Test</code> - 20 项量表，用于测量与强迫性互联网使用相关的特征和行为，包括强迫性、逃避性和依赖性。</li>
+</ul>
+<p>目标 <code>sii</code> ： <code>0</code> 对应 <code>None</code> ， <code>1</code> 对应 <code>Mild</code> ， <code>2</code> 对应 <code>Moderate</code> ， <code>3</code> 对应 <code>Severe</code> 。</p>
+<h3 id="评估指标-2">评估指标</h3>
+<p>基于二次加权 kappa 系数</p>
 ]]></content>
       <tags>
         <tag>kaggle</tag>
