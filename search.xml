@@ -21726,4 +21726,32 @@ $$</p>
         <tag>漫画</tag>
       </tags>
   </entry>
+  <entry>
+    <title>时间序列预测与后门攻击</title>
+    <url>/2025/20250603/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>后门攻击简单来说，是攻击者通过在训练过程中嵌入触发器（trigger）来操纵测试时的预测。</p>
+<p>但后面攻击普遍用于CV或分类中，时间序列（预测）中比较少。</p>
+<span id="more"></span>
+<h2 id="通用方法">通用方法</h2>
+<p>发表于SaTML’23的《<a href="https://arxiv.org/pdf/2211.07915">Backdoor Attacks on Time Series: A Generative Approach</a>》，SaTML是比较新的IEEE会议。</p>
+<p>既然是通用，其暗示即简单。事实也如此。</p>
+<p><img src="method.png" alt=""></p>
+<p>为了解决生成器训练的冷启动问题，首先在来自 D 的所有干净样本上对时间序列分类器 f 进行预训练，直到其交叉熵损失 LCE 稳定下<br>
+降。</p>
+<p>预训练完成后，我们同时训练触发器生成器 g 和部分训练的分类器 f 。</p>
+<p>在每次迭代中，两个网络都按照类似的过程逐步更新：</p>
+<p>1）在污染样本上训练 g ，以最小化针对后门类别 $y_t$ 的分类损失（第 15-17 行）；</p>
+<p>2）使用 g 生成污染数据集 D′ ；</p>
+<p>3）在污染数据集 D′ 上训练 f ，其中污染样本被重新标记为 $y_t$。</p>
+<p>整个过程中，后门触发模式被限制在信号幅度的 10% 以内，即 0.1 ∗ (xmax − xmin) ，以增强隐蔽性。</p>
+<h2 id="针对多元时间序列预测">针对多元时间序列预测</h2>
+<h2 id="题外话">题外话</h2>
+<p>欧洲航天局举办了一场<a href="https://www.kaggle.com/competitions/trojan-horse-hunt-in-space">关于时间序列的后门提取比赛</a>，形式新颖，但<strong>不允许中国人获得奖金。</strong></p>
+<p>但也期待获胜方案是如何解决的。AmbrosM目前位列第一，他一向具有很高深的方法。</p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>时间序列</tag>
+      </tags>
+  </entry>
 </search>
