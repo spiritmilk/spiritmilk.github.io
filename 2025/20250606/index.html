@@ -34,8 +34,9 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250606/nodedata1.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250606/nodedata2.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250606/nodedata3.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250606/graph.png">
 <meta property="article:published_time" content="2025-06-06T14:35:06.000Z">
-<meta property="article:modified_time" content="2025-06-06T15:18:54.447Z">
+<meta property="article:modified_time" content="2025-06-06T15:36:56.666Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -281,7 +282,7 @@
         
         
         
-          10 分钟
+          11 分钟
         
       </span>
     
@@ -378,7 +379,12 @@ $$<br>
 h_v^l=\sigma(\sum_{u\in N(v)\cup{v}}\frac{1}{\sqrt{\hat d_u\hat d_v}}h_u^{l-1}W^l+e_{uv}W^l_e)<br>
 $$<br>
 其中$e_{uv}、W^l_e$分别为u和v之间的特征向量和第$l$层的可训练权重矩阵。</p>
+<h3 id="位置编码">位置编码</h3>
+<p>作者采用的是随机游走结构编码（RWSE）。</p>
+<p>之前的博客曾介绍过相关的Graph Neural Networks with Learnable Structural and Positional Representations，在这里不再赘述。</p>
+<p>$x_v=[x_v||x_v^{RWSE}]W_{PE}$</p>
 <h3 id="结果">结果</h3>
+<p><img src="graph.png" alt=""></p>
 
                 
               </div>
