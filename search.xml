@@ -21763,13 +21763,13 @@ $$</p>
 <h3 id="攻击方法">攻击方法</h3>
 <p>首先，通过利用MLP 来捕捉目标变量 S 内部的变量间相关性，生成一个加权图。然后，进一步基于学成的加权图利用图卷积网络（GCN）进行触发器生成。</p>
 <p>由于时间序列跨度比较大，故作者采取的是使用DFT并取低维特征来降低维度和提取信息。即$z_i=Filter(DFT(x_i),k)$。</p>
-<p>并使用MLP来构建相关性的图，即$A_{i,j}=cos(MLP(z_i)，MLP(z_j))$。</p>
+<p>并使用MLP来构建相关性的图，即$A _ {i,j}=cos(MLP(z_i)，MLP(z_j))$。</p>
 <p>使用长度为$t^{BEF}$的时间窗口对触发器之前的历史数据进行切片。随后，我们基于切片后的历史<br>
 数据，利用 GCN 进行触发器生成：<br>
 $$<br>
 \hat g_{t_i}=GCN(X^{ATK}[t_i-t^{BEF}-t^{TGR}:t_i-t^{TGR},S],A),\forall t_i\in\Tau^{ATK}<br>
 $$<br>
-然而，GCN 倾向于激进地增加输出 $\hat g_{t_i}$的幅度。作者对这种行为的一个潜在解释是，较大的触发幅度会导致显著的偏差，而具有此类偏差特征的数据点更容易被预测模型学成，尽管它们违背了隐蔽性的要求。</p>
+然而，GCN 倾向于激进地增加输出 $\hat g _ {t_i}$的幅度。作者对这种行为的一个潜在解释是，较大的触发幅度会导致显著的偏差，而具有此类偏差特征的数据点更容易被预测模型学成，尽管它们违背了隐蔽性的要求。</p>
 <p>为了解决这一问题，作者提出引入一个非线性缩放函数tanh(·)，对输出幅度施加强制性限制来生成隐蔽的触发器。<br>
 $$<br>
 g_{t_i}=\Delta^{TGR}\cdot tanh(\hat g_{t_i}) \tag{6}<br>
@@ -21781,10 +21781,14 @@ $$<br>
 l_{cln}=L_{CLN}(f_s(X^{ATK}<em>{t_i,h}),X^{ATK}</em>{t_i,f})\tag{7}<br>
 $$<br>
 其中使用平滑L1loss。</p>
-<p>第二阶段：</p>
+<p>第二阶段：<br>
+$$<br>
+l_{atk}=\sum_{t_i=t}^{t+t^{PTN}} L_{ATK}(f_s(X^{ATK}<em>{t_i,h}),X^{ATK}</em>{t_i,f})\eta(t_i)<br>
+$$<br>
+PTN表示目标。</p>
 <p>现实世界数据集中的多变量时间序列（MTS）数据普遍存在高频波动或噪声。然而该方法并不能天然保证触发器具有高频信号。因此，为了弥补这一差距，引入了以下规范化损失：<br>
 $$<br>
-l_{norm}=AVG\left(\left|\sum_{i=0}^{t^{TGR}} g_{t_i}[i,:]\right|\right)<br>
+l_{norm}=AVG\left(\left|\sum_{i=0}^{t^{TGR}} g_{t_i}[i,:]\right|\right)\tag{9}<br>
 $$</p>
 <h2 id="题外话">题外话</h2>
 <p>欧洲航天局举办了一场<a href="https://www.kaggle.com/competitions/trojan-horse-hunt-in-space">关于时间序列的后门提取比赛</a>，形式新颖，但<strong>不允许中国人获得奖金。</strong></p>
