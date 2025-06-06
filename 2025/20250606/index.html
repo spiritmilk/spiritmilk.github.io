@@ -21,21 +21,21 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="马孔多在下雨。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="她">
-<meta property="og:url" content="https://lijianxiong.work/2020/20201221/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="经典的GNN被淘汰了吗？">
+<meta property="og:url" content="https://lijianxiong.work/2025/20250606/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="马孔多在下雨。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-12-21T15:02:28.000Z">
-<meta property="article:modified_time" content="2025-05-20T13:54:54.049Z">
+<meta property="article:published_time" content="2025-06-06T14:35:06.000Z">
+<meta property="article:modified_time" content="2025-06-06T14:37:50.654Z">
 <meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>她 - 小熊的小站</title>
+  <title>经典的GNN被淘汰了吗？ - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -238,7 +238,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">她</span>
+            <span id="subtitle">经典的GNN被淘汰了吗？</span>
           
         </div>
 
@@ -249,8 +249,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2020-12-21 23:02" pubdate>
-          2020年12月21日 晚上
+        <time datetime="2025-06-06 22:35" pubdate>
+          2025年6月6日 晚上
         </time>
       </span>
     
@@ -261,7 +261,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          454 字
+          0 字
         
       </span>
     
@@ -272,7 +272,7 @@
         
         
         
-          4 分钟
+          1 分钟
         
       </span>
     
@@ -309,191 +309,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">她</h1>
+            <h1 id="seo-header">经典的GNN被淘汰了吗？</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>马孔多在下雨。<span id="more"></span></p>
-<hr>
-<p>来看场烟花吧。</p>
-<div id="fireworks-container" style="width: 100%; height: 450px; background-color: #000; position: relative; margin-bottom: 20px;">   <canvas id="fireworksCanvas"></canvas> </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const canvasContainer = document.getElementById('fireworks-container');
-    const canvas = document.getElementById('fireworksCanvas');
-
-    // 确保容器和画布元素都存在
-    if (!canvasContainer || !canvas) {
-      console.error("烟花容器或画布元素未找到!");
-      return;
-    }
-    
-    const ctx = canvas.getContext('2d');
-    
-    // 设置画布大小为容器大小
-    function resizeCanvas() {
-      canvas.width = canvasContainer.offsetWidth;
-      canvas.height = canvasContainer.offsetHeight;
-    }
-    resizeCanvas(); // 初始调整大小
-    
-    const fireworks = [];
-    const particles = [];
-    let hue = 120; // 基础色调
-    
-    // 烟花类
-    class Firework {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height;
-        this.targetX = Math.random() * canvas.width;
-        // 向上发射到容器高度的 10% 到 60% 之间
-        this.targetY = Math.random() * (canvas.height * 0.5) + (canvas.height * 0.1);
-        this.speed = Math.random() * 2 + 2; // 速度快一点
-        this.angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
-        this.brightness = Math.random() * 50 + 50;
-        this.targetRadius = 1;
-    
-        this.coordinates = [];
-        this.coordinateCount = 3;
-        while (this.coordinateCount--) {
-          this.coordinates.push([this.x, this.y]);
-        }
-      }
-    
-      update(index) {
-        this.coordinates.pop();
-        this.coordinates.unshift([this.x, this.y]);
-    
-        if (this.targetRadius < 8) {
-          this.targetRadius += 0.3;
-        } else {
-          this.targetRadius = 1;
-        }
-    
-        const dx = this.targetX - this.x;
-        const dy = this.targetY - this.y;
-        const distanceToTarget = Math.sqrt(dx * dx + dy * dy);
-    
-        // 检查是否接近目标点
-        if (distanceToTarget < this.speed * 1.5) { // 调整此阈值以确保到达
-          fireworks.splice(index, 1);
-          createParticles(this.targetX, this.targetY);
-        } else {
-          this.x += Math.cos(this.angle) * this.speed;
-          this.y += Math.sin(this.angle) * this.speed;
-        }
-      }
-    
-      draw() {
-        ctx.beginPath();
-        ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
-        ctx.lineTo(this.x, this.y);
-        ctx.strokeStyle = `hsl(${hue}, 100%, ${this.brightness}%)`;
-        ctx.stroke();
-    
-        // 可选：绘制目标指示器
-        // ctx.beginPath();
-        // ctx.arc(this.targetX, this.targetY, this.targetRadius, 0, Math.PI * 2);
-        // ctx.stroke();
-      }
-    }
-    
-    // 粒子类
-    class Particle {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.angle = Math.random() * Math.PI * 2;
-        this.speed = Math.random() * 10 + 1;
-        this.friction = 0.95;
-        this.gravity = 1.5;
-        this.currentHue = Math.random() * 50 + (hue - 25);
-        this.brightness = Math.random() * 50 + 50;
-        this.alpha = 1;
-        this.decay = Math.random() * 0.03 + 0.015;
-        this.coordinates = [];
-        this.coordinateCount = 5;
-        while (this.coordinateCount--) {
-          this.coordinates.push([this.x, this.y]);
-        }
-      }
-    
-      update(index) {
-        this.coordinates.pop();
-        this.coordinates.unshift([this.x, this.y]);
-        this.speed *= this.friction;
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed + this.gravity;
-        this.alpha -= this.decay;
-    
-        if (this.alpha <= this.decay) {
-          particles.splice(index, 1);
-        }
-      }
-    
-      draw() {
-        ctx.beginPath();
-        ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
-        ctx.lineTo(this.x, this.y);
-        ctx.strokeStyle = `hsla(${this.currentHue}, 100%, ${this.brightness}%, ${this.alpha})`;
-        ctx.stroke();
-      }
-    }
-    
-    // 创建粒子效果
-    function createParticles(x, y) {
-      let particleCount = Math.floor(Math.random() * 50) + 80; // 粒子数量随机化
-      while (particleCount--) {
-        particles.push(new Particle(x, y));
-      }
-    }
-    
-    let animationFrameId;
-    // 动画循环
-    function loop() {
-      animationFrameId = requestAnimationFrame(loop);
-      hue += 0.5; // 色调随时间变化
-    
-      // 使用 destination-out 创建拖尾效果，而不是完全清除
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'; // 拖尾透明度，值越小拖尾越长
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.globalCompositeOperation = 'lighter'; // 粒子叠加时颜色更亮
-    
-      let i = fireworks.length;
-      while (i--) {
-        fireworks[i].draw();
-        fireworks[i].update(i);
-      }
-    
-      let j = particles.length;
-      while (j--) {
-        particles[j].draw();
-        particles[j].update(j);
-      }
-    
-      // 随机发射烟花
-      if (Math.random() < 0.04) { // 调整此值控制烟花密度
-        fireworks.push(new Firework());
-      }
-    }
-    
-    // 监听窗口大小变化，重新设置画布大小
-    // 对于嵌入式canvas，其容器大小变化时才需要调整
-    // 如果容器大小是固定的，则不需要监听 window resize
-    // 如果容器大小是百分比的，则 window resize 时容器会变，canvas 也需要变
-    window.addEventListener('resize', resizeCanvas);
-    
-    // 启动动画
-    loop();
-    
-    // 可选：如果此 canvas 只在当前页面，当用户离开页面时停止动画以节省资源
-    // 这需要更复杂的逻辑来检测页面是否还可见或元素是否还在DOM中
-  });
-</script>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><span id="more"></span>
 
                 
               </div>
@@ -503,6 +324,15 @@
               <div class="post-metas my-3">
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
+      
+    </div>
+  
 </div>
 
 
@@ -511,8 +341,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>她</div>
-      <div>https://lijianxiong.work/2020/20201221/</div>
+      <div>经典的GNN被淘汰了吗？</div>
+      <div>https://lijianxiong.work/2025/20250606/</div>
     </div>
     <div class="license-meta">
       
@@ -524,7 +354,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2020年12月21日</div>
+          <div>2025年6月6日</div>
         </div>
       
       
@@ -556,18 +386,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/20201231/" title="2020年度总结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2020年度总结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/20201219/" title="小镇做题家出路何在">
-                        <span class="hidden-mobile">小镇做题家出路何在</span>
+                      <a href="/2025/20250603/" title="时间序列预测与后门攻击">
+                        <span class="hidden-mobile">时间序列预测与后门攻击</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
