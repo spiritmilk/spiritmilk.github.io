@@ -21797,11 +21797,16 @@ $$<br>
 <h2 id="节点分类">节点分类</h2>
 <p>具体采用的数据集有：</p>
 <p><img src="nodedata.png" alt=""></p>
-<p>在同质图上：</p>
+<p><strong>在同质图上：</strong></p>
 <p><img src="nodedata1.png" alt=""></p>
-<p>在异质图上：</p>
+<p>经典 GNN 仅需对超参数进行微调，便能在同质图上的节点分类任务中表现出极强的竞争力，在许多情况下甚至超越了最先进的图Transformer！</p>
+<p><strong>在异质图上：</strong></p>
 <p><img src="nodedata2.png" alt=""></p>
-<p><strong>经典 GNN 仅需对超参数进行微调，便能在同质图上的节点分类任务中表现出极强的竞争力，在许多情况下甚至超越了最先进的图Transformer！</strong></p>
+<p>传统 GNN依旧在异质图中是强有力的竞争者。</p>
+<p><strong>在大规模图上：</strong></p>
+<p><img src="nodedata3.png" alt=""></p>
+<p>传统 GNN在这些大规模图数据集上取得了最佳结果，无论是同质性还是异质性图，均超越了最先进的图 Transformer。这表明消息传递在大<br>
+规模图上学习结点表示仍然非常有效。</p>
 <h2 id="图层次">图层次</h2>
 ]]></content>
       <tags>
