@@ -21729,7 +21729,7 @@ $$</p>
   <entry>
     <title>时间序列预测与后门攻击</title>
     <url>/2025/20250603/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>后门攻击简单来说，是攻击者通过在训练过程中嵌入触发器（trigger）来操纵测试时的预测。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>后门攻击简单来说，是攻击者通过在训练过程中嵌入触发器（trigger）来操纵测试时的预测。</p>
 <p>但后面攻击普遍用于CV或分类中，时间序列（预测）中比较少。</p>
 <span id="more"></span>
 <h2 id="通用方法">通用方法</h2>
@@ -21775,13 +21775,14 @@ $$<br>
 g_{t_i}=\Delta^{TGR}\cdot tanh(\hat g_{t_i}) \tag{6}<br>
 $$</p>
 <p>由于原始问题是个双层优化问题，故作者引入了一个替代预测模型$f_s$，以提供精确解的实用近似</p>
-<p>同样的，也会使用预热来避免难以训练或难以收敛。</p>
-<p>第一阶段：<br>
+<p>同样的，也会使用预热来避免难以训练或难以收敛。在预热阶段，我们仅训练替代模型，使其具备合理的预测能力。一旦预热阶段结束，我们将同时更新替代模型和触发器生成器。</p>
+<p>第一阶段，替代模型更新：<br>
 $$<br>
-l_{cln}=L_{CLN}(f_s(X^{ATK}<em>{t_i,h}),X^{ATK}</em>{t_i,f})\tag{7}<br>
+l _ {cln}=L _ {CLN}(f_s(X^{ATK} _ {t_i,h}),X^{ATK} _ {t_i,f})\tag{7}<br>
 $$<br>
 其中使用平滑L1loss。</p>
-<p>第二阶段：<br>
+<p>第二阶段，触发器生成器更新：</p>
+<p>固定代理模型的参数后，攻击损失可以形式化为：<br>
 $$<br>
 l_{atk}=\sum_{t_i=t}^{t+t^{PTN}} L_{ATK}(f_s(X^{ATK}<em>{t_i,h}),X^{ATK}</em>{t_i,f})\eta(t_i)<br>
 $$<br>
