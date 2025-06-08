@@ -21804,6 +21804,8 @@ $$</p>
 <p><strong>卷积核越大，位置信息能学习得更好。</strong> 位置信息可能在层内和特征空间中以更大的感受野分布，从而更好地解析位置信息。</p>
 <p><img src="posnet2.jpg" alt=""></p>
 <h3 id="位置信息的来源">位置信息的来源</h3>
+<p>作者进一步做了实验，并给出了一个令人想不到的结论——是<strong>zero padding</strong> 驱动位置信息的学习！</p>
+<p><img src="posnet3.jpg" alt=""></p>
 <h2 id="卷积神经网络可以使用位置编码">卷积神经网络可以使用位置编码</h2>
 <p>Facebook出品的《Convolutional Sequence to Sequence Learning》正是使用了位置编码的卷积神经网络之作。</p>
 <p>架构如下：</p>
