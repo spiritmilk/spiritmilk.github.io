@@ -21785,4 +21785,26 @@ $$</p>
         <tag>图神经网络</tag>
       </tags>
   </entry>
+  <entry>
+    <title>卷积层与位置编码</title>
+    <url>/2025/20250601/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>在NLP领域中，比如经典的textcnn是没有位置编码，那么CNN中的位置信息是从何而来的呢？</p>
+<span id="more"></span>
+<h2 id="卷积神经网络中蕴含了多少信息？">卷积神经网络中蕴含了多少信息？</h2>
+<p>ICLR 2020的《How much position information do convolutional neural network encode?》给了我们答案。</p>
+<p>作者设计了一套位置编码网络 (PosENet）来探索位置信息。</p>
+<h2 id="卷积神经网络可以使用位置编码">卷积神经网络可以使用位置编码</h2>
+<p>Facebook出品的《Convolutional Sequence to Sequence Learning》正是使用了位置编码的卷积神经网络之作。</p>
+<p>架构如下：</p>
+<p><img src="stru.webp" alt=""></p>
+<p>禁锢于成见。</p>
+<h2 id="参考资料">参考资料</h2>
+<p>1.<a href="https://sh-tsang.medium.com/review-convolutional-sequence-to-sequence-learning-convs2s-510a9eddce05">https://sh-tsang.medium.com/review-convolutional-sequence-to-sequence-learning-convs2s-510a9eddce05</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>计算机视觉</tag>
+        <tag>自然语言处理</tag>
+      </tags>
+  </entry>
 </search>
