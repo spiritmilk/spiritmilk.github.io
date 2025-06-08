@@ -21875,7 +21875,7 @@ $$<br>
   <entry>
     <title>最大率失真与图上的应用</title>
     <url>/2024/20240708/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最大率失真（Maximal Coding Rate Reduction）是马毅组的作品。用于构建可解释性的神经网络。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>最大率失真（Maximal Coding Rate Reduction）是马毅组的作品。用于构建可解释性的神经网络。</p>
 <p>马毅教授自称”弄明白了深度学习“，并把这一套理论命名为Deep (Convolution) Networks from First Principles。可以看出是比较大的名头。</p>
 <span id="more"></span>
 <h2 id="最大率失真">最大率失真</h2>
@@ -21896,9 +21896,21 @@ $$<br>
 <p><img src="redunet.jpg" alt=""></p>
 <p>可以看到有resnet、MOE等的影子。</p>
 <h2 id="图上的应用">图上的应用</h2>
-<p>我们主要讲WWW2022《Geometric Graph Representation Learning via Maximizing Rate Reduction》。</p>
+<p>我们主要讲WWW2022《Geometric Graph Representation Learning via Maximizing Rate Reduction》。ICASSP2024也有一篇《Maximal Coding Rate Reduction for Graph Embeddings》。</p>
+<p>原始的MCR2的公式为<br>
+$$<br>
+\frac{1}{2}logdet(I+\frac{d}{m\epsilon^2}ZZ^T)-\sum \frac{\Pi_j}{2m}logdet(I+\frac{d}{tr(\Pi_j)\epsilon^2}Z\Pi_j Z^T)<br>
+$$<br>
+作者改写为：<br>
+$$<br>
+\frac{1}{2}logdet(I+\frac{\gamma_1p}{m\epsilon}ZZ^T)-\sum \frac{sum(\Pi_j)}{2m}logdet(I+\frac{p}{tr(\Pi_j)\epsilon}Z\Pi_j Z^T)<br>
+$$<br>
+p是特征维度，$\Pi$是邻接矩阵。</p>
 <p>代码：<a href="https://github.com/ahxt/G2R">https://github.com/ahxt/G2R</a></p>
-<p>ICASSP2024也有一篇《Maximal Coding Rate Reduction for Graph Embeddings》。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MaximalCodingRateReduction</span>(<span class="hljs-params">torch.nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, gam1=<span class="hljs-number">1.0</span>, gam2=<span class="hljs-number">1.0</span>, eps=<span class="hljs-number">0.01</span></span>):</span><br>        <span class="hljs-built_in">super</span>(MaximalCodingRateReduction, self).__init__()<br>        self.gam1 = gam1<br>        self.gam2 = gam2<br>        self.eps = eps<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">projection</span>(<span class="hljs-params">self, z: torch.Tensor</span>) -&gt; torch.Tensor:</span><br>        z = F.normalize(z, dim=<span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> z<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compute_discrimn_loss_empirical</span>(<span class="hljs-params">self, W</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;Empirical Discriminative Loss.&quot;&quot;&quot;</span><br>        p, m = W.shape<br>        I = torch.eye(p).cuda()<br>        scalar = p / (m * self.eps)<br>        logdet = torch.logdet(I + self.gam1 * scalar * W.matmul(W.T))<br>        <span class="hljs-keyword">return</span> logdet / <span class="hljs-number">2.</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compute_compress_loss_empirical_all</span>(<span class="hljs-params">self, W, Pi</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;Empirical Compressive Loss.&quot;&quot;&quot;</span><br>        p, m = W.shape<br>        k, _ = Pi.shape<br>        sum_trPi = torch.<span class="hljs-built_in">sum</span>(Pi)<br><br>        I = torch.eye(p).cuda()<br>        compress_loss = <span class="hljs-number">0.</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(k):<br>            trPi = torch.<span class="hljs-built_in">sum</span>(Pi[j]) + <span class="hljs-number">1e-8</span><br>            scalar = p / (trPi * self.eps)<br>            a = W.T * Pi[j].view(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>            a = a.T<br>            log_det = torch.logdet(I + scalar * a.matmul(W.T))<br>            compress_loss += log_det * trPi / m<br>        num = data.x.shape[<span class="hljs-number">0</span>]<br>        compress_loss = compress_loss / <span class="hljs-number">2</span> * (num / sum_trPi)<br>        <span class="hljs-keyword">return</span> compress_loss<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, X, A</span>):</span><br><br>        i = np.random.randint(A.shape[<span class="hljs-number">0</span>], size=num_node_batch)<br>        A = A[i,::]<br><br>        A = A.cpu().numpy()<br>        W = X.T<br>        Pi = A<br>        Pi = torch.tensor(Pi, dtype=torch.float32).cuda()<br><br>        discrimn_loss_empi = self.compute_discrimn_loss_empirical(W)<br>        compress_loss_empi = self.compute_compress_loss_empirical_all(W, Pi)<br>        total_loss_empi = - self.gam2 * discrimn_loss_empi + compress_loss_empi<br>        <span class="hljs-keyword">return</span> total_loss_empi<br></code></pre></td></tr></table></figure>
+<p>可以看到效果是相当不错的。</p>
+<p><img src="77.jpg" alt=""></p>
+<p><img src="88.jpg" alt=""></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
