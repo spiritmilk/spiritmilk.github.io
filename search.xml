@@ -6143,11 +6143,11 @@ $$<br>
 为了避免虚数，我们定义：<br>
 $$<br>
 \begin{align}<br>
-w\sim p(w)<br>
+w&amp;\sim p(w)<br>
 \\<br>
-b\sim Uniform(0,2\pi)<br>
+b&amp;\sim Uniform(0,2\pi)<br>
 \\<br>
-z_w(x)=\sqrt{2}cos(w^Tx+b)<br>
+z_w(x)&amp;=\sqrt{2}cos(w^Tx+b)<br>
 \end{align}<br>
 $$</p>
 <p>则<br>
@@ -6163,7 +6163,7 @@ $$<br>
 故可定义:<br>
 $$<br>
 z(x) =<br>
-\begin{matrix} \frac{1}{\sqrt{R}} z_{w_1}(x) \ \frac{1}{\sqrt{R}} z_{w_2}(x) \ \vdots \ \frac{1}{\sqrt{R}} z_{w_R}(x) \end{matrix}<br>
+\left[\begin{matrix} \frac{1}{\sqrt{R}} z_{w_1}(x) \ \frac{1}{\sqrt{R}} z_{w_2}(x) \ \vdots \ \frac{1}{\sqrt{R}} z_{w_R}(x) \end{matrix}\right]<br>
 $$</p>
 <p>因此<br>
 $$<br>
