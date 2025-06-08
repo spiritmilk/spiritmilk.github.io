@@ -10138,7 +10138,7 @@ $$<br>
       </tags>
   </entry>
   <entry>
-    <title>kaggle小技巧之指数加权ensemble</title>
+    <title>kaggle竞赛小技巧之指数加权ensemble</title>
     <url>/2022/20220815/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://www.kaggle.com/code/jbomitchell/exponentially-weighted-ensemble-spaceship-titanic">JOHN MITCHELL</a></p>
 <p>权重=$ e^{b*(x-s)}$</p>
