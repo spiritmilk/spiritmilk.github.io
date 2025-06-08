@@ -21793,10 +21793,13 @@ $$</p>
 <h2 id="卷积神经网络中蕴含了多少信息？">卷积神经网络中蕴含了多少信息？</h2>
 <p>ICLR 2020的《How much position information do convolutional neural network encode?》给了我们答案。</p>
 <p>作者设计了一套位置编码网络 (PosENet）来探索位置信息。</p>
+<p><img src="posnet.jpg" alt=""></p>
+<p>即提取VGG的五层特征，插值到同一size后concat起来，再接几层卷积层来提取特征，以映射到指定的gt。gt如右图所示，他并不是，</p>
 <h2 id="卷积神经网络可以使用位置编码">卷积神经网络可以使用位置编码</h2>
 <p>Facebook出品的《Convolutional Sequence to Sequence Learning》正是使用了位置编码的卷积神经网络之作。</p>
 <p>架构如下：</p>
 <p><img src="stru.webp" alt=""></p>
+<p>输入的embedding使用绝对位置编码。即输入为$x=(x_1,x_2,…)$，$p=(p_1,p_2,…)$，则$e=x=(x_1+p_1,x_2+p_2,…)$。</p>
 <p>禁锢于成见。</p>
 <h2 id="参考资料">参考资料</h2>
 <p>1.<a href="https://sh-tsang.medium.com/review-convolutional-sequence-to-sequence-learning-convs2s-510a9eddce05">https://sh-tsang.medium.com/review-convolutional-sequence-to-sequence-learning-convs2s-510a9eddce05</a></p>
