@@ -28,12 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（TMLR 2024）《On the Equivalence of Graph Convolution and Mixup 》">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.work/2025/20241006/model.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20241006/1.jpg">
 <meta property="article:published_time" content="2025-06-08T13:48:58.000Z">
-<meta property="article:modified_time" content="2025-06-08T13:56:37.427Z">
+<meta property="article:modified_time" content="2025-06-08T14:05:25.490Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.work/2025/20241006/model.jpg">
   
   
   
@@ -263,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          42 字
+          191 字
         
       </span>
     
@@ -274,7 +277,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -322,7 +325,24 @@
 <p>图卷积实际上是对邻居进行平均，即可以写成:<br>
 $$<br>
 (\hat{x},\hat{y})=\left(\frac{1}{|N_i|}\sum_{k\in N_i}x_k,y_i\right)<br>
-$$</p>
+$$<br>
+而mixup实际上也是一种平均，即：<br>
+$$<br>
+(\hat{x},\hat{y})=\left(\sum_{i=1}^N \lambda_ix_i,\sum_{i=1}^N \lambda_iy_i\right)<br>
+$$<br>
+<img src="model.jpg" alt=""></p>
+<h2 id="图卷积等价于训练时-测试时使用mixup">图卷积等价于训练时+测试时使用mixup</h2>
+<p>在以上的基础，作者进一步提出，图卷积等价于训练时+测试时使用mixup，即Homophily Relabel and Test-time Mixup。</p>
+<h3 id="Homophily-Relabel">Homophily Relabel</h3>
+<p>1）使用混合标签 $\hat Y=AY$重新标记图中的所有结点。</p>
+<blockquote>
+<p>这其实就是标签传播（Label Propagation）。</p>
+</blockquote>
+<p>2）在重标后的图上，仅利用结点特征，使用$\hat Y$对所有结点使用MLP训练。</p>
+<p>作者把它命名为HMLP。</p>
+<p><img src="1.jpg" alt=""></p>
+<h3 id="Test-time-Mixup">Test-time Mixup</h3>
+<p>作者把它命名为TMLP。</p>
 
                 
               </div>

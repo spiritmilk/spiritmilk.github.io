@@ -21843,7 +21843,24 @@ $$</p>
 <p>图卷积实际上是对邻居进行平均，即可以写成:<br>
 $$<br>
 (\hat{x},\hat{y})=\left(\frac{1}{|N_i|}\sum_{k\in N_i}x_k,y_i\right)<br>
-$$</p>
+$$<br>
+而mixup实际上也是一种平均，即：<br>
+$$<br>
+(\hat{x},\hat{y})=\left(\sum_{i=1}^N \lambda_ix_i,\sum_{i=1}^N \lambda_iy_i\right)<br>
+$$<br>
+<img src="model.jpg" alt=""></p>
+<h2 id="图卷积等价于训练时-测试时使用mixup">图卷积等价于训练时+测试时使用mixup</h2>
+<p>在以上的基础，作者进一步提出，图卷积等价于训练时+测试时使用mixup，即Homophily Relabel and Test-time Mixup。</p>
+<h3 id="Homophily-Relabel">Homophily Relabel</h3>
+<p>1）使用混合标签 $\hat Y=AY$重新标记图中的所有结点。</p>
+<blockquote>
+<p>这其实就是标签传播（Label Propagation）。</p>
+</blockquote>
+<p>2）在重标后的图上，仅利用结点特征，使用$\hat Y$对所有结点使用MLP训练。</p>
+<p>作者把它命名为HMLP。</p>
+<p><img src="1.jpg" alt=""></p>
+<h3 id="Test-time-Mixup">Test-time Mixup</h3>
+<p>作者把它命名为TMLP。</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
