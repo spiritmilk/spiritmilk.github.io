@@ -21836,7 +21836,7 @@ $$</p>
   </entry>
   <entry>
     <title>图卷积等价于mixup</title>
-    <url>/2025/20241006/</url>
+    <url>/2024/20241006/</url>
     <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（TMLR 2024）《On the Equivalence of Graph Convolution and Mixup 》</p>
 <span id="more"></span>
 <h2 id="图卷积等价于mixup">图卷积等价于mixup</h2>
@@ -21860,7 +21860,12 @@ $$<br>
 <p>作者把它命名为HMLP。</p>
 <p><img src="1.jpg" alt=""></p>
 <h3 id="Test-time-Mixup">Test-time Mixup</h3>
+<p>1）仅使用训练集的结点特征来训练一个 MLP。</p>
+<p>2）在测试期间，利用训练好的 MLP 进行推理，并结合邻居聚合。</p>
 <p>作者把它命名为TMLP。</p>
+<p><img src="2.jpg" alt=""></p>
+<h3 id="统一二者">统一二者</h3>
+<p><img src="3.jpg" alt=""></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
