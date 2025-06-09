@@ -22024,10 +22024,33 @@ $$</p>
 <p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
 <p>如果我们定义一个关于输入向量 $p(z(0))$ 的基础分布,那么神经ODE 会将其随时间向前传播,为每个的值给出一个分布 $p(z(t))$,从而得到一个关于输出向量 $p(z(T))$ 的分布。</p>
 <p>Chen<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen.Neural Ordinary Differential Equations">[3]</span></a></sup>表明,对于神经ODE,密度的变换可以通过积分一个由下式给出的微分方程来评估：</p>
-<p>$$\frac{d~lnp(z(t))}{dt}=-Tr(\frac{\partial f}{\partial z(t)})$$</p>
+<p>$$\frac{\partial~lnp(z(t))}{\partial t}=-Tr(\frac{\partial f}{\partial z(t)})$$</p>
 <p>其中 $\partial f/\partial z$ 表示雅可比矩阵,其元素为 $\partial f _ {i}/\partial z _ {jc}$。</p>
 <p>作者使用的是泰勒级数展开式等来证明。</p>
-<p>我们也可以进一步展开到。</p>
+<p>我们也可以进一步展开为，其中u是向量场：<br>
+$$<br>
+\frac{\partial~lnp(z(t))}{\partial t}=-\nabla\cdot f=-Tr(\frac{\partial f}{\partial z(t)})<br>
+$$</p>
+<blockquote>
+<p>证明：</p>
+<p>根据连续性方程（其密度的局部变化率等于流入该点的通量（flux）的负散度）：<br>
+$$<br>
+\frac{\partial p(z)}{\partial t}+\nabla\cdot (p(z)f)=0<br>
+$$<br>
+根据向量微积分的乘法法则：<br>
+$$<br>
+\nabla\cdot (pf)=\nabla p (f)+p(\nabla \cdot f)<br>
+$$<br>
+根据多元链式法则，<br>
+$$<br>
+\frac{\partial~lnp(z(t))}{\partial t}=\frac{1}{p}(\frac{\partial p}{\partial t}+(\nabla p)f)<br>
+$$<br>
+把二者结合起来有：<br>
+$$<br>
+\frac{\partial~lnp(z(t))}{\partial t}=-\nabla\cdot f<br>
+$$<br>
+而一个向量场的散度（Divergence）在数学上等于其雅可比矩阵（Jacobian Matrix）的迹（Trace）。</p>
+</blockquote>
 <p>这个积分可以使用标准的ODE 求解器来执行。同样,可以从基础密度 $p(z(0))$ 中采样,该分布被选择为一个简单的分布,例如高斯分布,并通过再次使用ODE 求解器积分将值传播到输出。</p>
 <p>由此产生的框架被称为一个连续归一化流。连续归一化流可以使用用于神经ODE的伴随敏感性方法进行训练,这可以看作是反向传播的连续时间等价物。</p>
 <p>由于涉及雅可比矩阵的迹而不是使用行列式，因此它可能看起来在计算上更高效。<br>
@@ -22051,6 +22074,7 @@ $$</p>
 <a href="#fnref:99" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
       <tags>
         <tag>深度学习</tag>
+        <tag>物理</tag>
         <tag>生成模型</tag>
       </tags>
   </entry>
