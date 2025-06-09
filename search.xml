@@ -6094,7 +6094,7 @@ $$</p>
   <entry>
     <title>Quasi-SVM</title>
     <url>/2022/20220111/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>SVM是一个强有力的机器学习算法，很多算法（比如RCNN）的分类器也使用SVM作为分类器，帮助我获得了博弈杯准确率排行榜的第二名（我使用的是VGG+Quasi-SVM。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>SVM是一个强有力的机器学习算法，很多算法（比如RCNN）的分类器也使用SVM作为分类器，帮助我获得了博弈杯准确率排行榜的第二名（我使用的是VGG+Quasi-SVM。</p>
 <p>但困难的是，如何把SVM和神经网络合并起来，且共同训练。于是有了近似SVM，我们可以使用hingeloss。</p>
 <p>更幸运的是，keras提供了另一种方法，Random Fourier Features。</p>
 <span id="more"></span>
@@ -6133,10 +6133,10 @@ k(x,y) &amp;= k(x-y)<br>
 \\ &amp;= \mathbb{E}_ {w}[\exp(i w^T (x-y))]<br>
 \\ &amp;\approx \frac{1}{R} \sum_ {r=1}^{R} \exp(i w_r^T (x-y)) \\ &amp;=<br>
 \begin{bmatrix}<br>
-\frac{1}{\sqrt{R}} \exp(i w_{1}^T x) \ \frac{1}{\sqrt{R}} \exp(i w_{2}^T x) \ \vdots \ \frac{1}{\sqrt{R}} \exp(i w_{R}^T x)<br>
+\frac{1}{\sqrt{R}} \exp(i w_{1}^T x) \\ \frac{1}{\sqrt{R}} \exp(i w_{2}^T x) \\ \vdots \\ \frac{1}{\sqrt{R}} \exp(i w_{R}^T x)<br>
 \end{bmatrix}^T<br>
 \begin{bmatrix}<br>
-\frac{1}{\sqrt{R}} \exp(-i w_{1}^T y) \ \frac{1}{\sqrt{R}} \exp(-i w_{2}^T y) \ \vdots \ \frac{1}{\sqrt{R}} \exp(-i w_{R}^T y)<br>
+\frac{1}{\sqrt{R}} \exp(-i w_{1}^T y) \\ \frac{1}{\sqrt{R}} \exp(-i w_{2}^T y) \\ \vdots \\ \frac{1}{\sqrt{R}} \exp(-i w_{R}^T y)<br>
 \end{bmatrix}<br>
 \\ &amp;= \mathbf{h}(x) \mathbf{h}(y)^{*} \end{align}<br>
 $$<br>
@@ -6163,7 +6163,7 @@ $$<br>
 故可定义:<br>
 $$<br>
 z(x) =<br>
-\left[\begin{matrix} \frac{1}{\sqrt{R}} z_{w_1}(x) \ \frac{1}{\sqrt{R}} z_{w_2}(x) \ \vdots \ \frac{1}{\sqrt{R}} z_{w_R}(x) \end{matrix}\right]<br>
+\left[\begin{matrix} \frac{1}{\sqrt{R}} z_{w_1}(x) \\ \frac{1}{\sqrt{R}} z_{w_2}(x) \\ \vdots \\ \frac{1}{\sqrt{R}} z_{w_R}(x) \end{matrix}\right]<br>
 $$</p>
 <p>因此<br>
 $$<br>
