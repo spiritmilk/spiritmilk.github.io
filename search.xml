@@ -21884,7 +21884,7 @@ $$<br>
   <entry>
     <title>流模型与流匹配</title>
     <url>/2025/20250609/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>流模型与流匹配介绍。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>流模型与流匹配介绍。</p>
 <span id="more"></span>
 <h1>归一化流（Normalizing Flow）</h1>
 <h2 id="先导">先导</h2>
@@ -22084,8 +22084,7 @@ $$<br>
 $$<br>
 \mathcal{L}<em>{CFM}=E</em>{t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t;z)-f_t^\theta(X_t,t)||^2<br>
 $$<br>
-Lipman 等人<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>证明了$\mathcal{L}<em>{FM}$和$\mathcal{L}</em>{CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。</p>
-<p>证明其实很简单，把期望内的括号展开分离即可。</p>
+Lipman 等人<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>证明了$\mathcal{L}<em>{FM}$和$\mathcal{L}</em>{CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。证明其实很简单，把期望内的括号展开分离即可。</p>
 <p>对于z，我们可以只考虑$x_1$，定义$\mu(z,t)=tx_1$，$\sigma(z,t)=t\sigma_{const}-t+1$，则<br>
 $$<br>
 \begin{align}<br>
