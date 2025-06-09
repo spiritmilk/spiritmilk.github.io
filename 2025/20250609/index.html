@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/success.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/ag.jpg">
 <meta property="article:published_time" content="2025-06-09T14:24:45.000Z">
-<meta property="article:modified_time" content="2025-06-09T12:09:02.558Z">
+<meta property="article:modified_time" content="2025-06-09T14:56:37.822Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="物理">
@@ -272,7 +272,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.1k 字
+          5.4k 字
         
       </span>
     
@@ -283,7 +283,7 @@
         
         
         
-          43 分钟
+          45 分钟
         
       </span>
     
@@ -517,9 +517,30 @@ $$<br>
 <p>而与前面的流模型不同，流匹配是一种在训练过程中不需要求解ODE来训练的方法。</p>
 <p>类似分数匹配，我们之间对向量场进行构建回归目标，（我们继续延续流模型中的符号，部分符号会和流匹配论文中常用的符号略有不同）：<br>
 $$<br>
-\mathcal{L}=E_{t\sim U(0,1),X_t\sim p_t}||f_t(X_t)-f^\theta_t(X_t)||^2<br>
+\mathcal{L}<em>{FM}=E</em>{t\sim U(0,1),X_t\sim p_t}||f_t(X_t,t)-f^\theta_t(X_t,t)||^2<br>
 $$<br>
-然而我们并不知道$p_t$和真实向量场$f$，</p>
+然而我们并不知道$p_t$和真实向量场$f$，所以就有了条件流匹配的出现。</p>
+<h2 id="条件流匹配">条件流匹配</h2>
+<p>CFM 的核心思想是选择一个额外变量 z 和一个条件概率路径$p(x\mid t,z)$。<br>
+$$<br>
+\mathcal{L}<em>{CFM}=E</em>{t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t)-f^\theta_t(X_t,t;z)||^2<br>
+$$<br>
+对于z，我们可以只考虑$x_1$，定义$\mu(z,t)=tx_1$，$\sigma(z,t)=t\sigma_{const}-t+1$，则<br>
+$$<br>
+\begin{align}<br>
+p_{t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf{x}<em>1, (t \sigma</em>{const} - t + 1)^2 \mathbf{I} \right) \\<br>
+f(\mathbf{x}, t ; \mathbf{z}) &amp;= \frac{ \mathbf{x}<em>1 - (1 - \sigma</em>{const}) \mathbf{x} }{ 1 - (1 - \sigma_{const}) t }<br>
+\end{align}<br>
+$$</p>
+<p>这也就是原始的CFM<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>，也叫<strong>锥形高斯路径</strong>（<strong>Conical Gaussian paths</strong>）。</p>
+<p>对于z，我们也可以将$x_0$和$x_1$联合起来考虑，定义$\mu(z,t)=(1-t)x_0+tx_1$，$\sigma(z,t)=\sigma_{const}$，则<br>
+$$<br>
+\begin{align}<br>
+p_{t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf{x}<em>1+(1-t)x_0, \sigma</em>{const}^2 \mathbf{I} \right) \\<br>
+f(\mathbf{x}, t ; \mathbf{z}) &amp;= x_1-x_0<br>
+\end{align}<br>
+$$<br>
+这也就是independent CFM（iCFM)<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.">[6]</span></a></sup>，也叫<strong>线性插值。</strong></p>
 <h1>参考资料</h1>
 <p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:94" class="footnote-ref"><a href="#fn:94" rel="footnote"><span class="hint--top hint--rounded" aria-label="hFlow Matching: Matching flows instead of scores.https://jmtomczak.github.io/blog/18/18_fm.html">[94]</span></a></sup><sup id="fnref:95" class="footnote-ref"><a href="#fn:95" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.Flow Matching Guide and Code">[95]</span></a></sup><sup id="fnref:96" class="footnote-ref"><a href="#fn:96" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching.https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[96]</span></a></sup><sup id="fnref:97" class="footnote-ref"><a href="#fn:97" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.https://github.com/phlippe/uvadlc_notebooks">[97]</span></a></sup>和一些教科书<sup id="fnref:98" class="footnote-ref"><a href="#fn:98" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[98]</span></a></sup>和李宏毅的课程<sup id="fnref:99" class="footnote-ref"><a href="#fn:99" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[99]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
@@ -527,7 +548,8 @@ $$<br>
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>Ricky T. Q. Chen.Neural Ordinary Differential Equations
 <a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud.FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models
 <a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span>Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。
-<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:94" class="footnote-text"><span>hFlow Matching: Matching flows instead of scores.<a target="_blank" rel="noopener" href="https://jmtomczak.github.io/blog/18/18_fm.html">https://jmtomczak.github.io/blog/18/18_fm.html</a>
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span>Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:94" class="footnote-text"><span>hFlow Matching: Matching flows instead of scores.<a target="_blank" rel="noopener" href="https://jmtomczak.github.io/blog/18/18_fm.html">https://jmtomczak.github.io/blog/18/18_fm.html</a>
 <a href="#fnref:94" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:95" class="footnote-text"><span>Yaron Lipman.Flow Matching Guide and Code
 <a href="#fnref:95" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:96" class="footnote-text"><span>A Visual Dive into Conditional Flow Matching.<a target="_blank" rel="noopener" href="https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9</a>
 <a href="#fnref:96" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:97" class="footnote-text"><span>Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.<a target="_blank" rel="noopener" href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a>
