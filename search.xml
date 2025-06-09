@@ -22084,8 +22084,8 @@ $$<br>
 $$<br>
 \mathcal{L}<em>{CFM}=E</em>{t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t;z)-f_t^\theta(X_t,t)||^2<br>
 $$<br>
-Lipman 等人<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>证明了$\mathcal{L}<em>{FM}$和$\mathcal{L}</em>{CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。证明其实很简单，把期望内的括号展开分离即可。</p>
-<p>对于z，我们可以只考虑$x_1$，定义$\mu(z,t)=tx_1$，$\sigma(z,t)=t\sigma_{const}-t+1$，则<br>
+Lipman 等人<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>证明了$\mathcal{L} _ {FM}$和$\mathcal{L} _ {CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。证明其实很简单，把期望内的括号展开分离即可。</p>
+<p>对于z，我们可以只考虑$x_1$，定义$\mu(z,t)=tx_1$，$\sigma(z,t)=t\sigma _ {const}-t+1$，则<br>
 $$<br>
 \begin{align}<br>
 p_{t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf{x}<em>1, (t \sigma</em>{const} - t + 1)^2 \mathbf{I} \right) \\<br>
@@ -22093,14 +22093,14 @@ f(\mathbf{x}, t ; \mathbf{z}) &amp;= \frac{ \mathbf{x}<em>1 - (1 - \sigma</em>{c
 \end{align}<br>
 $$<br>
 这也就是原始的CFM<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>，也叫<strong>锥形高斯路径</strong>（<strong>Conical Gaussian paths</strong>）。</p>
-<p>对于z，我们也可以将$x_0$和$x_1$联合起来考虑，定义$\mu(z,t)=(1-t)x_0+tx_1$，$\sigma(z,t)=\sigma_{const}$，则<br>
+<p>对于z，我们也可以将$x_0$和$x_1$联合起来考虑，定义$\mu(z,t)=(1-t)x_0+tx_1$，$\sigma(z,t)=\sigma _ {const}$，则<br>
 $$<br>
 \begin{align}<br>
 p_{t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf{x}<em>1+(1-t)x_0, \sigma</em>{const}^2 \mathbf{I} \right) \\<br>
 f(\mathbf{x}, t ; \mathbf{z}) &amp;= x_1-x_0<br>
 \end{align}<br>
 $$<br>
-这也就是independent CFM（iCFM)<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.">[6]</span></a></sup>，也叫<strong>线性插值。</strong></p>
+这也就是independent CFM（iCFM)<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.">[6]</span></a></sup>，也叫**线性插值。**它也与最优传输（Optimal Transport）有关，正如其论文标题所述。</p>
 <p><strong>伪代码：</strong></p>
 <p>1.采样  t∼Uniform(0,1)<br>
 2.采样  z∼q(z)<br>
