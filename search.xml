@@ -21996,7 +21996,7 @@ $$<br>
 <p>我们得到了神经ODE的形式，那么如何通过优化损失函数来确定w的值呢？假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。</p>
 <p>一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管这很直接,但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。</p>
 <p>相反,Chen等人<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen.Neural Ordinary Differential Equations">[3]</span></a></sup>将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。</p>
-<p>为了将反向传播应用于神经ODE,我们定义一个称为伴随的量,其定义为 [cite: 21]</p>
+<p>为了将反向传播应用于神经ODE,我们定义一个称为伴随的量,其定义为：</p>
 <p>$$a(t)=\frac{dL}{dz(t)}$$</p>
 <p>我们看到 $a(T)$ 对应于损失关于输出向量的常规导数。伴随子满足其自身的微分方程,该方程为：</p>
 <p>$$\frac{da(t)}{dt}=-a(t)^{T}\nabla _ {z}f(z(t),w)$$</p>
@@ -22067,7 +22067,7 @@ $$<br>
 <p>（3）执行反向传播，计算L关于z的梯度，则梯度为$\epsilon^T\frac{\partial f}{\partial z}$</p>
 <p>（4）最后计算梯度和$\epsilon$的点积，$(\epsilon^T\frac{\partial f}{\partial z})\cdot \epsilon$</p>
 <p>然后我们可以使用有限数量的样本来近似迹,形式为：</p>
-<p>$$Tr(A)\simeq\frac{1}{M}\sum _ {m=1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}$$</p>
+<p>$$Tr(A)\approx\frac{1}{M}\sum _ {m=1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}$$</p>
 <p>这里其实牵扯到一个叫<strong>雅可比向量积 (Jacobian-Vector Product，JVP)<strong>的概念，即一个</strong>行向量 <code>v^T</code></strong> 与一个<strong>雅可比矩阵 <code>J</code></strong> 的乘积</p>
 <h1>流匹配（Flow Matching）</h1>
 <p>该方法<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>于2022年提出。</p>
