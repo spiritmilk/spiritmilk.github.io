@@ -22049,25 +22049,33 @@ $$<br>
 $$<br>
 \frac{\partial~lnp(z(t))}{\partial t}=-\nabla\cdot f<br>
 $$<br>
-而一个向量场的散度（Divergence）在数学上等于其雅可比矩阵（Jacobian Matrix）的迹（Trace）。</p>
+而一个向量场的散度在数学上等于其雅可比矩阵的迹。</p>
 </blockquote>
 <p>这个积分可以使用标准的ODE 求解器来执行。同样,可以从基础密度 $p(z(0))$ 中采样,该分布被选择为一个简单的分布,例如高斯分布,并通过再次使用ODE 求解器积分将值传播到输出。</p>
 <p>由此产生的框架被称为一个连续归一化流。连续归一化流可以使用用于神经ODE的伴随敏感性方法进行训练,这可以看作是反向传播的连续时间等价物。</p>
 <p>由于涉及雅可比矩阵的迹而不是使用行列式，因此它可能看起来在计算上更高效。<br>
 通常,计算一个 $D\times D$ 矩阵的行列式需要 $\mathcal{O}(D^{3})$ 次操作,而计算迹只需要 $\mathcal{O}(D)$ 次操作。</p>
 <p>然而,如果行列式是下三角形的,如在许多归一化流的形式中,那么行列式是主对角线项的乘积,因此也涉及 $\mathcal{O}(D)$ 次操作。由于计算雅可比矩阵的各个元素需要单独的前向传播,而前向传播本身需要 $\mathcal{O}(D)$ 次操作,因此计算迹或行列式(对于下三角矩阵)总共需要 $\mathcal{O}(D^{2})$ 次操作。</p>
-<p>然而,通过使用 Hutchinson 的迹估计器(Grathwohl et al., 2018),可以将计算迹的成本降低到 $\mathcal{O}(D),$</p>
-<p>该估计器对于一个矩阵A采用以下形式</p>
+<p>然而,通过使用 Hutchinson 迹估计器<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud.FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models">[4]</span></a></sup>,可以将计算迹的成本降低到 $\mathcal{O}(D)$。</p>
+<p>该估计器对于一个矩阵A采用以下形式 ：</p>
 <p>$$Tr(A)=\mathbb{E} _ {\epsilon}[\epsilon^{T}A\epsilon]$$</p>
-<p>其中是一个均值为零、协方差为一的随机向量,例如,高斯 $\mathcal{N}(0,I)$。对于特定的,矩阵-向量积A∈可以使用反向自动微分在一次遍历中高效地计算。然后我们可以使用有限数量的样本来近似迹,形式为：</p>
+<p>其中是$\epsilon$一个均值为零、协方差为一的随机向量,例如,高斯 $\mathcal{N}(0,I)$。</p>
+<p>我们不需要计算整个矩阵A，就能得到$\epsilon^{T}A\epsilon$的值。</p>
+<p>具体而言，</p>
+<p>（1）计算神经网络的前向传播f(z)</p>
+<p>（2）计算f(z)和$\epsilon$的点积，得到$L=\epsilon\cdot f(z)$</p>
+<p>（3）执行反向传播，计算L关于z的梯度，则梯度为$\epsilon^T\frac{\partial f}{\partial z}$</p>
+<p>（4）最后计算梯度和$\epsilon$的点积，$(\epsilon^T\frac{\partial f}{\partial z})\cdot \epsilon$</p>
+<p>然后我们可以使用有限数量的样本来近似迹,形式为：</p>
 <p>$$Tr(A)\simeq\frac{1}{M}\sum _ {m=1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}$$</p>
-<!--more-->
+<p>这里其实牵扯到一个叫<strong>雅可比向量积 (Jacobian-Vector Product，JVP)<strong>的概念，即一个</strong>行向量 <code>v^T</code></strong> 与一个<strong>雅可比矩阵 <code>J</code></strong> 的乘积</p>
 <h2 id="参考资料">参考资料</h2>
 <p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:96" class="footnote-ref"><a href="#fn:96" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching.https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[96]</span></a></sup><sup id="fnref:97" class="footnote-ref"><a href="#fn:97" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.https://github.com/phlippe/uvadlc_notebooks">[97]</span></a></sup>和一些教科书<sup id="fnref:98" class="footnote-ref"><a href="#fn:98" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[98]</span></a></sup>和李宏毅的课程<sup id="fnref:99" class="footnote-ref"><a href="#fn:99" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[99]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ho, J., Chen, X., Srinivas, A., Duan, Y., and Abbeel. Flow++: Improving Flow-Based Generative Models with Variational Dequantization and Architecture Design
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>Ricky T. Q. Chen.Neural Ordinary Differential Equations
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:96" class="footnote-text"><span>A Visual Dive into Conditional Flow Matching.<a href="https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud.FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:96" class="footnote-text"><span>A Visual Dive into Conditional Flow Matching.<a href="https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9</a>
 <a href="#fnref:96" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:97" class="footnote-text"><span>Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.<a href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a>
 <a href="#fnref:97" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:98" class="footnote-text"><span>PRML
 <a href="#fnref:98" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:99" class="footnote-text"><span>李宏毅的flow base model课程
