@@ -21980,46 +21980,59 @@ $$<br>
 <p>这个积分可以使用标准的数值积分包来评估。求解微分方程的最简单方法是欧拉前向积分方法,它对应于表达式$z^{(t+1)}=z^{(t)}+f(z^{(t)},w)$。</p>
 <p>在实践中,更强大的数值积分算法可以自适应地调整它们的函数评估以实现。特别是,它们可以自适应地选择的值,这些值通常不是均匀分布的。</p>
 <h3 id="神经ODE反向传播">神经ODE反向传播</h3>
-<p>我们现在需要解决如何训练神经ODE的挑战,即如何通过优化损失函数来确定w的值。让我们假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管 [cite: 20]</p>
-<p>556 18. NORMALIZING FLOWS</p>
-<p>这很直接,但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。相反,Chen 等(2018)将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。回想一下,反向传播涉及每个数据点的三个连续阶段:首先进行前向传播以评估网络每层的激活向量,其次从输出开始利用微积分的链式法则通过网络反向传播以评估损失相对于每层激活的导数,第三通过形成前向传递的激活乘积和反向传递的梯度来评估相对于网络参数的导数。我们将看到在计算神经ODE的梯度时也有类似步骤。 [cite: 21]</p>
-<p>前向传播以评估网络每层的激活向量,其次从输出开始利用微积分的链式法则通过网络反向传播以评估损失相对于每层激活的导数,第三通过形成前向传递的激活乘积和反向传递的梯度来评估相对于网络参数的导数。我们将看到在计算神经 ODE的梯度时也有类似步骤。 [cite: 21]</p>
+<p>我们得到了神经ODE的形式，那么如何通过优化损失函数来确定w的值呢？假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。</p>
+<p>一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管这很直接,但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。</p>
+<p>相反,Chen等人<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen.Neural Ordinary Differential Equations">[2]</span></a></sup>将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。</p>
 <p>为了将反向传播应用于神经ODE,我们定义一个称为伴随的量,其定义为 [cite: 21]</p>
-<p>$a(t)=\frac{dL}{dz(t)}.$ (18.24) [cite: 21]</p>
-<p>我们看到 $a(T)$ 对应于损失关于输出向量的常规导数。伴随子满足其自身的微分方程,该方程为 [cite: 21]</p>
-<p>$\frac{da(t)}{dt}=-a(t)^{T}\nabla _ {z}f(z(t),w)$ , (18.25) [cite: 21]</p>
-<p>这是一个微积分链式法则的连续版本。这可以通过从 $a(T)$ 开始反向积分来求解,这同样可以使用黑盒ODE求解器来完成。原则上,这要求我们存储在正向阶段计算的轨迹 $z(t)$ 这可能存在问题,因为逆求解器可能希望在不同于正向求解器的值处评估 $z(t) _ {c}$ 相反,我们简单地允许反向求解器通过从输出值 $z(T)$ 开始与(18.25)一起积分(18.22)来重新计算任何所需的 $z(t)$ 值。反向传播方法的第三步是通过形成适当的激活和梯度的乘积来评估损失 [cite: 21]</p>
-<p>关于网络参数的导数。当一个参数值在网络的多个连接中共享时,总导数由每个连接的导数之和形成。对于我们的神经ODE,其中相同的参数向量 w在整个网络中共享,这个求和变成了对的积分,其形式为 [cite: 21]</p>
-<p>$\nabla _ {w}L=-\int _ {0}^{T}a(t)^{T}\nabla _ {w}f(z(t),w)dt$ . (18.26) [cite: 22]</p>
-<p>公式(18.25)中的导数 $\nabla _ {z}f$ 和公式(18.26)中的导数 $\nabla _ {w}f$ 可以使用自动微分高效地计算。注意,上述结果同样适用于一个更通用的神经网络函数 $f(z(t),t,w)$ 它在除了通过 $z(t)$ 隐式依赖之外,还对有显式依赖。 [cite: 22]</p>
-<p>使用伴随方法训练的神经ODE相比于传统层状网络的一个优点是,不需要存储前向传播的中间结果,因此内存成本是恒定的。此外, [cite: 22]</p>
-<p>18.3. 连续流 557</p>
-<p>神经 ODE可以自然地处理连续时间数据,其中观测值在任意时间发生。如果误差函数 L 取决于除输出值之外的 $z(t)$ 的值,那么需要多次运行反向模型求解器,每次运行对应一对连续的输出,以便将单个解分解为多个连续解,从而访问中间状态(Chenet al., 2018)。请注意,在训练期间可以使用求解器的高精度,而在计算资源有限的应用中,在推理期间可以使用较低精度,因此函数评估次数更少。 [cite: 23]</p>
-<h3 id="18-3-3-神经-ODEflows">18.3.3 神经 ODEflows</h3>
-<p>我们可以利用神经常微分方程来定义一种替代方法,用于构建可处理的归一化流模型。神经ODE定义了一种高度灵活的从输入向量 $z(0)$ 到输出向量 $z(T)$ 的变换,该变换以微分方程的形式给出 [cite: 23]</p>
-<p>$\frac{dz(t)}{dt}=f(z(t),w)$ . (18.27) [cite: 24]</p>
-<p>如果我们定义一个关于输入向量 $p(z(0))$ 的基础分布,那么神经ODE 会将其随时间向前传播,为每个的值给出一个分布 $p(z(t))$,从而得到一个关于输出向量 $p(z(T))$ 的分布。 [cite: 24] Chen et al. (2018)表明,对于神经ODE,密度的变换可以通过积分一个由下式给出的微分方程来评估 [cite: 25, 24]</p>
-<p>$\frac{d~lnp(z(t))}{dt}=-Tr(\frac{\partial f}{\partial z(t)})$ (18.28) [cite: 25]</p>
-<p>其中 $\partial f/\partial z$ 表示雅可比矩阵,其元素为 $\partial f _ {i}/\partial z _ {jc}$ 这个积分可以使用标准的ODE 求解器来执行。同样,可以从基础密度 $p(z(0))$ 中采样,该分布被选择为一个简单的分布,例如高斯分布,并通过再次使用ODE 求解器积分(18.27)将值传播到输出。由此产生的框架被称为一个连续归一化流,并如图18.6所示。连续归一化流可以使用用于神经ODE的伴随敏感性方法进行训练,这可以看作是反向传播的连续时间等价物。 [cite: 25]</p>
-<p>由于(18.28)涉及雅可比矩阵的迹而不是在离散归一化流中出现的行列式,因此它可能看起来在计算上更高效。通常,计算一个 $D\times D$ 矩阵的行列式需要 $\mathcal{O}(D^{3})$ 次操作,而计算迹只需要 $\mathcal{O}(D)$ 次操作。然而,如果行列式是下三角形的,如在许多归一化流的形式中,那么行列式是主对角线项的乘积,因此也涉及 $\mathcal{O}(D)$ 次操作。由于计算雅可比矩阵的各个元素需要单独的前向传播,而前向传播本身需要 $\mathcal{O}(D)$ 次操作,因此计算迹或行列式(对于下三角矩阵)总共需要 $\mathcal{O}(D^{2})$ 次操作。然而,通过使用 Hutchinson 的迹估计器(Grathwohl et al., 2018),可以将计算迹的成本降低到 $\mathcal{O}(D),$ 该估计器对于一个矩阵 [cite: 25]</p>
-<p>558 18. 归一化流</p>
-<p>A采用以下形式 [cite: 26]</p>
-<p>$Tr(A)=\mathbb{E} _ {\epsilon}[\epsilon^{T}A\epsilon]$ (18.29) [cite: 26]</p>
-<p>其中是一个均值为零、协方差为一的随机向量,例如,高斯 $\mathcal{N}(0,I)$。对于特定的,矩阵-向量积A∈可以使用反向自动微分在一次遍历中高效地计算。然后我们可以使用有限数量的样本来近似迹,形式为 [cite: 26]</p>
-<p>$Tr(A)\simeq\frac{1}{M}\sum _ {m=1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}.$ (18.30) [cite: 26]</p>
-<p>在实践中,我们可以设置 $M=1$ 并仅使用一个样本,该样本为每个新数据点刷新。虽然这是一个有噪声的估计,但这可能并不重要,因为它构成了一个有噪声的随机梯度下降过程的一部分。重要的是它是无偏的,这意味着估计值的期望等于真实值。 [cite: 26]</p>
-<p>连续归一化流在训练效率方面可以实现显著改进,这可以通过一种称为流匹配(Lipman et al., 2022)的技术来实现。这使得归一化流更接近扩散模型,并避免了反向传播的需要,同时显著减少了内存需求,并使推理速度更快、训练更稳定。在积分器中传播,同时显著减少内存需求,并使推理速度更快、训练更稳定。</p>
+<p>$$a(t)=\frac{dL}{dz(t)}$$</p>
+<p>我们看到 $a(T)$ 对应于损失关于输出向量的常规导数。伴随子满足其自身的微分方程,该方程为：</p>
+<p>$$\frac{da(t)}{dt}=-a(t)^{T}\nabla _ {z}f(z(t),w)$$</p>
+<blockquote>
+<p>证明：<br>
+$$<br>
+\begin{align}<br>
+a(t)&amp;=\frac{dL}{dz(t)}\\<br>
+a(t+\delta t)&amp;\approx\frac{dL}{dz(t+\delta t)}\\<br>
+z(t+\delta t)&amp;\approx z(t)+f(z(t),w)\delta t\\<br>
+\therefore \frac{\partial L}{\partial z(t)}&amp;=\frac{\partial L}{\partial z(t+\delta t)}\frac{\partial z(t+\delta t)}{\partial z(t)}\\<br>
+a(t)&amp;=a(t+\delta t)(I+\nabla_zf()\delta t)<br>
+\end{align}<br>
+$$</p>
+</blockquote>
+<p>这是一个微积分链式法则的连续版本。这可以通过从 $a(T)$ 开始反向积分来求解,这同样可以使用黑盒ODE求解器来完成。</p>
+<p>关于网络参数的导数。当一个参数值在网络的多个连接中共享时,总导数由每个连接的导数之和形成。</p>
+<p>对于我们的神经ODE,其中相同的参数向量 w在整个网络中共享,这个求和变成了对的积分,其形式为：</p>
+<p>$$\nabla _ {w}L=-\int _ {0}^{T}a(t)^{T}\nabla _ {w}f(z(t),w)dt$$</p>
+<p>$\nabla _ {z}f$ 和 $\nabla _ {w}f$ 可以使用自动微分高效地计算。注意,上述结果同样适用于一个更通用的神经网络函数 $f(z(t),t,w)$ 它在除了通过 $z(t)$ 隐式依赖之外,还对有显式依赖。</p>
+<p>使用伴随方法训练的神经ODE相比于传统层状网络的一个优点是,不需要存储前向传播的中间结果,因此内存成本是恒定的。</p>
+<p>此外，神经 ODE可以自然地处理连续时间数据,其中观测值在任意时间发生。如果误差函数 L 取决于除输出值之外的 $z(t)$ 的值,那么需要多次运行反向模型求解器,每次运行对应一对连续的输出,以便将单个解分解为多个连续解,从而访问中间状态。</p>
+<h3 id="神经ODE-flows">神经ODE flows</h3>
+<p>我们可以利用神经常微分方程来定义一种替代方法,用于构建可处理的归一化流模型。</p>
+<p>神经ODE定义了一种高度灵活的从输入向量 $z(0)$ 到输出向量 $z(T)$ 的变换,该变换以微分方程的形式给出：</p>
+<p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
+<p>如果我们定义一个关于输入向量 $p(z(0))$ 的基础分布,那么神经ODE 会将其随时间向前传播,为每个的值给出一个分布 $p(z(t))$,从而得到一个关于输出向量 $p(z(T))$ 的分布。</p>
+<p>Chen et al. (2018)表明,对于神经ODE,密度的变换可以通过积分一个由下式给出的微分方程来评估：</p>
+<p>$$\frac{d~lnp(z(t))}{dt}=-Tr(\frac{\partial f}{\partial z(t)})$$</p>
+<p>其中 $\partial f/\partial z$ 表示雅可比矩阵,其元素为 $\partial f _ {i}/\partial z _ {jc}$ 这个积分可以使用标准的ODE 求解器来执行。同样,可以从基础密度 $p(z(0))$ 中采样,该分布被选择为一个简单的分布,例如高斯分布,并通过再次使用ODE 求解器积分将值传播到输出。由此产生的框架被称为一个连续归一化流。连续归一化流可以使用用于神经ODE的伴随敏感性方法进行训练,这可以看作是反向传播的连续时间等价物。</p>
+<p>由于涉及雅可比矩阵的迹而不是使用行列式，因此它可能看起来在计算上更高效。<br>
+通常,计算一个 $D\times D$ 矩阵的行列式需要 $\mathcal{O}(D^{3})$ 次操作,而计算迹只需要 $\mathcal{O}(D)$ 次操作。</p>
+<p>然而,如果行列式是下三角形的,如在许多归一化流的形式中,那么行列式是主对角线项的乘积,因此也涉及 $\mathcal{O}(D)$ 次操作。由于计算雅可比矩阵的各个元素需要单独的前向传播,而前向传播本身需要 $\mathcal{O}(D)$ 次操作,因此计算迹或行列式(对于下三角矩阵)总共需要 $\mathcal{O}(D^{2})$ 次操作。</p>
+<p>然而,通过使用 Hutchinson 的迹估计器(Grathwohl et al., 2018),可以将计算迹的成本降低到 $\mathcal{O}(D),$</p>
+<p>该估计器对于一个矩阵A采用以下形式</p>
+<p>$$Tr(A)=\mathbb{E} _ {\epsilon}[\epsilon^{T}A\epsilon]$$</p>
+<p>其中是一个均值为零、协方差为一的随机向量,例如,高斯 $\mathcal{N}(0,I)$。对于特定的,矩阵-向量积A∈可以使用反向自动微分在一次遍历中高效地计算。然后我们可以使用有限数量的样本来近似迹,形式为：</p>
+<p>$$Tr(A)\simeq\frac{1}{M}\sum _ {m=1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}$$</p>
 <!--more-->
 <h2 id="参考资料">参考资料</h2>
 <p>AE可以帮助realnvp。<a href="https://github.com/ispamm/realnvp-demo-pytorch/blob/master/Normalizing_Flow_for_Embedding_Generation.ipynb">https://github.com/ispamm/realnvp-demo-pytorch/blob/master/Normalizing_Flow_for_Embedding_Generation.ipynb</a></p>
 <p><a href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a></p>
 <p><a href="https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp">https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp</a></p>
-<p>本文参考了多篇论文和一些教科书<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[4]</span></a></sup>和李宏毅的课程<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[3]</span></a></sup>。</p>
+<p>本文参考了多篇论文和一些教科书<sup id="fnref:98" class="footnote-ref"><a href="#fn:98" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[98]</span></a></sup>和李宏毅的课程<sup id="fnref:99" class="footnote-ref"><a href="#fn:99" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[99]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. <em>Annalen der Physik</em>, 322(10), 891-921.
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>李宏毅的flow base model课程
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>PRML
-<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ricky T. Q. Chen.Neural Ordinary Differential Equations
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:98" class="footnote-text"><span>PRML
+<a href="#fnref:98" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:99" class="footnote-text"><span>李宏毅的flow base model课程
+<a href="#fnref:99" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
       <tags>
         <tag>深度学习</tag>
         <tag>生成模型</tag>
