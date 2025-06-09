@@ -21882,9 +21882,9 @@ $$<br>
       </tags>
   </entry>
   <entry>
-    <title>Flow模型</title>
+    <title>流模型与流匹配</title>
     <url>/2025/20250609/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>这是一个需要引用的观点 <sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="张三. (2020). *一篇重要的文章*. 某某期刊, 10(2), 45-56.">[1]</span></a></sup>。爱因斯坦在他的某篇著名论文中提出了这个理论 <sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. *Annalen der Physik*, 322(10), 891-921.">[2]</span></a></sup>。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>流模型与流匹配介绍。</p>
 <span id="more"></span>
 <h1>归一化流</h1>
 <h2 id="先导">先导</h2>
@@ -21922,22 +21922,21 @@ $$</p>
 <p>首先考虑一个形式为$x=az+b$，它很容易求逆,得到 $z=\frac{1}{a}(x-b)$ 。</p>
 <p>但是，线性变换在复合下是封闭的——一系列线性变换等效于一个整体线性变换。此外,高斯分布的线性变换仍然是高斯分布。因此,即使我们有许多这样的“层”线性变换,我们也只会得到一个高斯分布。</p>
 <p>问题是，我们能否在保持线性变换可逆性的同时,允许额外的灵活性,以便结果分布是非高斯的呢？</p>
-<p>这个问题的一个解决方案是由一种称为真实NVP(Dinh, Krueger, and Bengio, 2014; Dinh, Sohl-Dickstein, and Bengio, 2016)的归一化流模型给出,它是“实值非体积保持”的缩写。想法是将潜在变量向量z分成两部分 $z=(z_{A},z_{B})$,使得如果z的维度是 $D_{i}$ 而 $Z_{A}$ 的维度是d,那么 $z_{B}$ 的维度是 $D-d_{n}$ 我们同样 [cite: 5]</p>
-<p>550 18. 归一化流</p>
-<p>将输出向量 $x=(x_{A},x_{B})$ 划分,其中 $x_{A}$ 的维度为d,而对于输出向量的第一部分,我们简单地复制输入: [cite: 6]</p>
-<p>$x_{A}=z_{A}$ (18.10) [cite: 6]</p>
-<p>$x_{B}$ 的维度为 $D-d_{\circ}$ [cite: 6]</p>
-<p>向量的第二部分经过线性变换,但现在线性变换中的系数由 $Z_{A}$ 的非线性函数给出: [cite: 6]</p>
-<p>$x_{B}=exp(s(z_{A},w))\odot z_{B}+b(z_{A},w)$ (18.11) [cite: 6]</p>
-<p>其中 $s(z_{A},w)$ 和 $b(z_{A},w)$ 是神经网络的实值输出,指数函数确保乘法项为非负。这里表示涉及两个向量逐元素乘法的Hadamard积。类似地,(18.11)中的指数也是逐元素取的。注意,我们在两个网络函数中都显示了相同的向量w。在实践中,这些可以分别作为具有各自参数的独立网络实现,或者作为具有两组输出的单个网络实现。 [cite: 6]</p>
-<p>由于使用了神经网络函数, $x_{B}$ 的值可以是非常灵活的函数 $x_{A^{\circ}}$ [cite: 6]<br>
-整体变换很容易可逆:给定一个 $x=$ 的值 $(x_{A},x_{B})$,我们首先计算 [cite: 6]</p>
-<p>$z_{A}=x_{A}$ (18.12) [cite: 7]</p>
-<p>然后我们评估 $s(z_{A},w)$ 和 $b(z_{A},w)$,最后我们使用 $z_{B}$ 进行计算 [cite: 7]<br>
-$z_{B}=exp(-s(z_{A},w))\odot(x_{B}-b(z_{A},w))$. (18.13) [cite: 7]</p>
-<p>整体转换如图18.1所示。注意,单个神经网络函数 $S(Z;w)$ 和 $b(z;w)$ 无需可逆。 [cite: 7]</p>
-<p>现在考虑由(18.2)定义的雅可比矩阵及其行列式。我们可以将雅可比矩阵分成块,对应于z和x的划分,得到 [cite: 7]</p>
-<p>$J=[\begin{matrix}I_{d}&amp;0\ \frac{\partial z_{B}}{\partial x_{A}}&amp;diag(exp(-s))\end{matrix}]$ (18.14) [cite: 7]</p>
+<p>这个问题的一个解决方案是由一种称为RealNVP<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP">[1]</span></a></sup> 的归一化流模型给出,它是“real-valued non-volume preserving”的缩写。</p>
+<p>想法是将潜在变量向量z分成两部分 $z=(z_{A},z_{B})$,使得如果z的维度是 $D_{i}$ 而 $Z_{A}$ 的维度是d,那么 $z_{B}$ 的维度是 $D-d_{n}$ 。</p>
+<p>我们同样将输出向量 $x=(x_{A},x_{B})$ 划分,其中 $x_{A}$ 的维度为d。</p>
+<p>而对于输出向量的第一部分,我们简单地复制输入: $x_{A}=z_{A}$ ，$x_{B}$ 的维度为 $D-d_{\circ}$</p>
+<p>向量的第二部分经过线性变换,但现在线性变换中的系数由 $Z_{A}$ 的非线性函数给出：</p>
+<p>$$x_{B}=exp(s(z_{A},w))\odot z_{B}+b(z_{A},w)$ $$</p>
+<p>其中 $s(z_{A},w)$ 和 $b(z_{A},w)$ 是神经网络的实值输出,指数函数确保乘法项为非负。这里表示涉及两个向量逐元素乘法的Hadamard积。</p>
+<p>由于使用了神经网络函数, $x$ 的值可以是非常灵活的函数。</p>
+<p>整体变换也很容易可逆：给定一个 $x=$ 的值 $(x_{A},x_{B})$,我们首先计算$z_{A}=x_{A}$ ，然后有$z_{B}=exp(-s(z_{A},w))\odot(x_{B}-b(z_{A},w))$。</p>
+<p><img src="realnvp.jpg" alt=""></p>
+<p>值得注意的是， $S(Z;w)$ 和 $b(z;w)$ 无需可逆。</p>
+<p>现在考虑雅可比矩阵及其行列式。我们可以将雅可比矩阵分成块,对应于z和x的划分,得到:</p>
+<p>$$<br>
+J=\begin{bmatrix}\frac{\partial z_A}{\partial x_A}&amp;\frac{\partial z_A}{\partial x_B}\\ \frac{\partial z_B}{\partial x_A}&amp;\frac{\partial z_B}{\partial x_B}\end{bmatrix}=\begin{bmatrix}I_{d}&amp;0\\ \frac{\partial z_{B}}{\partial x_{A}}&amp;diag(exp(-s))\end{bmatrix}<br>
+$$</p>
 <p>18.1. 耦合流 551</p>
 <p>左上角的块对应于 $Z_{A}$ 对 $x_{A}$ 的导数,因此根据(18.12)由 $d\times d$ 单位矩阵给出。右上角的块对应于 $z_{A}$ 对 $x_{B}$ 的导数,这些项再次根据(18.12)消失。左下角的块对应于 $z_{B}$ 对 $x_{A}$ 的导数。根据(18.13),这些是涉及神经网络函数的复杂表达式。最后,右下角的块对应于 $z_{B}$ 对 $x_{B}$ 的导数,根据(18.13)由一个对角矩阵给出,其对角线元素由 $s(z_{A},w)$ 的负元素的指数给出。因此我们看到雅可比矩阵(18.14)是一个下三角矩阵,这意味着主对角线以上的所有元素都为零。对于这种矩阵,行列式仅仅是主对角线元素的乘积,因此它不依赖于左下角块中的复杂表达式。因此,雅可比行列式简单地由 $exp(-s(z_{A},w))$ 的元素乘积给出。 [cite: 8]</p>
 <p>这种方法的一个明显限制是 $z_{A}$ 的值不受变换的影响。这很容易通过添加另一层来解决,在该层中 $z_{A}$ 和 $z_{B}$ 的角色被反转,如图图18.2所示。然后可以重复这种双层结构多次,以促进非常灵活的一类生成模型。 [cite: 8]</p>
@@ -22018,7 +22017,7 @@ Coupling flows can be viewed as a special case of autoregressive flows in which 
 <p><a href="https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp">https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp</a></p>
 <p><strong>参考文献</strong></p>
 <p>本文参考了多篇论文和一些经典的教科书<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[4]</span></a></sup>和李宏毅的课程<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[3]</span></a></sup>。</p>
-<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>张三. (2020). <em>一篇重要的文章</em>. 某某期刊, 10(2), 45-56.
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. <em>Annalen der Physik</em>, 322(10), 891-921.
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>李宏毅的flow base model课程
 <a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>PRML
