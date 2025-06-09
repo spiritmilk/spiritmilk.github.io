@@ -21889,7 +21889,9 @@ $$<br>
 <h1>归一化流</h1>
 <p>我们首先会定义了一个分布 $p_{z}(z)$,有时也称为基础分布，以及一个由深度神经网络给出的非线性函数 $x=f(z,w)$，该函数将潜在空间（latent space）转换为数据空间。</p>
 <p>$p_{z}(z)$ 会尽可能简单,例如高斯分布，以便从这种模型中进行采样。</p>
-<p>为了衡量分布的相似度，$g^\ast =argmax\sum logP(x)\approx argmin (KL(P_{data}||P_G))$，我们需要计算此模型的似然函数,我们需要数据空间分布,这取决于神经网络的逆函数。我们将其写为 $z=g(x,w)$,它满足 $z=g(f(z,w),w)$。这要求,对于w的每个值,函数 $f(z,w)$ 和 $g(x,w)$ 是可逆的,也称为双射,以便每个x值对应一个唯一的z值,反之亦然。然后我们可以使用变量变换公式来计算数据密度: [cite: 3]</p>
+<p>为了衡量分布的相似度，$g^\ast =argmax\sum logP(x)\approx argmin (KL(P_{data}||P_G))$，我们需要计算此模型的似然函数,我们需要数据空间分布，这取决于神经网络的逆函数。</p>
+<p>我们将其写为 $z=g(x,w)$，它满足 $z=g(f(z,w),w)$。即对于w的每个值,函数 $f(z,w)$ 和 $g(x,w)$ 是可逆的,也称为双射,以便每个x值对应一个唯一的z值,反之亦然。</p>
+<p>然后我们可以使用变量变换公式（change of variable theorem）来计算数据密度:</p>
 <p>$p_{x}(x|w)=p_{z}(g(x,w))$ det $J(x)|$ (18.1) [cite: 3]</p>
 <p>where $J(x)$ 是偏导数雅可比矩阵,其元素给出 [cite: 3]</p>
 <p>$J_{ij}(x)=\frac{\partial g_{i}(x,w)}{\partial x_{j}}$ (18.2) [cite: 3]</p>
@@ -22008,6 +22010,8 @@ Coupling flows can be viewed as a special case of autoregressive flows in which 
 <p><a href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a></p>
 <p><a href="https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp">https://colab.research.google.com/github/phlippe/uvadlc_notebooks/blob/master/docs/tutorial_notebooks/tutorial11/NF_image_modeling.ipynb#scrollTo=ck7Ar9wbVeOp</a></p>
 <p><strong>参考文献</strong></p>
+<p>[3]李宏毅的flow base model课程</p>
+<p>[4]PRML</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>张三. (2020). <em>一篇重要的文章</em>. 某某期刊, 10(2), 45-56.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Einstein, A. (1905). Zur Elektrodynamik bewegter Körper. <em>Annalen der Physik</em>, 322(10), 891-921.
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
