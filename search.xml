@@ -21884,9 +21884,9 @@ $$<br>
   <entry>
     <title>流模型与流匹配</title>
     <url>/2025/20250609/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>流模型与流匹配介绍。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>流模型与流匹配介绍。</p>
 <span id="more"></span>
-<h1>归一化流</h1>
+<h1>归一化流（Normalizing Flow）</h1>
 <h2 id="先导">先导</h2>
 <p>我们首先会定义了一个分布 $p_{z}(z)$,有时也称为基础分布，以及一个由深度神经网络给出的非线性函数 $x=f(z,w)$，该函数将潜在空间（latent space）转换为数据空间。</p>
 <p>$p_{z}(z)$ 会尽可能简单,例如高斯分布，以便从这种模型中进行采样。</p>
@@ -21917,7 +21917,7 @@ z=g^{C}(g^{B}(g^{A}(x)))<br>
 $$</p>
 <p>对于雅克比矩阵也可以使用链式法则化为各个层的乘积。</p>
 <p>这种建模分布的方法称为归一化流（Normalizing Flow）。流，是因为通过一系列映射转换概率分布的过程与流体的流动有些类似。归一化，是因为逆映射的效果是将复杂的数据分布转换为归一化形式,通常是高斯或正态分布。</p>
-<h2 id="耦合流">耦合流</h2>
+<h2 id="耦合流（Coupling-Flows）">耦合流（Coupling Flows）</h2>
 <p>我们的目标是为单个可逆函数层,以便我们可以将许多层组合在一起来定义一个高度灵活的可逆函数类。</p>
 <p>首先考虑一个形式为$x=az+b$，它很容易求逆,得到 $z=\frac{1}{a}(x-b)$ 。</p>
 <p>但是，线性变换在复合下是封闭的——一系列线性变换等效于一个整体线性变换。此外,高斯分布的线性变换仍然是高斯分布。因此,即使我们有许多这样的“层”线性变换,我们也只会得到一个高斯分布。</p>
@@ -21942,10 +21942,10 @@ $$</p>
 <p><img src="morenvp.jpg" alt=""></p>
 <p>整体训练过程涉及创建数据点的mini-batches,其中每个数据点对对数似然函数的贡献来自(18.4)。对于形式为 $\mathcal{N}(z|0,I)$ 的潜在分布,对数密度简单地是 $-||z||^{2}/2$,仅差一个加性常数。<br>
 $$<br>
-\ln(\frac{1}{\sqrt{2\pi}}exp(-\frac{z^2}{2}))=\ln(\frac{1}{\sqrt{2\pi}})±\frac{||z||^2}{2}<br>
+\ln(\frac{1}{\sqrt{2\pi}}\exp(-\frac{z^2}{2}))=\ln(\frac{1}{\sqrt{2\pi}})±\frac{||z||^2}{2}<br>
 $$</p>
-<p>逆变换 $z=g(x)$ 是使用形式为(18.13)的逆变换序列计算的。类似地,雅可比行列式对数的值由每个层中对数行列式的和给出,其中每个项本身是形式为 $-s_{i}(x,w)$ 的项的和。可以使用自动微分评估对数似然的梯度,并通过随机梯度下降更新网络参数。 [cite: 8]</p>
-<p>真实 NVP 模型属于一类称为耦合流的正则化流,其中线性变换(18.11)被更一般的形式所替代 [cite: 8]</p>
+<p>类似地,雅可比行列式对数的值由每个层中对数行列式的和给出,其中每个项本身是形式为 $-s_{i}(x,w)$ 的项的和。可以使用自动微分评估对数似然的梯度,并通过随机梯度下降更新网络参数。 [cite: 8]</p>
+<p>真实 NVP 模型属于一类称为耦合流（Coupling Flows）的正则化流,其中线性变换(18.11)被更一般的形式所替代 [cite: 8]</p>
 <p>552 18. 归一化流</p>
 <p>$x_{B}=h(z_{B},g(z_{A},w))$ (18.15) [cite: 9]</p>
 <p>其中 $h(z_{B}g)$ 是一个关于 $z_{B}$ 的函数,对于任何给定的g值都是可逆的,称为耦合函数。函数 $g(z_{A},w)$ 称为条件器,通常由神经网络表示。 [cite: 9]</p>
