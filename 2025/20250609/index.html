@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/success.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/ag.jpg">
 <meta property="article:published_time" content="2025-06-09T14:24:45.000Z">
-<meta property="article:modified_time" content="2025-06-09T15:39:53.701Z">
+<meta property="article:modified_time" content="2025-06-09T15:44:11.544Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="物理">
@@ -541,8 +541,8 @@ p _ {t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf
 f(\mathbf{x}, t ; \mathbf{z}) &amp;= x_1-x_0<br>
 \end{align}<br>
 $$<br>
-这也就是independent CFM（iCFM)<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.">[6]</span></a></sup>，也叫**线性插值。**它也与最优传输（Optimal Transport）有关，正如其论文标题所述。</p>
-<p><strong>伪代码：</strong></p>
+这也就是independent CFM（iCFM)<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.">[6]</span></a></sup>，也叫<strong>线性插值。</strong> 它也与最优传输（Optimal Transport）有关，正如其论文标题所述。</p>
+<p><strong>完整流程：</strong></p>
 <p>1.采样  t∼Uniform(0,1)<br>
 2.采样  z∼q(z)<br>
 3.计算$\mu_z$和$\sigma_t(z)$</p>
