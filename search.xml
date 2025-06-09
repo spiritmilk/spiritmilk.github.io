@@ -21940,33 +21940,31 @@ $$</p>
 <p>我们不在乎左下角的值，因为它是一个下三角矩阵，行列式直接是主对角线元素的乘积。因此,雅可比行列式简单地由 $exp(-s(z _ {A},w))$ 的元素乘积给出。</p>
 <p>这种方法的一个明显限制是 $z _ {A}$ 的值不受变换的影响。这很容易通过添加另一层来解决,在该层中 $z _ {A}$ 和 $z _ {B}$ 的角色被反转。然后可以重复这种双层结构多次。</p>
 <p><img src="morenvp.jpg" alt=""></p>
-<p>整体训练过程涉及创建数据点的mini-batches,其中每个数据点对对数似然函数的贡献来自(18.4)。对于形式为 $\mathcal{N}(z|0,I)$ 的潜在分布,对数密度简单地是 $-||z||^{2}/2$,仅差一个加性常数。<br>
+<p>整体训练过程涉及创建数据点的mini-batches。对于形式为 $\mathcal{N}(z|0,I)$ 的潜在分布,对数密度简单地是 $-||z||^{2}/2$,仅差一个加性常数。<br>
 $$<br>
 \ln(\frac{1}{\sqrt{2\pi}}\exp(-\frac{z^2}{2}))=\ln(\frac{1}{\sqrt{2\pi}})+\frac{-||z||^2}{2}<br>
 $$<br>
 真实 NVP 模型属于一类称为耦合流（Coupling Flows）的正则化流,其中线性变换$x _ {B}=exp(s(z _ {A},w))\odot z _ {B}+b(z _ {A},w)$被更一般的形式$x _ {B}=h(z _ {B},g(z _ {A},w))$ 所替代。</p>
 <p>其中 $h(z _ {B}g)$ 是一个关于 $z _ {B}$ 的函数，对于任何给定的g值都是可逆的,称为耦合函数。函数 $g(z _ {A},w)$ 称为条件器（conditioner）,通常由神经网络表示。</p>
 <h2 id="自回归流（Autoregressive-Flows）">自回归流（Autoregressive Flows）</h2>
-<p>一个与正则化流相关的公式可以从注意到一组变量的联合分布总是可以表示为每个变量的条件分布的乘积来推导。我们可以不失一般性地写出, [cite: 10]</p>
+<p>一个与正则化流相关的公式可以从注意到一组变量的联合分布总是可以表示为每个变量的条件分布的乘积来推导。我们可以不失一般性地写出：</p>
 <p>$$p(x _ {1},…,x _ {D})=\prod _ {i=1}^{D}p(x _ {i}|x _ {1:i-1})$$</p>
-<p>其中 $x _ {1:i-1}$ 表示 $x _ {1},…,x _ {i-10}$ 这种分解可用于构建一类称为掩码自回归流(masked autoregressive flow，MAF)的归一化流,其定义为：</p>
+<p>其中 $x _ {1:i-1}$ 表示 $x _ {1},…,x _ {i-10}$ 这种分解可用于构建一类称为掩码式自回归流(masked autoregressive flow，MAF)的归一化流,其定义为：</p>
 <p>$$x _ {i}=h(z _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$$</p>
-<p>这里 $h(z _ {i},\cdot)$ 是耦合函数,其被选择为相对于易于 $z _ {i}$ 求逆的,而g是条件器,通常由深度神经网络表示。术语风格化指的是使用单个神经网络来实现上式以及一个二元掩码，该掩码强制网络权重的子集为零以实现自回归约束。</p>
+<p>这里 $h(z _ {i},\cdot)$ 是耦合函数,其被选择为相对于易于 $z _ {i}$ 求逆的,而g是条件器,通常由深度神经网络表示。掩码式指的是使用单个神经网络来实现上式以及一个二元掩码，该掩码强制网络权重的子集为零以实现自回归约束。</p>
 <p><img src="ag.jpg" alt=""></p>
-<p>在这种情况下,用于评估似然函数的逆向计算需要给出 [cite: 10]</p>
-<p>$z _ {i}=h^{-1}(x _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$ (18.18) [cite: 10]</p>
-<p>因此可以在现代硬件上高效执行,因为(18.18)中用于评估的各个函数 $z _ {1},…,z _ {D}$ 可以并行评估。与转换集(18.18)对应的雅可比矩阵的元素 $\partial z _ {i}/\partial x _ {j},$ 它们形成一个上三角矩阵,其行列式由对角元素的乘积给出,因此也可以高效评估。然而,从这个模型中进行采样必须通过评估(18.17)来完成,这本质上是有序的,因此很慢,因为 $x _ {1},…,x _ {i-1}$ 的值必须评估 $x _ {i}$ 才能计算。 [cite: 10]</p>
-<p>为了避免这种低效的采样,我们可以定义一个逆自回归流,或IAF(Kingma等人,2016),给出 [cite: 10]</p>
-<p>$x _ {i}=h(z _ {i},\tilde{g} _ {i}(z _ {1:i-1},w _ {i}))$ (18.19) [cite: 10]</p>
-<p>554 18. NORMALIZING FLOWS</p>
-<p>as illustrated in Figure 18.4(b). Sampling is now efficient since, for a given choice of z, the evaluation of the elements $x _ {1},…,x _ {D}$ using (18.19) can be performed in parallel. [cite: 11]</p>
-<p>However, the inverse function, which is needed to evaluate the likelihood, requires a series of calculations of the form [cite: 12]</p>
-<p>$z _ {i}=h^{-1}(x _ {i},\tilde{g} _ {i}(z _ {1:i-1},w _ {i}))$, (18.20) [cite: 12]</p>
-<p>它们本质上具有序列性,因此速度较慢。是选择掩码自回归流还是逆自回归流,将取决于具体应用。 [cite: 12]</p>
-<p>We see that coupling flows and autoregressive flows are closely related. [cite: 12]<br>
-Although autoregressive flows introduce considerable flexibility, this comes with a computational cost that grows linearly in the dimensionality D of the data space due to the need for sequential ancestral sampling. [cite: 13]<br>
-Coupling flows can be viewed as a special case of autoregressive flows in which some of this generality is sacrificed for efficiency by dividing the variables into two groups instead of D groups. [cite: 14]</p>
-<h2 id="18-3-连续流">18.3. 连续流</h2>
+<p>在这种情况下,用于评估似然函数的逆向计算需要给出：</p>
+<p>$z _ {i}=h^{-1}(x _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$</p>
+<p>因为上式中用于评估的各个函数 $z _ {1},…,z _ {D}$ 可以并行评估，因此可以在现代硬件上高效执行。</p>
+<p>与上式对应的雅可比矩阵的元素 $\partial z _ {i}/\partial x _ {j}$ 它们形成一个上三角矩阵,其行列式由对角元素的乘积给出,因此也可以高效评估。</p>
+<p>然而,从这个模型中进行采样必须通过评估$x _ {i}=h(z _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$来完成,这本质上是有序的，因此很慢。</p>
+<p>为了避免这种低效的采样，可以定义一个逆自回归流（inverse autoregres*</p>
+<p>*sive flows，IAF）给出 ：</p>
+<p>$$x _ {i}=h(z _ {i},\tilde{g} _ {i}(z _ {1:i-1},w _ {i}))$$</p>
+<p>现在采样就更快了。</p>
+<p>然而，其逆函数也还是具有序列性。</p>
+<p>$z _ {i}=h^{-1}(x _ {i},\tilde{g} _ {i}(z _ {1:i-1},w _ {i}))$</p>
+<h2 id="连续流（Continuous-Flow）">连续流（Continuous Flow）</h2>
 <p>本章考虑的用于正则化流的最终方法将使用定义为常微分方程(ODE)的深度神经网络。这可以看作是一个具有无限层数的深度网络。我们首先介绍神经 ODE的概念,然后看看如何将其应用于正则化流模型的形式化。 [cite: 15]</p>
 <h3 id="18-3-1-神经微分方程">18.3.1 神经微分方程</h3>
 <p>我们已经看到,当神经网络包含许多处理层时特别有用,因此我们可以问如果我们探索无限层数的极限会发生什么。考虑一个残差网络,其中每一层的处理生成的输出由输入向量与输入向量的某些参数化非线性函数相加给出: [cite: 15]</p>
