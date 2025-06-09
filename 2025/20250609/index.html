@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/success.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/ag.jpg">
 <meta property="article:published_time" content="2025-06-09T14:24:45.000Z">
-<meta property="article:modified_time" content="2025-06-09T14:56:37.822Z">
+<meta property="article:modified_time" content="2025-06-09T15:13:42.053Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="物理">
@@ -272,7 +272,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k 字
+          5.5k 字
         
       </span>
     
@@ -283,7 +283,7 @@
         
         
         
-          45 分钟
+          46 分钟
         
       </span>
     
@@ -523,16 +523,18 @@ $$<br>
 <h2 id="条件流匹配">条件流匹配</h2>
 <p>CFM 的核心思想是选择一个额外变量 z 和一个条件概率路径$p(x\mid t,z)$。<br>
 $$<br>
-\mathcal{L}<em>{CFM}=E</em>{t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t)-f^\theta_t(X_t,t;z)||^2<br>
+\mathcal{L}<em>{CFM}=E</em>{t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t;z)-f_t^\theta(X_t,t)||^2<br>
 $$<br>
-对于z，我们可以只考虑$x_1$，定义$\mu(z,t)=tx_1$，$\sigma(z,t)=t\sigma_{const}-t+1$，则<br>
+Lipman 等人<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>证明了$\mathcal{L}<em>{FM}$和$\mathcal{L}</em>{CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。</p>
+<p>证明其实很简单，把期望内的括号展开分离即可。</p>
+<p>对于z，我们可以只考虑$x_1$，定义$\mu(z,t)=tx_1$，$\sigma(z,t)=t\sigma_{const}-t+1$，则<br>
 $$<br>
 \begin{align}<br>
 p_{t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf{x}<em>1, (t \sigma</em>{const} - t + 1)^2 \mathbf{I} \right) \\<br>
 f(\mathbf{x}, t ; \mathbf{z}) &amp;= \frac{ \mathbf{x}<em>1 - (1 - \sigma</em>{const}) \mathbf{x} }{ 1 - (1 - \sigma_{const}) t }<br>
 \end{align}<br>
-$$</p>
-<p>这也就是原始的CFM<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>，也叫<strong>锥形高斯路径</strong>（<strong>Conical Gaussian paths</strong>）。</p>
+$$<br>
+这也就是原始的CFM<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[5]</span></a></sup>，也叫<strong>锥形高斯路径</strong>（<strong>Conical Gaussian paths</strong>）。</p>
 <p>对于z，我们也可以将$x_0$和$x_1$联合起来考虑，定义$\mu(z,t)=(1-t)x_0+tx_1$，$\sigma(z,t)=\sigma_{const}$，则<br>
 $$<br>
 \begin{align}<br>
@@ -541,6 +543,14 @@ f(\mathbf{x}, t ; \mathbf{z}) &amp;= x_1-x_0<br>
 \end{align}<br>
 $$<br>
 这也就是independent CFM（iCFM)<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.">[6]</span></a></sup>，也叫<strong>线性插值。</strong></p>
+<p><strong>伪代码：</strong></p>
+<p>1.采样  t∼Uniform(0,1)<br>
+2.采样  z∼q(z)<br>
+3.计算$\mu_z$和$\sigma_t(z)$</p>
+<p>4.计算$x_t\sim\mathcal{N}(x\mid\mu(z,t),\sigma(z,t))$</p>
+<p>5.计算向量场$f$</p>
+<p>6.计算损失</p>
+<p>7.更新参数</p>
 <h1>参考资料</h1>
 <p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:94" class="footnote-ref"><a href="#fn:94" rel="footnote"><span class="hint--top hint--rounded" aria-label="hFlow Matching: Matching flows instead of scores.https://jmtomczak.github.io/blog/18/18_fm.html">[94]</span></a></sup><sup id="fnref:95" class="footnote-ref"><a href="#fn:95" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.Flow Matching Guide and Code">[95]</span></a></sup><sup id="fnref:96" class="footnote-ref"><a href="#fn:96" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching.https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[96]</span></a></sup><sup id="fnref:97" class="footnote-ref"><a href="#fn:97" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.https://github.com/phlippe/uvadlc_notebooks">[97]</span></a></sup>和一些教科书<sup id="fnref:98" class="footnote-ref"><a href="#fn:98" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[98]</span></a></sup>和李宏毅的课程<sup id="fnref:99" class="footnote-ref"><a href="#fn:99" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[99]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
