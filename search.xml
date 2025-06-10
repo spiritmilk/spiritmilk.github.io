@@ -22144,7 +22144,8 @@ $$</p>
 <p>$$<br>
 u_{\text{tgt}} = v(z_t, t) - (t-r)(v(z_t, t)\partial_z u_\theta + \partial_t u_\theta)<br>
 $$<br>
-<img src="meanflow.jpg" alt=""></p>
+在这里我们会使用sg(stop gradient)，因为我们并不需要它的导数，也避免了再去求高阶导数。</p>
+<p><img src="meanflow.jpg" alt=""></p>
 <h1>参考资料</h1>
 <p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:94" class="footnote-ref"><a href="#fn:94" rel="footnote"><span class="hint--top hint--rounded" aria-label="hFlow Matching: Matching flows instead of scores.https://jmtomczak.github.io/blog/18/18_fm.html">[94]</span></a></sup><sup id="fnref:95" class="footnote-ref"><a href="#fn:95" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.Flow Matching Guide and Code">[95]</span></a></sup><sup id="fnref:96" class="footnote-ref"><a href="#fn:96" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching.https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[96]</span></a></sup><sup id="fnref:97" class="footnote-ref"><a href="#fn:97" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.https://github.com/phlippe/uvadlc_notebooks">[97]</span></a></sup>和一些教科书<sup id="fnref:98" class="footnote-ref"><a href="#fn:98" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[98]</span></a></sup>和李宏毅的课程<sup id="fnref:99" class="footnote-ref"><a href="#fn:99" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[99]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
