@@ -19377,7 +19377,7 @@ $$<br>
 <p>我们也可以假定先验为$N(0,\tau^2)$，则后验分布为$N(\frac{\tau^2}{\sigma^2/n+\tau^2},)$</p>
 <p>故贝叶斯估计量为$\frac{\tau^2}{\sigma^2/n+\tau^2} \bar X$，则有$\frac{1}{||\mathbf{X}||_2^2} \sim \frac{1}{\tau^2 + \sigma^2} \cdot \text{inverse-}\chi^2_p$。<br>
 $$<br>
-\begin{align} \mathbb{E}[\hat{\alpha}^{(JS)}] &amp;= \mathbb{E}\left[\left( 1 - \frac{(p - 2) \sigma^2}{||\mathbf{X}||_2^2} \right)\right] \ &amp;= 1 - \mathbb{E}\left[\left(\frac{(p - 2) \sigma^2}{||\mathbf{X}||_2^2} \right)\right] \ &amp;= 1 - (p - 2) \sigma^2 \mathbb{E}\left[\frac{1}{||\mathbf{X}||_2^2} \right] \ &amp;= 1 - (p - 2) \sigma^2 \frac{1}{(\tau^2 + \sigma^2) (p - 2)} \ &amp;= 1 -  \frac{\sigma^2}{\tau^2 + \sigma^2} \ &amp;= \frac{\tau^2}{\tau^2 + \sigma^2} \ \end{align}<br>
+\begin{align} \mathbb{E}[\hat{\alpha}^{(JS)}] &amp;= \mathbb{E}\left[\left( 1 - \frac{(p - 2) \sigma^2}{||\mathbf{X}||_2^2} \right)\right] \\ &amp;= 1 - \mathbb{E}\left[\left(\frac{(p - 2) \sigma^2}{||\mathbf{X}||_2^2} \right)\right] \\ &amp;= 1 - (p - 2) \sigma^2 \mathbb{E}\left[\frac{1}{||\mathbf{X}||_2^2} \right] \\ &amp;= 1 - (p - 2) \sigma^2 \frac{1}{(\tau^2 + \sigma^2) (p - 2)} \\ &amp;= 1 -  \frac{\sigma^2}{\tau^2 + \sigma^2} \\ &amp;= \frac{\tau^2}{\tau^2 + \sigma^2} \ \end{align}<br>
 $$<br>
 然而对于$\alpha$，一个一个计算类内方差可能会有较大的复杂度，我们可以假定全部方差都相同，比如<a href="https://www.kaggle.com/code/mmotoki/hierarchical-bayesian-target-encoding">kaggle-ASHRAE - Great Energy Predictor III比赛第一名所用的那样</a>。我们也假设各类符合相同分布，这也被称为<a href="https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/">pooled</a>。</p>
 <h2 id="M-estimate-Encoder">M-estimate Encoder</h2>
@@ -22122,8 +22122,8 @@ $$<br>
 <p>然而，我们不止一个力源，所以最终场（右图）并不是一条直线。</p>
 <p><img src="vis.jpg" alt=""></p>
 <p>我们也很难去涉及一种力，使得合并后的最终场是直线形式。</p>
-<p>面对天体运动，对于地心说，与其我们引入复杂本轮均轮来完善，更好的方法是直接引入日心说。</p>
-<p>故MeanFlow另起炉灶，而使用了平均速度。</p>
+<p>面对天体运动，对于地心说，与其我们引入复杂的本轮均轮来完善，更好的方法是直接引入日心说。</p>
+<p>故MeanFlow另起炉灶，虽然继续使用同样的力源，但使用了平均速度。</p>
 <p>我们延用论文中的符号。</p>
 <p>瞬时速度：</p>
 <p>$$<br>
