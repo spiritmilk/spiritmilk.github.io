@@ -22125,7 +22125,7 @@ $$</p>
 <p>$$\frac{d}{dt} (t - r)u(z_t, r, t) = \frac{d}{dt} \int_r^t v(z _ {\tau}, \tau) d\tau \implies u(z_t, r, t) + (t - r)\frac{d}{dt}u(z_t, r, t) = v(z_t, t)$$</p>
 <p>若我们想利用平均速度一步就能得到结果, 则就需要平均速度场满足</p>
 <p>$$<br>
-\underbrace{u(z_t, r, t)}<em>{\text{average vel.}} = \underbrace{v(z_t, t)}</em>{\text{instant. vel.}} - \underbrace{(t - r)\frac{d}{dt}u(z_t, r, t)}_{\text{time derivative}}<br>
+\underbrace{u(z_t, r, t)} _ {\text{average vel.}} = \underbrace{v(z_t, t)} _ {\text{instant. vel.}} - \underbrace{(t - r)\frac{d}{dt}u(z_t, r, t)} _ {\text{time derivative}}<br>
 $$</p>
 <p>对于最后一项有：</p>
 <p>$$<br>
@@ -22138,11 +22138,11 @@ $$</p>
 <p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，同样地我们在这里也可以使用。</p>
 <p>最终设定损失函数：<br>
 $$<br>
-\mathcal{L}(\theta) = \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u_{\text{tgt}}) ||^2_2 \right]<br>
+\mathcal{L}(\theta) = \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u _ {\text{tgt}}) ||^2_2 \right]<br>
 $$</p>
 <p>其中</p>
 <p>$$<br>
-u_{\text{tgt}} = v(z_t, t) - (t-r)(v(z_t, t)\partial_z u_\theta + \partial_t u_\theta)<br>
+u _ {\text{tgt}} = v(z_t, t) - (t-r)(v(z_t, t)\partial_z u_\theta + \partial_t u_\theta)<br>
 $$<br>
 在这里我们会使用sg(stop gradient)，因为我们并不需要它的导数，也避免了再去求高阶导数。</p>
 <p><img src="meanflow.jpg" alt=""></p>
