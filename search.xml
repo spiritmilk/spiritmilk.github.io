@@ -22111,8 +22111,40 @@ $$<br>
 <p>7.更新参数</p>
 <h2 id="meanflow">meanflow</h2>
 <p>我们直接跳到最新的研究。由何恺明组提出的《Mean Flows for One-step Generative Modeling》<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Zhengyang Geng, Mingyang Deng, Xingjian Bai, J. Zico Kolter,  Kaiming He. Mean Flows for One-step Generative Modeling">[7]</span></a></sup>。</p>
-<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，同样地这里也使用了。</p>
-<p><img src="meanflow.jpg" alt=""></p>
+<p>回顾一下前文：</p>
+<p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
+<p>这实际上代表着瞬时速度。</p>
+<p><img src="averspeed.jpg" alt=""></p>
+<p>我们延用论文中的符号。</p>
+<p>瞬时速度：</p>
+<p>$$<br>
+\frac{dz(t)}{dt}=v(z(t),w)<br>
+$$</p>
+<p>而平均速度场 u 和瞬时速度场 v 有以下关系：</p>
+<p>$$(t - r)u(z_t, r, t) = \int_r^t v(z_{\tau}, \tau) d\tau$$</p>
+<p>$$\frac{d}{dt} (t - r)u(z_t, r, t) = \frac{d}{dt} \int_r^t v(z_{\tau}, \tau) d\tau \implies u(z_t, r, t) + (t - r)\frac{d}{dt}u(z_t, r, t) = v(z_t, t)$$</p>
+<p>若我们想利用平均速度一步就能得到结果, 则就需要平均速度场满足</p>
+<p>$$<br>
+\underbrace{u(z_t, r, t)}<em>{\text{average vel.}} = \underbrace{v(z_t, t)}</em>{\text{instant. vel.}} - \underbrace{(t - r)\frac{d}{dt}u(z_t, r, t)}_{\text{time derivative}}<br>
+$$</p>
+<p>对于最后一项有：</p>
+<p>$$<br>
+\frac{d}{dt}u(z_t, r, t) = \frac{dz_t}{dt}\partial_z u + \frac{dr}{dt}\partial_r u + \frac{dt}{dt}\partial_t u<br>
+$$</p>
+<p>其中：</p>
+<p>$$<br>
+\frac{dz_t}{dt} = v(z_t, t), \quad \frac{dr}{dt} = 0, \quad \frac{dt}{dt} = 1<br>
+$$</p>
+<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，同样地我们在这里也可以使用。</p>
+<p>最终设定损失函数：<br>
+$$<br>
+\mathcal{L}(\theta) = \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u_{\text{tgt}}) ||^2_2 \right]<br>
+$$</p>
+<p>其中</p>
+<p>$$<br>
+u_{\text{tgt}} = v(z_t, t) - (t-r)(v(z_t, t)\partial_z u_\theta + \partial_t u_\theta)<br>
+$$<br>
+<img src="meanflow.jpg" alt=""></p>
 <h1>参考资料</h1>
 <p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:94" class="footnote-ref"><a href="#fn:94" rel="footnote"><span class="hint--top hint--rounded" aria-label="hFlow Matching: Matching flows instead of scores.https://jmtomczak.github.io/blog/18/18_fm.html">[94]</span></a></sup><sup id="fnref:95" class="footnote-ref"><a href="#fn:95" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.Flow Matching Guide and Code">[95]</span></a></sup><sup id="fnref:96" class="footnote-ref"><a href="#fn:96" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching.https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[96]</span></a></sup><sup id="fnref:97" class="footnote-ref"><a href="#fn:97" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.https://github.com/phlippe/uvadlc_notebooks">[97]</span></a></sup>和一些教科书<sup id="fnref:98" class="footnote-ref"><a href="#fn:98" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[98]</span></a></sup>和李宏毅的课程<sup id="fnref:99" class="footnote-ref"><a href="#fn:99" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[99]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
