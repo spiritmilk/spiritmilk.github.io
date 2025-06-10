@@ -22144,7 +22144,7 @@ $$</p>
 <p>$$<br>
 \frac{dz_t}{dt} = v(z_t, t), \quad \frac{dr}{dt} = 0, \quad \frac{dt}{dt} = 1<br>
 $$</p>
-<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，同样地我们在这里也可以对上式使用。</p>
+<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力,我们不需要计算整个雅克比矩阵A，就能得到矩阵的迹。同样地我们在这里也可以对上式使用。</p>
 <p>最终设定损失函数：<br>
 $$<br>
 \mathcal{L}(\theta) = \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u _ {\text{tgt}}) ||^2_2 \right]<br>
