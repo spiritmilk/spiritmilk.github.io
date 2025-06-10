@@ -22116,6 +22116,8 @@ $$<br>
 <p>这实际上代表着瞬时速度。</p>
 <p>作者认为，瞬时速度并不是直接指向数据点，所以无法一步生成，而要一步生成需要平均速度才能实现。</p>
 <p><img src="averspeed.jpg" alt=""></p>
+<p>换种角度，前文的flow matching尽管使用的是直线插值，但是实际上是线性加噪而非线性去噪。导致我们无法一步生成。</p>
+<p>我们也可以使用一些形象的方法来解释。</p>
 <p>我们延用论文中的符号。</p>
 <p>瞬时速度：</p>
 <p>$$<br>
@@ -22136,7 +22138,7 @@ $$</p>
 <p>$$<br>
 \frac{dz_t}{dt} = v(z_t, t), \quad \frac{dr}{dt} = 0, \quad \frac{dt}{dt} = 1<br>
 $$</p>
-<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，同样地我们在这里也可以使用。</p>
+<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，同样地我们在这里也可以对上式使用。</p>
 <p>最终设定损失函数：<br>
 $$<br>
 \mathcal{L}(\theta) = \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u _ {\text{tgt}}) ||^2_2 \right]<br>
