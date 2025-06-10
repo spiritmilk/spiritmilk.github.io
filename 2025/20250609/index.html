@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/vis.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250609/meanflow.jpg">
 <meta property="article:published_time" content="2025-06-09T14:24:45.000Z">
-<meta property="article:modified_time" content="2025-06-10T03:50:18.507Z">
+<meta property="article:modified_time" content="2025-06-10T04:03:56.927Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="物理">
@@ -367,7 +367,7 @@ $$</p>
 <p>首先考虑一个形式为$x=az+b$，它很容易求逆,得到 $z=\frac{1}{a}(x-b)$ 。</p>
 <p>但是，线性变换在复合下是封闭的——一系列线性变换等效于一个整体线性变换。此外,高斯分布的线性变换仍然是高斯分布。因此,即使我们有许多这样的线性变换,我们也只会得到一个高斯分布。</p>
 <p>问题是，我们能否在保持线性变换可逆性的同时,允许额外的灵活性,以便结果分布是非高斯的呢？</p>
-<p>这个问题的一个解决方案是由一种称为RealNVP<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP">[1]</span></a></sup> 的归一化流模型给出,它是“real-valued non-volume preserving”的缩写。</p>
+<p>这个问题的一个解决方案是由一种称为RealNVP<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio. Density estimation using Real NVP">[1]</span></a></sup> 的归一化流模型给出,它是“real-valued non-volume preserving”的缩写。</p>
 <p>想法是将潜在变量向量z分成两部分 $z=(z _ {A},z _ {B})$,使得如果z的维度是 $D _ {i}$ 而 $Z _ {A}$ 的维度是d,那么 $z _ {B}$ 的维度是 $D-d _ {n}$ 。</p>
 <p>我们同样将输出向量 $x=(x _ {A},x _ {B})$ 划分,其中 $x _ {A}$ 的维度为d。</p>
 <p>而对于输出向量的第一部分,我们简单地复制输入: $x _ {A}=z _ {A}$ ，$x _ {B}$ 的维度为 $D-d _ {\circ}$</p>
@@ -445,7 +445,7 @@ $$<br>
 <h3 id="神经ODE反向传播">神经ODE反向传播</h3>
 <p>我们得到了神经ODE的形式，那么如何通过优化损失函数来确定w的值呢？假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。</p>
 <p>一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管这很直接,但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。</p>
-<p>相反,Chen等人<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen.Neural Ordinary Differential Equations">[4]</span></a></sup>将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。</p>
+<p>相反,Chen等人<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen. Neural Ordinary Differential Equations">[4]</span></a></sup>将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。</p>
 <p>为了将反向传播应用于神经ODE,我们定义一个称为伴随的量,其定义为：</p>
 <p>$$a(t)=\frac{dL}{dz(t)}$$</p>
 <p>我们看到 $a(T)$ 对应于损失关于输出向量的常规导数。伴随子满足其自身的微分方程,该方程为：</p>
@@ -473,7 +473,7 @@ $$</p>
 <p>神经ODE定义了一种高度灵活的从输入向量 $z(0)$ 到输出向量 $z(T)$ 的变换,该变换以微分方程的形式给出：</p>
 <p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
 <p>如果我们定义一个关于输入向量 $p(z(0))$ 的基础分布,那么神经ODE 会将其随时间向前传播,为每个的值给出一个分布 $p(z(t))$,从而得到一个关于输出向量 $p(z(T))$ 的分布。</p>
-<p>Chen<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen.Neural Ordinary Differential Equations">[4]</span></a></sup>表明,对于神经ODE,密度的变换可以通过积分一个由下式给出的微分方程来评估：</p>
+<p>Chen<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen. Neural Ordinary Differential Equations">[4]</span></a></sup>表明,对于神经ODE,密度的变换可以通过积分一个由下式给出的微分方程来评估：</p>
 <p>$$\frac{\partial~lnp(z(t))}{\partial t}=-Tr(\frac{\partial f}{\partial z(t)})$$</p>
 <p>其中 $\partial f/\partial z$ 表示雅可比矩阵,其元素为 $\partial f _ {i}/\partial z _ {jc}$。</p>
 <p>作者使用的是泰勒级数展开式等来证明。</p>
@@ -506,7 +506,7 @@ $$<br>
 <p>由于涉及雅可比矩阵的迹而不是使用行列式，因此它可能看起来在计算上更高效。<br>
 通常,计算一个 $D\times D$ 矩阵的行列式需要 $\mathcal{O}(D^{3})$ 次操作,而计算迹只需要 $\mathcal{O}(D)$ 次操作。</p>
 <p>然而,如果行列式是下三角形的,如在许多归一化流的形式中,那么行列式是主对角线项的乘积,因此也涉及 $\mathcal{O}(D)$ 次操作。由于计算雅可比矩阵的各个元素需要单独的前向传播,而前向传播本身需要 $\mathcal{O}(D)$ 次操作,因此计算迹或行列式(对于下三角矩阵)总共需要 $\mathcal{O}(D^{2})$ 次操作。</p>
-<p>然而,通过使用 Hutchinson 迹估计器<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud.FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models">[5]</span></a></sup>,可以将计算迹的成本降低到 $\mathcal{O}(D)$。</p>
+<p>然而,通过使用 Hutchinson 迹估计器<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud. FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models">[5]</span></a></sup>,可以将计算迹的成本降低到 $\mathcal{O}(D)$。</p>
 <p>该估计器对于一个矩阵A采用以下形式 ：</p>
 <p>$$Tr(A)=\mathbb{E} _ {\epsilon}[\epsilon^{T}A\epsilon]$$</p>
 <p>其中是$\epsilon$一个均值为零、协方差为一的随机向量,例如,高斯 $\mathcal{N}(0,I)$。</p>
@@ -520,7 +520,7 @@ $$<br>
 <p>$$Tr(A)\approx\frac{1}{M}\sum _ {m=1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}$$</p>
 <p>这里其实牵扯到一个叫<strong>雅可比向量积 (Jacobian-Vector Product，JVP)<strong>的概念，即一个</strong>行向量 <code>v^T</code></strong> 与一个<strong>雅可比矩阵 <code>J</code></strong> 的乘积</p>
 <h1>流匹配（Flow Matching）</h1>
-<p>该方法<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>于2022年提出。</p>
+<p>该方法<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>于2022年提出。</p>
 <p>Flow代表继续延续连续归一化流（CNF）的核心。即一个类似流动的过程，或者说基于连续性方程/传输方程的思想。</p>
 <p>Matching类似之前博客曾提过的分数匹配。</p>
 <p>而与前面的流模型不同，流匹配是一种在训练过程中不需要求解ODE来训练的方法。</p>
@@ -534,7 +534,7 @@ $$<br>
 $$<br>
 \mathcal{L} _ {CFM}=E _ {t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t;z)-f_t^\theta(X_t,t)||^2<br>
 $$<br>
-Lipman 等人<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>证明了$\mathcal{L} _ {FM}$和$\mathcal{L} _ {CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。证明其实很简单，把期望内的括号展开分离即可。</p>
+Lipman 等人<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>证明了$\mathcal{L} _ {FM}$和$\mathcal{L} _ {CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。证明其实很简单，把期望内的括号展开分离即可。</p>
 <p>对于z，我们可以只考虑$x_1$，定义$\mu(z,t)=tx_1$，$\sigma(z,t)=t\sigma _ {const}-t+1$，则<br>
 $$<br>
 \begin{align}<br>
@@ -542,7 +542,7 @@ p _ {t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf
 f(\mathbf{x}, t ; \mathbf{z}) &amp;= \frac{ \mathbf{x}_1 - (1 - \sigma _ {const}) \mathbf{x} }{ 1 - (1 - \sigma _ {const}) t }<br>
 \end{align}<br>
 $$<br>
-这也就是原始的CFM<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>，也叫<strong>锥形高斯路径</strong>（<strong>Conical Gaussian paths</strong>）。</p>
+这也就是原始的CFM<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>，也叫<strong>锥形高斯路径</strong>（<strong>Conical Gaussian paths</strong>）。</p>
 <p>对于z，我们也可以将$x_0$和$x_1$联合起来考虑，定义$\mu(z,t)=(1-t)x_0+tx_1$，$\sigma(z,t)=\sigma _ {const}$，则<br>
 $$<br>
 \begin{align}<br>
@@ -550,7 +550,7 @@ p _ {t}(\mathbf{x} | \mathbf{z}) &amp;= \mathcal{N}\left( \mathbf{x} | t \mathbf
 f(\mathbf{x}, t ; \mathbf{z}) &amp;= x_1-x_0<br>
 \end{align}<br>
 $$<br>
-这也就是independent CFM（iCFM)<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.">[7]</span></a></sup>，也叫<strong>线性插值。</strong> 它也与最优传输（Optimal Transport）有关，正如其论文标题所述。</p>
+这也就是independent CFM（iCFM)<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N. Improving and generalizing flow-based generative models with minibatch optimal transport.">[7]</span></a></sup>，也叫<strong>线性插值。</strong> 它也与最优传输（Optimal Transport）有关，正如其论文标题所述。</p>
 <p><strong>完整流程：</strong></p>
 <p>1.采样  t∼Uniform(0,1)</p>
 <p>2.采样  z∼q(z)</p>
@@ -606,24 +606,26 @@ $$<br>
 在这里我们会使用sg(stop gradient)，因为我们并不需要它的导数，也避免了再去求高阶导数。</p>
 <p><img src="meanflow.jpg" alt=""></p>
 <h1>参考资料</h1>
-<p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="生成扩散模型漫谈（三十）：从瞬时速度到平均速度. https://kexue.fm/archives/10958">[9]</span></a></sup><sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Flow Matching: Matching flows instead of scores.https://jmtomczak.github.io/blog/18/18_fm.html">[10]</span></a></sup><sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman.Flow Matching Guide and Code">[11]</span></a></sup><sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching.https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[12]</span></a></sup><sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="流模型(Flow-based Model).https://0809zheng.github.io/2022/05/01/flow.html">[14]</span></a></sup><sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="流模型(Flow-based Model).https://0809zheng.github.io/2022/05/01/flow.html">[14]</span></a></sup>和一些教科书<sup id="fnref:15" class="footnote-ref"><a href="#fn:15" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[15]</span></a></sup>和李宏毅的课程<sup id="fnref:16" class="footnote-ref"><a href="#fn:16" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的flow base model课程">[16]</span></a></sup>。</p>
-<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio.Density estimation using Real NVP
+<p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="生成扩散模型漫谈（三十）：从瞬时速度到平均速度. https://kexue.fm/archives/10958">[9]</span></a></sup><sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Flow Matching: Matching flows instead of scores. https://jmtomczak.github.io/blog/18/18_fm.html">[10]</span></a></sup><sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. Flow Matching Guide and Code">[11]</span></a></sup><sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching. https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[12]</span></a></sup><sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="流模型(Flow-based Model). https://0809zheng.github.io/2022/05/01/flow.html">[14]</span></a></sup><sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="流模型(Flow-based Model). https://0809zheng.github.io/2022/05/01/flow.html">[14]</span></a></sup>和一些教科书<sup id="fnref:15" class="footnote-ref"><a href="#fn:15" rel="footnote"><span class="hint--top hint--rounded" aria-label="Diederik P. Kingma, Tim Salimans, Rafal Jozefowicz, Xi Chen, Ilya Sutskever, Max Welling. Improving Variational Inference with Inverse Autoregressive Flow">[15]</span></a></sup>和李宏毅的课程<sup id="fnref:16" class="footnote-ref"><a href="#fn:16" rel="footnote"><span class="hint--top hint--rounded" aria-label="George Papamakarios, Theo Pavlakou, Iain Murray. Masked Autoregressive Flow for Density Estimation">[16]</span></a></sup>。</p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio. Density estimation using Real NVP
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ho, J., Chen, X., Srinivas, A., Duan, Y., and Abbeel. Flow++: Improving Flow-Based Generative Models with Variational Dequantization and Architecture Design
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>Diederik P. Kingma, Prafulla Dhariwal.Glow: Generative Flow with Invertible 1x1 Convolutions
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>Ricky T. Q. Chen.Neural Ordinary Differential Equations
-<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span>Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud.FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models
-<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span>Yaron Lipman.FLOW MATCHING FOR GENERATIVE MODELING。
-<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span>Tong, A., Malkin, N.Improving and generalizing flow-based generative models with minibatch optimal transport.
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>Ricky T. Q. Chen. Neural Ordinary Differential Equations
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span>Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud. FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span>Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span>Tong, A., Malkin, N. Improving and generalizing flow-based generative models with minibatch optimal transport.
 <a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span>Zhengyang Geng, Mingyang Deng, Xingjian Bai, J. Zico Kolter,  Kaiming He. Mean Flows for One-step Generative Modeling
 <a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:9" class="footnote-text"><span>生成扩散模型漫谈（三十）：从瞬时速度到平均速度. <a target="_blank" rel="noopener" href="https://kexue.fm/archives/10958">https://kexue.fm/archives/10958</a>
-<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:10" class="footnote-text"><span>Flow Matching: Matching flows instead of scores.<a target="_blank" rel="noopener" href="https://jmtomczak.github.io/blog/18/18_fm.html">https://jmtomczak.github.io/blog/18/18_fm.html</a>
-<a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:11" class="footnote-text"><span>Yaron Lipman.Flow Matching Guide and Code
-<a href="#fnref:11" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:12" class="footnote-text"><span>A Visual Dive into Conditional Flow Matching.<a target="_blank" rel="noopener" href="https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9</a>
-<a href="#fnref:12" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:13" class="footnote-text"><span>Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023.<a target="_blank" rel="noopener" href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a>
-<a href="#fnref:13" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:14" class="footnote-text"><span>流模型(Flow-based Model).<a target="_blank" rel="noopener" href="https://0809zheng.github.io/2022/05/01/flow.html">https://0809zheng.github.io/2022/05/01/flow.html</a>
-<a href="#fnref:14" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:15" class="footnote-text"><span>PRML
-<a href="#fnref:15" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:16" class="footnote-text"><span>李宏毅的flow base model课程
-<a href="#fnref:16" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:10" class="footnote-text"><span>Flow Matching: Matching flows instead of scores. <a target="_blank" rel="noopener" href="https://jmtomczak.github.io/blog/18/18_fm.html">https://jmtomczak.github.io/blog/18/18_fm.html</a>
+<a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:11" class="footnote-text"><span>Yaron Lipman. Flow Matching Guide and Code
+<a href="#fnref:11" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:12" class="footnote-text"><span>A Visual Dive into Conditional Flow Matching. <a target="_blank" rel="noopener" href="https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9</a>
+<a href="#fnref:12" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:13" class="footnote-text"><span>Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023. <a target="_blank" rel="noopener" href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a>
+<a href="#fnref:13" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:14" class="footnote-text"><span>流模型(Flow-based Model). <a target="_blank" rel="noopener" href="https://0809zheng.github.io/2022/05/01/flow.html">https://0809zheng.github.io/2022/05/01/flow.html</a>
+<a href="#fnref:14" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:15" class="footnote-text"><span>Diederik P. Kingma, Tim Salimans, Rafal Jozefowicz, Xi Chen, Ilya Sutskever, Max Welling. Improving Variational Inference with Inverse Autoregressive Flow
+<a href="#fnref:15" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:16" class="footnote-text"><span>George Papamakarios, Theo Pavlakou, Iain Murray. Masked Autoregressive Flow for Density Estimation
+<a href="#fnref:16" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:17" class="footnote-text"><span>PRML
+<a href="#fnref:17" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:18" class="footnote-text"><span>李宏毅的flow base model课程
+<a href="#fnref:18" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
