@@ -21884,7 +21884,7 @@ $$<br>
   <entry>
     <title>流模型与流匹配</title>
     <url>/2025/20250609/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>流模型与流匹配介绍。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>流模型与流匹配介绍。</p>
 <span id="more"></span>
 <h1>归一化流（Normalizing Flow）</h1>
 <h2 id="先导">先导</h2>
@@ -22114,6 +22114,7 @@ $$<br>
 <p>回顾一下前文：</p>
 <p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
 <p>这实际上代表着瞬时速度。</p>
+<p>作者认为，瞬时速度并不是直接指向数据点，所以无法一步生成，而要一步生成需要平均速度才能实现。</p>
 <p><img src="averspeed.jpg" alt=""></p>
 <p>我们延用论文中的符号。</p>
 <p>瞬时速度：</p>
