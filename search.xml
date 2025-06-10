@@ -21783,7 +21783,7 @@ $$</p>
   <entry>
     <title>流模型与流匹配</title>
     <url>/2025/20250609/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>流模型与流匹配介绍。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>流模型与流匹配介绍。</p>
 <span id="more"></span>
 <h1>归一化流（Normalizing Flow）</h1>
 <h2 id="先导">先导</h2>
@@ -21830,9 +21830,9 @@ $$</p>
 <p>$$x _ {B}=exp(s(z _ {A},w))\odot z _ {B}+b(z _ {A},w)$$</p>
 <p>其中 $s(z _ {A},w)$ 和 $b(z _ {A},w)$ 是神经网络的实值输出,指数函数确保乘法项为非负。这里表示涉及两个向量逐元素乘法的Hadamard积。</p>
 <p>由于使用了神经网络函数, $x$ 的值可以是非常灵活的函数。</p>
-<p>整体变换也很容易可逆：给定一个 $x=$ 的值 $(x _ {A},x _ {B})$,我们首先计算$z _ {A}=x _ {A}$ ，然后有$z _ {B}=exp(-s(z _ {A},w))\odot(x _ {B}-b(z _ {A},w))$。</p>
+<p>整体变换也很容易可逆：给定一个 $x=(x _ {A},x _ {B})$的值，我们首先计算$z _ {A}=x _ {A}$ ，然后有$z _ {B}=exp(-s(z _ {A},w))\odot(x _ {B}-b(z _ {A},w))$。</p>
 <p><img src="realnvp.jpg" alt=""></p>
-<p>值得注意的是， $S(Z;w)$ 和 $b(z;w)$ 无需可逆。</p>
+<p>值得注意的是， $s(z;w)$ 和 $b(z;w)$ 无需可逆。</p>
 <p>现在考虑雅可比矩阵及其行列式。我们可以将雅可比矩阵分成块,对应于z和x的划分,得到:</p>
 <p>$$<br>
 J=\begin{bmatrix}\frac{\partial z_A}{\partial x_A}&amp;\frac{\partial z_A}{\partial x_B}\\ \frac{\partial z_B}{\partial x_A}&amp;\frac{\partial z_B}{\partial x_B}\end{bmatrix}=\begin{bmatrix}I _ {d}&amp;0\\ \frac{\partial z _ {B}}{\partial x _ {A}}&amp;diag(exp(-s))\end{bmatrix}<br>
@@ -21899,7 +21899,7 @@ $$<br>
 <p>在实践中,更强大的数值积分算法可以自适应地调整它们的函数评估以实现。特别是,它们可以自适应地选择的值,这些值通常不是均匀分布的。</p>
 <h3 id="神经ODE反向传播">神经ODE反向传播</h3>
 <p>我们得到了神经ODE的形式，那么如何通过优化损失函数来确定w的值呢？假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。</p>
-<p>一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管这很直接,但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。</p>
+<p>一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管这很直接，但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。</p>
 <p>相反,Chen等人<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen. Neural Ordinary Differential Equations">[4]</span></a></sup>将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。</p>
 <p>为了将反向传播应用于神经ODE,我们定义一个称为伴随的量,其定义为：</p>
 <p>$$a(t)=\frac{dL}{dz(t)}$$</p>
@@ -21984,7 +21984,7 @@ $$<br>
 \mathcal{L} _ {FM}=E _ {t\sim U(0,1),X_t\sim p_t}||f_t(X_t,t)-f^\theta_t(X_t,t)||^2<br>
 $$<br>
 然而我们并不知道$p_t$和真实向量场$f$，所以就有了条件流匹配的出现。</p>
-<h2 id="条件流匹配">条件流匹配</h2>
+<h2 id="条件流匹配（Conditional-Flow-Matching）">条件流匹配（Conditional Flow Matching）</h2>
 <p>CFM 的核心思想是选择一个额外变量 z 和一个条件概率路径$p(x\mid t,z)$。<br>
 $$<br>
 \mathcal{L} _ {CFM}=E _ {t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t;z)-f_t^\theta(X_t,t)||^2<br>
@@ -22019,16 +22019,16 @@ $$<br>
 <p>回顾一下前文：</p>
 <p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
 <p>这实际上代表着瞬时速度。</p>
-<p>作者认为，瞬时速度并不是直接指向数据点，所以无法一步生成，而要一步生成需要平均速度才能实现。</p>
+<p>然而瞬时速度并不是直接指向数据点，所以无法一步生成，而要一步生成需要平均速度才能实现。</p>
 <p><img src="averspeed.jpg" alt=""></p>
-<p>换种角度，前文的flow matching尽管使用的是直线插值，但是实际上是线性加噪而非线性去噪。导致我们无法一步生成。</p>
+<p>展开来说，前文的flow matching尽管使用的是直线插值，但是实际上是线性加噪而非线性去噪。导致我们无法一步生成。</p>
 <p>我们也可以使用一些形象的方法来解释。</p>
 <p>当只有一个力源的情况下，它的场线是直线，这与我们的加噪相似，我们也可以类似PFGM，将这一过程理解为数据点被力场推着走向目标位置。</p>
 <p>然而，我们不止一个力源，所以最终场（右图）并不是一条直线。</p>
 <p><img src="vis.jpg" alt=""></p>
 <p>我们也很难去设计一种力，使得合并后的最终场是直线形式。</p>
-<p>面对天体运动，对于地心说，与其我们引入复杂的本轮均轮来完善，更好的方法是直接引入日心说。</p>
-<p>故MeanFlow另起炉灶，虽然继续使用同样的力源，但使用了平均速度。</p>
+<p>面对天体运动，与其我们引入复杂的本轮均轮来完善地心说，更好的方法是直接引入日心说。</p>
+<p>故MeanFlow另起炉灶，虽然继续使用同样的力源，但不继续做文章，而是使用了平均速度。</p>
 <p>我们延用论文中的符号。</p>
 <p>瞬时速度：</p>
 <p>$$<br>
@@ -22049,7 +22049,7 @@ $$</p>
 <p>$$<br>
 \frac{dz_t}{dt} = v(z_t, t), \quad \frac{dr}{dt} = 0, \quad \frac{dt}{dt} = 1<br>
 $$</p>
-<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力,我们不需要计算整个雅克比矩阵A，就能得到矩阵的迹。同样地我们在这里也可以对上式使用。</p>
+<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，我们不需要计算整个雅克比矩阵A，就能得到矩阵的迹。同样地我们在这里也可以对上式使用。</p>
 <p>最终设定损失函数：<br>
 $$<br>
 \mathcal{L}(\theta) = \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u _ {\text{tgt}}) ||^2_2 \right]<br>
