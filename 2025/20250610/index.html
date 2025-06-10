@@ -29,7 +29,7 @@
 <meta property="og:description" content="Learning-to-Rank (LTR) 是一种运用机器学习技术来解决排序问题的领域。它的核心目标是，训练一个模型，让这个模型能自动地对一个项目列表进行优化排序，使得排序结果尽可能地好。 常用的算法有RankNet和LambdaRank等。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-10T11:41:58.000Z">
-<meta property="article:modified_time" content="2025-06-10T13:44:03.055Z">
+<meta property="article:modified_time" content="2025-06-10T13:46:43.914Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -262,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          479 字
+          485 字
         
       </span>
     
@@ -273,7 +273,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -319,7 +319,7 @@
 <p>常用的算法有RankNet和LambdaRank等。</p>
 <span id="more"></span>
 <h2 id="RankNet">RankNet</h2>
-<p>我们定义一个概率$P _ {ij}$代表i排在j前面的真实概率，我们定义1代表更重要，0.5代表相同重要，0代表更不重要。</p>
+<p>我们定义一个概率$P _ {ij}$代表i排在j前面的真实概率，我们定义1代表更重要/相关，0.5代表相同重要/相关，0代表更不重要/相关。</p>
 <p>同时，我们会对输出的分数$s_i$和$s_j$进行转换，RankNet使用的是<br>
 $$<br>
 \hat{P} _ {ij} = \frac{1}{1 + e^{-\alpha(s_i - s_j)}}<br>
