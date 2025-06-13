@@ -22264,7 +22264,7 @@ Xgboost中有<code>rank:ndcg</code>、<code>rank:map</code>、<code>rank:pairwis
   <entry>
     <title>V-JEPA 2</title>
     <url>/2025/20250613/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>在23年，本Blog已经介绍过JEPA，也就是lecun推出的世界模型结构。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>在23年，本Blog已经介绍过JEPA，也就是lecun推出的世界模型结构。</p>
 <p>Lecun一直不相信当前的LLM，而布局于“世界模型”。</p>
 <p>当时主要是对图片处理，也就是Image-JEPA。而V-JEPA代表是对视频（video）处理。</p>
 <span id="more"></span>
@@ -22286,6 +22286,8 @@ Xgboost中有<code>rank:ndcg</code>、<code>rank:map</code>、<code>rank:pairwis
 <p>左图有点像BYOL，会有EMA和stop grad。</p>
 <p>V-JEPA 2-AC会涉及以下损失：</p>
 <p><img src="5.jpg" alt=""></p>
+<p>对于接下来的机械臂动作规划，算法会最小化目标条件的能量函数来规划固定时间范围内的动作序列。然后执行第一个动作，观察新状态，并重复该过程。</p>
+<p><img src="6.jpg" alt=""></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
