@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250613/5.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250613/6.jpg">
 <meta property="article:published_time" content="2025-06-13T15:26:30.000Z">
-<meta property="article:modified_time" content="2025-06-13T16:05:11.433Z">
+<meta property="article:modified_time" content="2025-06-14T10:22:54.324Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          555 字
+          622 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -336,6 +336,10 @@
 <p>其中这一结构也有点类似对比学习。</p>
 <p><img src="1_0brkjcnDkgEcWpFpe0bxeg.webp" alt=""></p>
 <p>I-JEPA有点像Simsiam，而后续介绍的V-JEPA有点像BYOL。</p>
+<blockquote>
+<p>题外话：</p>
+<p>有人指出BYOL起作用是因为其中的batch norm，BYOL作者写了一篇《BYOL works even without batch statistics》做了一些实验证明了BN并不是必要的。BN只是保证模型稳定的技巧，一个合适的初始化才是更重要的。</p>
+</blockquote>
 <h2 id="V-JEPA-2">V-JEPA 2</h2>
 <p>基本概述如下图所示。V-JEPA 2 采用分阶段训练流程，首先在互联网规模的视频上进行无动作的预训练，随后利用少量交互数据进行后训练。在第一阶段，采用掩码降噪特征预测目标 ，模型在学成的表示空间中预测视频的掩码片段。使用多达 10 亿参数和超过 100 万小时的视频来训练 V-JEPA 2 编码器。</p>
 <p>在互联网规模的视频上进行预训练后，利用第一阶段学成的表示，在少量交互数据上训练了一个动作条件的世界模型 V-JEPA 2-AC。动作条件世界模型是一个拥有 3 亿参数的 Transformer 网络，采用了块因果注意力机制，能够自回归地预测在给定动作和先前状态下的下一帧视频的表示。该模型在给定子目标的情况下，仅使用来自 Droid 数据集 的 62 小时未标记交互数据，可用于规划 Franka 机械臂的动作，并在新环境中通过单目 RGB 摄像头 zero-shot 执行抓取操作任务。</p>
