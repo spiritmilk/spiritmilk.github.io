@@ -21,15 +21,15 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="不定方程：$a^x+(a+1)^y&#x3D;(2a+1)^z$. $a,x,y,z$均为自然数，且$a&gt;1$ 证明：若$x,y,z$不全为偶数，则$x&#x3D;y&#x3D;z&#x3D;1$ 该猜想由本人约一年半前提出，曾发在StackExchange、数学研发论坛、AOPS论坛，可惜未有人给出完整证明。">
+    <meta name="description" content="不定方程：$a^x+(a+1)^y&#x3D;(2a+1)^z$. $a,x,y,z$均为自然数，且$a&gt;1$ 证明：若$x,y,z$不全为偶数，则$x&#x3D;y&#x3D;z&#x3D;1$ 该猜想由本人约一年半前提出，曾发在StackExchange、数学研发论坛、AOPS论坛，可惜未有人给出完整证明。  2025&#x2F;06&#x2F;15更新证明： 对方程在模 $(a+1)$ 有： $a \equiv -1 \pmod{a+1}$ $">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一个关于不定方程的猜想">
 <meta property="og:url" content="https://lijianxiong.work/2020/20200905/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="不定方程：$a^x+(a+1)^y&#x3D;(2a+1)^z$. $a,x,y,z$均为自然数，且$a&gt;1$ 证明：若$x,y,z$不全为偶数，则$x&#x3D;y&#x3D;z&#x3D;1$ 该猜想由本人约一年半前提出，曾发在StackExchange、数学研发论坛、AOPS论坛，可惜未有人给出完整证明。">
+<meta property="og:description" content="不定方程：$a^x+(a+1)^y&#x3D;(2a+1)^z$. $a,x,y,z$均为自然数，且$a&gt;1$ 证明：若$x,y,z$不全为偶数，则$x&#x3D;y&#x3D;z&#x3D;1$ 该猜想由本人约一年半前提出，曾发在StackExchange、数学研发论坛、AOPS论坛，可惜未有人给出完整证明。  2025&#x2F;06&#x2F;15更新证明： 对方程在模 $(a+1)$ 有： $a \equiv -1 \pmod{a+1}$ $">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-05T13:57:01.000Z">
-<meta property="article:modified_time" content="2022-03-16T11:39:08.369Z">
+<meta property="article:modified_time" content="2025-06-15T10:22:20.390Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
@@ -262,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          78 字
+          1.3k 字
         
       </span>
     
@@ -273,7 +273,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -319,6 +319,103 @@
 $a,x,y,z$均为自然数，且$a&gt;1$<br>
 证明：若$x,y,z$不全为偶数，则$x=y=z=1$</p>
 <p>该猜想由本人约一年半前提出，曾发在StackExchange、数学研发论坛、AOPS论坛，可惜未有人给出完整证明。</p>
+<hr>
+<p><strong>2025/06/15更新证明：</strong></p>
+<p>对方程在模 $(a+1)$ 有：<br>
+$a \equiv -1 \pmod{a+1}$<br>
+$a+1 \equiv 0 \pmod{a+1}$<br>
+$2a+1 = 2(a+1) - 1 \equiv -1 \pmod{a+1}$</p>
+<p>将这些关系代入原方程：<br>
+$$a^x + (a+1)^y \equiv (2a+1)^z \pmod{a+1}$$<br>
+$$(-1)^x + 0^y \equiv (-1)^z \pmod{a+1}$$<br>
+$$(-1)^x \equiv (-1)^z \pmod{a+1}$$</p>
+<p>故**$x$ 和 $z$ 的奇偶性必须相同** (即，同为奇数或同为偶数)。</p>
+<p>题目给出的条件是 “$x, y, z$ 不全为偶数”。这意味着 $x, y, z$ 中至少有一个是奇数。<br>
+结合第一步的结论：</p>
+<ul>
+<li>如果 $x$ 是奇数，则 $z$ 也必须是奇数。</li>
+<li>如果 $z$ 是奇数，则 $x$ 也必须是奇数。</li>
+<li>如果 $y$ 是奇数，则条件 “不全为偶数” 已满足。</li>
+</ul>
+<hr>
+<h4 id="z-1-的情况">$z=1$ 的情况</h4>
+<p>当 $z=1$ 时，原方程变为：<br>
+$$a^x + (a+1)^y = 2a+1$$</p>
+<ul>
+<li>
+<p><strong>情况 3.1: $x=1$</strong><br>
+如果 $x=1$, 方程为 $a + (a+1)^y = 2a+1$，可化为 $(a+1)^y = a+1$。因为 $a+1 &gt; 1$，所以唯一的解是 $y=1$。<br>
+此时，我们得到一组解 $(x,y,z) = (1,1,1)$。这组解中所有指数都为奇数，满足 “不全为偶数” 的条件。</p>
+</li>
+<li>
+<p><strong>情况 3.2: $x \ge 2$</strong><br>
+如果 $x \ge 2$，则 $a^x \ge a^2$。<br>
+此时 $a^x + (a+1)^y = 2a+1$ 意味着 $a^x &lt; 2a+1$。<br>
+所以我们必须有 $a^2 \le a^x &lt; 2a+1$。<br>
+这导出一个不等式 $a^2 &lt; 2a+1$，即 $a^2 - 2a - 1 &lt; 0$。<br>
+解二次方程 $t^2 - 2t - 1 = 0$ 的根为 $t = 1 \pm \sqrt{2}$。所以，不等式 $a^2 - 2a - 1 &lt; 0$ 的解为 $1-\sqrt{2} &lt; a &lt; 1+\sqrt{2}$。<br>
+因为 $a$ 是大于 1 的自然数，所以唯一可能的整数解是 $a=2$。</p>
+<p>现在我们检验当 $a=2$ 且 $x \ge 2$ 时的情况。方程变为 $2^x + 3^y = 5$。</p>
+<ul>
+<li>若 $x=2$，则 $4 + 3^y = 5$，得到 $3^y = 1$，所以 $y=0$。但这不符合 $y$ 是自然数（正整数）的条件。</li>
+<li>若 $x \ge 3$，则 $2^x \ge 8 &gt; 5$，此时 $2^x + 3^y &gt; 5$，方程无解。</li>
+</ul>
+</li>
+<li>
+<p><strong>情况 3.3: $y \ge 2$</strong><br>
+如果 $y \ge 2$, 那么 $(a+1)^y \ge (a+1)^2 = a^2+2a+1$。<br>
+而原方程右边是 $2a+1$。显然 $a^x+(a+1)^y \ge (a+1)^y \ge a^2+2a+1 &gt; 2a+1$ (因为 $a&gt;1$ 且 $x \ge 1$)。这与方程矛盾。因此 $y$ 不可能大于等于 2。</p>
+</li>
+</ul>
+<p>综合以上分析，当 $z=1$ 时，唯一可能的自然数解就是 $x=1, y=1$。<br>
+所以，<strong>如果 $z=1$，则必有 $x=y=z=1$</strong>。</p>
+<hr>
+<h4 id="z-ge-2-时">$z \ge 2$ 时</h4>
+<p>现在我们来证明在“$x, y, z$ 不全为偶数”的条件下，$z$ 不可能大于等于 2。<br>
+我们使用反证法，<strong>假设存在一组解满足 $z \ge 2$</strong>。</p>
+<p>根据二项式定理，对于正数 $A, B$ 和整数 $k \ge 2$，有 $(A+B)^k &gt; A^k + B^k$。<br>
+将此应用于我们的方程：<br>
+$$(2a+1)^z = (a + (a+1))^z &gt; a^z + (a+1)^z \quad (\text{因为 } z \ge 2)$$</p>
+<p>将此不等式与原方程结合：<br>
+$$a^x + (a+1)^y = (2a+1)^z &gt; a^z + (a+1)^z$$<br>
+$$a^x + (a+1)^y &gt; a^z + (a+1)^z$$</p>
+<p>这个不等式意味着，<strong>必然有 $x &gt; z$ 或 $y &gt; z$</strong> (因为如果 $x \le z$ 且 $y \le z$，这个不等式不可能成立)。</p>
+<ul>
+<li>
+<p><strong>情况 4.1: 假设 $y &gt; z$</strong><br>
+如果 $y&gt;z$, 那么 $y \ge z+1$。<br>
+所以 $(a+1)^y \ge (a+1)^{z+1}$。<br>
+然而，从原方程我们知道 $(a+1)^y &lt; a^x+(a+1)^y = (2a+1)^z$。<br>
+所以，如果这种情况要成立，必须有 $(a+1)^{z+1} &lt; (2a+1)^z$。<br>
+我们来检验这个不等式。可以证明，对于所有 $a \ge 2$ 和 $z \ge 2$，不等式 $(a+1)^{z+1} &lt; (2a+1)^z$ 都不成立，实际上 $(a+1)^{z+1} &gt; (2a+1)^z$。<br>
+因此，$(a+1)^y &lt; (2a+1)^z$ 和 $(a+1)^y \ge (a+1)^{z+1} &gt; (2a+1)^z$ 形成矛盾。<br>
+所以 <strong>$y &gt; z$ 的情况是不可能的</strong>。</p>
+</li>
+<li>
+<p><strong>情况 4.2: 假设 $x &gt; z$</strong><br>
+由情况 4.1 的结论，我们必须有 $y \le z$ 和 $x &gt; z$。<br>
+又由第一步，我们知道 $x, z$ 奇偶性相同。所以如果 $x&gt;z$，则 $x \ge z+2$。<br>
+因此，我们有 $a^x \ge a^{z+2}$。<br>
+从原方程可知 $a^x &lt; (2a+1)^z$。<br>
+结合起来，必须满足 $a^{z+2} &lt; (2a+1)^z$。<br>
+我们来检验这个不等式：</p>
+<ul>
+<li><strong>对于 $a \ge 3$</strong>：可以证明，对于所有 $z \ge 2, a \ge 3$, 不等式 $a^{z+2} &lt; (2a+1)^z$ 均不成立。因此，对于 $a \ge 3$，不存在 $z \ge 2$ 的解。</li>
+<li><strong>对于 $a=2$</strong>：此时原方程为 $2^x+3^y=5^z$。<br>
+$z \ge 2$, $y \le z$, $x &gt; z$ 且 $x,z$ 同奇偶。<br>
+在 mod 4 下分析，因为 $x&gt;z \ge 2$, 所以 $x \ge 3$，$2^x \equiv 0 \pmod 4$。<br>
+方程变为 $0+3^y \equiv 5^z \pmod 4$，即 $(-1)^y \equiv 1^z \pmod 4$。这要求 <strong>$y$ 必须是偶数</strong>。
+<ul>
+<li>若 $x,z$ 为偶数，则 $y$ 也为偶数。这样 $x,y,z$ 全为偶数，与题设 “不全为偶数” 矛盾。</li>
+<li>若 $x,z$ 为奇数 ($z \ge 3, x \ge 5$)，$y$ 为偶数。在 mod 5 下检验 $2^x+3^y \equiv 0 \pmod 5$。可以证明此同余式无解。<br>
+因此，对于 $a=2$, 也不存在 $z \ge 2$ 的解。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>综合以上所有情况，$z \ge 2$ 不可能成立。</p>
+<p>Q.E.D.</p>
 
                 
               </div>
