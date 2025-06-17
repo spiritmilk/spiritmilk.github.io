@@ -22409,8 +22409,8 @@ D_\phi(x,y)=\phi(x)-\phi(y)-&lt;x-y,\nabla\phi(y)&gt;<br>
 $$<br>
 <strong>Bregman散度</strong>是借用一个严格凸函数φ（·），该散度即为φ（x）和h（x）的差，其中h（x）为φ（y）在x处的线性近似。</p>
 <p><img src="2.png" alt=""></p>
-<p>故可以扩展为：</p>
-<p><img src="1.png" alt=""></p>
+<p>更多的：</p>
+<p><img src="3.jpg" alt=""></p>
 <p>两种局部最优的定义：</p>
 <p><strong>D-local: Discrete locally optimal solution</strong></p>
 <p>即若把某个数据点移动到任意簇后，损失都会升高。</p>
