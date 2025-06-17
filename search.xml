@@ -22397,7 +22397,7 @@ Xgboost中有<code>rank:ndcg</code>、<code>rank:map</code>、<code>rank:pairwis
   <entry>
     <title>传统kmeans并不是（局部）最优</title>
     <url>/2025/20250615/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>(ICML 2025) 《Modified K-means Algorithm with Local Optimality Guarantees》</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>(ICML 2025) 《Modified K-means Algorithm with Local Optimality Guarantees》</p>
 <p>K-means是广泛使用的聚类算法，尽管它不一定能保证全局最优，但大家都约定速成地认为K-means会收敛到局部最优解。</p>
 <p><strong>但其实不然。</strong></p>
 <span id="more"></span>
@@ -22407,7 +22407,11 @@ Xgboost中有<code>rank:ndcg</code>、<code>rank:map</code>、<code>rank:pairwis
 $$<br>
 D_\phi(x,y)=\phi(x)-\phi(y)-&lt;x-y,\nabla\phi(y)&gt;<br>
 $$<br>
-两种局部最优的定义：</p>
+<strong>Bregman散度</strong>是借用一个严格凸函数φ（·），该散度即为φ（x）和h（x）的差，其中h（x）为φ（y）在x处的线性近似。</p>
+<p><img src="2.png" alt=""></p>
+<p>故可以扩展为：</p>
+<p><img src="1.png" alt=""></p>
+<p>两种局部最优的定义：</p>
 <p><strong>D-local: Discrete locally optimal solution</strong></p>
 <p>即若把某个数据点移动到任意簇后，损失都会升高。</p>
 <p><strong>C-local: Continuous locally optimal solution</strong></p>
