@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250705/1.png">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250705/model.jpg">
 <meta property="article:published_time" content="2025-07-05T12:28:53.000Z">
-<meta property="article:modified_time" content="2025-07-06T13:06:25.265Z">
+<meta property="article:modified_time" content="2025-07-06T13:10:27.181Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="隐私保护">
 <meta name="twitter:card" content="summary_large_image">
@@ -379,28 +379,28 @@
 <tbody>
 <tr>
 <td style="text-align:left"><strong>1. 梯度计算</strong></td>
-<td style="text-align:left">$$g_{t}=\nabla f(w_{t})$$</td>
-<td style="text-align:left">$$g_{t}=\nabla f(w_{t})$$</td>
+<td style="text-align:left">$$g _ {t}=\nabla f(w _ {t})$$</td>
+<td style="text-align:left">$$g _ {t}=\nabla f(w _ {t})$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>2. 动量更新</strong></td>
-<td style="text-align:left">$$m_{t}=\beta m_{t-1}+(1-\beta)g_{t}$$</td>
-<td style="text-align:left">$$m_{t}=\beta m_{t-1}+(1-\beta)g_{t}$$</td>
+<td style="text-align:left">$$m _ {t}=\beta m _ {t-1}+(1-\beta)g _ {t}$$</td>
+<td style="text-align:left">$$m _ {t}=\beta m _ {t-1}+(1-\beta)g _ {t}$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>3. 二阶矩更新</strong></td>
-<td style="text-align:left">$$v_{t}= \gamma v_{t-1}+(1-\gamma)g_{t}^{2}$$</td>
-<td style="text-align:left">$$v_{t}= \gamma v_{t-1}+(1-\gamma)g_{t}^{2}$$</td>
+<td style="text-align:left">$$v _ {t}= \gamma v _ {t-1}+(1-\gamma)g _ {t}^{2}$$</td>
+<td style="text-align:left">$$v _ {t}= \gamma v _ {t-1}+(1-\gamma)g _ {t}^{2}$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>4. 偏差校正</strong></td>
 <td style="text-align:left"><strong>无此步骤</strong></td>
-<td style="text-align:left">$$\hat{m}<em>{t}=\frac{m</em>{t}}{1-\beta^{t}}$$ $$\hat{v}<em>{t}=\frac{v</em>{t}}{1-\gamma^{t}}$$</td>
+<td style="text-align:left">$$\hat{m} _ {t}=\frac{m _ {t}}{1-\beta^{t}}$$ $$\hat{v} _ {t}=\frac{v _ {t}}{1-\gamma^{t}}$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>5. 参数更新</strong></td>
-<td style="text-align:left">$$w_{t+1}=w_{t}-\eta \frac{m_{t}}{\sqrt{v_{t}}+\epsilon}$$</td>
-<td style="text-align:left">$$w_{t+1}=w_{t}-\eta \frac{\hat{m}<em>{t}}{\sqrt{\hat{v}</em>{t}}+\epsilon}$$</td>
+<td style="text-align:left">$$w _ {t+1}=w _ {t}-\eta \frac{m _ {t}}{\sqrt{v _ {t}}+\epsilon}$$</td>
+<td style="text-align:left">$$w _ {t+1}=w _ {t}-\eta \frac{\hat{m} _ {t}}{\sqrt{\hat{v} _ {t}}+\epsilon}$$</td>
 </tr>
 </tbody>
 </table>

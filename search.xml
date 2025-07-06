@@ -22471,7 +22471,7 @@ $$<br>
   <entry>
     <title>VisualMixer-通过像素重排来保护视觉DNN任务的训练数据</title>
     <url>/2025/20250705/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（NDSS 2024）该论文提出了一种通过打乱像素来保护DNN图像数据视觉隐私的方法。（很奇妙的方法）</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（NDSS 2024）该论文提出了一种通过打乱像素来保护DNN图像数据视觉隐私的方法。（很奇妙的方法）</p>
 <span id="more"></span>
 <h2 id="现有技术的局限性："><strong>现有技术的局限性</strong>：</h2>
 <ul>
@@ -22531,28 +22531,28 @@ $$<br>
 <tbody>
 <tr>
 <td style="text-align:left"><strong>1. 梯度计算</strong></td>
-<td style="text-align:left">$$g_{t}=\nabla f(w_{t})$$</td>
-<td style="text-align:left">$$g_{t}=\nabla f(w_{t})$$</td>
+<td style="text-align:left">$$g _ {t}=\nabla f(w _ {t})$$</td>
+<td style="text-align:left">$$g _ {t}=\nabla f(w _ {t})$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>2. 动量更新</strong></td>
-<td style="text-align:left">$$m_{t}=\beta m_{t-1}+(1-\beta)g_{t}$$</td>
-<td style="text-align:left">$$m_{t}=\beta m_{t-1}+(1-\beta)g_{t}$$</td>
+<td style="text-align:left">$$m _ {t}=\beta m _ {t-1}+(1-\beta)g _ {t}$$</td>
+<td style="text-align:left">$$m _ {t}=\beta m _ {t-1}+(1-\beta)g _ {t}$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>3. 二阶矩更新</strong></td>
-<td style="text-align:left">$$v_{t}= \gamma v_{t-1}+(1-\gamma)g_{t}^{2}$$</td>
-<td style="text-align:left">$$v_{t}= \gamma v_{t-1}+(1-\gamma)g_{t}^{2}$$</td>
+<td style="text-align:left">$$v _ {t}= \gamma v _ {t-1}+(1-\gamma)g _ {t}^{2}$$</td>
+<td style="text-align:left">$$v _ {t}= \gamma v _ {t-1}+(1-\gamma)g _ {t}^{2}$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>4. 偏差校正</strong></td>
 <td style="text-align:left"><strong>无此步骤</strong></td>
-<td style="text-align:left">$$\hat{m}<em>{t}=\frac{m</em>{t}}{1-\beta^{t}}$$ $$\hat{v}<em>{t}=\frac{v</em>{t}}{1-\gamma^{t}}$$</td>
+<td style="text-align:left">$$\hat{m} _ {t}=\frac{m _ {t}}{1-\beta^{t}}$$ $$\hat{v} _ {t}=\frac{v _ {t}}{1-\gamma^{t}}$$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>5. 参数更新</strong></td>
-<td style="text-align:left">$$w_{t+1}=w_{t}-\eta \frac{m_{t}}{\sqrt{v_{t}}+\epsilon}$$</td>
-<td style="text-align:left">$$w_{t+1}=w_{t}-\eta \frac{\hat{m}<em>{t}}{\sqrt{\hat{v}</em>{t}}+\epsilon}$$</td>
+<td style="text-align:left">$$w _ {t+1}=w _ {t}-\eta \frac{m _ {t}}{\sqrt{v _ {t}}+\epsilon}$$</td>
+<td style="text-align:left">$$w _ {t+1}=w _ {t}-\eta \frac{\hat{m} _ {t}}{\sqrt{\hat{v} _ {t}}+\epsilon}$$</td>
 </tr>
 </tbody>
 </table>
