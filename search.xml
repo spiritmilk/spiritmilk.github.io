@@ -22519,6 +22519,8 @@ $$<br>
 </li>
 </ul>
 <p><img src="model.jpg" alt=""></p>
+<p>per-channel-shuffling让我想到了<a href="https://zhuanlan.zhihu.com/p/636551276">RWKV中的time mixing</a>，虽然它们不是一个东西。</p>
+<p><img src="2.jpg" alt=""></p>
 <h3 id="ST-Adam-优化器">ST-Adam 优化器</h3>
 <p>经过VisualMixer处理的图像，其梯度在训练过程中会产生剧烈波动，即<strong>梯度震荡 (gradient oscillation)</strong> 。这使得像Adam这样的标准优化器难以收敛，或者容易陷入局部最优解 。</p>
 <table>
