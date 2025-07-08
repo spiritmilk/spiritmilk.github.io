@@ -30,10 +30,13 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250706/LLMebed.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250706/moe.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250706/FDCR.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250706/update.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250706/sig.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250706/rapier.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250706/gan.jpg">
 <meta property="article:published_time" content="2025-07-06T13:38:06.000Z">
-<meta property="article:modified_time" content="2025-07-08T04:18:37.311Z">
+<meta property="article:modified_time" content="2025-07-08T04:35:56.542Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -267,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          911 字
+          925 字
         
       </span>
     
@@ -338,10 +341,13 @@
 <p><strong>反相关平衡。</strong> 当专家激活独立时（LM、MT‑Encoder），贪婪算法是有效的，但当 激活相关时（MT‑Decoder），它的效果较差。改进是计算负载加上了0.5*皮尔逊相关系数。</p>
 <h2 id="Parameter-Disparities-Dissection-for-Backdoor-Defense-in-Heterogeneous-Federated-Learning">Parameter Disparities Dissection for Backdoor Defense in Heterogeneous Federated Learning</h2>
 <p>（NIPS2024）</p>
+<p><img src="FDCR.jpg" alt=""></p>
 <h3 id="客户端差异聚类-Fisher-Client-Discrepancy-Cluster-FCDC">客户端差异聚类 (Fisher Client Discrepancy Cluster, FCDC)</h3>
 <p>该组件旨在检测和隔离恶意攻击者 。</p>
-<p>1.<strong>计算参数重要性</strong>: 每个客户端在本地训练后，在其本地数据上计算 FIM 的近似值，以获得一个代表每个参数重要性的向量 。然后对该重要性得分进行归一化 。</p>
+<p>1.<strong>计算参数重要性</strong>: 每个客户端在本地训练后，在其本地数据上计算 FIM 的近似值，以获得一个代表每个参数重要性的向量 。（对应伪代码的5）</p>
+<p>然后对该重要性得分进行归一化 （对应伪代码的6）。</p>
 <p>2.<strong>重加权梯度</strong>: 服务器根据每个客户端计算出的参数重要性得分，对其上传的梯度进行重加权 。这一步强调了客户端认为对其本地任务重要的参数更新。</p>
+<p><img src="update.jpg" alt=""></p>
 <p>3.<strong>衡量差异</strong>: 服务器从这些重加权的梯度中计算出一个聚合的全局梯度 。然后，它衡量每个客户端的重加权梯度与这个全局梯度之间的差异（平方差）。其直觉是，专注于不同分布的恶意客户端将显示出较大的差异 。</p>
 <p>4.<strong>聚类与排除</strong>: 服务器使用一种无参数的聚类算法 (FINCH) 对这些差异值进行聚类，将客户端分组 。平均差异较大的聚类被标记为恶意，并通过将其聚合权重设置为零来从最终聚合中排除 。</p>
 <h3 id="参数重缩放聚合-Fisher-Parameter-Rescale-Aggregation-FPRA">参数重缩放聚合 (Fisher Parameter Rescale Aggregation, FPRA)</h3>
@@ -354,6 +360,7 @@
 <p>其目标是为被认为重要的参数提供更显著的更新（更高的“可变范围”），从而加速它们对目标分布的适应，同时减弱次要参数的影响 。</p>
 </li>
 </ul>
+<p><img src="sig.jpg" alt=""></p>
 <h2 id="RAPIER">RAPIER</h2>
 <p>（NDSS2024）</p>
 <p>动机：良性与恶意流量数据之间具有分布差异</p>
