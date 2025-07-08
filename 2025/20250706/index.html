@@ -30,8 +30,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250706/LLMebed.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250706/moe.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250706/rapier.jpg">
 <meta property="article:published_time" content="2025-07-06T13:38:06.000Z">
-<meta property="article:modified_time" content="2025-07-08T03:11:21.966Z">
+<meta property="article:modified_time" content="2025-07-08T03:38:43.340Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          288 字
+          349 字
         
       </span>
     
@@ -333,16 +334,14 @@
 <p><img src="moe.jpg" alt=""></p>
 <p><strong>负载均衡优化</strong></p>
 <p>首先进行的是贪心算法，按专家的平均历史负载对专家进行排序，并依次分配专家。</p>
-<p>**反相关平衡。**当专家激活独立时（LM、MT‑Encoder），贪婪算法是有效的，但当 激活相关时（MT‑Decoder），它的效果较差。改进是计算负载加上了0.5*皮尔逊相关系数。</p>
+<p><strong>反相关平衡。</strong> 当专家激活独立时（LM、MT‑Encoder），贪婪算法是有效的，但当 激活相关时（MT‑Decoder），它的效果较差。改进是计算负载加上了0.5*皮尔逊相关系数。</p>
 <h2 id="Parameter-Disparities-Dissection-for-Backdoor-Defense-in-Heterogeneous-Federated-Learning">Parameter Disparities Dissection for Backdoor Defense in Heterogeneous Federated Learning</h2>
-<p>pass</p>
-<h2 id="HippoRag">HippoRag</h2>
+<p>（NIPS2024）</p>
 <h2 id="RAPIER">RAPIER</h2>
-<p>Low-Quality training data only?</p>
-<h2 id="Un-rocking-drones-fiuyndations-of-acoustic-injection-attacks-and-recovery-thereof">Un-rocking drones fiuyndations of acoustic injection attacks and recovery thereof</h2>
-<p>ndss 2023</p>
-<h2 id="flora">flora</h2>
-<h2 id="ecnet-robust-malicious-network">ecnet robust malicious network</h2>
+<p>（NDSS2024）</p>
+<p>动机：良性与恶意流量数据之间具有分布差异</p>
+<p>观察到正常数据的分布倾向于相似且稠密，而恶意数据（可能由大量恶意软件生成）的分布则趋于稀疏。</p>
+<p><img src="rapier.jpg" alt=""></p>
 
                 
               </div>
