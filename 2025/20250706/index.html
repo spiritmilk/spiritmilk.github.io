@@ -28,11 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="《方班研讨班课需要把握的要点》——方班示范班第128期研讨厅（复盘课）暨电子科技大学方班实验班成立仪式 虽然这次讲座的核心并不是论文，而是学习方法，但其中提到的不少论文也值得阅读。 全讲座大概3小时，不得不感慨知识密度之密集和院士精力之充沛。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250706/LLMebed.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250706/moe.jpg">
 <meta property="article:published_time" content="2025-07-06T13:38:06.000Z">
-<meta property="article:modified_time" content="2025-07-07T14:19:50.410Z">
+<meta property="article:modified_time" content="2025-07-08T03:11:21.966Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.work/2025/20250706/LLMebed.jpg">
   
   
   
@@ -262,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          110 字
+          288 字
         
       </span>
     
@@ -273,7 +276,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -321,7 +324,16 @@
 <hr>
 <span id="more"></span>
 <h2 id="LLMembed">LLMembed</h2>
-<p>acl 2024</p>
+<p>acl 2024<br>
+模型结构如下，即综合多个模型，在训练过程中仅训练分类器头的参数。对于 llama2，使用多个网络深度提取嵌入，并通过池化操作进行融合，以提高嵌入的泛化能力。</p>
+<p><img src="LLMebed.jpg" alt=""></p>
+<h2 id="Toward-Efficient-Inference-for-Mixture-of-Experts">Toward Efficient Inference for Mixture of Experts</h2>
+<p>（NIPS 2024） FAIR</p>
+<p><strong>动态门控和专家缓冲优化</strong></p>
+<p><img src="moe.jpg" alt=""></p>
+<p><strong>负载均衡优化</strong></p>
+<p>首先进行的是贪心算法，按专家的平均历史负载对专家进行排序，并依次分配专家。</p>
+<p>**反相关平衡。**当专家激活独立时（LM、MT‑Encoder），贪婪算法是有效的，但当 激活相关时（MT‑Decoder），它的效果较差。改进是计算负载加上了0.5*皮尔逊相关系数。</p>
 <h2 id="Parameter-Disparities-Dissection-for-Backdoor-Defense-in-Heterogeneous-Federated-Learning">Parameter Disparities Dissection for Backdoor Defense in Heterogeneous Federated Learning</h2>
 <p>pass</p>
 <h2 id="HippoRag">HippoRag</h2>
@@ -331,7 +343,6 @@
 <p>ndss 2023</p>
 <h2 id="flora">flora</h2>
 <h2 id="ecnet-robust-malicious-network">ecnet robust malicious network</h2>
-<h2 id="toward-efficient-ionference-for-mixture-of-experts">toward efficient ionference for mixture of experts</h2>
 
                 
               </div>
