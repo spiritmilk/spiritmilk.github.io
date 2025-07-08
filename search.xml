@@ -22569,7 +22569,7 @@ $$<br>
   <entry>
     <title>方班128期研讨班涉及的一些论文阅读</title>
     <url>/2025/20250706/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>《方班研讨班课需要把握的要点》——方班示范班第128期研讨厅（复盘课）暨电子科技大学方班实验班成立仪式</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>《方班研讨班课需要把握的要点》——方班示范班第128期研讨厅（复盘课）暨电子科技大学方班实验班成立仪式</p>
 <p>虽然这次讲座的核心并不是论文，而是学习方法，但其中提到的不少论文也值得阅读。</p>
 <p>全讲座大概3小时，不得不感慨知识密度之密集和院士精力之充沛。</p>
 <hr>
@@ -22590,7 +22590,9 @@ $$<br>
 <p><img src="FDCR.jpg" alt=""></p>
 <h3 id="客户端差异聚类-Fisher-Client-Discrepancy-Cluster-FCDC">客户端差异聚类 (Fisher Client Discrepancy Cluster, FCDC)</h3>
 <p>该组件旨在检测和隔离恶意攻击者 。</p>
-<p>1.<strong>计算参数重要性</strong>: 每个客户端在本地训练后，在其本地数据上计算 FIM 的近似值，以获得一个代表每个参数重要性的向量 。（对应伪代码的5）</p>
+<p>1.<strong>计算参数重要性</strong>: 每个客户端在本地训练后，在其本地数据上计算 FIM (Fisher信息矩阵，Fisher Information Matrix, FIM） 的近似值，以获得一个代表每个参数重要性的向量 。（对应伪代码的5）</p>
+<p>在神经网络理论区域，Fisher矩阵可以用hessian近似，而hessian是一个计算量比较大的数值（所以使用hessian的牛顿法比梯度下降法更不流行）。足以见FIM计算量并不小，所以需要近似以加速。</p>
+<p>论文近似的方法为直接使用对角线元素。FIM 的对角线元素衡量的是<strong>单个参数</strong>的重要性，而非对角线元素则描述了<strong>不同参数之间的相关性或交互影响</strong>。取对角线相当于忽略了不同参数之间的相关性。</p>
 <p>然后对该重要性得分进行归一化 （对应伪代码的6）。</p>
 <p>2.<strong>重加权梯度</strong>: 服务器根据每个客户端计算出的参数重要性得分，对其上传的梯度进行重加权 。这一步强调了客户端认为对其本地任务重要的参数更新。</p>
 <p><img src="update.jpg" alt=""></p>
