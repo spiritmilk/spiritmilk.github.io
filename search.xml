@@ -22616,7 +22616,7 @@ $$<br>
 <p><img src="rapier.jpg" alt=""></p>
 <p><strong>标签矫正。</strong></p>
 <p>使用MADE来进行分布估计。</p>
-<p>![])(MADE.jpg)</p>
+<p><img src="MADE.jpg" alt=""></p>
 <p>对标签修正后的数据集通过集成学习推断 真实标签。即构建了七个经典机器学习分类器的集成，包括线性判别分析、AdaBoost、随机森林、逻辑回归、高斯朴素贝叶斯、SVC 和 XGBoost。</p>
 <p><strong>数据增强。</strong></p>
 <p>对标 签校正的原始训练集进行数据增强。使用GAN进行三种数据增强。</p>
