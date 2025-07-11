@@ -22626,4 +22626,89 @@ $$<br>
         <tag>笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>线性注意力速览</title>
+    <url>/2025/20250711/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>自注意力机制是Transformer模型的重要部分，但是自注意力的计算和内存的复杂度都与序列长度的二次方成正比，这带来了巨大的计算和内存瓶颈。于是乎，就有了线性注意力的提出。</p>
+<span id="more"></span>
+<h2 id="最简单的形式">最简单的形式</h2>
+<p>我们知道标准的attention可以写成：（忽略缩放因子）<br>
+$$<br>
+O=softmax(QK^T)V<br>
+$$<br>
+现在的计算顺序是$(QK^T)V$，如果我们能把计算顺序改为$Q(K^TV)$，那么计算复杂度将从$O(N^2d)$到$O(Nd^2)$。</p>
+<p>那我们该如何把softmax化掉呢？</p>
+<p>我们可以联想到SVM等中所用到的核函数：K( x, x′) =φ( x) ⋅φ( x′)。</p>
+<p>于是我们也可以寻求$exp(q,k)\approx\phi(q)^T\psi(k)$。</p>
+<p>而《<a href="https://arxiv.org/abs/1812.01243">Efficient Attention: Attention with Linear Complexities</a>》给出的选择是，对Q和K的不同维度进行归一化：$P=softmax_d(Q)softmax_N(K)^TV$。</p>
+<p>更多的其他方法还有<a href="https://arxiv.org/abs/2103.02143">Random Feature Attention</a>、<a href="https://arxiv.org/abs/2009.14794">Performer</a>等。</p>
+<p>进一步的我们可以省略为$O=Q(K^TV)$。</p>
+<p>我们可以写成$o_t=(\sum_{j=1}^t v_jk_j^T)q_t$。</p>
+<p>我们把$q_t$分开，也就是$o_t=S_tq_t$，$S_t=S_{t-1}+v_tk_t^T$</p>
+<h2 id="统一形式">统一形式</h2>
+<p>我们得到了上面的式子，可以看成attention可以写成以$S_t$为state的线性RNN的形式。</p>
+<p>进一步的我们可以假定统一形式为:<br>
+$$<br>
+S_t=A_tS_{t-1}+B_tv_tk_t^T<br>
+$$<br>
+当然我们也不是胡乱设置A和B的，这条式子类似梯度下降的迭代，故我们也可以参考梯度下降。这正是《<a href="https://arxiv.org/abs/2407.04620">Learning to (Learn at Test Time): RNNs with Expressive Hidden States</a>》的做法：</p>
+<p>我们希望学习一个函数$M:key\to value$，并定义一个距离度量$loss_M(key,value)=dis(M(key),value)$，梯度下降为$M_{next}=M-\beta\nabla loss_M(k,v)$。</p>
+<p>对于距离我们可以采取负点积或（平方）欧几里得距离，也就引出了以下的线性注意力：</p>
+<p><img src="linear-attention-derivations.png" alt=""></p>
+<p>而（平方）欧几里得距离的梯度下降实际上可以与机器学习中的<a href="https://en.wikipedia.org/wiki/Delta_rule">Delta rule</a>联系起来，这也就是DeltaNet名字的由来。</p>
+<table>
+<thead>
+<tr>
+<th>线性注意力</th>
+<th>$A_t$</th>
+<th>$B_t$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vanilla Linear Attention</td>
+<td>I</td>
+<td>1</td>
+</tr>
+<tr>
+<td>RetNet（2023.07）</td>
+<td>$\gamma$</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Mamba 2（2024.05）</td>
+<td>$diag(\alpha_tI)$</td>
+<td>1</td>
+</tr>
+<tr>
+<td>DeltaNet（2024.06）</td>
+<td>$\alpha_i(I-\beta_tk_tk_t^T)$</td>
+<td>$\beta_t$</td>
+</tr>
+<tr>
+<td>Gated DeltaNet（2024.12）</td>
+<td>$I-\beta_tk_tk_t^T$</td>
+<td>$\beta_t$</td>
+</tr>
+<tr>
+<td>RWKV-5（2023.11）/RWKV-6（2024.05）</td>
+<td>$diag(w_t)$</td>
+<td>1</td>
+</tr>
+<tr>
+<td>RWKV-7（2025.03）</td>
+<td>$diag(w_t)-\kappa_i(a_i\odot \kappa_i^T)$</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>RKKV-7较复杂，$\kappa$代表对键进行部分移除，还会进行归一化，w代表衰减率。</p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://leloykun.github.io/ponder/blockmat-linear-attn/">https://leloykun.github.io/ponder/blockmat-linear-attn/</a></p>
+<p><a href="https://kexue.fm/archives/11033">https://kexue.fm/archives/11033</a></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
 </search>
