@@ -22708,7 +22708,7 @@ $$<br>
 </tr>
 </tbody>
 </table>
-<p>RKKV-7较复杂，$\kappa$代表对键进行部分移除，还会进行归一化，w代表衰减率。</p>
+<p>RKKV-7较复杂，$\kappa$代表对键进行部分移除，还会进行归一化，w代表衰减率。（且RWKV并不是$o_t=S_qo_t$的形式，像RWKV6则是$o_t=(S_{t-1}+(d\odot v_t)k_t^T)q_t$，似乎在论文中并未找到如何设计的缘由，可能更多是Bo Peng的灵感一现）</p>
 <h2 id="参考资料">参考资料</h2>
 <p><a href="https://leloykun.github.io/ponder/blockmat-linear-attn/">https://leloykun.github.io/ponder/blockmat-linear-attn/</a></p>
 <p><a href="https://kexue.fm/archives/11033">https://kexue.fm/archives/11033</a></p>
