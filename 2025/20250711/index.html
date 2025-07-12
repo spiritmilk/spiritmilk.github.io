@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250711/linear-attention-derivations.png">
 <meta property="article:published_time" content="2025-07-11T04:46:45.000Z">
-<meta property="article:modified_time" content="2025-07-11T15:22:54.366Z">
+<meta property="article:modified_time" content="2025-07-12T10:00:44.945Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -264,7 +264,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          598 字
+          668 字
         
       </span>
     
@@ -275,7 +275,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -337,13 +337,14 @@ $$<br>
 <p>我们得到了上面的式子，可以看成attention可以写成以$S_t$为state的线性RNN的形式。</p>
 <p>进一步的我们可以假定统一形式为:<br>
 $$<br>
-S_t=A_tS_{t-1}+B_tv_tk_t^T<br>
+S_t=A_tS_{t-1}+B_t<br>
 $$<br>
 当然我们也不是胡乱设置A和B的，这条式子类似梯度下降的迭代，故我们也可以参考梯度下降。这正是《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2407.04620">Learning to (Learn at Test Time): RNNs with Expressive Hidden States</a>》的做法：</p>
 <p>我们希望学习一个函数$M:key\to value$，并定义一个距离度量$loss_M(key,value)=dis(M(key),value)$，梯度下降为$M_{next}=M-\beta\nabla loss_M(k,v)$。</p>
 <p>对于距离我们可以采取负点积或（平方）欧几里得距离，也就引出了以下的线性注意力：</p>
 <p><img src="linear-attention-derivations.png" alt=""></p>
 <p>而（平方）欧几里得距离的梯度下降实际上可以与机器学习中的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Delta_rule">Delta rule</a>联系起来，这也就是DeltaNet名字的由来。</p>
+<p>虽然$B_t$大多为$v_tk_t^T$的倍数，但也有不符合这一形式的。这也是为什么我们这里采用$S_t=A_tS_{t-1}+B_t$而不是$S_t=A_tS_{t-1}+B_tv_tk_t^T$。</p>
 <table>
 <thead>
 <tr>
@@ -356,37 +357,42 @@ $$<br>
 <tr>
 <td>Vanilla Linear Attention</td>
 <td>I</td>
-<td>1</td>
+<td>$v_tk_t^T$</td>
 </tr>
 <tr>
 <td>RetNet（2023.07）</td>
 <td>$\gamma$</td>
-<td>1</td>
+<td>$v_tk_t^T$</td>
 </tr>
 <tr>
 <td>Mamba 2（2024.05）</td>
 <td>$diag(\alpha_tI)$</td>
-<td>1</td>
+<td>$v_tk_t^T$</td>
 </tr>
 <tr>
 <td>DeltaNet（2024.06）</td>
 <td>$\alpha_i(I-\beta_tk_tk_t^T)$</td>
-<td>$\beta_t$</td>
+<td>$\beta_tv_tk_t^T$</td>
 </tr>
 <tr>
 <td>Gated DeltaNet（2024.12）</td>
 <td>$I-\beta_tk_tk_t^T$</td>
-<td>$\beta_t$</td>
+<td>$\beta_tv_tk_t^T$</td>
 </tr>
 <tr>
 <td>RWKV-5（2023.11）/RWKV-6（2024.05）</td>
 <td>$diag(w_t)$</td>
-<td>1</td>
+<td>$v_tk_t^T$</td>
+</tr>
+<tr>
+<td>HGRN-2（2024.07）</td>
+<td>$diag(w_t)$</td>
+<td>$v_t(1-w_t)^T$</td>
 </tr>
 <tr>
 <td>RWKV-7（2025.03）</td>
 <td>$diag(w_t)-\kappa_i(a_i\odot \kappa_i^T)$</td>
-<td>1</td>
+<td>$v_tk_t^T$</td>
 </tr>
 </tbody>
 </table>
