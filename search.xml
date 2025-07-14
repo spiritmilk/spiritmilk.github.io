@@ -22717,4 +22717,18 @@ $$<br>
         <tag>深度学习</tag>
       </tags>
   </entry>
+  <entry>
+    <title>OneRec</title>
+    <url>/2025/20250714/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img src="recsys_overview.png" alt=""></p>
+<p>我们将要介绍快手介绍的OneRec。</p>
+<p>要介绍OneRec，我们先从快手之前的QARM开始介绍。</p>
+<span id="more"></span>
+<h2 id="QARM">QARM</h2>
+<p>作者认为由于计算代价过大，导致业内通常使用非端到端的模型——二步部署方案，先使用MLLM提取embedding，再进一步训练。</p>
+<p>作者认为这种非端到端的模型有以下问题：</p>
+<p>（1）</p>
+<p><img src="1.jpg" alt=""></p>
+]]></content>
+  </entry>
 </search>
