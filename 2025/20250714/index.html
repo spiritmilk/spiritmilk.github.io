@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250714/1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250714/2.jpg">
 <meta property="article:published_time" content="2025-07-14T12:52:50.000Z">
-<meta property="article:modified_time" content="2025-07-14T13:28:42.739Z">
+<meta property="article:modified_time" content="2025-07-14T13:38:03.910Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.work/2025/20250714/recsys_overview.png">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          213 字
+          398 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          2 分钟
+          4 分钟
         
       </span>
     
@@ -325,6 +325,7 @@
 <h2 id="QARM">QARM</h2>
 <p>QARM= Quantitative Alignment Multi-Modal Recommendation</p>
 <p>作者认为由于计算代价过大，导致业内通常使用非端到端的模型——二步部署方案，先使用MLLM提取embedding，再进一步训练。</p>
+<p>Feature-&gt;Encoder-&gt;Embedding-&gt;Model</p>
 <p>作者认为这种非端到端的模型有以下问题：</p>
 <p><strong>（1）embedding不匹配。</strong></p>
 <p>MLLM通常是由图文匹配训练的，而基于ID的特征并不是。</p>
@@ -337,7 +338,23 @@
 <p>QARM整体架构：</p>
 <p><img src="2.jpg" alt=""></p>
 <h4 id="对齐">对齐</h4>
-<p>pass</p>
+<p>首先通过以下方式生成高质量的项目对：</p>
+<ul>
+<li>
+<p>基于User2Item检索模型，针对每位用户正向点击的目标项目，从其最近50次正向点击的项目集合中，选取在ID表示空间内相似度最高的项目作为触发项。</p>
+</li>
+<li>
+<p>基于Item2Item检索模型，利用已学成稳定且高相似度的物品对作为数据源，例如从我们的Swing检索模型中导出的数据。</p>
+</li>
+</ul>
+<p>再通过对比学习进行批量（为$\beta$）训练：<br>
+$$<br>
+\begin{align}<br>
+M_{trigger}&amp;=MLLM(T_{trigger}^{text},T_{trigger}^{audio},T_{trigger}^{image})\\<br>
+M_{target}&amp;=MLLM(T_{target}^{text},T_{target}^{audio},T_{target}^{image})\\<br>
+\mathcal{L}<em>{align}&amp;=Batch\<em>Contrastive(M</em>{trigger},M</em>{target},\beta)<br>
+\end{align}<br>
+$$</p>
 <h4 id="Quantitative-Code">Quantitative Code</h4>
 
                 
