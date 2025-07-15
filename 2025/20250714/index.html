@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250714/3.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250714/4.jpg">
 <meta property="article:published_time" content="2025-07-14T12:52:50.000Z">
-<meta property="article:modified_time" content="2025-07-14T14:49:30.046Z">
+<meta property="article:modified_time" content="2025-07-15T01:03:11.229Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="推荐系统">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          1.3k 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          9 分钟
+          11 分钟
         
       </span>
     
@@ -402,6 +402,28 @@ $$</p>
 <p>依旧使用上面的：$f_u$为各特征拼接，$h_u=Dense(LeakyReLU(Dense(f_u)))$。</p>
 <p>最后再通过 QFormer 压缩。</p>
 <h3 id="解码器">解码器</h3>
+<p>对于每个目标视频 $m$，解码器输入序列通过将可学习的序列起始 token 与视频的语义标识符连接而构造：</p>
+<p>$$<br>
+S_m = {s_{\text{EOS}}^1, s_m^1, s_m^2, \dots, s_m^{L_s}},<br>
+$$</p>
+<p>$$<br>
+d_m^{(0)} = \text{Emb_lookup}(S_m)<br>
+$$</p>
+<p>解码器通过 $L_{\text{dec}}$ Transformer 层处理此序列。每层执行顺序操作：</p>
+<p>$$<br>
+d_m^{(l+1)} = d_m^{(l)} + \text{CausalSelfAttn}(d_m^{(l)})<br>
+$$</p>
+<p>$$<br>
+d_m^{(l+1)} = d_m^{(l+1)} + \text{CrossAttn}(d_m^{(l+1)}, Z_{\text{enc}}, Z_{\text{enc}})<br>
+$$</p>
+<p>$$<br>
+d_m^{(l+1)} = d_m^{(l+1)} + \text{MoE}(\text{RMSNorm}(d_m^{(l+1)}))<br>
+$$</p>
+<p>每个解码器层都包含一个混合专家模型 (MoE) 前馈网络，以增强模型容量，同时保持计算效率。MoE 层采用 $N_{\text{experts}}$ 个专家网络，并采用 top-k 路由策略：</p>
+<p>$$<br>
+\text{MoE}(x) = \sum_{j=1}^k \text{Gate}_j(x) \cdot \text{Expert}_j(x)<br>
+$$</p>
+<p>其中 $\text{Gate}_j(x)$ 表示由路由机制确定的权重，$\text{Expert}_j(x)$ 表示第 $j$ 个选定的专家网络的输出。并使用了DeepseekV3的无损失的负载均衡策略。</p>
 
                 
               </div>
