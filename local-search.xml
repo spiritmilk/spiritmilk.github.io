@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>多模态速览</title>
+    <link href="/2025/20250716/"/>
+    <url>/2025/20250716/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>基于李沐老师的<a href="https://www.bilibili.com/video/BV1Vd4y1v77v/">《多模态论文串讲》</a>，发布于2023年初左右。</p><p>发布之始已经看过。由于近日学习的需要，重拾并整理。</p><span id="more"></span><hr><p>当前的视觉与语言预训练（VLP）方法高度依赖于图像特征抽取过程。则效率/速度方面存在问题，即仅仅提取输入特征所需的计算量远大于多模态交互步骤；且在表达能力方面，因为它的表达能力受限于视觉嵌入器及其预定义的视觉词表。</p><p><img src="1.jpg" alt=""></p><p>第一种就是早期的工作。比如VSE（visual-semantic embeddings）或者VSE++。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>多模态</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>快手推荐系统模型速览</title>
     <link href="/2025/20250714/"/>
     <url>/2025/20250714/</url>
