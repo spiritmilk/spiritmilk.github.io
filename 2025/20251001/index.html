@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/saatt.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/etm.jpg">
 <meta property="article:published_time" content="2025-07-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-17T13:53:07.827Z">
+<meta property="article:modified_time" content="2025-07-17T13:56:31.316Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -432,16 +432,16 @@ $$<br>
 <h6 id="算法-2"><strong>算法</strong></h6>
 <p><img src="etm.jpg" alt=""></p>
 <p>使用$L_\infty$来约束对抗扰动。通过最大化给定前序 token 的似然来约束<code>t′</code>的流畅性。使用BERT 得分来约束对抗文本<code>t'</code>。</p>
-<p><strong>图像-文本语义相似度损失$L_{adv}$</strong>:<br>
-$$<br>
+<p><strong>图像-文本语义相似度损失</strong>$L_{adv}$:</p>
+<p>$$<br>
 L_{adv} = \begin{cases}<br>
 \min J(F_s(i’), F_s(t’)) \\<br>
-\text{s.t. } |i’ - i|<em>{\infty} \leq \epsilon \\<br>
+\text{s.t. } |i’ - i|_{\infty} \leq \epsilon \\<br>
 \text{s.t. } \text{similarity}(t’, t) \leq \beta<br>
 \end{cases}<br>
-$$<br>
-**软约束损失$L</em>{prep}$：**</p>
-<p><strong>跨模态对比损失$L_{itm}$</strong>：<br>
+$$</p>
+<p><strong>软约束损失</strong>$L_{prep}$：</p>
+<p><strong>跨模态对比损失</strong>$L_{itm}$：<br>
 $$<br>
 L_{nce}(i, t^+, t^-) = E \left[ \log \frac{e^{(sim(i, t^+)/\tau)}}{\sum_{k=1}^{K} e^{(sim(i, \hat{t}<em>k)/\tau)}} \right]<br>
 $$<br>
@@ -449,7 +449,7 @@ $$<br>
 $$<br>
 L</em>{itm}=\frac{1}{2}[L_{nce}(i’,i+,i-)+L_{nce}(i’,i+,i-)]<br>
 $$<br>
-<strong>模态内对比损失$L_{i2i}$</strong>：</p>
+<strong>模态内对比损失</strong>$L_{i2i}$：</p>
 <p>同样使用InfoNCE，将同一模态中与良性样本语义不同的对抗样本推开。具体来说，将良性图像$i$在随机数据增强下的一些随机视图视为负例$i^-$ ，并从测试集中随机抽取图像作为正例。</p>
 <h5 id="IEEE-Computer-Society-2024-Transferable-multimodal-attack-on-vision-language-pre-training-models">(IEEE Computer Society 2024)Transferable multimodal attack on vision-language pre-training models</h5>
 <p>pass</p>
