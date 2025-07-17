@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/setlevel.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/setlevel1.jpg">
 <meta property="article:published_time" content="2025-07-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-17T12:22:15.374Z">
+<meta property="article:modified_time" content="2025-07-17T12:37:26.627Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -276,7 +276,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.9k 字
         
       </span>
     
@@ -408,6 +408,9 @@ $$<br>
 <p>一些符号计法：</p>
 <p>$B[,\epsilon]$表示合法搜索空间，$\epsilon$分别表示图像最大扰动范围或者文本中科改变单词的最大数量。</p>
 <p>正如名字所说，<strong>“集合”</strong>，算法不是简单地针对单个图像和单个标题进行优化，而是构建了一个<strong>对抗性标题集合</strong>和一个<strong>图像集合</strong>，并利用这些集合来“引导”对抗性样本的生成，从而使攻击效果更稳定和强大。</p>
+<p><strong>第一步</strong>，使用余弦相似度来构建对抗性标题集合 <code>t'</code>。</p>
+<p><strong>第二步</strong>，通过加入高斯噪声来构建图像集合 <code>v</code>。</p>
+<p><strong>第三步</strong>，生成对抗性图像。</p>
 <p><img src="setlevel1.jpg" alt=""></p>
 <h5 id="arxiv-2023-Sa-attack-Improving-adversarial-transferability-of-vision-language-pre-training-models-via-self-augmentation">(arxiv 2023)Sa-attack: Improving adversarial transferability of vision-language pre-training models via self-augmentation</h5>
 <p>中山大学网安院长为通讯。</p>
