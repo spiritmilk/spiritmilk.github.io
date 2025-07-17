@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/saatt.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/etm.jpg">
 <meta property="article:published_time" content="2025-07-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-17T14:17:48.362Z">
+<meta property="article:modified_time" content="2025-07-17T14:39:16.851Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -442,19 +442,19 @@ $$</p>
 <p><strong>软约束损失</strong>$L _ {prep}$：</p>
 <p>由于文本的离散性，所以需要将文本转我连续分布。</p>
 <p>采用Gumbel-Softmax来建模文本数据。</p>
-<p>具体而言，对于一个词序列$t=[\omega_1,\omega_2,…,\omega_n]$，其中每个$\omega_j$属于固定词表V，使用由矩阵$\Theta\in R^{n\times V}$参数化的Gumbel-Softmax分布$P_{\theta}$。用于采样$\pi$。<br>
+<p>具体而言，对于一个词序列$t=[\omega_1,\omega_2,…,\omega_n]$，其中每个$\omega_j$属于固定词表V，使用由矩阵$\Theta\in R^{n\times V}$参数化的Gumbel-Softmax分布$P _ {\theta}$。用于采样$\pi$。<br>
 $$<br>
-(\pi_k)<em>j = \frac{\exp((\Theta</em>{k,j} + g_{k,j})/\tau)}{\sum_{\nu=1}^{V} \exp((\Theta_{k,\nu} + g_{k,\nu})/\tau)}</p>
+(\pi_k)_j = \frac{\exp((\Theta _ {k,j} + g _ {k,j})/\tau)}{\sum _ {\nu=1}^{V} \exp((\Theta _ {k,\nu} + g _ {k,\nu})/\tau)}</p>
 <p>\\e(\pi) = e(\pi_1) \cdots e(\pi_n)<br>
 $$<br>
 为了生成对抗文本的流畅性，我们在给定前序 token 时最大化下一个 token 预测的似然。<br>
 $$<br>
-L _ {prep}(\pi)=-\sum_{k=1}^{n} log p _ {dis}(\pi_k\mid \pi_1 …\pi _ {k-1})<br>
+L _ {prep}(\pi)=-\sum _ {k=1}^{n} log p _ {dis}(\pi_k\mid \pi_1 …\pi _ {k-1})<br>
 $$<br>
 其中log是下一个词分布与先前预测词分布之间的交叉熵。</p>
 <p>采用 BERT 得分来保持语义一致性并约束语义鸿沟：<br>
 $$<br>
-L _ {sim}=\sum_{k=1}^{n} w_k\text{\bf{max}}_{j=1,…,m}\phi(t)_k^T\phi(t’)_j<br>
+L _ {sim}=\sum _ {k=1}^{n} w_k\text{\bf{max}} _ {j=1,…,m}\phi(t)_k^T\phi(t’)_j<br>
 $$</p>
 <p>$\phi$是可以生成embedding的语言模型。</p>
 <p><strong>跨模态对比损失</strong>$L _ {itm}$：<br>
