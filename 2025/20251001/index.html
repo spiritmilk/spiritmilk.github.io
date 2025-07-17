@@ -39,8 +39,9 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/setlevel.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/setlevel1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/saatt.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/etm.jpg">
 <meta property="article:published_time" content="2025-07-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-17T13:05:53.052Z">
+<meta property="article:modified_time" content="2025-07-17T13:18:54.774Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -277,7 +278,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.2k 字
         
       </span>
     
@@ -288,7 +289,7 @@
         
         
         
-          18 分钟
+          19 分钟
         
       </span>
     
@@ -403,7 +404,7 @@ $$<br>
 <p>作者认为，对抗样本的迁移性退化主要是由于现有攻击方法的局限性：</p>
 <ul>
 <li>Sep-Attack 的一个主要局限性是它没有考虑不同模态之间的交互作用。作为一种针对每个模态的独立攻击方法，它无法建模在多模态学习中成功攻击至关重要的模态间对应关系。这在图像-文本检索等多模态任务中尤为明显，其中真实值不是离散标签（例如，图像分类），而是与输入模态相对应的另一种模态数据。Sep-Attack 中完全缺乏跨模态交互，严重限制了对抗样本的泛化能力，并降低了它们在不同 VLP 模型之间的迁移性。</li>
-<li>虽然 Co-Attack 旨在利用模态之间的协作生成对抗样本，但它仍存在一个关键缺点，阻碍了其在其他 VLP 模型中的迁移性。与单峰值学习不同，多模态学习涉及多个互补模态，并具有许多对许多的跨模态对齐，这给实现足够的对抗迁移性带来了独特的挑战。然而，Co-Attack 仅使用单个图像-文本对来生成对抗数据，限制了其他模态中多个标签提供的指导多样性。跨模态指导的这种缺乏多样性，使得对抗样本与白盒模型的对齐模式高度相关。因此，对抗样本的通用性受到限制，它们在迁移到其他模型时的效果也会下降。</li>
+<li>虽然 Co-Attack 旨在利用模态之间的协作生成对抗样本，但它仍存在一个关键缺点，阻碍了其在其他 VLP 模型中的迁移性。与单模态学习不同，多模态学习涉及多个互补模态，并具有许多对许多的跨模态对齐，这给实现足够的对抗迁移性带来了独特的挑战。然而，Co-Attack 仅使用单个图像-文本对来生成对抗数据，限制了其他模态中多个标签提供的指导多样性。跨模态指导的这种缺乏多样性，使得对抗样本与白盒模型的对齐模式高度相关。因此，对抗样本的通用性受到限制，它们在迁移到其他模型时的效果也会下降。</li>
 </ul>
 <h6 id="算法">算法</h6>
 <p>一些符号计法：</p>
@@ -425,6 +426,10 @@ $$<br>
 <p>其他部分和上一篇类似。</p>
 <p>主要区别有几个，噪声改为均值为0，方差为0.05的<strong>均匀分布</strong>，并会对图像的clip到[0,1]。</p>
 <h5 id="TMM-2023-Exploring-transferability-of-multimodal-adversarial-samples-for-vision-language-pre-training-models-with-contrastive-learning">(TMM 2023)Exploring transferability of multimodal adversarial samples for vision language pre-training models with contrastive learning</h5>
+<p><strong>两大贡献：</strong></p>
+<p>(1) 通过将扰动优化与多模态对抗样本生成统一于一个基于梯度的框架中，我们能够更有效地攻击那些语义相似的多模态信息中的脆弱点。</p>
+<p>(2) 运用对比学习，我们从多角度扰动良性样本的内在结构及图文对的上下文一致性，从而提升了生成的多模态对抗样本的可迁移性。</p>
+<p><img src="etm.jpg" alt=""></p>
 <h5 id="IEEE-Computer-Society-2024-Transferable-multimodal-attack-on-vision-language-pre-training-models">(IEEE Computer Society 2024)Transferable multimodal attack on vision-language pre-training models</h5>
 <p>pass</p>
 <h5 id="NeurIPS-2023-Vlattack-Multimodal-adversarial-attacks-on-vision-language-tasks-via-pre-trained-models">(NeurIPS 2023)Vlattack: Multimodal adversarial attacks on vision-language tasks via pre-trained models</h5>
