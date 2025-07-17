@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/advclip1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/advclip0.jpg">
 <meta property="article:published_time" content="2025-07-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-17T07:26:17.240Z">
+<meta property="article:modified_time" content="2025-07-17T07:45:59.308Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -271,7 +271,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          788 字
+          1.1k 字
         
       </span>
     
@@ -282,7 +282,7 @@
         
         
         
-          7 分钟
+          10 分钟
         
       </span>
     
@@ -369,7 +369,15 @@ $$<br>
 <p>具体而言，拉大将良性图像和对抗图像的特征距离。由于InfoNCE不是对称的，所以要正反共计算两次损失函数。</p>
 <p><strong>拓扑偏差损失</strong>：</p>
 <p>也就是对应图中的Topology-deviation。旨在破坏对抗样本与其对应正常样本之间的拓扑相似性，即在表示空间中基于样本间相似度构建的邻域关系图。</p>
+<p>论文里是这么说的。构件图后，再通过交叉熵计算正常图和对抗图的损失函数。</p>
 <p><img src="advclip0.jpg" alt=""></p>
+<p>似乎和代码有些不同，我们直接来看代码。</p>
+<p>首先要进行进行归一化。</p>
+<p>接着计算点积，$S=OO^T$。再将其转为距离，$D=1-S$。并给每个点到自身的距离（即对角线元素）临时设置为一个很大的数（这里是3）。</p>
+<p>定义$\rho_i$为最近的正距离$\rho=\text{min}D$。再把它转为新的相似度矩阵，$S=1-(D-\rho)$。</p>
+<p>S的范围是-1到1，$\frac{S+1}{2}$把S转为[0,1]上。最好再把它进行行归一化，这就是定义的概率（因为概率要满足sum为1。）</p>
+<p>然后就是计算交叉熵了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">umap</span>(<span class="hljs-params">output_net, target_net, eps=<span class="hljs-number">0.0000001</span></span>):</span><br>    <span class="hljs-comment"># Normalize each vector by its norm</span><br>    (n, d) = output_net.shape<br>    output_net_norm = torch.sqrt(torch.<span class="hljs-built_in">sum</span>(output_net ** <span class="hljs-number">2</span>, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>))<br>    output_net = output_net / (output_net_norm + eps)<br>    output_net[output_net != output_net] = <span class="hljs-number">0</span><br>    target_net_norm = torch.sqrt(torch.<span class="hljs-built_in">sum</span>(target_net ** <span class="hljs-number">2</span>, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>))<br>    target_net = target_net / (target_net_norm + eps)<br>    target_net[target_net != target_net] = <span class="hljs-number">0</span><br>    <span class="hljs-comment"># Calculate the cosine similarity</span><br>    model_similarity = torch.mm(output_net, output_net.transpose(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))<br>    model_distance = <span class="hljs-number">1</span>-model_similarity <span class="hljs-comment">#[0,2]</span><br>    model_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">3</span><br>    model_distance = model_distance - torch.<span class="hljs-built_in">min</span>(model_distance, dim=<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>].view(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>    model_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">0</span><br>    model_similarity = <span class="hljs-number">1</span>-model_distance<br>    target_similarity = torch.mm(target_net, target_net.transpose(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))<br>    target_distance = <span class="hljs-number">1</span>-target_similarity<br>    target_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">3</span><br>    target_distance = target_distance - torch.<span class="hljs-built_in">min</span>(target_distance,dim=<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>].view(-<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)<br>    target_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">0</span><br>    target_similarity = <span class="hljs-number">1</span> - target_distance<br>    <span class="hljs-comment"># Scale cosine similarity to 0..1</span><br>    model_similarity = (model_similarity + <span class="hljs-number">1.0</span>) / <span class="hljs-number">2.0</span><br>    target_similarity = (target_similarity + <span class="hljs-number">1.0</span>) / <span class="hljs-number">2.0</span><br>    <span class="hljs-comment"># Transform them into probabilities</span><br>    model_similarity = model_similarity / torch.<span class="hljs-built_in">sum</span>(model_similarity, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>)<br>    target_similarity = target_similarity / torch.<span class="hljs-built_in">sum</span>(target_similarity, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>)<br>    <span class="hljs-comment"># Calculate the KL-divergence</span><br>    loss = CE(target_similarity,model_similarity)<br>    <span class="hljs-keyword">return</span> loss<br></code></pre></td></tr></table></figure>
 <h4 id="可见">可见</h4>
 <p>Reading isn’t believing: Adversarial attacks on multi-modal neurons</p>
 <h3 id="黑盒攻击">黑盒攻击</h3>
