@@ -45,8 +45,8 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/vlatt1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/PRM.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/PRM1.jpg">
-<meta property="article:published_time" content="2025-07-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-18T03:25:35.242Z">
+<meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
+<meta property="article:modified_time" content="2025-07-18T03:50:38.264Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -271,8 +271,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-16 21:56" pubdate>
-          2025年7月16日 晚上
+        <time datetime="2025-12-16 21:56" pubdate>
+          2025年12月16日 晚上
         </time>
       </span>
     
@@ -283,7 +283,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          4.1k 字
         
       </span>
     
@@ -294,7 +294,7 @@
         
         
         
-          32 分钟
+          35 分钟
         
       </span>
     
@@ -344,6 +344,24 @@
 <h3 id="BERT-attack">BERT-attack</h3>
 <p>(EMNLP 2020)</p>
 <p>利用以 BERT为代表的预训练掩码语言模型生成对抗样本。</p>
+<p><strong>1.计算重要性分数</strong></p>
+<p>把这个词从句子中去掉（用一个无意义的词如 <code>[MASK]</code> 替换），然后看模型的预测结果与正确标签 <code>Y</code> 的置信度下降了多少。下降得越多，说明这个词越重要。</p>
+<p><strong>2.筛选关键词</strong></p>
+<p>在计算完所有词的重要性分数后，算法会根据分数从高到低进行排序。</p>
+<p><strong>3.为重要词寻找最佳替换</strong></p>
+<p>如果 <code>w_j</code> 是一个完整的词（没有被切分成子词），就直接筛选候选词。</p>
+<p>如果 <code>w_j</code> 被切分成了多个子词，算法会使用 <strong>PPL (Perplexity，困惑度)</strong> 来进行排序和筛选。</p>
+<blockquote>
+<p>分词后的序列$X=(x_0,x_1,…,x_t)$的ppl计算公式为：<br>
+$$<br>
+PPL(x)=exp(-\frac{1}{t}\sum _ {i}^tlogp_\theta(x_i\mid x_{&lt;i}))<br>
+$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">c_loss = nn.CrossEntropyLoss(reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br>ppl = c_loss(word_predictions.view(N*L, -<span class="hljs-number">1</span>), all_substitutes.view(-<span class="hljs-number">1</span>)) <span class="hljs-comment"># [ N*L ] </span><br>ppl = torch.exp(torch.mean(ppl.view(N, L), dim=-<span class="hljs-number">1</span>)) <span class="hljs-comment"># N </span><br></code></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>4.攻击</strong></p>
+<p>遍历候选替换词集合 <code>C</code> 中的每一个词 <code>c_k</code>。</p>
+<p>用候选词 <code>c_k</code> 替换掉原句中的重要词 <code>w_j</code>，生成一个新句子 <code>S'</code>。</p>
+<p>将新句子 <code>S'</code> 输入模型进行预测。如果模型的预测结果 <strong>不再是</strong> 正确标签 <code>Y</code>，则攻击成功。</p>
 <p><img src="bertattack.jpg" alt=""></p>
 <h3 id="Projected-Gradient-Descent-PGD">Projected Gradient Descent(PGD)</h3>
 <p>(ICLR 2018)</p>
@@ -549,13 +567,14 @@ $$</p>
 <p><img src="PRM1.jpg" alt=""></p>
 <p>和前面的主要区别是对每层操作，而非对最后进行操作。</p>
 <h4 id="通用扰动">通用扰动</h4>
-<p>One perturbation is enough: On generating universal adversarial pertur bations against vision-language pre-training models</p>
-<p>Universal adversarial perturbations for vision-language pre-trained models</p>
+<h5 id="拒ICLR-2025-One-perturbation-is-enough-On-generating-universal-adversarial-pertur-bations-against-vision-language-pre-training-models">(拒ICLR 2025)One perturbation is enough: On generating universal adversarial pertur bations against vision-language pre-training models</h5>
+<h6 id="拒稿理由">拒稿理由</h6>
+<h5 id="SIGIR-2024-Universal-adversarial-perturbations-for-vision-language-pre-trained-models">(SIGIR 2024)Universal adversarial perturbations for vision-language pre-trained models</h5>
 <h2 id="对抗防御">对抗防御</h2>
 <h3 id="PromptTuning">PromptTuning</h3>
-<p>1Defense-prefix for preventing typographic attacks on clip</p>
-<p>2“Adversarial prompt tuning for vision-language models</p>
-<p>3One prompt word is enough to boost adversarial robustness for pre-trained vision-language models</p>
+<h4 id="ICCV-2023-Workshop-Defense-prefix-for-preventing-typographic-attacks-on-clip">(ICCV 2023 Workshop)Defense-prefix for preventing typographic attacks on clip</h4>
+<h4 id="ECCV-2024-Adversarial-prompt-tuning-for-vision-language-models">(ECCV 2024)Adversarial prompt tuning for vision-language models</h4>
+<h4 id="CVPR-2024-One-prompt-word-is-enough-to-boost-adversarial-robustness-for-pre-trained-vision-language-models">(CVPR 2024)One prompt word is enough to boost adversarial robustness for pre-trained vision-language models</h4>
 <p>4Mixprompt: En hancing generalizability and adversarial robustness for vision-language models via prompt fusion</p>
 <p>5Promptsmooth: Certifying robustness of medical vision-language mod els via prompt learning</p>
 <p>6Few-shot adversarial prompt learning on vision-language models</p>
@@ -645,7 +664,7 @@ $$</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年7月16日</div>
+          <div>2025年12月16日</div>
         </div>
       
       
