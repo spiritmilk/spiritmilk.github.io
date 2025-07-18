@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/PRM.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/PRM1.jpg">
 <meta property="article:published_time" content="2025-07-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-18T02:11:16.720Z">
+<meta property="article:modified_time" content="2025-07-18T02:24:40.028Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -282,7 +282,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          3.4k 字
         
       </span>
     
@@ -293,7 +293,7 @@
         
         
         
-          28 分钟
+          29 分钟
         
       </span>
     
@@ -338,7 +338,10 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>视觉-语言预训练模型(VLP安全)</p>
 <span id="more"></span>
 <h2 id="预备知识">预备知识</h2>
+<p>李沐老师的《多模态论文串讲》或博客上的《多模态速览》</p>
 <h3 id="BERT-attack">BERT-attack</h3>
+<p>pass</p>
+<h3 id="PGD">PGD</h3>
 <p>pass</p>
 <h2 id="对抗攻击">对抗攻击</h2>
 <h3 id="白盒攻击">白盒攻击</h3>
@@ -500,6 +503,9 @@ $$<br>
 $$</p>
 <p>其中 $M _ {\alpha}$ 是图像编码器中的块数，$M_j^i$ 是在 $i\text{-th}$ 块中生成的展平图像特征嵌入的数量。类似地，$M _ {\beta}$ 是 Transformer 编码器中的块数，$M_t^k$ 是在 $k\text{-th}$ 块中生成的图像词元特征数。$F _ {\alpha}^{i,j}$ 是在图像编码器的 $i\text{-th}$ 层中获得的 $j\text{-th}$ 特征向量，$F _ {\beta}^{k,t}$ 是在 Transformer 编码器的 $k\text{-th}$ 层中获得的 $t\text{-th}$ 特征向量。图像编码器仅以单个图像 $I$ 或 $I’$ 作为输入，但 Transformer 编码器将同时使用图像和文本作为输入。采用余弦相似度来计算扰动特征与良性特征之间的距离。</p>
 <p>使用过<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.06083">投影梯度下降最优化</a>来进行迭代。</p>
+<blockquote>
+<p>其实也还是前面的PGD那一套。</p>
+</blockquote>
 <p><strong>文本攻击</strong>。直接应用 BERT-Attack 来生成文本扰动。</p>
 <p><strong>多模态：</strong></p>
 <p>从第一阶段生成的有效候选文本集 T 中，根据语义相似度得分 γi进行排序，选出最相似的 K个候选文本 {T’1, …, T’K}。</p>
