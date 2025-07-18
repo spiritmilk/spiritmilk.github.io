@@ -327,12 +327,12 @@
 <p>PS：我觉得“无GNN”的说法并不准确，它只是没有把图结构和NN结合起来，而不是不用上任何图结构来进行学习。</p>
 </blockquote>
 <hr>
-<h2 id="动机">动机</h2>
+<h2><span id="dong-ji">动机</span><a href="#dong-ji" class="header-anchor">#</a></h2>
 <p>蒸馏方法最近挑战了节点分类中的现有范式。 GNN 的标准做法是在图中所有标记节点上训练模型，并在测试时使用相同的模型进行节点分类。蒸馏方法消除了在测试时使用 GNN 的需要，尽管它们仍然需要训练 GNN。他们使用 GNN 来伪标记无监督节点。随后，训练 MLP 仅根据其节点特征来预测这些节点的标签，而不考虑其邻居的特征。值得注意的是，在多个数据集上，蒸馏方法与 GNN 具有竞争力。这个结果令人困惑，因为图结构在训练期间似乎有益，但在测试期间却没有。这就引出了一个问题：为什么蒸馏方法如此成功？</p>
 <p>作者指出：应对数据集不在于提高模型表达能力，而在于降低模型样本复杂性。 GNN 通过有用的归纳偏差克服了这一挑战，而蒸馏则通过使用 GNN 伪标签增加训练集的大小来克服这一挑战。</p>
-<h2 id="模型">模型</h2>
+<h2><span id="mo-xing">模型</span><a href="#mo-xing" class="header-anchor">#</a></h2>
 <p>CoHOp - Consistency and Histogram Optimization</p>
-<p><img src="psu_code.png" alt=""></p>
+<p><img src="psu_code.png" alt></p>
 <p>该模型的损失分为两部分。</p>
 <p>一部分为分类的交叉熵损失：<br>
 $$<br>
@@ -346,7 +346,7 @@ $$</p>
 $$<br>
 L(\Psi) = L_{GT}(\Psi) + \gamma \cdot L_{consist}(\Psi)<br>
 $$</p>
-<h3 id="伪标签迭代">伪标签迭代</h3>
+<h3><span id="wei-biao-qian-die-dai">伪标签迭代</span><a href="#wei-biao-qian-die-dai" class="header-anchor">#</a></h3>
 <p>在每次迭代之前，我们将模型以高置信度进行预测的节点以及现有的地面实况训练节点添加到训练集中。我们将模型预测作为这些非真实节点的标签，并将它们称为伪标签。<br>
 $$<br>
 V_{train}^{I+1} = V_{train} \cup {v_i | \max_{j=1,…,C}(\Psi^I(x_i))_j &gt; \tau }<br>
@@ -356,7 +356,7 @@ $$<br>
 Y^{*}=\lambda\cdot\hat{Y}+(1-\lambda)\cdot\hat{A}\hat{Y}<br>
 $$<br>
 其实就是标签传播</p>
-<h3 id="直方图">直方图</h3>
+<h3><span id="zhi-fang-tu">直方图</span><a href="#zhi-fang-tu" class="header-anchor">#</a></h3>
 <p>$$<br>
 h_i’ = \sum_{v_j \in N^\ell(v_i) \cap V_{train}} (\alpha^{d(v_i, v_j)} \cdot y_j)<br>
 $$</p>
@@ -371,9 +371,9 @@ $$<br>
 H’=\sum_{k=1}^\ell\left(\alpha\hat{A}\right)^k\tilde{Y}<br>
 $$<br>
 $\tilde{Y}$的第i行 为：</p>
-<p><img src="for.png" alt=""></p>
-<h4 id="精确算和近似算的比较">精确算和近似算的比较</h4>
-<p><img src="exa.png" alt=""></p>
+<p><img src="for.png" alt></p>
+<h4><span id="jing-que-suan-he-jin-si-suan-de-bi-jiao">精确算和近似算的比较</span><a href="#jing-que-suan-he-jin-si-suan-de-bi-jiao" class="header-anchor">#</a></h4>
+<p><img src="exa.png" alt></p>
 
                 
               </div>

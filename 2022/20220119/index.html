@@ -323,7 +323,7 @@
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1810.04805?context=cs">https://arxiv.org/abs/1810.04805?context=cs</a></p>
 <span id="more"></span>
 <hr>
-<h5 id="介绍">介绍</h5>
+<h5><span id="jie-shao">介绍</span><a href="#jie-shao" class="header-anchor">#</a></h5>
 <p>BERT=Bidirectional Encoder Representations from Transformers</p>
 <p>pre-trained language representations 两类策略：</p>
 <ul>
@@ -341,12 +341,12 @@
 <p>MLM：<br>
 每次随机选输入的词源 tokens, 然后 mask 它们，目标函数是预测被 masked 的词；类似挖空填词、完形填空。</p>
 </blockquote>
-<h5 id="贡献：">贡献：</h5>
+<h5><span id="gong-xian">贡献：</span><a href="#gong-xian" class="header-anchor">#</a></h5>
 <p>1  bidirectional 双向信息的重要性</p>
 <p>2  BERT 首个 微调模型，在 sentence-level and token-level task效果好</p>
 <p>好的预训练模型，不用对特定任务做一些模型架构的改动</p>
 <p>3 BERT 开源，随便用</p>
-<h5 id="算法：">算法：</h5>
+<h5><span id="suan-fa">算法：</span><a href="#suan-fa" class="header-anchor">#</a></h5>
 <p>预训练 + 微调</p>
 <p>pre-training: 使用 unlabeled data 训练</p>
 <p>fine-tuning: 微调的 BERT 使用 预训练的参数 初始化，所有的权重参数通过 下游任务的 labeled data 进行微调。</p>
@@ -387,7 +387,7 @@
 <p>Position embedding 的输入是 token 词源在这个序列 sequence 中的位置信息。从0开始 1 2 3 4 --&gt; 1024</p>
 <p>BERT input representation = token embeddings + segment embeddings + position embeddings</p>
 <p>BERT 的 segment embedding （属于哪个句子）和 position embedding （位置在哪里）是学习得来的，transformer 的 position embedding 是给定的</p>
-<h5 id="Pre-training-BERT：">Pre-training BERT：</h5>
+<h5><span id="pre-training-bert">Pre-training BERT：</span><a href="#pre-training-bert" class="header-anchor">#</a></h5>
 <p>预训练的 key factors: 目标函数，预训练的数据</p>
 <p><strong>Task 1 MLM：</strong></p>
 <p>由 WordPiece 生成的词源序列中的词源，它有 15% 的概率会随机替换成一个掩码。但是对于特殊的词源不做替换，i.e., 第一个词源 [ CLS ] 和中间的分割词源 [SEP]。</p>
@@ -407,7 +407,7 @@
 <p>2 个数据集：BooksCorpus (800 M) + English Wikipedia (2500 M)</p>
 <p>使用一篇一篇文章，而不是随机打断的句子。 a document-level corpus rather than a shuffled sentence-level corpus</p>
 <p>transformer 可以处理较长的序列，一整个文本的输入，效果会好一些。</p>
-<h5 id="Fine-tuning-BERT">Fine-tuning BERT</h5>
+<h5><span id="fine-tuning-bert">Fine-tuning BERT</span><a href="#fine-tuning-bert" class="header-anchor">#</a></h5>
 <p>用 BERT 做微调的一般化的介绍。</p>
 <p>BERT 和一些基于encoder-decoder的架构为什么不一样？transformer 是encoder-decoder。</p>
 <p>整个句子对被放在一起输入 BERT，self-attention 能够在两个句子之间相互看。BERT 更好，但代价是 不能像 transformer 做机器翻译。</p>
@@ -419,7 +419,7 @@
 <p>有两个句子的话，当然就是句子 A 和 B。<br>
 只有一个句子的话，要做句子分类的话， B 没有。根据下游任务的要求，要么是 [CLS] representation is fed into an output layer for classification 拿到第一个词源 [CLS] 对应的输出做分类 such as entailment or sentiment analysis，或者是 the token representations are fed into an output layer for token-level tasks 拿到对应那些词源的输出做 sequence tagging or question answering 输出。</p>
 <p>微调比预训练便宜。TPU 1 hour, GPU a few hours.</p>
-<h5 id="对比实验（Ablation-studies）">对比实验（Ablation studies）</h5>
+<h5><span id="dui-bi-shi-yan-ablation-studies">对比实验（Ablation studies）</span><a href="#dui-bi-shi-yan-ablation-studies" class="header-anchor">#</a></h5>
 <p><strong>没有 NSP</strong></p>
 <p>LTR 从左看到右（无 MLM ） &amp; 没有 NSP</p>
 <p>LTR 从左看到右（无 MLM ） &amp; 没有 NSP + BiLSTM （从ELMo来的想法）</p>

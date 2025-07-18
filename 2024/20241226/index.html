@@ -266,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          691 字
+          693 字
         
       </span>
     
@@ -330,7 +330,7 @@
 <p>对不同组生存率进行比较分析常采用log-rank检验和Breslow检验。</p>
 <p>（3）影响因素分析</p>
 <p>通过生存分析模型来探讨影响生存时间的因素，常见的COX比例风险模型就是这种影响因素分析。</p>
-<h2 id="（一些）重要概念">（一些）重要概念</h2>
+<h2><span id="yi-xie-chong-yao-gai-nian">（一些）重要概念</span><a href="#yi-xie-chong-yao-gai-nian" class="header-anchor">#</a></h2>
 <p><strong>生存函数（survivor function）：</strong></p>
 <p>定义为$S_Y(y)=P(Y&gt;y)=1-F_Y(y)$，即表示某样本的生存时间大于时刻 y 的概率。</p>
 <p><strong>风险函数（hazard function）：</strong></p>
@@ -341,21 +341,21 @@ h_{Y}\left(y\right)=\frac{f_{Y}(y)}{S_{Y}(y)}=\frac{f_{Y}(y)}{1-F_{Y}(y)}<br>
 \ =-\frac{\partial}{\partial y}log\left[S_{Y}\left(y\right)\right].<br>
 $$<br>
 故$S_Y(y)=exp[-\int_0^y h_Y(t)dt]$，其中令$H_Y(t)=\int_0^y h_Y(t)dt$，称为累计风险函数，也算是一种度量指标。</p>
-<h2 id="KM曲线">KM曲线</h2>
-<p><img src="km1.jpg" alt=""></p>
-<h2 id="Cox模型">Cox模型</h2>
+<h2><span id="km-qu-xian">KM曲线</span><a href="#km-qu-xian" class="header-anchor">#</a></h2>
+<p><img src="km1.jpg" alt></p>
+<h2><span id="cox-mo-xing">Cox模型</span><a href="#cox-mo-xing" class="header-anchor">#</a></h2>
 <p>$$h(t)=h_0(t)\times exp(b_1x_1+b_2x_2+\ldots+b_px_p)$$</p>
 <p>x为具有预测效应的多个变量（协变量），h0(t) 是基准风险函数</p>
 <p>Cox需满足的前提：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">风险比(hazard ratio)  =&gt;  exp(协变量系数)<br>比例风险假定（PH 假定，proportional-hazards assumption） =&gt;  与h0(t)无关，风险比为固定值 =&gt;  协变量回归系数是固定的<br></code></pre></td></tr></table></figure>
 <p>我们也可以通过KM曲线来判断。<strong>若两条生存曲线最后交叉，这说明PH条件不成立。</strong></p>
-<p><img src="cox2.jpg" alt=""></p>
-<h2 id="Nelson-Aalen-累计风险函数图">Nelson-Aalen 累计风险函数图</h2>
+<p><img src="cox2.jpg" alt></p>
+<h2><span id="nelson-aalen-lei-ji-feng-xian-han-shu-tu">Nelson-Aalen 累计风险函数图</span><a href="#nelson-aalen-lei-ji-feng-xian-han-shu-tu" class="header-anchor">#</a></h2>
 <p>其与与以KM估计式为基础的估计式相比，具有更好的小样本性质，由Nelson提出然后Aalen加以改进。</p>
 <p>使用以下估计：</p>
 <p>$\tilde{H}(t)=\sum_{t_i\leq t}\frac{d_i}{n_i}$</p>
 <p>$\tilde{S}(t)=exp[-\tilde{H}(t)]$</p>
-<h2 id="WeibullAFTFitter模型">WeibullAFTFitter模型</h2>
+<h2><span id="weibullaftfitter-mo-xing">WeibullAFTFitter模型</span><a href="#weibullaftfitter-mo-xing" class="header-anchor">#</a></h2>
 <p>有$\lambda(x)=\exp\left(\beta_{0}+\beta_{1}x_{1}+\ldots+\beta_{n}x_{n}\right)$和$\rho(y)=\exp{(\alpha_{0}+\alpha_{1}y_{1}+\ldots+\alpha_{m}y_{m})}$</p>
 <p>则</p>
 <p>$S(t;x,y)=\exp\left(-\left(\frac{t}{\lambda(x)}\right)^{\rho(y)}\right)$</p>

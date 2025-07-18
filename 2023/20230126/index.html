@@ -332,7 +332,7 @@
 <p>翻译By我。</p>
 <p>先在github翻译完，在上传到博客。</p>
 <span id="more"></span>
-<h2 id="目录">目录</h2>
+<h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2>
 <ul>
 <li><a href="#%E8%BF%99%E4%B8%AA%E6%96%87%E6%A1%A3%E6%98%AF%E4%B8%BA%E8%B0%81%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F">这个文档是为谁设计的？</a></li>
 <li><a href="#why-a-tuning-playbook">Why a tuning playbook?</a></li>
@@ -377,11 +377,11 @@ configuration</a></li>
 <li><a href="#citing">Citing</a></li>
 <li><a href="#contributing">Contributing</a></li>
 </ul>
-<h2 id="这个文档是为谁设计的？">这个文档是为谁设计的？</h2>
+<h2><span id="zhe-ge-wen-dang-shi-wei-shui-she-ji-de">这个文档是为谁设计的？</span><a href="#zhe-ge-wen-dang-shi-wei-shui-she-ji-de" class="header-anchor">#</a></h2>
 <p>本文档面向对深度学习<strong>模型性能最优化</strong>感兴趣的工程师和研究人员（个人和团队）。我们假设你已经掌握了机器学习和深度学习概念的基本知识。</p>
 <p>我们的重点是超参数调参过程。我们触及了深度学习培训的其他方面，例如pipeline应用和优化，但是我们对这些方面的处理并不完整。</p>
 <p>我们假设机器学习问题是一个有监督的学习问题或类似的问题（例如自监督）。尽管如此，本文档中的一些规定也可能适用于其他类型的问题。</p>
-<h2 id="Why-a-tuning-playbook">Why a tuning playbook?</h2>
+<h2><span id="why-a-tuning-playbook">Why a tuning playbook?</span><a href="#why-a-tuning-playbook" class="header-anchor">#</a></h2>
 <p>Currently, there is an astonishing amount of toil and guesswork involved in<br>
 actually getting deep neural networks to work well in practice. Even worse, the<br>
 actual recipes people use to get good results with deep learning are rarely<br>
@@ -431,7 +431,7 @@ practices as a community. Finally, any sections marked with a 🤖 emoji are pla
 we would like to do more research. Only after trying to write this playbook did<br>
 it become completely clear how many interesting and neglected research questions<br>
 can be found in the deep learning practitioner’s workflow.</p>
-<h2 id="开始新项目前的指南">开始新项目前的指南</h2>
+<h2><span id="kai-shi-xin-xiang-mu-qian-de-zhi-nan">开始新项目前的指南</span><a href="#kai-shi-xin-xiang-mu-qian-de-zhi-nan" class="header-anchor">#</a></h2>
 <p>我们在调参过程中做出的许多决定可以在项目开始时做，只有在情况发生变化时偶尔会重新审视。</p>
 <p>我们的指南提出了以下假设:</p>
 <ul>
@@ -439,7 +439,7 @@ can be found in the deep learning practitioner’s workflow.</p>
 <li>已经有了一个pipeline,可以进行训练和评估。并容易为各种感兴趣的模型进行训练和预测。</li>
 <li>选定并应用了合适的metrics。这些应该尽可能地代表将在部署环境中测量的内容。</li>
 </ul>
-<h3 id="选择模型架构">选择模型架构</h3>
+<h3><span id="xuan-ze-mo-xing-jia-gou">选择模型架构</span><a href="#xuan-ze-mo-xing-jia-gou" class="header-anchor">#</a></h3>
 <p><em><strong>摘要:</strong></em> <em>当开始一个新项目时，请尝试使用已经work的模型。</em></p>
 <ul>
 <li>
@@ -456,7 +456,7 @@ can be found in the deep learning practitioner’s workflow.</p>
 <p>如果可能，尝试找到一篇 解决了与手头问题尽可能相近的问题 的论文，并把复现论文中的模型作为起点。</p>
 </li>
 </ul>
-<h3 id="选择优化器">选择优化器</h3>
+<h3><span id="xuan-ze-you-hua-qi">选择优化器</span><a href="#xuan-ze-you-hua-qi" class="header-anchor">#</a></h3>
 <p><em><strong>摘要:</strong></em> <em>从最受欢迎的优化器开始，用于解决手头问题。</em></p>
 <ul>
 <li>在所有类型的机器学习问题和模型架构中，没有优化器是“最佳”的。 甚至比较优化器性能是困难的。<br>
@@ -488,7 +488,7 @@ can be found in the deep learning practitioner’s workflow.</p>
 </ul>
 </li>
 </ul>
-<h3 id="选择batchsize">选择batchsize</h3>
+<h3><span id="xuan-ze-batchsize">选择batchsize</span><a href="#xuan-ze-batchsize" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>The batch size governs the training speed and shouldn’t be used<br>
 to directly tune the validation set performance. Often, the ideal batch size<br>
 will be the largest batch size supported by the available hardware.</em></p>
@@ -520,7 +520,7 @@ performance?</a></li>
 </ul>
 </li>
 </ul>
-<h4 id="Determining-the-feasible-batch-sizes-and-estimating-training-throughput">Determining the feasible batch sizes and estimating training throughput</h4>
+<h4><span id="determining-the-feasible-batch-sizes-and-estimating-training-throughput">Determining the feasible batch sizes and estimating training throughput</span><a href="#determining-the-feasible-batch-sizes-and-estimating-training-throughput" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -563,7 +563,7 @@ changed (e.g. a different model architecture may allow a larger batch size<br>
 to fit in memory).</li>
 </ul>
 </details>
-<h4 id="Choosing-the-batch-size-to-minimize-training-time">Choosing the batch size to minimize training time</h4>
+<h4><span id="choosing-the-batch-size-to-minimize-training-time">Choosing the batch size to minimize training time</span><a href="#choosing-the-batch-size-to-minimize-training-time" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <p align="center">Training time = (time per step) x (total number of steps)</p>
@@ -617,7 +617,7 @@ possible.</li>
 training time.</li>
 </ul>
 </details>
-<h4 id="Choosing-the-batch-size-to-minimize-resource-consumption">Choosing the batch size to minimize resource consumption</h4>
+<h4><span id="choosing-the-batch-size-to-minimize-resource-consumption">Choosing the batch size to minimize resource consumption</span><a href="#choosing-the-batch-size-to-minimize-resource-consumption" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -667,7 +667,7 @@ number of steps.</li>
 </li>
 </ul>
 </details>
-<h4 id="Changing-the-batch-size-requires-re-tuning-most-hyperparameters">Changing the batch size requires re-tuning most hyperparameters</h4>
+<h4><span id="changing-the-batch-size-requires-re-tuning-most-hyperparameters">Changing the batch size requires re-tuning most hyperparameters</span><a href="#changing-the-batch-size-requires-re-tuning-most-hyperparameters" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -681,7 +681,7 @@ difficult, time consuming, and expensive to re-tune everything for the new<br>
 batch size.</li>
 </ul>
 </details>
-<h4 id="How-batch-norm-interacts-with-the-batch-size">How batch norm interacts with the batch size</h4>
+<h4><span id="how-batch-norm-interacts-with-the-batch-size">How batch norm interacts with the batch size</span><a href="#how-batch-norm-interacts-with-the-batch-size" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -691,7 +691,7 @@ than the gradient computation to compute statistics. See the<br>
 detailed discussion.</li>
 </ul>
 </details>
-<h3 id="Choosing-the-initial-configuration">Choosing the initial configuration</h3>
+<h3><span id="choosing-the-initial-configuration">Choosing the initial configuration</span><a href="#choosing-the-initial-configuration" class="header-anchor">#</a></h3>
 <ul>
 <li>Before beginning hyperparameter tuning we must determine the starting point.<br>
 This includes specifying (1) the model configuration (e.g. number of<br>
@@ -738,7 +738,7 @@ learning rate schedule is tuned for that number of steps.</li>
 </ul>
 </li>
 </ul>
-<h2 id="A-scientific-approach-to-improving-model-performance">A scientific approach to improving model performance</h2>
+<h2><span id="a-scientific-approach-to-improving-model-performance">A scientific approach to improving model performance</span><a href="#a-scientific-approach-to-improving-model-performance" class="header-anchor">#</a></h2>
 <p>For the purposes of this document, the ultimate goal of machine learning<br>
 development is to maximize the utility of the deployed model. Even though many<br>
 aspects of the development process differ between applications (e.g. length of<br>
@@ -751,7 +751,7 @@ configuration that obtains a reasonable result.</li>
 <li>There are enough computational resources available to conduct meaningful<br>
 tuning experiments and run at least several training jobs in parallel.</li>
 </ul>
-<h3 id="The-incremental-tuning-strategy">The incremental tuning strategy</h3>
+<h3><span id="the-incremental-tuning-strategy">The incremental tuning strategy</span><a href="#the-incremental-tuning-strategy" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Start with a simple configuration and incrementally make<br>
 improvements while building up insight into the problem. Make sure that any<br>
 improvement is based on strong evidence to avoid adding unnecessary complexity.</em></p>
@@ -806,7 +806,7 @@ following four steps:</p>
 </ol>
 <p>The remainder of this section will consider this strategy in much greater<br>
 detail.</p>
-<h3 id="Exploration-vs-exploitation">Exploration vs exploitation</h3>
+<h3><span id="exploration-vs-exploitation">Exploration vs exploitation</span><a href="#exploration-vs-exploitation" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Most of the time, our primary goal is to gain insight into the<br>
 problem.</em></p>
 <ul>
@@ -843,7 +843,7 @@ efficiency.</li>
 validation error even if the experiments aren’t maximally informative about<br>
 the structure of the tuning problem.</li>
 </ul>
-<h3 id="Choosing-the-goal-for-the-next-round-of-experiments">Choosing the goal for the next round of experiments</h3>
+<h3><span id="choosing-the-goal-for-the-next-round-of-experiments">Choosing the goal for the next round of experiments</span><a href="#choosing-the-goal-for-the-next-round-of-experiments" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Each round of experiments should have a clear goal and be<br>
 sufficiently narrow in scope that the experiments can actually make progress<br>
 towards the goal.</em></p>
@@ -862,13 +862,13 @@ activation function)</li>
 </ul>
 </li>
 </ul>
-<h3 id="Designing-the-next-round-of-experiments">Designing the next round of experiments</h3>
+<h3><span id="designing-the-next-round-of-experiments">Designing the next round of experiments</span><a href="#designing-the-next-round-of-experiments" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Identify which hyperparameters are scientific, nuisance, and<br>
 fixed hyperparameters for the experimental goal. Create a sequence of studies to<br>
 compare different values of the scientific hyperparameters while optimizing over<br>
 the nuisance hyperparameters. Choose the search space of nuisance<br>
 hyperparameters to balance resource costs with scientific value.</em></p>
-<h4 id="Identifying-scientific-nuisance-and-fixed-hyperparameters">Identifying scientific, nuisance, and fixed hyperparameters</h4>
+<h4><span id="identifying-scientific-nuisance-and-fixed-hyperparameters">Identifying scientific, nuisance, and fixed hyperparameters</span><a href="#identifying-scientific-nuisance-and-fixed-hyperparameters" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1061,7 +1061,7 @@ different by several orders of magnitude.</li>
 </li>
 </ul>
 </details>
-<h4 id="Creating-a-set-of-studies">Creating a set of studies</h4>
+<h4><span id="creating-a-set-of-studies">Creating a set of studies</span><a href="#creating-a-set-of-studies" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1128,7 +1128,7 @@ scientific parameters uniformly.</li>
 </li>
 </ul>
 </details>
-<h4 id="Striking-a-balance-between-informative-and-affordable-experiments">Striking a balance between informative and affordable experiments</h4>
+<h4><span id="striking-a-balance-between-informative-and-affordable-experiments">Striking a balance between informative and affordable experiments</span><a href="#striking-a-balance-between-informative-and-affordable-experiments" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1186,7 +1186,7 @@ hyperparameters (as described in greater detail<br>
 </li>
 </ul>
 </details>
-<h3 id="Extracting-insight-from-experimental-results">Extracting insight from experimental results</h3>
+<h3><span id="extracting-insight-from-experimental-results">Extracting insight from experimental results</span><a href="#extracting-insight-from-experimental-results" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>In addition to trying to achieve the original scientific goal of<br>
 each group of experiments, go through a checklist of additional questions and,<br>
 if issues are discovered, revise the experiments and rerun them.</em></p>
@@ -1250,7 +1250,7 @@ more trials, or take some other corrective action.</li>
 evidence the experiments provide towards our original goal (for example,<br>
 <a href="#detecting-whether-a-change-is-useful-with-isolation-plots">evaluating whether a change is useful</a>).</li>
 </ul>
-<h4 id="Identifying-bad-search-space-boundaries">Identifying bad search space boundaries</h4>
+<h4><span id="identifying-bad-search-space-boundaries">Identifying bad search space boundaries</span><a href="#identifying-bad-search-space-boundaries" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1290,7 +1290,7 @@ rates</a>.</li>
 </li>
 </ul>
 </details>
-<h4 id="Not-sampling-enough-points-in-the-search-space">Not sampling enough points in the search space</h4>
+<h4><span id="not-sampling-enough-points-in-the-search-space">Not sampling enough points in the search space</span><a href="#not-sampling-enough-points-in-the-search-space" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1304,7 +1304,7 @@ repeatedly looking at various hyperparameter axis plots and trying to get a<br>
 sense of how many points are in the “good” region of the search space.</li>
 </ul>
 </details>
-<h4 id="Examining-the-training-curves">Examining the training curves</h4>
+<h4><span id="examining-the-training-curves">Examining the training curves</span><a href="#examining-the-training-curves" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <p><em><strong>Summary:</strong></em> <em>Examining the training curves is an easy way to identify common<br>
@@ -1415,7 +1415,7 @@ training loss <em>increasing</em> during training usually indicates a bug in the
 training pipeline).</li>
 </ul>
 </details>
-<h4 id="Detecting-whether-a-change-is-useful-with-isolation-plots">Detecting whether a change is useful with isolation plots</h4>
+<h4><span id="detecting-whether-a-change-is-useful-with-isolation-plots">Detecting whether a change is useful with isolation plots</span><a href="#detecting-whether-a-change-is-useful-with-isolation-plots" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <p align="center" id="figure-2">
@@ -1458,7 +1458,7 @@ axis plot and taking the best trial in each vertical slice defined by the<br>
 buckets.</li>
 </ul>
 </details>
-<h4 id="Automate-generically-useful-plots">Automate generically useful plots</h4>
+<h4><span id="automate-generically-useful-plots">Automate generically useful plots</span><a href="#automate-generically-useful-plots" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1476,7 +1476,7 @@ paraphrase Geoffrey Hinton, “Every time you plot something new, you learn<br>
 something new.”</li>
 </ul>
 </details>
-<h3 id="Determining-whether-to-adopt-a-training-pipeline-change-or-hyperparameter-configuration">Determining whether to adopt a training pipeline change or hyperparameter configuration</h3>
+<h3><span id="determining-whether-to-adopt-a-training-pipeline-change-or-hyperparameter-configuration">Determining whether to adopt a training pipeline change or hyperparameter configuration</span><a href="#determining-whether-to-adopt-a-training-pipeline-change-or-hyperparameter-configuration" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>When deciding whether to make a change to our model or training<br>
 procedure or adopt a new hyperparameter configuration going forward, we need to<br>
 be aware of the different sources of variation in our results.</em></p>
@@ -1547,7 +1547,7 @@ outweigh any complexity they add.</li>
 </ul>
 </li>
 </ul>
-<h3 id="After-exploration-concludes">After exploration concludes</h3>
+<h3><span id="after-exploration-concludes">After exploration concludes</span><a href="#after-exploration-concludes" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Bayesian optimization tools are a compelling option once we’re<br>
 done exploring for good search spaces and have decided what hyperparameters even<br>
 should be tuned at all.</em></p>
@@ -1586,7 +1586,7 @@ competition).</li>
 </ul>
 </li>
 </ul>
-<h2 id="Determining-the-number-of-steps-for-each-training-run">Determining the number of steps for each training run</h2>
+<h2><span id="determining-the-number-of-steps-for-each-training-run">Determining the number of steps for each training run</span><a href="#determining-the-number-of-steps-for-each-training-run" class="header-anchor">#</a></h2>
 <ul>
 <li>There are two types of workloads: those that are compute-bound and those<br>
 that are not.</li>
@@ -1635,7 +1635,7 @@ can be caused by:
 </ul>
 </li>
 </ul>
-<h3 id="Deciding-how-long-to-train-when-training-is-not-compute-bound">Deciding how long to train when training is <em>not</em> compute-bound</h3>
+<h3><span id="deciding-how-long-to-train-when-training-is-not-compute-bound">Deciding how long to train when training is <em>not</em> compute-bound</span><a href="#deciding-how-long-to-train-when-training-is-not-compute-bound" class="header-anchor">#</a></h3>
 <ul>
 <li>Our main goal is to ensure we are training long enough for the model to<br>
 reach the best possible result, while avoiding being overly wasteful in the<br>
@@ -1692,7 +1692,7 @@ learning rate schedule.</li>
 </ul>
 </li>
 </ul>
-<h4 id="Algorithm-for-picking-an-initial-candidate-for-max-train-steps-using-a-learning-rate-sweep">Algorithm for picking an initial candidate for max_train_steps using a learning rate sweep</h4>
+<h4><span id="algorithm-for-picking-an-initial-candidate-for-max-train-steps-using-a-learning-rate-sweep">Algorithm for picking an initial candidate for max_train_steps using a learning rate sweep</span><a href="#algorithm-for-picking-an-initial-candidate-for-max-train-steps-using-a-learning-rate-sweep" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1719,7 +1719,7 @@ study is not at the boundary of the search space.</li>
 </li>
 </ul>
 </details>
-<h3 id="Deciding-how-long-to-train-when-training-is-compute-bound">Deciding how long to train when training is compute-bound</h3>
+<h3><span id="deciding-how-long-to-train-when-training-is-compute-bound">Deciding how long to train when training is compute-bound</span><a href="#deciding-how-long-to-train-when-training-is-compute-bound" class="header-anchor">#</a></h3>
 <ul>
 <li>In some cases, training loss keeps improving indefinitely and our patience<br>
 and computational resources become the limiting factors.</li>
@@ -1766,7 +1766,7 @@ is using all the extra training steps with too small of a learning rate.</li>
 </ul>
 </li>
 </ul>
-<h4 id="Round-1">Round 1</h4>
+<h4><span id="round-1">Round 1</span><a href="#round-1" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1839,7 +1839,7 @@ the dangers of trying to pick learning rates myopically.</li>
 </li>
 </ul>
 </details>
-<h4 id="Round-2">Round 2</h4>
+<h4><span id="round-2">Round 2</span><a href="#round-2" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1874,8 +1874,8 @@ using increasingly long-running experiments from Step i to Step i+1.</li>
 </li>
 </ul>
 </details>
-<h2 id="Additional-guidance-for-the-training-pipeline">Additional guidance for the training pipeline</h2>
-<h3 id="Optimizing-the-input-pipeline">Optimizing the input pipeline</h3>
+<h2><span id="additional-guidance-for-the-training-pipeline">Additional guidance for the training pipeline</span><a href="#additional-guidance-for-the-training-pipeline" class="header-anchor">#</a></h2>
+<h3><span id="optimizing-the-input-pipeline">Optimizing the input pipeline</span><a href="#optimizing-the-input-pipeline" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>The causes and interventions of input-bound pipelines are highly<br>
 task-dependent; use a profiler and look out for common issues.</em></p>
 <ul>
@@ -1910,10 +1910,10 @@ the input pipeline. For example, by using the<br>
 </ul>
 </li>
 </ul>
-<h3 id="Evaluating-model-performance">Evaluating model performance</h3>
+<h3><span id="evaluating-model-performance">Evaluating model performance</span><a href="#evaluating-model-performance" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Run evaluation at larger batch sizes than training. Run<br>
 evaluations at regular step intervals, not regular time intervals.</em></p>
-<h4 id="Evaluation-settings">Evaluation settings</h4>
+<h4><span id="evaluation-settings">Evaluation settings</span><a href="#evaluation-settings" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1944,7 +1944,7 @@ get during training.</li>
 </li>
 </ul>
 </details>
-<h4 id="Setting-up-periodic-evaluations">Setting up periodic evaluations</h4>
+<h4><span id="setting-up-periodic-evaluations">Setting up periodic evaluations</span><a href="#setting-up-periodic-evaluations" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -1991,7 +1991,7 @@ to do ad-hoc model inspection after evaluation jobs finish.</li>
 </li>
 </ul>
 </details>
-<h4 id="Choosing-a-sample-for-periodic-evaluation">Choosing a sample for periodic evaluation</h4>
+<h4><span id="choosing-a-sample-for-periodic-evaluation">Choosing a sample for periodic evaluation</span><a href="#choosing-a-sample-for-periodic-evaluation" class="header-anchor">#</a></h4>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2031,7 +2031,7 @@ but was it just one more example correct?).</li>
 </li>
 </ul>
 </details>
-<h3 id="Saving-checkpoints-and-retrospectively-selecting-the-best-checkpoint">Saving checkpoints and retrospectively selecting the best checkpoint</h3>
+<h3><span id="saving-checkpoints-and-retrospectively-selecting-the-best-checkpoint">Saving checkpoints and retrospectively selecting the best checkpoint</span><a href="#saving-checkpoints-and-retrospectively-selecting-the-best-checkpoint" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Run training for a fixed number of steps and retrospectively<br>
 choose the best checkpoint from the run.</em></p>
 <ul>
@@ -2051,7 +2051,7 @@ choosing the best checkpoint seen during training. We call this<br>
 pre-specifying a trial budget and are preserving the N best checkpoints seen<br>
 so far.</li>
 </ul>
-<h3 id="Setting-up-experiment-tracking">Setting up experiment tracking</h3>
+<h3><span id="setting-up-experiment-tracking">Setting up experiment tracking</span><a href="#setting-up-experiment-tracking" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>When tracking different experiments, make sure to note a number<br>
 of essentials like the best performance of a checkpoint in the study, and a<br>
 short description of the study.</em></p>
@@ -2073,7 +2073,7 @@ necessary to launch training.</li>
 and is convenient for the people doing it. Untracked experiments might as<br>
 well not exist.</li>
 </ul>
-<h3 id="Batch-normalization-implementation-details">Batch normalization implementation details</h3>
+<h3><span id="batch-normalization-implementation-details">Batch normalization implementation details</span><a href="#batch-normalization-implementation-details" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>Nowadays batch norm can often be replaced with LayerNorm, but in<br>
 cases where it cannot, there are tricky details when changing the batch size or<br>
 number of hosts.</em></p>
@@ -2096,7 +2096,7 @@ synchronized before saving them in checkpoints. However, some common<br>
 implementations of batch norm do not synchronize these EMAs and only save<br>
 the EMA from the first device.</li>
 </ul>
-<h3 id="Considerations-for-multi-host-pipelines">Considerations for multi-host pipelines</h3>
+<h3><span id="considerations-for-multi-host-pipelines">Considerations for multi-host pipelines</span><a href="#considerations-for-multi-host-pipelines" class="header-anchor">#</a></h3>
 <p><em><strong>Summary:</strong></em> <em>for logging, evals, RNGs, checkpointing, and data sharding,<br>
 multi-host training can make it very easy to introduce bugs!</em></p>
 <ul>
@@ -2109,8 +2109,8 @@ shuffling/preprocessing), so make sure to mark them appropriately.</li>
 <li>Sharding data files across hosts is usually recommended for improved<br>
 performance.</li>
 </ul>
-<h2 id="FAQs">FAQs</h2>
-<h3 id="What-is-the-best-learning-rate-decay-schedule-family">What is the best learning rate decay schedule family?</h3>
+<h2><span id="faqs">FAQs</span><a href="#faqs" class="header-anchor">#</a></h2>
+<h3><span id="what-is-the-best-learning-rate-decay-schedule-family">What is the best learning rate decay schedule family?</span><a href="#what-is-the-best-learning-rate-decay-schedule-family" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2123,7 +2123,7 @@ optimization process. Having some sort of schedule makes it more likely for<br>
 the model to hit a good learning rate.</li>
 </ul>
 </details>
-<h3 id="Which-learning-rate-decay-should-I-use-as-a-default">Which learning rate decay should I use as a default?</h3>
+<h3><span id="which-learning-rate-decay-should-i-use-as-a-default">Which learning rate decay should I use as a default?</span><a href="#which-learning-rate-decay-should-i-use-as-a-default" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2131,7 +2131,7 @@ the model to hit a good learning rate.</li>
 schedule families are probably good too.</li>
 </ul>
 </details>
-<h3 id="Why-do-some-papers-have-complicated-learning-rate-schedules">Why do some papers have complicated learning rate schedules?</h3>
+<h3><span id="why-do-some-papers-have-complicated-learning-rate-schedules">Why do some papers have complicated learning rate schedules?</span><a href="#why-do-some-papers-have-complicated-learning-rate-schedules" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2168,7 +2168,7 @@ it fully reproducible.</li>
 </li>
 </ul>
 </details>
-<h3 id="How-should-Adam’s-hyperparameters-be-tuned">How should Adam’s hyperparameters be tuned?</h3>
+<h3><span id="how-should-adam-s-hyperparameters-be-tuned">How should Adam’s hyperparameters be tuned?</span><a href="#how-should-adam-s-hyperparameters-be-tuned" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2187,7 +2187,7 @@ $\beta_2$.</li>
 </li>
 </ul>
 </details>
-<h3 id="Why-use-quasi-random-search-instead-of-more-sophisticated-black-box-optimization-algorithms-during-the-exploration-phase-of-tuning">Why use quasi-random search instead of more sophisticated black box optimization algorithms during the exploration phase of tuning?</h3>
+<h3><span id="why-use-quasi-random-search-instead-of-more-sophisticated-black-box-optimization-algorithms-during-the-exploration-phase-of-tuning">Why use quasi-random search instead of more sophisticated black box optimization algorithms during the exploration phase of tuning?</span><a href="#why-use-quasi-random-search-instead-of-more-sophisticated-black-box-optimization-algorithms-during-the-exploration-phase-of-tuning" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <ul>
 <li>Quasi-random search (based on<br>
@@ -2287,7 +2287,7 @@ Bayesian optimization becomes much more attractive despite making our tuning<br>
 results harder to interpret.</li>
 </ul>
 </details>
-<h3 id="Where-can-I-find-an-implementation-of-quasi-random-search">Where can I find an implementation of quasi-random search?</h3>
+<h3><span id="where-can-i-find-an-implementation-of-quasi-random-search">Where can I find an implementation of quasi-random search?</span><a href="#where-can-i-find-an-implementation-of-quasi-random-search" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2307,7 +2307,7 @@ higher dimensions (see<br>
 </li>
 </ul>
 </details>
-<h3 id="How-many-trials-are-needed-to-get-good-results-with-quasi-random-search">How many trials are needed to get good results with quasi-random search?</h3>
+<h3><span id="how-many-trials-are-needed-to-get-good-results-with-quasi-random-search">How many trials are needed to get good results with quasi-random search?</span><a href="#how-many-trials-are-needed-to-get-good-results-with-quasi-random-search" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <p align="center">
@@ -2332,8 +2332,8 @@ validation error rate of ~23%.</li>
 </ul>
 </li>
 </ul>
-</details>
-<h3 id="How-can-optimization-failures-be-debugged-and-mitigated">How can optimization failures be debugged and mitigated?</h3>
+</p></details>
+<h3><span id="how-can-optimization-failures-be-debugged-and-mitigated">How can optimization failures be debugged and mitigated?</span><a href="#how-can-optimization-failures-be-debugged-and-mitigated" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <p><em><strong>Summary:</strong></em> <em>If the model is experiencing optimization difficulties, it’s<br>
@@ -2343,7 +2343,7 @@ training failures is an active area of research.</em></p>
 <img src="assets/stride_instability.png" width="80%" alt="Changing the strides in a single residual block in a WideResnet results in training instability.">
 </p>
 <p align="center"><b>Figure 4:</b> Changing the strides in a single residual block (2x2 -> 1x1) in a WideResnet results in training instability. This does not degrade performance at low learning rates, but high learning rates no longer train well due to the instability. Applying 1000 steps of learning rate warmup resolves this particular instance of instability, allowing stable training at max learning rate of .1.</p>
-<h4 id="Identifying-unstable-workloads">Identifying unstable workloads</h4>
+<h4><span id="identifying-unstable-workloads">Identifying unstable workloads</span><a href="#identifying-unstable-workloads" class="header-anchor">#</a></h4>
 <ul>
 <li>Any workload will become unstable if the learning rate is too large.<br>
 Instability is only an issue when it forces us to use a learning rate that’s<br>
@@ -2378,7 +2378,7 @@ these issues by not evaluating frequently enough!</strong></p>
 training.">
 </p>
 <p align="center"><b>Figure 5:</b> Illustration of the value of more frequent evaluations at the start of training. Useful if there’s a suspicion that the model suffers from early training instability.</p>
-<h4 id="Potential-fixes-for-common-instability-patterns">Potential fixes for common instability patterns</h4>
+<h4><span id="potential-fixes-for-common-instability-patterns">Potential fixes for common instability patterns</span><a href="#potential-fixes-for-common-instability-patterns" class="header-anchor">#</a></h4>
 <ul>
 <li>Apply learning rate warmup
 <ul>
@@ -2415,13 +2415,13 @@ Norm(f(x)).</li>
 </ul>
 </li>
 </ul>
-<h4 id="Learning-rate-warmup">Learning rate warmup</h4>
+<h4><span id="learning-rate-warmup">Learning rate warmup</span><a href="#learning-rate-warmup" class="header-anchor">#</a></h4>
 <p align="center">
 <img src="assets/instability_during_warmup.png" width="80%" alt="An example of instability during a warmup period (note the horizontal axis log
 scale).">
 </p>
 <p align="center"><b>Figure 6:</b> An example of instability during a warmup period (note the horizontal axis log scale). 40k steps of warmup was needed for successful training in this case.</p>
-<h5 id="When-to-apply-learning-rate-warmup">When to apply learning rate warmup</h5>
+<h5><span id="when-to-apply-learning-rate-warmup">When to apply learning rate warmup</span><a href="#when-to-apply-learning-rate-warmup" class="header-anchor">#</a></h5>
 <p align="center">
 <img src="assets/axis_model_with_instability.png" width="49%" alt="Axis plot for model with instability">
 </p>
@@ -2440,7 +2440,7 @@ this peak. If that plot shows a sudden rise in the loss after a steady<br>
 decline (e.g. at step ~10k in the figure above), then the model likely<br>
 suffers from optimization instability.</li>
 </ul>
-<h5 id="How-to-apply-learning-rate-warmup">How to apply learning rate warmup</h5>
+<h5><span id="how-to-apply-learning-rate-warmup">How to apply learning rate warmup</span><a href="#how-to-apply-learning-rate-warmup" class="header-anchor">#</a></h5>
 <p align="center">
 <img src="assets/beneficial_effect_warmup.png" width="80%" alt="Beneficial effect of warmup on training instabilities">
 </p>
@@ -2486,7 +2486,7 @@ for this.</li>
 Some models only need 100 steps, while others (particularly transformers)<br>
 may need 40k+.</li>
 </ul>
-<h4 id="Gradient-clipping">Gradient clipping</h4>
+<h4><span id="gradient-clipping">Gradient clipping</span><a href="#gradient-clipping" class="header-anchor">#</a></h4>
 <p align="center">
 <img src="assets/gradient_clipping.png" width="80%" alt="Gradient clipping on early training instabilities">
 </p>
@@ -2534,7 +2534,7 @@ as “extremely aggressive”.</li>
 instability issues, then we might as well reduce the learning rate.</li>
 </ul>
 </details>
-<h3 id="Why-do-you-call-the-learning-rate-and-other-optimization-parameters-hyperparameters-They-are-not-parameters-of-any-prior-distribution">Why do you call the learning rate and other optimization parameters hyperparameters? They are not parameters of any prior distribution.</h3>
+<h3><span id="why-do-you-call-the-learning-rate-and-other-optimization-parameters-hyperparameters-they-are-not-parameters-of-any-prior-distribution">Why do you call the learning rate and other optimization parameters hyperparameters? They are not parameters of any prior distribution.</span><a href="#why-do-you-call-the-learning-rate-and-other-optimization-parameters-hyperparameters-they-are-not-parameters-of-any-prior-distribution" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2559,7 +2559,7 @@ paper, and we would encourage others to use “metaparameter” instead in most<
 contexts.</li>
 </ul>
 </details>
-<h3 id="Why-shouldn’t-the-batch-size-be-tuned-to-directly-improve-validation-set-performance">Why shouldn’t the batch size be tuned to directly improve validation set performance?</h3>
+<h3><span id="why-shouldn-t-the-batch-size-be-tuned-to-directly-improve-validation-set-performance">Why shouldn’t the batch size be tuned to directly improve validation set performance?</span><a href="#why-shouldn-t-the-batch-size-be-tuned-to-directly-improve-validation-set-performance" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
 <ul>
@@ -2574,47 +2574,47 @@ contexts.</li>
 <li>Once all these effects are taken into account, there is currently no convincing evidence that the batch size affects the maximum achievable validation performance (see <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1811.03600">Shallue et al. 2018</a>).</li>
 </ul>
 </details>
-<h3 id="What-are-the-update-rules-for-all-the-popular-optimization-algorithms">What are the update rules for all the popular optimization algorithms?</h3>
+<h3><span id="what-are-the-update-rules-for-all-the-popular-optimization-algorithms">What are the update rules for all the popular optimization algorithms?</span><a href="#what-are-the-update-rules-for-all-the-popular-optimization-algorithms" class="header-anchor">#</a></h3>
 <details><summary><em>[Click to expand]</em></summary>
 <br>
-<h4 id="Stochastic-gradient-descent-SGD">Stochastic gradient descent (SGD)</h4>
+<h4><span id="stochastic-gradient-descent-sgd">Stochastic gradient descent (SGD)</span><a href="#stochastic-gradient-descent-sgd" class="header-anchor">#</a></h4>
 <p>$$\theta_{t+1} = \theta_{t} - \eta_t \nabla \mathcal{l}(\theta_t)$$</p>
-<h4 id="Momentum">Momentum</h4>
+<h4><span id="momentum">Momentum</span><a href="#momentum" class="header-anchor">#</a></h4>
 <p>$$v_0 = 0$$</p>
 <p>$$v_{t+1} = \gamma v_{t} + \nabla \mathcal{l}(\theta_t)$$</p>
 <p>$$\theta_{t+1} = \theta_{t} - \eta_t v_{t+1}$$</p>
-<h4 id="Nesterov">Nesterov</h4>
+<h4><span id="nesterov">Nesterov</span><a href="#nesterov" class="header-anchor">#</a></h4>
 <p>$$v_0 = 0$$</p>
 <p>$$v_{t+1} = \gamma v_{t} + \nabla \mathcal{l}(\theta_t)$$</p>
 <p>$$\theta_{t+1} = \theta_{t} - \eta_t( \gamma v_{t+1} + \nabla \mathcal{l}(\theta_{t})$$</p>
-<h4 id="RMSProp">RMSProp</h4>
+<h4><span id="rmsprop">RMSProp</span><a href="#rmsprop" class="header-anchor">#</a></h4>
 <p>$$v_0 = 1 \text{,} m_0 = 0$$</p>
 <p>$$v_{t+1} = \rho v_{t} + (1 - \rho) \nabla \mathcal{l}(\theta_t)^2$$</p>
 <p>$$m_{t+1} = \gamma m_{t} + \frac{\eta_t}{\sqrt{v_{t+1} + \epsilon}}\nabla \mathcal{l}(\theta_t)$$</p>
 <p>$$\theta_{t+1} = \theta_{t} - m_{t+1}$$</p>
-<h4 id="ADAM">ADAM</h4>
+<h4><span id="adam">ADAM</span><a href="#adam" class="header-anchor">#</a></h4>
 <p>$$m_0 = 0 \text{,} v_0 = 0$$</p>
 <p>$$m_{t+1} = \beta_1 m_{t} + (1 - \beta_1) \nabla \mathcal{l} (\theta_t)$$</p>
 <p>$$v_{t+1} = \beta_2 v_{t} + (1 - \beta_2) \nabla \mathcal{l}(\theta_t)^2$$</p>
 <p>$$b_{t+1} = \frac{\sqrt{1 - \beta_2^{t+1}}}{1 - \beta_1^{t+1}}$$</p>
 <p>$$\theta_{t+1} = \theta_{t} - \alpha_t \frac{m_{t+1}}{\sqrt{v_{t+1}} + \epsilon} b_{t+1}$$</p>
-<h4 id="NADAM">NADAM</h4>
+<h4><span id="nadam">NADAM</span><a href="#nadam" class="header-anchor">#</a></h4>
 <p>$$m_0 = 0 \text{,} v_0 = 0$$</p>
 <p>$$m_{t+1} = \beta_1 m_{t} + (1 - \beta_1) \nabla \mathcal{l} (\theta_t)$$</p>
 <p>$$v_{t+1} = \beta_2 v_{t} + (1 - \beta_2) \nabla \mathcal{l} (\theta_t)^2$$</p>
 <p>$$b_{t+1} = \frac{\sqrt{1 - \beta_2^{t+1}}}{1 - \beta_1^{t+1}}$$</p>
 <p>$$\theta_{t+1} = \theta_{t} - \alpha_t \frac{\beta_1 m_{t+1} + (1 - \beta_1) \nabla \mathcal{l} (\theta_t)}{\sqrt{v_{t+1}} + \epsilon} b_{t+1}$$</p>
 </details>
-<h2 id="致谢">致谢</h2>
+<h2><span id="zhi-xie">致谢</span><a href="#zhi-xie" class="header-anchor">#</a></h2>
 <ul>
 <li>我们要感谢Max Bileschi，Roy Frostig，Zelda Mariet，Stan Bileschi，Mohammad Norouzi，Chris Dubois和Charles Sutton阅读了手稿并提供了宝贵的反馈。</li>
 <li>我们使用了了一些最初由Naman Agarwal生产的其他联合研究机构的实验数据。</li>
 <li>我们要感谢Will Chen在文档的介绍中的宝贵建议。</li>
 <li>We would also like to thank Rohan Anil for useful discussions.</li>
 </ul>
-<h2 id="Citing">Citing</h2>
+<h2><span id="citing">Citing</span><a href="#citing" class="header-anchor">#</a></h2>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-comment">@misc&#123;tuningplaybookgithub,</span><br>  author = &#123;Varun Godbole <span class="hljs-keyword">and</span> George E. Dahl <span class="hljs-keyword">and</span> Justin Gilmer <span class="hljs-keyword">and</span> Christopher J. Shallue <span class="hljs-keyword">and</span> Zachary Nado&#125;,<br>  title = &#123;Deep Learning Tuning Playbook&#125;,<br>  url = &#123;http:<span class="hljs-comment">//github.com/google/tuning_playbook&#125;,</span><br>  year = &#123;<span class="hljs-number">2023</span>&#125;,<br>  note = &#123;Version <span class="hljs-number">1</span>.<span class="hljs-number">0</span>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="Contributing">Contributing</h2>
+<h2><span id="contributing">Contributing</span><a href="#contributing" class="header-anchor">#</a></h2>
 <ul>
 <li>
 <p>This is not an officially supported Google product.</p>
@@ -2640,7 +2640,7 @@ notified, please watch our repository (see <a target="_blank" rel="noopener" hre
 via the issue tracking system.</p>
 </li>
 </ul>
-<h3 id="Contributor-License-Agreement">Contributor License Agreement</h3>
+<h3><span id="contributor-license-agreement">Contributor License Agreement</span><a href="#contributor-license-agreement" class="header-anchor">#</a></h3>
 <p>Contributions to this project must be accompanied by a Contributor License<br>
 Agreement (CLA). You (or your employer) retain the copyright to your<br>
 contribution; this simply gives us permission to use and redistribute your<br>
@@ -2650,12 +2650,12 @@ to sign a new one.</p>
 <p>You generally only need to submit a CLA once, so if you’ve already submitted one<br>
 (even if it was for a different project), you probably don’t need to do it<br>
 again.</p>
-<h3 id="Code-Reviews">Code Reviews</h3>
+<h3><span id="code-reviews">Code Reviews</span><a href="#code-reviews" class="header-anchor">#</a></h3>
 <p>All submissions, including submissions by project members, require review. We<br>
 use GitHub pull requests for this purpose. Consult<br>
 <a target="_blank" rel="noopener" href="https://help.github.com/articles/about-pull-requests/">GitHub Help</a> for more<br>
 information on using pull requests.</p>
-<h3 id="Community-Guidelines">Community Guidelines</h3>
+<h3><span id="community-guidelines">Community Guidelines</span><a href="#community-guidelines" class="header-anchor">#</a></h3>
 <p>This project follows<br>
 <a target="_blank" rel="noopener" href="https://opensource.google/conduct/">Google’s Open Source Community Guidelines</a>.</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:3" class="footnote-text"><span>Ben Recht and Kevin Jamieson

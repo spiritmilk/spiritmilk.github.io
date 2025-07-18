@@ -323,7 +323,7 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（NDSS 2024）该论文提出了一种通过打乱像素来保护DNN图像数据视觉隐私的方法。（很奇妙的方法）</p>
 <span id="more"></span>
-<h2 id="现有技术的局限性："><strong>现有技术的局限性</strong>：</h2>
+<h2><span id="xian-you-ji-zhu-de-ju-xian-xing"><strong>现有技术的局限性</strong>：</span><a href="#xian-you-ji-zhu-de-ju-xian-xing" class="header-anchor">#</a></h2>
 <ul>
 <li>
 <p><strong>差分隐私 (Differential Privacy, DP)</strong>：虽然DP能提供强大的隐私保证，但它通过添加噪声来实现，这些噪声对于人眼来说很容易被过滤掉，因此无法有效保护图像的“视觉特征” 。同时，要达到足够的视觉混淆程度，DP引入的噪声会严重损害模型的准确性 。</p>
@@ -335,20 +335,20 @@
 <p><strong>可信执行环境 (TEE)</strong>：TEE依赖特定的硬件，并且其有限的资源和兼容性问题限制了在DNN计算中的应用 。</p>
 </li>
 </ul>
-<h2 id="算法">算法</h2>
+<h2><span id="suan-fa">算法</span><a href="#suan-fa" class="header-anchor">#</a></h2>
 <p>主要关注以下三种攻击。<br>
 <strong>访问客户端上传的数据。</strong> 服务器上的攻击者可以直接访问客户端上传的数据。即使客户端对其图像进行了混淆，攻击者仍会尝试通过暴力破解或启发式攻击来恢复原始视觉特征。</p>
 <p><strong>重构 DNN 训练数据。</strong> 攻击者可以对训练好的 DNN 模型进行成员推断攻击，以识别训练过程中所<br>
 用数据的所有权 。此外，他们可以利用数据增强方法，如基于 GAN 的数据重构，生成视觉特征，并根据客户端上传数据训练的模型权重恢复部分私有训练数据的信息。</p>
 <p><strong>恢复中间梯度和特征。</strong> 攻击者基于训练和推理过程中的中间梯度和特征图重构视觉上可区分的图像</p>
-<h3 id="视觉特征熵-Visual-Feature-Entropy-VFE">视觉特征熵 (Visual Feature Entropy, VFE)</h3>
+<h3><span id="shi-jue-te-zheng-shang-visual-feature-entropy-vfe">视觉特征熵 (Visual Feature Entropy, VFE)</span><a href="#shi-jue-te-zheng-shang-visual-feature-entropy-vfe" class="header-anchor">#</a></h3>
 <p>论文首先定义了一个视觉特征熵的概念。</p>
-<p><img src="1.jpg" alt=""></p>
+<p><img src="1.jpg" alt></p>
 <p>论文中说：VFE值越高，代表图像的梯度变化越密集，视觉上越难识别，隐私性越强 。这个指标是与具体任务无关的（task-agnostic），因此具有普适性 。</p>
 <p>其实这和用于边缘检测的sobel算子很相似。</p>
-<p><img src="1.png" alt=""></p>
+<p><img src="1.png" alt></p>
 <p>另一角度来说，包含边缘信息可能包含更多的纹理和细节，可能包含更多有用的特征。</p>
-<h3 id="VisualMixer-VIM">VisualMixer (VIM)</h3>
+<h3><span id="visualmixer-vim">VisualMixer (VIM)</span><a href="#visualmixer-vim" class="header-anchor">#</a></h3>
 <p>这一部分用来打乱图像。</p>
 <p><strong>非均匀混淆 (Non-uniform Shuffling)</strong>：与在整张图上采用统一策略不同，VisualMixer认为图像的不同区域包含不同的信息量 。它根据VFE值对图像进行非均匀处理：</p>
 <ul>
@@ -368,10 +368,10 @@
 <p><strong>通道混洗</strong>：在每个颜色通道（R, G, B）内部独立地混洗像素值 。这能有效破坏颜色特征，同时对纹理和结构特征影响较小，这些特征对视觉任务更为重要 。</p>
 </li>
 </ul>
-<p><img src="model.jpg" alt=""></p>
+<p><img src="model.jpg" alt></p>
 <p>per-channel-shuffling让我想到了<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/636551276">RWKV中的time mixing</a>，虽然它们不是一个东西。</p>
-<p><img src="2.jpg" alt=""></p>
-<h3 id="ST-Adam-优化器">ST-Adam 优化器</h3>
+<p><img src="2.jpg" alt></p>
+<h3><span id="st-adam-you-hua-qi">ST-Adam 优化器</span><a href="#st-adam-you-hua-qi" class="header-anchor">#</a></h3>
 <p>经过VisualMixer处理的图像，其梯度在训练过程中会产生剧烈波动，即<strong>梯度震荡 (gradient oscillation)</strong> 。这使得像Adam这样的标准优化器难以收敛，或者容易陷入局部最优解 。</p>
 <table>
 <thead>

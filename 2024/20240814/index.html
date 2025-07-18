@@ -322,23 +322,23 @@
 <p>图结构网络通常包含拓扑扰动和权重扰动形式的潜在噪声和攻击，这可能导致 GNN 的分类性能下降。为了提高模型的鲁棒性，该论文提出了一种新方法：随机游走负采样图卷积网络（RW-NSGCN）。具体来说，RW-NSGCN 集成了用于负采样的随机游走（RWR）和 PageRank（PGR）算法，并采用基于行列式点过程（DPP）的 GCN 进行卷积运算。 RWR 利用全局和局部信息来管理噪声和局部变化，而 PGR 评估节点重要性以稳定拓扑结构。基于 DPP 的 GCN 确保负样本之间的多样性，并聚合其特征以产生鲁棒的节点嵌入，从而提高分类性能。</p>
 <hr>
 <span id="more"></span>
-<h2 id="动机">动机</h2>
+<h2><span id="dong-ji">动机</span><a href="#dong-ji" class="header-anchor">#</a></h2>
 <p>目前的方法主要集中于聚合来自邻居的数据风险评估和模式识别的节点，其忽略来自非相邻节点的信息，这会间接影响网络的整体流量和权重分布。这种局部视角限制了它们响应拓扑变化和重量分布波动的能力。因此，理解非邻居节点之间复杂的关系对于开发更准确的分类模型至关重要。</p>
 <p>一些研究，如SDGCN [ <a target="_blank" rel="noopener" href="https://arxiv.org/html/2408.06665v1#bib.bib25">25</a> ] ，引入了负采样机制，但其随机负采样方法未能充分利用节点和全局结构信息的重要性。因此，这些方法捕获非相邻节点之间复杂关系的能力有限，阻碍了对网络内节点全局影响力的准确评估。这反过来又影响节点表示和模型的整体稳定性。</p>
 <p>**拓扑扰动：**这种攻击有选择地删除关键边缘，加剧图网络内自然发生的拓扑变化。它模拟极端情况下可能发生的碎片化和连接中断，旨在评估模型在面临重大结构扰动时的表现，并评估其处理现实网络复杂变化的能力。</p>
 <p>**权重扰动：**这种攻击会修改边权重或引入随机噪声，以放大图中边权重的现有波动。该方法通过模拟极端权重扰动，评估模型处理信息流路径变化和节点影响力变化的鲁棒性，保证模型在动态环境下的可靠性。</p>
-<h2 id="方法">方法</h2>
-<h3 id="负样本的选取">负样本的选取</h3>
+<h2><span id="fang-fa">方法</span><a href="#fang-fa" class="header-anchor">#</a></h2>
+<h3><span id="fu-yang-ben-de-xuan-qu">负样本的选取</span><a href="#fu-yang-ben-de-xuan-qu" class="header-anchor">#</a></h3>
 <p>首先，通过计算最短路径长度$d(v_i,v_j)$在节点对之间，我们可以确定两个节点之间的关系链长度。然后，我们为每个节点生成一组可达节点$v_i$在不同的路径长度$l:$<br>
 $$N_l(v_{i})={v_{j}|d(v_{i},v_{j})=l}$$<br>
 此步骤有助于识别与节点具有特定路径关系的节点集。</p>
-<p><img src="method1.png" alt=""></p>
+<p><img src="method1.png" alt></p>
 <p>$$s_{ij}=\beta\cdot(1-\alpha)\left[(\mathbf{I}-\alpha\mathbf{P})^{-1}\mathbf{e}_i\right]_j+(1-\beta)\left[\alpha\mathbf{P}(\alpha\mathbf{P}\mathbf{p}+(1-\alpha)\mathbf{e})+(1-\alpha)\mathbf{e}\right]_j\quad\forall v_j\in\mathcal{N}_l(v_i),$$</p>
 <p>其中$\mathbf{P}=\mathbf{D}^{-1}\mathbf{A}$ 是转移矩阵，$\alpha$是重启概率，$\beta$是RWR和PGR的权重参数。</p>
 <p>基于这些综合评分向量，我们从不同路径长度的节点集中选择得分最高的节点作为候选节点：</p>
 <p>$$\text{candidates}(v_i)=\bigcup\limits_{l = 1}^{L}\operatorname{top}({s_{ij}|v_j\in\mathcal{N}_l(v_i)})$$</p>
 <p>通过整合不同距离的非邻居节点的关键节点信息，节点可以捕获多尺度特征，获取从局部到全局视角的多样化信息，从而更全面地表征其特征。此外，合并来自不同距离的节点的信息增加了信息多样性，避免了仅仅依赖局部邻域信息的局限性，从而提高了模型的鲁棒性和泛化能力。当包含来自更远距离节点的信息时，模型可以更好地理解全局结构，捕获全局模式并处理远程依赖性，特别是在本地信息不足时提供有价值的上下文信息。综上所述，该方法有效解决了图结构网络中的拓扑漏洞和权重不稳定问题，增强了整体稳定性和鲁棒性。</p>
-<h2 id="基于带有-DPP-采样的标签传播的-GCN">基于带有 DPP 采样的标签传播的 GCN</h2>
+<h2><span id="ji-yu-dai-you-dpp-cai-yang-de-biao-qian-chuan-bo-de-gcn">基于带有 DPP 采样的标签传播的 GCN</span><a href="#ji-yu-dai-you-dpp-cai-yang-de-biao-qian-chuan-bo-de-gcn" class="header-anchor">#</a></h2>
 <p>通过将行列式点过程（DPP）与图卷积网络（GCN）相结合，我们在保证节点多样性的同时，有效捕获节点和社区之间的特征关联，从而提高防御能力。</p>
 <p>首先，模型使用DPP核矩阵来衡量节点对之间的关联强度，定义如下：<br>
 $$<br>

@@ -320,7 +320,7 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>GELU，即Gaussian Error Linear Unit，在论文《Gaussian Error Linear Units (GELUs)》提出，被广泛运用于各大LLM中。</p>
 <span id="more"></span>
-<h2 id="GELU函数">GELU函数</h2>
+<h2><span id="gelu-han-shu">GELU函数</span><a href="#gelu-han-shu" class="header-anchor">#</a></h2>
 <p>正如名字所说，他与高斯分布/正态分布有关。<br>
 $$<br>
 \begin{equation}\text{GELU}(x)=x \Phi(x)\end{equation}<br>
@@ -329,9 +329,9 @@ $$<br>
 $$<br>
 \begin{equation}\Phi(x)=\int_{-\infty}^x \frac{e^{-t^2/2}}{\sqrt{2\pi}}dt=\frac{1}{2}\left[1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right]\end{equation}<br>
 $$</p>
-<p><img src="gelu.png" alt=""></p>
+<p><img src="gelu.png" alt></p>
 <p>由于erf并不好求，故有以下近似。</p>
-<h2 id="近似1">近似1</h2>
+<h2><span id="jin-si-1">近似1</span><a href="#jin-si-1" class="header-anchor">#</a></h2>
 <p>$$<br>
 \begin{equation}x\Phi(x)\approx x\sigma(1.702 x)\label{eq:x-sigma}\end{equation}<br>
 $$</p>
@@ -339,7 +339,7 @@ $$</p>
 <p>Swish由Google brain于2017年提出。</p>
 <p>他遍历了所有激活函数，并得出最好的是Swish。</p>
 <p>定义的激活函数如下：</p>
-<p><img src="swish.jpg" alt=""></p>
+<p><img src="swish.jpg" alt></p>
 <p>其中</p>
 <ul>
 <li>
@@ -355,7 +355,7 @@ $exp(-\beta (x_1 - x_2)^2), exp(-\beta |x_1 - x_2|), \beta x_1 + (1 - \beta)x_2$
 </li>
 </ul>
 <p>也有一篇论文从数学的角度上求解最佳的$\beta$：<a target="_blank" rel="noopener" href="https://core.ac.uk/download/pdf/41787448.pdf">《A logistic approximation to the cumulative normal distribution》</a></p>
-<h2 id="近似2">近似2</h2>
+<h2><span id="jin-si-2">近似2</span><a href="#jin-si-2" class="header-anchor">#</a></h2>
 <p>$$<br>
 \begin{equation}x\Phi(x)\approx \frac{1}{2} x \left[1 + \tanh\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715 x^3\right)\right)\right]\label{eq:x-phi}\end{equation}<br>
 $$</p>

@@ -328,12 +328,12 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>《<a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=FcBmz8nLnq">FINDING ADVERSARIALLY ROBUST GRAPH LOTTERY TICKETS </a>》NeurIPS 2023&amp;ICLR 2024</p>
 <span id="more"></span>
-<h2 id="相关工作">相关工作</h2>
-<h3 id="Graph-Lottery-Ticket-Hypothesis">Graph Lottery Ticket Hypothesis</h3>
-<h4 id="The-Lottery-Ticket-Hypothesis">The Lottery Ticket Hypothesis</h4>
+<h2><span id="xiang-guan-gong-zuo">相关工作</span><a href="#xiang-guan-gong-zuo" class="header-anchor">#</a></h2>
+<h3><span id="graph-lottery-ticket-hypothesis">Graph Lottery Ticket Hypothesis</span><a href="#graph-lottery-ticket-hypothesis" class="header-anchor">#</a></h3>
+<h4><span id="the-lottery-ticket-hypothesis">The Lottery Ticket Hypothesis</span><a href="#the-lottery-ticket-hypothesis" class="header-anchor">#</a></h4>
 <p>该论文首先提到了ICLR 2019最佳论文:The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks。该论文提出了彩票假说：密集的、随机初始化的、前馈网络包含子网络（中奖票），这些子网络在孤立地训练时，在类似数量的迭代中达到与原始网络相当的测试精度。</p>
 <p>具体而言，他的训练策略如下：</p>
-<p><img src="LTH.png" alt=""></p>
+<p><img src="LTH.png" alt></p>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1905.01067">《Deconstructing Lottery Tickets: Zeros, Signs, and the Supermask》</a>也有类似的内容。展示了为什么将权重设置为零很重要，如何使用符号来进行重新初始化的网络训练，以及为什么掩蔽的行为类似于训练。最后，我们发现了超级掩码的存在，这些掩码可以应用于未经训练的随机初始化网络，以生成性能远远优于偶然的模型（MNIST 上为 86%，CIFAR-10 上为 41%）。</p>
 <p>ICLR2020 的《<a target="_blank" rel="noopener" href="http://proceedings.mlr.press/v119/malach20a/malach20a.pdf">Proving the Lottery Ticket Hypothesis: Pruning is All You Need</a>宣称证明了The Lottery Ticket Hypothesis。一句话概括：只要对随机初始化的神经网络做个好剪枝，不怎么训练也能有个好效果。</p>
 <p>Pruning is All You Need！</p>
@@ -341,16 +341,16 @@
 <p>Fix some target fully-connected ReLU-network F of width k, depth d and input dimension n.Fix$\delta&gt;0$.Then,arandomly-initialized network $G$ of width $poly(d,n,k,1/\epsilon,\log(1/\delta))$ and depth 2d, has w.p. $\geq1-\delta$ a subnetwork $\tilde{G}$ that approximates F up to $\epsilon.$</p>
 <p>简单的说，给定一个深度为d的Relu目标网络。那么一个深度为2d，且足够宽的随机网络里，必然可以找到一个可以逼近目标网络的子网络。</p>
 <p>具体证明可见刘斯坦的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/473365094/answer/2044032805">解答</a></p>
-<h4 id="In-Graph">In Graph</h4>
+<h4><span id="in-graph">In Graph</span><a href="#in-graph" class="header-anchor">#</a></h4>
 <p>《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2102.06790">A Unified Lottery Ticket Hypothesis for Graph Neural Networks</a>》一文将LTH应用在了GNN上。</p>
 <p>具体而言，在端到端训练过程中，UGS分别对邻接矩阵和GNN模型权值应用两个可微二元掩模张量。训练完成后，移除最小大小的元素，将相应的掩码位置更新为0，分别从邻接矩阵和GNN中去除低评分的边和权重。然后将稀疏GNN权重参数倒绕到其原始初始化。（类似于原始的LTH）</p>
 <p>实验结果表明，UGS可以在不影响预测精度的前提下显著降低推理计算成本。在这项工作中，我们的目标是为受到对抗性扰动的数据集找到glt。当我们将UGS算法直接应用于摄动图时，glt的性能精度与干净的glt相比明显较低，这需要开发新的优化方法来寻找对抗鲁棒的glt。</p>
-<h2 id="分析对抗性攻击对图属性的影响">分析对抗性攻击对图属性的影响</h2>
+<h2><span id="fen-xi-dui-kang-xing-gong-ji-dui-tu-shu-xing-de-ying-xiang">分析对抗性攻击对图属性的影响</span><a href="#fen-xi-dui-kang-xing-gong-ji-dui-tu-shu-xing-de-ying-xiang" class="header-anchor">#</a></h2>
 <p>像MetaAttack、PGD和PR-BCD这样的对抗性攻击通过引入新边或删除现有边来毒害图结构，导致原始图属性发生变化。<br>
 我们分析了干净边和对抗边连接的节点在属性特征上的差异。</p>
-<p><img src="impact.png" alt=""></p>
+<p><img src="impact.png" alt></p>
 <p>图a和图b描述了受PGD攻击的homophilic和 heterophilic图数据集中连接节点属性特征差的密度分布。在同态图中，攻击倾向于连接属性特征差异较大的节点。防御技术可以潜在地利用这些信息来区分图中的良性和敌对边缘。然而，这不是 heterophilic图的情况。相反，我们利用节点的位置特征，使用像DeepWalk这样的位置编码技术(Perozzi等人，2014)。有趣的是，从图c中我们可以看到，在heterophilic图中，攻击倾向于连接位置特征差较大的节点。ARGS使用这些图的属性来迭代地从homophilic和 heterophilic图中修剪对抗性边。</p>
-<h2 id="方法">方法</h2>
+<h2><span id="fang-fa">方法</span><a href="#fang-fa" class="header-anchor">#</a></h2>
 <p>$\mathcal{L}$<br>
 总所周知，两层的GCN可以表示为<br>
 $$<br>
@@ -405,16 +405,16 @@ $$<br>
 \mathcal{L}<em>{ARGS}=\alpha\mathcal{L}</em>{0}(f({m_{g}\odot A’,X},m_{\theta}\odot\Theta))+\beta\mathcal{L}<em>{fs}(m</em>{g}\odot A’,X)\+\gamma\mathcal{L}<em>{1}(f({m</em>{g}\odot A’,X},m_{\theta}\odot\Theta))+\lambda_{1}||m_{g}||<em>{1}+\lambda</em>{2}||m_{\theta}||<em>{1}<br>
 $$<br>
 其中，$\alpha$和$\gamma$设置为1。$m_g$用于领接矩阵，$m</em>\theta$用于模型权重。</p>
-<p><img src="algo.png" alt=""></p>
-<h2 id="实验结果">实验结果</h2>
-<p><img src="UGS.png" alt=""></p>
-<p><img src="result.png" alt=""></p>
+<p><img src="algo.png" alt></p>
+<h2><span id="shi-yan-jie-guo">实验结果</span><a href="#shi-yan-jie-guo" class="header-anchor">#</a></h2>
+<p><img src="UGS.png" alt></p>
+<p><img src="result.png" alt></p>
 <p>Inference MACs（Multiply-Accumulate Operations）是指推断过程中的乘累加操作数量。</p>
-<p><img src="vsother.png" alt=""></p>
+<p><img src="vsother.png" alt></p>
 <p>在大规模图数据集中：</p>
-<p><img src="biggraph.png" alt=""></p>
+<p><img src="biggraph.png" alt></p>
 <p>消融实验：</p>
-<p><img src="aba.png" alt=""></p>
+<p><img src="aba.png" alt></p>
 
                 
               </div>

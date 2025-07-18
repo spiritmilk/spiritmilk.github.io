@@ -262,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          485 字
+          487 字
         
       </span>
     
@@ -318,7 +318,7 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p><strong>Learning-to-Rank (LTR)</strong> 是一种运用机器学习技术来解决排序问题的领域。它的核心目标是，训练一个模型，让这个模型能自动地对一个项目列表进行优化排序，使得排序结果尽可能地好。</p>
 <p>常用的算法有RankNet和LambdaRank等。</p>
 <span id="more"></span>
-<h2 id="RankNet">RankNet</h2>
+<h2><span id="ranknet">RankNet</span><a href="#ranknet" class="header-anchor">#</a></h2>
 <p>我们定义一个概率$P _ {ij}$代表i排在j前面的真实概率，我们定义1代表更重要/相关，0.5代表相同重要/相关，0代表更不重要/相关。</p>
 <p>同时，我们会对输出的分数$s_i$和$s_j$进行转换，RankNet使用的是<br>
 $$<br>
@@ -335,13 +335,13 @@ $$<br>
 \end{align}<br>
 $$<br>
 $\lambda _ {ij}$也被成为lambda梯度。</p>
-<h2 id="LambdaRank">LambdaRank</h2>
+<h2><span id="lambdarank">LambdaRank</span><a href="#lambdarank" class="header-anchor">#</a></h2>
 <p>RankNet一个显明的缺点是，不直接与各种排序指标相关。故LambdaRank将其引入到其算法中，修改为<br>
 $$<br>
 \lambda _ {LambdaRank}=\lambda _ {ij}\cdot|\Delta metric|<br>
 $$<br>
 Xgboost中有<code>rank:ndcg</code>、<code>rank:map</code>、<code>rank:pairwise</code>，前两种分别对应NDCG和map指标，后一种类似RankNet，即$|\Delta|$=1。</p>
-<h2 id="与AUC自定义损失的联系">与AUC自定义损失的联系</h2>
+<h2><span id="yu-auc-zi-ding-yi-sun-shi-de-lian-xi">与AUC自定义损失的联系</span><a href="#yu-auc-zi-ding-yi-sun-shi-de-lian-xi" class="header-anchor">#</a></h2>
 <p>AUC其实也是一种排序问题，但我们通常使用交叉熵隐含地去优化分类任务以达到更好的排序。</p>
 <p>另外，在这里的交叉熵它可以写成softplus的形式，这也是0-1损失的替代损失函数之一，另外还有hinge-loss等等。所以，排序问题和直接优化AUC，采取的思想是类似的。</p>
 

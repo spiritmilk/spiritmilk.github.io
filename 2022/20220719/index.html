@@ -320,8 +320,8 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>给国赛组员写的。</p>
 <span id="more"></span>
-<h2 id="Latex教程">Latex教程</h2>
-<h3 id="基本操作">基本操作</h3>
+<h2><span id="latex-jiao-cheng">Latex教程</span><a href="#latex-jiao-cheng" class="header-anchor">#</a></h2>
+<h3><span id="ji-ben-cao-zuo">基本操作</span><a href="#ji-ben-cao-zuo" class="header-anchor">#</a></h3>
 <p><strong>另起一页:</strong></p>
 <p>\newpage</p>
 <p>空格</p>
@@ -335,13 +335,13 @@
 <p><strong>字体：</strong></p>
 <p>\textbf{}  粗体  (快捷键：CTRL+B)</p>
 <p>\textsl{}   斜体</p>
-<h3 id="公式">公式</h3>
+<h3><span id="gong-shi">公式</span><a href="#gong-shi" class="header-anchor">#</a></h3>
 <p><strong>输入公式方式：</strong></p>
 <p>（1）<strong>行内公式：</strong> 直接在正文中加“$ $”即可，公式输在两个$中即可</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex">我是公式$x^2$<br></code></pre></td></tr></table></figure>
 <p>（ 2）行间公式：需要用<code>$$..$$</code>来输入</p>
 <p><strong>常见的符号：</strong></p>
-<p><img src="latex.jpg" alt=""></p>
+<p><img src="latex.jpg" alt></p>
 <table>
 <thead>
 <tr>
@@ -464,7 +464,7 @@
 </table>
 <p>其他复杂的符号可在线输入</p>
 <p><a target="_blank" rel="noopener" href="https://www.latexlive.com/">https://www.latexlive.com/</a></p>
-<h3 id="图片">图片</h3>
+<h3><span id="tu-pian">图片</span><a href="#tu-pian" class="header-anchor">#</a></h3>
 <p><strong>最基本的</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex">\begin&#123;figure&#125;[htbp]  <br>    \centering  <br>    \includegraphics[width=8cm]&#123;图片.jpg&#125;  <br>    \caption&#123;图片标题&#125;  <br>\end&#123;figure&#125;<br></code></pre></td></tr></table></figure>
 <p>『h』当前位置。将图形放置在正文文本中给出该图形环境的地方。如果本页所剩的页面不够，这一参数将不起作用。<br>
@@ -474,17 +474,17 @@
 <p>按h→t→b→p的顺序满足排版。</p>
 <p><strong>多图</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs latex">\begin&#123;figure&#125;[htbp]<br>    \centering<br>    \begin&#123;minipage&#125;&#123;0.32\linewidth&#125;<br>        \centering<br>        \includegraphics[width=0.9\linewidth]&#123;Figure/chutian.JPG&#125;<br>        \caption&#123;图片1&#125;<br>    \end&#123;minipage&#125;<br>    \begin&#123;minipage&#125;&#123;0.32\linewidth&#125;<br>        \centering<br>        \includegraphics[width=0.9\linewidth]&#123;Figure/chutian.JPG&#125;<br>        \caption&#123;chutian2&#125;<br>        \label&#123;chutian2&#125;%文中引用该图片代号<br>    \end&#123;minipage&#125;<br>    \begin&#123;minipage&#125;&#123;0.32\linewidth&#125;<br>        \centering<br>        \includegraphics[width=0.9\linewidth]&#123;Figure/chutian.JPG&#125;<br>        \caption&#123;chutian2&#125;<br>        \label&#123;chutian2&#125;%文中引用该图片代号<br>    \end&#123;minipage&#125;<br>    \begin&#123;minipage&#125;&#123;0.32\linewidth&#125;<br>        \centering<br>        \includegraphics[width=0.9\linewidth]&#123;Figure/chutian.JPG&#125;<br>        \caption&#123;chutian3&#125;<br>        \label&#123;chutian3&#125;%文中引用该图片代号<br>    \end&#123;minipage&#125;<br>    \begin&#123;minipage&#125;&#123;0.32\linewidth&#125;<br>        \centering<br>        \includegraphics[width=0.9\linewidth]&#123;Figure/chutian.JPG&#125;<br>        \caption&#123;chutian4&#125;<br>        \label&#123;chutian4&#125;%文中引用该图片代号<br>    \end&#123;minipage&#125;<br>\end&#123;figure&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="表格">表格</h3>
+<h3><span id="biao-ge">表格</span><a href="#biao-ge" class="header-anchor">#</a></h3>
 <p>建议直接使用在线表格转latex代码</p>
 <p><a target="_blank" rel="noopener" href="https://www.tablesgenerator.com/#">https://www.tablesgenerator.com/#</a></p>
-<h3 id="论文中的引用">论文中的引用</h3>
+<h3><span id="lun-wen-zhong-de-yin-yong">论文中的引用</span><a href="#lun-wen-zhong-de-yin-yong" class="header-anchor">#</a></h3>
 <p>引用图/表<code>:\ref&#123;标题&#125; </code> 标题此处填图/表中\label中的内容</p>
 <p>引用参考文献：\cite{}</p>
-<h3 id="导入引用文献">导入引用文献</h3>
+<h3><span id="dao-ru-yin-yong-wen-xian">导入引用文献</span><a href="#dao-ru-yin-yong-wen-xian" class="header-anchor">#</a></h3>
 <p>直接在.bib文件中输入论文的对应bibtex代码</p>
 <p><strong>如何获取论文的bibtex</strong></p>
 <p>使用谷歌学术，搜索后点击“引用”，点击“bibtex”</p>
-<h3 id="国赛模板">国赛模板</h3>
+<h3><span id="guo-sai-mo-ban">国赛模板</span><a href="#guo-sai-mo-ban" class="header-anchor">#</a></h3>
 <p><a target="_blank" rel="noopener" href="https://www.overleaf.com/xxxx">https://www.overleaf.com/xxxx</a></p>
 
                 

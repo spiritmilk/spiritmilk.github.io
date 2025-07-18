@@ -321,7 +321,7 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
 <span id="more"></span>
-<h2 id="前尘">前尘</h2>
+<h2><span id="qian-chen">前尘</span><a href="#qian-chen" class="header-anchor">#</a></h2>
 <p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>
 $$<br>
 J=\int F(\theta)exp(-E(\theta)/kT)d\theta / \int exp(-E(\theta)/kT)d\theta<br>
@@ -346,7 +346,7 @@ $$<br>
 min(1,exp(-\Delta E/KT))<br>
 $$<br>
 否则，先前配置将被复制，即在随机游走 τ 步的 F (θ) 的最终平均中，其计数器增加一 。但Metropolis 等人一次移动一个粒子，而不是一起移动所有粒子，这使得初始算法看起来像是一种原始的吉布斯采样器。</p>
-<h2 id="基本采样方法">基本采样方法</h2>
+<h2><span id="ji-ben-cai-yang-fang-fa">基本采样方法</span><a href="#ji-ben-cai-yang-fang-fa" class="header-anchor">#</a></h2>
 <p>像变分贝叶斯推断是基于确定性近似的推断⽅法，考虑基于数值采样的近似推断⽅法，也被称为蒙特卡罗方法。</p>
 <p>MCMC方法巧妙地将两个核心概念结合起来：<strong>蒙特卡罗方法</strong>和<strong>马尔可夫链</strong>。</p>
 <ul>
@@ -374,7 +374,7 @@ $$<br>
 P(\frac{1}{n}\sum(z_i-E(z_i))\ge t)\le exp(-\frac{2nt^2}{(b-a)^2})<br>
 $$</p>
 </blockquote>
-<h3 id="基本采样">基本采样</h3>
+<h3><span id="ji-ben-cai-yang">基本采样</span><a href="#ji-ben-cai-yang" class="header-anchor">#</a></h3>
 <p>我们考虑如何从简单的⾮均匀分布中⽣成随机数，假定我们已经有了⼀个均匀分布的随机数的来源。假设<em>z</em>在区间(0*,* 1)上均匀分布，我们使⽤某个函数f(·)对z的值进⾏变换，即y=f(z)。y上的概率分布为:<br>
 $$<br>
 p(y)=p(z)\left|\frac{dz}{dy}\right|<br>
@@ -397,15 +397,15 @@ $$</p>
 <p>故我们均匀生成z，并通过$y=-\lambda^{-1}ln(1-z)$来生成指数分布。</p>
 <p>另外统计学中还有一个Box-Muller⽅法⽤于⽣成⾼斯概率分布的样本。</p>
 <p>但是我们这种方法只能用于⼀些⾮常有限的简单的概率分布可⾏，因此我们必须寻找⼀些更加⼀般的⽅法。</p>
-<h3 id="拒绝采样">拒绝采样</h3>
+<h3><span id="ju-jue-cai-yang">拒绝采样</span><a href="#ju-jue-cai-yang" class="header-anchor">#</a></h3>
 <p>为了应⽤拒绝采样⽅法，我们需要⼀些简单的概率分布q(z)，有时被称为提议分布（proposal distribution）。满足对所有的z，都要$kq(z)\ge \tilde p(z)$，函数kq(z)被称为⽐较函数。</p>
 <p>⾸先，我们从概率分布q(z)中⽣成⼀个数z0。</p>
 <p>接下来，我们在区间[0, kq(z0)]上的均匀分布中⽣成⼀个数u0。这对随机数在函数kq(z)的曲线下⽅是均匀分布。</p>
 <p>最后，如果$u_0&gt;\tilde{p}(z_0)$，那么样本被拒绝，否则u0被保留。因此，如果它位于下图的灰⾊阴影部分，它就会被拒绝。这样，剩余的点对在曲线$\tilde{p}(z)$下⽅是均匀分布的，因此对应的z值服从概率分布p(z)。</p>
-<p><img src="reject.jpg" alt=""></p>
+<p><img src="reject.jpg" alt></p>
 <p>在某些情况下，找到满足对所有的z，都要$kq(z)\ge \tilde p(z)$的q是困难的，所以又有可调节的拒绝采样。</p>
 <p>拒绝采样在⼀维或⼆维空间中是⼀个有⽤的⽅法，但是它不适⽤于⾼维空间。</p>
-<h3 id="重要采样">重要采样</h3>
+<h3><span id="chong-yao-cai-yang">重要采样</span><a href="#chong-yao-cai-yang" class="header-anchor">#</a></h3>
 <p>与拒绝采样的情形相同，重要采样基于的是对提议分布q(z)的使⽤，我们很容易从提议分布中采样。之后，我们可以通过q(z)中的样本{$z^{(l)}$}的有限和的形式来表⽰期望：<br>
 $$<br>
 \begin{align}<br>
@@ -441,8 +441,8 @@ w_l=\frac{\tilde r_l}{\sum_m \tilde r_m}=\frac{\frac{\tilde p^{(l)}}{q(z^{(l)})}
 $$</p>
 <p>伪代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs text">Function Importance_Sampling_Normalized(N, f, tilde_p, q_sampler, tilde_q):<br>  // 初始化<br>  sum_weighted_f_numerator = 0.0<br>  sum_weights_denominator = 0.0<br><br>  // 抽样和计算权重阶段<br>  For i from 1 to N:<br>    1. // 从提议分布 q(x) 中抽取一个样本<br>       x_i = q_sampler()<br><br>    2. // 计算该样本在目标分布下的未归一化值<br>       tilde_p_value_at_x_i = tilde_p(x_i)<br><br>    3. // 计算该样本在提议分布下的未归一化值<br>       tilde_q_value_at_x_i = tilde_q(x_i)<br><br>    4. // 安全检查：避免除以零<br>       If tilde_q_value_at_x_i == 0:<br>         // 如果 tilde_p_value_at_x_i 也为零，则此样本贡献为0，可以跳过或赋权重0<br>         // 如果 tilde_p_value_at_x_i 不为零，这是一个严重问题，说明 q(x) 在 p(x) 有值的地方取了0<br>         // 实践中需要更稳健的错误处理或确保 q 的选择是合适的<br>         raw_weight_i = 0.0 // 简单处理：赋权重0<br>         // 也可以打印警告信息: print &quot;Warning: tilde_q(x_i) is zero!&quot;<br>       Else:<br>         // 计算原始（未归一化的）重要性权重<br>         raw_weight_i = tilde_p_value_at_x_i / tilde_q_value_at_x_i<br>       End If<br><br>    5. // 累加分子项：f(x_i) * 原始权重<br>       sum_weighted_f_numerator = sum_weighted_f_numerator + f(x_i) * raw_weight_i<br><br>    6. // 累加分母项：原始权重之和<br>       sum_weights_denominator = sum_weights_denominator + raw_weight_i<br>  End For<br><br>  // 计算最终估计值<br>  If sum_weights_denominator == 0:<br>    // 如果所有权重都为零，可能表示 p 和 q 的重叠非常差，或者 N 太小<br>    // 或者 f(x_i) * raw_weight_i 始终为0<br>    print &quot;Warning: Sum of weights is zero. Estimate might be unreliable.&quot;<br>    estimate_E_p_f = 0.0 // 或返回 NaN 或根据具体情况处理<br>  Else:<br>    estimate_E_p_f = sum_weighted_f_numerator / sum_weights_denominator<br>  End If<br><br>  Return estimate_E_p_f<br>End Function<br></code></pre></td></tr></table></figure>
-<h2 id="MCMC">MCMC</h2>
-<h3 id="基本方法">基本方法</h3>
+<h2><span id="mcmc">MCMC</span><a href="#mcmc" class="header-anchor">#</a></h2>
+<h3><span id="ji-ben-fang-fa">基本方法</span><a href="#ji-ben-fang-fa" class="header-anchor">#</a></h3>
 <p>与拒绝采样和重要采样相同，我们再⼀次从提议分布中采样。但是这次我们记录下当前状态$z^{(\tau)}$，以及依赖于这个当前状态的提议分布$z^{(\tau)}$，从⽽样本序列$z^{(1)}$,$z^{(2)}$, . . .组成了⼀个马尔科夫链。与之前⼀样，如果我们有$p(z)=\frac{\tilde p(z)}{Z_p}$，那么我们会假定对于任意的值z都可以计算$\tilde p(z)$，虽然$Z_p$的值可能位置。提议分布本⾝被选择为⾜够简单，从⽽直接采样很容易。在算法的每次迭代中，我们从提议分布中⽣成⼀个候选样本$z^{*}$，然后根据⼀个恰当的准则接受这个样本。</p>
 <p>在基本的Metropolis算法中，我们假定提议分布是对称的，即$q(z_A|z_B)=q(z_B|z_A)$，则候选的样本被接受的概率为：<br>
 $$<br>
@@ -450,7 +450,7 @@ A(z^{\ast},z^{(\tau)})=min(1,\frac{\tilde p(z^{\ast})}{\tilde p(z^{(\tau)})})<br
 $$<br>
 若候选样本被接受，则$z^{(\tau+1)}=z^{*}$，否则候选样本点被丢弃，再设置$z^{\tau+1}=z^{\tau}$，然后从概率分布$q(z|z^{(\tau+1)})$​中再次抽取⼀个候选样本。与拒绝采样不同，那⾥拒绝的样本被简单地丢弃。在Metropolis算法中，当⼀个候选点被拒绝时，前⼀个样本点会被包含到最终的样本的列表中，从⽽产⽣了样本点的多个副本。</p>
 <p>使⽤Metropolis算法从⼀个⾼斯分布中采样的简单例⼦，我们可以看出采样过程是连着的，这也就是链。</p>
-<p><img src="mcmc.jpg" alt=""></p>
+<p><img src="mcmc.jpg" alt></p>
 <p>比如我们从二维高斯分布中采样<code>N = multivariate_normal(mean=mu, cov=S)</code>，代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">X = np.mgrid[-<span class="hljs-number">3</span>:<span class="hljs-number">3</span>:<span class="hljs-number">0.05</span>, -<span class="hljs-number">3</span>:<span class="hljs-number">3</span>:<span class="hljs-number">0.05</span>]<br>Z = np.apply_along_axis(N.pdf, <span class="hljs-number">0</span>, X)<br>obs = N.rvs(<span class="hljs-number">500</span>)<br>c = <span class="hljs-number">0.1</span><br>z = obs.mean(axis=<span class="hljs-number">0</span>)<br>samples = []<br>nrounds = <span class="hljs-number">0</span><br>nsamples = <span class="hljs-number">310</span><br><span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(samples) &lt; nsamples:<br>    nrounds += <span class="hljs-number">1</span><br>    q = multivariate_normal(z, cov=c)<span class="hljs-comment"># 定义提议分布</span><br>    z_star = q.rvs()<br><br>    A = <span class="hljs-built_in">min</span>(<span class="hljs-number">1</span>, N.pdf(z_star) / N.pdf(z))<br>    <span class="hljs-keyword">if</span> A &gt; rand():<br>        samples.append(z_star)<br>        z = z_star<br>samples = np.c_[samples]<br></code></pre></td></tr></table></figure>
 <p>但这个方法会受到随机游⾛⾏为的影响。</p>
@@ -473,7 +473,7 @@ E_{\tau} [l(z^{(\tau)})^2] &amp;= 0.5 \cdot E_{\tau-1}[l(z^{(\tau-1)})^2] + 0.25
 $$</p>
 <p>故$E[(z^{(\tau)})^2]=\frac{\tau}{2}$。</p>
 <p>可以看出随机游⾛在探索状态空间时是很低效的。所以设计马尔科夫链蒙特卡罗⽅法的⼀个中⼼⽬标就是避免随机游⾛⾏为。</p>
-<h3 id="马尔科夫链">马尔科夫链</h3>
+<h3><span id="ma-er-ke-fu-lian">马尔科夫链</span><a href="#ma-er-ke-fu-lian" class="header-anchor">#</a></h3>
 <p>我们可以按照下面的方式具体化一个马尔可夫链：给定初始变量的概率分布 $p(z^{(0)})$，以及后续变量的条件概率，用转移概率 (transition probability) $T_m(z^{(m)}, z^{(m+1)}) \equiv p(z^{(m+1)} | z^{(m)})$ 的形式表示。</p>
 <p>如果对于所有的 $m$，转移概率都相同，那么这个马尔可夫链被称为同质的 (homogeneous)。</p>
 <p>对于一个特定的变量，边缘概率可以根据前一个变量的边缘概率用链式乘积的方式表示出来，形式为</p>
@@ -488,7 +488,7 @@ $$</p>
 <p>$$\sum _ {z’} p^\ast(z’) T(z’, z) = \sum _ {z’} p^\ast(z) T(z, z’) = p^\ast(z) \sum _ {z’} T(z, z’) = p^\ast(z)$$</p>
 <p>满足细节平衡性质的马尔可夫链被称为可翻转的 (reversible)。</p>
 <p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^\ast(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可。</p>
-<h3 id="Metropolis-Hastings算法">Metropolis-Hastings算法</h3>
+<h3><span id="metropolis-hastings-suan-fa">Metropolis-Hastings算法</span><a href="#metropolis-hastings-suan-fa" class="header-anchor">#</a></h3>
 <p>这种情形下，提议分布不再是参数的⼀个对称函数。<br>
 $$<br>
 A_k(z^{\ast},z^{(\tau)})=min(1,\frac{\tilde p(z^{\ast})q_k(z^{(\tau)}|z^{\ast})}{\tilde p(z^{(\tau)})q_k(z^{\ast}|z^{\tau})})<br>
@@ -504,7 +504,7 @@ p(z)q_k(z’|z)A_k(z’,z)&amp;=min(p(z)q_k(z’|z),p(z’)q_k(z|z’))<br>
 \end{align}<br>
 $$<br>
 然而，如果概率分布在不同的⽅向上的差异⾮常⼤，那么Metropolis-Hastings算法的收敛速度会⾮常慢。故有了以下改进。</p>
-<h3 id="吉布斯采样">吉布斯采样</h3>
+<h3><span id="ji-bu-si-cai-yang">吉布斯采样</span><a href="#ji-bu-si-cai-yang" class="header-anchor">#</a></h3>
 <p>例如，对于一个三维随机向量 $(x_1, x_2, x_3)$，吉布斯采样的迭代步骤如下：</p>
 <ol>
 <li>从 $p(x_1 | x_2^{(t)}, x_3^{(t)})$ 中抽取 $x_1^{(t+1)}$</li>
@@ -538,10 +538,10 @@ Y|X=x\sim N(0,\frac{1}{2x^2})<br>
 \end{align}<br>
 $$</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">x, y = <span class="hljs-number">0.01</span>, <span class="hljs-number">0.01</span><br>samples = [(x, y)]<br><br>seed(<span class="hljs-number">31</span>)<br><span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1_000</span>):<br>    sigma_x = np.sqrt(<span class="hljs-number">1</span> / (<span class="hljs-number">2</span> * y ** <span class="hljs-number">2</span>))<br>    x_giv_y = norm(loc=<span class="hljs-number">0</span>, scale=sigma_x)<br>    x = x_giv_y.rvs()<br>    samples.append([x, y])<br>    <br>    sigma_y = np.sqrt(<span class="hljs-number">1</span> / (<span class="hljs-number">2</span> * x ** <span class="hljs-number">2</span>))<br>    y_giv_x = norm(loc=<span class="hljs-number">0</span>, scale=sigma_y)<br>    y = y_giv_x.rvs()<br>    samples.append([x, y])<br>    <br>samples = np.r_[samples]<br></code></pre></td></tr></table></figure>
-<h2 id="更多">更多</h2>
+<h2><span id="geng-duo">更多</span><a href="#geng-duo" class="header-anchor">#</a></h2>
 <p>此外，还有切⽚采样、源于模拟哈密顿动⼒学的混合蒙特卡罗⽅法等，我们在这里不再赘述。</p>
 <p>我们也可以结合神经网络来改进MCMC。比如可以使用神经网络（例如，归一化流 Normalizing Flows）来学习复杂的、自适应的提议分布，即训练一个归一化流模型来学习并逼近目标后验分布，然后利用这个训练好的流模型作为 MCMC 算法中的提议分布。像今年新出的《Can Transformers Learn Full Bayesian Inference in Context?》</p>
-<h2 id="总结">总结</h2>
+<h2><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h2>
 <p><strong>MCMC的核心步骤</strong>可以概括为：</p>
 <ol>
 <li><strong>构造马尔可夫链</strong>：设计一个状态转移机制（通常由一个转移核或转移概率矩阵 $P$ 定义），使得该马尔可夫链的平稳分布是目标分布 $\pi(x)$。一个关键的条件是<strong>细致平稳条件（Detailed Balance Condition）</strong>，即对于任意两个状态 $i$ 和 $j$，满足 $\pi(i)P(i,j) = \pi(j)P(j,i)$。满足细致平稳条件的马尔可夫链，其平稳分布就是 $\pi(x)$。</li>
@@ -566,7 +566,7 @@ $$A(x, x’) = \min\left(1, \frac{\pi(x’)q(x|x’)}{\pi(x)q(x’|x)}\right)$$<
 </ol>
 </li>
 </ul>
-<h2 id="MCMC的收敛性诊断">MCMC的收敛性诊断</h2>
+<h2><span id="mcmc-de-shou-lian-xing-zhen-duan">MCMC的收敛性诊断</span><a href="#mcmc-de-shou-lian-xing-zhen-duan" class="header-anchor">#</a></h2>
 <p>评估MCMC算法是否收敛到目标平稳分布至关重要，因为基于未收敛的链进行的推断可能是错误的。常用的收敛诊断方法包括：</p>
 <ul>
 <li><strong>迹图 (Trace Plots)</strong>：绘制参数样本值随迭代次数变化的图形。如果链已收敛，迹图应该看起来像一个稳定的水平带状区域，没有明显的趋势或周期性模式。</li>
@@ -578,7 +578,7 @@ $$A(x, x’) = \min\left(1, \frac{\pi(x’)q(x|x’)}{\pi(x)q(x’|x)}\right)$$<
 </ul>
 <p>实践中，通常会结合使用多种诊断方法来综合判断MCMC算法的收敛性。在确认收敛后，还需要丢弃“老化期”的样本，并可能对剩余样本进行“减薄”处理，以获得用于后续分析的近似独立的样本。</p>
 <p>总而言之，MCMC是一套功能强大的统计计算工具，它为从复杂概率分布中抽样提供了可行的解决方案，极大地推动了贝叶斯统计和相关领域的发展与应用。理解其原理、掌握常用算法并关注其收敛性是有效运用MCMC方法的关键。</p>
-<h2 id="参考资料">参考资料</h2>
+<h2><span id="can-kao-zi-liao">参考资料</span><a href="#can-kao-zi-liao" class="header-anchor">#</a></h2>
 <p>[1]A Short History of Markov Chain Monte Carlo: Subjective Recollections from Incomplete Data</p>
 <p>[2]PRML</p>
 

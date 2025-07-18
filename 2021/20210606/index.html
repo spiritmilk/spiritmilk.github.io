@@ -320,7 +320,7 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>在一个典型的监督学习中，我们有一个有标签的训练集，我们的目标是找到能够区分正样本和负样本的决策边界，在这里的监督学习中，我们有一系列标签，我们需要据此拟合一个假设函数。与此不同的是，在非监督学习中，我们的数据没有附带任何标签。聚类算法(<strong>Clustering</strong>）是一种非监督学习算法。</p>
 <span id="more"></span>
-<h5 id="K-means算法">K-means算法</h5>
+<h5><span id="k-means-suan-fa">K-means算法</span><a href="#k-means-suan-fa" class="header-anchor">#</a></h5>
 <p><strong>K-means</strong>是最普及的聚类算法，算法接受一个未标记的数据集，然后将数据聚类成不同的组。</p>
 <p><strong>K-means</strong>是一个迭代算法，假设我们想要将数据聚类成n个组，其方法为:</p>
 <p>首先选择$K$个随机的点，称为<strong>聚类中心</strong>（<strong>cluster centroids</strong>）；</p>
@@ -330,7 +330,7 @@
 <p><strong>K-均值</strong>算法的伪代码如下：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">Repeat &#123;<br><br><span class="hljs-keyword">for</span> i = <span class="hljs-number">1</span> <span class="hljs-keyword">to</span> m<br><br>c(i) := <span class="hljs-keyword">index</span> (form <span class="hljs-number">1</span> <span class="hljs-keyword">to</span> K) <span class="hljs-keyword">of</span> <span class="hljs-keyword">cluster</span> centroid closest <span class="hljs-keyword">to</span> x(i)<br><br><span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span> <span class="hljs-keyword">to</span> K<br><br>μk := average (mean) <span class="hljs-keyword">of</span> points assigned <span class="hljs-keyword">to</span> <span class="hljs-keyword">cluster</span> k<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>算法分为两个步骤，第一个<strong>for</strong>循环是赋值步骤，即：对于每一个样例$i$，计算其应该属于的类。第二个<strong>for</strong>循环是聚类中心的移动，即：对于每一个类$K$，重新计算该类的质心。</p>
-<h5 id="K-means-的代价函数">K-means 的代价函数</h5>
+<h5><span id="k-means-de-dai-jie-han-shu">K-means 的代价函数</span><a href="#k-means-de-dai-jie-han-shu" class="header-anchor">#</a></h5>
 <p>K-means的代价函数（又称<strong>畸变函数</strong> <strong>Distortion function</strong>）为：<br>
 $$<br>
 J(c^{(1)},…,c^{(m)},μ_1,…,μ_K)=\frac {1}{m}\sum^{m}<em>{i=1}\left| X^{\left( i\right) }-\mu</em>{c^{(i)}}\right| ^2<br>
@@ -338,15 +338,15 @@ $$</p>
 <p>其中$\mu _c^{(i)}$代表与$x^{(i)}$最近的聚类中心点。</p>
 <p>回顾刚才给出的:<br>
 <strong>K-均值</strong>迭代算法，我们知道，第一个循环是用于减小$c^{(i)}$引起的代价，而第二个循环则是用于减小$\mu _i$引起的代价。迭代的过程一定会是每一次迭代都在减小代价函数，不然便是出现了错误。</p>
-<h5 id="随机初始化">随机初始化</h5>
+<h5><span id="sui-ji-chu-shi-hua">随机初始化</span><a href="#sui-ji-chu-shi-hua" class="header-anchor">#</a></h5>
 <p>为了避免使用K-means时出现陷入局部最优，我们通常需要多次（一般为50~1000次）运行<strong>K-均值</strong>算法，每一次都重新进行随机初始化，最后再比较多次运行<strong>K-均值</strong>的结果，选择代价函数最小的结果。这种方法在$K$较小的时候（2–10）还是可行的，但是如果$K$较大，这么做也可能不会有明显地改善。</p>
-<h5 id="选择聚类数">选择聚类数</h5>
+<h5><span id="xuan-ze-ju-lei-shu">选择聚类数</span><a href="#xuan-ze-ju-lei-shu" class="header-anchor">#</a></h5>
 <p>没有所谓最好的选择聚类数的方法，通常是需要根据不同的问题，人工进行选择的。</p>
 <p>以下是一个可能会谈及的方法。</p>
 <blockquote>
 <p>肘部法则：</p>
 <p>我们所需要做的是改变$K$值，也就是聚类类别数目的总数。我们用一个聚类来运行<strong>K均值</strong>聚类方法。这就意味着，所有的数据都会分到一个聚类里，然后计算成本函数或者计算畸变函数$J$。$K$代表聚类数字。</p>
-<p><img src="https://i0.hdslb.com/bfs/album/ebba8111b6d86e6e594e5f78aa5faf5677c12ba1.png" alt=""></p>
+<p><img src="https://i0.hdslb.com/bfs/album/ebba8111b6d86e6e594e5f78aa5faf5677c12ba1.png" alt></p>
 <p>我们可能会得到一条类似于这样的曲线。像一个人的肘部。这就是“肘部法则”所做的，让我们来看这样一个图，看起来就好像有一个很清楚的肘在那儿。好像人的手臂，如果你伸出你的胳膊，那么这就是你的肩关节、肘关节、手。这就是“肘部法则”。你会发现这种模式，它的畸变值会迅速下降，从1到2，从2到3之后，你会在3的时候达到一个肘点。在此之后，畸变值就下降的非常慢，看起来就像使用3个聚类来进行聚类是正确的，这是因为那个点是曲线的肘点，畸变值下降得很快，$K=3$之后就下降得很慢，那么我们就选$K=3$。当你应用“肘部法则”的时候，如果你得到了一个像上面这样的图，那么这将是一种用来选择聚类个数的合理方法。</p>
 <p>但是通常我们得到的是右图，很难看出”肘部“的位置。所以“肘部法则”并不是一个非常常用的法则。</p>
 </blockquote>

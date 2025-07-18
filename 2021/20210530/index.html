@@ -324,18 +324,18 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>支持向量机（support vector machines,SVM)是一种二类分类模型。</p>
 <span id="more"></span>
-<h5 id="代价函数：">代价函数：</h5>
+<h5><span id="dai-jie-han-shu">代价函数：</span><a href="#dai-jie-han-shu" class="header-anchor">#</a></h5>
 <p>我们回忆一下逻辑回归。其代价函数如下：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/66facb7fa8eddc3a860e420588c981d5.png" alt="img"></p>
 <p>我们要实现我们的目标，就要把$-\log(1-\frac{1}{1+e^{-z}})$一点一点修改，修改为下两图的紫色直线函数，左边的函数，称之为${\cos}t_1{(z)}$，同时，右边函数称它为${\cos}t_0{(z)}$。</p>
 <p>最后SVM代价函数变为：</p>
 <p><img src="http://www.ai-start.com/ml2014/images/5a63e35db410fdb57c76de97ea888278.png" alt="img"></p>
 <p>最后有别于逻辑回归输出的概率。在这里，我们的代价函数，当最小化代价函数，获得参数$\theta $时，支持向量机所做的是它来直接预测$y$的值等于1，还是等于0。因此，这个假设函数会预测1。当$\theta^Tx$大于或者等于0时，或者等于0时，所以学习参数$\theta $就是支持向量机假设函数的形式。</p>
-<h5 id="大间距分类器">大间距分类器:</h5>
+<h5><span id="da-jian-ju-fen-lei-qi">大间距分类器:</span><a href="#da-jian-ju-fen-lei-qi" class="header-anchor">#</a></h5>
 <p>支持向量机的目标是找到一个能正确划分数据集且间隔最大的超平面。</p>
 <p><img src="http://www.ai-start.com/ml2014/images/e68e6ca3275f433330a7981971eb4f16.png" alt="img"></p>
 <p>如该图所示，黑线比红线有着更大的距离。</p>
-<h5 id="核函数：">核函数：</h5>
+<h5><span id="he-han-shu">核函数：</span><a href="#he-han-shu" class="header-anchor">#</a></h5>
 <p>核函数可以看成是判断近似程度的函数。</p>
 <p><img src="http://www.ai-start.com/ml2014/images/529b6dbc07c9f39f5266bd0b3f628545.png" alt="img"></p>
 <p>为了获得上图所示的判定边界，我们的模型可能是<br>
@@ -362,7 +362,7 @@ f_1=similarity(x,l^{(1)})=e(-\frac{\left| x-l^{(1)} \right|^2}{2\sigma^2})<br>
 $$<br>
 上例中的$similarity(x,l^{(1)})$就是核函数，具体而言，这里是一个<strong>高斯核函数</strong>(<strong>Gaussian Kernel</strong>)。 <strong>注：这个函数与正态分布没什么实际上的关系，只是看上去像而已。</strong></p>
 <p>这些地标的作用是什么？如果一个训练样本$x$与地标$l$之间的距离近似于0，则新特征 $f$近似于$e^{-0}=1$，如果训练样本$x$与地标$l$之间距离较远，则$f$近似于$e^{-(一个较大的数)}=0$。</p>
-<h5 id="支持向量机参数的影响：">支持向量机参数的影响：</h5>
+<h5><span id="zhi-chi-xiang-liang-ji-can-shu-de-ying-xiang">支持向量机参数的影响：</span><a href="#zhi-chi-xiang-liang-ji-can-shu-de-ying-xiang" class="header-anchor">#</a></h5>
 <p>两个参数$C$和$\sigma$的影响：</p>
 <blockquote>
 <p>$C=1/\lambda$</p>
@@ -372,15 +372,15 @@ $$<br>
 <p>$\sigma$较小时，可能会导致低偏差，高方差。</p>
 </blockquote>
 <p>另外，支持向量机也可以不使用核函数，不使用核函数又称为<strong>线性核函数</strong>(<strong>linear kernel</strong>)，当我们不采用非常复杂的函数，或者我们的训练集特征非常多而样本非常少的时候，可以采用这种不带核函数的支持向量机。</p>
-<h5 id="一些核函数">一些核函数</h5>
+<h5><span id="yi-xie-he-han-shu">一些核函数</span><a href="#yi-xie-he-han-shu" class="header-anchor">#</a></h5>
 <p>除了上文提到的高斯核函数外还有：</p>
 <p>多项式核函数（<strong>Polynomial Kerne</strong>l）</p>
 <p>字符串核函数（<strong>String kernel</strong>）</p>
 <p>卡方核函数（ <strong>chi-square kernel</strong>）</p>
 <p>直方图交集核函数（<strong>histogram intersection kernel</strong>）</p>
-<h5 id="一些软件库和好的软件包">一些软件库和好的软件包</h5>
+<h5><span id="yi-xie-ruan-jian-ku-he-hao-de-ruan-jian-bao">一些软件库和好的软件包</span><a href="#yi-xie-ruan-jian-ku-he-hao-de-ruan-jian-bao" class="header-anchor">#</a></h5>
 <p>吴恩达推荐：<strong>liblinear</strong>和<strong>libsvm</strong></p>
-<h5 id="多类分类问题：">多类分类问题：</h5>
+<h5><span id="duo-lei-fen-lei-wen-ti">多类分类问题：</span><a href="#duo-lei-fen-lei-wen-ti" class="header-anchor">#</a></h5>
 <p>我们同样也可以训练个支持向量机来解决多类分类问题。但是大多数支持向量机软件包都有内置的多类分类功能，我们只要直接使用即可。</p>
 <p>尽管你不去写你自己的<strong>SVM</strong>的优化软件，但是你也需要做几件事：</p>
 <p>1、是提出参数的选择。我们在之前的视频中讨论过误差/方差在这方面的性质。</p>

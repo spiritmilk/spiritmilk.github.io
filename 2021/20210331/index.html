@@ -349,7 +349,7 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>串的模式匹配算法在许多领域，包括爬虫、机器学习等都有重要应用。以下列了一些串的模式匹配算法：</p>
 <span id="more"></span>
 <hr>
-<h3 id="1-Brute-Force算法（暴力算法）"><strong>1.Brute-Force算法（暴力算法）</strong></h3>
+<h3><span id="1-brute-force-suan-fa-bao-li-suan-fa"><strong>1.Brute-Force算法（暴力算法）</strong></span><a href="#1-brute-force-suan-fa-bao-li-suan-fa" class="header-anchor">#</a></h3>
 <p>正如其名，非常直接且简单。</p>
 <p>首先将匹配串和模式串左对齐，然后从左向右一个一个进行比较，如果不成功则模式串向右移动一个单位。</p>
 <p>例：</p>
@@ -362,7 +362,7 @@
 <p>符合i++,j++，依旧符合i++,j++，直到i=6,j=4，不符合，i回退到3+1，j回退到1</p>
 <p>…</p>
 <p>该算法的缺陷是匹配串指针i会不断地回退，使时间复杂度较高。每次进行，对模式串的错误没有记忆，相当于每次模式串都是全新。接下来的算法基本都利用了模式串匹配的错误信息，从而避免了匹配串指针i不会一直回退。</p>
-<h3 id="2-KMP算法"><strong>2.KMP算法</strong></h3>
+<h3><span id="2-kmp-suan-fa"><strong>2.KMP算法</strong></span><a href="#2-kmp-suan-fa" class="header-anchor">#</a></h3>
 <blockquote>
 <p>相关论文：<br>
 Knuth D.E., Morris J.H., and Pratt V.R., Fast pattern matching in strings, SIAM Journal on Computing, 6(2), 323-350, 1977.</p>
@@ -463,7 +463,7 @@ Knuth D.E., Morris J.H., and Pratt V.R., Fast pattern matching in strings, SIAM 
 <p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050112.png" alt="img"></p>
 <p>&quot;部分匹配&quot;的实质是，有时候，字符串头部和尾部会有重复。比如，“ABCDAB&quot;之中有两个&quot;AB”，那么它的&quot;部分匹配值&quot;就是2（&quot;AB&quot;的长度）。搜索词移动的时候，第一个&quot;AB&quot;向后移动4位（字符串长度-部分匹配值），就可以来到第二个&quot;AB&quot;的位置。</p>
 <p>（完）</p>
-<h3 id="3-Boyer-Moore算法"><strong>3. Boyer-Moore算法</strong></h3>
+<h3><span id="3-boyer-moore-suan-fa"><strong>3. Boyer-Moore算法</strong></span><a href="#3-boyer-moore-suan-fa" class="header-anchor">#</a></h3>
 <blockquote>
 <p>相关论文：<br>
 R.S.Boyer, J.S.Moore, A fast string searching algorithm , Communications of the ACM,20(10):762-772 ,1977<br>
@@ -560,7 +560,7 @@ R.S.Boyer, J.S.Moore, A fast string searching algorithm , Communications of the 
 <p><img src="http://www.ruanyifeng.com/blogimg/asset/201305/bg2013050314.png" alt="img"></p>
 <p>从尾部开始逐位比较，发现全部匹配，于是搜索结束。如果还要继续查找（即找出全部匹配），则根据&quot;好后缀规则&quot;，后移 6 - 0 = 6位，即头部的&quot;E&quot;移到尾部的&quot;E&quot;的位置。</p>
 <p>（完）</p>
-<h3 id="4-Horspool算法"><strong>4.Horspool算法</strong></h3>
+<h3><span id="4-horspool-suan-fa"><strong>4.Horspool算法</strong></span><a href="#4-horspool-suan-fa" class="header-anchor">#</a></h3>
 <blockquote>
 <p>相关论文：</p>
 <p>Horspool R.N., 1980, Practical fast searching in strings, Software - Practice &amp; Experience, 10(6):501-506</p>
@@ -578,7 +578,7 @@ R.S.Boyer, J.S.Moore, A fast string searching algorithm , Communications of the 
 <p>不匹配，按（1）操作。</p>
 <p>逐次类推。</p>
 <p>（完）</p>
-<h3 id="5-Sunday算法">5.Sunday算法</h3>
+<h3><span id="5-sunday-suan-fa">5.Sunday算法</span><a href="#5-sunday-suan-fa" class="header-anchor">#</a></h3>
 <blockquote>
 <p>相关论文：</p>
 <p>Daniel M. Sunday, A very fast substring search algorithm, Communications of the ACM, v.33 n.8, p.132-142, Aug. 1990</p>
@@ -599,21 +599,21 @@ R.S.Boyer, J.S.Moore, A fast string searching algorithm , Communications of the 
 <p>匹配串 ：Here is a excellent <strong>example</strong></p>
 <p>模式串：          <strong>example</strong></p>
 <p>（完）</p>
-<h3 id="更高级的串模式匹配算法还有以下几种：">更高级的串模式匹配算法还有以下几种：</h3>
-<h4 id="6-有限自动机算法"><strong>6.有限自动机算法</strong></h4>
-<h4 id="7-Rabin-Karp算法">7.Rabin-Karp算法</h4>
+<h3><span id="geng-gao-ji-de-chuan-mo-shi-pi-pei-suan-fa-huan-you-yi-xia-ji-chong">更高级的串模式匹配算法还有以下几种：</span><a href="#geng-gao-ji-de-chuan-mo-shi-pi-pei-suan-fa-huan-you-yi-xia-ji-chong" class="header-anchor">#</a></h3>
+<h4><span id="6-you-xian-zi-dong-ji-suan-fa"><strong>6.有限自动机算法</strong></span><a href="#6-you-xian-zi-dong-ji-suan-fa" class="header-anchor">#</a></h4>
+<h4><span id="7-rabin-karp-suan-fa">7.Rabin-Karp算法</span><a href="#7-rabin-karp-suan-fa" class="header-anchor">#</a></h4>
 <blockquote>
 <p>相关论文：</p>
 <p>Rachard M.Karp and Michael O.Rabin.Efficient randomized pattern-matching algorithms.IBM Journal of Research and Development,31(2):249-260,1987.</p>
 </blockquote>
 <p>利用哈希值。</p>
-<h4 id="8-Galil-Seiferas-算法">8.Galil-Seiferas 算法</h4>
+<h4><span id="8-galil-seiferas-suan-fa">8.Galil-Seiferas 算法</span><a href="#8-galil-seiferas-suan-fa" class="header-anchor">#</a></h4>
 <blockquote>
 <p>相关论文：</p>
 <p>Zvi Galil and.Joel Seiferas. Time-Space-Optimal String Matching. Journal of Computer And System Sciences, 26(3),:280-294 (1983)</p>
 </blockquote>
 <p>该算法基于重复因子的字符串匹配。该算法是一个奇妙的线性时间字符串算法，除了匹配串和模式串所需的存储空间外，只需要O(1)的额外存储空间。</p>
-<h3 id="参考资料：">参考资料：</h3>
+<h3><span id="can-kao-zi-liao">参考资料：</span><a href="#can-kao-zi-liao" class="header-anchor">#</a></h3>
 <p>[1]<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaodu93/article/details/39209421">https://blog.csdn.net/xiaodu93/article/details/39209421</a>.</p>
 <p>[2]算法导论（Introduction to Algorithms）.</p>
 

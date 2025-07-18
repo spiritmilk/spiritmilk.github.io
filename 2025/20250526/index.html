@@ -327,7 +327,7 @@
 </ol>
 <p>粗略而言，朗之万动力学采样依赖于分数（score）函数。而Tweedie公式提供了估计分数函数的方法。</p>
 <p>故我们先介绍Tweedie公式和一些基本概念。</p>
-<h2 id="Tweedie公式和DDPM">Tweedie公式和DDPM</h2>
+<h2><span id="tweedie-gong-shi-he-ddpm">Tweedie公式和DDPM</span><a href="#tweedie-gong-shi-he-ddpm" class="header-anchor">#</a></h2>
 <p>Tweedie公式为$E[x\mid y]=y+\sigma^2\nabla log p(y)$。其中$\nabla logp(y)$被称为分数（score）。</p>
 <blockquote>
 <p>证明：</p>
@@ -361,7 +361,7 @@ $$<br>
 $$<br>
 对比DDPM中的$x _ 0=\frac{x _ t - \sqrt{1 - \bar \alpha _ t} \epsilon _ 0}{\sqrt{\bar\alpha _ t}}$，可以发现$\nabla \log p(x _ t) = -\frac{1}{ \sqrt{1 - \bar \alpha _ t}}\epsilon _ 0$。</p>
 <p>DDPM其实也是基于分数函数来去噪。</p>
-<h2 id="去噪分数匹配">去噪分数匹配</h2>
+<h2><span id="qu-zao-fen-shu-pi-pei">去噪分数匹配</span><a href="#qu-zao-fen-shu-pi-pei" class="header-anchor">#</a></h2>
 <p>我们不妨考虑以下分布，被称为能量函数：<br>
 $$<br>
 \begin{align}<br>
@@ -400,7 +400,7 @@ $$<br>
 {x} _ {i+1} \leftarrow {x}_i + c\nabla\log p({x}_i) + \sqrt{2c}{\epsilon},\quad i = 0, 1, …, K<br>
 $$<br>
 $\epsilon$为噪声，以实现更好的多样性。</p>
-<h2 id="朗之万动力学采样">朗之万动力学采样</h2>
+<h2><span id="lang-zhi-wan-dong-li-xue-cai-yang">朗之万动力学采样</span><a href="#lang-zhi-wan-dong-li-xue-cai-yang" class="header-anchor">#</a></h2>
 <p>这一章我们将证明上式是如何得到的。</p>
 <p>一般的朗之万方程——对于一个质量为m的粒子，其位置为m，其动力学行为可以用以下随机微分方程描述：<br>
 $$<br>
@@ -420,7 +420,7 @@ $$</p>
 <p>$$<br>
 d{x}(t) = \nabla \log p({x}(t)) dt + \sqrt{2} d{W}(t)<br>
 $$</p>
-<h3 id="平衡态">平衡态</h3>
+<h3><span id="ping-heng-tai">平衡态</span><a href="#ping-heng-tai" class="header-anchor">#</a></h3>
 <p>福克-普朗克方程描述了在随机过程中概率密度函数 P(x,t) 如何随时间演化。我们采样的目标分布实际上是一个平稳解。</p>
 <p>福克-普朗克方程描述了概率密度 $P({x}, t)$ 如何随时间演化。</p>
 <p>对于一个由随机微分方程 $d{X}_t = {b}({X}_t)dt + \sqrt{2{D}({X}_t)}d{W}_t$ 描述的系统，其福克-普朗克方程为：<br>
@@ -472,7 +472,7 @@ P_s(x) = A \exp\left(\int \frac{b(x)}{D} dx\right)<br>
 $$<br>
 其中 $A$ 是归一化常数，通过 $\int P_s(x) dx = 1$ 来确定。</p>
 <p>这与我们假设的 $P_s({x}) \propto e^{-U({x})/(k_B T)}$ 形式类似。</p>
-<h3 id="离散化">离散化</h3>
+<h3><span id="chi-san-hua">离散化</span><a href="#chi-san-hua" class="header-anchor">#</a></h3>
 <p>欧拉-丸山法 (Euler-Maruyama method) 是离散化SDE最简单的方法之一。</p>
 <p>考虑过阻尼朗之万方程的简化形式：</p>
 <p>$$<br>
@@ -489,14 +489,14 @@ $$</p>
 <li>${Z}_k$ 是一个从标准多元正态分布（均值为0，协方差矩阵为单位矩阵 ${I}$）中抽取的随机向量。</li>
 <li>$d{W}(t)$ 在离散时间步长 $\Delta t$ 内的增量 $\Delta{W}_k ={W}(t _ {k+1}) -{W}(t_k)$ 服从均值为0、协方差矩阵为 $\Delta t \cdot{I}$ 的正态分布。因此，$\Delta{W}_k$ 可以表示为 $\sqrt{\Delta t}{Z}_k$。</li>
 </ul>
-<h2 id="出现的问题">出现的问题</h2>
+<h2><span id="chu-xian-de-wen-ti">出现的问题</span><a href="#chu-xian-de-wen-ti" class="header-anchor">#</a></h2>
 <p>在p(x)较小的低密度区域，模型可能很难学习，从而导致效果不佳：</p>
-<p><img src="pitfalls.jpg" alt=""></p>
+<p><img src="pitfalls.jpg" alt></p>
 <p>一个可行的办法是加大噪声以遍历更多的空间。</p>
-<h2 id="具有多重噪声扰动的生成模型">具有多重噪声扰动的生成模型</h2>
+<h2><span id="ju-you-duo-chong-zao-sheng-rao-dong-de-sheng-cheng-mo-xing">具有多重噪声扰动的生成模型</span><a href="#ju-you-duo-chong-zao-sheng-rao-dong-de-sheng-cheng-mo-xing" class="header-anchor">#</a></h2>
 <p>但我们如何选取噪声的大小呢？</p>
 <p>yang song提出了同时使用多个尺度的噪声扰动。</p>
-<p><img src="multi_scale.jpg" alt=""></p>
+<p><img src="multi_scale.jpg" alt></p>
 <p>定义一个逐渐增加的方差$\sigma_1&lt;\sigma_2&lt;…&lt;\sigma_L$，定义一个逐步扰动的数据分布序列：<br>
 $$<br>
 p _ {\sigma_t}({x}_t) = \int p({x})\mathcal{N}({x}_t; {x}, \sigma_t^2\textbf{I})d{x}<br>
@@ -519,7 +519,7 @@ $$<br>
 <p>在测试时对权重应用指数移动平均</p>
 </li>
 </ul>
-<h2 id="参考资料">参考资料</h2>
+<h2><span id="can-kao-zi-liao">参考资料</span><a href="#can-kao-zi-liao" class="header-anchor">#</a></h2>
 <p>参考于yang song的博客，更多的内容也可以在该处查看。</p>
 <p><a target="_blank" rel="noopener" href="http://yang-song.net/blog/2021/score/">http://yang-song.net/blog/2021/score/</a></p>
 

@@ -323,7 +323,7 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Information Bottleneck又称信息瓶颈，是一个基于信息论的算法。</p>
 <span id="more"></span>
-<h2 id="Information-Bottleneck">Information Bottleneck</h2>
+<h2><span id="information-bottleneck">Information Bottleneck</span><a href="#information-bottleneck" class="header-anchor">#</a></h2>
 <p>最早来自2000年Naftali Tishby等人的的<a target="_blank" rel="noopener" href="https://arxiv.org/abs/physics/0004057">《The information bottleneck method》</a></p>
 <p>具体来说，它试图优化以下两个目标：</p>
 <ol>
@@ -334,7 +334,7 @@
 $$<br>
 L[p(t∣x)]=I(T;Y)-βI(X;T)<br>
 $$</p>
-<h2 id="Variational-Information-Bottleneck">Variational Information Bottleneck</h2>
+<h2><span id="variational-information-bottleneck">Variational Information Bottleneck</span><a href="#variational-information-bottleneck" class="header-anchor">#</a></h2>
 <p>难点在于互信息很难计算。所以，我们需要使用变分推理来近似它们。</p>
 <p>在VIB中，通常会构建一个编码器 (Encoder) $p_\theta(z|x)$和一个解码器/预测器 (Decoder/Predictor)$q_\theta(y|z)$，其中：</p>
 <ul>
@@ -462,7 +462,7 @@ $$</p>
 <li>$r(z)$ 是一个预先选择的简单先验分布（例如，$\mathcal{N}(0,I)$）。</li>
 <li>$\beta$ 是权衡这两个损失项的超参数。</li>
 </ul>
-<h2 id="Graph-Information-Bottleneck">Graph Information Bottleneck</h2>
+<h2><span id="graph-information-bottleneck">Graph Information Bottleneck</span><a href="#graph-information-bottleneck" class="header-anchor">#</a></h2>
 <p>我们希望一个好的图表示是鲁棒的、稳定的，并且拥有迁移的能力。具体来说，我们希望即使数据出现了分布漂移或者受到人为的扰动后，好的图表示仍然可拥有之前所述的性质。我们给出的核心想法是：一个好的图表示需要捕捉最少充分信息量minimal sufficient information。</p>
 <p>于是我们使用信息瓶颈，类似地：<br>
 $$<br>
@@ -496,11 +496,11 @@ $$<br>
 $$<br>
 \widehat{\mathrm{XIB}}^{(l)}=\log \frac{\mathbb{P}\left(Z_{X}^{(l)} \mid Z_{X}^{(l-1)}, Z_{A}^{(l)}\right)}{\mathbb{Q}\left(Z_{X}^{(l)}\right)}=\sum_{v \in V}\left[\log \Phi\left(Z_{X, v}^{(l)} ; \mu_{v}, \sigma_{v}^{2}\right)-\log \left(\sum_{i=1}^{m} w_{i} \Phi\left(Z_{X, v}^{(l)} ; \mu_{0, i}, \sigma_{0, i}^{2}\right)\right)\right]<br>
 $$</p>
-<h3 id="代码">代码</h3>
-<p><img src="GIB1.png" alt=""></p>
-<p><img src="GIB2.png" alt=""></p>
-<p><img src="GIB3.png" alt=""></p>
-<h2 id="Robust-Graph-Information-Bottleneck">Robust Graph Information Bottleneck</h2>
+<h3><span id="dai-ma">代码</span><a href="#dai-ma" class="header-anchor">#</a></h3>
+<p><img src="GIB1.png" alt></p>
+<p><img src="GIB2.png" alt></p>
+<p><img src="GIB3.png" alt></p>
+<h2><span id="robust-graph-information-bottleneck">Robust Graph Information Bottleneck</span><a href="#robust-graph-information-bottleneck" class="header-anchor">#</a></h2>
 <p>NIPS2023</p>
 <p>用来应对双边图结构噪声</p>
 

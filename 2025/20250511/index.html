@@ -321,7 +321,7 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Fourier Position Embedding（FOPE)出自ICML2025，对当前LLM常用的ROPE进行了改进，认为ROPE默认“每一维只存在单一频率的语义”是过于理想的，所以提出了增加更多的频率（比如基于傅里叶）的方法。</p>
 <span id="more"></span>
-<h2 id="旋转位置编码">旋转位置编码</h2>
+<h2><span id="xuan-zhuan-wei-zhi-bian-ma">旋转位置编码</span><a href="#xuan-zhuan-wei-zhi-bian-ma" class="header-anchor">#</a></h2>
 <p>旋转式位置编码（Rotary Position Embedding，RoPE）由苏神提出，<a target="_blank" rel="noopener" href="https://kexue.fm/archives/8265">在其博客中也有介绍</a>。</p>
 <p>我们也可以重温一下。</p>
 <p>我们想要一个又有绝对位置，又有相对位置的编码。苏神假定存在恒等关系：<br>
@@ -329,12 +329,12 @@ $$<br>
 &lt;f(q,m),f(k,n)&gt;=g(q,k,m-n)<br>
 $$<br>
 苏神找到了以下f：$f(q,m)=qe^{im\theta}$。</p>
-<p><img src="rope1.png" alt=""></p>
+<p><img src="rope1.png" alt></p>
 <p>我们可以把它扩展到更多维：</p>
-<p><img src="rope2.png" alt=""></p>
+<p><img src="rope2.png" alt></p>
 <p>注意到<code>[[A,O][O,B]]*[[C,O][O,D]]=[[AC,O][O,BD]]</code></p>
 <p>所以这样拼接，原本的性质是不会被破坏的。</p>
-<h2 id="动机">动机</h2>
+<h2><span id="dong-ji">动机</span><a href="#dong-ji" class="header-anchor">#</a></h2>
 <p>ROPE看上去已经很不错了，但是它会有什么问题呢？</p>
 <p><strong>线性层会混杂频率：</strong></p>
 <p>线性层WX由于是对所有元素进行操作，自然而然会产生混杂。</p>
@@ -346,10 +346,10 @@ $$<br>
 <p><strong>时域截断：</strong></p>
 <p>即由于时域截断，也会产生新的频率。</p>
 <p>即正常的应为只在0处有值，但经过时域截断后，会变为：</p>
-<p><img src="sinxx.png" alt=""></p>
+<p><img src="sinxx.png" alt></p>
 <p>其他地方也会有频率掺杂进来了。</p>
 <p>（比较经典的信号与系统知识。）</p>
-<h2 id="怎么做">怎么做</h2>
+<h2><span id="zen-me-zuo">怎么做</span><a href="#zen-me-zuo" class="header-anchor">#</a></h2>
 <p>① 既然每一维中不可避免的混杂其他频率的分量，那就干脆在一开始就把每一维都建模成一个傅里叶级数（Fourier Series）。即使这样的建模不会避免频谱破坏，FoPE却可以在每一维中分解出更多频率的信息（利用三角函数的正交性），从而让更多的频率分量保持周期延拓性；</p>
 <p>② 既然极低频的分量周期过长，会导致这些频率分量的周期特性无法被学习到，那就将他们裁剪成频率为0的直流分量。考虑到直流分量的良好性质（既可以看作周期无限短，又可以看作周期无限长），</p>
 <p>第一点听起来有点晦涩，我们直接来看代码。</p>
@@ -360,7 +360,7 @@ $$<br>
 <p><strong>FOPE：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply_rotary_pos_emb</span>(<span class="hljs-params">self, sin, cos, x, inverse=<span class="hljs-literal">False</span></span>):</span><br>    <span class="hljs-comment"># 1) 先把 sin/cos 从 (…, input_dim*2) 投影到 (…, output_dim)</span><br>    <span class="hljs-comment">#    支持两种系数：sin_coef/cos_coef 或者 一个 fourier_coef</span><br>    fourier_sin = torch.einsum(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.input_shape&#125;</span>, <span class="hljs-subst">&#123;self.coef_shape&#125;</span> -&gt; <span class="hljs-subst">&#123;self.output_shape&#125;</span>&quot;</span>,<br>                               sin, self.sin_coef)<br>    fourier_cos = torch.einsum(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.input_shape&#125;</span>, <span class="hljs-subst">&#123;self.coef_shape&#125;</span> -&gt; <span class="hljs-subst">&#123;self.output_shape&#125;</span>&quot;</span>,<br>                               cos, self.cos_coef)<br>    <span class="hljs-comment"># 2) pad 到原始 head_dim，拼接成 (…, head_dim)</span><br>    fourier_sin = torch.cat((fourier_sin, fourier_sin), dim=-<span class="hljs-number">1</span>)<br>    fourier_cos = torch.cat((fourier_cos, fourier_cos), dim=-<span class="hljs-number">1</span>)<br><br>    <span class="hljs-comment"># 3) 再做 rotate-half + 加权</span><br>    rot = self.rotate_half(x)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> inverse:<br>        <span class="hljs-keyword">return</span> x * fourier_cos + rot * fourier_sin<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> x * fourier_cos - rot * fourier_sin<br><br></code></pre></td></tr></table></figure>
 <p>这里采用的是einsum，其实相当于做了个线性层变换(<code>nn.Linear(input_dim, output_dim, bias=False</code>)。</p>
-<h2 id="原作回应">原作回应</h2>
+<h2><span id="yuan-zuo-hui-ying">原作回应</span><a href="#yuan-zuo-hui-ying" class="header-anchor">#</a></h2>
 <p>ROPE作者和FOPE的作者也有<a target="_blank" rel="noopener" href="https://www.kexue.fm/archives/10862">讨论</a>。苏神给出的回应是”基于<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9403%EF%BC%8C%E7%90%86%E8%AE%BA%E4%B8%8ARoPE%E7%9A%84%E5%BD%93%E5%89%8D%E5%BD%A2%E5%BC%8F%E6%98%AF%E5%AE%8C%E5%A4%87%E7%9A%84%E3%80%82%E2%80%9C">https://kexue.fm/archives/9403，理论上RoPE的当前形式是完备的。“</a></p>
 
                 

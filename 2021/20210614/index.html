@@ -322,14 +322,14 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>降维可以压缩数据，因而使用较少的计算机内存或磁盘空间，加快我们的学习算法。</p>
 <p>在数据可视化中，降维也是常用的手段。</p>
 <span id="more"></span>
-<h5 id="PCA算法（Principal-Component-Analysis）">PCA算法（Principal Component Analysis）</h5>
+<h5><span id="pca-suan-fa-principal-component-analysis">PCA算法（Principal Component Analysis）</span><a href="#pca-suan-fa-principal-component-analysis" class="header-anchor">#</a></h5>
 <p>在<strong>PCA</strong>中，我们要做的是找到一个方向向量（<strong>Vector direction</strong>），当我们把所有的数据都投射到该向量上时，我们希望投射平均均方误差能尽可能地小。方向向量是一个经过原点的向量，而投射误差是从特征向量向该方向向量作垂线的长度。</p>
 <p><img src="http://www.ai-start.com/ml2014/images/a93213474b35ce393320428996aeecd9.jpg" alt="img"></p>
-<h5 id="主成分分析与线性回归的比较">主成分分析与线性回归的比较</h5>
+<h5><span id="zhu-cheng-fen-fen-xi-yu-xian-xing-hui-gui-de-bi-jiao">主成分分析与线性回归的比较</span><a href="#zhu-cheng-fen-fen-xi-yu-xian-xing-hui-gui-de-bi-jiao" class="header-anchor">#</a></h5>
 <p>尽管主成分分析与线性回归看上去很相似，但两者是两种不同的算法。主成分分析最小化的是投射误差（<strong>Projected Error</strong>），而线性回归尝试的是最小化预测误差。线性回归的目的是预测结果，而主成分分析不作任何预测。</p>
 <p><img src="http://www.ai-start.com/ml2014/images/7e1389918ab9358d1432d20ed20f8142.png" alt="img"></p>
 <p>上图中，左边的是线性回归的误差（垂直于横轴投影），右边则是主要成分分析的误差（垂直于红线投影）。</p>
-<h5 id="具体算法：">具体算法：</h5>
+<h5><span id="ju-ti-suan-fa">具体算法：</span><a href="#ju-ti-suan-fa" class="header-anchor">#</a></h5>
 <p><strong>PCA</strong> 减少$n$维到$k$维：</p>
 <p>第一步是<strong>数据预处理</strong>。我们将进行均值归一化(mean normalization)/特征缩放(feature scaling)。普遍的做法是计算出所有特征的均值，然后令 $x_j= x_j-μ_j$。如果特征是在不同的数量级上，我们还需要将其除以标准差 $σ$。</p>
 <p>第二步是计算<strong>协方差矩阵</strong>（<strong>covariance matrix</strong>）<br>
@@ -345,7 +345,7 @@ z^{(i)}:<br>
 z^{(i)}=U^T_{reduce}*x^{(i)}<br>
 $$</p>
 <p>其中$x$是$n×1$维的，因此结果为$k×1$维度。</p>
-<h5 id="选择主成分的数量">选择主成分的数量</h5>
+<h5><span id="xuan-ze-zhu-cheng-fen-de-shu-liang">选择主成分的数量</span><a href="#xuan-ze-zhu-cheng-fen-de-shu-liang" class="header-anchor">#</a></h5>
 <p>主要成分分析是减少投射的平均均方误差：</p>
 <p>训练集的方差为：$\dfrac {1}{m}\sum^{m}_{i=1}\left| x^{( i) }\right| ^{2}$</p>
 <p>我们希望在平均均方误差与训练集方差的比例尽可能小的情况下选择尽可能小的$k$值。</p>
@@ -364,12 +364,12 @@ $$<br>
 $$<br>
 x^{( i) }<em>{approx}=U</em>{reduce}z^{(i)}<br>
 $$</p>
-<h5 id="压缩重现">压缩重现</h5>
+<h5><span id="ya-suo-chong-xian">压缩重现</span><a href="#ya-suo-chong-xian" class="header-anchor">#</a></h5>
 <p><strong>PCA</strong>算法，我们可能有一个这样的样本。如图中样本$x^{(1)}$,$x^{(2)}$。我们做的是，我们把这些样本投射到图中这个一维平面。然后现在我们需要只使用一个实数，比如$z^{(1)}$，指定这些点的位置后他们被投射到这一个三维曲面。给定一个点$z^{(1)}$，我们怎么能回去这个原始的二维空间呢？$x$为2维，$z$为1维，$z=U^{T}<em>{reduce}x$，相反的方程为：<br>
 $$<br>
 x</em>{appox}=U_{reduce}\cdot z\ ,\ x_{appox}\approx x<br>
 $$</p>
-<h5 id="几个错误使用">几个错误使用</h5>
+<h5><span id="ji-ge-cuo-wu-shi-yong">几个错误使用</span><a href="#ji-ge-cuo-wu-shi-yong" class="header-anchor">#</a></h5>
 <p>（一）用来减少过拟合</p>
 <p>这样做非常不好，效果也并不优于正则化处理。PCA只是近似地丢弃掉一些特征，它并不考虑任何与结果变量有关的信息，因此可能会丢失非常重要的特征。然而当我们进行正则化处理时，会考虑到结果变量，不会丢掉重要的数据。</p>
 <p>(二)滥用PCA</p>

@@ -322,7 +322,7 @@ $$<br>
 \begin{align}y &amp;= \beta_0 + x_1 \beta_1 +x_2 \beta_2 +\cdots + x_p \beta_p  + \epsilon\\&amp;= x^T \beta + \epsilon\end{align}<br>
 $$<br>
 那么广义线性模型（Generalized linear models,GLM）相当于把y变为了$g(y)$。</p>
-<h2 id="指数族分布">指数族分布</h2>
+<h2><span id="zhi-shu-zu-fen-bu">指数族分布</span><a href="#zhi-shu-zu-fen-bu" class="header-anchor">#</a></h2>
 <p>可以写成<br>
 $$<br>
 p(y|\theta) = \exp {\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)}<br>
@@ -331,8 +331,8 @@ a通常定义为，其中w是样本权重：<br>
 $$<br>
 a(\phi) = \frac{\phi}{w_i}<br>
 $$</p>
-<h2 id="广义线性模型"><strong>广义线性模型</strong></h2>
-<p><img src="34_1.jpg" alt=""></p>
+<h2><span id="guang-yi-xian-xing-mo-xing"><strong>广义线性模型</strong></span><a href="#guang-yi-xian-xing-mo-xing" class="header-anchor">#</a></h2>
+<p><img src="34_1.jpg" alt></p>
 <ol>
 <li>一个线性预测器 $\eta=\beta^Tx$，被称为系统组件(systematic component)。</li>
 <li>一个指数族分布作为响应变量 Y概率分布$P（Y；\theta)$，被称为随机组件(random component)。</li>
@@ -341,12 +341,12 @@ $$</p>
 <p>PRML上称$g^{-1}$为激活函数（activation function）。</p>
 <p>g要求是任意可微和可逆的，也就是说g是单调的。</p>
 <p>但是我也找到一篇印度人写的《GENERALIZED LINEAR MODELS WITH NON-MONOTONIC LINK FUNCTION》，似乎是不用单调连接函数，但可惜没有找到pdf，未能浏览全文。</p>
-<h2 id="如何优化">如何优化</h2>
+<h2><span id="ru-he-you-hua">如何优化</span><a href="#ru-he-you-hua" class="header-anchor">#</a></h2>
 <p>最大似然估计</p>
 <p>梯度法</p>
 <p>牛顿法</p>
 <p>等等</p>
-<h2 id="参考资料">参考资料</h2>
+<h2><span id="can-kao-zi-liao">参考资料</span><a href="#can-kao-zi-liao" class="header-anchor">#</a></h2>
 <p><a target="_blank" rel="noopener" href="https://www.zhangzhenhu.com/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html">https://www.zhangzhenhu.com/glm/source/广义线性模型/content.html</a></p>
 <p>PRML</p>
 <hr>

@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          916 字
+          917 字
         
       </span>
     
@@ -325,7 +325,7 @@
 <p><strong>链接：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://keras.io/examples/keras_recipes/quasi_svm">https://keras.io/examples/keras_recipes/quasi_svm</a></p>
 <p><strong>2025年更新：</strong> keras现在已经删掉了RandomFourierFeatures</p>
-<h2 id="Random-Fourier-Features">Random Fourier Features</h2>
+<h2><span id="random-fourier-features">Random Fourier Features</span><a href="#random-fourier-features" class="header-anchor">#</a></h2>
 <p>SVM的核心是核技巧和最大间隔，SVM具体实现我们不再赘述。</p>
 <p>Random Fourier Features出自2007 年的《Random Features for Large-Scale Kernel Machines》，并于十年后获得了NeurIPS 2017的Test of Time Award。</p>
 <p>他们的想法是使用一个随机化的特征图 $z: \mathbb{R}^D \to \mathbb{R}^d$ 来近似核函数 $k(x,y)$：</p>
@@ -403,9 +403,9 @@ z(x)^Tz(y)&amp;=\frac{1}{R}\sum_{r=1}^R z_{w_r}(x)z_{w_r}(y)<br>
 &amp;=k(x,y)<br>
 \end{align}<br>
 $$</p>
-<h2 id="应用——高斯核近似">应用——高斯核近似</h2>
+<h2><span id="ying-yong-gao-si-he-jin-si">应用——高斯核近似</span><a href="#ying-yong-gao-si-he-jin-si" class="header-anchor">#</a></h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span>   sklearn.metrics.pairwise <span class="hljs-keyword">import</span> rbf_kernel<br><span class="hljs-keyword">from</span>   sklearn.datasets <span class="hljs-keyword">import</span> make_s_curve<br><br>fig, axes = plt.subplots(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>)<br>fig.set_size_inches(<span class="hljs-number">15</span>, <span class="hljs-number">4</span>)<br>font = &#123;<span class="hljs-string">&#x27;fontname&#x27;</span>: <span class="hljs-string">&#x27;arial&#x27;</span>, <span class="hljs-string">&#x27;fontsize&#x27;</span>: <span class="hljs-number">18</span>&#125;<br><br>N    = <span class="hljs-number">1000</span><br>D    = <span class="hljs-number">3</span><br>X, t = make_s_curve(N, noise=<span class="hljs-number">0.1</span>)<br>X    = X[t.argsort()]<br><span class="hljs-comment"># The RBF kernel is the Gaussian kernel if we let \gamma = 1 / (2 \sigma^2).</span><br>K    = rbf_kernel(X, gamma=<span class="hljs-number">1</span>/<span class="hljs-number">2.</span>)<br><br>axes[<span class="hljs-number">0</span>].imshow(K, cmap=plt.cm.Blues)<br>axes[<span class="hljs-number">0</span>].set_title(<span class="hljs-string">&#x27;Exact RBF kernel&#x27;</span>, **font)<br>axes[<span class="hljs-number">0</span>].set_xticks([])<br>axes[<span class="hljs-number">0</span>].set_yticks([])<br><br><span class="hljs-keyword">for</span> R, ax <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>([<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1000</span>], axes[<span class="hljs-number">1</span>:]):<br>    W    = np.random.normal(loc=<span class="hljs-number">0</span>, scale=<span class="hljs-number">1</span>, size=(R, D))<br>    b    = np.random.uniform(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*np.pi, size=R)<br>    B    = np.repeat(b[:, np.newaxis], N, axis=<span class="hljs-number">1</span>)<br>    norm = <span class="hljs-number">1.</span>/ np.sqrt(R)<br>    Z    = norm * np.sqrt(<span class="hljs-number">2</span>) * np.cos(W @ X.T + B)<br>    ZZ   = Z.T@Z<br><br>    ax.imshow(ZZ, cmap=plt.cm.Blues)<br>    ax.set_title(<span class="hljs-string">r&#x27;$\mathbf&#123;Z&#125; \mathbf&#123;Z&#125;^&#123;\top&#125;$, $R=%s$&#x27;</span> % R, **font)<br>    ax.set_xticks([])<br>    ax.set_yticks([])<br><br>plt.tight_layout()<br>plt.show()<br></code></pre></td></tr></table></figure>
-<p><img src="rbf.png" alt=""></p>
+<p><img src="rbf.png" alt></p>
 
                 
               </div>
