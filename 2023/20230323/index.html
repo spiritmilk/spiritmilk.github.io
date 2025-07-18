@@ -330,9 +330,9 @@
 </ul>
 <hr>
 <span id="more"></span>
-<h2><span id="fedsage">FedSage+</span><a href="#fedsage" class="header-anchor">#</a></h2>
+<h2 id="FedSage">FedSage+</h2>
 <p>FedSage = FedAVG+GraphSage</p>
-<h3><span id="fedavg"><strong>FedAVG：</strong></span><a href="#fedavg" class="header-anchor">#</a></h3>
+<h3 id="FedAVG："><strong>FedAVG：</strong></h3>
 <p><strong>本地训练 (Local Training / Multiple Local Epochs):</strong></p>
 <ul>
 <li>每个被选中的客户端 k 使用其本地数据集对接收到的模型 $W_{global}$ 进行训练。</li>
@@ -344,17 +344,17 @@
 <li>服务器收集来自各个客户端的本地模型参数。</li>
 <li>服务器通过对这些本地模型参数进行<strong>加权平均</strong>来更新全局模型： $W_{global}^{t+1}=\sum_{k=1}{n_k}W_{local,k}$</li>
 </ul>
-<h3><span id="graphsage"><strong>GraphSAGE：</strong></span><a href="#graphsage" class="header-anchor">#</a></h3>
+<h3 id="GraphSAGE："><strong>GraphSAGE：</strong></h3>
 <p>伪代码</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs awk">Input:<br>  G = (V, E)          <span class="hljs-regexp">//</span> 图结构<br>  x_v                 <span class="hljs-regexp">//</span> 节点 v 的初始特征向量，对于所有 v 属于 V<br>  K                   <span class="hljs-regexp">//</span> 聚合的层数 (搜索深度)<br>  W^k                 <span class="hljs-regexp">//</span> 第 k 层的权重矩阵 (可学习参数), <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>...K<br>  AGGREGATE_k         <span class="hljs-regexp">//</span> 第 k 层的聚合函数 (例如 MEAN, POOL, LSTM), <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>...K<br>  N(v)                <span class="hljs-regexp">//</span> 节点 v 的邻居集合<br>  SAMPLE(S, num_samples) <span class="hljs-regexp">//</span> 从集合 S 中随机采样 num_samples 个元素<br><br>Output:<br>  z_v                 <span class="hljs-regexp">//</span> 节点 v 的最终嵌入向量 (在第 K 层之后), <span class="hljs-keyword">for</span> all v 属于 V (或目标子集)<br><br>Procedure:<br>  <span class="hljs-regexp">//</span> 初始化第 <span class="hljs-number">0</span> 层的隐藏表示为节点的输入特征<br>  h_v^<span class="hljs-number">0</span> ← x_v  <span class="hljs-keyword">for</span> all v ∈ V<br><br>  <span class="hljs-regexp">//</span> 对于每一层 k 从 <span class="hljs-number">1</span> 到 K<br>  FOR k = <span class="hljs-number">1</span> TO K DO<br>    <span class="hljs-regexp">//</span> 对于图中的每一个节点 v (或者需要计算嵌入的目标节点)<br>    FOR v ∈ V DO<br>      <span class="hljs-regexp">//</span> <span class="hljs-number">1</span>. 邻居采样: 从节点 v 的邻居中采样固定数量的邻居<br>      <span class="hljs-regexp">//</span>    S_k 是为第 k 层预设的采样邻居数量<br>      sampled_neighbors_of_v ← SAMPLE(N(v), S_k)<br><br>      <span class="hljs-regexp">//</span> <span class="hljs-number">2</span>. 聚合邻居信息:<br>      <span class="hljs-regexp">//</span>    从采样的邻居节点获取它们在上一层 (k-<span class="hljs-number">1</span>) 的表示<br>      <span class="hljs-regexp">//</span>    并使用聚合函数 AGGREGATE_k 来汇总这些表示<br>      h_N(v)^k ← AGGREGATE_k(&#123;h_u^(k-<span class="hljs-number">1</span>) FOR u ∈ sampled_neighbors_of_v&#125;)<br><br>      <span class="hljs-regexp">//</span> <span class="hljs-number">3</span>. 更新节点表示:<br>      <span class="hljs-regexp">//</span>    拼接节点 v 在上一层的表示 h_v^(k-<span class="hljs-number">1</span>) 和聚合后的邻居表示 h_N(v)^k<br>      concatenated_representation ← CONCAT(h_v^(k-<span class="hljs-number">1</span>), h_N(v)^k)<br><br>      <span class="hljs-regexp">//</span>    通过一个全连接层 (使用权重 W^k) 和非线性激活函数 sigma (例如 ReLU)<br>      h_v^k ← σ(W^k ⋅ concatenated_representation)<br>    <span class="hljs-keyword">END</span> FOR<br>  <span class="hljs-keyword">END</span> FOR<br><br>  <span class="hljs-regexp">//</span> 最终的输出嵌入是第 K 层的隐藏表示<br>  z_v ← h_v^K  <span class="hljs-keyword">for</span> all v ∈ V (or target subset)<br><br>  RETURN z_v<br></code></pre></td></tr></table></figure>
-<h3><span id="fedsage">FedSage+</span><a href="#fedsage" class="header-anchor">#</a></h3>
+<h3 id="FedSage-2">FedSage+</h3>
 <p>FedSage+ 在 FedSage 的基础上引入了一个关键组件：<strong>缺失邻居生成器 (Missing Neighbor Generator, 通常称为 NeighGen)</strong>。通过显式地处理跨客户端连接的缺失问题，尝试恢复更完整的图结构信息。</p>
-<p><img src="neighgen.jpg" alt></p>
+<p><img src="neighgen.jpg" alt=""></p>
 <p>dgen用了预测缺失邻居数量，fGen用了预测特征向量。</p>
-<h2><span id="fedni">Fedni</span><a href="#fedni" class="header-anchor">#</a></h2>
-<p><img src="x1.png" alt></p>
+<h2 id="Fedni">Fedni</h2>
+<p><img src="x1.png" alt=""></p>
 <p>随机从某个节点出发，使用BFS获取子图作为训练集，以学会从子图生成完整图的能力。</p>
-<h2><span id="xiang-fa">想法</span><a href="#xiang-fa" class="header-anchor">#</a></h2>
+<h2 id="想法">想法</h2>
 <p>（1）FedSage+的思想有点类似BERT，而另一篇论文Fedni利用了GAN的思想引入了鉴别器，和FedSage+的随机删除不同，他是使用广度优先搜索算法来实现节点删除。像FedSage+和Fedni都有一些NLP和CV中的比较先进的思想相类似的想法。那么它的未来方向是不是还可以参考比如CV中的diffusion model、NLP中的GPT系列等思想？</p>
 <p>（2）FedGraph是由服务端来分配采样邻居策略，是不是意味着服务端知道所有子图间的连接数据，这样的话是不是隐私性/安全性没有FedSage+那么好，有没有可能存在攻击服务端来获取各子图之间连接的关系情况？</p>
 <p>（3）联邦学习怎么和鲁棒性产生联系？</p>

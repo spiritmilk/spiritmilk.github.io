@@ -324,23 +324,23 @@
 <p>K-means是广泛使用的聚类算法，尽管它不一定能保证全局最优，但大家都约定速成地认为K-means会收敛到局部最优解。</p>
 <p><strong>但其实不然。</strong></p>
 <span id="more"></span>
-<h2><span id="ding-yi-wen-ti">定义问题</span><a href="#ding-yi-wen-ti" class="header-anchor">#</a></h2>
+<h2 id="定义问题">定义问题</h2>
 <p>在提出反例之前我们先提出一些定义。</p>
 <p>我们将广泛使用的欧式距离拓展到Bregman 散度。<br>
 $$<br>
 D_\phi(x,y)=\phi(x)-\phi(y)-&lt;x-y,\nabla\phi(y)&gt;<br>
 $$<br>
 <strong>Bregman散度</strong>是借用一个严格凸函数φ（·），该散度即为φ（x）和h（x）的差，其中h（x）为φ（y）在x处的线性近似。</p>
-<p><img src="2.png" alt></p>
+<p><img src="2.png" alt=""></p>
 <p>更多的：</p>
-<p><img src="3.jpg" alt></p>
+<p><img src="3.jpg" alt=""></p>
 <p>两种局部最优的定义：</p>
 <p><strong>D-local: Discrete locally optimal solution</strong></p>
 <p>即若把某个数据点移动到任意簇后，损失都会升高。</p>
 <p><strong>C-local: Continuous locally optimal solution</strong></p>
 <p>即在某个数据点的附近一个领域内，无论怎么移动，损失都会升高。</p>
 <p>可以看出D-local更强。</p>
-<h2><span id="fan-li">反例</span><a href="#fan-li" class="header-anchor">#</a></h2>
+<h2 id="反例">反例</h2>
 <p>点的数量为 N = 5，簇的数量为K = 2，相似度度量为 $D(x, y) =||x-y||^2_2$，给定的数据集和初始中心如下：</p>
 <p>x1 = −4, x2 = −2, x3 = 0, x4 = 1.5, x5 = 2.5,<br>
 c1 = x3 = 0, c2 = x5 = 2.5<br>
@@ -350,11 +350,11 @@ p^\ast=\begin{bmatrix}<br>
 \end{bmatrix},c_1^\ast=-2,c_2^\ast=2<br>
 $$<br>
 但是他并不满足C-local或D-local。</p>
-<h2><span id="gai-jin">改进</span><a href="#gai-jin" class="header-anchor">#</a></h2>
+<h2 id="改进">改进</h2>
 <p>为了满足C-local，我们找数据点 <code>n</code> 满足至少两个或以上的簇中心在可允许误差范围内同样近。修改它的簇为另外的簇。</p>
 <p>为了满足D-local，我们检查所有的数据点，遍历移动到其他簇是否损失会降低。</p>
-<p><img src="1.jpg" alt></p>
-<p><img src="2.jpg" alt></p>
+<p><img src="1.jpg" alt=""></p>
+<p><img src="2.jpg" alt=""></p>
 
                 
               </div>

@@ -323,7 +323,7 @@
 <p>demo地址：<a target="_blank" rel="noopener" href="https://bshall.github.io/knn-vc/">https://bshall.github.io/knn-vc/</a></p>
 <p>代码地址：<a target="_blank" rel="noopener" href="https://github.com/bshall/knn-vc">https://github.com/bshall/knn-vc</a></p>
 <p>简介：任意语音转换旨在将源语音转换为目标语音，仅以目标说话者的几个例子为参考。最近的方法产生了令人信服的转换，但代价是增加了复杂性——使结果难以复制和构建。相反，我们保持简单。我们提出了k近邻语音转换（kNN-VC）：一种简单而有效的任意到任意转换方法。首先，我们提取源语音和参考语音的自监督表示。为了转换为目标说话者，我们将源表示的每个帧替换为其在参考中的最近邻居。最后，预训练的声码器从转换后的表示中合成音频。客观和主观评价表明，kNN-VC以与现有方法相似的可懂度分数提高了说话人的相似性。</p>
-<p><img src="model.png" alt></p>
+<p><img src="model.png" alt=""></p>
 <span id="more"></span>
 <p>模型架构：源话语和参考话语被编码为来自预训练的WavLM模型的自监督特征[6]。每个源特征被分配给来自参考的k个最接近特征的平均值。然后使用HiFi GAN对得到的特征序列进行声码，以获得转换后的波形输出。</p>
 <blockquote>

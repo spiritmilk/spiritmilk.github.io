@@ -330,15 +330,15 @@
 <p>（NIPS 2023） <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.10453">Evaluating Graph Neural Networks for Link Prediction</a></p>
 <p>（NIP2 2024 ）<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.08993">Classic GNNs are Strong Baselines: Reassessing GNNs for Node Classification</a></p>
 <p>（ICML 2025 ）<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.09263">Unlocking the Potential of Classic GNNs for Graph-level Tasks: Simple Architectures Meet Excellence</a></p>
-<h2><span id="jie-dian-yu-ce">节点预测</span><a href="#jie-dian-yu-ce" class="header-anchor">#</a></h2>
+<h2 id="节点预测">节点预测</h2>
 <p>（1）作者注意到，多个模型的性能被低估。对于某些方法，如标准 GNNs，<br>
 这是由于调参不当所致。一旦进行适当的调参，它们甚至可以在某些指标上达到最佳整体性能。</p>
-<p><img src="links.png" alt></p>
+<p><img src="links.png" alt=""></p>
 <p>（2）大多数模型的排序指标标准差往往较高。例如，MRR的标准差在 Cora、Citeseer 和 Pubmed 上分别高达 8.82 、8.96 和 7.75 。此外，在 ogbl-ddi数据集上，Hits@20 的标准差甚至达到了 10.47 和 15.56。</p>
 <p>高方差意味着模型性能不稳定。这使得比较不同方法的结果变得困难，因为真实性能存在于更大的值域内。这进一步增加了复制模型性能的复杂性，因为即使与报告结果存在较大差异，也可能仍处于方差范围内。</p>
 <p>也导致作者可能会取偏高的作为结果，而难以体现模型的平均性能。</p>
 <p>（3）惯用的AUC 并不是链接预测的合适指标。</p>
-<h3><span id="gai-jin-ping-gu-fang-an">改进评估方案</span><a href="#gai-jin-ping-gu-fang-an" class="header-anchor">#</a></h3>
+<h3 id="改进评估方案">改进评估方案</h3>
 <p>现有的链接预测评估过程是将一个正例与一组 K 随机选择的负例进行排名。所有正例都使用相同的 K 个负例（ogbl-citation2 除外，它每个正例使用 1000 个）。</p>
 <p>然而这种评估方法会有以下问题：</p>
 <p><strong>问题1：非个性化的负例。</strong></p>
@@ -354,23 +354,23 @@
 <p>作者的策略 HeaRT 通过以下方式解决这些挑战：</p>
 <p>(a) 为每个样本个性化负例</p>
 <p>(b) 使用启发式方法选择难负例。这使得负例能够与每个正例直接相关，同时又不失挑战性。</p>
-<p><img src="heart.png" alt></p>
-<h2><span id="jie-dian-fen-lei">节点分类</span><a href="#jie-dian-fen-lei" class="header-anchor">#</a></h2>
+<p><img src="heart.png" alt=""></p>
+<h2 id="节点分类">节点分类</h2>
 <p>具体采用的数据集有：</p>
-<p><img src="nodedata.png" alt></p>
+<p><img src="nodedata.png" alt=""></p>
 <p><strong>在同质图上：</strong></p>
-<p><img src="nodedata1.png" alt></p>
+<p><img src="nodedata1.png" alt=""></p>
 <p>经典 GNN 仅需对超参数进行微调，便能在同质图上的节点分类任务中表现出极强的竞争力，在许多情况下甚至超越了最先进的图Transformer！</p>
 <p><strong>在异质图上：</strong></p>
-<p><img src="nodedata2.png" alt></p>
+<p><img src="nodedata2.png" alt=""></p>
 <p>传统 GNN依旧在异质图中是强有力的竞争者。</p>
 <p><strong>在大规模图上：</strong></p>
-<p><img src="nodedata3.png" alt></p>
+<p><img src="nodedata3.png" alt=""></p>
 <p>传统 GNN在这些大规模图数据集上取得了最佳结果，无论是同质性还是异质性图，均超越了最先进的图 Transformer。这表明消息传递在大<br>
 规模图上学习结点表示仍然非常有效。</p>
-<h2><span id="tu-ceng-ci">图层次</span><a href="#tu-ceng-ci" class="header-anchor">#</a></h2>
+<h2 id="图层次">图层次</h2>
 <p>作者并不是使用传统的GNN，而是提出了GNN+，即GNN整合了六种流行技术边特征集成、Normalization、Dropout、残差连接、FFN以及位置编码。</p>
-<h3><span id="bian-te-zheng-ji-cheng">边特征集成</span><a href="#bian-te-zheng-ji-cheng" class="header-anchor">#</a></h3>
+<h3 id="边特征集成">边特征集成</h3>
 <p>$$<br>
 h_v^l=\sigma(\sum_{u\in N(v)\cup{v}}\frac{1}{\sqrt{\hat d_u\hat d_v}}h_u^{l-1}W^l)<br>
 $$</p>
@@ -379,14 +379,14 @@ $$<br>
 h_v^l=\sigma(\sum_{u\in N(v)\cup{v}}\frac{1}{\sqrt{\hat d_u\hat d_v}}h_u^{l-1}W^l+e_{uv}W^l_e)<br>
 $$<br>
 其中$e_{uv}、W^l_e$分别为u和v之间的特征向量和第$l$层的可训练权重矩阵。</p>
-<h3><span id="wei-zhi-bian-ma">位置编码</span><a href="#wei-zhi-bian-ma" class="header-anchor">#</a></h3>
+<h3 id="位置编码">位置编码</h3>
 <p>作者采用的是随机游走结构编码（RWSE）。</p>
 <p>之前的博客曾介绍过相关的Graph Neural Networks with Learnable Structural and Positional Representations，在这里不再赘述。<br>
 $$<br>
 x_v=[x_v||x_v^{RWSE}]W_{PE}<br>
 $$</p>
-<h3><span id="jie-guo">结果</span><a href="#jie-guo" class="header-anchor">#</a></h3>
-<p><img src="graph.png" alt></p>
+<h3 id="结果">结果</h3>
+<p><img src="graph.png" alt=""></p>
 
                 
               </div>

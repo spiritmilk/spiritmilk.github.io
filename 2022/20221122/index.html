@@ -324,7 +324,7 @@
 <p>预测准确率25/48≈52%</p>
 <span id="more"></span>
 <hr>
-<h3><span id="shu-ju-chu-li-yu-te-zheng-xuan-qu">数据处理与特征选取</span><a href="#shu-ju-chu-li-yu-te-zheng-xuan-qu" class="header-anchor">#</a></h3>
+<h3 id="数据处理与特征选取">数据处理与特征选取</h3>
 <p>数据集使用1872年至2022年的国际足球成绩和1992-2022年的国际足联世界排名。</p>
 <p>该模型预测了主队的胜率和客场的平局/胜率。由于世界杯没有主场和客场之分，为了去除客场球队的优势，分别预测了客场和主场球队的变化结果，并使用两个预测的平均值作为概率。</p>
 <p>一些特征：</p>
@@ -362,66 +362,66 @@
 <p>（11）近五场主客场按排名的平均比赛点数差距</p>
 <p>（12）是否友谊赛</p>
 <p>作者尝试了随机森林模型和Gradient Boosting模型，使用recall来判断模型好坏。根据AUC，随机森林效果比Gradient Boosting稍好，但是有过拟合的嫌疑，故作者选取了Gradient Boosting作为最终的模型。</p>
-<h3><span id="mo-ni-jie-guo">模拟结果</span><a href="#mo-ni-jie-guo" class="header-anchor">#</a></h3>
+<h3 id="模拟结果">模拟结果</h3>
 <p>AI并没有给出胜或负的肯定的结果，只有胜负概率，下面的取最高赢球概率的为胜方。</p>
-<h4><span id="xiao-zu-sai">小组赛</span><a href="#xiao-zu-sai" class="header-anchor">#</a></h4>
-<h5><span id="a-zu">A组：</span><a href="#a-zu" class="header-anchor">#</a></h5>
+<h4 id="小组赛">小组赛</h4>
+<h5 id="A组：">A组：</h5>
 <p>卡塔尔 败 厄瓜多尔  【准】</p>
 <p>塞内加尔 败 荷兰  【准】</p>
 <p>卡塔尔 败 塞内加尔【准】</p>
 <p>荷兰 胜 厄瓜多尔 【准】</p>
 <p>厄瓜多尔 胜 塞内加尔  【不准】</p>
 <p>荷兰 胜 卡塔尔 【准】</p>
-<h5><span id="b-zu">B组</span><a href="#b-zu" class="header-anchor">#</a></h5>
+<h5 id="B组">B组</h5>
 <p>英格兰 胜 伊朗 【准】</p>
 <p>美国 平 威尔士 【准】</p>
 <p>威尔士 胜 伊朗  【不准】</p>
 <p>英格兰 胜 美国 【不准】</p>
 <p>威尔士 败 英格兰 【准】</p>
 <p>伊朗 败 美国 【准】</p>
-<h5><span id="c-zu">C组</span><a href="#c-zu" class="header-anchor">#</a></h5>
+<h5 id="C组">C组</h5>
 <p>阿根廷 胜 沙特阿拉伯 【不准】</p>
 <p>墨西哥 平 波兰 【准】</p>
 <p>波兰 胜 沙特阿拉伯 【准】</p>
 <p>阿根廷 胜 墨西哥 【准】</p>
 <p>波兰 败 阿根廷 【准】</p>
 <p>沙特阿拉伯 败 墨西哥 【准】</p>
-<h5><span id="d-zu">D组</span><a href="#d-zu" class="header-anchor">#</a></h5>
+<h5 id="D组">D组</h5>
 <p>丹麦 胜 突尼斯 【不准】</p>
 <p>法国 胜 澳大利亚 【准】</p>
 <p>突尼斯 平 澳大利亚 【不准】</p>
 <p>法国 平 丹麦 【不准】</p>
 <p>澳大利亚 败 丹麦 【不准】</p>
 <p>突尼斯 败 法国  【不准】</p>
-<h5><span id="e-zu">E组</span><a href="#e-zu" class="header-anchor">#</a></h5>
+<h5 id="E组">E组</h5>
 <p>德国 胜 日本 【不准】</p>
 <p>西班牙 胜 哥斯达黎加 【准】</p>
 <p>日本 平 哥斯达黎加 【不准】</p>
 <p>西班牙 平 德国 【准】</p>
 <p>日本 败 西班牙 【不准】</p>
 <p>哥斯达黎加 败 德国 【准】</p>
-<h5><span id="f-zu">F组</span><a href="#f-zu" class="header-anchor">#</a></h5>
+<h5 id="F组">F组</h5>
 <p>摩洛哥 败 克罗地亚  【不准】</p>
 <p>比利时 胜 加拿大 【准】</p>
 <p>比利时 胜 摩洛哥 【不准】</p>
 <p>克罗地亚 胜 加拿大 【准】</p>
 <p>克罗地亚 败 比利时 【不准】</p>
 <p>加拿大 平 摩洛哥: 【不准】</p>
-<h5><span id="g-zu">G组</span><a href="#g-zu" class="header-anchor">#</a></h5>
+<h5 id="G组">G组</h5>
 <p>瑞士 胜 喀麦隆 【准】</p>
 <p>巴西 胜 塞尔维亚 【准】</p>
 <p>喀麦隆 败 塞尔维亚 【不准】</p>
 <p>巴西 平 瑞士 【不准】</p>
 <p>塞尔维亚 败 瑞士 【准】</p>
 <p>喀麦隆 败 巴西 【不准】</p>
-<h5><span id="h-zu">H组</span><a href="#h-zu" class="header-anchor">#</a></h5>
+<h5 id="H组">H组</h5>
 <p>乌拉圭 胜韩国 【不准】</p>
 <p>葡萄牙 胜 加纳: 【准】</p>
 <p>韩国 胜 加纳 【不准】</p>
 <p>葡萄牙 平 乌拉圭 【不准】</p>
 <p>加纳 败 乌拉圭 【准】</p>
 <p>韩国 败 葡萄牙  【不准】</p>
-<h3><span id="ping-jie">评价</span><a href="#ping-jie" class="header-anchor">#</a></h3>
+<h3 id="评价">评价</h3>
 <p>机器学习计算出来的胜率最高也知道70%+，一般都在50%~60~左右徘徊，差距是不大的，正所谓足球是圆的，发生什么都有可能，比如2014年格策的绝杀等都是机器无法预测的。现有的机器也不过是统计学习罢了，事在人为。</p>
 
                 

@@ -331,11 +331,11 @@
               <div class="markdown-body">
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>推荐模型的一个大概结构如图所示。</p>
-<p><img src="recsys_overview.png" alt></p>
+<p><img src="recsys_overview.png" alt=""></p>
 <p>我们将要介绍快手的几个推荐系统模型。QARM和OneRec。</p>
 <p>我们将按时间顺序介绍。</p>
 <span id="more"></span>
-<h2><span id="qarm">QARM</span><a href="#qarm" class="header-anchor">#</a></h2>
+<h2 id="QARM">QARM</h2>
 <p>QARM= Quantitative Alignment Multi-Modal Recommendation</p>
 <p>作者认为由于计算代价过大，导致业内通常使用非端到端的模型——二步部署方案，先使用MLLM提取embedding，再进一步训练。</p>
 <p>Feature-&gt;Encoder-&gt;Embedding-&gt;Model</p>
@@ -344,13 +344,13 @@
 <p>MLLM通常是由图文匹配训练的，而基于ID的特征并不是。</p>
 <p><strong>（2）embedding遗忘。</strong></p>
 <p>新添加的多模态特征不会随着推荐系统的训练而更新，而其他基于离散ID的特征（用户ID、物品ID等）可以实时端到端优化。</p>
-<h3><span id="suan-fa">算法</span><a href="#suan-fa" class="header-anchor">#</a></h3>
+<h3 id="算法">算法</h3>
 <p>检索模型遵循的经典设计：</p>
-<p><img src="1.jpg" alt></p>
+<p><img src="1.jpg" alt=""></p>
 <p>这也就是推荐系统常用的“双塔模型”。</p>
 <p>QARM整体架构：</p>
-<p><img src="2.jpg" alt></p>
-<h4><span id="dui-qi">对齐</span><a href="#dui-qi" class="header-anchor">#</a></h4>
+<p><img src="2.jpg" alt=""></p>
+<h4 id="对齐">对齐</h4>
 <p>首先通过以下方式生成高质量的项目对：</p>
 <ul>
 <li>
@@ -368,44 +368,44 @@ M _ {target}&amp;=MLLM(T _ {target}^{text},T _ {target}^{audio},T _ {target}^{im
 \mathcal{L} _ {align}&amp;=Batch\_Contrastive(M _ {trigger},M _ {target},\beta)<br>
 \end{align}<br>
 $$</p>
-<h4><span id="quantitative-code">Quantitative Code</span><a href="#quantitative-code" class="header-anchor">#</a></h4>
+<h4 id="Quantitative-Code">Quantitative Code</h4>
 <p>作者首先是将多模态表征量化压缩成语义ID, 再将语义ID输入到推荐模型中。</p>
 <p>作者采用了两种量化机制。</p>
 <p>一种是最常用的VQ，首先训练一个codebook，然后利用top-k最近邻搜索来哈希表示。</p>
 <p>由于预训练的MLLM已经能表示复杂项目的相关系数，故不再训练codebook，而直接采用所有项目的对齐作为codebook。</p>
 <p>另一种是RQ，即Residual-Quantized。出自RQ-VAE。</p>
-<p><img src="1.png" alt></p>
+<p><img src="1.png" alt=""></p>
 <p>具体而言，</p>
-<p><img src="VQ.jpg" alt></p>
-<p><img src="2.png" alt></p>
-<h4><span id="duan-dao-duan-xun-lian">端到端训练</span><a href="#duan-dao-duan-xun-lian" class="header-anchor">#</a></h4>
+<p><img src="VQ.jpg" alt=""></p>
+<p><img src="2.png" alt=""></p>
+<h4 id="端到端训练">端到端训练</h4>
 <p>最后将这几个编码作为新的ID特征送入模型中，进行端到端训练：</p>
-<p><img src="3.png" alt></p>
-<h2><span id="onerec">OneRec</span><a href="#onerec" class="header-anchor">#</a></h2>
+<p><img src="3.png" alt=""></p>
+<h2 id="OneRec">OneRec</h2>
 <p>虽然也是快手出品，但研究团队完全换了一批人。</p>
 <p>该模型用统一的生成模型替换了级联学习框架。是第一个端到端的生成模型。</p>
-<p><img src="3.jpg" alt></p>
+<p><img src="3.jpg" alt=""></p>
 <p>该模型基于tranformer。首先使用QARM的对齐和Quantitative Code的方法来作为Tokenizer，转化为模型可以接受的输入。</p>
 <p>完成模型的预训练之后, 由于模型是只预测next-token。所以还会再利用 DPO 等强化学习进行对齐训练。最后，在预测的时候, 通过 beam search 筛选出视频流。</p>
-<h3><span id="tokenizer">Tokenizer</span><a href="#tokenizer" class="header-anchor">#</a></h3>
-<p><img src="4.jpg" alt></p>
-<h3><span id="bian-ma-qi-bu-fen">编码器部分</span><a href="#bian-ma-qi-bu-fen" class="header-anchor">#</a></h3>
-<h4><span id="duo-chi-du-te-zheng-gong-cheng">多尺度特征工程</span><a href="#duo-chi-du-te-zheng-gong-cheng" class="header-anchor">#</a></h4>
-<h5><span id="yong-hu-jing-tai-lu-jing">用户静态路径</span><a href="#yong-hu-jing-tai-lu-jing" class="header-anchor">#</a></h5>
+<h3 id="Tokenizer">Tokenizer</h3>
+<p><img src="4.jpg" alt=""></p>
+<h3 id="编码器部分">编码器部分</h3>
+<h4 id="多尺度特征工程">多尺度特征工程</h4>
+<h5 id="用户静态路径">用户静态路径</h5>
 <p>用户静态路径生成核心用户特征的紧凑表示，包含用户标识符（uid）、年龄（age）、性别（gender）等，随后将其变换为模型的隐藏维度。</p>
-<h5><span id="duan-qi-lu-jing">短期路径</span><a href="#duan-qi-lu-jing" class="header-anchor">#</a></h5>
+<h5 id="短期路径">短期路径</h5>
 <p>挑选用户最近交互的 ($L_s=20$) 个视频的 &lt;video identifier, author identifier, tag, timestamp, playtime, duration, labels&gt; 等信息进行融合:</p>
-<h5><span id="zheng-fan-kui-lu-jing">正反馈路径</span><a href="#zheng-fan-kui-lu-jing" class="header-anchor">#</a></h5>
+<h5 id="正反馈路径">正反馈路径</h5>
 <p>将用户给与最多正反馈的 ($L_p=200$） 个视频的 &lt;video identifier, author identifier, tag, timestamp, playtime, duration, labels&gt; 等信息进行融合:</p>
 <p>对于以上三个部分，变换方式都是：$f_u$为各特征拼接，$h_u=Dense(LeakyReLU(Dense(f_u)))$。</p>
-<h5><span id="zhong-shen-lu-jing">终身路径</span><a href="#zhong-shen-lu-jing" class="header-anchor">#</a></h5>
+<h5 id="终身路径">终身路径</h5>
 <p>终身行为路径旨在处理包含多达 100,000 个视频序列的超长用户交互历史。直接对此类序列应用注意力机制在计算上是不可行的。</p>
 <p><strong>行为压缩</strong></p>
 <p>使用类似QARM的分层 K-均值，使用最接近簇中心的项目作为该簇的代表。</p>
 <p><strong>特征聚合</strong></p>
 <p>依旧使用上面的：$f_u$为各特征拼接，$h_u=Dense(LeakyReLU(Dense(f_u)))$。</p>
 <p>最后再通过 QFormer 压缩。</p>
-<h3><span id="jie-ma-qi">解码器</span><a href="#jie-ma-qi" class="header-anchor">#</a></h3>
+<h3 id="解码器">解码器</h3>
 <p>对于每个目标视频 $m$，解码器输入序列通过将可学习的序列起始 token 与视频的语义标识符连接而构造：</p>
 <p>$$<br>
 S_m = \{s_{\text{EOS}}^1, s_m^1, s_m^2, \dots, s_m^{L_s}\}<br>
@@ -428,18 +428,18 @@ $$</p>
 \text{MoE}(x) = \sum_{j=1}^k \text{Gate}_j(x) \cdot \text{Expert}_j(x)<br>
 $$</p>
 <p>其中 $\text{Gate}_j(x)$ 表示由路由机制确定的权重，$\text{Expert}_j(x)$ 表示第 $j$ 个选定的专家网络的输出。并使用了DeepseekV3的无损失的负载均衡策略。</p>
-<h3><span id="qiang-hua-xue-xi">强化学习</span><a href="#qiang-hua-xue-xi" class="header-anchor">#</a></h3>
-<p><img src="5.jpg" alt></p>
+<h3 id="强化学习">强化学习</h3>
+<p><img src="5.jpg" alt=""></p>
 <p>在训练过程中，这些塔使用相应的目标标签作为辅助任务计算二元交叉熵（BCE）损失。每个塔的隐状态，连同用户和物品的表示，被输入到最终层的多层感知机（MLP）中。该 MLP 之后是一个单塔输出 P-Score，它使用所有目标的标签计算二元交叉熵损失。</p>
 <p>使用的是GRPO的修改版（被称为早起阶段GRPO，ECPO），具体而言，多了31式：</p>
-<p><img src="GRPO.jpg" alt></p>
-<h4><span id="sheng-cheng-ge-shi-zheng-ze-hua">生成格式正则化</span><a href="#sheng-cheng-ge-shi-zheng-ze-hua" class="header-anchor">#</a></h4>
+<p><img src="GRPO.jpg" alt=""></p>
+<h4 id="生成格式正则化">生成格式正则化</h4>
 <p>引入强化学习与 ECPO会显著增加了非法输出的生成，即在推<br>
 理过程中生成没有对应物品 ID 的语义 ID 序列。</p>
-<p><img src="7.jpg" alt></p>
+<p><img src="7.jpg" alt=""></p>
 <p>这是由于挤压效应引起的，即当A&lt;0时，一部分合法token被挤压到非法token，使得模型难以区分合法token。</p>
 <p>作者直接引入格式奖励以鼓励模型正确生成。具体而言，对合法样本设置为1，对非法样本设置为0，即丢弃。</p>
-<h2><span id="can-kao-wen-xian">参考文献</span><a href="#can-kao-wen-xian" class="header-anchor">#</a></h2>
+<h2 id="参考文献">参考文献</h2>
 <p>OneRec Technical Report.<a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.13695">http://arxiv.org/abs/2506.13695</a></p>
 <p>OneRec: Unifying Retrieve and Rank with Generative Recommender and Preference Alignment.<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.18965">https://arxiv.org/abs/2502.18965</a></p>
 

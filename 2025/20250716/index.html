@@ -341,7 +341,7 @@
 <p>发布之始已经看过。由于近日学习的需要，重拾并整理。</p>
 <span id="more"></span>
 <hr>
-<h2><span id="duo-mo-tai-ji-ben-ren-wu">多模态基本任务</span><a href="#duo-mo-tai-ji-ben-ren-wu" class="header-anchor">#</a></h2>
+<h2 id="多模态基本任务">多模态基本任务</h2>
 <p>虽然今天只会涉及一部分，但我们也有必要大概了解。</p>
 <p><strong>多模态理解 (Multimodal Understanding)：</strong></p>
 <p>这类任务侧重于让AI理解不同模态之间的关联和意义。</p>
@@ -376,24 +376,24 @@
 <li><strong>联合表示 (Joint Representation)：</strong> 将来自不同模态的数据映射到同一个向量空间中，使得不同模态之间的语义相似性可以在这个空间中衡量。</li>
 <li><strong>协同表示 (Coordinated Representation)：</strong> 学习不同模态的单独表示，但这些表示可以通过一些机制（如共享的语义概念）相互关联。</li>
 </ul>
-<h2><span id="cong-vilt-yin-ru">从ViLT引入</span><a href="#cong-vilt-yin-ru" class="header-anchor">#</a></h2>
+<h2 id="从ViLT引入">从ViLT引入</h2>
 <p>当前的视觉与语言预训练（VLP）方法高度依赖于图像特征抽取过程。则效率/速度方面存在问题，即仅仅提取输入特征所需的计算量远大于多模态交互步骤；且在表达能力方面，因为它的表达能力受限于视觉嵌入器及其预定义的视觉词表。</p>
-<p><img src="1.jpg" alt></p>
+<p><img src="1.jpg" alt=""></p>
 <p>早期的都依赖预训练的目标检测器。</p>
 <p><strong>第一种就是早期的工作。</strong> 比如VSE（visual-semantic embeddings）或者VSE++。</p>
 <p>VSE++的主要贡献是将难例负样本纳入损失函数中，主要是在损失函数的创新。</p>
 <p><strong>第二种是CLip。</strong></p>
 <p>前两种模态之间只进行简单的交互。</p>
 <p>比如Clip只做简单的点积。</p>
-<p><img src="2.jpg" alt></p>
+<p><img src="2.jpg" alt=""></p>
 <p><strong>第三种就是OSCAR 、VILBERT、UNITER等模型的思路。</strong></p>
 <p>这一代开始认为，模态之间更深层的交互更重要。</p>
 <p><strong>OSCAR:</strong></p>
-<p><img src="OSCAR.jpg" alt></p>
+<p><img src="OSCAR.jpg" alt=""></p>
 <p><strong>VILBERT:</strong></p>
-<p><img src="VILBERT.jpg" alt></p>
+<p><img src="VILBERT.jpg" alt=""></p>
 <p><strong>UNITER:</strong></p>
-<p><img src="UNITER.jpg" alt></p>
+<p><img src="UNITER.jpg" alt=""></p>
 <p>UNITER和OSCAR的处理方式让我想到了博客之前介绍的Fuyu。</p>
 <p>前三种的缺点则是模型参数过大，效率/速度较慢。</p>
 <p><strong>第四种则是VilT。</strong></p>
@@ -402,16 +402,16 @@
 <p>而我们的数据集是更偏向图像而非文本。所以理论上，需要更强的视觉模型，而ViLT的文本部分强于视觉部分。</p>
 <p>另一个缺点是训练时间很慢。</p>
 <p>而ViLT发现Word Patch Alignment（WPA） loss非常慢。故可以考虑把它删去。</p>
-<h2><span id="albef">ALBEF</span><a href="#albef" class="header-anchor">#</a></h2>
+<h2 id="ALBEF">ALBEF</h2>
 <p>我们把以上的得到的内容综合，这正是ALBEF（Align before Fuse, 出自Salesforce Research，提出了Blip之类的高质量多模态模型）。</p>
-<p><img src="3.jpg" alt></p>
+<p><img src="3.jpg" alt=""></p>
 <p>其中结构如图，并只用到了ITC、ITM、MLM loss。</p>
 <p>让我们具体详解。</p>
 <p>ViLT弃用预训练的目标检测器是因为觉得参数过大会导致推理速度太慢了，而ALBEF则认为<strong>预训练</strong>的目标检测器没有端到端训练，故视觉和文本特征并不是对齐的。这是第一个贡献。</p>
 <p>另外，作者认为网络上的数据太嘈杂了，为了从噪声网络数据中更好地学习，作者还提出了动量蒸馏，这是一种自训练方法，它从动量模型（出自MoCo，与主模型是同一个模型，参数由指数滑动平均得出）生成的伪目标中学习。这是第二个贡献。</p>
-<p><img src="3.jpg" alt></p>
+<p><img src="3.jpg" alt=""></p>
 <p>Image Embedding 部分使用了标准的 ViT 模型，而文本部分相当于BERT，但是只用前 6 层做文本encoder，剩余部分当做多模态交互的部分。</p>
-<h3><span id="sun-shi-han-shu">损失函数</span><a href="#sun-shi-han-shu" class="header-anchor">#</a></h3>
+<h3 id="损失函数">损失函数</h3>
 <p>对于前6层使用的ITC loss，是完全按照MoCo的方法来的。先使用softmax对相似度进行归一化（惯用操作了），并将对比损失定义为交叉熵损失。</p>
 <p>对于后面使用的ITM loss：</p>
 <ul>
@@ -425,70 +425,70 @@
 </ul>
 <p>对于后面使用的MLM loss，mask 掉一些文本，然后将 mask 过后的句子和图片一起通过 ALBEF 模型，最后把之前完整的句子预测出来。</p>
 <p>要注意的一点是，MLM loss的输入和前两个 Loss 是不同的，分别是($I$,$T$)、($I$,$T_{mask}$)，说明模型用了两次<code>forward()</code> 函数。</p>
-<h3><span id="momentum-distillation-dong-liang-zheng-liu">Momentum Distillation（动量蒸馏）</span><a href="#momentum-distillation-dong-liang-zheng-liu" class="header-anchor">#</a></h3>
+<h3 id="Momentum-Distillation（动量蒸馏）">Momentum Distillation（动量蒸馏）</h3>
 <p>这部分是用来从噪声网络数据中更好地学习。使用的是自训练方法。</p>
 <p>关于噪声和自训练，有谷歌提出的Noisy Student。</p>
 <p>具体而言，使用标准交叉熵损失训练一个教师模型。然后，使用教师模型在无标签的图像上生成伪标签，伪标签可以是软的(连续分布)，也可以是硬的(独热分布)。然后基于上述有标签和伪标签图像，使用标准交叉熵损失训练一个学生模型。最后，不断迭代这个过程，将学生模型作为新的教师模型，以生成新的伪标签并训练新的学生模型。</p>
-<p><img src="4.jpg" alt></p>
+<p><img src="4.jpg" alt=""></p>
 <p>博客之前介绍过的《Multi-teacher Self-training for Semi-supervised Node Classification with Noisy Labels》也是类似的方法。</p>
-<p><img src="multiteacher.png" alt></p>
+<p><img src="multiteacher.png" alt=""></p>
 <p>ALBEF的动量模型是个持续演进的教师模型。在训练过程中，训练基础模型使其预测与动量模型的预测相匹配。</p>
 <p>这部分只对ITC、MLM做，而不对ITM做。</p>
 <p>由于ITM已经有hard negative，所以就没必要再做了。</p>
-<h3><span id="xiao-rong-shi-yan">消融实验</span><a href="#xiao-rong-shi-yan" class="header-anchor">#</a></h3>
-<p><img src="5.jpg" alt></p>
-<h2><span id="vilt">ViLT</span><a href="#vilt" class="header-anchor">#</a></h2>
-<p><img src="VILT.jpg" alt></p>
+<h3 id="消融实验">消融实验</h3>
+<p><img src="5.jpg" alt=""></p>
+<h2 id="ViLT">ViLT</h2>
+<p><img src="VILT.jpg" alt=""></p>
 <p>结构方面类似于UNITER和OSCAR，但变得更简单了。</p>
 <p>后续的Fuyu则进一步更简化。</p>
-<p><img src="fuyu.jpg" alt></p>
+<p><img src="fuyu.jpg" alt=""></p>
 <p>感觉模型发展就是不断往更简化的模式去。就像对比学习中的SimCLR、BYOL再到何恺明更简单的SimSiam。</p>
 <p>真可谓大道至简。</p>
-<h2><span id="vlmo">VLMo</span><a href="#vlmo" class="header-anchor">#</a></h2>
+<h2 id="VLMo">VLMo</h2>
 <p>微软出品。</p>
 <ul>
 <li>模型结构上的改进 Mixture-of-Modality-Experts</li>
 <li>训练方式改进：分阶段模型预训练</li>
 </ul>
 <p>模型架构：</p>
-<p><img src="6.jpg" alt></p>
+<p><img src="6.jpg" alt=""></p>
 <p>分阶段训练：</p>
-<p><img src="7.jpg" alt></p>
-<h3><span id="wei-lai-gong-zuo">未来工作</span><a href="#wei-lai-gong-zuo" class="header-anchor">#</a></h3>
+<p><img src="7.jpg" alt=""></p>
+<h3 id="未来工作">未来工作</h3>
 <p>1.更大模型 —— BeiTv3<br>
 2.文本图像都可以mask ——VL-BeiT</p>
-<p><img src="8.jpg" alt></p>
+<p><img src="8.jpg" alt=""></p>
 <p>3.单模态可以帮助多模态，多模态也可以帮助单模态——BeiTv3<br>
 4.更多模态，如视频等——MetaLM</p>
-<h2><span id="blip">BLip</span><a href="#blip" class="header-anchor">#</a></h2>
+<h2 id="BLip">BLip</h2>
 <p>ALBEF原班人马所做，因此结合了 ALBEF 和 VLMo。</p>
 <p>《BLIP: <strong>Bootstrapping</strong> Language-Image Pre-training for <strong>Unified</strong> Vision-Language Understanding and Generation》</p>
 <p><strong>Bootstrap：</strong> 先用嘈杂数据训练模型，再用比较干净的数据训练模型。</p>
-<p><img src="9.jpg" alt></p>
+<p><img src="9.jpg" alt=""></p>
 <p><strong>Unified：</strong> 统一了图像-语言的理解与生成任务。</p>
-<h3><span id="jia-gou">架构</span><a href="#jia-gou" class="header-anchor">#</a></h3>
-<p><img src="10.jpg" alt></p>
-<h2><span id="coca">CoCa</span><a href="#coca" class="header-anchor">#</a></h2>
+<h3 id="架构">架构</h3>
+<p><img src="10.jpg" alt=""></p>
+<h2 id="CoCa">CoCa</h2>
 <p>谷歌出品，《CoCa: Contrastive Captioners are Image-Text Foundation Models》</p>
 <p>也是ALBEF的一个后续工作。</p>
-<p><img src="11.jpg" alt></p>
+<p><img src="11.jpg" alt=""></p>
 <p>图像部分使用Encoder，文本部分全用Decoder。</p>
 <p>因为效率问题所以如此设计。解耦的自回归解码器设计的一个主要优势是它可以高效地计算两种训练损失。由于单向语言模型是在完整句子上使用因果掩码进行训练的，因此解码器可以通过一次前向传播高效生成对比损失和生成损失的输出。而前面提到的方法需要两次。</p>
-<h2><span id="beitv3">BEITV3</span><a href="#beitv3" class="header-anchor">#</a></h2>
+<h2 id="BEITV3">BEITV3</h2>
 <p>《Image as a Foreign Language: BEiT Pretraining for All Vision and Vision-Language Tasks》</p>
-<h3><span id="yin-yan-da-yi-tong">引言：大一统</span><a href="#yin-yan-da-yi-tong" class="header-anchor">#</a></h3>
+<h3 id="引言：大一统">引言：大一统</h3>
 <p><strong>第一</strong>，Transformer的成功从语言问题和多模态问题中得到了体现。网络结构的合一使我们能够无缝处理多种模态。对于视觉-语言建模，由于下游任务的不同性质，有多种应用 Transformer 的方式。</p>
 <p>例如，双塔结构用于高效检索，编码器-解码器网络用于生成任务，融合编码器结构用于图像-文本编码。</p>
 <p>然而，大多数基础模型必须根据特定架构手动转换终端任务格式。此外，参数通常在不同模态之间无法有效共享。在本工作中，采用 Multiway Transformers 进行通用建模。其实是VLMO的Mixture of Modality Experts。</p>
 <p><strong>第二</strong>，基于掩码数据建模的预训练任务已被成功应用于各种模态。当前的视觉-语言基础模型通常多任务其他预训练目标（如图像-文本匹配），导致缩放不友好且效率低下。</p>
 <p>相反，该作仅使用一个预训练任务，即掩码-预测，来训练一个通用的多模态基础模型。通过将图像视为一种外语，我们以相同的方式处理文本和图像，而没有根本性的建模差异。因此，图像-文本对被用作“平行句子”，以学习不同模态之间的对齐.</p>
 <p><strong>第三</strong>，普遍地扩大模型规模和数据规模可以提高基础模型的泛化质量，从而使它们能够转移到各种下游任务中。</p>
-<h3><span id="suan-fa">算法</span><a href="#suan-fa" class="header-anchor">#</a></h3>
+<h3 id="算法">算法</h3>
 <p>架构：</p>
-<p><img src="12.jpg" alt></p>
+<p><img src="12.jpg" alt=""></p>
 <p>EBiT-3 可以转移到各种视觉和视觉-语言下游任务。通过一个共享的 Multiway Transformer。</p>
-<p><img src="13.jpg" alt></p>
-<h2><span id="can-kao-zi-liao">参考资料</span><a href="#can-kao-zi-liao" class="header-anchor">#</a></h2>
+<p><img src="13.jpg" alt=""></p>
+<h2 id="参考资料">参考资料</h2>
 <p>1.李沐老师的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vd4y1v77v/">《多模态论文串讲》</a></p>
 <p>2.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/663234588">腾讯技术工程-浅析多模态大模型的前世今生</a></p>
 

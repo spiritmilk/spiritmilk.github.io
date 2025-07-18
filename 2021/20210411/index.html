@@ -329,13 +329,13 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h5><span id="ji-qi-xue-xi-de-ding-yi">机器学习的定义</span><a href="#ji-qi-xue-xi-de-ding-yi" class="header-anchor">#</a></h5>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h5 id="机器学习的定义">机器学习的定义</h5>
 <p>（<strong>Arthur Samuel</strong>）在进行特定编程的情况下，给予计算机学习能力的领域。</p>
 <p>（<strong>Tom Mitchell</strong>）一个程序被认为能从经验（Experience，<strong>E</strong>)中学习，解决任务(Task,<strong>T</strong>)，达到性能度量值(preference，<strong>P</strong>），有了经验<strong>E</strong>后，经过<strong>P</strong>评判，程序在处理T时的性能有所提升。</p>
 <p>监督学习：监督学习指的就是我们给学习算法一个数据集。这个数据集由“正确答案”组成。</p>
 <p>无监督学习：数据集中没有任何的标签，没有提前告知算法一些信息。</p>
 <span id="more"></span>
-<h5><span id="dan-bian-liang-xian-xing-hui-gui">单变量线性回归</span><a href="#dan-bian-liang-xian-xing-hui-gui" class="header-anchor">#</a></h5>
+<h5 id="单变量线性回归">单变量线性回归</h5>
 <p>相关符号:</p>
 <blockquote>
 <p>m代表训练集中实例的数量</p>
@@ -351,7 +351,7 @@ J(\theta \ _0,\theta \ _1)=\frac{1}{2m}\sum <em>{i=1}^{\ m}(h</em>{\theta \ }(x^
 $$<br>
 最小。（这是回归中常用的代价函数，故又被称为平方误差代价函数，square error  function）</p>
 <p>梯度下降法是一个比较常用的方法。</p>
-<h5><span id="duo-bian-liang-xian-xing-hui-gui">多变量线性回归</span><a href="#duo-bian-liang-xian-xing-hui-gui" class="header-anchor">#</a></h5>
+<h5 id="多变量线性回归">多变量线性回归</h5>
 <p>我们引入一系列新的注释：</p>
 <p>$n$ 代表特征的数量</p>
 <p>$x^{( i )}$代表第 $i$ 个训练实例，是特征矩阵中的第$i$行，是一个<strong>向量</strong>（<strong>vector</strong>）。</p>
@@ -412,7 +412,7 @@ $$</p>
 $$<br>
 \theta =( X^T X )^{-1}{X^T}y<br>
 $$</p>
-<h5><span id="luo-ji-hui-gui-logistic-regression">逻辑回归 (<strong>Logistic Regression</strong>)</span><a href="#luo-ji-hui-gui-logistic-regression" class="header-anchor">#</a></h5>
+<h5 id="逻辑回归-Logistic-Regression">逻辑回归 (<strong>Logistic Regression</strong>)</h5>
 <p>简单而言，即将数据分类划分为离散的值{0,1}。</p>
 <p>我们将因变量(<strong>dependent variable</strong>)可能属于的两个类分别称为负向类（<strong>negative class</strong>）和正向类（<strong>positive class</strong>），则因变量y∈ {0,1}，其中 0 表示负向类，1 表示正向类。</p>
 <p>我们引入一个新的模型，逻辑回归，该模型的输出变量范围始终在0和1之间。<br>
@@ -443,7 +443,7 @@ $J( \theta  )=\frac{1}{m}\sum\limits_{i=1}^{m}{[-y^{(i)}\log ( {h_\theta}( x^{(i
 <p><strong>一对多的情况：</strong></p>
 <p><img src="http://www.ai-start.com/ml2014/images/b72863ce7f85cd491e5b940924ef5a5f.png" alt="img"></p>
 <p>我们只需分别多次如右上角的操作，可化归为分成两类的逻辑回归。</p>
-<h5><span id="zheng-gui-hua">正规化</span><a href="#zheng-gui-hua" class="header-anchor">#</a></h5>
+<h5 id="正规化">正规化</h5>
 <p>我们已经学了几种算法，如最小二乘法（Ordinary Least Squares,OLS)。我们所学的算法不足之处是随着特征维度的增加会出现线性模型的过度拟合。</p>
 <p><img src="http://www.ai-start.com/ml2014/images/72f84165fbf1753cd516e65d5e91c0d3.jpg" alt="img"></p>
 <p>过拟合解决方案：</p>
@@ -478,7 +478,7 @@ $$</p>
 <p>$$<br>
 J(\theta)=\frac{1}{m}\sum\limits_{i=1}^{m}{[-y^{(i)}\log (h_\theta( x^{(i)}) )-( 1-y^{(i)} )\log ( 1-{h_\theta}( x^{(i)}) )]}+\frac{\lambda }{2m}\sum\limits_{j=1}^{n}\theta _j ^2<br>
 $$</p>
-<h5><span id="yi-chang-jian-ce-suan-fa">异常检测算法</span><a href="#yi-chang-jian-ce-suan-fa" class="header-anchor">#</a></h5>
+<h5 id="异常检测算法">异常检测算法</h5>
 <p>异常检测算法(<strong>Anomaly detection</strong>)主要用于非监督学习问题，但从某些角度看，它又类似于一些监督学习问题。</p>
 <p>正如其名，异常检测算法根据一堆无标签数据中的样本点检测另一个数据点是否异常。</p>
 <p>异常检测算法用到了高斯分布。</p>
@@ -560,7 +560,7 @@ $p(x)=\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}exp\left(-\frac{1}{2}(
 </table>
 <p>原高斯分布模型被广泛使用着，如果特征之间在某种程度上存在相互关联的情况，我们可以通过构造新新特征的方法来捕捉这些相关性。</p>
 <p>如果训练集不是太大，并且没有太多的特征，我们可以使用多元高斯分布模型。</p>
-<h5><span id="yi-chang-jian-ce-yu-jian-du-xue-xi-dui-bi">异常检测与监督学习对比</span><a href="#yi-chang-jian-ce-yu-jian-du-xue-xi-dui-bi" class="header-anchor">#</a></h5>
+<h5 id="异常检测与监督学习对比">异常检测与监督学习对比</h5>
 <p>两者比较：</p>
 <table>
 <thead>

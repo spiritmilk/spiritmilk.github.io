@@ -322,8 +322,8 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>基于《图深度学习》马耀，汤继良。跳过了一些专用于二分图、超图等章节。</p>
 <span id="more"></span>
 <hr>
-<h2><span id="tu-ji-chu">图基础</span><a href="#tu-ji-chu" class="header-anchor">#</a></h2>
-<h3><span id="pu-tu-lun">谱图论</span><a href="#pu-tu-lun" class="header-anchor">#</a></h3>
+<h2 id="图基础">图基础</h2>
+<h3 id="谱图论">谱图论</h3>
 <p>拉普拉斯矩阵L=D-A</p>
 <blockquote>
 <p><strong>定理：</strong> 对于图G={V,E}，其拉普拉斯矩阵的特征值是非负的。</p>
@@ -352,8 +352,8 @@ $$</p>
 <p>根据</p>
 <p>$$ u_l^T L u_l = \lambda_l \cdot u_l^T u_l = \lambda_l $$</p>
 <p>可知特征值 $ \lambda_l $ 度量对应的特征向量 $ u_l $ 的平滑度。更具体地说，与小的特征值相关联的特征向量在图中变化缓慢，即相邻节点的特征向量的值是相似的。因此这些特征向量是平滑的，并在整个图上低频地变化。</p>
-<h2><span id="tu-qian-ru">图嵌入</span><a href="#tu-qian-ru" class="header-anchor">#</a></h2>
-<p><img src="randowwalk.png" alt></p>
+<h2 id="图嵌入">图嵌入</h2>
+<p><img src="randowwalk.png" alt=""></p>
 <p><strong>node2vec:</strong><br>
 设 $G = {V, E}$ 表示一个连通图。考虑以图 $G$ 中的 $v^{(0)} \in V$ 为起始节点的随机游走。假设随机游走规则从节点 $v^{(t-1)}$ 走到节点 $v^{(t)}$，现在停留在节点 $v^{(t)}$。接着随机游走需要决定下一步访问哪个节点。不同于 DeepWalk 中均匀地从 $v^{(t)}$ 的邻居中选择 $v^{(t+1)}$，node2vec 基于 $v^{(t)}$ 和 $v^{(t-1)}$ 定义节点的采样概率。特别地，选择下一个节点的未归一化“概率”定义如下：<br>
 $$<br>
@@ -374,9 +374,9 @@ Q=\frac{1}{2*vol(G)}\sum _ {ij}(A _ {i,j}-\frac{d(v_i)d(v_j)}{vol(G)})h_ih_j<br>
 $$</p>
 <p>其中，$h_i$为节点i为哪个社区的指示值。</p>
 <p>超图嵌入常使用MLP做辅助。</p>
-<h2><span id="tu-shen-jing-wang-luo">图神经网络</span><a href="#tu-shen-jing-wang-luo" class="header-anchor">#</a></h2>
-<h3><span id="tu-lu-bo-qi">图滤波器</span><a href="#tu-lu-bo-qi" class="header-anchor">#</a></h3>
-<h4><span id="ji-yu-pu-de-tu-lu-bo-qi"><strong>基于谱的图滤波器</strong></span><a href="#ji-yu-pu-de-tu-lu-bo-qi" class="header-anchor">#</a></h4>
+<h2 id="图神经网络">图神经网络</h2>
+<h3 id="图滤波器">图滤波器</h3>
+<h4 id="基于谱的图滤波器"><strong>基于谱的图滤波器</strong></h4>
 <p>使用图傅里叶变换，我们可以得到$f’=U\cdot\gamma(\Lambda)\cdot U^Tf$。</p>
 <p>若假设有一个定义在图G上的噪声图信号$y=f_0+\eta$，其中$\eta$是附加</p>
 <p>的与原信号不相关的高斯噪声，模型的目标是从噪声信号y中恢复原始信号$f_0$。设原始信号九相对于图G是平滑的。为了利用信号$f_0$的平滑性的先验信息，在优化问题中引入形式为$f^TLf$的正则项：<br>
@@ -417,11 +417,11 @@ $$<br>
 $$<br>
 f’=\theta \tilde D^{-1/2}\tilde A\tilde D^{1/2}f<br>
 $$</p>
-<h4><span id="ji-yu-kong-jian-de-tu-lu-bo-qi">基于空间的图滤波器</span><a href="#ji-yu-kong-jian-de-tu-lu-bo-qi" class="header-anchor">#</a></h4>
+<h4 id="基于空间的图滤波器">基于空间的图滤波器</h4>
 <p>GraphSage-Filter</p>
 <p>GAT-Filter</p>
-<h2><span id="tu-shen-jing-wang-luo-de-jian-zhuang-xing">图神经网络的健壮性</span><a href="#tu-shen-jing-wang-luo-de-jian-zhuang-xing" class="header-anchor">#</a></h2>
-<h3><span id="jian-jie">简介</span><a href="#jian-jie" class="header-anchor">#</a></h3>
+<h2 id="图神经网络的健壮性">图神经网络的健壮性</h2>
+<h3 id="简介">简介</h3>
 <p>攻击者可以在模型训练和模型测试阶段执行攻击。根据攻击者执行攻击的能力， 攻击可大致分为逃逸攻击和投毒攻击：</p>
 <ul>
 <li>逃逸攻击：攻击是在训练好的模型上，即在测试阶段进行的。换言之，在逃逸攻击的模式下，攻击者不能更改模型的参数或结构。</li>
@@ -433,14 +433,14 @@ $$</p>
 <li>添加或删除边：攻击者可以添加或者删除原图中已有的边。</li>
 <li>添加新节点：攻击者可以向原有的图添加新的节点，并将它们和原图中的节点相连</li>
 </ul>
-<h3><span id="tu-dui-kang-gong-ji">图对抗攻击</span><a href="#tu-dui-kang-gong-ji" class="header-anchor">#</a></h3>
-<h4><span id="bai-he-gong-ji">白盒攻击</span><a href="#bai-he-gong-ji" class="header-anchor">#</a></h4>
+<h3 id="图对抗攻击">图对抗攻击</h3>
+<h4 id="白盒攻击">白盒攻击</h4>
 <p><strong>PGD拓扑攻击：</strong></p>
 <p><strong>基于积分梯度的攻击：</strong></p>
 <p>由于攻击者仅被允许执行从0到1或从1到0的修改，梯度信息可能没有太大帮助，因为考虑到图神经网络模型是非线性的，单个点上的梯度并不能反映诸如从0到1或从1到0的大变化的影响。因此，受积分梯度(Integrated Gradients)的启发，利用离散积分梯度来设计分数，称为积分梯度分数（IG-Score）。</p>
 <p>$IG_H(i,j) = \sum _ {k=1}^{m} \frac{\partial \mathcal{L}_i(\frac{k}{m}(H _ {i,j} - 0))}{\partial H _ {i,j}}; \quad 1 \to 0, H _ {i,j}=1,$</p>
 <p>$IG_H(i,j) = \sum _ {k=1}^{m} \frac{\partial \mathcal{L}_i(0 + \frac{k}{m}(1 - H _ {i,j}))}{\partial H _ {i,j}}; \quad 0 \to 1, H _ {i,j}=0$</p>
-<h4><span id="hui-he-gong-ji">灰盒攻击</span><a href="#hui-he-gong-ji" class="header-anchor">#</a></h4>
+<h4 id="灰盒攻击">灰盒攻击</h4>
 <p><strong>Nettack：</strong><br>
 $$<br>
 argmax (max\quad lnZ’ _ {i,c}-lnZ’ _ {i,y_i})<br>
@@ -475,9 +475,9 @@ $$ \frac{d f}{d x} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial 
 $$<br>
 s(i,j)=\nabla _ {A _ {i,j}}^{meta}(-2A _ {i,j}+1)<br>
 $$</p>
-<h4><span id="hei-he-gong-ji">黑盒攻击</span><a href="#hei-he-gong-ji" class="header-anchor">#</a></h4>
+<h4 id="黑盒攻击">黑盒攻击</h4>
 <p>在黑盒攻击设定中，攻击者无法获取受害者模型信息。攻击者只能查询受害者模型的预测结果。这类方法大多采用强化学习来学习攻击策略。它们将受害者模型视为一台黑盒查询机，利用查询结果设计强化学习的奖励。</p>
-<h4><span id="tu-jing-hua">图净化</span><a href="#tu-jing-hua" class="header-anchor">#</a></h4>
+<h4 id="图净化">图净化</h4>
 <ol>
 <li>
 <p>除去特征相似度低的节点之间的边<br>
@@ -488,18 +488,18 @@ $$</p>
 对Nettack等攻击产生的对抗扰动进行实验探究，结果表明，Nettack往往会扰动图结构，从而增加邻接矩阵的秩。同时，邻接矩阵取值最小的奇异值的数量也会增加。因此，有方法基于奇异值分解（SVD），以消除加入图结构中的对抗扰动。具体而言，给定一个图的邻接矩阵A,用SVD分解它， 只保留top-k个奇异值来重构邻接矩阵。重构后的邻接矩阵可以近似地认为是净化后的图结构，可直接用于图神经网络模型。</p>
 </li>
 </ol>
-<h4><span id="tu-jie-gou-xue-xi">图结构学习</span><a href="#tu-jie-gou-xue-xi" class="header-anchor">#</a></h4>
+<h4 id="图结构学习">图结构学习</h4>
 <p><strong>Pro-GNN：</strong><br>
 $$<br>
 min _ {\Theta,S}L_train(S,F;\Theta)+||A-S||_F^2+\beta_1||S|| _ 1+\beta _ 2||S|| _ \ast+\beta _ 3\cdot tr(F^TLF)<br>
 $$</p>
-<h2><span id="tu-shang-de-qi-ta-shen-du-mo-xing">图上的其他深度模型</span><a href="#tu-shang-de-qi-ta-shen-du-mo-xing" class="header-anchor">#</a></h2>
-<h3><span id="tu-shang-de-zi-bian-ma-qi">图上的自编码器</span><a href="#tu-shang-de-zi-bian-ma-qi" class="header-anchor">#</a></h3>
+<h2 id="图上的其他深度模型">图上的其他深度模型</h2>
+<h3 id="图上的自编码器">图上的自编码器</h3>
 <p>编码器:$Z=f _ {GNN}(A,X;\theta _ {GNN})$</p>
 <p>解码器：$\hat A=\sigma(ZZ^T)$</p>
-<h3><span id="tu-shang-de-xun-huan-shen-jing-wang-luo">图上的循环神经网络</span><a href="#tu-shang-de-xun-huan-shen-jing-wang-luo" class="header-anchor">#</a></h3>
-<p><img src="RNN.png" alt></p>
-<h2><span id="tu-shen-jing-wang-luo-de-gao-ji-fang-fa">图神经网络的高级方法</span><a href="#tu-shen-jing-wang-luo-de-gao-ji-fang-fa" class="header-anchor">#</a></h2>
+<h3 id="图上的循环神经网络">图上的循环神经网络</h3>
+<p><img src="RNN.png" alt=""></p>
+<h2 id="图神经网络的高级方法">图神经网络的高级方法</h2>
 <blockquote>
 <p>定理：令G表示一个以A作为其邻接矩阵的连通的非二分图，对于任何特征$f\in R^N$，则：<br>
 $$<br>
@@ -507,7 +507,7 @@ lim _ {L\to \infty} (D^{-\frac{1}{2}}AD^{-\frac{1}{2}})^Lf=\theta_1 u_1<br>
 $$<br>
 其中，u1是$D^{-1/2}AD^{-1/2}$与其最大特征值相关的特征向量，且$\theta_1 u_1^T f$</p>
 </blockquote>
-<h3><span id="wl-ce-shi">WL测试</span><a href="#wl-ce-shi" class="header-anchor">#</a></h3>
+<h3 id="WL测试">WL测试</h3>
 <blockquote>
 <p>定理：给定任意两个非同构图G1和G2，如果图神经网络模型将这两个图映射到不同的嵌入中，则WL测试也可以确定这两个图是非同构的。</p>
 </blockquote>

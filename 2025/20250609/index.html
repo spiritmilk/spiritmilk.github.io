@@ -330,8 +330,8 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>流模型与流匹配介绍。</p>
 <span id="more"></span>
-<h1><span id="gui-yi-hua-liu-normalizing-flow">归一化流（Normalizing Flow）</span><a href="#gui-yi-hua-liu-normalizing-flow" class="header-anchor">#</a></h1>
-<h2><span id="xian-dao">先导</span><a href="#xian-dao" class="header-anchor">#</a></h2>
+<h1>归一化流（Normalizing Flow）</h1>
+<h2 id="先导">先导</h2>
 <p>我们首先会定义了一个分布 $p _ {z}(z)$,有时也称为基础分布，以及一个由深度神经网络给出的非线性函数 $x=f(z,w)$，该函数将潜在空间（latent space）转换为数据空间。</p>
 <p>$p _ {z}(z)$ 会尽可能简单,例如高斯分布，以便从这种模型中进行采样。</p>
 <p>为了衡量分布的相似度，$g^\ast =argmax\sum logP(x)\approx argmin (KL(P _ {data}||P_G))$，我们需要计算此模型的似然函数,我们需要数据空间分布，这取决于神经网络的逆函数。</p>
@@ -341,7 +341,7 @@
 p _ {x}(x|w)=p _ {z}(g(x,w))|det J(x)|<br>
 $$</p>
 <p>其中 $J(x)$ 是雅可比矩阵，$J _ {ij}(x)=\frac{\partial g _ {i}(x,w)}{\partial x _ {j}}$ 。</p>
-<p><img src="change.jpg" alt></p>
+<p><img src="change.jpg" alt=""></p>
 <p>然而，要求可逆映射的一个后果是，隐式空间的维度必须与数据空间的维度相同，这可能导致高维数据(如图像，动辄就是几百乘几百的维度)的大型模型的复杂性增加。比如计算 $D\times D$ 矩阵的行列式的成本是 $\mathcal{O}(D^{3})$。</p>
 <p>所以，我们希望对模型施加一些进一步的限制,以便更有效地计算雅可比矩阵行列式。</p>
 <p>如果我们考虑一个独立数据点训练集 $\mathcal{D}={x _ {1},…,x _ {N}}$，则：</p>
@@ -362,7 +362,7 @@ z=g^{C}(g^{B}(g^{A}(x)))<br>
 $$</p>
 <p>对于雅克比矩阵也可以使用链式法则化为各个层的乘积。</p>
 <p>这种建模分布的方法称为归一化流（Normalizing Flow）。流，是因为通过一系列映射转换概率分布的过程与流体的流动有些类似。归一化，是因为逆映射的效果是将复杂的数据分布转换为归一化形式,通常是高斯或正态分布。</p>
-<h2><span id="ou-he-liu-coupling-flows">耦合流（Coupling Flows）</span><a href="#ou-he-liu-coupling-flows" class="header-anchor">#</a></h2>
+<h2 id="耦合流（Coupling-Flows）">耦合流（Coupling Flows）</h2>
 <p>我们的目标是为单个可逆函数层,以便我们可以将许多层组合在一起来定义一个高度灵活的可逆函数类。</p>
 <p>首先考虑一个形式为$x=az+b$，它很容易求逆,得到 $z=\frac{1}{a}(x-b)$ 。</p>
 <p>但是，线性变换在复合下是封闭的——一系列线性变换等效于一个整体线性变换。此外,高斯分布的线性变换仍然是高斯分布。因此,即使我们有许多这样的线性变换,我们也只会得到一个高斯分布。</p>
@@ -376,7 +376,7 @@ $$</p>
 <p>其中 $s(z _ {A},w)$ 和 $b(z _ {A},w)$ 是神经网络的实值输出,指数函数确保乘法项为非负。这里表示涉及两个向量逐元素乘法的Hadamard积。</p>
 <p>由于使用了神经网络函数, $x$ 的值可以是非常灵活的函数。</p>
 <p>整体变换也很容易可逆：给定一个 $x=(x _ {A},x _ {B})$的值，我们首先计算$z _ {A}=x _ {A}$ ，然后有$z _ {B}=exp(-s(z _ {A},w))\odot(x _ {B}-b(z _ {A},w))$。</p>
-<p><img src="realnvp.jpg" alt></p>
+<p><img src="realnvp.jpg" alt=""></p>
 <p>值得注意的是， $s(z;w)$ 和 $b(z;w)$ 无需可逆。</p>
 <p>现在考虑雅可比矩阵及其行列式。我们可以将雅可比矩阵分成块,对应于z和x的划分,得到:</p>
 <p>$$<br>
@@ -384,7 +384,7 @@ J=\begin{bmatrix}\frac{\partial z_A}{\partial x_A}&amp;\frac{\partial z_A}{\part
 $$</p>
 <p>我们不在乎左下角的值，因为它是一个下三角矩阵，行列式直接是主对角线元素的乘积。因此,雅可比行列式简单地由 $exp(-s(z _ {A},w))$ 的元素乘积给出。</p>
 <p>这种方法的一个明显限制是 $z _ {A}$ 的值不受变换的影响。这很容易通过添加另一层来解决,在该层中 $z _ {A}$ 和 $z _ {B}$ 的角色被反转。然后可以重复这种双层结构多次。</p>
-<p><img src="morenvp.jpg" alt></p>
+<p><img src="morenvp.jpg" alt=""></p>
 <p>整体训练过程涉及创建数据点的mini-batches。对于形式为 $\mathcal{N}(z|0,I)$ 的潜在分布,对数密度简单地是 $-||z||^{2}/2$,仅差一个加性常数。<br>
 $$<br>
 \ln(\frac{1}{\sqrt{2\pi}}\exp(-\frac{z^2}{2}))=\ln(\frac{1}{\sqrt{2\pi}})+\frac{-||z||^2}{2}<br>
@@ -400,23 +400,23 @@ $$<br>
 <p>另一种做法是变分反量化，在flow++<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ho, J., Chen, X., Srinivas, A., Duan, Y., and Abbeel. Flow++: Improving Flow-Based Generative Models with Variational Dequantization and Architecture Design">[2]</span></a></sup>中提出（flow++还引入了自注意力），即将反量化过程本身也变成了一个需要学习和优化的模型。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VariationalDequantization</span>(<span class="hljs-params">Dequantization</span>):</span><br>    <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, var_flows, alpha=<span class="hljs-number">1e-5</span></span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        Inputs: </span><br><span class="hljs-string">            var_flows - A list of flow transformations to use for modeling q(u|x)</span><br><span class="hljs-string">            alpha - Small constant, see Dequantization for details</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>().__init__(alpha=alpha)<br>        self.flows = nn.ModuleList(var_flows)<br>        <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dequant</span>(<span class="hljs-params">self, z, ldj</span>):</span><br>        z = z.to(torch.float32)<br>        img = (z / <span class="hljs-number">255.0</span>) * <span class="hljs-number">2</span> - <span class="hljs-number">1</span> <span class="hljs-comment"># We condition the flows on x, i.e. the original image</span><br>        <br>        <span class="hljs-comment"># Prior of u is a uniform distribution as before</span><br>        <span class="hljs-comment"># As most flow transformations are defined on [-infinity,+infinity], we apply an inverse sigmoid first.</span><br>        deq_noise = torch.rand_like(z).detach()<br>        deq_noise, ldj = self.sigmoid(deq_noise, ldj, reverse=<span class="hljs-literal">True</span>)<br>        <span class="hljs-keyword">for</span> flow <span class="hljs-keyword">in</span> self.flows:<br>            deq_noise, ldj = flow(deq_noise, ldj, reverse=<span class="hljs-literal">False</span>, orig_img=img)<br>        deq_noise, ldj = self.sigmoid(deq_noise, ldj, reverse=<span class="hljs-literal">False</span>)<br>        <br>        <span class="hljs-comment"># After the flows, apply u as in standard dequantization</span><br>        z = (z + deq_noise) / <span class="hljs-number">256.0</span><br>        ldj -= np.log(<span class="hljs-number">256.0</span>) * np.prod(z.shape[<span class="hljs-number">1</span>:])<br>        <span class="hljs-keyword">return</span> z, ldj<br></code></pre></td></tr></table></figure>
 <p><strong>处理前：</strong> 可以发现训练不一定能成功，有时会坍塌。</p>
-<p><img src="fault6.png" alt></p>
-<p><img src="fault16.png" alt></p>
+<p><img src="fault6.png" alt=""></p>
+<p><img src="fault16.png" alt=""></p>
 <p><strong>处理后：</strong></p>
-<p><img src="success.png" alt></p>
+<p><img src="success.png" alt=""></p>
 <p>OpenAI在RealNVP改进得到了Glow模型<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Diederik P. Kingma, Prafulla Dhariwal.Glow: Generative Flow with Invertible 1x1 Convolutions">[3]</span></a></sup>。</p>
 <p>其核心是可逆1x1卷积层，其中巧妙地利用了LU分解。</p>
 <p>即任意矩阵都可以分解为$W=PLU$，则$log|det(W)|=\sum log|diag(U)|$</p>
 <p>故Glow中采用的是，先随机生成一个正交矩阵，然后做LU分解，得到P,L,U。</p>
 <p>固定P，固定U的对角线的正负号，约束L为对角线全1的下三角阵，U为上三角阵，优化训练L,U的其余参数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> linalg <span class="hljs-keyword">as</span> la<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvConv2dLU</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, in_channel</span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br><br>        weight = np.random.randn(in_channel, in_channel)<br>        q, _ = la.qr(weight)<br>        w_p, w_l, w_u = la.lu(q.astype(np.float32)) <span class="hljs-comment"># PLU分解</span><br>        w_s = np.diag(w_u) <span class="hljs-comment"># 计算U对角线元素</span><br>        w_u = np.triu(w_u, <span class="hljs-number">1</span>) <span class="hljs-comment"># 约束U为上三角阵（不包括对角线）</span><br>        u_mask = np.triu(np.ones_like(w_u), <span class="hljs-number">1</span>) <span class="hljs-comment"># 全1上三角阵</span><br>        l_mask = u_mask.T <span class="hljs-comment"># 全1下三角阵</span><br><br>        w_p = torch.from_numpy(w_p)<br>        w_l = torch.from_numpy(w_l)<br>        w_s = torch.from_numpy(w_s)<br>        w_u = torch.from_numpy(w_u)<br><br>        self.register_buffer(<span class="hljs-string">&quot;w_p&quot;</span>, w_p)<br>        self.register_buffer(<span class="hljs-string">&quot;u_mask&quot;</span>, torch.from_numpy(u_mask))<br>        self.register_buffer(<span class="hljs-string">&quot;l_mask&quot;</span>, torch.from_numpy(l_mask))<br>        self.register_buffer(<span class="hljs-string">&quot;s_sign&quot;</span>, torch.sign(w_s)) <span class="hljs-comment"># U对角线的正负号</span><br>        self.register_buffer(<span class="hljs-string">&quot;l_eye&quot;</span>, torch.eye(l_mask.shape[<span class="hljs-number">0</span>])) <span class="hljs-comment"># 单位阵</span><br>        self.w_l = nn.Parameter(w_l) <span class="hljs-comment"># 可学习参数：L的下三角元素</span><br>        self.w_s = nn.Parameter(logabs(w_s)) <span class="hljs-comment"># 可学习参数：U的对角元素的对数值</span><br>        self.w_u = nn.Parameter(w_u) <span class="hljs-comment"># 可学习参数：U的上三角元素</span><br><br>        self.weight = (<br>            self.w_p <span class="hljs-comment"># P为固定值</span><br><span class="hljs-meta">            @ (<span class="hljs-params">self.w_l * self.l_mask + self.l_eye</span>) </span><span class="hljs-comment"># 下三角阵L对角线元素全为1，其余参数可学习</span><br><span class="hljs-meta">            @ (<span class="hljs-params">(<span class="hljs-params">self.w_u * self.u_mask</span>) + torch.diag(<span class="hljs-params">self.s_sign * torch.exp(<span class="hljs-params">self.w_s</span>)</span>)</span>) </span><span class="hljs-comment"># 上三角阵U对角线的正负号固定，其余参数可学习</span><br>        )<br>        self.weight = self.weight.unsqueeze(<span class="hljs-number">2</span>).unsqueeze(<span class="hljs-number">3</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span></span>):</span><br>        _, _, height, width = <span class="hljs-built_in">input</span>.shape<br>        out = F.conv2d(<span class="hljs-built_in">input</span>, self.weight)<br>        logdet = height * width * torch.<span class="hljs-built_in">sum</span>(self.w_s)<br>        <span class="hljs-keyword">return</span> out, logdet<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">reverse</span>(<span class="hljs-params">self, output</span>):</span><br>        <span class="hljs-keyword">return</span> F.conv2d(output, self.weight.squeeze().inverse().unsqueeze(<span class="hljs-number">2</span>).unsqueeze(<span class="hljs-number">3</span>))<br></code></pre></td></tr></table></figure>
-<h2><span id="zi-hui-gui-liu-autoregressive-flows">自回归流（Autoregressive Flows）</span><a href="#zi-hui-gui-liu-autoregressive-flows" class="header-anchor">#</a></h2>
+<h2 id="自回归流（Autoregressive-Flows）">自回归流（Autoregressive Flows）</h2>
 <p>一个与正则化流相关的公式可以从注意到一组变量的联合分布总是可以表示为每个变量的条件分布的乘积来推导。我们可以不失一般性地写出：</p>
 <p>$$p(x _ {1},…,x _ {D})=\prod _ {i=1}^{D}p(x _ {i}|x _ {1:i-1})$$</p>
 <p>其中 $x _ {1:i-1}$ 表示 $x _ {1},…,x _ {i-10}$ 这种分解可用于构建一类称为掩码式自回归流(masked autoregressive flow，MAF)的归一化流,其定义为：</p>
 <p>$$x _ {i}=h(z _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$$</p>
 <p>这里 $h(z _ {i},\cdot)$ 是耦合函数,其被选择为相对于易于 $z _ {i}$ 求逆的,而g是条件器,通常由深度神经网络表示。掩码式指的是使用单个神经网络来实现上式以及一个二元掩码，该掩码强制网络权重的子集为零以实现自回归约束。</p>
-<p><img src="ag.jpg" alt></p>
+<p><img src="ag.jpg" alt=""></p>
 <p>在这种情况下,用于评估似然函数的逆向计算需要给出：</p>
 <p>$z _ {i}=h^{-1}(x _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$</p>
 <p>因为上式中用于评估的各个函数 $z _ {1},…,z _ {D}$ 可以并行评估，因此可以在现代硬件上高效执行。</p>
@@ -427,8 +427,8 @@ $$<br>
 <p>现在采样就更快了。</p>
 <p>然而，其逆函数也还是具有序列性。</p>
 <p>$$z _ {i}=h^{-1}(x _ {i},\tilde{g} _ {i}(z _ {1:i-1},w _ {i}))$$</p>
-<h2><span id="lian-xu-liu-continuous-flow">连续流（Continuous Flow）</span><a href="#lian-xu-liu-continuous-flow" class="header-anchor">#</a></h2>
-<h3><span id="shen-jing-wei-fen-fang-cheng-neural-differential-equations">神经微分方程（<strong>Neural differential equations</strong>）</span><a href="#shen-jing-wei-fen-fang-cheng-neural-differential-equations" class="header-anchor">#</a></h3>
+<h2 id="连续流（Continuous-Flow）">连续流（Continuous Flow）</h2>
+<h3 id="神经微分方程（Neural-differential-equations）">神经微分方程（<strong>Neural differential equations</strong>）</h3>
 <p>深度网络具有很深的层数是很有用。</p>
 <p>所以，我们可以探索神经网络达到无限层数的极限会发生什么。</p>
 <p>考虑一个残差网络,其中每一层的处理生成的输出由输入向量与输入向量的某些参数化非线性函数相加给出:</p>
@@ -442,7 +442,7 @@ $$<br>
 <p>$$z(T)=\int _ {0}^{T}f(z(t),w)dt$$</p>
 <p>这个积分可以使用标准的数值积分包来评估。求解微分方程的最简单方法是欧拉前向积分方法,它对应于表达式$z^{(t+1)}=z^{(t)}+f(z^{(t)},w)$。</p>
 <p>在实践中,更强大的数值积分算法可以自适应地调整它们的函数评估以实现。特别是,它们可以自适应地选择的值,这些值通常不是均匀分布的。</p>
-<h3><span id="shen-jing-ode-fan-xiang-chuan-bo">神经ODE反向传播</span><a href="#shen-jing-ode-fan-xiang-chuan-bo" class="header-anchor">#</a></h3>
+<h3 id="神经ODE反向传播">神经ODE反向传播</h3>
 <p>我们得到了神经ODE的形式，那么如何通过优化损失函数来确定w的值呢？假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。</p>
 <p>一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管这很直接，但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。</p>
 <p>相反,Chen等人<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen. Neural Ordinary Differential Equations">[4]</span></a></sup>将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。</p>
@@ -469,7 +469,7 @@ $$</p>
 <p>$\nabla _ {z}f$ 和 $\nabla _ {w}f$ 可以使用自动微分高效地计算。注意,上述结果同样适用于一个更通用的神经网络函数 $f(z(t),t,w)$ 它在除了通过 $z(t)$ 隐式依赖之外,还对有显式依赖。</p>
 <p>使用伴随方法训练的神经ODE相比于传统层状网络的一个优点是,不需要存储前向传播的中间结果,因此内存成本是恒定的。</p>
 <p>此外，神经 ODE可以自然地处理连续时间数据,其中观测值在任意时间发生。如果误差函数 L 取决于除输出值之外的 $z(t)$ 的值,那么需要多次运行反向模型求解器,每次运行对应一对连续的输出,以便将单个解分解为多个连续解,从而访问中间状态。</p>
-<h3><span id="shen-jing-ode-flows">神经ODE flows</span><a href="#shen-jing-ode-flows" class="header-anchor">#</a></h3>
+<h3 id="神经ODE-flows">神经ODE flows</h3>
 <p>神经ODE定义了一种高度灵活的从输入向量 $z(0)$ 到输出向量 $z(T)$ 的变换,该变换以微分方程的形式给出：</p>
 <p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
 <p>如果我们定义一个关于输入向量 $p(z(0))$ 的基础分布,那么神经ODE 会将其随时间向前传播,为每个的值给出一个分布 $p(z(t))$,从而得到一个关于输出向量 $p(z(T))$ 的分布。</p>
@@ -519,7 +519,7 @@ $$<br>
 <p>然后我们可以使用有限数量的样本来近似迹,形式为：</p>
 <p>$$Tr(A)\approx\frac{1}{M}\sum _ {m=1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}$$</p>
 <p>这里其实牵扯到一个叫<strong>雅可比向量积 (Jacobian-Vector Product，JVP)<strong>的概念，即一个</strong>行向量 <code>v^T</code></strong> 与一个<strong>雅可比矩阵 <code>J</code></strong> 的乘积</p>
-<h1><span id="liu-pi-pei-flow-matching">流匹配（Flow Matching）</span><a href="#liu-pi-pei-flow-matching" class="header-anchor">#</a></h1>
+<h1>流匹配（Flow Matching）</h1>
 <p>该方法<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>于2022年提出。</p>
 <p>Flow代表继续延续连续归一化流（CNF）的核心。即一个类似流动的过程，或者说基于连续性方程/传输方程的思想。</p>
 <p>Matching类似之前博客曾提过的分数匹配。</p>
@@ -529,7 +529,7 @@ $$<br>
 \mathcal{L} _ {FM}=E _ {t\sim U(0,1),X_t\sim p_t}||f_t(X_t,t)-f^\theta_t(X_t,t)||^2<br>
 $$<br>
 然而我们并不知道$p_t$和真实向量场$f$，所以就有了条件流匹配的出现。</p>
-<h2><span id="tiao-jian-liu-pi-pei-conditional-flow-matching">条件流匹配（Conditional Flow Matching）</span><a href="#tiao-jian-liu-pi-pei-conditional-flow-matching" class="header-anchor">#</a></h2>
+<h2 id="条件流匹配（Conditional-Flow-Matching）">条件流匹配（Conditional Flow Matching）</h2>
 <p>CFM 的核心思想是选择一个额外变量 z 和一个条件概率路径$p(x\mid t,z)$。<br>
 $$<br>
 \mathcal{L} _ {CFM}=E _ {t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t;z)-f_t^\theta(X_t,t)||^2<br>
@@ -559,18 +559,18 @@ $$<br>
 <p>5.计算向量场$f$</p>
 <p>6.计算损失</p>
 <p>7.更新参数</p>
-<h2><span id="meanflow">MeanFlow</span><a href="#meanflow" class="header-anchor">#</a></h2>
+<h2 id="MeanFlow">MeanFlow</h2>
 <p>我们直接跳到最新的研究。由何恺明组提出的《Mean Flows for One-step Generative Modeling》<sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="Zhengyang Geng, Mingyang Deng, Xingjian Bai, J. Zico Kolter,  Kaiming He. Mean Flows for One-step Generative Modeling">[8]</span></a></sup>。</p>
 <p>回顾一下前文：</p>
 <p>$$\frac{dz(t)}{dt}=f(z(t),w)$$</p>
 <p>这实际上代表着瞬时速度。</p>
 <p>然而瞬时速度并不是直接指向数据点，所以无法一步生成，而要一步生成需要平均速度才能实现。</p>
-<p><img src="averspeed.jpg" alt></p>
+<p><img src="averspeed.jpg" alt=""></p>
 <p>展开来说，前文的flow matching尽管使用的是直线插值，但是实际上是线性加噪而非线性去噪。导致我们无法一步生成。</p>
 <p>我们也可以使用一些形象的方法来解释。</p>
 <p>当只有一个力源的情况下，它的场线是直线（左图和中图），这与我们的加噪相似，我们也可以类似PFGM，将这一过程理解为数据点被力场推着走向目标位置。</p>
 <p>然而，我们不止一个力源，所以最终场（右图）并不是一条直线。</p>
-<p><img src="vis.jpg" alt></p>
+<p><img src="vis.jpg" alt=""></p>
 <p>我们也很难去设计一种力，使得合并后的最终场是直线形式。</p>
 <p>面对天体运动，与其我们引入复杂的本轮均轮来完善地心说，更好的方法是直接引入日心说。</p>
 <p>故MeanFlow另起炉灶，虽然继续使用同样的力源，但不继续做文章，而是使用了平均速度。</p>
@@ -604,8 +604,8 @@ $$</p>
 u _ {\text{tgt}} = v(z_t, t) - (t-r)(v(z_t, t)\partial_z u_\theta + \partial_t u_\theta)<br>
 $$<br>
 在这里我们会使用sg(stop gradient)，因为我们并不需要它的导数，也避免了再去求高阶导数。</p>
-<p><img src="meanflow.jpg" alt></p>
-<h1><span id="can-kao-zi-liao">参考资料</span><a href="#can-kao-zi-liao" class="header-anchor">#</a></h1>
+<p><img src="meanflow.jpg" alt=""></p>
+<h1>参考资料</h1>
 <p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="生成扩散模型漫谈（三十）：从瞬时速度到平均速度. https://kexue.fm/archives/10958">[9]</span></a></sup><sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Flow Matching: Matching flows instead of scores. https://jmtomczak.github.io/blog/18/18_fm.html">[10]</span></a></sup><sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. Flow Matching Guide and Code">[11]</span></a></sup><sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching. https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[12]</span></a></sup><sup id="fnref:13" class="footnote-ref"><a href="#fn:13" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023. https://github.com/phlippe/uvadlc_notebooks">[13]</span></a></sup><sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="流模型(Flow-based Model). https://0809zheng.github.io/2022/05/01/flow.html">[14]</span></a></sup><sup id="fnref:15" class="footnote-ref"><a href="#fn:15" rel="footnote"><span class="hint--top hint--rounded" aria-label="Diederik P. Kingma, Tim Salimans, Rafal Jozefowicz, Xi Chen, Ilya Sutskever, Max Welling. Improving Variational Inference with Inverse Autoregressive Flow">[15]</span></a></sup><sup id="fnref:16" class="footnote-ref"><a href="#fn:16" rel="footnote"><span class="hint--top hint--rounded" aria-label="George Papamakarios, Theo Pavlakou, Iain Murray. Masked Autoregressive Flow for Density Estimation">[16]</span></a></sup>和一些教科书<sup id="fnref:17" class="footnote-ref"><a href="#fn:17" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[17]</span></a></sup>和李宏毅的课程<sup id="fnref:18" class="footnote-ref"><a href="#fn:18" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的Flow-based Generative Model课程">[18]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio. Density estimation using Real NVP
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ho, J., Chen, X., Srinivas, A., Duan, Y., and Abbeel. Flow++: Improving Flow-Based Generative Models with Variational Dequantization and Architecture Design

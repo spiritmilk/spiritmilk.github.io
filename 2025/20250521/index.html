@@ -328,7 +328,7 @@
 <p>上下标o代表样本外/测试样本</p>
 <p>f是预测</p>
 <p>我们会对所有的样本进行归一化。</p>
-<h2><span id="bu-yi-lai-y-de-er-jie-yang-ben-ju-pi-pei-ssmm">不依赖y的二阶样本矩匹配（SSMM）</span><a href="#bu-yi-lai-y-de-er-jie-yang-ben-ju-pi-pei-ssmm" class="header-anchor">#</a></h2>
+<h2 id="不依赖y的二阶样本矩匹配（SSMM）">不依赖y的二阶样本矩匹配（SSMM）</h2>
 <p>将模型表述为“平滑器”（smoother），即 f=Sy，其中 <code>S</code> 是平滑矩阵</p>
 <p>作者假设，一个能够很好泛化的模型，其样本外预测 ($f^o$) 的分布应该与真实观测数据 (y) 的分布大致相同 。</p>
 <p>故最小化:<br>
@@ -343,7 +343,7 @@ $$<br>
 |y^TAy|\leq||A|| _ 2\cdot||y||^2 _ 2\leq||A|| _ {*}\cdot||y||^2 _ 2<br>
 $$<br>
 其中*代表核范数。</p>
-<h2><span id="dui-yu-shen-jing-wang-luo">对于神经网络</span><a href="#dui-yu-shen-jing-wang-luo" class="header-anchor">#</a></h2>
+<h2 id="对于神经网络">对于神经网络</h2>
 <p>先前已有使用NTK，来生成$f=S(\theta)y$的形式，但是$S(\theta)$与y有关</p>
 <p>即<br>
 $$<br>

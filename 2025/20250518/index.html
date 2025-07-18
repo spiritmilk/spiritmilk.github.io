@@ -334,57 +334,57 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>“18岁美国高中生Matteo Paz利用AI分析NASA的2000亿条数据，发现150万个隐藏天体”（来自公众号）。</p>
 <p>该项目与其中一篇论文相关——《<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2409.15499">A Submillisecond Fourier and Wavelet-based Model to Extract Variable Candidates from the NEOWISE Single-exposure Database</a>》，发表于《The Astronomical Journal》（天文学其中一个重要的期刊）</p>
 <span id="more"></span>
-<h2><span id="yue-du-qian-jie-shao">阅读前介绍</span><a href="#yue-du-qian-jie-shao" class="header-anchor">#</a></h2>
+<h2 id="阅读前介绍">阅读前介绍</h2>
 <p>我们先用一句话来概括：</p>
 <p><strong>根据光度数据（光变曲线）对星系进行四分类。</strong></p>
-<h2><span id="yan-jiu-bei-jing-yu-yi-yi">研究背景与意义</span><a href="#yan-jiu-bei-jing-yu-yi-yi" class="header-anchor">#</a></h2>
+<h2 id="研究背景与意义">研究背景与意义</h2>
 <p>论文将VARnet应用于近地天体广域红外巡天探测器（NEOWISE）单次曝光数据库，该数据库在10.5年间记录了近2000亿次红外源的出现信息 。研究旨在设计一个流程，从NEOWISE数据中提取可变候选体，以验证VARnet的有效性，并为未来对整个NEOWISE数据集进行变异性调查提供方法论 。</p>
-<h2><span id="wise-kong-jian-wang-yuan-jing-yu-neowise-shu-ju">WISE空间望远镜与NEOWISE数据</span><a href="#wise-kong-jian-wang-yuan-jing-yu-neowise-shu-ju" class="header-anchor">#</a></h2>
+<h2 id="WISE空间望远镜与NEOWISE数据">WISE空间望远镜与NEOWISE数据</h2>
 <p>广域红外巡天探测器（WISE）是一个轨道空间望远镜观测站，最初在2009年至2010年间以四波段红外巡天方式运行 。在固态氢制冷剂耗尽后，它曾短暂作为双波段巡天运行 。经过2011年至2013年12月的休眠期后，该任务以NEOWISE的形式重新启动，持续在其两个最短波长波段收集数据 。由于其长时间尺度和红外灵敏度，WISE为时域天文学研究提供了独特的机会 。</p>
 <p>NEOWISE-R单次曝光数据库包含自2013年望远镜重新激活以来每次单次曝光中提取的光度数据 。每次观测（apparition）包含天体的赤经（RA）、赤纬（Dec）、修正儒略日（mjd）以及W1和W2波段的星等数据 。然而，数据库中的数据没有结构，与单个源相关的观测可能分散在数据库中，并且还包含由宇宙射线、条纹曝光或星云造成的噪声观测 。这为收集单个天文物体的数据带来了挑战 。</p>
-<h2><span id="shu-ju-chu-li">数据处理</span><a href="#shu-ju-chu-li" class="header-anchor">#</a></h2>
+<h2 id="数据处理">数据处理</h2>
 <p>作者将通量变化将恒星分为四种非常广泛的类型：静止型（Nulls）、瞬变型（Transients）、凌星型（Transits）、动型（Pulsating Variables）。</p>
 <p>作者也自己声明，这种有限分类法对于变源的全面调查和统计分析并<strong>不十分有用</strong>。</p>
-<h3><span id="shu-ju-ju-lei-yu-yu-chu-li"><strong>数据聚类与预处理</strong>：</span><a href="#shu-ju-ju-lei-yu-yu-chu-li" class="header-anchor">#</a></h3>
+<h3 id="数据聚类与预处理："><strong>数据聚类与预处理</strong>：</h3>
 <p>由于望远镜精度的限制和噪声，同一源的中心在每次通过时可能会略有不同，从而形成一个近似二维高斯分布的点云 。研究人员使用基于密度的噪声应用空间聚类（DBSCAN）算法对单次曝光源目录中的观测进行空间聚类，以收集光变曲线数据 。DBSCAN能够稳健地处理不同形状的簇，不需要预先指定簇的数量，并且可以滤除噪声点 。</p>
-<h3><span id="shu-ju-yu-chu-li"><strong>数据预处理</strong>：</span><a href="#shu-ju-yu-chu-li" class="header-anchor">#</a></h3>
+<h3 id="数据预处理："><strong>数据预处理</strong>：</h3>
 <p>为了构建适合神经网络分析的高质量矩阵表示，研究选择了对异常和事件较不敏感的W1波段作为亮度特征 。星等值被转换为绝对通量读数，减去中位数，并使用四分位距进行标准化 。然后使用反正弦双曲函数（arcsinh）将数据压缩到接近[−1,1]的范围 。时间戳（mjd）也被归一化到[0,1]的范围 。测量的预期误差（wlsigmpro）也经过类似的缩放处理并作为模型的特征之一 。最终，每个时间点的数据被表示为一个包含亮度、不确定性和时间戳的三维向量 。</p>
-<h3><span id="shu-ju-sheng-cheng"><strong>数据生成</strong>：</span><a href="#shu-ju-sheng-cheng" class="header-anchor">#</a></h3>
+<h3 id="数据生成："><strong>数据生成</strong>：</h3>
 <p>由于已知瞬变源的数量有限，研究人员制定了数学模型来为四种光变类型（静止、瞬变、脉动、凌星）生成模拟的WISE光变曲线，用于训练VARnet 。这些模拟光变曲线的生成考虑了源的基本亮度、噪声水平以及WISE的采样节奏 。</p>
-<h4><span id="ji-ben-han-shu"><strong>基本函数</strong></span><a href="#ji-ben-han-shu" class="header-anchor">#</a></h4>
+<h4 id="基本函数"><strong>基本函数</strong></h4>
 <p>在数据生成之前。我们定义一些基本操作。</p>
 <p><strong>平均或基础亮度</strong>：随机选择一个星等值（范围在6到16等之间，并倾向于选择更暗的星等以模拟天空中的真实分布），然后将其转换为通量值，作为源的基础亮度 ω。</p>
 <p><strong>不确定度（噪声标准差）</strong>：随机选择一个在 10−4 到 10−1 之间的值作为不确定度 σω，这个值与源的绝对亮度无关，以覆盖各种观测条件（例如，银道面背景光较强导致亮星误差增大，或特定星等下光度测量流程变化导致误差异常） 。</p>
 <p><strong>缩放不确定度</strong>：NEOWISE数据库中的 <code>wlsigflux</code> 误差值并不直接等于真实亮度值周围的实际离散程度的一个标准差，因此在合成器中使用的不确定度值需要进行缩放以匹配数据库中的值。研究发现，将 $σ_ω$ 乘以一个在0.4到0.6之间随机选择的实数，可以获得最佳性能 。</p>
-<p><img src="1.jpg" alt></p>
-<h4><span id="jing-zhi-xing-nulls">静止型（Nulls）</span><a href="#jing-zhi-xing-nulls" class="header-anchor">#</a></h4>
+<p><img src="1.jpg" alt=""></p>
+<h4 id="静止型（Nulls）">静止型（Nulls）</h4>
 <p>简单地选择一个基础通量值，并以该值为均值、特定标准差进行正态分布采样 。</p>
-<p><img src="2.jpg" alt></p>
-<h4><span id="shun-bian-xing-transients">瞬变型（Transients）：</span><a href="#shun-bian-xing-transients" class="header-anchor">#</a></h4>
+<p><img src="2.jpg" alt=""></p>
+<h4 id="瞬变型（Transients）：">瞬变型（Transients）：</h4>
 <p>设计了一个基于形态学而非天体物理现象的光度随时间变化的函数模型，能够模拟新星、超新星以及某些类型的瞬变YSO活动等事件 。</p>
-<p><img src="3.jpg" alt></p>
-<p><img src="31.jpg" alt></p>
-<h4><span id="ling-xing-xing-transits">凌星型（Transits）：</span><a href="#ling-xing-xing-transits" class="header-anchor">#</a></h4>
+<p><img src="3.jpg" alt=""></p>
+<p><img src="31.jpg" alt=""></p>
+<h4 id="凌星型（Transits）：">凌星型（Transits）：</h4>
 <p>采用梯形模型来近似凌星光变曲线，考虑了凌星深度、次凌星深度和周期等因素 。</p>
-<p><img src="4.jpg" alt></p>
-<h4><span id="dong-xing-pulsating-variables">动型（Pulsating Variables）：</span><a href="#dong-xing-pulsating-variables" class="header-anchor">#</a></h4>
+<p><img src="4.jpg" alt=""></p>
+<h4 id="动型（Pulsating-Variables）：">动型（Pulsating Variables）：</h4>
 <p>通过创建一个表示一个周期的离散网格，在某些点上添加不同高度的狄拉克δ脉冲，然后用高斯滤波器进行离散卷积来生成各种波形 。</p>
-<p><img src="51.jpg" alt></p>
-<p><img src="5.jpg" alt></p>
-<h2><span id="mo-xing">模型</span><a href="#mo-xing" class="header-anchor">#</a></h2>
-<p><img src="model1.jpg" alt></p>
-<p><img src="model2.png" alt></p>
+<p><img src="51.jpg" alt=""></p>
+<p><img src="5.jpg" alt=""></p>
+<h2 id="模型">模型</h2>
+<p><img src="model1.jpg" alt=""></p>
+<p><img src="model2.png" alt=""></p>
 <p>模型除了卷积以外还有小波变换和FFT。</p>
-<h3><span id="xiao-bo-bian-huan">小波变换</span><a href="#xiao-bo-bian-huan" class="header-anchor">#</a></h3>
+<h3 id="小波变换">小波变换</h3>
 <p>这部分没有额外的改进。</p>
 <p>即一维离散小波变换就是把信号分别通过低通滤波器和高通滤波器把原始信号分解为原信号的近似系数和原信号的细节系数两个部分，这也被叫做mallat 算法。</p>
-<p><img src="ImgTrans_diswav1.png" alt></p>
-<h2><span id="fft">FFT</span><a href="#fft" class="header-anchor">#</a></h2>
+<p><img src="ImgTrans_diswav1.png" alt=""></p>
+<h2 id="FFT">FFT</h2>
 <p>作者觉得DFT时间复杂度太高了，所以进行了优化。<br>
 我们称y为a的离散傅里叶变换，其中$w=e^{-i\frac{2\pi}{n}}$：</p>
-<p><img src="fft1.png" alt></p>
+<p><img src="fft1.png" alt=""></p>
 <p>我们取对数，令$z=ln(w)$:</p>
-<p><img src="fft2.png" alt></p>
+<p><img src="fft2.png" alt=""></p>
 <p>我们可以写成外积的形式$uv^T$:<br>
 $$<br>
 \begin{align}<br>
@@ -404,8 +404,8 @@ a_k=\frac{k}{samples}\\<br>
 u_k=a_k(N-1)<br>
 \end{align}<br>
 $$</p>
-<h2><span id="jie-guo">结果</span><a href="#jie-guo" class="header-anchor">#</a></h2>
-<p><img src="final_4class_conf.png" alt></p>
+<h2 id="结果">结果</h2>
+<p><img src="final_4class_conf.png" alt=""></p>
 
                 
               </div>

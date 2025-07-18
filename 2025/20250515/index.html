@@ -322,11 +322,11 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I-Con （<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.16929">I-Con: A Unifying Framework for Representation Learning</a> ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
 <span id="more"></span>
-<p><img src="I-Con.jpg" alt></p>
-<p><img src="model.jpg" alt></p>
-<p><img src="detail.jpg" alt></p>
+<p><img src="I-Con.jpg" alt=""></p>
+<p><img src="model.jpg" alt=""></p>
+<p><img src="detail.jpg" alt=""></p>
 <p>我们首先定义 $x _ {i}\in\mathbb{R}^{d}$ 代表高维数据点，  $\phi_{i}\in\mathbb{R}^{m}$ 代表低维嵌，其中 $m\ll d$。</p>
-<h2><span id="tong-yi-sne">统一SNE</span><a href="#tong-yi-sne" class="header-anchor">#</a></h2>
+<h2 id="统一SNE">统一SNE</h2>
 <p>基于SNE的定义，其目标分布（监督部分），由高维空间中的领域分布描述：</p>
 <p>$$<br>
 p_{\theta}(j|i)=\frac{exp(-||x _ {i}-x _ {j}||^{2}/2\sigma_{i}^{2})}{\sum _ {k\ne i}exp(-||x _ {i}-x _ {k}||^{2}/2\sigma_{i}^{2})}<br>
@@ -339,12 +339,12 @@ $$</p>
 <p>$$<br>
 \mathcal{L}=\sum _ {i}D_{KL}(p_{\theta}(\cdot|i)||q_{\phi}(\cdot|i))=\sum _ {i}\sum _ {j}p_{\theta}(j|i)log\frac{p_{\theta}(j|i)}{q_{\phi}(j|i)}<br>
 $$</p>
-<h2><span id="tong-yi-tsne">统一tSNE</span><a href="#tong-yi-tsne" class="header-anchor">#</a></h2>
+<h2 id="统一tSNE">统一tSNE</h2>
 <p>tSNE和SNE类似，不过低维分布变为了具有一个自由度的student t分布。</p>
 <p>$$<br>
 q_{\phi}(j|i)=\frac{(1+||\phi_{i}-\phi_{j}||^{2})^{-1}}{\sum _ {k\ne i}(1+||\phi_{i}-\phi_{k}||^{2})^{-1}}<br>
 $$</p>
-<h2><span id="tong-yi-pca">统一PCA</span><a href="#tong-yi-pca" class="header-anchor">#</a></h2>
+<h2 id="统一PCA">统一PCA</h2>
 <p><strong>引理1.</strong> <em>Let $X:={x _ {i}} _ {i=1}^{n}$， then the following cohesion variance loss</em></p>
 <p>$$<br>
 L_{cohesion-var}=\frac{1}{n}\sum _ {ij}w_{ij}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>
@@ -388,7 +388,7 @@ $=\frac{1}{\sigma^{2}}\mathcal{L} _ {cohesion-var}+log(n)$</p>
 \end{align}<br>
 $$</p>
 <p>故最小化 L 等于最大化方差，这与PCA的目标一致。如果我们限制 $f _ {\phi}$为一个线性投影映射，则等同于PCA。</p>
-<h2><span id="tong-yi-infonce">统一InfoNCE</span><a href="#tong-yi-infonce" class="header-anchor">#</a></h2>
+<h2 id="统一InfoNCE">统一InfoNCE</h2>
 <p>InfoNCE 旨在最大化正样本对之间的相似度，同时最小化负样本对之间的相似度，在学习的特征空间中。在 I-Con 框架中，这可以解释为最小化两个分布之间的散度：原始空间中的邻域分布和学习到的嵌入空间中的分布。</p>
 <p>$$<br>
 p_{\theta}(j|i)=\begin{cases}\frac{1}{k}，x_j为x_i的k \  positive \ views\\ 0\end{cases}<br>
@@ -408,7 +408,7 @@ $$<br>
 \mathcal{L} _ {InfoNCE}\propto\sum _ {i}\sum _ {j}p_{\theta}(j|i)log~q_{\phi}(j|i)=H(p_{\theta}，q_{\phi})<br>
 $$<br>
 H表示交叉熵，因为 $p_{\theta}(j|i)$ 是固定的，所以最小化交叉熵等价于最小化KL散度。</p>
-<h2><span id="tong-yi-vicreg">统一VICReg</span><a href="#tong-yi-vicreg" class="header-anchor">#</a></h2>
+<h2 id="统一VICReg">统一VICReg</h2>
 <p>根据引理 1，我们知道任何凝聚方差形式的损失都是I-Con 的一个实例。</p>
 <p>$$<br>
 \mathcal{L}=\frac{1}{n}\sum _ {ij}p_{j|i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>
@@ -418,7 +418,7 @@ $$</p>
 \mathcal{L}=\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i^{+}})||^{2}-2Var(X)<br>
 $$</p>
 <p>这是没有协方差项且不变性-方差项比例为 1:2 的 VICReg 损失。观察到 VICReg 没有负样本，因为它对所有点施加相等的排斥力。这相当于在嵌入上的条件高斯分布中取 $\sigma\rightarrow\infty$ 。</p>
-<h2><span id="tong-yi-triplet-loss">统一Triplet Loss</span><a href="#tong-yi-triplet-loss" class="header-anchor">#</a></h2>
+<h2 id="统一Triplet-Loss">统一Triplet Loss</h2>
 <p>$$<br>
 P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i}<br>
 \\<br>
@@ -467,7 +467,7 @@ $$</p>
 \mathcal{L} _ {\sigma}=-\frac{\sigma^{2}}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-\frac{||f _ {\sigma}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})}<br>
 $$</p>
 <p>当 $\sigma\to 0$， $\mathcal{L} _ {Triplet}$ 接近于 $\mathcal{L} _ {\sigma}$</p>
-<h2><span id="tong-yi-you-jian-du-dui-bi-sun-shi">统一有监督对比损失</span><a href="#tong-yi-you-jian-du-dui-bi-sun-shi" class="header-anchor">#</a></h2>
+<h2 id="统一有监督对比损失">统一有监督对比损失</h2>
 <p>从统一InfoNCE的式子来看，定义：<br>
 $$<br>
 q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j})/\tau)}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})/\tau)}<br>
@@ -476,7 +476,7 @@ $$</p>
 p_{\theta}(j|i)=\frac{1}{K_{i}-1}1[i \text{ and } j \text{ share the same label}]<br>
 $$</p>
 <p>其中 $f _ {\phi}$ 是映射到 deep feature space 的， $K_{i}$ 是类i样本数。</p>
-<h2><span id="tong-yi-x-sample-dui-bi-sun-shi">统一X-Sample对比损失</span><a href="#tong-yi-x-sample-dui-bi-sun-shi" class="header-anchor">#</a></h2>
+<h2 id="统一X-Sample对比损失">统一X-Sample对比损失</h2>
 <p>考虑以下p在相应特征（例如图像的caption embeddings）上的分布</p>
 <p>$$<br>
 \frac{exp(g _ {\theta}(x _ {i})\cdot g _ {\theta}(x _ {j}))}{\sum _ {k\ne i}exp(g _ {\theta}(x _ {i})\cdot_{\theta}(x _ {k}))}<br>
@@ -485,7 +485,7 @@ $$<br>
 <p>$$<br>
 q_{\phi}(j|i)=\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j}))}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k}))}<br>
 $$</p>
-<h2><span id="tong-yi-cmc-he-clip">统一CMC和CLIP</span><a href="#tong-yi-cmc-he-clip" class="header-anchor">#</a></h2>
+<h2 id="统一CMC和CLIP">统一CMC和CLIP</h2>
 <p>CMC（Contrastive Multiview Coding） 和 CLIP 的关键区别在于它们优化了跨不同模态的alignment， $p_{\theta}(j|i)$ 可以表示为</p>
 <p>$$<br>
 p_{\theta}(j|i)=\frac{1}{Z}1[i \text{ and } j \text{ are positive pairs and } V_{i}\ne V_{j}]<br>
@@ -494,9 +494,9 @@ $$</p>
 <p>$$<br>
 q_{\phi}(j|i)=\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2})}{\sum _ {k\in V_{j}}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})}<br>
 $$</p>
-<h2><span id="tong-yi-jiao-cha-shang">统一交叉熵</span><a href="#tong-yi-jiao-cha-shang" class="header-anchor">#</a></h2>
+<h2 id="统一交叉熵">统一交叉熵</h2>
 <p>交叉熵可以看作是CMC的特例，其中一个视角对应数据点特征，另一个对应类别logit。</p>
-<h2><span id="tong-yi-harmonic-loss">统一Harmonic Loss</span><a href="#tong-yi-harmonic-loss" class="header-anchor">#</a></h2>
+<h2 id="统一Harmonic-Loss">统一Harmonic Loss</h2>
 <p>这相当于从交叉熵中的 $q(j|i)$ 高斯分布移动到student-t分布，类似于从 SNE 移动到 t-SNE。更具体地说，令V 为数据点集，C为类原型集， $\phi_{i}$ 为第 i 类的学习到的类原型， n为谐波损失度。</p>
 <p>考虑以下p这是一个数据标签指示器（ data-label indicator）。</p>
 <p>$$<br>
@@ -511,7 +511,7 @@ $$</p>
 lim_{\sigma\rightarrow0}\frac{(((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{j}||^{2})^{-n}}{\sum _ {k\in C}((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{k}||^{2}/)^{-n}}<br>
 $$</p>
 <p>当 $\sigma\rightarrow\infty$ 损失函数为$\mathcal{L}=\sum _ {i\in C}\frac{(||f _ {\phi}(x _ {i})-\phi_{j}||^{2})^{-n}}{\sum _ {k\in C}(||f _ {\phi}(x _ {i})-\phi_{k}||^{2}/)^{-n}}$</p>
-<h2><span id="tong-yi-mlm">统一MLM</span><a href="#tong-yi-mlm" class="header-anchor">#</a></h2>
+<h2 id="统一MLM">统一MLM</h2>
 <p>在掩码语言建模（MLM）中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
 <p>目标分布 $p_{\theta}(j|i)$ 是关于上下文i和tokens j的经验分布，定义为：</p>
 <p>$$<br>
@@ -536,7 +536,7 @@ $$</p>
 <p>$$<br>
 \mathcal{L} _ {MLM}=-\sum _ {i}log~q_{\phi}(j_{i}^{*}|x _ {i})<br>
 $$</p>
-<h2><span id="tong-yi-kmeans">统一Kmeans</span><a href="#tong-yi-kmeans" class="header-anchor">#</a></h2>
+<h2 id="统一Kmeans">统一Kmeans</h2>
 <p>经典Kmeans的定义：<br>
 $$<br>
 \mathcal{L} _ {k-Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}1(c^{(i)}=c)||x _ {i}-\mu_{c}||^{2}<br>
@@ -545,13 +545,13 @@ $$</p>
 $$<br>
 c^{(i)}=arg~min_{c}||x _ {i}-\mu_{c}||^{2}<br>
 $$</p>
-<h3><span id="probabilistic-k-means-song-chi">Probabilistic K-means 松弛</span><a href="#probabilistic-k-means-song-chi" class="header-anchor">#</a></h3>
+<h3 id="Probabilistic-K-means-松弛">Probabilistic K-means 松弛</h3>
 <p>在probabilistic K-means， $x _ {i}$ 属于c类的概率为 $\phi_{ic}$。</p>
 <p>$$<br>
 \mathcal{L} _ {Prob-k-Means}=\sum _ {i=1}^{N}\sum _ {c=1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}<br>
 $$</p>
 <p>为了能融入到我们的框架中，我们尽量把它融入到对比学习那一套中。</p>
-<h3><span id="si-ran-k-means-de-dui-bi-gong-shi">似然 K-means 的对比公式</span><a href="#si-ran-k-means-de-dui-bi-gong-shi" class="header-anchor">#</a></h3>
+<h3 id="似然-K-means-的对比公式">似然 K-means 的对比公式</h3>
 <p>定义条件概率为 $q_{\phi}(j|i)$ ：</p>
 <p>$$<br>
 q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
@@ -589,7 +589,7 @@ $$</p>
 &amp;=2(-\sum _ {i，j}x _ {i}\cdot x _ {j}q_{\phi}(j|i))<br>
 \end{align}<br>
 $$</p>
-<h3><span id="probabilistic-k-means-zuo-wei-i-con-fang-fa">PROBABILISTIC K-MEANS 作为 I-Con 方法</span><a href="#probabilistic-k-means-zuo-wei-i-con-fang-fa" class="header-anchor">#</a></h3>
+<h3 id="PROBABILISTIC-K-MEANS-作为-I-Con-方法">PROBABILISTIC K-MEANS 作为 I-Con 方法</h3>
 <p>令 $q_{\phi}(j|i)$ 表示从$x _ {i}$的聚类中随机选择 $x _ {j}$ 的概率：</p>
 <p>$$<br>
 q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
@@ -640,9 +640,9 @@ $$</p>
 \mathcal{L} _ {c\cdot SNE}=\frac{1}{2\sigma^{2}}\mathcal{L} _ {Prob\cdot KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))<br>
 $$</p>
 <p>注意上述关系仅差一个加性常数。这意味着最小化具有熵正则化的对比概率 K-means 损失，等价于最小化KL 散度之和。</p>
-<h2><span id="tong-yi-pu-ju-lei">统一谱聚类</span><a href="#tong-yi-pu-ju-lei" class="header-anchor">#</a></h2>
+<h2 id="统一谱聚类">统一谱聚类</h2>
 <p>谱聚类通过首先使用归一化拉普拉斯矩阵的前 k 个特征向量将数据嵌入到低维空间中，扩展了这个想法。亲和矩阵 A是通过相似性度量（例如径向基函数核）构建的，并编码了数据点之间的分配概率。在这个转换下，谱聚类是投影嵌入上的 I-Con 的一个实例。</p>
-<h2><span id="tong-yi-normalized-cuts">统一Normalized Cuts</span><a href="#tong-yi-normalized-cuts" class="header-anchor">#</a></h2>
+<h2 id="统一Normalized-Cuts">统一Normalized Cuts</h2>
 <p>其损失函数定义为：</p>
 <p>$$<br>
 \mathcal{L} _ {NomCus}=\sum _ {c=1}^{m}\frac{cut(A_{c}，\overline{A} _ {c})}{vol(A_{c})}<br>
@@ -653,7 +653,7 @@ $$</p>
 q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}d_{j}}{\sum _ {k=1}^{N}\phi_{kc}d_{k}}<br>
 $$</p>
 <p>其中d为节点的度数。</p>
-<h2><span id="tong-yi-hu-xin-xi-ju-lei">统一互信息聚类</span><a href="#tong-yi-hu-xin-xi-ju-lei" class="header-anchor">#</a></h2>
+<h2 id="统一互信息聚类">统一互信息聚类</h2>
 <p>鉴于 SimCLR、K-Means 和 I-Con 框架之间已建立的联系，这一结果自然而然地得出。具体来说，目标分布 $p_{\theta}(j|i)$ 是观测到的正对的一个均匀分布：</p>
 <p>$$<br>
 P_{\theta}(j|i) = \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \\ 0 &amp; \text{otherwise.} \end{cases}<br>
@@ -662,7 +662,7 @@ $$</p>
 <p>$$<br>
 q_{\phi}(j|i)=\sum _ {c=1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k=1}^{N}\phi_{kc}}<br>
 $$</p>
-<h2><span id="tong-yi-bian-fen-fa">统一变分法</span><a href="#tong-yi-bian-fen-fa" class="header-anchor">#</a></h2>
+<h2 id="统一变分法">统一变分法</h2>
 <p>互信息的变分界限被广泛探索，并与 InfoNCE 等损失函数联系起来，其中最小化 InfoNCE 最大化互信息下界（Oord 等人，2018；Poole 等人，2019）。证明通常从重写互信息开始：</p>
 <p>$$<br>
 I(X;Y)=\mathbb{E} _ {p(x，y)}[log\frac{q(x|y)}{p(x)}]+\mathbb{E} _ {p(y)}[D_{KL}(p(x|y)||q(x|y))]<br>

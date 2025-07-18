@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          358 字
+          355 字
         
       </span>
     
@@ -320,9 +320,9 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>prompt压缩技术可以减少输入prompt的长度，同时保持各种任务的性能。</p>
 <span id="more"></span>
-<h2><span id="selective-context">Selective Context</span><a href="#selective-context" class="header-anchor">#</a></h2>
+<h2 id="Selective-Context">Selective Context</h2>
 <p>出自《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.06201">Compressing Context to Enhance Inference Efficiency of Large Language Models</a>》-EMNLP 2023。使用了一个很简单但有效的方法。</p>
-<h3><span id="suan-fa-jie-shao">算法介绍</span><a href="#suan-fa-jie-shao" class="header-anchor">#</a></h3>
+<h3 id="算法介绍">算法介绍</h3>
 <p>作者提出了self-information的概念，用来衡量了一段文本相对与一个language model所蕴含的信息。</p>
 <p>self-information计算也极其简单。<br>
 $$<br>
@@ -337,21 +337,21 @@ P指语言模型，但不需要是大模型本体，可以是小号的LLMs，例
 </ul>
 <p>我们也可以直接上代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_self_info_via_gpt2</span>(<span class="hljs-params">self, text: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-type">Tuple</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>], <span class="hljs-type">List</span>[<span class="hljs-built_in">float</span>]]:</span><br>        <span class="hljs-keyword">if</span> self.lang == <span class="hljs-string">&#x27;en&#x27;</span>:<br>            text = <span class="hljs-string">f&quot;&lt;|endoftext|&gt;<span class="hljs-subst">&#123;text&#125;</span>&quot;</span><br>        <span class="hljs-keyword">elif</span> self.lang == <span class="hljs-string">&#x27;zh&#x27;</span>:<br>            text = <span class="hljs-string">f&quot;[CLS]<span class="hljs-subst">&#123;text&#125;</span>&quot;</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            encoding = self.tokenizer(text, add_special_tokens=<span class="hljs-literal">False</span>, return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>)<br>            encoding = encoding.to(self.device)<br>            outputs = self.model(**encoding)<br>            logits = outputs.logits<br>            probs = torch.softmax(logits, dim=-<span class="hljs-number">1</span>)<br>            self_info = -torch.log(probs)<br>        <br><br>        input_ids = encoding[<span class="hljs-string">&#x27;input_ids&#x27;</span>]<br>        input_ids_expaned = input_ids[:, <span class="hljs-number">1</span>:].unsqueeze(-<span class="hljs-number">1</span>)<br>    <br>        tokens = [self.tokenizer.decode(token_) <span class="hljs-keyword">for</span> token_ <span class="hljs-keyword">in</span> input_ids.squeeze().tolist()[<span class="hljs-number">1</span>:]]<br>        <span class="hljs-keyword">return</span> tokens, self_info[:, :-<span class="hljs-number">1</span>].gather(-<span class="hljs-number">1</span>, input_ids_expaned).squeeze(-<span class="hljs-number">1</span>).squeeze(<span class="hljs-number">0</span>).tolist()<br></code></pre></td></tr></table></figure>
-<h3><span id="shi-yan-jie-guo">实验结果</span><a href="#shi-yan-jie-guo" class="header-anchor">#</a></h3>
+<h3 id="实验结果">实验结果</h3>
 <p>使用了<strong>以下三个数据源</strong>作为测试数据：</p>
 <ul>
 <li><a href="https://link.zhihu.com/?target=http%3A//ShareGPT.com">http://ShareGPT.com</a>：收集用户与ChatGPT对话记录的网站</li>
 <li>Arxiv</li>
 <li>BBC News</li>
 </ul>
-<p><img src="exp1.png" alt></p>
-<h2><span id="llmlingua">LLMLingua</span><a href="#llmlingua" class="header-anchor">#</a></h2>
+<p><img src="exp1.png" alt=""></p>
+<h2 id="LLMLingua">LLMLingua</h2>
 <p>LLMLingua是Huiqiang Jiang, Qianhui Wu, Xufang Luo等出自微软的研究者提出的一系列prompt压缩算法。</p>
-<h3><span id="llmlingua">LLMLingua</span><a href="#llmlingua" class="header-anchor">#</a></h3>
+<h3 id="LLMLingua-2">LLMLingua</h3>
 <p>占位</p>
-<h3><span id="longllmlingua">LongLLMLingua</span><a href="#longllmlingua" class="header-anchor">#</a></h3>
+<h3 id="LongLLMLingua">LongLLMLingua</h3>
 <p>zhanw</p>
-<h3><span id="llmlinguav2">LLMLinguav2</span><a href="#llmlinguav2" class="header-anchor">#</a></h3>
+<h3 id="LLMLinguav2">LLMLinguav2</h3>
 <p>暂无</p>
 
                 

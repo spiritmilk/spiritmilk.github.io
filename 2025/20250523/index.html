@@ -322,19 +322,19 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>上交东南大学出品（arxiv)。</p>
 <span id="more"></span>
-<h2><span id="shi-xian-guan-cha">事先观察</span><a href="#shi-xian-guan-cha" class="header-anchor">#</a></h2>
+<h2 id="事先观察">事先观察</h2>
 <p>作者首先在干净的 CIFAR-100 数据集上训练一个成熟的分类器PRODEN，该分类器使用 ResNet-34作为骨干网络。</p>
 <p>以预定义的概率 p 随机翻转每个样本的标签，生成具有不同程度标注噪声的数据集。并还强制实施一个约束，即每个样本至少保留一个标签。</p>
 <p>对矩阵 W 和 W 进行奇异值分解（SVD），提取它们对应的奇异值Σ和Σ’以及右奇异酉矩阵，分别称为 V 和 V。然后，我们分析随着不准确度增加，不同权重的奇异值变化情况，结果如下图所示。</p>
-<p><img src="1.png" alt></p>
+<p><img src="1.png" alt=""></p>
 <p>可以观察到权重矩阵的前几个奇异值在标签不准确度的一定范围内没有显著差异。然而，一旦标签不准确度超过某个阈值，前几个奇异值会迅速下降。</p>
 <p>作者又评估了由 V 中前 i 个奇异向量张成的子空间与由 V 中前 j 个奇异向量张成的子空间的相似性。我们基于格拉斯曼距离计算归一化子空间相似度，即<br>
 $$<br>
 \phi (V,V’,i,j)=\frac{||V _ {:i}^TV _ {:j}^T||_F^2}{min(i,j)}\in[0,1]<br>
 $$<br>
 随着标签不准确性的增加，V 和 V‘的子空间之间的整体差异变得更加明显。但在一定范围内的标签不准确度，权重的主体子空间基本不受影响，甚至几乎完全相同。</p>
-<p><img src="2.png" alt></p>
-<h2><span id="li-lun">理论</span><a href="#li-lun" class="header-anchor">#</a></h2>
+<p><img src="2.png" alt=""></p>
+<h2 id="理论">理论</h2>
 <p>考虑以下分类器（或损失）：<br>
 $$<br>
 min_W||XW-G||_F^2+\lambda||W||_F^2<br>
@@ -368,7 +368,7 @@ $$<br>
 $$<br>
 根据Davis-Kahan 正弦定理，W 和 W’ 扰动后子空间之间的角度θ的正弦值被限制为$sin\theta\le\frac{||\Delta W||_2}{\delta}$，故$sin\theta\le \frac{\sigma _ {max}(X)\sqrt{nl}}{\delta \lambda _ {min}(X^TX)+\lambda}\sqrt{p}$。</p>
 <p>故p比较小的情况下，角度也小。</p>
-<h2><span id="fang-fa">方法</span><a href="#fang-fa" class="header-anchor">#</a></h2>
+<h2 id="方法">方法</h2>
 <p>W 进行奇异值分解，选择前k个。</p>
 <p>我们还可以再对剩余的再做一些处理。</p>
 <p>假设$U_l=[u _ {k+1},…,u _ {min(q,l)}]$,$V_l=[v _ {k+1},…,v _ {min(q,l)}]$,$\Sigma_l=diag(\sigma _ {k+1},…,\sigma _ {min(q,l)})$，则：<br>
@@ -395,9 +395,9 @@ $$<br>
 \Sigma_l^\ast&amp;=\frac{diag(U_l^TX^T(Y-XW_k)V_l)}{diag(U_l^TX^TXU_l)}<br>
 \end{align}<br>
 $$</p>
-<h2><span id="ti-wai">题外</span><a href="#ti-wai" class="header-anchor">#</a></h2>
+<h2 id="题外">题外</h2>
 <p>图神经网络中也有使用SVD来抵御对抗攻击的。比如WSDM '20的《All You Need Is Low (Rank): Defending Against Adversarial Attacks on Graphs》。</p>
-<p><img src="lowrank.png" alt></p>
+<p><img src="lowrank.png" alt=""></p>
 <p>作者发现，Nettack是一种高秩攻击，这是因为Nettack带来的对抗扰动只会影响图中少量的节点，攻击给图结构谱域带来的影响较小，故主要反映在rank较高的奇异值上。</p>
 <p>作者同样截断前k个特征值大的作为SVD的近似。但没有对余下的SVD做处理。</p>
 <p>作者分析了，说这种近似可能检测不到大于节点度数&gt;$\sigma_r^2-2$的，作者进一步证明了。<br>

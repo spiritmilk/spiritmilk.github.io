@@ -263,7 +263,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          752 字
+          751 字
         
       </span>
     
@@ -324,7 +324,7 @@
 <p>为了避免数据泄露，Target Encoding往往采用的是$(1-\alpha)y_{类内}+\alpha y_{all}$。我们当然可以手动指定$\alpha$，但更好的选择是我们通过一系列数学方法来确定，这也就引出了各种的target encoder。</p>
 <p>python上有多个库提供了“target encoder”，<strong>但它们实际上并不是完全同一个东西。</strong></p>
 <p><a target="_blank" rel="noopener" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.TargetEncoder.html">sklearn</a>中的相当于<a target="_blank" rel="noopener" href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的JamesSteinEncoder，<a target="_blank" rel="noopener" href="https://docs.rapids.ai/api/cuml/stable/api/#cuml.preprocessing.TargetEncoder.TargetEncoder">cuml</a>中的相当于<a target="_blank" rel="noopener" href="https://contrib.scikit-learn.org/category_encoders/">category_encoders</a>中的M-estimate Encoder。JamesSteinEncoder事实是可以当做一种特殊的M-estimate Encoder，所以我们先从JamesSteinEncoder介绍起。</p>
-<h2><span id="jamessteinencoder">JamesSteinEncoder</span><a href="#jamessteinencoder" class="header-anchor">#</a></h2>
+<h2 id="JamesSteinEncoder">JamesSteinEncoder</h2>
 <p>$$<br>
 \alpha=\frac{Var(y_i)}{Var(y_i)+Var(y)}=\frac{\sigma^2/n_i}{\sigma^2/n_i+\tau^2}<br>
 $$</p>
@@ -353,11 +353,11 @@ $$<br>
 \begin{align} \mathbb{E}[\hat{\alpha}^{(JS)}] &amp;= \mathbb{E}\left[\left( 1 - \frac{(p - 2) \sigma^2}{||\mathbf{X}||_2^2} \right)\right] \\ &amp;= 1 - \mathbb{E}\left[\left(\frac{(p - 2) \sigma^2}{||\mathbf{X}||_2^2} \right)\right] \\ &amp;= 1 - (p - 2) \sigma^2 \mathbb{E}\left[\frac{1}{||\mathbf{X}||_2^2} \right] \\ &amp;= 1 - (p - 2) \sigma^2 \frac{1}{(\tau^2 + \sigma^2) (p - 2)} \\ &amp;= 1 -  \frac{\sigma^2}{\tau^2 + \sigma^2} \\ &amp;= \frac{\tau^2}{\tau^2 + \sigma^2} \ \end{align}<br>
 $$<br>
 然而对于$\alpha$，一个一个计算类内方差可能会有较大的复杂度，我们可以假定全部方差都相同，比如<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/mmotoki/hierarchical-bayesian-target-encoding">kaggle-ASHRAE - Great Energy Predictor III比赛第一名所用的那样</a>。我们也假设各类符合相同分布，这也被称为<a target="_blank" rel="noopener" href="https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/">pooled</a>。</p>
-<h2><span id="m-estimate-encoder">M-estimate Encoder</span><a href="#m-estimate-encoder" class="header-anchor">#</a></h2>
+<h2 id="M-estimate-Encoder">M-estimate Encoder</h2>
 <p>我们知道JamesSteinEncoder中$\alpha=\frac{\sigma^2/n_i}{\sigma^2/n_i+\tau^2}=\frac{\sigma^2/\tau^2}{\sigma^2/\tau^2+n_i}$，那么我们干脆令$\sigma^2/\tau^2$为自定义参数m，这也就是M-estimate Encoder。</p>
-<h2><span id="bi-mian-guo-ni-he">避免过拟合</span><a href="#bi-mian-guo-ni-he" class="header-anchor">#</a></h2>
+<h2 id="避免过拟合">避免过拟合</h2>
 <p>显然地，target encoding直接利用了目标列的信息，这难免会过拟合，有以下几种方法可以避免过拟合，交叉验证、加噪声。</p>
-<h2><span id="can-kao-zi-liao">参考资料:</span><a href="#can-kao-zi-liao" class="header-anchor">#</a></h2>
+<h2 id="参考资料">参考资料:</h2>
 <p><a target="_blank" rel="noopener" href="https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/">https://www.econometrics.blog/post/not-quite-the-james-stein-estimator/</a></p>
 <p><a target="_blank" rel="noopener" href="https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/">https://chris-said.io/2017/05/03/empirical-bayes-for-multiple-sample-sizes/</a></p>
 

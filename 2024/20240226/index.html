@@ -328,17 +328,17 @@
 <p><a target="_blank" rel="noopener" href="https://huggingface.co/spaces/adept/fuyu-8b-demo">体验地址</a></p>
 <span id="more"></span>
 <hr>
-<h2><span id="jie-shao">介绍</span><a href="#jie-shao" class="header-anchor">#</a></h2>
+<h2 id="介绍">介绍</h2>
 <p>在最新一代基础模型中，多模态模型通常共享一个共同的结构。它们通常包括一个独立的图像编码器，其输出通过交叉注意力机制或适配器集成到大型语言模型（LLM）中。这一模式已经得到广泛应用，如PALM-e、PALI-X、QWEN-VL、LLaVA 1.5和Flamingo等模型都采用了这种方式。这些模型通常以固定的图像分辨率进行操作。在推断过程中，超出此分辨率的图像必须被缩小，而具有不同宽高比的图像则需要进行填充或扭曲。</p>
 <p><strong>LLaVA-1.5:</strong></p>
-<p><img src="LLaVA-1.5.png" alt></p>
+<p><img src="LLaVA-1.5.png" alt=""></p>
 <p>在训练方面，许多其他多模态模型都经历了多步训练过程。图像编码器通常与LLM分开训练，通常使用对比训练目标，这可能很复杂。必须决定何时冻结各个组件的权重。有些模型甚至包括额外的高分辨率图像训练阶段，以确保能够处理高分辨率图像。</p>
 <p>当决定如何按比例扩展这些模型的各个组件时，会面临一些挑战。例如，需要决定在编码器和解码器之间分配额外的参数，以及在训练过程中如何分配计算资源。然而，Adept提出的模型避开了这些复杂性。</p>
-<h2><span id="mo-xing-jia-gou">模型架构</span><a href="#mo-xing-jia-gou" class="header-anchor">#</a></h2>
+<h2 id="模型架构">模型架构</h2>
 <p>从架构上来看，Fuyu是一个简单的、仅包含解码器的Transformer，其规格与Persimmon-8B相同，没有专用的图像编码器。图像块被直接投影到Transformer的第一层，绕过了嵌入查找。这种方法将传统的Transformer解码器视为图像Transformer，尽管没有池化操作。</p>
-<p><img src="architecture.png" alt></p>
+<p><img src="architecture.png" alt=""></p>
 <p>其能够支持任意图像分辨率。为了实现这一点，只需将图像标记序列视为文本标记序列即可。模型删除了特定于图像的位置嵌入，并按光栅扫描顺序输入所需数量的图像标记。为了告诉模型何时截断，我们只需使用一个特殊的图像换行符。该模型可以使用其现有的位置嵌入来推理不同的图像大小，并且我们可以在训练时使用任意大小的图像，从而无需单独的高分辨率和低分辨率训练阶段。</p>
-<h2><span id="shi-yan-jie-guo">实验结果</span><a href="#shi-yan-jie-guo" class="header-anchor">#</a></h2>
+<h2 id="实验结果">实验结果</h2>
 <p>VQAv2和OKVQA是自然图像问答数据集，COCO是字幕数据集，AI2D是涉及科学图表的多项选择数据集。</p>
 <table>
 <thead>
@@ -396,26 +396,26 @@
 </tr>
 </tbody>
 </table>
-<h3><span id="wen-da-ji-zhun-que-xian"><strong>问答基准缺陷</strong></span><a href="#wen-da-ji-zhun-que-xian" class="header-anchor">#</a></h3>
+<h3 id="问答基准缺陷"><strong>问答基准缺陷</strong></h3>
 <p>问答数据集存在很大缺陷——它们使用复杂的评分机制，要求您以特定格式进行回答，并且通常注释不正确。</p>
 <p>考虑以下两个图像：</p>
-<p><img src="defeat.png" alt></p>
+<p><img src="defeat.png" alt=""></p>
 <p>对于 OKVQA 数据集左侧的图像，当被问到“玩具熊正在演奏什么乐器？”时，模型回答“军鼓”——这显然是正确的！然而，它的得分为 0，因为所有参考答案都只是“鼓”。同样，对于右侧的 VQAv2 图像，当询问“图像中的食物类型是什么？”时，模型正确地回答“鱼，胡萝卜”，但它也得到 0 分，因为参考解决方案列表没有包含这些词。</p>
-<h3><span id="wen-dang-li-jie">文档理解</span><a href="#wen-dang-li-jie" class="header-anchor">#</a></h3>
+<h3 id="文档理解">文档理解</h3>
 <p>Fuyu 还可以理解文档——包括复杂的信息图表和旧的 PDF：</p>
-<p><img src="jobs.png" alt></p>
+<p><img src="jobs.png" alt=""></p>
 <blockquote>
 <p>Question:  “Which is the metro in California that has a good job Outlook?”</p>
 <p>Fuyu’s answer:  “Los Angeles”</p>
 </blockquote>
-<p><img src="pack_spinner.png" alt></p>
+<p><img src="pack_spinner.png" alt=""></p>
 <blockquote>
 <p>Question:   “What was the pack spinner capacity?”</p>
 <p>Fuyu’s answer:  “118 packs.”</p>
 </blockquote>
-<h3><span id="tu-biao-li-jie">图表理解</span><a href="#tu-biao-li-jie" class="header-anchor">#</a></h3>
+<h3 id="图表理解">图表理解</h3>
 <p>最后，该模型可以理解有关科学图表的复杂关系查询：</p>
-<p><img src="red_tree_vole.png" alt></p>
+<p><img src="red_tree_vole.png" alt=""></p>
 <blockquote>
 <p>Question:  “If in the food web shown in the diagram, Douglas fir tree needles are absent, which organism would starve?”</p>
 <p>Fuyu’s answer:   “Red tree vole”</p>

@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.2k 字
         
       </span>
     
@@ -326,14 +326,14 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Ai需要鼓励吗？</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1t8411e7Ug">Chain of Thought论文、代码和资源【论文精读】</a></p>
 <hr>
-<h3><span id="yuan-shi-ban-ben">原始版本</span><a href="#yuan-shi-ban-ben" class="header-anchor">#</a></h3>
+<h3 id="原始版本">原始版本</h3>
 <p>《Chain-of-Thought Prompting Elicits Reasoning in Large Language Models》——思维链概念的开山之作</p>
 <p>这篇文章是现任谷歌大脑研究员的Jason Wei在22年1月放到arxiv上面的文章，在上文所说的大背景下提出了思维链这个概念。<span id="more"></span>简单来说，思维链是一种离散式提示学习，更具体地，大模型下的上下文学习（即不进行训练，将例子添加到当前样本输入的前面，让模型一次输入这些文本进行输出完成任务），相比于之前传统的上下文学习，即通过x1,y1,x2,y2,…x_test作为输入来让大模型补全输出y_test，思维链多了中间的一些闲言碎语絮絮叨叨，以下面这张图为例子：</p>
 <p><img src="https://pic3.zhimg.com/80/v2-e1b5adff46170f633e8ed635e7a57646_720w.webp" alt="img"></p>
 <p>思维链的絮絮叨叨即不直接预测y，而是将y的“思维过程”r（学术上有很多学者将这种过程统称为relationale）也要预测出来。当然最后我们不需要这些“思维过程”，这些只是用来提示获得更好的答案，只选择最后的答案即可。作者对不同的数据集的原本用于上下文学习的提示标注了这些思维链然后跑了实验，发现这么做能够显著的提升性能。</p>
 <p>COT一经提出就引发了社区对它的热烈讨论，类似 AI 是不是也需要鼓励来获得更好的表现之类的问题</p>
-<h3><span id="ju-ti-jiang-jie">具体讲解</span><a href="#ju-ti-jiang-jie" class="header-anchor">#</a></h3>
-<h4><span id="zero-shot">zero-shot</span><a href="#zero-shot" class="header-anchor">#</a></h4>
+<h3 id="具体讲解">具体讲解</h3>
+<h4 id="zero-shot">zero-shot</h4>
 <ul>
 <li>
 <p>输入问题，等待输出结果。</p>
@@ -346,7 +346,7 @@
 </li>
 </ul>
 <p><img src="zeroshot.png" alt="zeroshot"></p>
-<h4><span id="cot">CoT</span><a href="#cot" class="header-anchor">#</a></h4>
+<h4 id="CoT">CoT</h4>
 <ul>
 <li>
 <p>比如输入问题并提示Let’s think step by step</p>
@@ -359,7 +359,7 @@
 </li>
 </ul>
 <p><img src="zeroshot.png" alt="zeroshot"></p>
-<h4><span id="manual-cot">Manual-CoT</span><a href="#manual-cot" class="header-anchor">#</a></h4>
+<h4 id="Manual-CoT">Manual-CoT</h4>
 <p>一种few shot方法，所以构造了一些模板Q&amp;A（模板A中也有Let’s think step by step），然后再给出问题并提示Let’s think step by step。</p>
 <ul>
 <li>文献：Chain of Thought Prompting Elicits Reasoning in Large Language Models（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903%EF%BC%89">https://arxiv.org/abs/2201.11903）</a></li>
@@ -369,7 +369,7 @@
 <li>Manual-CoT 比 Zero-Shot-CoT 的性能要好，因为它采用的是 few shot ，在输入中提供了一些问题、中间推理步骤以及答案的样例给语言模型进行参考。但是，提供这些样例需要进行人工设计，这就需要一定的人工成本</li>
 </ul>
 <p><img src="zeroshot.png" alt="zeroshot"></p>
-<h4><span id="auto-cot">Auto-CoT</span><a href="#auto-cot" class="header-anchor">#</a></h4>
+<h4 id="Auto-CoT">Auto-CoT</h4>
 <p>采样多个问题，每个问题提示Let’s think step by step，让模型给出答案。然后拼接所有生成的Q&amp;A并给出最终问题，并提示Let’s think step by step。</p>
 <ul>
 <li>文献：Automatic Chain of thought Prompting in Large Language Models（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03493">https://arxiv.org/abs/2210.03493</a> ）</li>

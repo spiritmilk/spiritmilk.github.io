@@ -325,13 +325,13 @@
 <p>Team AGA等人使用该方法同autogluon结合，获得了<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s4e8/discussion/524752">TPS S4E8 automl比赛</a>的第二名</p>
 <span id="more"></span>
 <hr>
-<h2><span id="dong-ji">动机</span><a href="#dong-ji" class="header-anchor">#</a></h2>
-<p><img src="motivation.png" alt></p>
+<h2 id="动机">动机</h2>
+<p><img src="motivation.png" alt=""></p>
 <p>上下文信息可以极大地简化任务。在左侧，图中没有添加任何上下文信息，并且很难预测绿色查询点的标签。在右侧添加了上下文信息，并派生出有用的附加特征（周末或工作日），从中可以找到从特征到目标的映射。</p>
-<h2><span id="fang-fa">方法</span><a href="#fang-fa" class="header-anchor">#</a></h2>
-<p><img src="fig4.png" alt></p>
+<h2 id="方法">方法</h2>
+<p><img src="fig4.png" alt=""></p>
 <p>上图显示了CAAFE在Tic-Tac-Toe Endgame数据集上的示例运行。用户生成的输入以蓝色显示，ml分类器生成的数据以红色显示，LLM生成的代码以语法高亮显示。生成的代码包含每个生成的特性的注释，该注释遵循我们提示中提供的模板(特性名称、有用性描述、生成代码中使用的特性以及这些特性的样例值)。在这次运行中，CAAFE在两次特征工程迭代中将验证数据集上的ROC AUC从0.888提高到1.0。</p>
-<p><img src="full.png" alt></p>
+<p><img src="full.png" alt=""></p>
 <p>上图显示了CMC dataset的完整prompt。</p>
 
                 

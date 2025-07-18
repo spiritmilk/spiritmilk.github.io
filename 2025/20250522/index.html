@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          165 字
+          163 字
         
       </span>
     
@@ -325,22 +325,22 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>算是adapter的改进。5%&gt;100%指的是微调（参数只有5%）大于全量。</p>
 <span id="more"></span>
-<h2><span id="adapter-lei-jia-gou">adapter类架构</span><a href="#adapter-lei-jia-gou" class="header-anchor">#</a></h2>
+<h2 id="adapter类架构">adapter类架构</h2>
 <p>adapter：用于NLP</p>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1902.00751">https://arxiv.org/abs/1902.00751</a></p>
-<p><img src="adapter.png" alt></p>
-<p><img src="adapter1.png" alt></p>
+<p><img src="adapter.png" alt=""></p>
+<p><img src="adapter1.png" alt=""></p>
 <p>adaptformer：用于CV</p>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.13535">https://arxiv.org/abs/2205.13535</a></p>
-<p><img src="adaptformer.png" alt></p>
-<p><img src="adaptformer1.png" alt></p>
-<h2><span id="lun-wen-jia-gou">论文架构</span><a href="#lun-wen-jia-gou" class="header-anchor">#</a></h2>
-<p><img src="arch.png" alt></p>
+<p><img src="adaptformer.png" alt=""></p>
+<p><img src="adaptformer1.png" alt=""></p>
+<h2 id="论文架构">论文架构</h2>
+<p><img src="arch.png" alt=""></p>
 <p>典型的线性adapter在应用于视觉任务时会遇到两个问题。首先，固定层参数无法微调以匹配新任务的分布，导致传递给adapter的特征分布存在偏差。</p>
 <p>作者使 Mona 能够调整输入分布以及来自固定层的输入比例。具体来说，作者在 Mona 的顶部添加了一个范数层和两个可学习权重，以调整输入分布。</p>
-<h2><span id="jie-guo">结果</span><a href="#jie-guo" class="header-anchor">#</a></h2>
-<p><img src="miou.png" alt></p>
-<p><img src="res.png" alt></p>
+<h2 id="结果">结果</h2>
+<p><img src="miou.png" alt=""></p>
+<p><img src="res.png" alt=""></p>
 
                 
               </div>

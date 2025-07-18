@@ -325,23 +325,23 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>arxiv，《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2506.11611">KCES: Training-Free Defense for Robust Graph Neural Networks via Kernel Complexity</a>》</p>
 <span id="more"></span>
-<h2><span id="suan-fa">算法</span><a href="#suan-fa" class="header-anchor">#</a></h2>
-<p><img src="1.jpg" alt></p>
-<p><img src="2.jpg" alt></p>
-<p><img src="3.jpg" alt></p>
+<h2 id="算法">算法</h2>
+<p><img src="1.jpg" alt=""></p>
+<p><img src="2.jpg" alt=""></p>
+<p><img src="3.jpg" alt=""></p>
 <p>（没有找到附录。）</p>
 <p>然后有：</p>
-<p><img src="4.jpg" alt></p>
+<p><img src="4.jpg" alt=""></p>
 <p>我们可以可以移除具有较高 KC 得分的边，以确保图神经网络（GNN）的性能。</p>
 <p>最终伪代码为：</p>
-<p><img src="5.jpg" alt></p>
-<h2><span id="shi-yan">实验</span><a href="#shi-yan" class="header-anchor">#</a></h2>
-<p><img src="6.jpg" alt></p>
+<p><img src="5.jpg" alt=""></p>
+<h2 id="实验">实验</h2>
+<p><img src="6.jpg" alt=""></p>
 <p>并和RGCN、ProGNN、GNN-SVD 、GNN-Jaccard、GNNGuard 相比都是SOTA。</p>
 <blockquote>
 <p>模型有点太老了。</p>
 </blockquote>
-<h2><span id="que-dian">缺点</span><a href="#que-dian" class="header-anchor">#</a></h2>
+<h2 id="缺点">缺点</h2>
 <p>首先，它主要关注结构扰动，意味着它本身并不针对结点特征的对抗攻击。</p>
 <p>其次，作为一种边净化技术，KCES 不直接适用于本质上以边为中心的基于图形的任务。</p>
 <p>第三，尽管其实现与模型无关，但KCES 的理论基础依赖于 GNN 特有的假设。故只能用于GNN。</p>
