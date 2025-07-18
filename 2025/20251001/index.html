@@ -48,8 +48,10 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/opie.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/deepfool.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/deepfool1.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/etu1.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/etu.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-18T08:26:15.307Z">
+<meta property="article:modified_time" content="2025-07-18T08:54:26.048Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -297,7 +299,7 @@
         
         
         
-          41 分钟
+          42 分钟
         
       </span>
     
@@ -613,14 +615,17 @@ $$<br>
 有效通用攻击所面临的关键挑战，为未来该领域的研究奠定了基石。</li>
 <li>设计了一种新颖高效且可迁移的通用对抗扰动（UAP）生成方法，该方法通过综合考虑多模态交互，提升了 UAP 的实用性和迁移能力。提出了一种新颖的局部 UAP 强化技术和 ScMix数据增强方法，以增强对抗攻击的有效性和可迁移性。</li>
 </ul>
-<p>目标：<br>
+<p><strong>目标：</strong><br>
 $$<br>
 \arg\max _ {\delta} \mathcal{L}_1 = \sum _ {i=1}^{n} \left( \ell(f_x(x_i + \delta), f_x(x_i)) + \ell(f_x(x_i + \delta), f_t(t_i)) \right)<br>
 $$<br>
-局部加强：<br>
+并进行数据增强：</p>
+<p>记$\mathcal{A}$为随机裁剪子区域并将其调整至与原始图像相同的尺寸。<br>
 $$<br>
 \arg\max _ {\delta} \mathcal{L}_2 = \sum _ {i=1}^{n} \left( \ell(f_x(x_i + \mathcal{A}_s(\delta)), f_x(x_i)) + \ell(f_x(x_i + \mathcal{A}_s(\delta)), f_t(t_i)) \right)<br>
 $$</p>
+<p><img src="etu1.jpg" alt=""></p>
+<p><img src="etu.jpg" alt=""></p>
 <h2 id="对抗防御">对抗防御</h2>
 <h3 id="PromptTuning">PromptTuning</h3>
 <h4 id="ICCV-2023-Workshop-Defense-prefix-for-preventing-typographic-attacks-on-clip">(ICCV 2023 Workshop)Defense-prefix for preventing typographic attacks on clip</h4>
