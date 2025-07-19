@@ -67,8 +67,9 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/uzsar2.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/MMCOA.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/teaser0.png">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/fare.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-19T05:02:54.883Z">
+<meta property="article:modified_time" content="2025-07-19T05:39:44.470Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -766,6 +767,12 @@ $$</p>
 <p>损失函数和TeCoA基本一致，不过是改为了两套结构，交叉计算（见上图的圆圈箭头）。</p>
 <h4 id="ICML-2024-Oral-PMLR-2024-Robust-CLIP-Unsupervised-adversarial-fine-tuning-of-vision-embeddings-for-robust-large-vision-language-models">(ICML 2024 Oral/ PMLR 2024)Robust CLIP: Unsupervised adversarial fine-tuning of vision embeddings for robust large vision-language models</h4>
 <p><img src="teaser0.png" alt=""></p>
+<p>把TeCoA的交叉熵改为L2。</p>
+<p><img src="fare.jpg" alt=""></p>
+<p>TeCoA:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> -<span class="hljs-keyword">m</span> train.adversarial_training_clip  --loss <span class="hljs-keyword">ce</span> --inner_loss <span class="hljs-keyword">ce</span> <br><br></code></pre></td></tr></table></figure>
+<p>FARE：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">python</span> -m train.adversarial_training_clip  --loss l<span class="hljs-number">2</span> --inner_loss l<span class="hljs-number">2</span> <br><br></code></pre></td></tr></table></figure>
 <h3 id="AdversarialTraining-Two-stageTraining">AdversarialTraining-Two-stageTraining</h3>
 <h4 id="CVPR-2024-Revisiting-adversarial-training-at-scale">(CVPR 2024)Revisiting adversarial training at scale</h4>
 <h4 id="NeurIPS-2020-Spotlight-Large-scale-adversarial-training-for-vision-and-language-representation-learning">(NeurIPS 2020 Spotlight)Large-scale adversarial training for vision-and-language representation learning</h4>
