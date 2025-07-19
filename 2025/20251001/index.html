@@ -74,7 +74,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/advxl1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/villa.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-19T13:28:37.983Z">
+<meta property="article:modified_time" content="2025-07-19T14:36:52.832Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -311,7 +311,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.6k 字
+          6.8k 字
         
       </span>
     
@@ -322,7 +322,7 @@
         
         
         
-          56 分钟
+          57 分钟
         
       </span>
     
@@ -816,9 +816,9 @@ $$</p>
 <p><img src="advxl1.jpg" alt=""></p>
 <h4 id="NeurIPS-2020-Spotlight-Large-scale-adversarial-training-for-vision-and-language-representation-learning">(NeurIPS 2020 Spotlight)Large-scale adversarial training for vision-and-language representation learning</h4>
 <p>Villa 包含两个训练阶段：</p>
-<p>（i）任务无关的对抗预训练；<br>
-（ii）任务特定的对抗微调。</p>
+<h5 id="（i）任务无关的对抗预训练；">（i）任务无关的对抗预训练；</h5>
 <p>由于图像和文本模态的独特特性，作者建议一次仅对一个模态添加扰动。</p>
+<h5 id="（ii）任务特定的对抗微调。">（ii）任务特定的对抗微调。</h5>
 <p><strong>损失函数：</strong></p>
 <p>$L_{std}$为干净数据上的交叉熵损失。</p>
 <p>$R_{at}$为保留标签的对抗训练损失。<br>
@@ -826,9 +826,12 @@ $$<br>
 R_{at}(\theta)=\max_{||\delta_{img}||\le \epsilon}L(f_\theta(x_{img}+\delta_{img},x_{txt}),y)+\max_{||\delta_{text}||\le \epsilon}L(f_\theta(x_{img},x_{txt}+\delta_{txt}),y)<br>
 $$<br>
 其中L是交叉熵。范数是Frobenius 范数。</p>
-<p>所以PGD的投影不同于前面的$L^{\infty}$范数，而是球面投影。</p>
+<p>所以PGD的投影不同于常用的$L^{\infty}$范数，而是球面投影。</p>
 <p>$R_{kl}$是一个更细粒度的对抗正则化项。</p>
 <p>其实就是把前面的交叉熵换成KL散度：$KL(p||q)+KL(q||p)$。</p>
+<p>另外，K 步 PGD 需要 K 次前向-后向传播，这在计算上是繁重的。</p>
+<p>在 K 步之后，只有最后一步的扰动被用于模型训练。为了实现大规模训练的对抗训练并促进多样化的对抗样本，作者在每个小批次中只loss.backward()，不更新模型，而是等处理了 <code>gradient_accumulation_steps</code> （默认值为16）个小批次之后，再用它们累积起来的总梯度来更新一次模型。</p>
+<p>作者称之为，累积“免费”的参数梯度。</p>
 <p><img src="villa.jpg" alt=""></p>
 <h3 id="AdversarialDetection-One-shotDetection">AdversarialDetection One-shotDetection</h3>
 <h4 id="拒ICLR-2025-Mirrorcheck-Efficient-adversarial-defense-for-vision-language-models">(拒ICLR 2025)Mirrorcheck: Efficient adversarial defense for vision-language models</h4>
