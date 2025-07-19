@@ -75,7 +75,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/advxl2.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/villa.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-19T14:56:05.169Z">
+<meta property="article:modified_time" content="2025-07-19T14:59:50.949Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -312,7 +312,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.8k 字
+          6.9k 字
         
       </span>
     
@@ -323,7 +323,7 @@
         
         
         
-          57 分钟
+          58 分钟
         
       </span>
     
@@ -815,8 +815,15 @@ $$</p>
 <p><strong>训练代码未公开。</strong></p>
 <p>在可承受的计算成本下，利用巨型模型和网络规模数据进行对抗训练成为可能。将这一新引入的框架命名为 AdvXL。</p>
 <p>在模型缩放方面，将模型参数从之前最大的 200M 大小增加到 1B；在数据缩放方面，我们在从包含约 1M 图像的中等规模ImageNet-1K 到包含超过 1B 图像的网络规模数据集上对模型进行对抗训练。为了使对抗训练的缩放计算上可行，引入了一种高效的方法，采用简单的两阶段训练计划，即首先进行轻量级预训练，然后进行密集微调。</p>
+<h5 id="预训练阶段">预训练阶段</h5>
+<p>模型以较短的 token 长度和较弱的攻击进行训练，持续时间相对较长。</p>
+<p>使用了三种图像token缩减策略。随机掩码、块掩码、图像缩放。</p>
 <p><img src="advxl.jpg" alt=""></p>
+<p>应用少量 PGD 步骤，PGD-1。</p>
+<h5 id="密集微调">密集微调</h5>
+<p>以全分辨率和更强的攻击进行训练，时间安排相对较短。</p>
 <p><img src="advxl1.jpg" alt=""></p>
+<p>相比预训练阶段，使用更多的PGD步骤，如PGD-3。</p>
 <h5 id="实验">实验</h5>
 <p>仅训练为L∞鲁棒，在L2、L1也能表现良好。</p>
 <p><img src="advxl2.jpg" alt=""></p>
