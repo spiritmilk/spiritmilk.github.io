@@ -23025,6 +23025,18 @@ $</p>
 <p><img src="5.jpg" alt=""></p>
 <p>其中参考了<a href="https://arxiv.org/abs/2103.17239">《Going deeper with Image Transformers》</a>中的LayerScale。</p>
 <p><img src="6.png" alt=""></p>
+<p>最终LFF可以表示为<br>
+$$<br>
+\begin{align}<br>
+F_i=Linear(C_i,C)(F_i),i&amp;=1…4\quad;F_i=Upsample()(F_i),i=5,6<br>
+\\<br>
+M_p&amp;=ADD(F_i\times\gamma)<br>
+\\<br>
+M_p&amp;=Linear(C,1)(M_p)<br>
+\\<br>
+M_p&amp;=Upsample()(M_p)<br>
+\end{align}<br>
+$$</p>
 <h2 id="参考资料">参考资料</h2>
 <p><a href="https://github.com/scu-zjz/SparseViT">https://github.com/scu-zjz/SparseViT</a></p>
 ]]></content>
