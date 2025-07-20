@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2024/20240520/GIB2.png">
 <meta property="og:image" content="https://lijianxiong.work/2024/20240520/GIB3.png">
 <meta property="article:published_time" content="2024-05-20T12:59:56.000Z">
-<meta property="article:modified_time" content="2025-05-18T03:04:21.446Z">
+<meta property="article:modified_time" content="2025-07-20T15:12:51.235Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -482,19 +482,19 @@ $$</p>
 <p>作者提出了GIB-cat和GIB-Bern分别对应不同的边分布。</p>
 <p>GIB-cat假设：<br>
 $$<br>
-Z_{A, v}=\cup_{t=1}^{\mathcal{T}}\left{u \in V_{v t} \mid u \stackrel{\text { iid }}{\sim} \operatorname{Cat}\left(\frac{1}{\left|V_{v t}\right|}\right)\right}<br>
+Z _ {A, v}=\cup _ {t=1}^{\mathcal{T}}\left{u \in V _ {v t} \mid u \stackrel{\text { iid }}{\sim} \operatorname{Cat}\left(\frac{1}{\left|V _ {v t}\right|}\right)\right}<br>
 $$<br>
 GIB-Bern假设：<br>
 $$<br>
-Z_{A, v}=\cup_{t=1}^{\mathcal{T}}\left{u \in V_{v t} \mid u \stackrel{\text { iid }}{\sim}Bernoulli(\alpha)\right}<br>
+Z _ {A, v}=\cup _ {t=1}^{\mathcal{T}}\left{u \in V _ {v t} \mid u \stackrel{\text { iid }}{\sim}Bernoulli(\alpha)\right}<br>
 $$<br>
 AIB的经验估计为：<br>
 $$<br>
-\widehat{\mathrm{AIB}}^{(l)}=\mathbb{E}<em>{\mathbb{P}\left(Z</em>{A}^{(l)} \mid A, Z_{X}^{(l-1)}\right)}\left[\log \frac{\mathbb{P}\left(Z_{A}^{(l)} \mid A, Z_{X}^{(l-1)}\right)}{\mathbb{Q}\left(Z_{A}^{(l)}\right)}\right]<br>
+\widehat{\mathrm{AIB}}^{(l)}=\mathbb{E} _ {\mathbb{P}\left(Z _ {A}^{(l)} \mid A, Z _ {X}^{(l-1)}\right)}\left[\log \frac{\mathbb{P}\left(Z _ {A}^{(l)} \mid A, Z _ {X}^{(l-1)}\right)}{\mathbb{Q}\left(Z _ {A}^{(l)}\right)}\right]<br>
 $$<br>
-对于XIB，假设$Z_{X, v} \sim \sum_{i=1}^{m} w_{i} \operatorname{Gaussian}\left(\mu_{0, i}, \sigma_{0, i}^{2}\right)$，则<br>
+对于XIB，假设$Z _ {X, v} \sim \sum _ {i=1}^{m} w _ {i} \operatorname{Gaussian}\left(\mu _ {0, i}, \sigma _ {0, i}^{2}\right)$，则<br>
 $$<br>
-\widehat{\mathrm{XIB}}^{(l)}=\log \frac{\mathbb{P}\left(Z_{X}^{(l)} \mid Z_{X}^{(l-1)}, Z_{A}^{(l)}\right)}{\mathbb{Q}\left(Z_{X}^{(l)}\right)}=\sum_{v \in V}\left[\log \Phi\left(Z_{X, v}^{(l)} ; \mu_{v}, \sigma_{v}^{2}\right)-\log \left(\sum_{i=1}^{m} w_{i} \Phi\left(Z_{X, v}^{(l)} ; \mu_{0, i}, \sigma_{0, i}^{2}\right)\right)\right]<br>
+\widehat{\mathrm{XIB}}^{(l)}=\log \frac{\mathbb{P}\left(Z _ {X}^{(l)} \mid Z _ {X}^{(l-1)}, Z _ {A}^{(l)}\right)}{\mathbb{Q}\left(Z _ {X}^{(l)}\right)}=\sum _ {v \in V}\left[\log \Phi\left(Z _ {X, v}^{(l)} ; \mu _ {v}, \sigma _ {v}^{2}\right)-\log \left(\sum _ {i=1}^{m} w _ {i} \Phi\left(Z _ {X, v}^{(l)} ; \mu _ {0, i}, \sigma _ {0, i}^{2}\right)\right)\right]<br>
 $$</p>
 <h3 id="代码">代码</h3>
 <p><img src="GIB1.png" alt=""></p>
