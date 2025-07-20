@@ -17316,7 +17316,7 @@ $$<br>
 I\left(Y ; Z _ {X}^{(L)}\right) \geq 1+\mathbb{E}\left[\log \frac{\prod _ {v \in V} \mathbb{Q} _ {1}\left(Y _ {v} \mid Z _ {X, v}^{(L)}\right)}{\mathbb{Q} _ {2}(Y)}\right]+\mathbb{E} _ {\mathbb{P}(Y) \mathbb{P}\left(Z _ {X}^{(L)}\right)}\left[\frac{\prod _ {v \in V} \mathbb{Q} _ {1}\left(Y _ {v} \mid Z _ {X, v}^{(L)}\right)}{\mathbb{Q} _ {2}(Y)}\right]<br>
 $$</p>
 <p>$$<br>
-I\left(\mathcal{D} ; Z _ {X}^{(L)}\right) \leq I\left(\mathcal{D} ;\left{Z _ {X}^{(l)}\right} _ {l \in S _ {X}} \cup\left{Z _ {A}^{(l)}\right} _ {l \in S _ {A}}\right) \leq \sum _ {l \in S _ {A}} \mathrm{AIB}^{(l)}+\sum _ {l \in S _ {X}} \mathrm{XIB}^{(l)},<br>
+I\left(\mathcal{D} ; Z _ {X}^{(L)}\right) \leq I\left(\mathcal{D} ;\left\{Z _ {X}^{(l)}\right\} _ {l \in S _ {X}} \cup\left\{Z _ {A}^{(l)}\right\} _ {l \in S _ {A}}\right) \leq \sum _ {l \in S _ {A}} \mathrm{AIB}^{(l)}+\sum _ {l \in S _ {X}} \mathrm{XIB}^{(l)},<br>
 $$</p>
 <p>其中<br>
 $$<br>
@@ -17325,11 +17325,11 @@ $$</p>
 <p>作者提出了GIB-cat和GIB-Bern分别对应不同的边分布。</p>
 <p>GIB-cat假设：<br>
 $$<br>
-Z _ {A, v}=\cup _ {t=1}^{\mathcal{T}}\left{u \in V _ {v t} \mid u \stackrel{\text { iid }}{\sim} \operatorname{Cat}\left(\frac{1}{\left|V _ {v t}\right|}\right)\right}<br>
+Z _ {A, v}=\cup _ {t=1}^{\mathcal{T}}\left\{u \in V _ {v t} \mid u \stackrel{\text { iid }}{\sim} \operatorname{Cat}\left(\frac{1}{\left|V _ {v t}\right|}\right)\right\}<br>
 $$<br>
 GIB-Bern假设：<br>
 $$<br>
-Z _ {A, v}=\cup _ {t=1}^{\mathcal{T}}\left{u \in V _ {v t} \mid u \stackrel{\text { iid }}{\sim}Bernoulli(\alpha)\right}<br>
+Z _ {A, v}=\cup _ {t=1}^{\mathcal{T}}\left\{u \in V _ {v t} \mid u \stackrel{\text { iid }}{\sim}Bernoulli(\alpha)\right\}<br>
 $$<br>
 AIB的经验估计为：<br>
 $$<br>
