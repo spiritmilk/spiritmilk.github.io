@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/ssl2.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/ssl4.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-21T15:06:33.987Z">
+<meta property="article:modified_time" content="2025-07-21T15:07:33.224Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -1025,8 +1025,7 @@ $$</p>
 <p>另外，对于<strong>零样本预测场景</strong>，零样本分类器直接计算图像嵌入与每个候选标题文本嵌入之间的相似度，并选择与输入图像嵌入最相似的标题。在此场景中，显然现有的后门扫描器不适用。故需要一种能够在嵌入空间中处理攻击的后门检测方法</p>
 <h5 id="motivation-2">motivation</h5>
 <p><img src="ssl2.jpg" alt=""></p>
-<p><strong>观察一</strong>：尽管 SSL 在预训练过程中不需要标签，但通<br>
-过训练后的编码器，相同标签的样本的嵌入倾向于聚集在一起，而不同标签的样本则倾向于分散。</p>
+<p><strong>观察一</strong>：尽管 SSL 在预训练过程中不需要标签，但通过训练后的编码器，相同标签的样本的嵌入倾向于聚集在一起，而不同标签的样本则倾向于分散。</p>
 <p><strong>观察二</strong>：被植入后门的编码器会为带有触发器的样本生成高度相似的嵌入，而干净的编码器则不会。</p>
 <p><strong>观察三</strong>：与干净的编码器相比，被植入后门的编码器需要更小的扰动就能使样本落入稠密区域。</p>
 <p><strong>直觉</strong>：稠密区域即为攻击目标所在之处。故模型设计旨在判断编码器的嵌入空间中是否存在一个中心稠密区域（被干净样本的嵌入所包围）。直观上，带有中心稠密区域的后门编码器只需施加微小扰动即可将干净样本推向该稠密区域。而干净的编码器则不具备这样的稠密区域，这意味着通过在样本上添加小触发器无法轻易实现嵌入间的高相似度。因此，我们的技术在编码器层面检测后门，无需依赖目标标签。</p>
