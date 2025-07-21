@@ -21,12 +21,12 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="视觉-语言预训练模型(VLP安全) 共30&#x2F;41篇论文。">
+    <meta name="description" content="视觉-语言预训练模型(VLP安全) 共33&#x2F;41篇论文。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多模态攻击与防御速览">
 <meta property="og:url" content="https://lijianxiong.work/2025/20251001/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="视觉-语言预训练模型(VLP安全) 共30&#x2F;41篇论文。">
+<meta property="og:description" content="视觉-语言预训练模型(VLP安全) 共33&#x2F;41篇论文。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/bertattack.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/tvlp.jpg">
@@ -87,9 +87,10 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/badclip.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/cleanclip.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip2.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip1.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-21T13:41:36.287Z">
+<meta property="article:modified_time" content="2025-07-21T13:53:56.675Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -326,7 +327,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.7k 字
+          8.8k 字
         
       </span>
     
@@ -337,7 +338,7 @@
         
         
         
-          73 分钟
+          74 分钟
         
       </span>
     
@@ -380,7 +381,7 @@
               <div class="markdown-body">
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>视觉-语言预训练模型(VLP安全)</p>
-<p>共30/41篇论文。</p>
+<p>共33/41篇论文。</p>
 <span id="more"></span>
 <p><strong>目录</strong></p>
 <p>[TOC]</p>
@@ -939,17 +940,17 @@ $$<br>
 \max _ {D_p} [S_C(f_o, f_e; \theta _ {DUD_p}) + \lambda \cdot S_C(f_o, f _ {cls}; \theta _ {DUD_p})]<br>
 $$</p>
 <p>其中 $S_C(\cdot, \cdot)$ 表示两个特征向量之间的余弦相似度，$\theta _ {DUD_p}$ 是 (被后门攻击的) 编码器在污染训练数据集上预训练的权重。$f_o$、$f_e$ 和 $f _ {cls}$ 分别表示参考对象 $o$、触发器 $e$ 和目标类的簇中心的特征向量。</p>
-<h4 id="CVPR-2024-Badclip-Dual-embedding-guided-backdoor-attack-on-multimodal-contrastive-learning">(CVPR 2024)Badclip: Dual-embedding guided backdoor attack on multimodal contrastive learning</h4>
+<h4 id="未-CVPR-2024-Badclip-Dual-embedding-guided-backdoor-attack-on-multimodal-contrastive-learning">未(CVPR 2024)Badclip: Dual-embedding guided backdoor attack on multimodal contrastive learning</h4>
 <p>从贝叶斯规则的角度出发，提出了一个双嵌入引导的后门攻击框架。具体而言，确保视觉触发模式在嵌入空间中逼近文本目标语义，使得由后门学习引起的细微参数变化难以被检测。</p>
 <p>此外，优化视觉触发模式，使中毒样本与目标视觉特征对齐，从而阻碍通过干净微调进行的后门遗忘。</p>
 <p><img src="bad1.jpg" alt=""></p>
 <h3 id="Multi-modal-Trigger">Multi-modal Trigger</h3>
-<h4 id="CVPR-2024spotlight-Badclip-Trigger-aware-prompt-learning-for-backdoor-attacks-on-clip">(CVPR 2024spotlight)Badclip: Trigger aware prompt learning for backdoor attacks on clip</h4>
+<h4 id="未-CVPR-2024spotlight-Badclip-Trigger-aware-prompt-learning-for-backdoor-attacks-on-clip">未(CVPR 2024spotlight)Badclip: Trigger aware prompt learning for backdoor attacks on clip</h4>
 <p>首个通过提示学习研究CLIP 后门攻击的团队</p>
 <p><img src="badclip.jpg" alt=""></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/jiawangbai/BadCLIP">https://github.com/jiawangbai/BadCLIP</a></p>
 <h3 id="Multi-modal-Poisoning">Multi-modal Poisoning</h3>
-<h4 id="ICML-2023-拒ICLR-2023-Data-poisoning-attacks-against-multimodal-encoders">(ICML 2023/拒ICLR 2023)Data poisoning attacks against multimodal encoders</h4>
+<h4 id="未-ICML-2023-拒ICLR-2023-Data-poisoning-attacks-against-multimodal-encoders">未(ICML 2023/拒ICLR 2023)Data poisoning attacks against multimodal encoders</h4>
 <h5 id="拒稿理由-3">拒稿理由</h5>
 <p><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=7qSpaOSbRVO">https://openreview.net/forum?id=7qSpaOSbRVO</a></p>
 <h2 id="后门-投毒防御">后门&amp;投毒防御</h2>
@@ -972,15 +973,23 @@ $$</p>
 <h3 id="Robust-Training-Pre-training">Robust Training Pre-training</h3>
 <h4 id="NeurIPS-2023-Robust-contrastive-language-image-pretraining-against-data-poisoning-and-backdoor-attacks">(NeurIPS 2023)Robust contrastive language-image pretraining against data poisoning and backdoor attacks</h4>
 <p><img src="roclip.jpg" alt=""></p>
+<h5 id="标准CLIP："><strong>标准CLIP：</strong></h5>
+<p>$$<br>
+\mathcal{L}<em>{\text{CLIP}} = -\frac{1}{2N} \sum</em>{j=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_j^I, \mathbf{z}<em>j^T \rangle / \tau)}{\sum</em>{k=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}<em>k^T \rangle / \tau)} \right] - \frac{1}{2N} \sum</em>{k=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_k^I, \mathbf{z}<em>k^T \rangle / \tau)}{\sum</em>{j=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}_k^T \rangle / \tau)} \right]<br>
+$$</p>
+<h5 id="RoCLIP："><strong>RoCLIP</strong>：</h5>
+<p>被投毒样本的图像-描述对与数据中的其他干净样本并不相似。因此，它们的梯度与干净样本的梯度无法良好对齐。</p>
+<p><img src="roclip2.jpg" alt=""></p>
+<h5 id="整体流程">整体流程</h5>
 <p><img src="roclip1.jpg" alt=""></p>
 <h3 id="Backdoor-Detection-Backdoor-Model-Detection">Backdoor Detection Backdoor Model Detection</h3>
-<h4 id="CVPR-2023-Detecting-backdoors-in-pre-trained-encoders">(CVPR 2023)Detecting backdoors in pre-trained encoders</h4>
+<h4 id="未-CVPR-2023-Detecting-backdoors-in-pre-trained-encoders">未(CVPR 2023)Detecting backdoors in pre-trained encoders</h4>
 <h3 id="Backdoor-Detection-Trigger-Inversion">Backdoor Detection Trigger Inversion</h3>
-<h4 id="ICCV-2023-Tijo-Trigger-inversion-with-joint-optimization-for-defending-multimodal-backdoored-models">(ICCV 2023)Tijo: Trigger inversion with joint optimization for defending multimodal backdoored models</h4>
-<h4 id="USENIX-Security-2024-Mudjacking-Patching-backdoor-vulnerabilities-in-foundation-models">(USENIX Security 2024)Mudjacking: Patching backdoor vulnerabilities in foundation models</h4>
+<h4 id="未-ICCV-2023-Tijo-Trigger-inversion-with-joint-optimization-for-defending-multimodal-backdoored-models">未(ICCV 2023)Tijo: Trigger inversion with joint optimization for defending multimodal backdoored models</h4>
+<h4 id="未-USENIX-Security-2024-Mudjacking-Patching-backdoor-vulnerabilities-in-foundation-models">未(USENIX Security 2024)Mudjacking: Patching backdoor vulnerabilities in foundation models</h4>
 <h3 id="Backdoor-Detection-Backdoor-Sample-Detection">Backdoor Detection Backdoor Sample Detection</h3>
-<h4 id="AAAI-2024-Seer-Backdoor-detection-for-vision-language-models-through-searching-target-text-and-image-trigger-jointly">(AAAI 2024)Seer: Backdoor detection for vision-language models through searching target text and image trigger jointly</h4>
-<h4 id="ICLR-2025-Detecting-backdoor-samples-in-contrastive-language-image-pretraining">(ICLR 2025)Detecting backdoor samples in contrastive language image pretraining</h4>
+<h4 id="未-AAAI-2024-Seer-Backdoor-detection-for-vision-language-models-through-searching-target-text-and-image-trigger-jointly">未(AAAI 2024)Seer: Backdoor detection for vision-language models through searching target text and image trigger jointly</h4>
+<h4 id="未-ICLR-2025-Detecting-backdoor-samples-in-contrastive-language-image-pretraining">未(ICLR 2025)Detecting backdoor samples in contrastive language image pretraining</h4>
 <h2 id="参考资料">参考资料</h2>
 <ol>
 <li>Safety at Scale: A Comprehensive Survey of Large Model Safety</li>
