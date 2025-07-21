@@ -85,10 +85,11 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/algo2.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/bad1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/badclip.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/cleanclip.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip1.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-21T02:41:16.625Z">
+<meta property="article:modified_time" content="2025-07-21T13:13:39.395Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -325,7 +326,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.4k 字
+          8.5k 字
         
       </span>
     
@@ -336,7 +337,7 @@
         
         
         
-          70 分钟
+          71 分钟
         
       </span>
     
@@ -792,19 +793,19 @@ $$</p>
 <p>将对抗样本输入到目标模型和 原始预训练模型中，得到adv和ori-adv。<br>
 $$<br>
 \begin{align}<br>
-P_{adv}&amp;=softmax(I_{adv}\cdot T^T)<br>
+P _ {adv}&amp;=softmax(I _ {adv}\cdot T^T)<br>
 \\<br>
-P_{ori-adv}&amp;=softmax(I_{ori-adv}\cdot T^T)<br>
+P _ {ori-adv}&amp;=softmax(I _ {ori-adv}\cdot T^T)<br>
 \\<br>
-L_{general}&amp;=\frac{1}{N}\sum D_{KL}(P_{adv_j}||P_{ori-adv_j})<br>
+L _ {general}&amp;=\frac{1}{N}\sum D _ {KL}(P _ {adv_j}||P _ {ori-adv_j})<br>
 \end{align}<br>
 $$<br>
 <strong>正则化损失：</strong><br>
 $$<br>
 \begin{align}<br>
-P_{clean}&amp;=softmax(I\cdot T^T)<br>
+P _ {clean}&amp;=softmax(I\cdot T^T)<br>
 \\<br>
-L_{clean}&amp;=\frac{1}{N}\sum D_{KL}(P_{adv_j}||P_{clean_j})<br>
+L _ {clean}&amp;=\frac{1}{N}\sum D _ {KL}(P _ {adv_j}||P _ {clean_j})<br>
 \end{align}<br>
 $$</p>
 <h4 id="CoRR-2024-Revisiting-the-adversarial-robustness-of-vision-language-models-a-multimodal-perspective">(CoRR 2024)Revisiting the adversarial robustness of vision language models: a multimodal perspective</h4>
@@ -854,14 +855,14 @@ $$</p>
 <p>由于图像和文本模态的独特特性，作者建议一次仅对一个模态添加扰动。</p>
 <h5 id="（ii）任务特定的对抗微调。">（ii）任务特定的对抗微调。</h5>
 <p><strong>损失函数：</strong></p>
-<p>$L_{std}$为干净数据上的交叉熵损失。</p>
-<p>$R_{at}$为保留标签的对抗训练损失。<br>
+<p>$L _ {std}$为干净数据上的交叉熵损失。</p>
+<p>$R _ {at}$为保留标签的对抗训练损失。<br>
 $$<br>
-R_{at}(\theta)=\max_{||\delta_{img}||\le \epsilon}L(f_\theta(x_{img}+\delta_{img},x_{txt}),y)+\max_{||\delta_{text}||\le \epsilon}L(f_\theta(x_{img},x_{txt}+\delta_{txt}),y)<br>
+R _ {at}(\theta)=\max _ {||\delta _ {img}||\le \epsilon}L(f_\theta(x _ {img}+\delta _ {img},x _ {txt}),y)+\max _ {||\delta _ {text}||\le \epsilon}L(f_\theta(x _ {img},x _ {txt}+\delta _ {txt}),y)<br>
 $$<br>
 其中L是交叉熵。范数是Frobenius 范数。</p>
 <p>所以PGD的投影不同于常用的$L^{\infty}$范数，而是球面投影。</p>
-<p>$R_{kl}$是一个更细粒度的对抗正则化项。</p>
+<p>$R _ {kl}$是一个更细粒度的对抗正则化项。</p>
 <p>其实就是把前面的交叉熵换成KL散度：$KL(p||q)+KL(q||p)$。</p>
 <p>另外，K 步 PGD 需要 K 次前向-后向传播，这在计算上是繁重的。</p>
 <p>在 K 步之后，只有最后一步的扰动被用于模型训练。为了实现大规模训练的对抗训练并促进多样化的对抗样本，作者在每个小批次中只loss.backward()，不更新模型，而是等处理了 <code>gradient_accumulation_steps</code> （默认值为16）个小批次之后，再用它们累积起来的总梯度来更新一次模型。</p>
@@ -912,21 +913,18 @@ $$<br>
 <p><img src="badencoder.jpg" alt=""></p>
 <p>干净的预训练图像编码器和后门编码器分别表示为 f 和 f ′。</p>
 <p><strong>有效性损失：</strong></p>
-<p>$$L_0 = - \frac{\sum_{i=1}^t \sum_{j=1}^{r_i} \sum_{x \in D_s} s(f’(x \oplus e_i), f’(x_{ij}))}{|D_s| \cdot \sum_{i=1}^t r_i}$$</p>
-<p>$$L_1 = - \frac{\sum_{i=1}^t \sum_{j=1}^{r_i} s(f’(x_{ij}), f(x_{ij}))}{\sum_{i=1}^t r_i}$$</p>
+<p>$$L_0 = - \frac{\sum _ {i=1}^t \sum _ {j=1}^{r_i} \sum _ {x \in D_s} s(f’(x \oplus e_i), f’(x _ {ij}))}{|D_s| \cdot \sum _ {i=1}^t r_i}$$</p>
+<p>$$L_1 = - \frac{\sum _ {i=1}^t \sum _ {j=1}^{r_i} s(f’(x _ {ij}), f(x _ {ij}))}{\sum _ {i=1}^t r_i}$$</p>
 <p><strong>效用损失:</strong><br>
 $$<br>
-L_2=-\frac{1}{\mathcal{D} _ s}\sum_{x\in \mathcal{D} _ s}s(f’(x),f(x))<br>
+L_2=-\frac{1}{\mathcal{D} _ s}\sum _ {x\in \mathcal{D} _ s}s(f’(x),f(x))<br>
 $$<br>
 作者发现，使用简单且物理上可实现的触发器（例如，位于图像右下角的白色方阵）的BadEncoder 已经能够实现这两个目标。因此，为了简化，本文中不对触发器进行优化，并将此类联合优化留作未来工作。</p>
 <h4 id="CVPR-2024-Data-poisoning-based-backdoor-attacks-to-contrastive-learning">(CVPR 2024)Data poisoning based backdoor attacks to contrastive learning</h4>
 <p>CorruptEncoder</p>
 <p>通过利用随机裁剪机制制作中毒图像，因为这是 CL 成功的关键。若缺少随机裁剪，编码器的性能将大幅下降。</p>
 <h5 id="制作有毒数据集">制作有毒数据集</h5>
-<p>理论分析表明，为了最大化这一概率从而提升攻击效<br>
-果，1) 背景图像的大小应约为参考对象的两倍，2) 参<br>
-考对象应位于背景图像的角落，3) 触发器应位于背景<br>
-图像中除去参考对象后剩余部分的中心。</p>
+<p>理论分析表明，为了最大化这一概率从而提升攻击效果，1) 背景图像的大小应约为参考对象的两倍，2) 参考对象应位于背景图像的角落，3) 触发器应位于背景图像中除去参考对象后剩余部分的中心。</p>
 <p><img src="dpba.jpg" alt=""></p>
 <p><img src="dpba1.jpg" alt=""></p>
 <p>【待补充】这部分有数学证明。</p>
@@ -938,9 +936,9 @@ $$<br>
 <h5 id="CorruptEncoder">CorruptEncoder+</h5>
 <p>联合优化以下两个项：</p>
 <p>$$<br>
-\max_{D_p} [S_C(f_o, f_e; \theta_{DUD_p}) + \lambda \cdot S_C(f_o, f_{cls}; \theta_{DUD_p})]<br>
+\max _ {D_p} [S_C(f_o, f_e; \theta _ {DUD_p}) + \lambda \cdot S_C(f_o, f _ {cls}; \theta _ {DUD_p})]<br>
 $$</p>
-<p>其中 $S_C(\cdot, \cdot)$ 表示两个特征向量之间的余弦相似度，$\theta_{DUD_p}$ 是 (被后门攻击的) 编码器在污染训练数据集上预训练的权重。$f_o$、$f_e$ 和 $f_{cls}$ 分别表示参考对象 $o$、触发器 $e$ 和目标类的簇中心的特征向量。</p>
+<p>其中 $S_C(\cdot, \cdot)$ 表示两个特征向量之间的余弦相似度，$\theta _ {DUD_p}$ 是 (被后门攻击的) 编码器在污染训练数据集上预训练的权重。$f_o$、$f_e$ 和 $f _ {cls}$ 分别表示参考对象 $o$、触发器 $e$ 和目标类的簇中心的特征向量。</p>
 <h4 id="CVPR-2024-Badclip-Dual-embedding-guided-backdoor-attack-on-multimodal-contrastive-learning">(CVPR 2024)Badclip: Dual-embedding guided backdoor attack on multimodal contrastive learning</h4>
 <p>从贝叶斯规则的角度出发，提出了一个双嵌入引导的后门攻击框架。具体而言，确保视觉触发模式在嵌入空间中逼近文本目标语义，使得由后门学习引起的细微参数变化难以被检测。</p>
 <p>此外，优化视觉触发模式，使中毒样本与目标视觉特征对齐，从而阻碍通过干净微调进行的后门遗忘。</p>
@@ -957,6 +955,10 @@ $$</p>
 <h2 id="后门-投毒防御">后门&amp;投毒防御</h2>
 <h3 id="Backdoor-Removal-Fine-tuning">Backdoor Removal Fine-tuning</h3>
 <h4 id="ICCV-2023-Cleanclip-Mitigating-data-poisoning-attacks-in-multimodal-contrastive-learning">(ICCV 2023)Cleanclip: Mitigating data poisoning attacks in multimodal contrastive learning</h4>
+<p><img src="cleanclip.jpg" alt=""><br>
+$$<br>
+\mathcal{L} _ {\text{CLIP}} = -\frac{1}{2N} \left{ \sum _ {j=1}^{N} \log \frac{\exp(\langle I_j^e, T_j^e \rangle / \tau)}{\underbrace{\sum _ {k=1}^{N} \exp(\langle I_j^e, T_k^e \rangle / \tau)} _ {\text{Contrasting images with texts}}} + \sum _ {k=1}^{N} \log \frac{\exp(\langle I_k^e, T_k^e \rangle / \tau)}{\underbrace{\sum _ {j=1}^{N} \exp(\langle I_j^e, T_k^e \rangle / \tau)} _ {\text{Contrasting texts with images}}} \right}<br>
+$$</p>
 <h4 id="拒ICLR-2024-Better-safe-than-sorry-Pre-training-CLIP-against-targeted-data-poisoning-and-backdoor-attacks">(拒ICLR 2024)Better safe than sorry: Pre training CLIP against targeted data poisoning and backdoor attacks</h4>
 <h5 id="拒稿理由-4">拒稿理由</h5>
 <p><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=Ge0GEOvifh">https://openreview.net/forum?id=Ge0GEOvifh</a></p>
