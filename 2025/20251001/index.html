@@ -88,9 +88,10 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/cleanclip.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip2.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip3.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip1.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-21T13:53:56.675Z">
+<meta property="article:modified_time" content="2025-07-21T13:57:42.796Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -327,7 +328,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.8k 字
+          8.9k 字
         
       </span>
     
@@ -338,7 +339,7 @@
         
         
         
-          74 分钟
+          75 分钟
         
       </span>
     
@@ -978,8 +979,15 @@ $$</p>
 \mathcal{L}<em>{\text{CLIP}} = -\frac{1}{2N} \sum</em>{j=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_j^I, \mathbf{z}<em>j^T \rangle / \tau)}{\sum</em>{k=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}<em>k^T \rangle / \tau)} \right] - \frac{1}{2N} \sum</em>{k=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_k^I, \mathbf{z}<em>k^T \rangle / \tau)}{\sum</em>{j=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}_k^T \rangle / \tau)} \right]<br>
 $$</p>
 <h5 id="RoCLIP："><strong>RoCLIP</strong>：</h5>
+<h6 id="motivation">motivation</h6>
 <p>被投毒样本的图像-描述对与数据中的其他干净样本并不相似。因此，它们的梯度与干净样本的梯度无法良好对齐。</p>
 <p><img src="roclip2.jpg" alt=""></p>
+<h6 id="算法-8">算法</h6>
+<p>用两种技术来打破被投毒图像-描述对之间的关联：（1）一个庞大且不断变化的随机选择描述池；（2）对图像和描述同时进行增强。</p>
+<p><strong>描述池</strong>：</p>
+<p><img src="roclip3.jpg" alt=""></p>
+<p>选择相对较大的池大小，以便每个干净的图像都能找到与其原始标题相似的标题；(2) 每隔 K轮次使用我们的方法进行训练，在其他轮次中使用标准的 CLIP 损失进行训练。</p>
+<p>选择了 2% 的总数据集大小作为池大小。</p>
 <h5 id="整体流程">整体流程</h5>
 <p><img src="roclip1.jpg" alt=""></p>
 <h3 id="Backdoor-Detection-Backdoor-Model-Detection">Backdoor Detection Backdoor Model Detection</h3>
