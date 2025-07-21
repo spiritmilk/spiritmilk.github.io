@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip3.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip1.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-21T13:57:42.796Z">
+<meta property="article:modified_time" content="2025-07-21T14:03:09.602Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -328,7 +328,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.9k 字
+          9.4k 字
         
       </span>
     
@@ -339,7 +339,7 @@
         
         
         
-          75 分钟
+          79 分钟
         
       </span>
     
@@ -976,7 +976,7 @@ $$</p>
 <p><img src="roclip.jpg" alt=""></p>
 <h5 id="标准CLIP："><strong>标准CLIP：</strong></h5>
 <p>$$<br>
-\mathcal{L}<em>{\text{CLIP}} = -\frac{1}{2N} \sum</em>{j=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_j^I, \mathbf{z}<em>j^T \rangle / \tau)}{\sum</em>{k=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}<em>k^T \rangle / \tau)} \right] - \frac{1}{2N} \sum</em>{k=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_k^I, \mathbf{z}<em>k^T \rangle / \tau)}{\sum</em>{j=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}_k^T \rangle / \tau)} \right]<br>
+\mathcal{L} _ {\text{CLIP}} = -\frac{1}{2N} \sum _ {j=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_j^I, \mathbf{z}_j^T \rangle / \tau)}{\sum _ {k=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}_k^T \rangle / \tau)} \right] - \frac{1}{2N} \sum _ {k=1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_k^I, \mathbf{z}_k^T \rangle / \tau)}{\sum _ {j=1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}_k^T \rangle / \tau)} \right]<br>
 $$</p>
 <h5 id="RoCLIP："><strong>RoCLIP</strong>：</h5>
 <h6 id="motivation">motivation</h6>
@@ -988,6 +988,17 @@ $$</p>
 <p><img src="roclip3.jpg" alt=""></p>
 <p>选择相对较大的池大小，以便每个干净的图像都能找到与其原始标题相似的标题；(2) 每隔 K轮次使用我们的方法进行训练，在其他轮次中使用标准的 CLIP 损失进行训练。</p>
 <p>选择了 2% 的总数据集大小作为池大小。</p>
+<p><strong>数据增强：</strong></p>
+<p>图像增强策略中，采用了随机裁剪、水平翻转、颜色抖动、灰度转换 和模糊处理。</p>
+<p>文本增强采用了 同义词替换、随机交换和随机删除等。</p>
+<p>RoCLIP 首先从 P 个描述符 $P = {z_i^T} _ {i=1}^P$ 中均匀随机采样一个池。</p>
+<p>在训练过程中, 对于每个示例 $(x_j^I, x_j^T)$，在小批量中, 首先用增强策略对它的图像和文本进行增强, 然后将其增强后的图像表示 $\tilde{z}_j^I$ 与池中最相似的增强描述符 $\tilde{z}_j^T$ 进行匹配, 即<br>
+$$z _ {nn(j)}^T = \operatorname{argmin} _ {z_p^T \in P} |\tilde{z}_j^I - z_p^T|_2$$有效地, 我们形成了正的图像-描述符表示对 $(\tilde{z}_j^I, z _ {nn(j)}^T)$ 并用它代替 $(z_j^I, z_j^T)$。</p>
+<p>类似于 CLIP 损失, 从小批量中获取负对。也就是说, 对于一个小批量的 N 个图像-描述符对 ${(x_j^I, x_j^T)} _ {j=1}^N$, 以及它们的嵌入 ${(\tilde{z}_j^I, \tilde{z}_j^T)} _ {j=1}^N$, 损失定义为:<br>
+$$<br>
+\mathcal{L} _ {\text{RoCLIP}} = -\frac{1}{2N}\sum _ {j=1}^{N}\log\left[\frac{\exp(\langle \tilde{z}_j^I, z _ {nn(j)}^T \rangle/\tau)}{\sum _ {k=1}^N \exp(\langle \tilde{z}_j^I, z _ {nn(k)}^T \rangle/\tau)}\right] - \frac{1}{2N}\sum _ {k=1}^{N}\log\left[\frac{\exp(\langle \tilde{z}_k^I, z _ {nn(k)}^T \rangle/\tau)}{\sum _ {j=1}^N \exp(\langle \tilde{z}_j^I, z _ {nn(k)}^T \rangle/\tau)}\right]<br>
+$$</p>
+<p>对于池 $P$, 考虑一个先进先出的队列, 它初始化为随机的 caption 表示。在每个小批量训练后, 通过获取小批量中 $N$ 个样本的 caption 表示并将它们连接到队列的末尾来更新 $P$。从队列中丢弃最旧的 $N$ 个元素, 这个数量等于训练批量大小。</p>
 <h5 id="整体流程">整体流程</h5>
 <p><img src="roclip1.jpg" alt=""></p>
 <h3 id="Backdoor-Detection-Backdoor-Model-Detection">Backdoor Detection Backdoor Model Detection</h3>
