@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip1.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-21T13:16:41.048Z">
+<meta property="article:modified_time" content="2025-07-21T13:37:40.273Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -960,10 +960,10 @@ $$<br>
 \mathcal{L} _ {\text{CLIP}} = -\frac{1}{2N} \left\{ \sum _ {j=1}^{N} \log \frac{\exp(\langle I_j^e, T_j^e \rangle / \tau)}{\underbrace{\sum _ {k=1}^{N} \exp(\langle I_j^e, T_k^e \rangle / \tau)} _ {\text{Contrasting images with texts}}} + \sum _ {k=1}^{N} \log \frac{\exp(\langle I_k^e, T_k^e \rangle / \tau)}{\underbrace{\sum _ {j=1}^{N} \exp(\langle I_j^e, T_k^e \rangle / \tau)} _ {\text{Contrasting texts with images}}} \right\}<br>
 $$</p>
 <p>$$<br>
-\mathcal{L}<em>{SS} = -\frac{1}{2N} \left( \sum</em>{j=1}^{N} \log \underbrace{\left[ \frac{\exp(\langle I_j^e, \tilde{I}<em>j^e \rangle / \tau)}{\sum</em>{k=1}^{N} \exp(\langle I_j^e, \tilde{I}<em>k^e \rangle / \tau)} \right]}</em>{\text{Contrasting images with the augmented images}} + \sum_{j=1}^{N} \log \underbrace{\left[ \frac{\exp(\langle T_j^e, \tilde{T}<em>j^e \rangle / \tau)}{\sum</em>{k=1}^{N} \exp(\langle T_j^e, \tilde{T}<em>k^e \rangle / \tau)} \right]}</em>{\text{Contrasting texts with the augmented texts}} \right)<br>
+\mathcal{L} _ {SS} = -\frac{1}{2N} \left( \sum _ {j=1}^{N} \log \underbrace{\left[ \frac{\exp(\langle I_j^e, \tilde{I}_j^e \rangle / \tau)}{\sum _ {k=1}^{N} \exp(\langle I_j^e, \tilde{I}_k^e \rangle / \tau)} \right]} _ {\text{Contrasting images with the augmented images}} + \sum _ {j=1}^{N} \log \underbrace{\left[ \frac{\exp(\langle T_j^e, \tilde{T}_j^e \rangle / \tau)}{\sum _ {k=1}^{N} \exp(\langle T_j^e, \tilde{T}_k^e \rangle / \tau)} \right]} _ {\text{Contrasting texts with the augmented texts}} \right)<br>
 $$</p>
 <p>$$<br>
-\mathcal{L}<em>{\text{CleanCLIP}} = \lambda_1 \mathcal{L}</em>{\text{CLIP}} + \lambda_2 \mathcal{L}_{SS}<br>
+\mathcal{L} _ {\text{CleanCLIP}} = \lambda_1 \mathcal{L} _ {\text{CLIP}} + \lambda_2 \mathcal{L} _ {SS}<br>
 $$</p>
 <h4 id="拒ICLR-2024-Better-safe-than-sorry-Pre-training-CLIP-against-targeted-data-poisoning-and-backdoor-attacks">(拒ICLR 2024)Better safe than sorry: Pre training CLIP against targeted data poisoning and backdoor attacks</h4>
 <h5 id="拒稿理由-4">拒稿理由</h5>
