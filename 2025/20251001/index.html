@@ -91,8 +91,9 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip3.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/roclip1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20251001/ssl.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20251001/ssl1.jpg">
 <meta property="article:published_time" content="2025-12-16T13:56:04.000Z">
-<meta property="article:modified_time" content="2025-07-21T14:53:47.623Z">
+<meta property="article:modified_time" content="2025-07-21T14:56:58.107Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -329,7 +330,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.7k 字
+          10k 字
         
       </span>
     
@@ -340,7 +341,7 @@
         
         
         
-          82 分钟
+          84 分钟
         
       </span>
     
@@ -1018,6 +1019,12 @@ $$</p>
 需直接扫描编码器本身。然而，这一策略存在局限性，如后文所示。</p>
 <p>另一类后门扫描器，如 MNTD，采用元分类器来区分良性模型和后门模型。它们首先训练数千个良性和后门模型，然后在这些模型提取的特征上训练一个元分类器。在自监督学习（SSL）情景下这种设计可能因成本过高而不太实际。</p>
 <p>例如，通过对比学习创建一个后门编码器需要 48 小时。而 MNTD则需构建 2048 个良性编码器和 2048 个被植入后门的编码器。</p>
+<p>下表为各检测器表现。</p>
+<p><img src="ssl1.jpg" alt=""></p>
+<p>然而，当下游分类器的训练数据集（STL-10 和 GTSRB）不包含攻击目标时，如最后两行所示，NC 和 ABS 均未能检测到编码器中的后门。这对现有后门扫描器提出了两点启示：</p>
+<p>(1) 它们必须掌握攻击目标及相应下游任务的知识，这对于一个编码器而言，鉴于存在大量不同的下游任务，获取这些信息并非易事。</p>
+<p>(2) 它们需要获取下游任务的原始训练数据集以构建用于检测的分类器，而这些数据可能是私有的。</p>
+<p>另外，对于<strong>零样本预测场景</strong>，零样本分类器直接计算图像嵌入与每个候选标题文本嵌入之间的相似度，并选择与输入图像嵌入最相似的标题。在此场景中，显然现有的后门扫描器不适用。故需要一种能够在嵌入空间中处理攻击的后门检测方法</p>
 <h3 id="Backdoor-Detection-Trigger-Inversion">Backdoor Detection Trigger Inversion</h3>
 <h4 id="未-ICCV-2023-Tijo-Trigger-inversion-with-joint-optimization-for-defending-multimodal-backdoored-models">未(ICCV 2023)Tijo: Trigger inversion with joint optimization for defending multimodal backdoored models</h4>
 <h4 id="未-USENIX-Security-2024-Mudjacking-Patching-backdoor-vulnerabilities-in-foundation-models">未(USENIX Security 2024)Mudjacking: Patching backdoor vulnerabilities in foundation models</h4>
