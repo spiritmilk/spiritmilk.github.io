@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250722/3.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250722/4.jpg">
 <meta property="article:published_time" content="2025-07-22T08:26:44.000Z">
-<meta property="article:modified_time" content="2025-07-23T11:40:20.942Z">
+<meta property="article:modified_time" content="2025-07-23T11:57:12.869Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          448 字
+          882 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          4 分钟
+          8 分钟
         
       </span>
     
@@ -332,15 +332,37 @@
 <p>值得注意的是，这些列状注意力模式通常出现在缺乏实质性信息的词元上，例如句号或引号。</p>
 <p>一个表现出列状注意力模式的词元通常包含有限的信息，却对所有后续词元的预测产生显著影响，大多数后续内容包含推理或幻觉。基于上述观察，作者假设此类词元作为摘要词元，即从序列中的先前词元中聚合关键知识并指导后续词元生成。</p>
 <p><img src="2.jpg" alt=""></p>
-<p>在解码词元$x_t$时，每个候选假设将根据 Logit 中的Top-$N_{beam}$ 概率选择 $N_{beam}$ 个候选词元。最后，解码过程将输出获得最佳束得分的假设。</p>
-<p>另外，基于$Logit p(x_t|x_{&lt;t}) $，发展了几种解码策略。OPERA 基于束搜索 （bean search），这是一种基于累积得分的解码策略。简而言之，给定一个束大小 $N_{beam}$ ，束搜索会保留 Nbeam 个候选序列，其中每个候选序列是一个解码序列 $x^{N_{beam}}$，带有束得分。</p>
+<p>在解码词元$x_t$时，每个候选假设将根据 Logit 中的Top-$N _ {beam}$ 概率选择 $N _ {beam}$ 个候选词元。最后，解码过程将输出获得最佳束得分的假设。</p>
+<p>另外，基于$Logit p(x_t|x _ {&lt;t}) $，发展了几种解码策略。OPERA 基于束搜索 （bean search），这是一种基于累积得分的解码策略。简而言之，给定一个束大小 $N _ {beam}$ ，束搜索会保留 Nbeam 个候选序列，其中每个候选序列是一个解码序列 $x^{N _ {beam}}$，带有束得分。</p>
 <h2 id="算法">算法</h2>
+<h3 id="过度信任-Logit-惩罚">过度信任 Logit 惩罚</h3>
 <p><img src="3.jpg" alt=""></p>
 <p><strong>裁剪局部窗口：</strong><br>
 $$<br>
-W_{t-1}^k = \left{ w^i \right}<em>{i = t-k}^{t-1}, \quad \text{s.t. } w^i = { \omega</em>{i,j} }_{j = t-k}^{i}<br>
+W _ {t-1}^k = \left{ w^i \right} _ {i = t-k}^{t-1}, \quad \text{s.t. } w^i = \left{ \omega _ {i,j} \right} _ {j = t-k}^{i}\tag{3}<br>
+$$<br>
+<strong>注意力缩放：</strong><br>
+$$<br>
+W _ {t-1}^k = \left{ w^i \right} _ {i = t-k}^{t-1}, \quad \text{s.t. } w^i = \left{\sigma \omega _ {i,j} \right} _ {j = t-k}^{i}\tag{4}<br>
+$$<br>
+<strong>对注意力矩阵的下三角部分进行列-wise 乘法运算：</strong><br>
+$$<br>
+\phi(\omega _ {&lt;t}) = \prod _ {i = c}^{t-1} \sigma \omega _ {i,c}, \quad \text{s.t. } c = \arg\max _ {t-k \leq j \leq t-1} \prod _ {i = j}^{t-1} \sigma \omega _ {i,j}<br>
+\tag{5}<br>
+$$<br>
+最终使用beam search限制候选集$\mathcal{Y}$：<br>
+$$<br>
+p(x_t\mid x _ {&lt;t})=Softmax[\mathcal{H}(h_t)-\alpha\phi(\omega _ {\le t})] _ {x_t},\text{ s.t. }x_t\in \mathcal{Y}<br>
 $$</p>
+<h3 id="回顾-分配策略">回顾-分配策略</h3>
+<p>然而，仍然存在一些情况，其中所有候选词都受到惩罚且幻觉已经发生。这是由于前几个后续词元过度信任了摘要词元，而惩罚机制未能纠正它们。因此，一个直观但激进的想法是，如果我们能排除导致幻觉的词元，并在摘要词元之后重新选择合适的前几个词元，这种模式将大大减弱。</p>
 <p><img src="4.jpg" alt=""></p>
+<p>$$<br>
+N _ {overlap}=\sum _ {c\in\mathcal{C}}1 _ {c=s},\text{ s.t. }s=Mode(\mathcal{C})<br>
+$$<br>
+若$N _ {overlap}\ge r$，考虑回溯，并将$s=Mode(\mathcal{C})$视为摘要词元的位置。</p>
+<p>假设序列$\{x_0, x_1, . . . , x_s, . . . , x _ {t−1}\}$在 摘 要 词 元 xs 处 展 示 了<br>
+知 识 聚 合 模 式，将 解 码 过 程 回 滚 到 序 列$\{x_0, x_1, . . . , xs\}$并在补集$\mathcal{Y}/{x _ {s+1}}$中选择新的下一个词元。由于后续的回滚将比之前的更向前，手动指定回滚位置 s 必须是单调不递减的。此外，为回滚配置了一个最大时间 β ，如果$x_s$ 已经达到了最大回滚次数，我们考虑回滚到 $\{x_0, x_1, . . . , x _ {s−1}\}$。</p>
 
                 
               </div>
