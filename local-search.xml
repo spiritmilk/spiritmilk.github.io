@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>OPERA：通过过度信任惩罚和回顾分配减轻多模态大语言模型中的幻觉</title>
+    <link href="/2025/20250722/"/>
+    <url>/2025/20250722/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（CVPR 2024)</p><span id="more"></span><h2 id="引言">引言</h2><p>MLLMs 也面临着一个称为“幻觉”问题的重大挑战。具体而言，MLLMs 经常对用户提供的图像和提示产生不正确的声明，例如生成无关或无意义的响应，在颜色、数量和位置方面识别图像中不存在的错误物体。</p><p>各种方法 [23, 33, 34, 39]被提出以减少 MLLM 中的幻觉。</p><p>作者发现，幻觉许多幻觉内容的出现与列状注意力模式生成的后续词元相吻合。</p><p><img src="1.jpg" alt=""></p><p>值得注意的是，这些列状注意力模式通常出现在缺乏实质性信息的词元上，例如句号或引号。</p><p>一个表现出列状注意力模式的词元通常包含有限的信息，却对所有后续词元的预测产生显著影响，大多数后续内容包含推理或幻觉。基于上述观察，作者假设此类词元作为摘要词元，即从序列中的先前词元中聚合关键知识并指导后续词元生成。</p><p><img src="2.jpg" alt=""></p><p>在解码词元$x_t$时，每个候选假设将根据 Logit 中的Top-$N _ {beam}$ 概率选择 $N _ {beam}$ 个候选词元。最后，解码过程将输出获得最佳束得分的假设。</p><p>另外，基于$Logit p(x_t|x _ {&lt;t}) $，发展了几种解码策略。OPERA 基于束搜索 （bean search），这是一种基于累积得分的解码策略。简而言之，给定一个束大小 $N _ {beam}$ ，束搜索会保留 Nbeam 个候选序列，其中每个候选序列是一个解码序列 $x^{N _ {beam}}$，带有束得分。</p><h2 id="算法">算法</h2><h3 id="过度信任-Logit-惩罚">过度信任 Logit 惩罚</h3><p><img src="3.jpg" alt=""></p><p><strong>裁剪局部窗口：</strong><br>$$<br>W _ {t-1}^k = \{ w^i \} _ {i = t-k}^{t-1}, \quad \text{s.t. } w^i = \{ \omega _ {i,j} \} _ {j = t-k}^{i}\tag{3}<br>$$</p><p><strong>注意力缩放：</strong></p><p>$$<br>W _ {t-1}^k = \{ w^i \} _ {i = t-k}^{t-1}, \quad \text{s.t. } w^i = \{\sigma \omega _ {i,j} \} _ {j = t-k}^{i}\tag{4}<br>$$</p><p><strong>对注意力矩阵的下三角部分进行列-wise 乘法运算：</strong><br>$$<br>\phi(\omega _ {&lt;t}) = \prod _ {i = c}^{t-1} \sigma \omega _ {i,c}, \quad \text{s.t. } c = \arg\max _ {t-k \leq j \leq t-1} \prod _ {i = j}^{t-1} \sigma \omega _ {i,j}<br>\tag{5}<br>$$<br>最终使用beam search限制候选集$\mathcal{Y}$：<br>$$<br>p(x_t\mid x _ {&lt;t})=Softmax[\mathcal{H}(h_t)-\alpha\phi(\omega _ {\le t})] _ {x_t},\text{ s.t. }x_t\in \mathcal{Y}<br>$$</p><h3 id="回顾-分配策略">回顾-分配策略</h3><p>然而，仍然存在一些情况，其中所有候选词都受到惩罚且幻觉已经发生。这是由于前几个后续词元过度信任了摘要词元，而惩罚机制未能纠正它们。因此，一个直观但激进的想法是，如果我们能排除导致幻觉的词元，并在摘要词元之后重新选择合适的前几个词元，这种模式将大大减弱。</p><p><img src="4.jpg" alt=""></p><p>$$<br>N _ {overlap}=\sum _ {c\in\mathcal{C}}1 _ {c=s},\text{ s.t. }s=Mode(\mathcal{C})<br>$$<br>若$N _ {overlap}\ge r$，考虑回溯，并将$s=Mode(\mathcal{C})$视为摘要词元的位置。</p><p>假设序列$\{x_0, x_1, . . . , x_s, . . . , x _ {t−1}\}$在 摘 要 词 元 xs 处 展 示 了<br>知 识 聚 合 模 式，将 解 码 过 程 回 滚 到 序 列$\{x_0, x_1, . . . , xs\}$并在补集$\mathcal{Y}/{x _ {s+1}}$中选择新的下一个词元。由于后续的回滚将比之前的更向前，手动指定回滚位置 s 必须是单调不递减的。此外，为回滚配置了一个最大时间 β ，如果$x_s$ 已经达到了最大回滚次数，我们考虑回滚到 $\{x_0, x_1, . . . , x _ {s−1}\}$。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>多模态</tag>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>通过VIB减少大型视觉-语言模型中的幻觉现象</title>
     <link href="/2025/20250720/"/>
     <url>/2025/20250720/</url>
