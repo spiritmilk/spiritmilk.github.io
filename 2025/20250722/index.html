@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.work/2025/20250722/3.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250722/4.jpg">
 <meta property="article:published_time" content="2025-07-22T08:26:44.000Z">
-<meta property="article:modified_time" content="2025-07-23T11:32:32.298Z">
+<meta property="article:modified_time" content="2025-07-23T11:40:20.942Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          478 字
+          448 字
         
       </span>
     
@@ -326,16 +326,20 @@
 <span id="more"></span>
 <h2 id="引言">引言</h2>
 <p>MLLMs 也面临着一个称为“幻觉”问题的重大挑战。具体而言，MLLMs 经常对用户提供的图像和提示产生不正确的声明，例如生成无关或无意义的响应，在颜色、数量和位置方面识别图像中不存在的错误物体。</p>
-<p>各种方法 [23, 33, 34, 39]</p>
+<p>各种方法 [23, 33, 34, 39]被提出以减少 MLLM 中的幻觉。</p>
+<p>作者发现，幻觉许多幻觉内容的出现与列状注意力模式生成的后续词元相吻合。</p>
 <p><img src="1.jpg" alt=""></p>
 <p>值得注意的是，这些列状注意力模式通常出现在缺乏实质性信息的词元上，例如句号或引号。</p>
-<p>一个表现出列状注意力模式的词元通常包含有限的信息，却对所有后续词元的预测产生显著影响，正如我们在 Figure 3 中计算的那样，大多数后续内容包含推理或幻觉。基于上述观察，我们假设此类词元作<br>
-为摘要词元，即从序列中的先前词元中聚合关键知识并指导后续词元生成。</p>
+<p>一个表现出列状注意力模式的词元通常包含有限的信息，却对所有后续词元的预测产生显著影响，大多数后续内容包含推理或幻觉。基于上述观察，作者假设此类词元作为摘要词元，即从序列中的先前词元中聚合关键知识并指导后续词元生成。</p>
 <p><img src="2.jpg" alt=""></p>
-<p>幻觉 [15, 35] 指的是在给定上下文中生成的无关、事实错误或无意义的文本，在当前的大规模基础模型中相当严重。此问题可能是由于对训练数据中的特定模式过拟合、缺乏对现实世界事实的理解，或无法有效对给定输入进行情境化处理所致。</p>
-<p>基于$Logit p(x_t|x_{&lt;t}) $，发展了几种解码策略。OPERA 基于束搜索 （bean search），这是一种基于累积得分的解码策略。简而言之，给定一个束大小 $N_{beam}$ ，束搜索会保留 Nbeam 个候选序列，其中每个候选序列是一个解码序列 $x^{N_{beam}}$，带有束得分。</p>
 <p>在解码词元$x_t$时，每个候选假设将根据 Logit 中的Top-$N_{beam}$ 概率选择 $N_{beam}$ 个候选词元。最后，解码过程将输出获得最佳束得分的假设。</p>
+<p>另外，基于$Logit p(x_t|x_{&lt;t}) $，发展了几种解码策略。OPERA 基于束搜索 （bean search），这是一种基于累积得分的解码策略。简而言之，给定一个束大小 $N_{beam}$ ，束搜索会保留 Nbeam 个候选序列，其中每个候选序列是一个解码序列 $x^{N_{beam}}$，带有束得分。</p>
+<h2 id="算法">算法</h2>
 <p><img src="3.jpg" alt=""></p>
+<p><strong>裁剪局部窗口：</strong><br>
+$$<br>
+W_{t-1}^k = \left{ w^i \right}<em>{i = t-k}^{t-1}, \quad \text{s.t. } w^i = { \omega</em>{i,j} }_{j = t-k}^{i}<br>
+$$</p>
 <p><img src="4.jpg" alt=""></p>
 
                 
