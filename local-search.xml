@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>OATS-通过稀疏与低秩分解实现异常值感知的剪枝</title>
+    <link href="/2025/20250724/"/>
+    <url>/2025/20250724/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ICLR 2025)</p><h2 id="算法">算法</h2><p>OATS假定模型权重$W\approx S+L$，其中S为稀疏，$||S_0||\le k$；L为低秩，$Rank(L)\le r$。</p><span id="more"></span><p>对于此，可以转化为$\min ||W-S-L||_F^2$的求解问题。</p><p>OATS利用前人提出的交替阈值算法，该算法通过奇异值阈值处理迭代地交替求解低秩项 L，并通过硬阈值处理求解稀疏项 S。<br>$$<br>HardThreshold(A,k)=M\odot A<br>$$<br>在执行HardThreshold时，也可以进行 HardThreshold和N：M稀疏性。</p><p><img src="1.png" alt=""></p><h2 id="改进">改进</h2><p>单独使用交替阈值化方法会产生次优结果，因为大规模 Transformer 的活性值呈现出少量大振幅特征（<a href="https://arxiv.org/abs/2402.17762">Massive Activations</a>），改变这些特征（例如通过稀疏和低秩近似）会对模型性能产生负面影响。</p><p>所以作者还另定义了一个矩阵D，用了捕捉活性值的二阶矩。<br>$$<br>D=\sqrt{diag(X^TX)}<br>$$<br>然后变为$WD\approx S+L$。</p><h2 id="参数指定">参数指定</h2><p><img src="3.png" alt=""></p><p>最终流程为：</p><p><img src="4.png" alt=""></p><h2 id="实验">实验</h2><p><strong>和其他量化相比：</strong></p><p><img src="2.png" alt=""></p><p><strong>秩比和迭代次数对 OATS 性能的影响：</strong></p><p><img src="5.png" alt=""></p><p><strong>稀疏项和低秩项捕捉了图像的不同区域:</strong></p><p><img src="6.png" alt=""></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>OPERA：通过过度信任惩罚和回顾分配减轻多模态大语言模型中的幻觉</title>
     <link href="/2025/20250722/"/>
     <url>/2025/20250722/</url>
