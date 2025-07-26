@@ -30,8 +30,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250726/sllm1.jpg">
 <meta property="og:image" content="https://lijianxiong.work/2025/20250726/sllm2.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250726/sllm3.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250726/sllm4.jpg">
+<meta property="og:image" content="https://lijianxiong.work/2025/20250726/fastgen.jpg">
 <meta property="article:published_time" content="2025-07-26T08:09:47.000Z">
-<meta property="article:modified_time" content="2025-07-26T08:27:48.096Z">
+<meta property="article:modified_time" content="2025-07-26T09:04:10.176Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          473 字
+          741 字
         
       </span>
     
@@ -276,7 +279,7 @@
         
         
         
-          4 分钟
+          7 分钟
         
       </span>
     
@@ -321,6 +324,7 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Attention Sink是指某些（初始）token具有较大的注意力得分。最早明确提出于StreamingLLM (2309.17453)。</p>
 <span id="more"></span>
 <h2 id="StreamingLLM：Attention-Sink用来实现长度外推">StreamingLLM：Attention Sink用来实现长度外推</h2>
+<p>（ICLR 2024）</p>
 <p>长度外推性是指我们在短序列上训练的模型，能否不用微调地用到长序列上并依然保持不错的效果。</p>
 <p>像ROPE这种带有旋转周期特性的，自带外推属性，但一旦超过一定角度，外推就会失效。（<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9431/comment-page-1#%E6%80%9D%E7%BB%B4%E8%AF%AF%E5%8C%BA">苏神：像RoPE算是外推能力较好的位置编码，也只能外推10%到20%左右的长度而保持效果不变差。</a>）</p>
 <p>所以就需要对此进行特殊设计。</p>
@@ -330,7 +334,21 @@
 <p>但这些方法要么时间复杂度较高，要么表现不好。</p>
 <p>为了理解为什么窗口注意力失败，作者发现自回归大语言模型中存在一个有趣的现象：无论这些初始词元与语言模型任务的相关性如何，都会分配出大量注意力得分。</p>
 <p><img src="sllm2.jpg" alt=""></p>
-<p>作者认为认为这是因为 Softmax 操作要求所有上下文词元的注意力得分之和为一。因此，即使当前查询在许多先前词元中没有强烈的匹配，模型仍然需要将这些不需要的注意力值分配到某处，以使总和为一。初始词元作为黑洞词元的原因是直观的：由于自回归语言模型的特性，初始词元对几乎所有后续词元都是可见的，这使得它们更容易被训练成注意力黑洞。</p>
+<p>作者认为认为这是因为 Softmax 操作要求所有上下文词元的注意力得分之和为一。因此，即使当前查询在许多先前词元中没有强烈的匹配，模型仍然需要将这些不需要的注意力值分配到某处，以使总和为一。</p>
+<p>也有从softmax入手解决以上问题的，比如<a target="_blank" rel="noopener" href="https://www.evanmiller.org/attention-is-off-by-one.html">SoftMax-Off-by-One</a>和<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.20966">Softpick</a>。</p>
+<p>初始词元作为黑洞词元的原因是直观的：由于自回归语言模型的特性，初始词元对几乎所有后续词元都是可见的，这使得它们更容易被训练成注意力黑洞。</p>
+<p>故作者在窗口注意力的基础上，保留保留注意力汇聚词元的 KV——4个初始词元。</p>
+<p><img src="sllm3.jpg" alt=""></p>
+<p>总之，StreamingLLM 能够在<strong>不扩展 LLMs 上下文长度</strong>的情况下，从 KV 缓存中的词元高效生成连贯文本。</p>
+<p>此外，类似的论文还有LM-Infinite（2308.16137）和<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619703849">Perpetual Sampling </a>，它们都指出初始tokens的重要性，但没有更深入地指出attention sink这一现象。</p>
+<p><img src="sllm4.jpg" alt=""></p>
+<h2 id="FastGen-更多的">FastGen:更多的</h2>
+<p>同年ICLR2024的FastGen（2310.01801）进一步考虑了更多的KV缓存种类。</p>
+<p><strong>特殊词元</strong>。例如句子开始词元 &lt; s&gt; ，指令词元 [INST] 等。此策略称为 $C_{special}$。</p>
+<p><strong>标点符号</strong>。仅在 KV 缓存中保留标点符号，称之为$C_{punct}$。</p>
+<p><strong>局部性</strong>。类似窗口注意力。称之为$C_{local}$</p>
+<p><strong>频繁项</strong>。监控每个词元的注意力得分的累积和，然后将这些得分视为词元 频率，并在 KV 缓存中仅保留最频繁的词元。称之为$C_{frequent}$。</p>
+<p><img src="fastgen.jpg" alt=""></p>
 
                 
               </div>
