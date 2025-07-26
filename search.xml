@@ -23649,7 +23649,7 @@ $$<br>
 <h4 id="ICLR-2022-Oral-Poisoning-and-backdooring-contrastive-learning">(ICLR 2022 Oral)Poisoning and backdooring contrastive learning</h4>
 <p><img src="pabcl.jpg" alt=""></p>
 <p>探讨了两种在图像上放置后门的方法。在一致情景下，将补丁置于图像的左上角；而在随机情景下，将补丁随机放置在图像中的某个位置。</p>
-<p>给定目标图像 x′ 和期望的目标标签 y′，我们首先构建一个与标签 y′ 相关的描述集 Y ′。</p>
+<p>给定目标图像 x′ 和期望的目标标签 y′，首先构建一个与标签 y′ 相关的描述集 Y ′。</p>
 <p><strong>没怎么介绍算法。</strong></p>
 <h4 id="IEEE-Symposium-on-Security-and-Privacy-2022-Badencoder-Backdoor-attacks-to-pre-trained-encoders-in-self-supervised-learning">(IEEE Symposium on Security and Privacy 2022)Badencoder: Backdoor attacks to pre trained encoders in self-supervised learning</h4>
 <p><img src="badencoder.jpg" alt=""></p>
@@ -23728,14 +23728,14 @@ $$</p>
 <p>用两种技术来打破被投毒图像-描述对之间的关联：（1）一个庞大且不断变化的随机选择描述池；（2）对图像和描述同时进行增强。</p>
 <p><strong>描述池</strong>：</p>
 <p><img src="roclip3.jpg" alt=""></p>
-<p>选择相对较大的池大小，以便每个干净的图像都能找到与其原始标题相似的标题；(2) 每隔 K轮次使用我们的方法进行训练，在其他轮次中使用标准的 CLIP 损失进行训练。</p>
+<p>选择相对较大的池大小，以便每个干净的图像都能找到与其原始标题相似的标题；(2) 每隔 K轮次使用该方法进行训练，在其他轮次中使用标准的 CLIP 损失进行训练。</p>
 <p>选择了 2% 的总数据集大小作为池大小。</p>
 <p><strong>数据增强：</strong></p>
 <p>图像增强策略中，采用了随机裁剪、水平翻转、颜色抖动、灰度转换 和模糊处理。</p>
 <p>文本增强采用了 同义词替换、随机交换和随机删除等。</p>
 <p>RoCLIP 首先从 P 个描述符 $P = {z_i^T} _ {i=1}^P$ 中均匀随机采样一个池。</p>
 <p>在训练过程中, 对于每个示例 $(x_j^I, x_j^T)$，在小批量中, 首先用增强策略对它的图像和文本进行增强, 然后将其增强后的图像表示 $\tilde{z}_j^I$ 与池中最相似的增强描述符 $\tilde{z}_j^T$ 进行匹配, 即<br>
-$$z _ {nn(j)}^T = \operatorname{argmin} _ {z_p^T \in P} |\tilde{z}_j^I - z_p^T|_2$$有效地, 我们形成了正的图像-描述符表示对 $(\tilde{z}_j^I, z _ {nn(j)}^T)$ 并用它代替 $(z_j^I, z_j^T)$。</p>
+$$z _ {nn(j)}^T = \operatorname{argmin} _ {z_p^T \in P} |\tilde{z}_j^I - z_p^T|_2$$有效地, 形成了正的图像-描述符表示对 $(\tilde{z}_j^I, z _ {nn(j)}^T)$ 并用它代替 $(z_j^I, z_j^T)$。</p>
 <p>类似于 CLIP 损失, 从小批量中获取负对。也就是说, 对于一个小批量的 N 个图像-描述符对 ${(x_j^I, x_j^T)} _ {j=1}^N$, 以及它们的嵌入 ${(\tilde{z}_j^I, \tilde{z}_j^T)} _ {j=1}^N$, 损失定义为:<br>
 $$<br>
 \mathcal{L} _ {\text{RoCLIP}} = -\frac{1}{2N}\sum _ {j=1}^{N}\log\left[\frac{\exp(\langle \tilde{z}_j^I, z _ {nn(j)}^T \rangle/\tau)}{\sum _ {k=1}^N \exp(\langle \tilde{z}_j^I, z _ {nn(k)}^T \rangle/\tau)}\right] - \frac{1}{2N}\sum _ {k=1}^{N}\log\left[\frac{\exp(\langle \tilde{z}_k^I, z _ {nn(k)}^T \rangle/\tau)}{\sum _ {j=1}^N \exp(\langle \tilde{z}_j^I, z _ {nn(k)}^T \rangle/\tau)}\right]<br>
@@ -23766,7 +23766,7 @@ $$</p>
 <p><strong>观察一</strong>：尽管 SSL 在预训练过程中不需要标签，但通过训练后的编码器，相同标签的样本的嵌入倾向于聚集在一起，而不同标签的样本则倾向于分散。</p>
 <p><strong>观察二</strong>：被植入后门的编码器会为带有触发器的样本生成高度相似的嵌入，而干净的编码器则不会。</p>
 <p><strong>观察三</strong>：与干净的编码器相比，被植入后门的编码器需要更小的扰动就能使样本落入稠密区域。</p>
-<p><strong>直觉</strong>：稠密区域即为攻击目标所在之处。故模型设计旨在判断编码器的嵌入空间中是否存在一个中心稠密区域（被干净样本的嵌入所包围）。直观上，带有中心稠密区域的后门编码器只需施加微小扰动即可将干净样本推向该稠密区域。而干净的编码器则不具备这样的稠密区域，这意味着通过在样本上添加小触发器无法轻易实现嵌入间的高相似度。因此，我们的技术在编码器层面检测后门，无需依赖目标标签。</p>
+<p><strong>直觉</strong>：稠密区域即为攻击目标所在之处。故模型设计旨在判断编码器的嵌入空间中是否存在一个中心稠密区域（被干净样本的嵌入所包围）。直观上，带有中心稠密区域的后门编码器只需施加微小扰动即可将干净样本推向该稠密区域。而干净的编码器则不具备这样的稠密区域，这意味着通过在样本上添加小触发器无法轻易实现嵌入间的高相似度。因此，该技术在编码器层面检测后门，无需依赖目标标签。</p>
 <h5 id="算法-9">算法</h5>
 <p><img src="ssl4.jpg" alt=""></p>
 <h3 id="Backdoor-Detection-Trigger-Inversion">Backdoor Detection Trigger Inversion</h3>
