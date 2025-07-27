@@ -24,7 +24,7 @@
     <meta name="description" content="来自JOHN MITCHELL 权重&#x3D;$ e^{b*(x-s)}$ x是每个模型的LB分数。得分越大越好，因此权重随着x的增加而变大，随着x的减少而变小（模型越好，权重越大）。 b是模型的一个可调参数，b越大，权重衰减越快，分数越低。S是一个校准参数，其定义如下：如果S设置为最佳单模型分数，则最高非标准化权重exp（b*（x-S））为1.0，这是方便的，但不是必需的。 最后还要归一化。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kaggle竞赛小技巧之指数加权ensemble">
-<meta property="og:url" content="https://lijianxiong.work/2022/20220815/index.html">
+<meta property="og:url" content="https://lijianxiong.space/2022/20220815/index.html">
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="来自JOHN MITCHELL 权重&#x3D;$ e^{b*(x-s)}$ x是每个模型的LB分数。得分越大越好，因此权重随着x的增加而变大，随着x的减少而变小（模型越好，权重越大）。 b是模型的一个可调参数，b越大，权重衰减越快，分数越低。S是一个校准参数，其定义如下：如果S设置为最佳单模型分数，则最高非标准化权重exp（b*（x-S））为1.0，这是方便的，但不是必需的。 最后还要归一化。">
 <meta property="og:locale" content="zh_CN">
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -382,7 +382,7 @@ b是模型的一个可调参数，b越大，权重衰减越快，分数越低。
   <div class="license-box my-3">
     <div class="license-title">
       <div>kaggle竞赛小技巧之指数加权ensemble</div>
-      <div>https://lijianxiong.work/2022/20220815/</div>
+      <div>https://lijianxiong.space/2022/20220815/</div>
     </div>
     <div class="license-meta">
       

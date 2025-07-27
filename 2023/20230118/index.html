@@ -24,36 +24,36 @@
     <meta name="description" content="参考：李宏毅老师的各式各样的Attention  self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="各式各样的self-attention">
-<meta property="og:url" content="https://lijianxiong.work/2023/20230118/index.html">
+<meta property="og:url" content="https://lijianxiong.space/2023/20230118/index.html">
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="参考：李宏毅老师的各式各样的Attention  self-attention只是模型的一部分。只有当输入向量维度过大时候，加速、优化self-attention才起作用。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/sat-1.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/local-attention.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/stride-attention.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/global-attention.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/mix.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/zero.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/cluster.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/cluster2.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/learnable.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/linformer1.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/reduce-key.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/acc_sat_cal_0.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/acc_sat_cal_2.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/acc_sat_cal_3.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/acc_sat_cal_4.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/phi.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/synthesizer.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/att_free.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230118/summary.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/sat-1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/local-attention.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/stride-attention.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/global-attention.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/mix.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/zero.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/cluster.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/cluster2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/learnable.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/linformer1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/reduce-key.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/acc_sat_cal_0.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/acc_sat_cal_2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/acc_sat_cal_3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/acc_sat_cal_4.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/phi.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/synthesizer.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/att_free.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230118/summary.jpg">
 <meta property="article:published_time" content="2023-01-18T12:21:06.000Z">
 <meta property="article:modified_time" content="2024-02-14T14:23:54.350Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2023/20230118/sat-1.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/2023/20230118/sat-1.jpg">
   
   
   
@@ -95,7 +95,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -485,7 +485,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>各式各样的self-attention</div>
-      <div>https://lijianxiong.work/2023/20230118/</div>
+      <div>https://lijianxiong.space/2023/20230118/</div>
     </div>
     <div class="license-meta">
       

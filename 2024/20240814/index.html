@@ -24,18 +24,18 @@
     <meta name="description" content="论文地址 图结构网络通常包含拓扑扰动和权重扰动形式的潜在噪声和攻击，这可能导致 GNN 的分类性能下降。为了提高模型的鲁棒性，该论文提出了一种新方法：随机游走负采样图卷积网络（RW-NSGCN）。具体来说，RW-NSGCN 集成了用于负采样的随机游走（RWR）和 PageRank（PGR）算法，并采用基于行列式点过程（DPP）的 GCN 进行卷积运算。 RWR 利用全局和局部信息来管理噪声和局部变">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RW-NSGCN：通过负采样进行结构性攻击的稳健方法">
-<meta property="og:url" content="https://lijianxiong.work/2024/20240814/index.html">
+<meta property="og:url" content="https://lijianxiong.space/2024/20240814/index.html">
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="论文地址 图结构网络通常包含拓扑扰动和权重扰动形式的潜在噪声和攻击，这可能导致 GNN 的分类性能下降。为了提高模型的鲁棒性，该论文提出了一种新方法：随机游走负采样图卷积网络（RW-NSGCN）。具体来说，RW-NSGCN 集成了用于负采样的随机游走（RWR）和 PageRank（PGR）算法，并采用基于行列式点过程（DPP）的 GCN 进行卷积运算。 RWR 利用全局和局部信息来管理噪声和局部变">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240814/method1.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240814/method1.png">
 <meta property="article:published_time" content="2024-08-14T09:13:12.000Z">
 <meta property="article:modified_time" content="2025-05-19T13:58:54.564Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2024/20240814/method1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2024/20240814/method1.png">
   
   
   
@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -422,7 +422,7 @@ $$</p>
   <div class="license-box my-3">
     <div class="license-title">
       <div>RW-NSGCN：通过负采样进行结构性攻击的稳健方法</div>
-      <div>https://lijianxiong.work/2024/20240814/</div>
+      <div>https://lijianxiong.space/2024/20240814/</div>
     </div>
     <div class="license-meta">
       

@@ -24,14 +24,14 @@
     <meta name="description" content="2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中首先将注意力其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制大成。 在注意力机制中，除去耳熟能详的SENet和CBAM，也有一些主动去学习注意区域的网络算法。 比如以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RNN与注意力">
-<meta property="og:url" content="https://lijianxiong.work/2024/20240512/index.html">
+<meta property="og:url" content="https://lijianxiong.space/2024/20240512/index.html">
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中首先将注意力其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制大成。 在注意力机制中，除去耳熟能详的SENet和CBAM，也有一些主动去学习注意区域的网络算法。 比如以">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240512/house_read.gif">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240512/house_generate.gif">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240512/model.png">
-<meta property="og:image" content="https://lijianxiong.work/2024/20240512/dramresult.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240512/house_read.gif">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240512/house_generate.gif">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240512/model.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240512/dramresult.png">
 <meta property="article:published_time" content="2024-05-12T08:48:12.000Z">
 <meta property="article:modified_time" content="2025-05-20T05:50:07.254Z">
 <meta property="article:author" content="LJX">
@@ -39,7 +39,7 @@
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="注意力">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2024/20240512/house_read.gif">
+<meta name="twitter:image" content="https://lijianxiong.space/2024/20240512/house_read.gif">
   
   
   
@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -478,7 +478,7 @@ $$</p>
   <div class="license-box my-3">
     <div class="license-title">
       <div>RNN与注意力</div>
-      <div>https://lijianxiong.work/2024/20240512/</div>
+      <div>https://lijianxiong.space/2024/20240512/</div>
     </div>
     <div class="license-meta">
       

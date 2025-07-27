@@ -24,7 +24,7 @@
     <meta name="description" content="我们可以减轻标签的作用吗？ 完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y&#x3D;f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。 听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}Xy$，即可以写成Sy的形式，且">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模型参数与标签无关的模型">
-<meta property="og:url" content="https://lijianxiong.work/2025/20250521/index.html">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250521/index.html">
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="我们可以减轻标签的作用吗？ 完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y&#x3D;f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。 听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}Xy$，即可以写成Sy的形式，且">
 <meta property="og:locale" content="zh_CN">
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -413,7 +413,7 @@ $$<br>
   <div class="license-box my-3">
     <div class="license-title">
       <div>模型参数与标签无关的模型</div>
-      <div>https://lijianxiong.work/2025/20250521/</div>
+      <div>https://lijianxiong.space/2025/20250521/</div>
     </div>
     <div class="license-meta">
       

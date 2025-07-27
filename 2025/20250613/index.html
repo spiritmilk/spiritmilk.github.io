@@ -24,24 +24,24 @@
     <meta name="description" content="在23年，本Blog已经介绍过JEPA，也就是lecun推出的世界模型结构。 Lecun一直不相信当前的LLM，而布局于“世界模型”。 当时主要是对图片处理，也就是Image-JEPA。而V-JEPA代表是对视频（Video）处理。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="V-JEPA 2">
-<meta property="og:url" content="https://lijianxiong.work/2025/20250613/index.html">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250613/index.html">
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="在23年，本Blog已经介绍过JEPA，也就是lecun推出的世界模型结构。 Lecun一直不相信当前的LLM，而布局于“世界模型”。 当时主要是对图片处理，也就是Image-JEPA。而V-JEPA代表是对视频（Video）处理。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250613/3.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250613/2.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250613/1_0brkjcnDkgEcWpFpe0bxeg.webp">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250613/1.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250613/4.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250613/5.jpg">
-<meta property="og:image" content="https://lijianxiong.work/2025/20250613/6.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250613/3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250613/2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250613/1_0brkjcnDkgEcWpFpe0bxeg.webp">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250613/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250613/4.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250613/5.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250613/6.jpg">
 <meta property="article:published_time" content="2025-06-13T15:26:30.000Z">
 <meta property="article:modified_time" content="2025-07-15T13:22:34.089Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2025/20250613/3.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250613/3.jpg">
   
   
   
@@ -83,7 +83,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -413,7 +413,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>V-JEPA 2</div>
-      <div>https://lijianxiong.work/2025/20250613/</div>
+      <div>https://lijianxiong.space/2025/20250613/</div>
     </div>
     <div class="license-meta">
       

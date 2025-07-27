@@ -24,27 +24,27 @@
     <meta name="description" content="非官方支持的Google产品 由Google Research和Harvard University研究人员联合出品。 翻译By我。 先在github翻译完，在上传到博客。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【待更新】《深度学习调优手册》- 系统最大化深度学习模型性能">
-<meta property="og:url" content="https://lijianxiong.work/2023/20230126/index.html">
+<meta property="og:url" content="https://lijianxiong.space/2023/20230126/index.html">
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="非官方支持的Google产品 由Google Research和Harvard University研究人员联合出品。 翻译By我。 先在github翻译完，在上传到博客。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/bad_search_space.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/good_search_space.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/isolation_plot.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/have_we_sampled_enough.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/stride_instability.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/more_frequent_evals.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/instability_during_warmup.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/axis_model_with_instability.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/loss_model_with_instability.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/beneficial_effect_warmup.png">
-<meta property="og:image" content="https://lijianxiong.work/2023/20230126/assets/gradient_clipping.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/bad_search_space.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/good_search_space.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/isolation_plot.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/have_we_sampled_enough.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/stride_instability.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/more_frequent_evals.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/instability_during_warmup.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/axis_model_with_instability.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/loss_model_with_instability.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/beneficial_effect_warmup.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230126/assets/gradient_clipping.png">
 <meta property="article:published_time" content="2023-01-26T02:01:31.000Z">
 <meta property="article:modified_time" content="2023-01-26T03:58:20.079Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="人工智能">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.work/2023/20230126/assets/bad_search_space.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2023/20230126/assets/bad_search_space.png">
   
   
   
@@ -86,7 +86,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"lijianxiong.work","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -2727,7 +2727,7 @@ observe the results of previous trials.
   <div class="license-box my-3">
     <div class="license-title">
       <div>【待更新】《深度学习调优手册》- 系统最大化深度学习模型性能</div>
-      <div>https://lijianxiong.work/2023/20230126/</div>
+      <div>https://lijianxiong.space/2023/20230126/</div>
     </div>
     <div class="license-meta">
       
