@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20250726/sep2.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250726/massive.jpg">
 <meta property="article:published_time" content="2025-07-26T08:09:47.000Z">
-<meta property="article:modified_time" content="2025-08-04T00:50:06.530Z">
+<meta property="article:modified_time" content="2025-08-04T00:54:15.254Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -323,7 +323,7 @@
         
         
         
-          14 分钟
+          15 分钟
         
       </span>
     
@@ -431,6 +431,9 @@
 <p><strong>2.</strong> 汇点位置与损失函数及数据分布高度相关，并可移动至除首个 token 之外的其他位置。</p>
 <p><strong>3.</strong> 位置嵌入、FFN 设计、LN 位置以及多头设计不会影响注意力汇的出现。注意力汇聚点更像是一种键偏置，它存储了额外的注意力，同时不参与价值计算。这一现象（至少部分）源于 token 对注意力得分的内部依赖，这种依赖是由Softmax 规范化引起的。通过用其他注意力操作（如无规范化的 Sigmoid 注意力）替代 Softmax 注意力来缓解这种依赖后，在参数规模高达 1B 的语言模型中，注意力汇聚点不再出现。</p>
 <p>《Why do LLMs attend to the first token?》指出：</p>
+<p><strong>1</strong>.attention sinks对于控制秩崩溃、表示崩溃和过度挤压是有用的。</p>
+<p><strong>2</strong>.更大的模型和经过更长上下文训练的模型应该具有更强的汇点。</p>
+<p><strong>3</strong>.无论在预训练期间是否包含 〈bos〉 ，attention sinks都会形成。</p>
 <p>（COLM 2024）《Massive Activations in Large Language Models》指出：</p>
 <p><img src="massive.jpg" alt=""></p>
 <p>《Unveiling Super Experts in Mixture-of-Experts Large Language Models》进一步</p>

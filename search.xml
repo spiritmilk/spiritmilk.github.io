@@ -23023,7 +23023,7 @@ $$<br>
   <entry>
     <title>Attention Sink</title>
     <url>/2025/20250726/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Attention Sink是指某些（初始）token具有较大的注意力得分。最早明确提出于StreamingLLM (2309.17453)。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Attention Sink是指某些（初始）token具有较大的注意力得分。最早明确提出于StreamingLLM (2309.17453)。</p>
 <span id="more"></span>
 <h1>Attention Sink有用武之地</h1>
 <h2 id="StreamingLLM：Attention-Sink用来实现长度外推">StreamingLLM：Attention Sink用来实现长度外推</h2>
@@ -23089,6 +23089,9 @@ $$<br>
 <p><strong>2.</strong> 汇点位置与损失函数及数据分布高度相关，并可移动至除首个 token 之外的其他位置。</p>
 <p><strong>3.</strong> 位置嵌入、FFN 设计、LN 位置以及多头设计不会影响注意力汇的出现。注意力汇聚点更像是一种键偏置，它存储了额外的注意力，同时不参与价值计算。这一现象（至少部分）源于 token 对注意力得分的内部依赖，这种依赖是由Softmax 规范化引起的。通过用其他注意力操作（如无规范化的 Sigmoid 注意力）替代 Softmax 注意力来缓解这种依赖后，在参数规模高达 1B 的语言模型中，注意力汇聚点不再出现。</p>
 <p>《Why do LLMs attend to the first token?》指出：</p>
+<p><strong>1</strong>.attention sinks对于控制秩崩溃、表示崩溃和过度挤压是有用的。</p>
+<p><strong>2</strong>.更大的模型和经过更长上下文训练的模型应该具有更强的汇点。</p>
+<p><strong>3</strong>.无论在预训练期间是否包含 〈bos〉 ，attention sinks都会形成。</p>
 <p>（COLM 2024）《Massive Activations in Large Language Models》指出：</p>
 <p><img src="massive.jpg" alt=""></p>
 <p>《Unveiling Super Experts in Mixture-of-Experts Large Language Models》进一步</p>
