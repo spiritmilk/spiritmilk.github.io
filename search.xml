@@ -23084,10 +23084,15 @@ $$<br>
 <p>ICLR 2025的《When Attention Sink Emerges in Language Models: An Empirical View》详细研究了attention sink，但仍表示“是否有利于语言模型的下游性能仍不明确”。</p>
 <p>此外，也涌现了Softpick、<a href="https://arxiv.org/abs/2505.06708">gated attention</a>等无attention sink的模型，足以说明并不一定是必需的。</p>
 <h2 id="Attention-Sink-的产生">Attention Sink 的产生</h2>
-<p>《When Attention Sink Emerges in Language Models: An Empirical View》指出：</p>
+<p>（ICLR 2025）的《When Attention Sink Emerges in Language Models: An Empirical View》指出：</p>
 <p><strong>1.</strong> 在语言模型通过充足训练数据进行有效训练后，注意力汇聚现象显现。采用较小学习率训练的语言模型中，此现象显得不那么明显。而权重衰减则促进了注意力汇聚的形成。</p>
 <p><strong>2.</strong> 汇点位置与损失函数及数据分布高度相关，并可移动至除首个 token 之外的其他位置。</p>
 <p><strong>3.</strong> 位置嵌入、FFN 设计、LN 位置以及多头设计不会影响注意力汇的出现。注意力汇聚点更像是一种键偏置，它存储了额外的注意力，同时不参与价值计算。这一现象（至少部分）源于 token 对注意力得分的内部依赖，这种依赖是由Softmax 规范化引起的。通过用其他注意力操作（如无规范化的 Sigmoid 注意力）替代 Softmax 注意力来缓解这种依赖后，在参数规模高达 1B 的语言模型中，注意力汇聚点不再出现。</p>
+<p>《Why do LLMs attend to the first token?》指出：</p>
+<p>（COLM 2024）《Massive Activations in Large Language Models》指出：</p>
+<p><img src="massive.jpg" alt=""></p>
+<p>《Unveiling Super Experts in Mixture-of-Experts Large Language Models》进一步</p>
+<p>ICLR 2025 的《Systematic Outliers in Large Language Models》研究了更多的情况。</p>
 <h1>Attention Sink是引起幻觉的元凶</h1>
 <p>像博客之前介绍过的OPERA则指出了这一点。</p>
 ]]></content>
