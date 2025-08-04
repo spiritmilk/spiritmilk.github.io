@@ -23103,6 +23103,10 @@ $$<br>
 <p><img src="sys.jpg" alt=""></p>
 <p>出现异常的位置：</p>
 <p><img src="sys2.jpg" alt=""></p>
+<p>另外，该文还发现尽管这些token受到了显著的注意力，其对应的值向量（V）却显示出相对较小的幅度。这表明，虽然异常值token吸引了注意力，但它们可能对最终输出的直接贡献较少。</p>
+<p><img src="sys3.jpg" alt=""></p>
+<p>论文中没有提到，但是可以从论文中看到的一点是，rmsnorm和layernorm类似，也可以消除一定影响。</p>
+<p><img src="sys5.jpg" alt=""></p>
 <h1>Attention Sink是引起幻觉的元凶</h1>
 <p>像博客之前介绍过的OPERA则指出了这一点。</p>
 ]]></content>
