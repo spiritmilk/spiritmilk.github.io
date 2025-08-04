@@ -23023,7 +23023,7 @@ $$<br>
   <entry>
     <title>Attention Sink</title>
     <url>/2025/20250726/</url>
-    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Attention Sink是指某些（初始）token具有较大的注意力得分。最早明确提出于StreamingLLM (2309.17453)。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Attention Sink是指某些（初始）token具有较大的注意力得分。最早明确提出于StreamingLLM (2309.17453)。</p>
 <span id="more"></span>
 <h1>Attention Sink有用武之地</h1>
 <h2 id="StreamingLLM：Attention-Sink用来实现长度外推">StreamingLLM：Attention Sink用来实现长度外推</h2>
@@ -23100,6 +23100,9 @@ $$<br>
 <p><img src="massive1.jpg" alt=""></p>
 <p>《Unveiling Super Experts in Mixture-of-Experts Large Language Models》进一步研究了MOE中的Massive Activations，并发现了超级专家。</p>
 <p>ICLR 2025 的《Systematic Outliers in Large Language Models》研究了更多的情况。</p>
+<p><img src="sys.jpg" alt=""></p>
+<p>出现异常的位置：</p>
+<p><img src="sys2.jpg" alt=""></p>
 <h1>Attention Sink是引起幻觉的元凶</h1>
 <p>像博客之前介绍过的OPERA则指出了这一点。</p>
 ]]></content>
