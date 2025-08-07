@@ -23959,4 +23959,24 @@ $$</p>
         <tag>漫画</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Ecotransformer-无需乘法的注意力机制</title>
+    <url>/2025/20250807/</url>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（arxiv 2025）2507.20096</p>
+<p>众所周知，注意力为$softmax(\frac{QK^T}{\sqrt{D_k}})V$。</p>
+<span id="more"></span>
+<p>而QK内积可以写为$&lt;Q,K&gt;=\frac{1}{2}(||Q||^2_2+||K||^2_2-||Q-K||^2_2)$。</p>
+<p>若Q、K被L2规范化，则括号内前两项为常数，化简后最终为$softmax(\frac{-1}{2/\sqrt{D}}||Q-K||^2_2)$。</p>
+<p>于是作者把其扩充为softmax(QK距离)，作者使用了L1距离乘上$\lambda$系数。</p>
+<p><img src="1.jpg" alt=""></p>
+<h2 id="评价">评价</h2>
+<p>思路其实比较简单。</p>
+<p>在此之前也有<a href="https://arxiv.org/pdf/2105.02723v1">《Do You Even Need Attention? A Stack of Feed-Forward Layers Does Surprisingly Well on ImageNet》</a>干脆全用FFN。</p>
+<p>和用逐元素乘法代替点积的AFT，不过被ICLR 2021 拒了。</p>
+<p><img src="2.jpg" alt=""></p>
+]]></content>
+      <tags>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
 </search>
