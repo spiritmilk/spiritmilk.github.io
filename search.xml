@@ -23966,6 +23966,14 @@ $$</p>
 <p>《<a href="http://arxiv.org/pdf/2508.02124">Trainable Dynamic Mask Sparse Attention</a>》</p>
 <p>Smalldoge出品，该组织专注于小型语言模型，专注于<strong>效率</strong>和<strong>易用性</strong>。</p>
 <span id="more"></span>
+<h2 id="现有方法">现有方法</h2>
+<p>现有方法要么是利用softmax注意力的稀疏性。</p>
+<p>如《From Softmax to Sparsemax: A Sparse Model of Attention and Multi-Label Classification》提出了Sparsemax，即$Sparsemax(x)=relu(x-\lambda(x))$。</p>
+<p>其中$\lambda(x)$是使得p的各分量之和为1的常数。</p>
+<p>其实softmax能写为$softmax(x)=exp(x-\lambda(x))$，而sparsemax正是利用了$exp(x)\approx relu(1+x)$。</p>
+<p>或者要么是利用长内容的稀疏性来选择性计算，比如滑动注意力和之前介绍过的NSA。</p>
+<p>另一方面，也有从KV入手，比如之前attention sinks介绍过多那一些。</p>
+<p>为了解决之前方法的限制，必须利用自注意力稀疏性进行必要计算和利用长上下文稀疏性进行选择性计算。</p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
