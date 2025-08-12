@@ -29,8 +29,9 @@
 <meta property="og:description" content="（NeurIPS 2024）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250812/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250812/2.jpg">
 <meta property="article:published_time" content="2025-08-12T01:38:25.000Z">
-<meta property="article:modified_time" content="2025-08-12T12:00:35.693Z">
+<meta property="article:modified_time" content="2025-08-12T12:03:18.205Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -298,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          385 字
+          578 字
         
       </span>
     
@@ -309,7 +310,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -371,6 +372,17 @@
 $$<br>
 InL_K(Q_i)=[\phi(Q_i)^T\phi(K_1),…\phi(Q_i)^T\phi(K_N)]^T-\frac{1}{N}\sum_{s=1}^N \phi(Q_i)^T\phi(K_s)+\frac{1}{N}<br>
 $$</p>
+<h2 id="局部建模能力">局部建模能力</h2>
+<p>Softmax 注意力为局部窗口分配了<br>
+大量的注意力，表明其相较于其他两种注意力范<br>
+式具有更强的局部建模能力。</p>
+<p><img src="2.jpg" alt=""></p>
+<p>两个关键观察结果显现：</p>
+<ol>
+<li>屏蔽局部 token 会显著降低模型性能，而随机屏蔽相同数量的 token 对结果影响较小。</li>
+<li>当局部 token 被屏蔽时，Softmax 注意力机制的性能比 InLine 注意力机制受到更严重的影响。这些发现证明了局部建模对于两种注意力机制的重要性，并证明了 Softmax 注意力机制相对于 InLine 注意力机制的优势主要归因于其更强的局部建模能力。</li>
+</ol>
+<h3 id="赋予线性注意力单射性-2">赋予线性注意力单射性</h3>
 
                 
               </div>
