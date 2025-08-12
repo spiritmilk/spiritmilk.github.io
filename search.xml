@@ -23907,7 +23907,7 @@ $$</p>
   <entry>
     <title>InLine attention：弥合Softmax与线性注意力机制的差距</title>
     <url>/2025/20250812/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（NeurIPS 2024）</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（NeurIPS 2024）</p>
 <span id="more"></span>
 <h2 id="引言">引言</h2>
 <p>作者指出：</p>
@@ -23938,6 +23938,14 @@ $$</p>
 <li>当局部 token 被屏蔽时，Softmax 注意力机制的性能比 InLine 注意力机制受到更严重的影响。这些发现证明了局部建模对于两种注意力机制的重要性，并证明了 Softmax 注意力机制相对于 InLine 注意力机制的优势主要归因于其更强的局部建模能力。</li>
 </ol>
 <h3 id="赋予线性注意力单射性-2">赋予线性注意力单射性</h3>
+<p>作者采用MLP 来预测 InLine 注意力的额外局部注意力残差。</p>
+<p>具体而言，<br>
+$$<br>
+O_i=InL_K(Q_i)^TV+\sum_{j=1}^9r_jV_j^{N(i)},r=MLP(\bar x)<br>
+$$<br>
+V代表3*3领域内的值$Q_i$。</p>
+<h2 id="实验">实验</h2>
+<p><img src="3.jpg" alt=""></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
