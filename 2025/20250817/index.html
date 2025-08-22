@@ -29,7 +29,7 @@
 <meta property="og:description" content="ICL (In-Context Learning)是一种在不更新模型参数（即不进行梯度下降或微调）的情况下，通过在输入（即“上下文”）中提供少量示例来指导模型完成特定任务的能力的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-17T14:20:17.000Z">
-<meta property="article:modified_time" content="2025-08-22T15:06:12.106Z">
+<meta property="article:modified_time" content="2025-08-22T15:12:23.270Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          933 字
+          929 字
         
       </span>
     
@@ -360,7 +360,7 @@
 <p><strong>定理.</strong> 考虑一个上下文块 $T_W = M_W \circ A$，如上所述，由一个上下文层 $A$ 与一个全连接层 $M_W$ 组成，其中全连接层具有权重矩阵 $W$。</p>
 <p>给定一个上下文 $C$ 和一个输入 $x$，上下文 $C$ 的某部分 $Y \subseteq C$ 对上下文块输出的影响隐式地对应于 $M_W$ 的第一层的秩 1 权重更新 $W + \Delta W(Y)$。即，<br>
 $$<br>
-T_W(C, x) = T_{W + \Delta W(Y)}(C \setminus Y, x)<br>
+T_W(C, x) = T _ {W + \Delta W(Y)}(C \setminus Y, x)<br>
 \quad \text{where} \quad<br>
 \Delta W(Y) = \frac{(W \Delta A(Y)) A(C \setminus Y, x)^T}{|A(C \setminus Y, x)|^2}, \tag{1}<br>
 $$</p>
@@ -369,8 +369,8 @@ $$</p>
 <p><strong>证明.</strong> 结果通过直接计算得出，其中我们使用符号 $M_W(z) = f_\theta(Wz + b)$，其中 $W$ 和 $b$ 是 $M$ 的第一个稠密层的权重，而 $f_\theta$ 是网络的其余部分。<br>
 在上述符号中，根据定义有：</p>
 <p>$$<br>
-T_{W+\Delta W(Y)}(C \setminus Y, x)<br>
-= M_{W+\Delta W(Y)}\big(A(C \setminus Y, x)\big) \tag{2}<br>
+T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
+= M _ {W+\Delta W(Y)}\big(A(C \setminus Y, x)\big) \tag{2}<br>
 $$</p>
 <p>$$<br>
 = f_\theta\big((W + \Delta W(Y)) A(C \setminus Y, x) + b\big)<br>
@@ -380,19 +380,19 @@ $$</p>
 $$</p>
 <p>将 $\Delta W(Y)$ 替换为式 (1) 中给出的定义，并利用 $\frac{z^T}{|z|} z = 1$，我们得到：</p>
 <p>$$<br>
-T_{W+\Delta W(Y)}(C \setminus Y, x)<br>
-= f_\theta!\left(W A(C \setminus Y, x)</p>
+T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
+= f_\theta\left(W A(C \setminus Y, x)</p>
 <ul>
-<li>\frac{(W \Delta A(Y)) A(C \setminus Y, x)^T}{|A(C \setminus Y, x)|^2} A(C \setminus Y, x) + b\right) \tag{5}<br>
+<li>\frac{(W \Delta A(Y)) A(C \setminus Y, x)^T}{|A(C \setminus Y, x)|^2} A(C \setminus Y, x) + b\right)<br>
 $$</li>
 </ul>
 <p>$$<br>
-= f_\theta!\left(W A(C \setminus Y, x) + W \Delta A(Y) + b\right). \tag{6}<br>
+= f_\theta\left(W A(C \setminus Y, x) + W \Delta A(Y) + b\right).<br>
 $$</p>
 <p>现在根据上下文向量的定义，有  $A(C \setminus Y, x) + \Delta A(Y) = A(C, x)$，最终得到</p>
 <p>$$<br>
-T_{W+\Delta W(Y)}(C \setminus Y, x)<br>
-= f_\theta!\big(W A(C, x) + b\big)<br>
+T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
+= f_\theta\big(W A(C, x) + b\big)<br>
 = M_W\big(A(C, x)\big)<br>
 = T_W(C, x)<br>
 $$</p>
