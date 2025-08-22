@@ -29,7 +29,7 @@
 <meta property="og:description" content="ICL (In-Context Learning)是一种在不更新模型参数（即不进行梯度下降或微调）的情况下，通过在输入（即“上下文”）中提供少量示例来指导模型完成特定任务的能力的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-17T14:20:17.000Z">
-<meta property="article:modified_time" content="2025-08-22T14:53:19.474Z">
+<meta property="article:modified_time" content="2025-08-22T14:56:27.923Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          504 字
+          692 字
         
       </span>
     
@@ -307,7 +307,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -357,6 +357,15 @@
 <h2 id="模型建立">模型建立</h2>
 <p>称一个上下文层为一种网络层 A(·)，它能够单独接受一个向量 x 作为输入，产生输出A(x)；或者，可选地，A 还可以额外接受一个上下文 C（例如，一个 token 序列、一张图片等）与向量 x 一起，生成输出 A([C, x])。注意，在后续描述中，我们通常会省略上下文层输入中的连接符号 [C, x]，而简单地用 A(C, x) 来表示 A([C, x])</p>
 <p><strong>定义.</strong> 一个上下文块是由上述上下文层 $A$ 与神经网络 $M_W$ 组成的复合结构 $$T_W = M_W \circ A;$$ 即$$M_W(z) = f_\theta(Wz + b),$$ 其中 $W$ 和 $b$ 是第一个全连接稠密层的权重，$f_\theta(z)$ 是神经网络的其余部分。</p>
+<p><strong>定理.</strong> 考虑一个上下文块 $T_W = M_W \circ A$，如上所述，由一个上下文层 $A$ 与一个全连接层 $M_W$ 组成，其中全连接层具有权重矩阵 $W$。</p>
+<p>给定一个上下文 $C$ 和一个输入 $x$，上下文 $C$ 的某部分 $Y \subseteq C$ 对上下文块输出的影响隐式地对应于 $M_W$ 的第一层的秩 1 权重更新 $W + \Delta W(Y)$。即，<br>
+$$<br>
+T_W(C, x) = T_{W + \Delta W(Y)}(C \setminus Y, x)<br>
+\quad \text{where} \quad<br>
+\Delta W(Y) = \frac{(W \Delta A(Y)) A(C \setminus Y, x)^T}{|A(C \setminus Y, x)|^2}, \tag{1}<br>
+$$</p>
+<p>其中$\Delta A(Y) = A(C, x) - A(C \setminus Y, x)$ 是与 $Y$ 关联的上下文向量。</p>
+<p>注意 $\Delta W(Y)$ 是秩 1，因为 $W \Delta A(Y)$ 是一个列向量，而 $A(C \setminus Y, x)^T$ 是一个行向量。</p>
 <h2 id="局限性">局限性</h2>
 <p>仍在分析一个简化模型，这构成了分析的局限性：</p>
 <ul>
