@@ -23991,6 +23991,36 @@ T_W(C, x) = T_{W + \Delta W(Y)}(C \setminus Y, x)<br>
 $$</p>
 <p>其中$\Delta A(Y) = A(C, x) - A(C \setminus Y, x)$ 是与 $Y$ 关联的上下文向量。</p>
 <p>注意 $\Delta W(Y)$ 是秩 1，因为 $W \Delta A(Y)$ 是一个列向量，而 $A(C \setminus Y, x)^T$ 是一个行向量。</p>
+<p><strong>证明.</strong> 结果通过直接计算得出，其中我们使用符号 $M_W(z) = f_\theta(Wz + b)$，其中 $W$ 和 $b$ 是 $M$ 的第一个稠密层的权重，而 $f_\theta$ 是网络的其余部分。<br>
+在上述符号中，根据定义我们有：</p>
+<p>$$<br>
+T_{W+\Delta W(Y)}(C \setminus Y, x)<br>
+= M_{W+\Delta W(Y)}\big(A(C \setminus Y, x)\big) \tag{2}<br>
+$$</p>
+<p>$$<br>
+= f_\theta\big((W + \Delta W(Y)) A(C \setminus Y, x) + b\big) \tag{3}<br>
+$$</p>
+<p>$$<br>
+= f_\theta\big(W A(C \setminus Y, x) + \Delta W(Y) A(C \setminus Y, x) + b\big). \tag{4}<br>
+$$</p>
+<p>将 $\Delta W(Y)$ 替换为式 (1) 中给出的定义，并利用 $\frac{z^T}{|z|} z = 1$，我们得到：</p>
+<p>$$<br>
+T_{W+\Delta W(Y)}(C \setminus Y, x)<br>
+= f_\theta!\left(W A(C \setminus Y, x)</p>
+<ul>
+<li>\frac{(W \Delta A(Y)) A(C \setminus Y, x)^T}{|A(C \setminus Y, x)|^2} A(C \setminus Y, x) + b\right) \tag{5}<br>
+$$</li>
+</ul>
+<p>$$<br>
+= f_\theta!\left(W A(C \setminus Y, x) + W \Delta A(Y) + b\right). \tag{6}<br>
+$$</p>
+<p>现在根据上下文向量的定义，我们有  $A(C \setminus Y, x) + \Delta A(Y) = A(C, x)$，最终得到</p>
+<p>$$<br>
+T_{W+\Delta W(Y)}(C \setminus Y, x)<br>
+= f_\theta!\big(W A(C, x) + b\big)<br>
+= M_W\big(A(C, x)\big)<br>
+= T_W(C, x). \tag{7}<br>
+$$</p>
 <h2 id="局限性">局限性</h2>
 <p>仍在分析一个简化模型，这构成了分析的局限性：</p>
 <ul>
