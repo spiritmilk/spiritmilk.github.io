@@ -24023,7 +24023,7 @@ $$</p>
 在上述符号中，根据定义有：</p>
 <p>$$<br>
 T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
-= M _ {W+\Delta W(Y)}\big(A(C \setminus Y, x)\big) \tag{2}<br>
+= M _ {W+\Delta W(Y)}\big(A(C \setminus Y, x)\big)<br>
 $$</p>
 <p>$$<br>
 = f_\theta\big((W + \Delta W(Y)) A(C \setminus Y, x) + b\big)<br>
@@ -24037,11 +24037,12 @@ T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
 = f_\theta\left(W A(C \setminus Y, x)</p>
 <ul>
 <li>\frac{(W \Delta A(Y)) A(C \setminus Y, x)^T}{|A(C \setminus Y, x)|^2} A(C \setminus Y, x) + b\right)<br>
+$$<br>
+123<br>
+$$<br>
+= f_\theta\left(W A(C \setminus Y, x) + W \Delta A(Y) + b\right).<br>
 $$</li>
 </ul>
-<p>$$<br>
-= f_\theta\left(W A(C \setminus Y, x) + W \Delta A(Y) + b\right).<br>
-$$</p>
 <p>现在根据上下文向量的定义，有  $A(C \setminus Y, x) + \Delta A(Y) = A(C, x)$，最终得到</p>
 <p>$$<br>
 T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>

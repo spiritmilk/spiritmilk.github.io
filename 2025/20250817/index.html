@@ -29,7 +29,7 @@
 <meta property="og:description" content="ICL (In-Context Learning)是一种在不更新模型参数（即不进行梯度下降或微调）的情况下，通过在输入（即“上下文”）中提供少量示例来指导模型完成特定任务的能力的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-08-17T14:20:17.000Z">
-<meta property="article:modified_time" content="2025-08-22T15:12:23.270Z">
+<meta property="article:modified_time" content="2025-08-22T15:19:14.147Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          929 字
+          928 字
         
       </span>
     
@@ -370,7 +370,7 @@ $$</p>
 在上述符号中，根据定义有：</p>
 <p>$$<br>
 T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
-= M _ {W+\Delta W(Y)}\big(A(C \setminus Y, x)\big) \tag{2}<br>
+= M _ {W+\Delta W(Y)}\big(A(C \setminus Y, x)\big)<br>
 $$</p>
 <p>$$<br>
 = f_\theta\big((W + \Delta W(Y)) A(C \setminus Y, x) + b\big)<br>
@@ -384,11 +384,12 @@ T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
 = f_\theta\left(W A(C \setminus Y, x)</p>
 <ul>
 <li>\frac{(W \Delta A(Y)) A(C \setminus Y, x)^T}{|A(C \setminus Y, x)|^2} A(C \setminus Y, x) + b\right)<br>
+$$<br>
+123<br>
+$$<br>
+= f_\theta\left(W A(C \setminus Y, x) + W \Delta A(Y) + b\right).<br>
 $$</li>
 </ul>
-<p>$$<br>
-= f_\theta\left(W A(C \setminus Y, x) + W \Delta A(Y) + b\right).<br>
-$$</p>
 <p>现在根据上下文向量的定义，有  $A(C \setminus Y, x) + \Delta A(Y) = A(C, x)$，最终得到</p>
 <p>$$<br>
 T _ {W+\Delta W(Y)}(C \setminus Y, x)<br>
