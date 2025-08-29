@@ -24153,6 +24153,12 @@ $$<br>
 <p><img src="2.jpg" alt=""></p>
 <p><img src="3.jpg" alt=""></p>
 <p><img src="4.jpg" alt=""></p>
+<p><strong>消融实验</strong>：</p>
+<p>在 NONE 情景中，同时排除隐状态和注意力信号，导致随机性能（AUROC<br>
+= 0.5）。</p>
+<p>在 HS ONLY 情景中，仅使用隐状态信息，而注意力得分被设置为均匀分布。此时，计算对应于 Proj的熵。</p>
+<p>在 HS + ATTN 情景中，同时整合隐状态和注意力信号。</p>
+<p><img src="5.jpg" alt=""></p>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
