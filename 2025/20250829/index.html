@@ -21,12 +21,12 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="目前存在多种幻觉检测方法。主流方法通过一致性检查或参考对比分析生成结果 (对比解码等)，而基于概率的方法则关注 Logit概率的不确定性。 另一种方法是检查大语言模型各层中的隐状态（例如嵌入向量）以检测幻觉 。基于输出或 Logit 概率的方法通常需要真实值参考或多次生成以保证一致性。相比之下，基于隐状态的检测方法具有无需参考的优势，无需依赖外部资源。 当前基于隐状态的幻觉检测方法大致可分为基于训">
+    <meta name="description" content="（ACL 2025） 目前存在多种幻觉检测方法。主流方法通过一致性检查或参考对比分析生成结果 (对比解码等)，而基于概率的方法则关注 Logit概率的不确定性。 另一种方法是检查大语言模型各层中的隐状态（例如嵌入向量）以检测幻觉 。基于输出或 Logit 概率的方法通常需要真实值参考或多次生成以保证一致性。相比之下，基于隐状态的检测方法具有无需参考的优势，无需依赖外部资源。 当前基于隐状态的幻觉检">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ICR 探针：追踪隐藏状态动态以在 LLMs 中实现可靠的幻觉检测">
 <meta property="og:url" content="https://lijianxiong.space/2025/20250829/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="目前存在多种幻觉检测方法。主流方法通过一致性检查或参考对比分析生成结果 (对比解码等)，而基于概率的方法则关注 Logit概率的不确定性。 另一种方法是检查大语言模型各层中的隐状态（例如嵌入向量）以检测幻觉 。基于输出或 Logit 概率的方法通常需要真实值参考或多次生成以保证一致性。相比之下，基于隐状态的检测方法具有无需参考的优势，无需依赖外部资源。 当前基于隐状态的幻觉检测方法大致可分为基于训">
+<meta property="og:description" content="（ACL 2025） 目前存在多种幻觉检测方法。主流方法通过一致性检查或参考对比分析生成结果 (对比解码等)，而基于概率的方法则关注 Logit概率的不确定性。 另一种方法是检查大语言模型各层中的隐状态（例如嵌入向量）以检测幻觉 。基于输出或 Logit 概率的方法通常需要真实值参考或多次生成以保证一致性。相比之下，基于隐状态的检测方法具有无需参考的优势，无需依赖外部资源。 当前基于隐状态的幻觉检">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250829/overview_v2.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250829/1.jpg">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20250829/4.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250829/5.jpg">
 <meta property="article:published_time" content="2025-08-29T14:11:54.000Z">
-<meta property="article:modified_time" content="2025-08-29T15:22:09.511Z">
+<meta property="article:modified_time" content="2025-08-30T05:27:52.923Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -304,7 +304,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          745 字
+          746 字
         
       </span>
     
@@ -357,7 +357,8 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>目前存在多种幻觉检测方法。主流方法通过一致性检查或参考对比分析生成结果 (对比解码等)，而基于概率的方法则关注 Logit概率的不确定性。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ACL 2025）</p>
+<p>目前存在多种幻觉检测方法。主流方法通过一致性检查或参考对比分析生成结果 (对比解码等)，而基于概率的方法则关注 Logit概率的不确定性。</p>
 <p>另一种方法是检查大语言模型各层中的隐状态（例如嵌入向量）以检测幻觉 。基于输出或 Logit 概率的方法通常需要真实值参考或多次生成以保证一致性。相比之下，基于隐状态的检测方法具有无需参考的优势，无需依赖外部资源。</p>
 <p>当前基于隐状态的幻觉检测方法大致可分为基于训练和无训练两类。</p>
 <p>基于训练的方法通常涉及训练单独或组合的探针，或使用语义熵探针 ，而无训练方法则直接从隐状态计算检测指标。然而，现有方法通常聚焦于静态的高维隐状态（约 4000 维度），这限制了特征抽取能力。这些方法难以捕捉隐状态的更新以及残差流的跨层演化，最终制约了幻觉检测的有效性。</p>
