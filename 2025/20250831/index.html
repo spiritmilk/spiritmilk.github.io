@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20250831/5.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250831/6.jpg">
 <meta property="article:published_time" content="2025-08-31T12:45:40.000Z">
-<meta property="article:modified_time" content="2025-08-31T13:29:44.187Z">
+<meta property="article:modified_time" content="2025-08-31T13:37:18.993Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -385,14 +385,14 @@
 <h2 id="模型">模型</h2>
 <p>加大参数。</p>
 <p><img src="5.jpg" alt=""></p>
-<p>加入了 Koleo 正则化项。</p>
+<p>加入了 Koleo 正则化项（《Spreading vectors for similarity search》）。</p>
+<blockquote></blockquote>
 <p>采用了 RoPE-box 抖动。坐标框 [−1, 1]被随机缩放到 [−s, s]，其中 s ∈ [0.5, 2]</p>
-<p>为了确保训练正常启动，仍然对学习率和教师温度使用线性预热。遵循常见做法，使用 AdamW，并将总批量大小设置为 4096 张图像，分布在 256 个 GPU 上。采用多裁剪策略训练模型，每张图像取 2 个全局裁剪和 8 个局部裁剪。对于全局/局部裁剪，使用边长为256/112 像素的方形图像</p>
+<p>为了确保训练正常启动，仍然对学习率和教师温度使用线性预热。遵循常见做法，使用 AdamW，并将总批量大小设置为 4096 张图像，分布在 256 个 GPU 上。采用多裁剪策略训练模型，每张图像取 2 个全局裁剪和 8 个局部裁剪。对于全局/局部裁剪，使用边长为256/112 像素的方形图像。</p>
 <h2 id="Gram-锚定">Gram 锚定</h2>
 <p>我们在之前的博客中已经介绍，故不再详细解释。</p>
 <h2 id="后训练">后训练</h2>
-<p>包括一个高分辨率适应阶段，以实现不同输入分辨率下的有效推理，模型<br>
-蒸馏生成高质量且高效的小尺寸模型，以及文本对齐为 DINOv3 添加 zero-shot 能力。</p>
+<p>包括一个高分辨率适应阶段，以实现不同输入分辨率下的有效推理，模型蒸馏生成高质量且高效的小尺寸模型，以及文本对齐为 DINOv3 添加 zero-shot 能力。</p>
 <h3 id="分辨率缩放">分辨率缩放</h3>
 <p>通过高分辨率适应步骤 (Touvron et al., 2019) 扩展了训练方案。为了确保在一系列分辨率下的高性能，采用了混合分辨率，在每个小批量中采样不同大小的全局和局部裁剪。具体来说，从 {512, 768} 的全局裁剪大小和从 {112, 168, 224, 336} 的局部裁剪大小，并额外训练模型 10k 次迭代。</p>
 <p>与主训练阶段相似，此高分辨率适应阶段的一个关键组成部分是引入 Gram 锚定，采用 7B 教师作为 Gram教师。缺少这一部分，模型在稠密预测任务上的性能会显著下降。Gram 锚定促使模型在空间位置上保持一致且稳健的特征相关系数，这对于处理高分辨率输入带来的复杂性至关重要。</p>
@@ -400,8 +400,7 @@
 <p>蒸馏方法采用了与初始训练阶段相同的训练目标，确保了学习信号的一致性。然而，不同于依赖模型权重的指数移动平均（EMA），作者直接使用 7B 模型作为教师模型来指导较小的学生模型，在此过程中，教师模型保持固定。由于未观察到补丁级别的一致性问题，因此未应用 Gram 锚定技术。</p>
 <h3 id="将-DINOv3-与文本对齐">将 DINOv3 与文本对齐</h3>
 <p>有研究表明，利用预训练的自监督视觉骨干网络可以实现有效的图像-文本对齐。这使得在多模态情景中利用这些强大模型成为可能，促进了超越全局语义的更为丰富和精确的文本到图像关联，同时由于视觉编码已预先学成，还降低了计算成本。</p>
-<p>采用先前在Jose等人中提出的训练策略（《DINOv2 meets text: A unified framework for<br>
-image-and pixel-level vision-language alignmen》）将文本编码器与DINOv3 模型对齐。</p>
+<p>采用先前在Jose等人中提出的训练策略（《DINOv2 meets text: A unified framework for image-and pixel-level vision-language alignmen》）将文本编码器与DINOv3 模型对齐。</p>
 <p><img src="6.jpg" alt=""></p>
 <p>该方法遵循 LiT 训练范式，从头开始训练文本表示，以通过对比目标将图像与其标题匹配，同时保持视觉编码器冻结。为了在视觉方面提供一定的灵活性，在冻结的视觉骨干之上引入了两个 Transformer层。该方法的一个关键增强是在与文本嵌入匹配之前，将平均池化的补丁嵌入与输出的 CLS token 进行拼接。</p>
 
