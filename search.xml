@@ -24317,7 +24317,7 @@ $</p>
   <entry>
     <title>DINO系列</title>
     <url>/2025/20250831/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>本文将介绍facebook/meta出品的DINOv1~v3。</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文将介绍facebook/meta出品的DINOv1~v3。</p>
 <p>DINO = Self-<strong>di</strong>stillation with <strong>no</strong> labels</p>
 <span id="more"></span>
 <p>注意与目标检测《<a href="https://arxiv.org/abs/2203.03605">DINO: DETR with Improved DeNoising Anchor Boxes for End-to-End Object Detection</a>》那篇关于目标检测的文章做区别。</p>
@@ -24351,7 +24351,7 @@ $</p>
 <p>引入的正则化项，旨在使点在 $\mathcal{S}<em>{d</em>{out}}$ 上均匀分布。</p>
 <p>在了解点密度 $p$ 的前提下，  可以直接最大化微分熵 $- \int p(u)\log(p(u))du$。</p>
 <p>仅给定样本 $(f(x_1),…,f(x_n))$ 时， 采用微分熵的估计量作为代理。</p>
-<p>Kozachenko 和 Leononenko证明，  定义 $\rho_{n,i} = \min_{j\neq i}|f(x_i)-f(x_j)|$ 后，该分布的微分熵可通过以下方式估计：<br>
+<p>Kozachenko 和 Leononenko证明，  定义 $\rho_{n,i} = \min_{j\neq i}||f(x_i)-f(x_j)||$ 后，该分布的微分熵可通过以下方式估计：<br>
 $$<br>
 H_n = \alpha_n \frac{1}{n} \sum_{i=1}^n \log(\rho_{n,i}) + \beta_n<br>
 $$</p>
