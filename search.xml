@@ -24348,17 +24348,17 @@ $</p>
 <p><img src="5.jpg" alt=""></p>
 <p>加入了 Koleo 正则化项（《Spreading vectors for similarity search》）。</p>
 <blockquote>
-<p>引入的正则化项，旨在使点在 $\mathcal{S}<em>{d</em>{out}}$ 上均匀分布。</p>
+<p>引入的正则化项，旨在使点在 $\mathcal{S} _ {d _ {out}}$ 上均匀分布。</p>
 <p>在了解点密度 $p$ 的前提下，  可以直接最大化微分熵 $- \int p(u)\log(p(u))du$。</p>
 <p>仅给定样本 $(f(x_1),…,f(x_n))$ 时， 采用微分熵的估计量作为代理。</p>
-<p>Kozachenko 和 Leononenko证明，  定义 $\rho_{n,i} = \min_{j\neq i}||f(x_i)-f(x_j)||$ 后，该分布的微分熵可通过以下方式估计：<br>
+<p>Kozachenko 和 Leononenko证明，  定义 $\rho _ {n,i} = \min _ {j\neq i}||f(x_i)-f(x_j)||$ 后，该分布的微分熵可通过以下方式估计：<br>
 $$<br>
-H_n = \alpha_n \frac{1}{n} \sum_{i=1}^n \log(\rho_{n,i}) + \beta_n<br>
+H_n = \alpha_n \frac{1}{n} \sum _ {i=1}^n \log(\rho _ {n,i}) + \beta_n<br>
 $$</p>
-<p>其中 $\alpha_n$ 和 $\beta_n$ 是两个依赖于样本数量 $n$ 和数据维度 $d_{out}$ 的常数。</p>
+<p>其中 $\alpha_n$ 和 $\beta_n$ 是两个依赖于样本数量 $n$ 和数据维度 $d _ {out}$ 的常数。</p>
 <p>忽略仿射项， 将熵正则化项定义为<br>
 $$<br>
-\mathcal{L}<em>{KoLeo} = -\frac{1}{n} \sum</em>{i=1}^n \log(\rho_{n,i})<br>
+\mathcal{L} _ {KoLeo} = -\frac{1}{n} \sum _ {i=1}^n \log(\rho _ {n,i})<br>
 $$</p>
 <p>该损失项具有令人满意的数学解释：最近邻点被推开，其强度是非递减且凹的。</p>
 <p>这确保了回报递减：随着点之间的距离增大，进一步增加距离的边际影响会逐渐减小。</p>
