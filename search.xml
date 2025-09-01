@@ -22975,6 +22975,8 @@ $$<br>
 <h2 id="实验">实验</h2>
 <p><img src="1.png" alt=""></p>
 <p><img src="2.png" alt=""></p>
+<p>令人奇异的是，beam search的幻觉率居然比top-k、top-p相对更低。</p>
+<p>但想想似乎也存在一定的合理性。提出top-p的《The Curious Case of Neural Text Degeneration》也说明了beam search更容易重复，而缺乏新意。</p>
 <h2 id="题外话">题外话</h2>
 <p>后续的还有2407.15130、2409.20429、2501.15269、2503.08342。</p>
 <p>视觉方面也有相关研究：2503.07772</p>
