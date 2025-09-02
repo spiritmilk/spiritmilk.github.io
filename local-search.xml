@@ -8,7 +8,7 @@
     <link href="/2025/20250902/"/>
     <url>/2025/20250902/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ICLR 2020）</p><p>《Generalization through Memorization: Nearest Neighbor Language Models》</p><span id="more"></span><p>这是一种免训练的方法。</p><h2 id="算法">算法</h2><p><img src="12.jpg" alt=""></p><p>上下文词元序列$c_t=(w_1,…,w_{t-1})$</p><p>记f©为模型某一层输出，定义键值对为：<br>$$<br>(K,V)=\left{(f(c_i),w_i)\mid (c_i,w_i)\in D\right}<br>$$</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICLR 2020）</p><p>《Generalization through Memorization: Nearest Neighbor Language Models》</p><span id="more"></span><p>这是一种免训练的方法。</p><h2 id="算法">算法</h2><p><img src="12.jpg" alt=""></p><p>上下文词元序列$c_t=(w_1,…,w_{t-1})$</p><p>记f©为模型某一层输出，定义键值对为：<br>$$<br>(K,V)=((f(c_i),w_i)\mid (c_i,w_i)\in D)<br>$$<br>再根据负距离的softmax计算邻居上的分布：<br>$$<br>p_{\text{kNN}}(y|x) \propto \sum_{\langle k_i, v_i \rangle \in \mathcal{N}} \mathbb{1}_{y=v_i} \exp(-d(k_i, f(x)))<br>$$</p>]]></content>
     
     
     
