@@ -24448,7 +24448,7 @@ $</p>
   <entry>
     <title>ALPHAEDIT：NULL-SPACE CONSTRAINED KNOWLEDGE EDITING FOR LANGUAGE MODELS</title>
     <url>/2025/20250903/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICLR 2025 outstanding paper）</p>
+    <content><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ICLR 2025 outstanding paper）</p>
 <span id="more"></span>
 <h2 id="准备知识">准备知识</h2>
 <h3 id="自回归LLM">自回归LLM</h3>
@@ -24473,6 +24473,26 @@ $$<br>
 上式的闭式解为：$\Delta=(V_1-WK_1)K_1^T(K_0K_0^T+K_1K_1^T)^{-1}$</p>
 <blockquote>
 <p>由于$WK_0=V_0$，$||(W+\tilde\Delta)K_0-V_0||^2=||\tilde\Delta K_0||^2$</p>
+<p>故等价于<br>
+$$<br>
+\begin{align}<br>
+\Delta&amp;=argmin_{\tilde \Delta}||(W+\tilde\Delta)K_1-V_1||^2+||\tilde\Delta K_0||^2<br>
+\\<br>
+&amp;=argmin_{\tilde \Delta}||\tilde\Delta K_1-(V_1-WK_1)||^2+||\tilde\Delta K_0||^2<br>
+\end{align}<br>
+$$<br>
+记$J(\tilde \Delta)=||\tilde\Delta K_1-(V_1-WK_1)||^2+||\tilde\Delta K_0||^2$<br>
+$$<br>
+\begin{align}<br>
+\frac{\partial J}{\partial \Delta}&amp;=\frac{\partial }{\partial \Delta}||\Delta K_1-(V_1-WK_1)||^2+||\Delta K_0||^2=0<br>
+\\<br>
+&amp;\Leftrightarrow2(\Delta K_1-(V_1-WK_1))K_1^T+2(\Delta K_0)K_0^T=0<br>
+\\<br>
+&amp;\Leftrightarrow \Delta(K_1K_1^T+K_0K_0^T)=(V_1-WK_1)K_1^T<br>
+\\<br>
+&amp;\Leftrightarrow\Delta=(V_1-WK_1)K_1^T(K_0K_0^T+K_1K_1^T)^{-1}<br>
+\end{align}<br>
+$$</p>
 </blockquote>
 <h3 id="零空间">零空间</h3>
 <p>BA=0，则B属于A的（左）零空间。</p>
