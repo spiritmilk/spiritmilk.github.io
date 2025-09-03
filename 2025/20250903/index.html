@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2025 outstanding paper）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-03T09:12:21.000Z">
-<meta property="article:modified_time" content="2025-09-03T12:45:30.130Z">
+<meta property="article:modified_time" content="2025-09-03T14:43:25.330Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          101 字
+          205 字
         
       </span>
     
@@ -307,7 +307,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -360,11 +360,21 @@ h^i&amp;=h^{i-1}+a^i+m^i<br>
 \\<br>
 m^i&amp;=W_{out}^i\sigma(W_{in}\gamma(h^{l-1}+a^l))<br>
 \end{align}<br>
+$$</p>
+<h3 id="LLM-中的模型编辑">LLM 中的模型编辑</h3>
+<p>我们会用“键-值”（key-value）对来描述。 Wout 在 FFN 层中通常被解释为一个线性的联想记忆，充当信息检索的关键-值存储。（可以适当联想一下上篇博客）。</p>
+<p>只关注更新知识时：<br>
 $$<br>
-Wout 在 FFN 层中通常被解释为一个线性的联想记忆，充当信息检索的关<br>
-键-值存储。（可以适当联想一下上篇博客）。</p>
+\Delta=argmin_{\bar \Delta}||(W+\bar\Delta)K_1-V_1||^2<br>
+$$<br>
+即关注新知识，又注重原知识：<br>
+$$<br>
+\Delta=argmin_{\bar \Delta}||(W+\bar\Delta)K_1-V_1||^2+||(W+\bar\Delta)K_0-V_0||^2<br>
+$$<br>
+上式的解为：$\Delta=(V_1-WK_1)K_1^T(K_0K_0^T+K_1K_1^T)^{-1}$</p>
 <h3 id="零空间">零空间</h3>
 <p>BA=0，则B属于A的（左）零空间。</p>
+<p>故对于扰动$\Delta$，则有$(W+\Delta)K_0=WK_0=V_0$。这正是我们所需要的性质。</p>
 
                 
               </div>
