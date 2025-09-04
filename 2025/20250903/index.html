@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2025 outstanding paper）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-03T09:12:21.000Z">
-<meta property="article:modified_time" content="2025-09-04T04:00:59.441Z">
+<meta property="article:modified_time" content="2025-09-04T04:16:23.935Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          744 字
+          817 字
         
       </span>
     
@@ -423,13 +423,21 @@ J(\tilde\Delta)&amp;=||(W+\tilde\Delta P)K_1-V_1||^2+||\tilde \Delta P||^2+||\ti
 \\&amp;=||\tilde\Delta PK_1-R||^2+||\tilde \Delta P||^2+||\tilde \Delta PK_p||^2<br>
 \end{align}<br>
 $$<br>
-求导有：<br>
+求导有，注意对称和幂等：$P=P^T,P^2=P$：<br>
 $$<br>
 \begin{align}<br>
-&amp;2(\tilde\Delta PK_1-R)(PK_1)+2(\tilde \Delta P)(P^T)+2(\tilde \Delta PK_p)(PK_p)^T=0<br>
+&amp;2(\tilde\Delta PK_1-R)(PK_1)^T+2(\tilde \Delta P)(P^T)+2(\tilde \Delta PK_p)(PK_p)^T=0<br>
 \\<br>
-&amp;\Leftrightarrow<br>
-\end{align}<br>
+&amp;\Leftrightarrow \tilde\Delta PK_1K_1^TP-RK_1^TP+\tilde\Delta P+\tilde\Delta PK_pK_p^TP=0<br>
+\\<br>
+&amp;\Leftrightarrow (\tilde\Delta PK_1-R)K_1^TP+\tilde\Delta P+\tilde\Delta PK_pK_p^TP=0<br>
+\\<br>
+&amp;\Leftrightarrow \tilde\Delta PK_1K_1^TP+\tilde\Delta P+\tilde\Delta PK_pK_p^TP=RK_1^TP<br>
+\\<br>
+&amp;\Leftrightarrow \tilde\Delta P(K_1K_1^TP+I+K_pK_p^TP)=RK_1^TP<br>
+\\<br>
+&amp;\Leftrightarrow \tilde\Delta P=RK_1^TP(K_1K_1^TP+I+K_pK_p^TP)^{-1}</p>
+<p>\end{align}<br>
 $$</p>
 <p>而和现有方法（MEMIT）比较可以发现只需修改一行代码就能得到更好的效果：<br>
 $$<br>
