@@ -24535,13 +24535,14 @@ $$<br>
 \\<br>
 &amp;\Leftrightarrow \tilde\Delta P(K_1K_1^TP+I+K_pK_p^TP)=RK_1^TP<br>
 \\<br>
-&amp;\Leftrightarrow \tilde\Delta P=RK_1^TP(K_1K_1^TP+I+K_pK_p^TP)^{-1}</p>
-<p>\end{align}<br>
-$$</p>
-<p>而和现有方法（MEMIT）比较可以发现只需修改一行代码就能得到更好的效果：<br>
+&amp;\Leftrightarrow \tilde\Delta P=RK_1^TP(K_1K_1^TP+I+K_pK_p^TP)^{-1}<br>
+\end{align}<br>
+$$<br>
+而和现有方法（MEMIT）比较可以发现只需修改一行代码就能得到更好的效果：<br>
 $$<br>
 \Delta_{MEMIT}=RK_1^T(K_pK_p^T+K_1K_1^T+K_0K_0^T)^{-1}<br>
 $$</p>
+<h2 id="实验">实验</h2>
 ]]></content>
       <tags>
         <tag>深度学习</tag>
