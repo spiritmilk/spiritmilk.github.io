@@ -24508,8 +24508,7 @@ $$</p>
 $$<br>
 \Delta=argmin_{\tilde \Delta}||(W+\tilde\Delta P)K_1-V_1||^2+||\tilde \Delta P||^2<br>
 $$<br>
-在顺序编辑任务中，在当前编辑过程中，我们需要在目标中添加一项以防止<br>
-扰动破坏先前编辑中更新的知识。令$K_p$ 和$V_p$表示之前更新知识的关键和值矩阵。即$||(W+\tilde\Delta P)K_p-V_p||^2$最小化，而其可以简化为$||\tilde \Delta PK_p||^2$。</p>
+在顺序编辑任务中，在当前编辑过程中，我们需要在目标中添加一项以防止扰动破坏先前编辑中更新的知识。令$K_p$ 和$V_p$表示之前更新知识的关键和值矩阵。即$||(W+\tilde\Delta P)K_p-V_p||^2$最小化，而其可以简化为$||\tilde \Delta PK_p||^2$。</p>
 <p>优化函数为：<br>
 $$<br>
 \Delta=argmin_{\tilde \Delta}||(W+\tilde\Delta P)K_1-V_1||^2+||\tilde \Delta P||^2+||\tilde \Delta PK_p||^2<br>
