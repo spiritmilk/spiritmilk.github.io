@@ -28,33 +28,33 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="Attention Sink是指某些（初始）token具有较大的注意力得分。最早明确提出于StreamingLLM (2309.17453)。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/sllm1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sllm2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sllm3.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sllm4.jpg">
-<meta property="og:image" content="https://lijianxiong.space/fastgen.jpg">
-<meta property="og:image" content="https://lijianxiong.space/H2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/H3.jpg">
-<meta property="og:image" content="https://lijianxiong.space/pkv0.jpg">
-<meta property="og:image" content="https://lijianxiong.space/pkv.jpg">
-<meta property="og:image" content="https://lijianxiong.space/catch.jpg">
-<meta property="og:image" content="https://lijianxiong.space/catch1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sep.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sep1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sep2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/massive.jpg">
-<meta property="og:image" content="https://lijianxiong.space/massive5.jpg">
-<meta property="og:image" content="https://lijianxiong.space/massive1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sys.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sys2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sys3.jpg">
-<meta property="og:image" content="https://lijianxiong.space/sys5.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sllm1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sllm2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sllm3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sllm4.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//fastgen.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//H2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//H3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//pkv0.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//pkv.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//catch.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//catch1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sep.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sep1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sep2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//massive.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//massive5.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//massive1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sys.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sys2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sys3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//sys5.jpg">
 <meta property="article:published_time" content="2025-07-26T08:09:47.000Z">
 <meta property="article:modified_time" content="2025-08-04T02:13:19.330Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/sllm1.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//sllm1.jpg">
   
   
   
@@ -380,48 +380,48 @@
 <p>所以就需要对此进行特殊设计。</p>
 <p>StreamingLLM认为，主要挑战有外推性和解码阶段KV缓存过大。</p>
 <p>一个直观的方法就是窗口注意力，既能减少KV缓存，又能适当地解决了外推问题，避免了推理阶段出现了没见过的相对距离。</p>
-<p><img src="/sllm1.jpg"></p>
+<p><img src="/.space//sllm1.jpg"></p>
 <p>但这些方法要么时间复杂度较高，要么表现不好。</p>
 <p>为了理解为什么窗口注意力失败，StreamingLLM作者发现自回归大语言模型中存在一个有趣的现象：无论这些初始词元与语言模型任务的相关性如何，都会分配出大量注意力得分。</p>
-<p><img src="/sllm2.jpg"></p>
+<p><img src="/.space//sllm2.jpg"></p>
 <p>作者认为认为这是因为 Softmax 操作要求所有上下文词元的注意力得分之和为一。因此，即使当前查询在许多先前词元中没有强烈的匹配，模型仍然需要将这些不需要的注意力值分配到某处，以使总和为一。</p>
 <p>也有从softmax入手解决以上问题的，比如<a target="_blank" rel="noopener" href="https://www.evanmiller.org/attention-is-off-by-one.html">SoftMax-Off-by-One</a>和<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.20966">Softpick</a>。</p>
 <p>初始词元作为黑洞词元的原因是直观的：由于自回归语言模型的特性，初始词元对几乎所有后续词元都是可见的，这使得它们更容易被训练成注意力黑洞。</p>
 <p>故作者在窗口注意力的基础上，保留保留注意力汇聚词元的 KV——4个初始词元。</p>
-<p><img src="/sllm3.jpg"></p>
+<p><img src="/.space//sllm3.jpg"></p>
 <p>总之，StreamingLLM 能够在<strong>不扩展 LLMs 上下文长度</strong>的情况下，从 KV 缓存中的词元高效生成连贯文本。</p>
 <p>此外，类似的论文还有LM-Infinite（2308.16137）和<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619703849">Perpetual Sampling </a>，它们都指出初始tokens的重要性，但没有更深入地指出attention sink这一现象。</p>
-<p><img src="/sllm4.jpg"></p>
+<p><img src="/.space//sllm4.jpg"></p>
 <h2 id="FastGen-四种特殊tokens策略"><a href="#FastGen-四种特殊tokens策略" class="headerlink" title="FastGen:四种特殊tokens策略"></a>FastGen:四种特殊tokens策略</h2><p>同年ICLR2024的FastGen（2310.01801）进一步考虑了更多的KV缓存种类。</p>
 <p><strong>特殊词元</strong>。例如句子开始词元 &lt; s&gt; ，指令词元 [INST] 等。此策略称为 $C_{special}$。</p>
 <p><strong>标点符号</strong>。仅在 KV 缓存中保留标点符号，称之为$C_{punct}$。</p>
 <p><strong>局部性</strong>。类似窗口注意力。称之为$C_{local}$</p>
 <p><strong>频繁项</strong>。监控每个词元的注意力得分的累积和，然后将这些得分视为词元 频率，并在 KV 缓存中仅保留最频繁的词元。称之为$C_{frequent}$。</p>
-<p><img src="/fastgen.jpg"></p>
+<p><img src="/.space//fastgen.jpg"></p>
 <h2 id="H2O：更灵活的位置"><a href="#H2O：更灵活的位置" class="headerlink" title="H2O：更灵活的位置"></a>H2O：更灵活的位置</h2><p>2306.14048</p>
 <p>（NeurIPS 2023）</p>
 <p>H2O（Heavy Hitter Oracle）可以说是StreamingLLM的前身，StreamingLLM作者也从中得到启发。它没从长度外推入手，而是只从KV cache入手。</p>
-<p><img src="/H2.jpg"></p>
+<p><img src="/.space//H2.jpg"></p>
 <p>相当于仍保持StreamingLLM的特殊Tokens数不变，但不限制其位置为初始，而使用贪心算法来实现。</p>
-<p><img src="/H3.jpg"></p>
+<p><img src="/.space//H3.jpg"></p>
 <p><strong>伪代码：</strong></p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">def generation_loop (...):<br>	<span class="hljs-comment"># Prologue</span><br>	...<br>	<span class="hljs-comment"># Generate</span><br>	for i in range( gen_len ):<br>		for <span class="hljs-keyword">j </span>in range( num_layers ):<br>			for k in range( num_gpu_batches ):<br>				load_weight (i, <span class="hljs-keyword">j+1, </span>k)<br>				load_cache (i, <span class="hljs-keyword">j, </span>k+<span class="hljs-number">1</span>)<br>				store_hidden (i, <span class="hljs-keyword">j, </span>k -<span class="hljs-number">1</span>)<br>				load_hidden (i, <span class="hljs-keyword">j, </span>k+<span class="hljs-number">1</span>)<br>				compute_layer (i, <span class="hljs-keyword">j, </span>k)<br>				store_cache (i, <span class="hljs-keyword">j, </span>k -<span class="hljs-number">1</span>)<br>				<span class="hljs-keyword">sync </span>()<br>	<span class="hljs-comment"># Epilogue</span><br>	...<br><span class="hljs-comment"># h is the hidden states ( activations )</span><br>def attention_forward (h, ...):<br>	<span class="hljs-comment"># the read/write buffer are intermediate stops for prefetching</span><br>	if <span class="hljs-keyword">prefill </span>:<br>		h, new_k_cache , new_v_cache = compute_attention (h, ...)<br>		<span class="hljs-comment"># select K heavy hitters and K recent tokens</span><br>		new_k_cache , new_v_cache = select(new_k_cache , new_v_cache , K)<br>		<span class="hljs-keyword">cache_write_buffer </span>.store(new_k_cache , new_v_cache )<br><span class="hljs-symbol">	else:</span><br>		k_cache , v_cache = <span class="hljs-keyword">cache_read_buf </span>.pop ()<br>		<span class="hljs-comment"># evict_ids track the entries that will be evicted</span><br>		h, new_k_cache , new_v_cache , evict_ids =<br>compute_attention (h, k_cache , v_cache , ...)<br>		<span class="hljs-keyword">cache_write_buffer </span>.store(new_k_cache , new_v_cache , evict_ids )<br>	return h<br>def store_cache (...):<br>	if <span class="hljs-keyword">prefill </span>:<br>		<span class="hljs-comment"># store cache directly</span><br>		...<br><span class="hljs-symbol">	else:</span><br>		k_new , v_new , evict_ids = <span class="hljs-keyword">cache_write_buffer </span>.pop ()<br>		<span class="hljs-comment"># circular queue for the last K entries</span><br>		<span class="hljs-comment"># extract the index for the oldest token at i-th iteration</span><br>		oldest = ((i - <span class="hljs-number">1</span>)<br>		<span class="hljs-comment"># update the KV cache (k_home and v_home )</span><br>		<span class="hljs-keyword">cache_replace </span>(k_home , evict_ids , k_new , K, oldest)<br>		<span class="hljs-keyword">cache_replace </span>(v_home , evict_ids , v_new , K, oldest)<br></code></pre></td></tr></table></figure>
 
 <h2 id="PyramidKV：初始token以外的attention-sink"><a href="#PyramidKV：初始token以外的attention-sink" class="headerlink" title="PyramidKV：初始token以外的attention sink"></a>PyramidKV：初始token以外的attention sink</h2><p>（拒 ICLR 2025）</p>
-<p><img src="/pkv0.jpg"></p>
+<p><img src="/.space//pkv0.jpg"></p>
 <p>作者发现注意力不仅在除了初始tokens以外的位置也会呈现出attention sink，而且还会呈现出阶梯状。</p>
 <p>故可以在不同层动态调整键值缓存大小，在较低层分配更多缓存，在较高层分配较少缓存。</p>
-<p><img src="/pkv.jpg"></p>
+<p><img src="/.space//pkv.jpg"></p>
 <p>该论文的发现和《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.00919">Attention Sinks and Outlier Features: A ‘Catch, Tag, and Release’ Mechanism for Embeddings</a>》的观点类似。</p>
 <p>验证了attention sink是由低秩结构产生的。</p>
-<p><img src="/catch.jpg"></p>
+<p><img src="/.space//catch.jpg"></p>
 <p>并从数学的角度考虑了一个双层attention、能求平均值的模型的attention map，得出其形状为：</p>
-<p><img src="/catch1.jpg"></p>
-<h2 id="SepLLM-针对标点符号的attention-sink"><a href="#SepLLM-针对标点符号的attention-sink" class="headerlink" title="SepLLM:针对标点符号的attention sink"></a>SepLLM:针对标点符号的attention sink</h2><p><img src="/sep.jpg"></p>
+<p><img src="/.space//catch1.jpg"></p>
+<h2 id="SepLLM-针对标点符号的attention-sink"><a href="#SepLLM-针对标点符号的attention-sink" class="headerlink" title="SepLLM:针对标点符号的attention sink"></a>SepLLM:针对标点符号的attention sink</h2><p><img src="/.space//sep.jpg"></p>
 <p>作者发现，LLMs 并未将注意力集中在具有语义意义的 token（如名词和动词）上，而是倾向于优先关注看似“无意义”的分隔符 token（如“.”或“\n”）以进行信息检索。这一观察表明，段落信息被压缩并嵌入到这些分隔符 token 中，从而无需直接从内容 token中提取即可实现高效的信息检索。</p>
-<p><img src="/sep1.jpg"></p>
+<p><img src="/.space//sep1.jpg"></p>
 <p>但作者其实并不只使用标点符号，也加入了StreamingLLM所用的初始tokens。具体如下图所示：</p>
-<p><img src="/sep2.jpg"></p>
+<p><img src="/.space//sep2.jpg"></p>
 <p>其和FastGen有些类似，FastGen相当于Past Window Cache为无限大，而不是局部的。</p>
 <h1 id="Attention-Sink是必要的吗？"><a href="#Attention-Sink是必要的吗？" class="headerlink" title="Attention Sink是必要的吗？"></a>Attention Sink是必要的吗？</h1><p>Attention Sink已广泛应用于流式&#x2F;长上下文生成、KV 缓存优化、推理加速、模型量化等场景。</p>
 <p>ICLR 2025的《When Attention Sink Emerges in Language Models: An Empirical View》详细研究了attention sink，但仍表示“是否有利于语言模型的下游性能仍不明确”。</p>
@@ -435,20 +435,20 @@
 <p><strong>2</strong>.更大的模型和经过更长上下文训练的模型应该具有更强的汇点。</p>
 <p><strong>3</strong>.无论在预训练期间是否包含 〈bos〉 ，attention sinks都会形成。</p>
 <p>（COLM 2024）《Massive Activations in Large Language Models》提出了Massive Activations的特征，并指出与attention sink。</p>
-<p><img src="/massive.jpg"></p>
+<p><img src="/.space//massive.jpg"></p>
 <p>layernorm可以消除影响。</p>
-<p><img src="/massive5.jpg"></p>
+<p><img src="/.space//massive5.jpg"></p>
 <p>Massive Activations本质上是充当bias的作用。</p>
-<p><img src="/massive1.jpg"></p>
+<p><img src="/.space//massive1.jpg"></p>
 <p>《Unveiling Super Experts in Mixture-of-Experts Large Language Models》进一步研究了MOE中的Massive Activations，并发现了超级专家。</p>
 <p>ICLR 2025 的《Systematic Outliers in Large Language Models》研究了更多的情况。</p>
-<p><img src="/sys.jpg"></p>
+<p><img src="/.space//sys.jpg"></p>
 <p>出现异常的位置：</p>
-<p><img src="/sys2.jpg"></p>
+<p><img src="/.space//sys2.jpg"></p>
 <p>另外，该文还发现尽管这些token受到了显著的注意力，其对应的值向量（V）却显示出相对较小的幅度。这表明，虽然异常值token吸引了注意力，但它们可能对最终输出的直接贡献较少。</p>
-<p><img src="/sys3.jpg"></p>
+<p><img src="/.space//sys3.jpg"></p>
 <p>论文中没有提到，但是可以从论文中看到的一点是，rmsnorm和layernorm类似，也可以消除一定影响。</p>
-<p><img src="/sys5.jpg"></p>
+<p><img src="/.space//sys5.jpg"></p>
 <h1 id="Attention-Sink是引起幻觉的元凶"><a href="#Attention-Sink是引起幻觉的元凶" class="headerlink" title="Attention Sink是引起幻觉的元凶"></a>Attention Sink是引起幻觉的元凶</h1><p>像博客之前介绍过的OPERA则指出了这一点。</p>
 
                 

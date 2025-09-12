@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="子午量化主办。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/pass1_aime_all.png">
-<meta property="og:image" content="https://lijianxiong.space/1.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//pass1_aime_all.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//1.png">
 <meta property="article:published_time" content="2025-06-11T02:54:26.000Z">
 <meta property="article:modified_time" content="2025-06-12T04:29:59.076Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="kaggle">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/pass1_aime_all.png">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//pass1_aime_all.png">
   
   
   
@@ -374,7 +374,7 @@
 <p>（2）使用TIR</p>
 <p>让模型输出code，而不是直接出答案。</p>
 <p><strong>挑战三：推理效率</strong></p>
-<p><img src="/pass1_aime_all.png">。</p>
+<p><img src="/.space//pass1_aime_all.png">。</p>
 <p>提高推理效率：《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2412.21187">Do NOT Think That Much for 2+3&#x3D;? On the Overthinking of o1-Like LLMs</a>》</p>
 <p>量化，使用更好的硬件等。</p>
 <h3 id="第二名解决方案"><a href="#第二名解决方案" class="headerlink" title="第二名解决方案"></a>第二名解决方案</h3><p>清华大学团队。</p>
@@ -396,7 +396,7 @@
 <li>对通过<code>stream_infer(...)</code>调用获得的迭代器的每N次生成进行样本级检查，并判断是否提前停止相应样本的生成。这里使用了Python代码执行器和答案提取器组件。</li>
 <li>在每个样本结束时进行题目的逐个检查，并判断是否提前停止当前问题的所有剩余样本的生成。这里使用了答案聚合组件。<br>最后，返回聚合后的答案。<br>注意，对于每个问题，根据剩余时间调整与速度相关的超参数（样本数量、采样级别最大时间、题目级别提前停止标准），这样当剩余时间有限时，可以更均衡地分配时间配额用于剩余的问题。</li>
 </ol>
-<p><img src="/1.png"></p>
+<p><img src="/.space//1.png"></p>
 <p>使用两种类型的提示：一个CoT提示和一个代码提示。在15个样本中，7个样本使用CoT提示，8个样本使用代码提示：</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-comment"># CoT prompt</span><br><span class="hljs-operator">-</span> <span class="hljs-params">system:</span> <span class="hljs-string">&quot;You are a helpful math assistant. Please reason step by step to put the answer in <span class="hljs-char escape_">\\</span>boxed&#123;&#125;.&quot;</span><br><span class="hljs-params">user_suffix:</span> <span class="hljs-string">&quot;<span class="hljs-char escape_">\n</span>You excel at reasoning.<span class="hljs-char escape_">\n</span>You must put the final answer in <span class="hljs-char escape_">\\</span>boxed&#123;&#125;.<span class="hljs-char escape_">\n</span>If the final answer is greater than 1000, then take the modulo of 1000.<span class="hljs-char escape_">\n</span>Think carefully and thoroughly, avoid duplication.&quot;</span><br><span class="hljs-comment"># Code prompt</span><br><span class="hljs-operator">-</span> <span class="hljs-params">system:</span> <span class="hljs-string">&quot;You are a helpful math assistant. Please provide the python code to solve the math problem and also put the final answer in <span class="hljs-char escape_">\\</span>boxed&#123;&#125;.&quot;</span><br><span class="hljs-params">user_suffix:</span> <span class="hljs-string">&quot;<span class="hljs-char escape_">\n</span>You excel at coding<span class="hljs-char escape_">\n</span>You must provide the python code, avoid redundant analysis.<span class="hljs-char escape_">\n</span>If the final answer is greater than 1000, then take the modulo of 1000.<span class="hljs-char escape_">\n</span>The answer must be integer.<span class="hljs-char escape_">\n</span>There is only one answer for each question.<span class="hljs-char escape_">\n</span>Import necessary libraries.&quot;</span><br></code></pre></td></tr></table></figure>
 

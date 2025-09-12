@@ -28,9 +28,9 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（CVPR 2024 Highlight） 《Mitigating Object Hallucinations in Large Vision-Language Models through Visual Contrastive》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/figure1.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//figure1.png">
 <meta property="article:published_time" content="2025-09-07T13:28:31.000Z">
 <meta property="article:modified_time" content="2025-09-08T00:58:08.345Z">
 <meta property="article:author" content="LJX">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="多模态">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/1.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//1.jpg">
   
   
   
@@ -360,11 +360,11 @@
 <span id="more"></span>
 
 <h2 id="对比解码"><a href="#对比解码" class="headerlink" title="对比解码"></a>对比解码</h2><p>对比解码（ Contrastive Decoding ，CD）提供了一种用于缓解幻觉景的方法，通过对比原始输入和失真输入之间的输出分布。具体而言，CD 方法首先生成两个输出分布：一个来自原始视觉图像 v 和文本查询 q，另一个来自扰动后的输入 v∗ 和 q∗。然后，通过检查两个分布之间的差异，可以构建一个对比响应 ℓcd，如下所示：<br>$$<br>\begin{align}<br>\ell _ {cd}&amp;&#x3D;mlogp(y_t\mid v,q,y _ {&lt;t};\theta)-nlogp(y_t\mid v^\ast,q^\ast,y _ {&lt;t};\theta)<br>\\<br>y_t&amp;\sim Softmax(\ell _ {cd})<br>\end{align}<br>$$<br>比如m可以为$1+\alpha$,n为$\alpha$。</p>
-<p><img src="/1.jpg"></p>
+<p><img src="/.space//1.jpg"></p>
 <p>（图来自《Octopus: Alleviating Hallucination via Dynamic Contrastive Decoding》）</p>
 <h2 id="VCD"><a href="#VCD" class="headerlink" title="VCD"></a>VCD</h2><p>VCD遵循同样的流程。</p>
 <p>对于构建失真图像，使用的是diffusion的（高斯）加噪过程。</p>
-<p><img src="/2.jpg"></p>
+<p><img src="/.space//2.jpg"></p>
 <p>为了避免过度惩罚可能正确的常规用语，VCD还引入了一项“自适应合理性约束” 。该机制会保留原始图像输入下置信度较高的候选词，防止模型生成不合逻辑的文本 。</p>
 <p>在决定下一个要生成的词语时，它并不直接在整个词汇表中进行对比解码。而是先做一步筛选：</p>
 <p>1.<strong>创建候选词列表</strong>：首先，模型会<strong>仅根据原始的、清晰的图像</strong>来预测下一个最有可能的词语 。</p>
@@ -374,7 +374,7 @@
 <p>$$<br>\mathcal{V} _ {\text{head}}(y _ {&lt;t}) &#x3D; {y_t \in \mathcal{V} : p _ {\theta}(y_t | v, x, y _ {&lt;t}) \ge \beta \max _ {w} p _ {\theta}(w | v, x, y _ {&lt;t})}<br>$$</p>
 <p>$$<br>p _ {\text{vcd}}(y_t | v, v’, x) &#x3D; 0, \quad \text{if } y_t \notin \mathcal{V} _ {\text{head}}(y _ {&lt;t})<br>$$</p>
 <p>其中 $\mathcal{V}$ 是 LVLMs 的输出词表，$\beta$ 是 [0,1] 中用于控制下一个 token 分布截断的超参数。较大的 $\beta$ 表示更激进的截断，仅保留高概率的 token。</p>
-<p><img src="/figure1.png"></p>
+<p><img src="/.space//figure1.png"></p>
 
                 
               </div>

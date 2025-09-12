@@ -28,13 +28,13 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="近日，Moonshot开源了改进版 Muon 优化算法及用 Muon 训练的SOTA级的MoE小模型。开启了Muon在大模型应用的局面。也许新的优化器时代即将到来！ PS：像谷歌23年提出的Lion（EvoLved Sign Momentum）优化器也号称比AdamW好，但是缺乏在大模型上的成功实验，大多数人还是选择Adam&#x2F;AdamW。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/muon_algo.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//muon_algo.png">
 <meta property="article:published_time" content="2025-02-24T13:52:02.000Z">
 <meta property="article:modified_time" content="2025-05-30T12:25:14.906Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/muon_algo.png">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//muon_algo.png">
   
   
   
@@ -356,7 +356,7 @@
 <span id="more"></span>
 
 <p>苏神和官方作者Keller Jordan都写了一些博客来介绍这个内容。</p>
-<h2 id="初步介绍"><a href="#初步介绍" class="headerlink" title="初步介绍"></a>初步介绍</h2><p><img src="/muon_algo.png"></p>
+<h2 id="初步介绍"><a href="#初步介绍" class="headerlink" title="初步介绍"></a>初步介绍</h2><p><img src="/.space//muon_algo.png"></p>
 <p>其中NewtonSchulz5被定义为</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Pytorch code</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">newtonschulz5</span>(<span class="hljs-params">G, steps=<span class="hljs-number">5</span>, eps=<span class="hljs-number">1e-7</span></span>):<br>    <span class="hljs-keyword">assert</span> G.ndim == <span class="hljs-number">2</span><br>    a, b, c = (<span class="hljs-number">3.4445</span>, -<span class="hljs-number">4.7750</span>, <span class="hljs-number">2.0315</span>)<br>    X = G.bfloat16()<br>    X /= (X.norm() + eps)<br>    <span class="hljs-keyword">if</span> G.size(<span class="hljs-number">0</span>) &gt; G.size(<span class="hljs-number">1</span>):<br>        X = X.T<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(steps):<br>        A = X @ X.T<br>        B = b * A + c * A @ A<br>        X = a * X + B @ X<br>    <span class="hljs-keyword">if</span> G.size(<span class="hljs-number">0</span>) &gt; G.size(<span class="hljs-number">1</span>):<br>        X = X.T<br>    <span class="hljs-keyword">return</span> X<br></code></pre></td></tr></table></figure>
 

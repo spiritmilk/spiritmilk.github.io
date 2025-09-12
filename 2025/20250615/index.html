@@ -28,16 +28,16 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="(ICML 2025) 《Modified K-means Algorithm with Local Optimality Guarantees》 K-means是广泛使用的聚类算法，尽管它不一定能保证全局最优，但大家都约定速成地认为K-means会收敛到局部最优解。 但其实不然。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2.png">
-<meta property="og:image" content="https://lijianxiong.space/3.jpg">
-<meta property="og:image" content="https://lijianxiong.space/1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//2.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//2.jpg">
 <meta property="article:published_time" content="2025-06-15T14:33:19.000Z">
 <meta property="article:modified_time" content="2025-06-17T15:23:23.871Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2.png">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//2.png">
   
   
   
@@ -361,9 +361,9 @@
 
 <h2 id="定义问题"><a href="#定义问题" class="headerlink" title="定义问题"></a>定义问题</h2><p>在提出反例之前我们先提出一些定义。</p>
 <p>我们将广泛使用的欧式距离拓展到Bregman 散度。<br>$$<br>D_\phi(x,y)&#x3D;\phi(x)-\phi(y)-&lt;x-y,\nabla\phi(y)&gt;<br>$$<br><strong>Bregman散度</strong>是借用一个严格凸函数φ（·），该散度即为φ（x）和h（x）的差，其中h（x）为φ（y）在x处的线性近似。</p>
-<p><img src="/2.png"></p>
+<p><img src="/.space//2.png"></p>
 <p>更多的：</p>
-<p><img src="/3.jpg"></p>
+<p><img src="/.space//3.jpg"></p>
 <p>两种局部最优的定义：</p>
 <p><strong>D-local: Discrete locally optimal solution</strong></p>
 <p>即若把某个数据点移动到任意簇后，损失都会升高。</p>
@@ -374,8 +374,8 @@
 <p>x1 &#x3D; −4, x2 &#x3D; −2, x3 &#x3D; 0, x4 &#x3D; 1.5, x5 &#x3D; 2.5,<br>c1 &#x3D; x3 &#x3D; 0, c2 &#x3D; x5 &#x3D; 2.5<br>$$<br>p^\ast&#x3D;\begin{bmatrix}<br>1,1,1,0,0\\0,0,0,1,1<br>\end{bmatrix},c_1^\ast&#x3D;-2,c_2^\ast&#x3D;2<br>$$<br>但是他并不满足C-local或D-local。</p>
 <h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>为了满足C-local，我们找数据点 <code>n</code> 满足至少两个或以上的簇中心在可允许误差范围内同样近。修改它的簇为另外的簇。</p>
 <p>为了满足D-local，我们检查所有的数据点，遍历移动到其他簇是否损失会降低。</p>
-<p><img src="/1.jpg"></p>
-<p><img src="/2.jpg"></p>
+<p><img src="/.space//1.jpg"></p>
+<p><img src="/.space//2.jpg"></p>
 
                 
               </div>

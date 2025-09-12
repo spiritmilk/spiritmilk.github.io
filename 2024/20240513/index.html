@@ -28,8 +28,8 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="《Graph-MLP: Node Classification without Message Passing in Graph》【arxiv 2021】 最近的图神经网络（GNN）都依赖于邻接矩阵来指导特征聚合过程中邻居之间的消息传递，研究工作主要集中在强大的消息传递模块上。然而本文表明没有任何消息传递模块也是可行的。相反地，本文通过设计了一个邻近对比（NContrast）损失，通过隐式利用邻接">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/diagram.png">
-<meta property="og:image" content="https://lijianxiong.space/Graph-MLP.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//diagram.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//Graph-MLP.png">
 <meta property="article:published_time" content="2024-05-13T05:12:36.000Z">
 <meta property="article:modified_time" content="2025-05-03T09:14:02.335Z">
 <meta property="article:author" content="LJX">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/diagram.png">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//diagram.png">
   
   
   
@@ -359,8 +359,8 @@
 <p>在模型层面，Graph-MLP仅包括多层感知器、激活函数和层归一化。</p>
 <span id="more"></span>
 
-<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p><img src="/diagram.png"></p>
-<p><img src="/Graph-MLP.png"></p>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p><img src="/.space//diagram.png"></p>
+<p><img src="/.space//Graph-MLP.png"></p>
 <p>constrastive loss可以写成:<br>$$<br>\ell_i&#x3D;-\log\frac{\sum_{j&#x3D;1}^B 1_{[j\neq i]}\gamma_{ij}\exp\left(sim\left(z_i,z_j\right)&#x2F;\tau\right)}{\sum_{k&#x3D;1}^B 1_{[k\neq i]}\exp\left(sim\left(z_i,z_k\right)&#x2F;\tau\right)}<br>$$<br>其中</p>
 <p>sim是余弦相似度，<br>$$<br>\begin{align}<br>\gamma_{ij}\begin{cases}&#x3D;0,&amp;\text{node }j \ \text{is the }r\text{-hop neighbor of node }i\\<br>\neq0,&amp;\text{node }j \ \text{is not the }r\text{-hop neighbor of node }i\end{cases}<br>\end{align}<br>$$</p>
 <p>和</p>

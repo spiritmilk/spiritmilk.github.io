@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="论文两位作者Albert Gu和Tri Dao，博士都毕业于斯坦福大学，导师为Christopher Ré。 Albert Gu现在是CMU助理教授，多年来一直推动SSM架构发展。他曾在DeepMind 工作，目前是Cartesia AI的联合创始人及首席科学家。 Tri Dao，以FlashAttention、FlashDecoding系列工作闻名，现在是普林斯顿助理教授，和Together A">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/S4.png">
-<meta property="og:image" content="https://lijianxiong.space/ZOH.png">
-<meta property="og:image" content="https://lijianxiong.space/discret.png">
-<meta property="og:image" content="https://lijianxiong.space/H3.jpg">
-<meta property="og:image" content="https://lijianxiong.space/S6.png">
-<meta property="og:image" content="https://lijianxiong.space/LTI.png">
-<meta property="og:image" content="https://lijianxiong.space/model.png">
-<meta property="og:image" content="https://lijianxiong.space/SL2048.png">
-<meta property="og:image" content="https://lijianxiong.space/SL8192.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//S4.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//ZOH.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//discret.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//H3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/.space//S6.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//LTI.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//model.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//SL2048.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//SL8192.png">
 <meta property="article:published_time" content="2024-01-31T08:05:28.000Z">
 <meta property="article:modified_time" content="2024-02-14T14:19:36.424Z">
 <meta property="article:author" content="LJX">
@@ -44,7 +44,7 @@
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="自然语言处理">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/S4.png">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//S4.png">
   
   
   
@@ -370,13 +370,13 @@
 
 <p>SSM指的是结构化状态空间序列模型（Structured state space sequence models，S4）</p>
 <p>S4模型可由四个参数 $(\Delta,A,B,C)$ 定义，他们分两个阶段定义序列到序列的转换。</p>
-<p><img src="/S4.png"></p>
+<p><img src="/.space//S4.png"></p>
 <p>离散化有</p>
-<p><img src="/ZOH.png"></p>
+<p><img src="/.space//ZOH.png"></p>
 <hr>
 <p>离散化证明：<br>$$<br>\dot{x}(t)&#x3D;Ax(t)+Bu(t) \<br>y(t)&#x3D;Cx(t)+Du(t)<br>$$</p>
 <p>为了方便，我们对$e^{-At}x(t)$进行积分，我们得到：<br>$$<br>x(t)&#x3D;e^{At}x(0)+\int_0^te^{A(t-\tau)}Bu(\tau)d\tau<br>$$<br>我们需要对上述进行离散化。</p>
-<p><img src="/discret.png"></p>
+<p><img src="/.space//discret.png"></p>
 <hr>
 <p>在参数从 (∆,A,B,C) ↦ (A,B,C) 转化之后，模型可以通过两种方式计算，一种是线性递归 (式2) （使用RNN），另一种是全局卷积 (3) （使用CNN）。</p>
 <p> 通常在训练时使用卷积模式 (式3) （提前看到整个输入序列），推理时使用递归模式 (式2) （每次看到一个时间步的输入）。</p>
@@ -388,7 +388,7 @@
 <li><p><strong>H3</strong>: 它在S4的基础上进行了扩展；可以被看作是一种由两个门控连接夹着一个 SSM 的架构（如下图）。H3还在主SSM层之前插入了一个标准的局部卷积，将这部分定义为一个shift-SSM。</p>
 </li>
 </ul>
-<p><img src="/H3.jpg"></p>
+<p><img src="/.space//H3.jpg"></p>
 <ul>
 <li><p><strong>Hyena</strong>: 使用与 H3 相同的架构，但用 MLP 参数化全局卷积取代了 S4 层。</p>
 </li>
@@ -401,12 +401,12 @@
 <h3 id="S6的提出"><a href="#S6的提出" class="headerlink" title="S6的提出"></a>S6的提出</h3><p>S4是线性时间不变（LTI）模型，具有局限性。从递归模型的角度来看，它们恒定的动态（例如 $\bar{A},\bar{B}$ 不能使它们从上下文中选择正确的信息，或以输入依赖的方式影响沿序列传递的隐藏状态。从卷积模型的角度来看，虽然全局卷积可以解决标准复制任务，但在处理需要内容意识的选择性复制任务时则存在困难，因为输入到输出之间的间距是变化的，无法用静态卷积核建模。</p>
 <p> 序列模型的效率与有效性之间的权衡由它们压缩状态的能力决定：高效的模型必须有一个小的状态，而有效的模型必须包含所有必要的上下文信息。作者提出，构建序列模型的一个基本原则是<strong>选择性</strong>，或者说具有上下文意识的能力，<strong>专注于或过滤掉输入到序列状态的信息</strong>。特别是，选择机制控制信息如何在序列维度上传播或相互作用。（Mamba就像是每次参考前面所有内容的一个概括，越往后写对前面内容概括得越狠，丢掉细节、保留大意）</p>
 <p>于是有了以下改动：</p>
-<p><img src="/S6.png"></p>
+<p><img src="/.space//S6.png"></p>
 <p>其中</p>
-<p><img src="/LTI.png"></p>
+<p><img src="/.space//LTI.png"></p>
 <p>模型从时不变变成了<strong>时可变</strong>。</p>
 <p>由于失去了LTI的性质，不能像之前的S4一样通过FFT来训练了。本文提出了<strong>IO-aware</strong>的parallel scan（一种memory bounded算子）算法来进行高效训练，<strong>降低整体的读写量</strong>从而提高wall-time efficiency。上面提到的outer product的参数化方式也对降低整体读写量很有帮助（大致思路是 (A¯,B¯)(\bar{A}, \bar{B})(\bar{A}, \bar{B}) 在SRAM里面on-the-fly算出来，避免<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=materialization&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22article%22,%22sourceId%22:%22661237120%22%7D">materialization</a>带来的读写开销）</p>
-<h3 id="简化的-SSM-架构"><a href="#简化的-SSM-架构" class="headerlink" title="简化的 SSM 架构"></a>简化的 SSM 架构</h3><p><img src="/model.png"></p>
+<h3 id="简化的-SSM-架构"><a href="#简化的-SSM-架构" class="headerlink" title="简化的 SSM 架构"></a>简化的 SSM 架构</h3><p><img src="/.space//model.png"></p>
 <p>本文的简化区块设计结合了 H3 区块（大多数 SSM 架构的基础）和现代神经网络中无处不在的 MLP 区块。这只是简单地重复 Mamba 模块，而不是交错使用这两个模块。与 H3 模块相比，Mamba 用激活函数取代了第一个乘法门。与 MLP 模块相比，Mamba 在主分支上增加了一个 SSM。对于 $\sigma$ ，使用 SiLU &#x2F; Swish 激活。</p>
 <p>Mamba架构通过一个可控的扩展因子 E 来扩大模型维度 D。在每个块中，大部分参数（3ED^2）用于线性投影（2ED^2用于输入投影，ED^2用于输出投影）。与线性投影相比，SSM的参数（Δ, B, C 的投影和矩阵 A）数量要少得多。通过重复这个块，并与标准的归一化和残差连接交错，构成了Mamba架构。</p>
 <p> 在实验中，扩展因子 E 总是固定为2，使用两层堆叠的块来匹配Transformer的交错多头注意力（Multi-Head Attention, MHA）和MLP块的 12D^2 参数。采用SiLU&#x2F;Swish激活函数，使得Gated MLP成为流行的“SwiGLU”变体。最后，受到RetNet在类似位置使用归一化层的启发，还使用了一个可选的归一化层（选择了LayerNorm）。</p>
@@ -420,8 +420,8 @@
 <li>C 影响着状态 h_t 如何转化为输出 y_t，即如何基于当前的状态信息生成最终的输出。</li>
 </ul>
 <p>这意味着，SSM可以基于当前处理的数据内容以及已经编码在隐藏状态中的上下文信息，来动态地调整其内部状态的更新方式和输出。这增加了模型处理序列数据时的灵活性和有效性，因为它可以根据数据的具体特征和任务需求来优化信息流。</p>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/SL2048.png"></p>
-<p><img src="/SL8192.png"></p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/.space//SL2048.png"></p>
+<p><img src="/.space//SL8192.png"></p>
 <p>其中Transformer++指的是带有Rope和SwiGLU的版本（i.e., LLaMa用的）。</p>
 <p>结果中也有国人研发的号称取代transformer的RWKV。</p>
 <p>而这些模型只能匹敌普通的transformer，只有mamba才能与transformer++匹敌。</p>

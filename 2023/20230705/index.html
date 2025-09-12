@@ -28,8 +28,8 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="该论文来自同级的fga同学。fga同学是一位我挺佩服的同学。 论文地址：https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2305.19599 共同一作：fga和来自穆罕默德·本·扎耶德人工智能大学（MBZUAI）的Zutao Jiang 其他作者还包括来自华为诺言方舟实验室的几位和梁晓丹老师。 不知道这篇论文会在哪里发表（目前还是arxiv)，也不能断定这篇论文是否具有较大的学术阅读价值，但我认为阅读">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/model.png">
-<meta property="og:image" content="https://lijianxiong.space/maskscore.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//model.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//maskscore.png">
 <meta property="article:published_time" content="2023-07-05T04:45:19.000Z">
 <meta property="article:modified_time" content="2025-05-27T08:03:58.120Z">
 <meta property="article:author" content="LJX">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="自然语言处理">
 <meta property="article:tag" content="peer">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/model.png">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//model.png">
   
   
   
@@ -366,12 +366,12 @@
 <span id="more"></span>
 
 <hr>
-<h2 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图"></a>模型示意图</h2><p><img src="/model.png"></p>
+<h2 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图"></a>模型示意图</h2><p><img src="/.space//model.png"></p>
 <p>diffusion模型结合了2021年Lora和2023年的SAM</p>
 <p><strong>Caption Reward</strong>:这里用的是BLIP-2模型，计算分数为余弦相似度。</p>
 <p><strong>SAM Reward:</strong></p>
 <p>具体来说，我们首先使用Grounded SAM生成的图像，并获得每个掩码的语义类别标签$L&#x3D;^n_i&#x3D;1$，其中n表示掩码&#x2F;标签的数量。然后使用大型语言模型，即Vicuna-7B，基于所提供的提示来评估所描述的场景，并基于每个类别标签出现在场景中的可能性为每个掩码分配奖励分数。每个mask $s_i$的奖励分数根据以下标准确定：</p>
-<p><img src="/maskscore.png"></p>
+<p><img src="/.space//maskscore.png"></p>
 <p>最后：<br>$$<br>R_{sam}&#x3D;\frac{1}{n}\sum^n_{i&#x3D;1}s_i<br>$$<br>使用的prompt:</p>
 <p>Please assess the described scene based on the provided prompt and determine the likelihood of each tag appearing in the scene. Assign a score to each tag according to the following criteria:  If a tag is certain to appear, assign a score of 3. If a tag may appear, assign a score of 2. If a tag is unlikely to appear, assign a score of 1.</p>
 <blockquote>

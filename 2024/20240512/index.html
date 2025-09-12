@@ -28,10 +28,10 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="2014年，Volodymyr的《Recurrent Models of Visual Attention》一文中首先将注意力其应用在视觉领域，后来伴随着2017年Ashish Vaswani的《Attention is all you need》中Transformer结构的提出，注意力机制大成。 在注意力机制中，除去耳熟能详的SENet和CBAM，也有一些主动去学习注意区域的网络算法。 比如以">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2024/20240512/house_read.gif">
-<meta property="og:image" content="https://lijianxiong.space/2024/20240512/house_generate.gif">
-<meta property="og:image" content="https://lijianxiong.space/model.png">
-<meta property="og:image" content="https://lijianxiong.space/dramresult.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//house_read.gif">
+<meta property="og:image" content="https://lijianxiong.space/.space//house_generate.gif">
+<meta property="og:image" content="https://lijianxiong.space/.space//model.png">
+<meta property="og:image" content="https://lijianxiong.space/.space//dramresult.png">
 <meta property="article:published_time" content="2024-05-12T08:48:12.000Z">
 <meta property="article:modified_time" content="2025-05-20T05:50:07.254Z">
 <meta property="article:author" content="LJX">
@@ -39,7 +39,7 @@
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="注意力">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2024/20240512/house_read.gif">
+<meta name="twitter:image" content="https://lijianxiong.space/.space//house_read.gif">
   
   
   
@@ -365,13 +365,13 @@
 
 <center>
 <figure>
-    <img src="house_read.gif" alt="RNN 学习读取门牌号" width="25%" style="max-width: 300px;">
-    <img src="house_generate.gif" alt="RNN 学习绘制门牌号" width="25%" style="max-width: 300px;">
+    <img src="/.space//house_read.gif" alt="RNN 学习读取门牌号" width="25%" style="max-width: 300px;">
+    <img src="/.space//house_generate.gif" alt="RNN 学习绘制门牌号" width="25%" style="max-width: 300px;">
 </figure>
 </center>
 
 <h2 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a>DRAM</h2><p>模型架构：</p>
-<p><img src="/model.png"></p>
+<p><img src="/.space//model.png"></p>
 <h3 id="Glimpse-Network"><a href="#Glimpse-Network" class="headerlink" title="Glimpse Network**"></a>Glimpse Network**</h3><p>该网络是一种非线性函数，接收当前输入的图像patch或者说是glimpse,$x_n$,以及其位置序列$l_n$,其中$l_n&#x3D;(x_n,y_n)$作为输入，输出一个向量$g _ {n}$。</p>
 <p>Glimpse Network 的工作就是从原始图像中从位置$l _ {n}$附近提取一组有用的特征。利用$G _ {image}(x_n|W _ {image})$来表示函数$G _ {image}(\dot)$的输出向量$G _ {image}(\dot)$的输入是图像patch $x_n$,然后以权重$W_image${参 数 化 }，$G _ {image}( \dot )$ 通常由三个卷积隐层构成，没有pooling layer,然后紧跟着一个全连接层。</p>
 <p>另外，$G _ {loc}(l _ {n}|W _ {loc})$利用全连接的隐层来映射出位置元组，$G _ {loc}(l _ {n}|W _ {loc})$ 和$G _ {image}(x_n|W _ {image})$拥有相同的维度。</p>
@@ -386,7 +386,7 @@
 <h3 id="Classification-Network"><a href="#Classification-Network" class="headerlink" title="Classification Network"></a><strong>Classification Network</strong></h3><p>分类网络基于底层RN的最终的特征向量 $r _ {N}^{(1)}$预测出一个类别标签y。由一个全连接隐层和softmax 输出层构成：<br>$$P(y|I)&#x3D;O(r_n^1|W_o)$$</p>
 <p>理想情况下，深度循环attention model 应该学习去寻找对分类物体相关的位置。Contextual information的存在，提供了一个”short cut”的解决方案，使得模型通过组合不同glimpse的信息从而更加容易学习到Contextudl information。</p>
 <p>我们阻止如此不想要的行为，通过链接 context network and classification network 到不同的 recurrent layer。所以，最终使得contextual information 不能被直接用于 classification network,然后只影响模型产生的glimpse locations序列。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>给定一张图像 I 的类别标签 y，我们可以利用交叉熵目标函数，将学习过程规划为 有监督分类问题。attention model 基于每一个 glimpse 得到潜在的位置变量 l，然后提取出对应的patches。所以我们可以通过忽略 glimpse locations 来最大化 类别标签的似然性 ：</p>
+<h3 id><a href="#" class="headerlink" title></a></h3><p>给定一张图像 I 的类别标签 y，我们可以利用交叉熵目标函数，将学习过程规划为 有监督分类问题。attention model 基于每一个 glimpse 得到潜在的位置变量 l，然后提取出对应的patches。所以我们可以通过忽略 glimpse locations 来最大化 类别标签的似然性 ：</p>
 <p>$$<br>logp(y|I,W)&#x3D;log\sum _ {l}p(l|I,W)p(y|l,I,W)<br>$$</p>
 <p>忽略的目标函数可以通过其 variational free energy lower bound F 来学到：</p>
 <p>$$<br>\begin{align}\log\sum _ {l}p(l|I,W)p(y|l,I,W)&amp;\geq\sum _ {l}p(l|I,W)\log p(y,l|I,W)+H[l]\\&amp;&#x3D;\sum _ {l}p(l|I,W)\log p(y|l,I,W)<br>\end{align}<br>$$</p>
@@ -399,7 +399,7 @@
 <p>像所展示的那样，recurrent network state vector $r_n^{(2)}$用来估计每一个glimpse 基于状态的baseline $b$,此举明显的改善了学习的效率。该baseline 有效地中心化了随机变量 R,并且可以通过向期望的R值讲行回归而学习到。给定指示函数和baseline,我们有如下的梯度更新：<br>$$<br>\dfrac{\partial\mathcal{F}}{\partial W}\approx\dfrac{1}{M}\sum\limits _ {m&#x3D;1}^{M}\left[\dfrac{\partial\log p(y|\tilde{l}^m,I,W)}{\partial W}+\lambda(R-b)\dfrac{\partial\log p(\tilde{l}^m|I,W)}{\partial W}\right]<br>$$</p>
 <p>其中，超参数$\lambda$平衡了两个梯度成分的尺度。实际上，通过利用 0&#x2F;1指示函数，上式的学习规则就等价于利用强化学习的方法来训练attention model。当看作是强化学习更新时，公式13的第二项就是基于glimpse policy的期望奖励R的对应W的梯度无偏估计。(原文：the second term in equation 13 is an unbiased estimate of the gradient with respect to W of the expected reward R under the model glimpse policy。)<br>在推理的过程中，前馈位置估计可以用作位置坐标的决策性估计，以此提取模型下一个输入图像patch。该模型表现的像一个常规的前馈网络。我们的marginallized objective function equation 5 通过利用位置序列的采样，提供了一个预测期望的类别估计，并且对这些估计进行平均：<br>$$<br>\mathbb{E}_l[p(y|I)]\approx\frac{1}{M}\sum _ {m&#x3D;1}^Mp(y|I,\tilde{l}^m)<br>$$</p>
 <p>通过平均分类估计，这允许attention model 可以多次评价。作者的实验表明平均 log 概率可以得到最优的性能。</p>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/dramresult.png"></p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/.space//dramresult.png"></p>
 
                 
               </div>
