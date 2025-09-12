@@ -28,9 +28,9 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="CAAFE这是一种针对表格数据集的特征工程方法，该方法利用LLM基于数据集的描述，迭代地为表格数据集生成附加的语义上有意义的特征。该方法生成用于创建新功能的 Python 代码以及对所生成功能的实用程序的解释。尽管方法简单，但 CAAFE 提高了 14 个数据集中的 11 个的性能 - 将所有数据集的平均 ROC AUC 性能从 0.798 提高到 0.822 - 类似于在我们的数据集上使用随机森">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//motivation.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//fig4.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//full.png">
+<meta property="og:image" content="https://lijianxiong.space/motivation.png">
+<meta property="og:image" content="https://lijianxiong.space/fig4.png">
+<meta property="og:image" content="https://lijianxiong.space/full.png">
 <meta property="article:published_time" content="2024-08-11T02:30:14.000Z">
 <meta property="article:modified_time" content="2024-08-14T09:31:36.013Z">
 <meta property="article:author" content="LJX">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="表格学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//motivation.png">
+<meta name="twitter:image" content="https://lijianxiong.space/motivation.png">
   
   
   
@@ -360,11 +360,11 @@
 <span id="more"></span>
 
 <hr>
-<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><img src="/.space//motivation.png"></p>
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><img src="/motivation.png"></p>
 <p>上下文信息可以极大地简化任务。在左侧，图中没有添加任何上下文信息，并且很难预测绿色查询点的标签。在右侧添加了上下文信息，并派生出有用的附加特征（周末或工作日），从中可以找到从特征到目标的映射。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/.space//fig4.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/fig4.png"></p>
 <p>上图显示了CAAFE在Tic-Tac-Toe Endgame数据集上的示例运行。用户生成的输入以蓝色显示，ml分类器生成的数据以红色显示，LLM生成的代码以语法高亮显示。生成的代码包含每个生成的特性的注释，该注释遵循我们提示中提供的模板(特性名称、有用性描述、生成代码中使用的特性以及这些特性的样例值)。在这次运行中，CAAFE在两次特征工程迭代中将验证数据集上的ROC AUC从0.888提高到1.0。</p>
-<p><img src="/.space//full.png"></p>
+<p><img src="/full.png"></p>
 <p>上图显示了CMC dataset的完整prompt。</p>
 
                 

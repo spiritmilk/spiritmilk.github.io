@@ -28,9 +28,9 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="图神经网络（GNN）是对图中节点进行分类的主要范例，但它们具有一些源于其消息传递架构的不良属性。最近，蒸馏方法成功地消除了测试时 GNN 的使用，但在训练期间仍然需要它们。作者提出了一种完全无 GNN 的节点分类方法，在训练或测试时不需要它们。该方法由三个关键部分组成：平滑约束、伪标签迭代和邻域标签直方图。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//psu_code.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//for.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//exa.png">
+<meta property="og:image" content="https://lijianxiong.space/psu_code.png">
+<meta property="og:image" content="https://lijianxiong.space/for.png">
+<meta property="og:image" content="https://lijianxiong.space/exa.png">
 <meta property="article:published_time" content="2024-08-24T02:19:46.000Z">
 <meta property="article:modified_time" content="2024-08-24T09:32:06.655Z">
 <meta property="article:author" content="LJX">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//psu_code.png">
+<meta name="twitter:image" content="https://lijianxiong.space/psu_code.png">
   
   
   
@@ -364,7 +364,7 @@
 <h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>蒸馏方法最近挑战了节点分类中的现有范式。 GNN 的标准做法是在图中所有标记节点上训练模型，并在测试时使用相同的模型进行节点分类。蒸馏方法消除了在测试时使用 GNN 的需要，尽管它们仍然需要训练 GNN。他们使用 GNN 来伪标记无监督节点。随后，训练 MLP 仅根据其节点特征来预测这些节点的标签，而不考虑其邻居的特征。值得注意的是，在多个数据集上，蒸馏方法与 GNN 具有竞争力。这个结果令人困惑，因为图结构在训练期间似乎有益，但在测试期间却没有。这就引出了一个问题：为什么蒸馏方法如此成功？</p>
 <p>作者指出：应对数据集不在于提高模型表达能力，而在于降低模型样本复杂性。 GNN 通过有用的归纳偏差克服了这一挑战，而蒸馏则通过使用 GNN 伪标签增加训练集的大小来克服这一挑战。</p>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>CoHOp - Consistency and Histogram Optimization</p>
-<p><img src="/.space//psu_code.png"></p>
+<p><img src="/psu_code.png"></p>
 <p>该模型的损失分为两部分。</p>
 <p>一部分为分类的交叉熵损失：<br>$$<br>L_{GT}(\Psi)&#x3D;\sum_{(x_i,y_i)\in V_{train}}CE(\Psi(x_i),y_i)<br>$$<br>一部分为：<br>$$<br>L_{consist}(\Psi)&#x3D;\sum_{v_i\in V}\left(\frac{1}{|N(v_i)|}\sum_{v_j\in N(v_i)}CE(\Psi(x_i),\Psi(x_j))\right)<br>$$</p>
 <p>最终：<br>$$<br>L(\Psi) &#x3D; L_{GT}(\Psi) + \gamma \cdot L_{consist}(\Psi)<br>$$</p>
@@ -373,8 +373,8 @@
 <p>$N^\ell$指为$\ell$距离以内的。</p>
 <p>$y_j\in {0,1}^C$为onthot的向量</p>
 <p>最后会做一个归一化：<br>$$<br>h_i &#x3D; \frac{h_i’}{\sum_{j&#x3D;1}^C h_{ij}’}<br>$$<br>对于较大的数据集，例如 ogbn-products，这种计算变得很麻烦。为了解决这个问题，提出了 h 的有效近似。通过使用卷积运算扩展标签来联合计算图中所有节点的直方图。具体来说，矩阵 H 的行表示每个节点的非标准化直方图，通过以下方式获得：<br>$$<br>H’&#x3D;\sum_{k&#x3D;1}^\ell\left(\alpha\hat{A}\right)^k\tilde{Y}<br>$$<br>$\tilde{Y}$的第i行 为：</p>
-<p><img src="/.space//for.png"></p>
-<h4 id="精确算和近似算的比较"><a href="#精确算和近似算的比较" class="headerlink" title="精确算和近似算的比较"></a>精确算和近似算的比较</h4><p><img src="/.space//exa.png"></p>
+<p><img src="/for.png"></p>
+<h4 id="精确算和近似算的比较"><a href="#精确算和近似算的比较" class="headerlink" title="精确算和近似算的比较"></a>精确算和近似算的比较</h4><p><img src="/exa.png"></p>
 
                 
               </div>

@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="暗通道去雾由何恺明提出，其基于一个观察：在绝大多数户外无雾图像的非天空区域，至少有一个颜色通道的强度值非常低，趋近于零。这个“非常低的强度值”就是所谓的“暗像素”，而由这些暗像素构成的图像就是“暗通道”。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//guided_filter.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//%E6%9A%97%E5%8E%9F%E8%89%B2%E5%85%88%E9%AA%8C.jpg">
+<meta property="og:image" content="https://lijianxiong.space/guided_filter.jpg">
+<meta property="og:image" content="https://lijianxiong.space/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/%E6%9A%97%E5%8E%9F%E8%89%B2%E5%85%88%E9%AA%8C.jpg">
 <meta property="article:published_time" content="2022-05-07T13:10:53.000Z">
 <meta property="article:modified_time" content="2025-05-23T05:52:09.580Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//guided_filter.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/guided_filter.jpg">
   
   
   
@@ -388,7 +388,7 @@
 <li><p><strong>精细化透射率图 (Refine Transmission Map):</strong></p>
 <p>为了得到更精确的透射率图，通常会使用<strong>软抠图 (Soft Matting)</strong> 或者<strong>导向滤波 (Guided Filter)</strong> 等方法对初始透射率图进行平滑和边缘保持处理。导向滤波因其高效性和良好的效果而被广泛使用。</p>
 <p>导向滤波，即参考另一张图像（称之为“引导图像”）的结构信息对一张图像进行平滑处理。引导图像“告诉”滤波器哪里是边缘，哪里是平坦区域。当滤波器处理输入图像时，如果引导图像在某个位置显示有边缘，滤波器就会努力保持输入图像在该位置的边缘；如果引导图像显示为平坦区域，滤波器就会对输入图像的相应区域进行更强的平滑。</p>
-<p><img src="/.space//guided_filter.jpg"></p>
+<p><img src="/guided_filter.jpg"></p>
 </li>
 <li><p><strong>恢复无雾图像 (Recover Scene Radiance):</strong></p>
 <ul>
@@ -398,9 +398,9 @@
 </li>
 </ol>
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><strong>未去雾：</strong> （摄于深圳铁仔山）</p>
-<p><img src="/.space//1.jpg"></p>
+<p><img src="/1.jpg"></p>
 <p><strong>去雾后：</strong></p>
-<p><img src="/.space//%E6%9A%97%E5%8E%9F%E8%89%B2%E5%85%88%E9%AA%8C.jpg"></p>
+<p><img src="/%E6%9A%97%E5%8E%9F%E8%89%B2%E5%85%88%E9%AA%8C.jpg"></p>
 
                 
               </div>

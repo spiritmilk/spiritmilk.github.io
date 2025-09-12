@@ -28,19 +28,19 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。” DDPM等扩散模型的慢速度一直被诟病。 在这篇博客中，将介绍一部分的加速模型。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion13.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//tdpm.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//tea1.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//tea.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//cd.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//ct.jpg">
+<meta property="og:image" content="https://lijianxiong.space/diffusion13.png">
+<meta property="og:image" content="https://lijianxiong.space/tdpm.png">
+<meta property="og:image" content="https://lijianxiong.space/tea1.png">
+<meta property="og:image" content="https://lijianxiong.space/tea.png">
+<meta property="og:image" content="https://lijianxiong.space/cd.jpg">
+<meta property="og:image" content="https://lijianxiong.space/ct.jpg">
 <meta property="article:published_time" content="2025-05-27T08:20:34.000Z">
 <meta property="article:modified_time" content="2025-05-28T11:41:38.881Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="生成模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//diffusion13.png">
+<meta name="twitter:image" content="https://lijianxiong.space/diffusion13.png">
   
   
   
@@ -364,7 +364,7 @@
 
 <h2 id="DDIM"><a href="#DDIM" class="headerlink" title="DDIM"></a>DDIM</h2><p> ICLR 2021。2010年10月发表。</p>
 <p>让我们回忆一下DDPM。</p>
-<p><img src="/.space//diffusion13.png"></p>
+<p><img src="/diffusion13.png"></p>
 <p>延续符号：</p>
 <p>$\bar \alpha_t&#x3D;\alpha_1\alpha_2…\alpha_t$</p>
 <p>$a_t&#x3D;1-\beta_t$</p>
@@ -380,16 +380,16 @@
 <p>我们同样对方差进行操作，不过我们让神经网络去学习它。我们预测一个参数v，并令：<br>$$<br>\sigma_t^2(x,t)&#x3D;exp(vlog\beta_t+(1-v)log\tilde\beta_t)<br>$$<br>同时我们也在损失函数中加入与这个项相关的。</p>
 <h2 id="TDPM"><a href="#TDPM" class="headerlink" title="TDPM"></a>TDPM</h2><p>ICLR 2023。2022年2月发表。</p>
 <p>《Truncated Diffusion Probabilistic Models and Diffusion-based Adversarial Auto-Encoders》</p>
-<p><img src="/.space//tdpm.png"></p>
+<p><img src="/tdpm.png"></p>
 <p>作者选择不是被扩散到纯高斯噪声 xT，而是只扩散到一个中间的、噪声程度较低的时刻$T _ {trunc}$。</p>
 <p>且$q(x _ {trunc}\mid x_0)$仍然遵循标准的扩散定义:<br>$$<br>X _ {trunc}&#x3D;\sqrt{\bar\alpha}x_0+\sqrt{1-\bar\alpha}\epsilon<br>$$<br>但是$q(X _ {trunc})$不再是高斯分布，所以作者使用GAN去生成它。</p>
 <h2 id="渐进式蒸馏"><a href="#渐进式蒸馏" class="headerlink" title="渐进式蒸馏"></a>渐进式蒸馏</h2><p>另一个常用于加速&#x2F;量化的策略是知识蒸馏。</p>
 <p>这篇正是这样做的。</p>
 <p>ICLR2022，2022二月发表。</p>
 <p>《Progressive Distillation for Fast Sampling of Diffusion Models》</p>
-<p><img src="/.space//tea1.png"></p>
+<p><img src="/tea1.png"></p>
 <p>使用学生模型去学习如何用<strong>一步</strong>来模拟教师模型<strong>多步</strong>（通常是两步）的去噪效果。</p>
-<p><img src="/.space//tea.png"></p>
+<p><img src="/tea.png"></p>
 <h2 id="DPMSolver"><a href="#DPMSolver" class="headerlink" title="DPMSolver"></a>DPMSolver</h2><p>Neurips 2022。2022年6月发表。</p>
 <p>DPMSolver由于涉及到更高维度，比如从ODE&#x2F;SDE的角度上俯瞰问题。</p>
 <p>并非主要是模型上的改进，<strong>故我们不在这里做过多描述。</strong></p>
@@ -429,9 +429,9 @@
 <p>$\theta^-$是$\theta$ 的移动平均。<br>d是距离函数满足$d(x,y)\ge 0$ ，$d(x,y)&#x3D;0$ 仅当$x&#x3D;y$。论文中考虑L1、L2、LPIPS损失。<br>$\lambda$是正权重函数，论文定义为1。</p>
 <p>作者还发现设置stopgrad效果会更好，且稳定训练过程。</p>
 <p>即$\theta^-\leftarrow stopgrad(\mu\theta^-+(1-\mu)\theta)$。</p>
-<p><img src="/.space//cd.jpg"></p>
+<p><img src="/cd.jpg"></p>
 <p><strong>(2)一致性训练(Consistency Training)</strong></p>
-<p><img src="/.space//ct.jpg"></p>
+<p><img src="/ct.jpg"></p>
 <p>在前面的CD中，使用预训练的score model来近似真实的分数函数$\nabla logp_t(x)$。而<br>$$<br>\nabla logp_t(x_t)&#x3D;-E\left[\frac{x_t-x}{t^2}\mid x_t\right]<br>$$</p>
 <blockquote>
 <p>若 $x \sim p _ {\text{data}}(x)$, $x_t \sim \mathcal{N}(x; t^2 I)$, $p_t(x_t) &#x3D; p _ {\text{data}}(x) \otimes \mathcal{N}(0, t^2 I)$，或者写作$p_t(x_t)&#x3D;\int p _ {\text{data}}(x)  \mathcal{N}(x_t;x, t^2 I)dx$。则有 $\nabla \log p_t(x_t) &#x3D; -\mathbb{E}[\frac{x_t - x}{t^2} | x_t]$。</p>

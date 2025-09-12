@@ -28,21 +28,21 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="ICLR25这几天在新加坡进行，借着兴致，选择了若干篇感兴趣的文章进行分享。本着能复现的原则，会尽量选择有代码或者实现容易的论文。 Joint Graph Rewiring and Feature Denoising via Spectral Resonance论文地址: https:&#x2F;&#x2F;openreview.net&#x2F;forum?id&#x3D;zBbZ2vdLzH 代码: https:&#x2F;&#x2F;github.c">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//jdr.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//jdrdef1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//framework.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//datt1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//datt.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//code_highlight.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//llm_sr1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//llm_sr2.png">
+<meta property="og:image" content="https://lijianxiong.space/jdr.jpg">
+<meta property="og:image" content="https://lijianxiong.space/jdrdef1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/framework.png">
+<meta property="og:image" content="https://lijianxiong.space/datt1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/datt.jpg">
+<meta property="og:image" content="https://lijianxiong.space/code_highlight.png">
+<meta property="og:image" content="https://lijianxiong.space/llm_sr1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/llm_sr2.png">
 <meta property="article:published_time" content="2025-04-24T12:19:48.000Z">
 <meta property="article:modified_time" content="2025-05-13T15:07:15.770Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//jdr.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/jdr.jpg">
   
   
   
@@ -365,9 +365,9 @@
 <p><strong>摘要:</strong> 在从图数据中学习时，图和节点特征都会为节点标签提供噪声信息。在本文中，我们提出了一种算法来联合去噪特征和重连图（JDR），这提高了下游节点分类图神经网络（GNN）的性能。JDR 通过对齐图和特征矩阵的主谱空间来工作。它以处理具有多个类别和不同同质或异质程度图的方式，近似解决了相关的非凸优化问题。我们在一个风格化的环境中对 JDR 进行了理论证明，并表明它在广泛的合成和真实世界节点分类任务上始终优于现有的重连方法。</p>
 <p>该文中的算法尽管也是重构边和特征，但是与图结构学习不同，它是应对内部自身携带的噪声，而非外部攻击产生的扰动。</p>
 <p>算法并不难，但是为何可以这样做的篇幅较大。</p>
-<p><img src="/.space//jdr.jpg"></p>
+<p><img src="/jdr.jpg"></p>
 <p>论文先从一种图生成模型（cSBM)入手，人工生成的图会更好分析。</p>
-<p><img src="/.space//jdrdef1.jpg"></p>
+<p><img src="/jdrdef1.jpg"></p>
 <p>定义邻接矩阵为$A^c&#x3D;\frac{\lambda}{N}yy^T+\frac{1}{\sqrt{N}}O_A$，特征为$X &#x3D; \sqrt{\frac{\mu}{N}} y \zeta^T+\frac{1}{F}O_X$</p>
 <span id="more"></span>
 
@@ -377,23 +377,23 @@
 <h2 id="TimeMixer-A-General-Time-Series-Pattern-Machine-for-Universal-Predictive-Analysis"><a href="#TimeMixer-A-General-Time-Series-Pattern-Machine-for-Universal-Predictive-Analysis" class="headerlink" title="TimeMixer++: A General Time Series Pattern Machine for Universal Predictive Analysis"></a>TimeMixer++: A General Time Series Pattern Machine for Universal Predictive Analysis</h2><p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=1CLzLXSFNn">https://openreview.net/forum?id=1CLzLXSFNn</a></p>
 <p><strong>代码:</strong> 无</p>
 <p><strong>摘要:</strong> 时间序列分析在众多应用中扮演着关键角色，支持预测、分类、异常检测和插补等任务。在这项工作中，我们提出了时间序列模式机（TSPM），这是一种通过强大的表示和模式提取能力在广泛的时间序列任务中表现出色的模型。传统的时序模型往往难以捕捉普遍模式，限制了它们在多样化任务中的有效性。为了解决这个问题，我们在时间域中定义了多个尺度，在频域中定义了各种分辨率，采用各种混合策略来提取复杂、任务自适应的时间序列模式。具体来说，我们引入了 TimeMixer++，这是一种通用的 TSPM，使用（1）多分辨率时间成像（MRTI）、（2）时间图像分解（TID）、（3）多尺度混合（MCM）和（4）多分辨率混合（MRM）来提取全面的时序模式。MRTI 将多尺度时间序列转换为多分辨率时间图像，捕捉时间和频率域中的模式。 TID 利用双轴注意力提取季节性和趋势模式，而 MCM 按层次将这些模式在各个尺度上聚合。MRM 自适应地整合所有分辨率下的表示。TimeMixer++在 8 个时间序列分析任务中实现了最先进的性能，持续超越通用和特定任务的模型。我们的工作标志着向下一代 TSPM 迈出的一个有希望的步伐，为时间序列分析领域的进一步发展铺平了道路。</p>
-<p><img src="/.space//framework.png"></p>
+<p><img src="/framework.png"></p>
 <h2 id="DIFFERENTIAL-TRANSFORMER"><a href="#DIFFERENTIAL-TRANSFORMER" class="headerlink" title="DIFFERENTIAL TRANSFORMER"></a>DIFFERENTIAL TRANSFORMER</h2><p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=GMwRl2e9Y1">https://openreview.net/forum?id=GMwRl2e9Y1</a></p>
 <p><strong>代码:</strong> <a target="_blank" rel="noopener" href="https://github.com/nanowell/Differential-Transformer-PyTorch/blob/main/DiffTransformer.py">https://github.com/nanowell/Differential-Transformer-PyTorch/blob/main/DiffTransformer.py</a> </p>
 <p>官方: <a target="_blank" rel="noopener" href="https://github.com/microsoft/unilm/tree/master/Diff-Transformer">https://github.com/microsoft/unilm/tree/master/Diff-Transformer</a></p>
 <p><strong>摘要:</strong> Transformer 倾向于过度分配注意力到无关的上下文。在本工作中，我们引入了 DTransformer，它放大了对相关上下文的注意力，同时消除噪声。具体来说，差分注意力机制通过计算两个独立的 softmax 注意力图之间的差异来计算注意力分数。减法消除了噪声，促进了稀疏注意力模式的出现。在语言模型上的实验结果表明，DTransformer 在各种扩大模型规模和训练标记的设置中优于 Transformer。更有趣的是，它在实际应用中提供了显著的优势，例如长上下文建模、关键信息检索、幻觉缓解、上下文学习和激活异常的减少。通过减少对无关上下文的干扰，DTransformer 可以缓解问答和文本摘要中的幻觉。对于上下文学习，DTransformer 不仅提高了准确性，而且对顺序排列的鲁棒性更强，这被认为是一个长期存在的鲁棒性问题。这些结果将 DTransformer 定位为一种高度有效且具有前景的架构，以推进大型语言模型的发展。</p>
 <p><strong>论文介绍:</strong> 本质上是在transformer的基础上改为SwiGLU+differential attention，比较简单，论文主要在实验上。论文附录还证明了梯度与传统的transformer类似，所以也说明了至少能保证稳定性。</p>
-<p><img src="/.space//datt1.jpg"></p>
-<p><img src="/.space//datt.jpg"></p>
-<p><img src="/.space//code_highlight.png"></p>
+<p><img src="/datt1.jpg"></p>
+<p><img src="/datt.jpg"></p>
+<p><img src="/code_highlight.png"></p>
 <h2 id="Restructuring-Vector-Quantization-with-the-Rotation-Trick"><a href="#Restructuring-Vector-Quantization-with-the-Rotation-Trick" class="headerlink" title="Restructuring Vector Quantization with the Rotation Trick"></a>Restructuring Vector Quantization with the Rotation Trick</h2><p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://openreview.net/forum?id=GMwRl2e9Y1">https://openreview.net/forum?id=GMwRl2e9Y1</a></p>
 <p><strong>代码:</strong> 空</p>
 <p><strong>摘要:</strong> 向量量化变分自编码器（VQ-VAEs）旨在将连续输入压缩到离散潜在空间，并以最小失真重建。它们通过维护一组向量（通常称为码本）并量化每个编码器输出到码本中最近的向量来操作。然而，由于向量量化不可微分，梯度流向编码器是通过向量量化层“绕过”而不是“穿过”的直通近似。这种近似可能是不理想的，因为向量量化操作的所有信息都丢失了。在这项工作中，我们提出了一种通过 VQ-VAEs 的向量量化层传播梯度的方法。我们通过旋转和缩放线性变换将每个编码器输出平滑地转换为相应的码本向量，该变换在反向传播期间被视为常数。 因此，编码器输出与码本向量之间的相对幅度和角度被编码到梯度中，随着它通过向量量化层传播回编码器。在 11 种不同的 VQ-VAE 训练范式下，我们发现这种重构提高了重建指标、码本利用率和量化误差。</p>
 <h2 id="LLM-SR-Scientific-Equation-Discovery-and-Symbolic-Regression-via-Programming-with-LLMs"><a href="#LLM-SR-Scientific-Equation-Discovery-and-Symbolic-Regression-via-Programming-with-LLMs" class="headerlink" title="LLM-SR: Scientific Equation Discovery and Symbolic Regression via Programming with LLMs"></a>LLM-SR: Scientific Equation Discovery and Symbolic Regression via Programming with LLMs</h2><p><strong>论文地址:</strong> <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.18400">https://arxiv.org/abs/2404.18400</a></p>
 <p><strong>代码:</strong> <a target="_blank" rel="noopener" href="https://github.com/deep-symbolic-mathematics/LLM-SR/">https://github.com/deep-symbolic-mathematics/LLM-SR/</a></p>
 <p><strong>摘要:</strong> 在本文中，我们介绍了 LLM-SR，这是一种利用大型语言模型（LLMs）优势进行科学方程发现和符号回归的新方法。LLM-SR 结合了 LLMs 的科学技术知识和代码生成能力，以及进化搜索，从数据中发现准确且可解释的方程。该方法将方程表示为程序框架，允许在特定领域先验的指导下进行灵活的假设生成。在物理学、生物学和材料科学等领域的自定义基准问题上的实验表明，LLM-SR 的性能优于最先进的符号回归方法，尤其是在领域外泛化方面。论文还突出了常见基准的局限性，并提出了新的、具有挑战性的数据集，用于评估基于 LLM 的方程发现方法。</p>
-<p><img src="/.space//llm_sr1.jpg"></p>
-<p><img src="/.space//llm_sr2.png"></p>
+<p><img src="/llm_sr1.jpg"></p>
+<p><img src="/llm_sr2.png"></p>
 <h3 id="1-问题定义"><a href="#1-问题定义" class="headerlink" title="1. 问题定义"></a>1. 问题定义</h3><p>符号回归（Symbolic Regression, SR）的目标是从观测数据集 D&#x3D;{(xi,yi)}i&#x3D;1nD &#x3D; {(x_i, y_i)}_{i&#x3D;1}^nD&#x3D;{(xi,yi)}i&#x3D;1n 中，自动发现一个符号化表达式 f<del>(x)\tilde f(x)f</del>(x) 来近似未知映射 $f: \mathbb{R}^d \to \mathbb{R}$，使得</p>
 <p>$\tilde f(x_i) \approx y_i,\quad \forall i$,</p>
 <p>且该表达式要具有良好的可解释性和对未见数据的泛化能力。传统 SR 方法多以表达式树或上下文无关文法表示候选方程，利用遗传编程等演化算法在组合空间中搜索，但往往忽略领域先验且搜索效率低下。LLM-SR 则将方程视作可执行程序，借助大模型的科学知识和强大代码生成能力进行搜索与优化.</p>

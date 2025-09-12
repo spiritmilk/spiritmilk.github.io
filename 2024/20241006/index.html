@@ -28,17 +28,17 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（TMLR 2024）《On the Equivalence of Graph Convolution and Mixup 》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//model.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/model.jpg">
+<meta property="og:image" content="https://lijianxiong.space/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/3.jpg">
 <meta property="article:published_time" content="2024-10-06T01:06:12.000Z">
 <meta property="article:modified_time" content="2025-06-08T14:15:37.600Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//model.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/model.jpg">
   
   
   
@@ -358,7 +358,7 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（TMLR 2024）《On the Equivalence of Graph Convolution and Mixup 》</p>
 <span id="more"></span>
 
-<h2 id="图卷积等价于mixup"><a href="#图卷积等价于mixup" class="headerlink" title="图卷积等价于mixup"></a>图卷积等价于mixup</h2><p>图卷积实际上是对邻居进行平均，即可以写成:<br>$$<br>(\hat{x},\hat{y})&#x3D;\left(\frac{1}{|N_i|}\sum_{k\in N_i}x_k,y_i\right)<br>$$<br>而mixup实际上也是一种平均，即：<br>$$<br>(\hat{x},\hat{y})&#x3D;\left(\sum_{i&#x3D;1}^N \lambda_ix_i,\sum_{i&#x3D;1}^N \lambda_iy_i\right)<br>$$<br><img src="/.space//model.jpg"></p>
+<h2 id="图卷积等价于mixup"><a href="#图卷积等价于mixup" class="headerlink" title="图卷积等价于mixup"></a>图卷积等价于mixup</h2><p>图卷积实际上是对邻居进行平均，即可以写成:<br>$$<br>(\hat{x},\hat{y})&#x3D;\left(\frac{1}{|N_i|}\sum_{k\in N_i}x_k,y_i\right)<br>$$<br>而mixup实际上也是一种平均，即：<br>$$<br>(\hat{x},\hat{y})&#x3D;\left(\sum_{i&#x3D;1}^N \lambda_ix_i,\sum_{i&#x3D;1}^N \lambda_iy_i\right)<br>$$<br><img src="/model.jpg"></p>
 <h2 id="图卷积等价于训练时-测试时使用mixup"><a href="#图卷积等价于训练时-测试时使用mixup" class="headerlink" title="图卷积等价于训练时+测试时使用mixup"></a>图卷积等价于训练时+测试时使用mixup</h2><p>在以上的基础，作者进一步提出，图卷积等价于训练时+测试时使用mixup，即Homophily Relabel and Test-time Mixup。</p>
 <h3 id="Homophily-Relabel"><a href="#Homophily-Relabel" class="headerlink" title="Homophily Relabel"></a>Homophily Relabel</h3><p>1）使用混合标签 $\hat Y&#x3D;AY$重新标记图中的所有结点。</p>
 <blockquote>
@@ -366,12 +366,12 @@
 </blockquote>
 <p>2）在重标后的图上，仅利用结点特征，使用$\hat Y$对所有结点使用MLP训练。</p>
 <p>作者把它命名为HMLP。</p>
-<p><img src="/.space//1.jpg"></p>
+<p><img src="/1.jpg"></p>
 <h3 id="Test-time-Mixup"><a href="#Test-time-Mixup" class="headerlink" title="Test-time Mixup"></a>Test-time Mixup</h3><p>1）仅使用训练集的结点特征来训练一个 MLP。</p>
 <p>2）在测试期间，利用训练好的 MLP 进行推理，并结合邻居聚合。</p>
 <p>作者把它命名为TMLP。</p>
-<p><img src="/.space//2.jpg"></p>
-<h3 id="统一二者"><a href="#统一二者" class="headerlink" title="统一二者"></a>统一二者</h3><p><img src="/.space//3.jpg"></p>
+<p><img src="/2.jpg"></p>
+<h3 id="统一二者"><a href="#统一二者" class="headerlink" title="统一二者"></a>统一二者</h3><p><img src="/3.jpg"></p>
 
                 
               </div>

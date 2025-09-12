@@ -28,31 +28,31 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="Difussion模型是当今生成领域火热的模型，过往的GAN和VAE已然退出前排。 本文主要围绕《Denoising Diffusion Probabilistic Models》 (DDPM) 展开。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion1.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion2.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion3.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion4.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion5.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion6.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion7.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion8.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion9.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion10.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion11.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion12.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion13.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion14.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion15.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion16.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion17.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//diffusion18.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion1.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion2.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion3.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion4.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion5.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion6.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion7.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion8.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion9.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion10.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion11.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion12.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion13.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion14.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion15.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion16.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion17.png">
+<meta property="og:image" content="https://lijianxiong.space/diffusion18.png">
 <meta property="article:published_time" content="2025-04-27T12:56:12.000Z">
 <meta property="article:modified_time" content="2025-05-14T05:35:36.934Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="生成模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//diffusion1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/diffusion1.png">
   
   
   
@@ -375,20 +375,20 @@
 
 <h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>Diffusion模型本质上是加噪和去噪的过程，通过加噪将一张图片转为纯噪声，通过去噪将一张噪声转为有价值的图片。</p>
 <p>这种原理其实很显然，比如像GAN和VAE，从特定分布中抽取并生成，image &#x3D; f(noise)。Diffusion也是这样，只要我们能通过一个g(image)&#x3D;noise，那么我们就能从g(image)&#x3D;noise中得到image &#x3D; f(noise)。但由于神经网络的复杂性（一个黑盒子很难找到它的反函数），所以Diffusion做的处理是，加噪使用简单的操作，去噪再使用神经网络，而不是两者都用神经网络。（这样做也更简单。）</p>
-<p><img src="/.space//diffusion1.png"></p>
-<p><img src="/.space//diffusion2.png"></p>
+<p><img src="/diffusion1.png"></p>
+<p><img src="/diffusion2.png"></p>
 <p>另一方面，由于直接预测会很难，所以内部实际上是预测残差。</p>
 <p>这有点类似GBDT，不断地去拟合残差，且不是一次拟合完。多次逐一地去拟合。</p>
-<p><img src="/.space//diffusion3.png"></p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="/.space//diffusion4.png"></p>
+<p><img src="/diffusion3.png"></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="/diffusion4.png"></p>
 <p>对于训练的第五行：</p>
-<p><img src="/.space//diffusion5.png"></p>
+<p><img src="/diffusion5.png"></p>
 <p>画红框的地方是这样来的：</p>
-<p><img src="/.space//diffusion6.png"></p>
-<p><img src="/.space//diffusion7.png"></p>
-<p><img src="/.space//diffusion8.png"></p>
+<p><img src="/diffusion6.png"></p>
+<p><img src="/diffusion7.png"></p>
+<p><img src="/diffusion8.png"></p>
 <p>对于sampling的第四行：</p>
-<p><img src="/.space//diffusion9.png"><br><img src="/.space//diffusion10.png"><br><img src="/.space//diffusion11.png"><br><img src="/.space//diffusion12.png"><br>即<br><img src="/.space//diffusion13.png"><br>对于KL散度，有以下公式。<br><img src="/.space//diffusion14.png"><br>但是实际上方差我们假定是固定的，所以只需要均值越靠近越好。也就是相当于使用去噪神经网络直接预测左下角那一坨。<br><img src="/.space//diffusion15.png"><br><img src="/.space//diffusion16.png"><br><img src="/.space//diffusion17.png"><br>另外，注意到第四行最右边还有一项加噪声，这是为了多样性。正如李宏毅课上所说的，实际上的模型也并不是每次取最优解。<br><img src="/.space//diffusion18.png"></p>
+<p><img src="/diffusion9.png"><br><img src="/diffusion10.png"><br><img src="/diffusion11.png"><br><img src="/diffusion12.png"><br>即<br><img src="/diffusion13.png"><br>对于KL散度，有以下公式。<br><img src="/diffusion14.png"><br>但是实际上方差我们假定是固定的，所以只需要均值越靠近越好。也就是相当于使用去噪神经网络直接预测左下角那一坨。<br><img src="/diffusion15.png"><br><img src="/diffusion16.png"><br><img src="/diffusion17.png"><br>另外，注意到第四行最右边还有一项加噪声，这是为了多样性。正如李宏毅课上所说的，实际上的模型也并不是每次取最优解。<br><img src="/diffusion18.png"></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>1.<a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php">李宏毅的机器学习课程</a></p>
 <p>2.<a target="_blank" rel="noopener" href="https://kexue.fm/archives/9152">苏神的生成扩散模型漫谈一系列文章</a></p>
 

@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICLR 2020） 《Generalization through Memorization: Nearest Neighbor Language Models》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//12.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/12.jpg">
+<meta property="og:image" content="https://lijianxiong.space/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2.jpg">
 <meta property="article:published_time" content="2025-09-02T15:27:52.000Z">
 <meta property="article:modified_time" content="2025-09-03T02:48:02.239Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//12.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/12.jpg">
   
   
   
@@ -358,14 +358,14 @@
 <span id="more"></span>
 
 <p>这是一种免训练的方法。</p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="/.space//12.jpg"></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="/12.jpg"></p>
 <p>Training Contexts处或者更扩展的来说，可以是额外的数据集。</p>
 <p><strong>对于额外数据集</strong>：</p>
 <p>上下文词元序列$c_t&#x3D;(w_1,…,w _ {t-1})$</p>
 <p>记f(c)为模型某一层输出，定义键值对为：<br>$$<br>(K,V)&#x3D;((f(c_i),w_i)\mid (c_i,w_i)\in D)<br>$$<br>再根据负距离的softmax计算邻居上的分布：<br>$$<br>p _ {\text{kNN}}(y|x) \propto \sum _ {\langle k_i, v_i \rangle \in \mathcal{N}} \mathbb{1} _ {y&#x3D;v_i} \exp(-d(k_i, f(x)))<br>$$<br><strong>对于原始输入</strong>：</p>
 <p>我们把以上融合进来：<br>$$<br>p(y\mid x)&#x3D;\lambda p _ {knn}(y\mid x)+(1-\lambda)p _ {LM}(y\mid x)<br>$$<br>使用faiss进行检索。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/.space//1.jpg"></p>
-<p><img src="/.space//2.jpg"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/1.jpg"></p>
+<p><img src="/2.jpg"></p>
 
                 
               </div>

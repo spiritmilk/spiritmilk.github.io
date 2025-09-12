@@ -28,16 +28,16 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="流模型与流匹配介绍。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//change.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//realnvp.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//morenvp.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//fault6.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//fault16.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//success.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//ag.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//averspeed.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//vis.jpg">
-<meta property="og:image" content="https://lijianxiong.space/.space//meanflow.jpg">
+<meta property="og:image" content="https://lijianxiong.space/change.jpg">
+<meta property="og:image" content="https://lijianxiong.space/realnvp.jpg">
+<meta property="og:image" content="https://lijianxiong.space/morenvp.jpg">
+<meta property="og:image" content="https://lijianxiong.space/fault6.png">
+<meta property="og:image" content="https://lijianxiong.space/fault16.png">
+<meta property="og:image" content="https://lijianxiong.space/success.png">
+<meta property="og:image" content="https://lijianxiong.space/ag.jpg">
+<meta property="og:image" content="https://lijianxiong.space/averspeed.jpg">
+<meta property="og:image" content="https://lijianxiong.space/vis.jpg">
+<meta property="og:image" content="https://lijianxiong.space/meanflow.jpg">
 <meta property="article:published_time" content="2025-06-09T14:24:45.000Z">
 <meta property="article:modified_time" content="2025-06-10T09:12:10.201Z">
 <meta property="article:author" content="LJX">
@@ -45,7 +45,7 @@
 <meta property="article:tag" content="物理">
 <meta property="article:tag" content="生成模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//change.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/change.jpg">
   
   
   
@@ -372,7 +372,7 @@
 <p>然后我们可以使用变量变换公式（change of variable theorem）来计算数据密度:</p>
 <p>$$<br>p _ {x}(x|w)&#x3D;p _ {z}(g(x,w))|det J(x)|<br>$$</p>
 <p>其中 $J(x)$ 是雅可比矩阵，$J _ {ij}(x)&#x3D;\frac{\partial g _ {i}(x,w)}{\partial x _ {j}}$ 。</p>
-<p><img src="/.space//change.jpg"></p>
+<p><img src="/change.jpg"></p>
 <p>然而，要求可逆映射的一个后果是，隐式空间的维度必须与数据空间的维度相同，这可能导致高维数据(如图像，动辄就是几百乘几百的维度)的大型模型的复杂性增加。比如计算 $D\times D$ 矩阵的行列式的成本是 $\mathcal{O}(D^{3})$。</p>
 <p>所以，我们希望对模型施加一些进一步的限制,以便更有效地计算雅可比矩阵行列式。</p>
 <p>如果我们考虑一个独立数据点训练集 $\mathcal{D}&#x3D;{x _ {1},…,x _ {N}}$，则：</p>
@@ -396,13 +396,13 @@
 <p>其中 $s(z _ {A},w)$ 和 $b(z _ {A},w)$ 是神经网络的实值输出,指数函数确保乘法项为非负。这里表示涉及两个向量逐元素乘法的Hadamard积。</p>
 <p>由于使用了神经网络函数, $x$ 的值可以是非常灵活的函数。</p>
 <p>整体变换也很容易可逆：给定一个 $x&#x3D;(x _ {A},x _ {B})$的值，我们首先计算$z _ {A}&#x3D;x _ {A}$ ，然后有$z _ {B}&#x3D;exp(-s(z _ {A},w))\odot(x _ {B}-b(z _ {A},w))$。</p>
-<p><img src="/.space//realnvp.jpg"></p>
+<p><img src="/realnvp.jpg"></p>
 <p>值得注意的是， $s(z;w)$ 和 $b(z;w)$ 无需可逆。</p>
 <p>现在考虑雅可比矩阵及其行列式。我们可以将雅可比矩阵分成块,对应于z和x的划分,得到:</p>
 <p>$$<br>J&#x3D;\begin{bmatrix}\frac{\partial z_A}{\partial x_A}&amp;\frac{\partial z_A}{\partial x_B}\\ \frac{\partial z_B}{\partial x_A}&amp;\frac{\partial z_B}{\partial x_B}\end{bmatrix}&#x3D;\begin{bmatrix}I _ {d}&amp;0\\ \frac{\partial z _ {B}}{\partial x _ {A}}&amp;diag(exp(-s))\end{bmatrix}<br>$$</p>
 <p>我们不在乎左下角的值，因为它是一个下三角矩阵，行列式直接是主对角线元素的乘积。因此,雅可比行列式简单地由 $exp(-s(z _ {A},w))$ 的元素乘积给出。</p>
 <p>这种方法的一个明显限制是 $z _ {A}$ 的值不受变换的影响。这很容易通过添加另一层来解决,在该层中 $z _ {A}$ 和 $z _ {B}$ 的角色被反转。然后可以重复这种双层结构多次。</p>
-<p><img src="/.space//morenvp.jpg"></p>
+<p><img src="/morenvp.jpg"></p>
 <p>整体训练过程涉及创建数据点的mini-batches。对于形式为 $\mathcal{N}(z|0,I)$ 的潜在分布,对数密度简单地是 $-||z||^{2}&#x2F;2$,仅差一个加性常数。<br>$$<br>\ln(\frac{1}{\sqrt{2\pi}}\exp(-\frac{z^2}{2}))&#x3D;\ln(\frac{1}{\sqrt{2\pi}})+\frac{-||z||^2}{2}<br>$$<br>另外，Real NVP模型中会使用BatchNorm，这也会使得多一些变换行列式。</p>
 <p>RealNVP 模型属于一类称为耦合流（Coupling Flows）的正则化流,其中线性变换$x _ {B}&#x3D;exp(s(z _ {A},w))\odot z _ {B}+b(z _ {A},w)$被更一般的形式$x _ {B}&#x3D;h(z _ {B},g(z _ {A},w))$ 所替代。</p>
 <p>其中 $h(z _ {B}g)$ 是一个关于 $z _ {B}$ 的函数，对于任何给定的g值都是可逆的,称为耦合函数。函数 $g(z _ {A},w)$ 称为条件器（conditioner）,通常由神经网络表示。</p>
@@ -416,10 +416,10 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">VariationalDequantization</span>(<span class="hljs-title class_ inherited__">Dequantization</span>):<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, var_flows, alpha=<span class="hljs-number">1e-5</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        Inputs: </span><br><span class="hljs-string">            var_flows - A list of flow transformations to use for modeling q(u|x)</span><br><span class="hljs-string">            alpha - Small constant, see Dequantization for details</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>().__init__(alpha=alpha)<br>        <span class="hljs-variable language_">self</span>.flows = nn.ModuleList(var_flows)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">dequant</span>(<span class="hljs-params">self, z, ldj</span>):<br>        z = z.to(torch.float32)<br>        img = (z / <span class="hljs-number">255.0</span>) * <span class="hljs-number">2</span> - <span class="hljs-number">1</span> <span class="hljs-comment"># We condition the flows on x, i.e. the original image</span><br>        <br>        <span class="hljs-comment"># Prior of u is a uniform distribution as before</span><br>        <span class="hljs-comment"># As most flow transformations are defined on [-infinity,+infinity], we apply an inverse sigmoid first.</span><br>        deq_noise = torch.rand_like(z).detach()<br>        deq_noise, ldj = <span class="hljs-variable language_">self</span>.sigmoid(deq_noise, ldj, reverse=<span class="hljs-literal">True</span>)<br>        <span class="hljs-keyword">for</span> flow <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.flows:<br>            deq_noise, ldj = flow(deq_noise, ldj, reverse=<span class="hljs-literal">False</span>, orig_img=img)<br>        deq_noise, ldj = <span class="hljs-variable language_">self</span>.sigmoid(deq_noise, ldj, reverse=<span class="hljs-literal">False</span>)<br>        <br>        <span class="hljs-comment"># After the flows, apply u as in standard dequantization</span><br>        z = (z + deq_noise) / <span class="hljs-number">256.0</span><br>        ldj -= np.log(<span class="hljs-number">256.0</span>) * np.prod(z.shape[<span class="hljs-number">1</span>:])<br>        <span class="hljs-keyword">return</span> z, ldj<br></code></pre></td></tr></table></figure>
 
 <p><strong>处理前：</strong> 可以发现训练不一定能成功，有时会坍塌。</p>
-<p><img src="/.space//fault6.png"></p>
-<p><img src="/.space//fault16.png"></p>
+<p><img src="/fault6.png"></p>
+<p><img src="/fault16.png"></p>
 <p><strong>处理后：</strong></p>
-<p><img src="/.space//success.png"></p>
+<p><img src="/success.png"></p>
 <p> OpenAI在RealNVP改进得到了Glow模型<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Diederik P. Kingma, Prafulla Dhariwal.Glow: Generative Flow with Invertible 1x1 Convolutions">[3]</span></a></sup>。</p>
 <p>其核心是可逆1x1卷积层，其中巧妙地利用了LU分解。</p>
 <p>即任意矩阵都可以分解为$W&#x3D;PLU$，则$log|det(W)|&#x3D;\sum log|diag(U)|$</p>
@@ -434,7 +434,7 @@
 <p>其中 $x _ {1:i-1}$ 表示 $x _ {1},…,x _ {i-10}$ 这种分解可用于构建一类称为掩码式自回归流(masked autoregressive flow，MAF)的归一化流,其定义为：</p>
 <p>$$x _ {i}&#x3D;h(z _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$$</p>
 <p>这里 $h(z _ {i},\cdot)$ 是耦合函数,其被选择为相对于易于 $z _ {i}$ 求逆的,而g是条件器,通常由深度神经网络表示。掩码式指的是使用单个神经网络来实现上式以及一个二元掩码，该掩码强制网络权重的子集为零以实现自回归约束。</p>
-<p><img src="/.space//ag.jpg"></p>
+<p><img src="/ag.jpg"></p>
 <p>在这种情况下,用于评估似然函数的逆向计算需要给出：</p>
 <p>$z _ {i}&#x3D;h^{-1}(x _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$</p>
 <p>因为上式中用于评估的各个函数 $z _ {1},…,z _ {D}$ 可以并行评估，因此可以在现代硬件上高效执行。</p>
@@ -525,12 +525,12 @@
 <p>$$\frac{dz(t)}{dt}&#x3D;f(z(t),w)$$</p>
 <p>这实际上代表着瞬时速度。</p>
 <p>然而瞬时速度并不是直接指向数据点，所以无法一步生成，而要一步生成需要平均速度才能实现。</p>
-<p><img src="/.space//averspeed.jpg"></p>
+<p><img src="/averspeed.jpg"></p>
 <p>展开来说，前文的flow matching尽管使用的是直线插值，但是实际上是线性加噪而非线性去噪。导致我们无法一步生成。</p>
 <p>我们也可以使用一些形象的方法来解释。</p>
 <p>当只有一个力源的情况下，它的场线是直线（左图和中图），这与我们的加噪相似，我们也可以类似PFGM，将这一过程理解为数据点被力场推着走向目标位置。</p>
 <p>然而，我们不止一个力源，所以最终场（右图）并不是一条直线。</p>
-<p><img src="/.space//vis.jpg"></p>
+<p><img src="/vis.jpg"></p>
 <p>我们也很难去设计一种力，使得合并后的最终场是直线形式。</p>
 <p>面对天体运动，与其我们引入复杂的本轮均轮来完善地心说，更好的方法是直接引入日心说。</p>
 <p>故MeanFlow另起炉灶，虽然继续使用同样的力源，但不继续做文章，而是使用了平均速度。</p>
@@ -550,7 +550,7 @@
 <p>最终设定损失函数：<br>$$<br>\mathcal{L}(\theta) &#x3D; \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u _ {\text{tgt}}) ||^2_2 \right]<br>$$</p>
 <p>其中</p>
 <p>$$<br>u _ {\text{tgt}} &#x3D; v(z_t, t) - (t-r)(v(z_t, t)\partial_z u_\theta + \partial_t u_\theta)<br>$$<br>在这里我们会使用sg(stop gradient)，因为我们并不需要它的导数，也避免了再去求高阶导数。</p>
-<p><img src="/.space//meanflow.jpg"></p>
+<p><img src="/meanflow.jpg"></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="生成扩散模型漫谈（三十）：从瞬时速度到平均速度. https://kexue.fm/archives/10958">[9]</span></a></sup><sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Flow Matching: Matching flows instead of scores. https://jmtomczak.github.io/blog/18/18_fm.html">[10]</span></a></sup><sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. Flow Matching Guide and Code">[11]</span></a></sup><sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching. https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[12]</span></a></sup><sup id="fnref:13" class="footnote-ref"><a href="#fn:13" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023. https://github.com/phlippe/uvadlc_notebooks">[13]</span></a></sup><sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="流模型(Flow-based Model). https://0809zheng.github.io/2022/05/01/flow.html">[14]</span></a></sup><sup id="fnref:15" class="footnote-ref"><a href="#fn:15" rel="footnote"><span class="hint--top hint--rounded" aria-label="Diederik P. Kingma, Tim Salimans, Rafal Jozefowicz, Xi Chen, Ilya Sutskever, Max Welling. Improving Variational Inference with Inverse Autoregressive Flow">[15]</span></a></sup><sup id="fnref:16" class="footnote-ref"><a href="#fn:16" rel="footnote"><span class="hint--top hint--rounded" aria-label="George Papamakarios, Theo Pavlakou, Iain Murray. Masked Autoregressive Flow for Density Estimation">[16]</span></a></sup>和一些教科书<sup id="fnref:17" class="footnote-ref"><a href="#fn:17" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[17]</span></a></sup>和李宏毅的课程<sup id="fnref:18" class="footnote-ref"><a href="#fn:18" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的Flow-based Generative Model课程">[18]</span></a></sup>。</p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio. Density estimation using Real NVP
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ho, J., Chen, X., Srinivas, A., Duan, Y., and Abbeel. Flow++: Improving Flow-Based Generative Models with Variational Dequantization and Architecture Design

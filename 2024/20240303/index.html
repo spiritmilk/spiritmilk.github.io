@@ -28,20 +28,20 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="论文：RNNS ARE NOT TRANSFORMERS (YET) -THE KEY BOTTLENECK ON IN-CONTEXT RETRIEVAL 本文研究了递归神经网络(rnn)和transformer在解决算法问题方面的表示能力差距。理论分析表明，CoT改善了rnn，但不足以缩小与transformer的差距。 我们证明，采用技术来增强 RNN 的上下文检索能力，包括检索增强生成（R">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/.space//Theorem41.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//Theorem46.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//Theorem47.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//Theorem48.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//Incontextrag.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//Theorem51.png">
-<meta property="og:image" content="https://lijianxiong.space/.space//fig5.png">
+<meta property="og:image" content="https://lijianxiong.space/Theorem41.png">
+<meta property="og:image" content="https://lijianxiong.space/Theorem46.png">
+<meta property="og:image" content="https://lijianxiong.space/Theorem47.png">
+<meta property="og:image" content="https://lijianxiong.space/Theorem48.png">
+<meta property="og:image" content="https://lijianxiong.space/Incontextrag.png">
+<meta property="og:image" content="https://lijianxiong.space/Theorem51.png">
+<meta property="og:image" content="https://lijianxiong.space/fig5.png">
 <meta property="article:published_time" content="2024-03-03T12:51:37.000Z">
 <meta property="article:modified_time" content="2024-03-04T13:38:28.404Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/.space//Theorem41.png">
+<meta name="twitter:image" content="https://lijianxiong.space/Theorem41.png">
   
   
   
@@ -392,28 +392,28 @@
 <h2 id="CoT-能否提高-RNN-的表示能力？"><a href="#CoT-能否提高-RNN-的表示能力？" class="headerlink" title="CoT 能否提高 RNN 的表示能力？"></a>CoT 能否提高 RNN 的表示能力？</h2><p>在本节中，我们的目标是了解带有 CoT 的 RNN 的表示能力。</p>
 <p>我们首先展示了积极的结果，即带有 CoT 的 RNN 可以解决在没有 CoT 固定状态大小的情况下 RNN 无法完成的任务。然后我们继续了解 CoT 是否可以使 RNN 具有像 Transformer 一样的表现力。</p>
 <p>我们表明，即使使用 CoT，RNN 仍然难以解决明确需要上下文检索的问题，并且这种表示差距会传播到看似与检索无关的推理任务，例如 IsTree。最后，我们表明这种差距确实是单方面的：只存在 Transformer 需要的参数比 RNN 指数少的任务，但反之则不然。</p>
-<h3 id="CoT-严格改进-RNN"><a href="#CoT-严格改进-RNN" class="headerlink" title="CoT 严格改进 RNN"></a>CoT 严格改进 RNN</h3><p><img src="/.space//Theorem41.png"></p>
+<h3 id="CoT-严格改进-RNN"><a href="#CoT-严格改进-RNN" class="headerlink" title="CoT 严格改进 RNN"></a>CoT 严格改进 RNN</h3><p><img src="/Theorem41.png"></p>
 <h3 id="CoT-无法缩小与-Transformer-的代表性差距"><a href="#CoT-无法缩小与-Transformer-的代表性差距" class="headerlink" title="CoT 无法缩小与 Transformer 的代表性差距"></a>CoT 无法缩小与 Transformer 的代表性差距</h3><h4 id="上下文检索的简单问题"><a href="#上下文检索的简单问题" class="headerlink" title="上下文检索的简单问题"></a>上下文检索的简单问题</h4><p>首先，我们证明 RNN 在解决几个直接测试上下文检索能力的简单算法问题时与 Transformer 存在显着的表示差距。</p>
-<p><img src="/.space//Theorem46.png"></p>
+<p><img src="/Theorem46.png"></p>
 <p>对于上限，我们证明 Transformer 可以通过利用称为“注意力机制”的注意力机制来解决问题匹配，它接受查询令牌并关注与某些预定义坐标上的查询令牌相匹配的先前键。这种机制允许Transformer像键值字典一样读取其上下文窗口，从而可以完美解决问题。对于计数问题，我们另外使用数数注意力机制，通过均匀地关注查询标记的每次出现来计算查询标记的出现次数。</p>
 <h4 id="了解-RNN-超越简单上下文检索问题的表示能力"><a href="#了解-RNN-超越简单上下文检索问题的表示能力" class="headerlink" title="了解 RNN 超越简单上下文检索问题的表示能力"></a>了解 RNN 超越简单上下文检索问题的表示能力</h4><p>一个自然的问题是，如果算法问题不直接测试上下文检索能力，我们是否可以希望 RNN 具有解决它的表示能力？</p>
 <p>在这种情况下，RNN 和 Transformer 是否具有相同的表示能力？</p>
 <p>我们表明，RNN 中有限的内存大小仍然可能成为解决算法问题的瓶颈。即使检索能力没有在算法问题中显式测试，在推理答案时仍然可能隐式地需要它。</p>
 <p>我们通过一个最小的算法问题示例（称为IsTree)：</p>
 <p>给定一个无向图G的n节点，判断是否是一棵树，即每一对节点是否都由一条简单路径连接。 IsTree 的经典解决方案是运行深度优先搜索 (DFS)，它需要O(n)时间。</p>
-<p><img src="/.space//Theorem47.png"></p>
+<p><img src="/Theorem47.png"></p>
 <h4 id="Transformer-明显比-RNN-更具表现力"><a href="#Transformer-明显比-RNN-更具表现力" class="headerlink" title="Transformer 明显比 RNN 更具表现力"></a>Transformer 明显比 RNN 更具表现力</h4><p>上述定理表明，存在一些任务，其中 Transformer 所需的内存比 RNN 少得多。</p>
 <p>然而，他们并没有排除是否存在相应任务，这种任务其中 Transformer 会比 RNN 更加冗余并且需要指数级更多的参数。</p>
 <p>然而，以下定理证实了常规 RNN 不存在这样的任务。</p>
-<p><img src="/.space//Theorem48.png"></p>
+<p><img src="/Theorem48.png"></p>
 <h2 id="增强上下文检索能力缩小表征差距"><a href="#增强上下文检索能力缩小表征差距" class="headerlink" title="增强上下文检索能力缩小表征差距"></a>增强上下文检索能力缩小表征差距</h2><p>在 前面 中，我们表明 RNN 在上下文检索方面存在缺陷，因此导致与Transformer 的表示存在显着差距。</p>
 <p>在本节中，我们的目标是了解：如果我们增强RNN 的上下文检索能力，RNN 与 Transformer 是否仍然存在表示差距？</p>
 <p>我们通过考虑显式和隐式方法来增强上下文检索能力来回答这个问题，并表明这两种方法都可以缩小 RNN 和 Transformer 在解决算法问题时的表示差距。</p>
-<p><img src="/.space//Incontextrag.png"></p>
+<p><img src="/Incontextrag.png"></p>
 <h3 id="Explicit-Retrieval-Through-Regular-Expression"><a href="#Explicit-Retrieval-Through-Regular-Expression" class="headerlink" title="Explicit Retrieval Through Regular Expression"></a>Explicit Retrieval Through Regular Expression</h3><p>首先，我们探索 RNN 与检索增强生成 (RAG) 的强大功能，它使 LM 能够检索相关信息以协助生成。在我们的上下文中，我们特别感兴趣的是允许 LM 调用函数从其上下文中检索信息，我们将其称为In-context Retrieval Augmented Generation (In-context RAG).</p>
-<p><img src="/.space//Theorem51.png"></p>
+<p><img src="/Theorem51.png"></p>
 <h3 id="通过仅附加一层-Transformer-层进行隐式检索"><a href="#通过仅附加一层-Transformer-层进行隐式检索" class="headerlink" title="通过仅附加一层 Transformer 层进行隐式检索"></a>通过仅附加一层 Transformer 层进行隐式检索</h3><p>我们在本节中正式表明，这种形式的隐式检索可以缩小 RNN 和 Transformer 在解决算法问题时的表示差距。我们考虑以下混合架构，它通过将单个 Transformer 层附加到 RNN 输出来组合 RNN 和 Transformer。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/.space//fig5.png"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/fig5.png"></p>
 <p>训练了三种不同的架构：</p>
 <p>（1）LLaMa</p>
 <p>（2）Mamba</p>
