@@ -29,7 +29,7 @@
     <link href="/2025/20250908/"/>
     <url>/2025/20250908/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICLR 2025）</p><span id="more"></span><h2 id="两个贡献"><a href="#两个贡献" class="headerlink" title="两个贡献"></a>两个贡献</h2><p>当前缺乏一种在概念层面精细衡量描述质量的指标，故有了：</p><p><strong>HalFscore</strong>：一种新颖的评估指标，旨在从概念层面精细地衡量图像描述的准确性和完整性。</p><p>缓解幻觉，故有了：</p><p><strong>PerturboLLaVA</strong>：一种创新的“扰动式视觉训练”方法。该方法通过在训练过程中引入与图像内容相冲突的、精心设计的误导性文本，来降低模型对其固有语言知识（即“语言先验”）的过度依赖，从而迫使其更加关注视觉输入。</p><p>像OPERA和VCD，尽管解码策略具有无需训练的优势，但它们并未解决多模态模型中幻觉的根本原因，因为这些问题源于训练阶段。此外，从实际角度来看，大模型的推理成本通常超过训练成本，因为模型训练一次但部署无数次。</p><h2 id="HalFscore"><a href="#HalFscore" class="headerlink" title="HalFscore"></a>HalFscore</h2><p><img src="/2025/20250908/1.jpg"></p><img src="/2025/20250908/1.jpg" class="" title="This is an example image"><p><strong>图谱构建</strong>：通过 GPT-4o 模型，从文本中提取信息，并将其表示为<strong>三元组（triplets）</strong>，形式为 <code>&lt;实体1, 关系, 实体2&gt;</code> 。例如，“时钟在墙上”可以表示为 <code>(时钟, on, 墙)</code>，“镜子是粉色的”可以表示为 <code>(镜子, is, 粉色)</code> 。这些三元组随后被整合成一个图谱，其中实体是节点，关系是边 。<br>$$<br>\text{Precision} &#x3D; \frac{|C_{\text{gen}} \cap C_{\text{gt}}|}{|C_{\text{gen}}|}<br>&#x3D; 1 - \frac{|C_{\text{hallucinated}}|}{|C_{\text{gen}}|},<br>$$</p><p>$$<br>\text{Recall} &#x3D; \frac{|C_{\text{gen}} \cap C_{\text{gt}}|}{|C_{\text{gt}}|}<br>&#x3D; 1 - \frac{|C_{\text{omitted}}|}{|C_{\text{gt}}|}.<br>$$</p><p>最后综合起来得到$\text{HalFscore}$（其实就是F1）：</p><p>$$<br>\text{HalFscore} &#x3D; 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}.<br>$$</p><h2 id="PerturboLLaVA"><a href="#PerturboLLaVA" class="headerlink" title="PerturboLLaVA"></a>PerturboLLaVA</h2><p><img src="/2025/20250908/2.jpg"></p><p>为确保扰动的有效性和自然性，遵循以下原则。</p><ol><li>上下文相关性。扰动应与图像内容在上下文上相关，使其看似合理但具有误导性。</li><li>与预训练知识对齐。扰动设计需与常见的语言先验产生共鸣，确保其现实性并反映潜在的模型偏差。</li><li>语义多样性。通过改变$x_p$的结构和主题元素，确保扰动的多样性，使其与常见的误解或偏见保持一致。在实际操作中，使用 GPT-4o 生成扰动文本。GPT-4o 模型会查看图像、问题和答案，并根据世界知识以及某些图像细节，构建强大且多样化的扰动，而不泄露答案。GPT-4的指令提示详见附录。</li></ol>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICLR 2025）</p><span id="more"></span><h2 id="两个贡献"><a href="#两个贡献" class="headerlink" title="两个贡献"></a>两个贡献</h2><p>当前缺乏一种在概念层面精细衡量描述质量的指标，故有了：</p><p><strong>HalFscore</strong>：一种新颖的评估指标，旨在从概念层面精细地衡量图像描述的准确性和完整性。</p><p>缓解幻觉，故有了：</p><p><strong>PerturboLLaVA</strong>：一种创新的“扰动式视觉训练”方法。该方法通过在训练过程中引入与图像内容相冲突的、精心设计的误导性文本，来降低模型对其固有语言知识（即“语言先验”）的过度依赖，从而迫使其更加关注视觉输入。</p><p>像OPERA和VCD，尽管解码策略具有无需训练的优势，但它们并未解决多模态模型中幻觉的根本原因，因为这些问题源于训练阶段。此外，从实际角度来看，大模型的推理成本通常超过训练成本，因为模型训练一次但部署无数次。</p><h2 id="HalFscore"><a href="#HalFscore" class="headerlink" title="HalFscore"></a>HalFscore</h2><p><img src="/2025/20250908/1.jpg"></p><p><strong>图谱构建</strong>：通过 GPT-4o 模型，从文本中提取信息，并将其表示为<strong>三元组（triplets）</strong>，形式为 <code>&lt;实体1, 关系, 实体2&gt;</code> 。例如，“时钟在墙上”可以表示为 <code>(时钟, on, 墙)</code>，“镜子是粉色的”可以表示为 <code>(镜子, is, 粉色)</code> 。这些三元组随后被整合成一个图谱，其中实体是节点，关系是边 。<br>$$<br>\text{Precision} &#x3D; \frac{|C_{\text{gen}} \cap C_{\text{gt}}|}{|C_{\text{gen}}|}<br>&#x3D; 1 - \frac{|C_{\text{hallucinated}}|}{|C_{\text{gen}}|},<br>$$</p><p>$$<br>\text{Recall} &#x3D; \frac{|C_{\text{gen}} \cap C_{\text{gt}}|}{|C_{\text{gt}}|}<br>&#x3D; 1 - \frac{|C_{\text{omitted}}|}{|C_{\text{gt}}|}.<br>$$</p><p>最后综合起来得到$\text{HalFscore}$（其实就是F1）：</p><p>$$<br>\text{HalFscore} &#x3D; 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}.<br>$$</p><h2 id="PerturboLLaVA"><a href="#PerturboLLaVA" class="headerlink" title="PerturboLLaVA"></a>PerturboLLaVA</h2><p><img src="/2025/20250908/2.jpg"></p><p>为确保扰动的有效性和自然性，遵循以下原则。</p><ol><li>上下文相关性。扰动应与图像内容在上下文上相关，使其看似合理但具有误导性。</li><li>与预训练知识对齐。扰动设计需与常见的语言先验产生共鸣，确保其现实性并反映潜在的模型偏差。</li><li>语义多样性。通过改变$x_p$的结构和主题元素，确保扰动的多样性，使其与常见的误解或偏见保持一致。在实际操作中，使用 GPT-4o 生成扰动文本。GPT-4o 模型会查看图像、问题和答案，并根据世界知识以及某些图像细节，构建强大且多样化的扰动，而不泄露答案。GPT-4的指令提示详见附录。</li></ol>]]></content>
     
     
     
@@ -1018,9 +1018,9 @@
       
       <tag>信息论</tag>
       
-      <tag>贝叶斯</tag>
-      
       <tag>生成模型</tag>
+      
+      <tag>贝叶斯</tag>
       
     </tags>
     
@@ -1169,9 +1169,9 @@
     
     <tags>
       
-      <tag>人工智能</tag>
-      
       <tag>kaggle</tag>
+      
+      <tag>人工智能</tag>
       
       <tag>大气</tag>
       
@@ -2247,9 +2247,9 @@
     
     <tags>
       
-      <tag>阅读</tag>
-      
       <tag>生活</tag>
+      
+      <tag>阅读</tag>
       
       <tag>社会</tag>
       
@@ -3021,7 +3021,7 @@
     <link href="/2022/20220509/"/>
     <url>/2022/20220509/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>​                                </p><div id="aplayer-badsenJf" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-badsenJf"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>​                                </p><div id="aplayer-noTLSjVB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-noTLSjVB"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
     
     
     
@@ -3462,9 +3462,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
       <tag>深度学习</tag>
       
@@ -3687,9 +3687,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -3708,9 +3708,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
       <tag>深度学习</tag>
       
@@ -3771,9 +3771,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -3830,9 +3830,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -3910,9 +3910,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -3931,9 +3931,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -4011,9 +4011,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -4032,9 +4032,9 @@
     
     <tags>
       
-      <tag>笔记</tag>
-      
       <tag>机器学习</tag>
+      
+      <tag>笔记</tag>
       
     </tags>
     
@@ -4625,9 +4625,9 @@
     
     <tags>
       
-      <tag>阅读</tag>
-      
       <tag>生活</tag>
+      
+      <tag>阅读</tag>
       
     </tags>
     

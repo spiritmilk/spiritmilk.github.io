@@ -29,10 +29,9 @@
 <meta property="og:description" content="（ICLR 2025）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250908/1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/2025/20250908/1.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250908/2.jpg">
 <meta property="article:published_time" content="2025-09-08T00:58:56.000Z">
-<meta property="article:modified_time" content="2025-09-12T17:53:33.141Z">
+<meta property="article:modified_time" content="2025-09-12T17:59:45.528Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -364,9 +363,6 @@
 <p><strong>PerturboLLaVA</strong>：一种创新的“扰动式视觉训练”方法。该方法通过在训练过程中引入与图像内容相冲突的、精心设计的误导性文本，来降低模型对其固有语言知识（即“语言先验”）的过度依赖，从而迫使其更加关注视觉输入。</p>
 <p>像OPERA和VCD，尽管解码策略具有无需训练的优势，但它们并未解决多模态模型中幻觉的根本原因，因为这些问题源于训练阶段。此外，从实际角度来看，大模型的推理成本通常超过训练成本，因为模型训练一次但部署无数次。</p>
 <h2 id="HalFscore"><a href="#HalFscore" class="headerlink" title="HalFscore"></a>HalFscore</h2><p><img src="/2025/20250908/1.jpg"></p>
-<img src="/2025/20250908/1.jpg" class="" title="This is an example image">
-
-
 <p><strong>图谱构建</strong>：通过 GPT-4o 模型，从文本中提取信息，并将其表示为<strong>三元组（triplets）</strong>，形式为 <code>&lt;实体1, 关系, 实体2&gt;</code> 。例如，“时钟在墙上”可以表示为 <code>(时钟, on, 墙)</code>，“镜子是粉色的”可以表示为 <code>(镜子, is, 粉色)</code> 。这些三元组随后被整合成一个图谱，其中实体是节点，关系是边 。<br>$$<br>\text{Precision} &#x3D; \frac{|C_{\text{gen}} \cap C_{\text{gt}}|}{|C_{\text{gen}}|}<br>&#x3D; 1 - \frac{|C_{\text{hallucinated}}|}{|C_{\text{gen}}|},<br>$$</p>
 <p>$$<br>\text{Recall} &#x3D; \frac{|C_{\text{gen}} \cap C_{\text{gt}}|}{|C_{\text{gt}}|}<br>&#x3D; 1 - \frac{|C_{\text{omitted}}|}{|C_{\text{gt}}|}.<br>$$</p>
 <p>最后综合起来得到$\text{HalFscore}$（其实就是F1）：</p>
