@@ -28,12 +28,12 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="在NLP领域中，比如经典的textcnn是没有位置编码，那么CNN中的位置信息是从何而来的呢？">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/posnet.jpg">
-<meta property="og:image" content="https://lijianxiong.space/posnet1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/posnet2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/posnet3.jpg">
-<meta property="og:image" content="https://lijianxiong.space/stru.webp">
-<meta property="og:image" content="https://lijianxiong.space/qkv.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250601/posnet.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250601/posnet1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250601/posnet2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250601/posnet3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250601/stru.webp">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250601/qkv.png">
 <meta property="article:published_time" content="2025-06-01T04:30:14.000Z">
 <meta property="article:modified_time" content="2025-06-08T10:47:49.790Z">
 <meta property="article:author" content="LJX">
@@ -41,7 +41,7 @@
 <meta property="article:tag" content="计算机视觉">
 <meta property="article:tag" content="自然语言处理">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/posnet.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250601/posnet.jpg">
   
   
   
@@ -363,26 +363,26 @@
 
 <h2 id="CNN中蕴含了多少信息？"><a href="#CNN中蕴含了多少信息？" class="headerlink" title="CNN中蕴含了多少信息？"></a>CNN中蕴含了多少信息？</h2><p> ICLR 2020的《How much position information do convolutional neural network encode?》给了我们答案。</p>
 <p>作者设计了一套位置编码网络 (PosENet）来探索位置信息。</p>
-<p><img src="/posnet.jpg"></p>
+<p><img src="/2025/20250601/posnet.jpg"></p>
 <p>即提取VGG的五层特征，插值到同一size后concat起来，再接几层卷积层来提取特征，以映射到指定的gt。</p>
 <p>gt如右图所示，它是自己指定的，共有五种。它的设计基于这样的假设——若CNN并没有编码位置信息，只凭图片信息是无法学习到这样的形状的。</p>
 <p>作者在不同模式下做了训练，可以发现设计的网络自身很难学习到位置信息，这佐证了CNN是可以学到位置信息的。</p>
-<p><img src="/posnet1.jpg"></p>
+<p><img src="/2025/20250601/posnet1.jpg"></p>
 <h3 id="和位置信息有关的因素"><a href="#和位置信息有关的因素" class="headerlink" title="和位置信息有关的因素"></a>和位置信息有关的因素</h3><p>作者进一步分析，得到了以下结论。</p>
 <p><strong>层数越多，位置信息能学习得更好。</strong> 一方面，卷积层在空间上等同于一个 5 × 5 卷积层 (VGG论文)。另一种可能性是位置信息可能以需要超过一阶推理的方式进行表示。</p>
 <p><strong>卷积核越大，位置信息能学习得更好。</strong> 位置信息可能在层内和特征空间中以更大的感受野分布，从而更好地解析位置信息。</p>
-<p><img src="/posnet2.jpg"></p>
+<p><img src="/2025/20250601/posnet2.jpg"></p>
 <h3 id="位置信息的来源"><a href="#位置信息的来源" class="headerlink" title="位置信息的来源"></a>位置信息的来源</h3><p>作者进一步做了实验，并给出了一个令人想不到的结论——是<strong>zero padding</strong> 驱动位置信息的学习！</p>
-<p><img src="/posnet3.jpg"></p>
+<p><img src="/2025/20250601/posnet3.jpg"></p>
 <h2 id="CNN可以使用位置编码吗"><a href="#CNN可以使用位置编码吗" class="headerlink" title="CNN可以使用位置编码吗"></a>CNN可以使用位置编码吗</h2><p>既然CNN已经能学习到位置编码，那么我们继续使用会有帮助吗？</p>
 <p>Facebook出品的《Convolutional Sequence to Sequence Learning》正是使用了位置编码的卷积神经网络之作。</p>
 <p>架构如下：</p>
-<p><img src="/stru.webp"></p>
+<p><img src="/2025/20250601/stru.webp"></p>
 <p>输入的embedding使用绝对位置编码。即输入为$x&#x3D;(x_1,x_2,…)$，$p&#x3D;(p_1,p_2,…)$，则$e&#x3D;x&#x3D;(x_1+p_1,x_2+p_2,…)$。</p>
 <p>另一个关键的地方是使用了attention。</p>
 <p>其中$d_i&#x3D;W_dh_i+b_d+g_i$。</p>
 <p>实际上也是一种QKV注意力，QKV如图所示。即e也会参与到attention中的参与中。</p>
-<p><img src="/qkv.png"></p>
+<p><img src="/2025/20250601/qkv.png"></p>
 <p>代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AttentionLayer</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, conv_channels, embed_dim, bmm=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-comment"># projects from output of convolution to embedding dimension</span><br>        <span class="hljs-variable language_">self</span>.in_projection = Linear(conv_channels, embed_dim)<br>        <span class="hljs-comment"># projects from embedding dimension to convolution size</span><br>        <span class="hljs-variable language_">self</span>.out_projection = Linear(embed_dim, conv_channels)<br><br>        <span class="hljs-variable language_">self</span>.bmm = bmm <span class="hljs-keyword">if</span> bmm <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> torch.bmm<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, target_embedding, encoder_out, encoder_padding_mask</span>):<br>        residual = x<br><br>        <span class="hljs-comment"># attention</span><br>        x = (<span class="hljs-variable language_">self</span>.in_projection(x) + target_embedding) * math.sqrt(<span class="hljs-number">0.5</span>)<br>        x = <span class="hljs-variable language_">self</span>.bmm(x, encoder_out[<span class="hljs-number">0</span>])<br><br>        <span class="hljs-comment"># don&#x27;t attend over padding</span><br>        <span class="hljs-keyword">if</span> encoder_padding_mask <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            x = (<br>                x.<span class="hljs-built_in">float</span>()<br>                .masked_fill(encoder_padding_mask.unsqueeze(<span class="hljs-number">1</span>), <span class="hljs-built_in">float</span>(<span class="hljs-string">&quot;-inf&quot;</span>))<br>                .type_as(x)<br>            )  <span class="hljs-comment"># FP16 support: cast to float and back</span><br><br>        <span class="hljs-comment"># softmax over last dim</span><br>        sz = x.size()<br>        x = F.softmax(x.view(sz[<span class="hljs-number">0</span>] * sz[<span class="hljs-number">1</span>], sz[<span class="hljs-number">2</span>]), dim=<span class="hljs-number">1</span>)<br>        x = x.view(sz)<br>        attn_scores = x<br><br>        x = <span class="hljs-variable language_">self</span>.bmm(x, encoder_out[<span class="hljs-number">1</span>])<br><br>        <span class="hljs-comment"># scale attention output (respecting potentially different lengths)</span><br>        s = encoder_out[<span class="hljs-number">1</span>].size(<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">if</span> encoder_padding_mask <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            x = x * (s * math.sqrt(<span class="hljs-number">1.0</span> / s))<br>        <span class="hljs-keyword">else</span>:<br>            s = s - encoder_padding_mask.type_as(x).<span class="hljs-built_in">sum</span>(<br>                dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span><br>            )  <span class="hljs-comment"># exclude padding</span><br>            s = s.unsqueeze(-<span class="hljs-number">1</span>)<br>            x = x * (s * s.rsqrt())<br><br>        <span class="hljs-comment"># project back</span><br>        x = (<span class="hljs-variable language_">self</span>.out_projection(x) + residual) * math.sqrt(<span class="hljs-number">0.5</span>)<br>        <span class="hljs-keyword">return</span> x, attn_scores<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">make_generation_fast_</span>(<span class="hljs-params">self, beamable_mm_beam_size=<span class="hljs-literal">None</span>, **kwargs</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Replace torch.bmm with BeamableMM.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> beamable_mm_beam_size <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">del</span> <span class="hljs-variable language_">self</span>.bmm<br>            <span class="hljs-variable language_">self</span>.add_module(<span class="hljs-string">&quot;bmm&quot;</span>, BeamableMM(beamable_mm_beam_size))<br></code></pre></td></tr></table></figure>
 

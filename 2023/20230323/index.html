@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="主要基于  Subgraph federated learning with missing neighbor generation. NIPS’21  Fedni: Federated graph learning with network inpainting for population-based disease prediction. IEEE Transactions on Medic">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/neighgen.jpg">
-<meta property="og:image" content="https://lijianxiong.space/x1.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230323/neighgen.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230323/x1.png">
 <meta property="article:published_time" content="2023-03-23T08:49:57.000Z">
 <meta property="article:modified_time" content="2025-05-26T09:16:59.730Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="联邦学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/neighgen.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/2023/20230323/neighgen.jpg">
   
   
   
@@ -380,9 +380,9 @@
 
 
 <h3 id="FedSage-1"><a href="#FedSage-1" class="headerlink" title="FedSage+"></a>FedSage+</h3><p>FedSage+ 在 FedSage 的基础上引入了一个关键组件：<strong>缺失邻居生成器 (Missing Neighbor Generator, 通常称为 NeighGen)</strong>。通过显式地处理跨客户端连接的缺失问题，尝试恢复更完整的图结构信息。</p>
-<p><img src="/neighgen.jpg"></p>
+<p><img src="/2023/20230323/neighgen.jpg"></p>
 <p>dgen用了预测缺失邻居数量，fGen用了预测特征向量。</p>
-<h2 id="Fedni"><a href="#Fedni" class="headerlink" title="Fedni"></a>Fedni</h2><p><img src="/x1.png"></p>
+<h2 id="Fedni"><a href="#Fedni" class="headerlink" title="Fedni"></a>Fedni</h2><p><img src="/2023/20230323/x1.png"></p>
 <p>随机从某个节点出发，使用BFS获取子图作为训练集，以学会从子图生成完整图的能力。</p>
 <h2 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h2><p>（1）FedSage+的思想有点类似BERT，而另一篇论文Fedni利用了GAN的思想引入了鉴别器，和FedSage+的随机删除不同，他是使用广度优先搜索算法来实现节点删除。像FedSage+和Fedni都有一些NLP和CV中的比较先进的思想相类似的想法。那么它的未来方向是不是还可以参考比如CV中的diffusion model、NLP中的GPT系列等思想？</p>
 <p>（2）FedGraph是由服务端来分配采样邻居策略，是不是意味着服务端知道所有子图间的连接数据，这样的话是不是隐私性&#x2F;安全性没有FedSage+那么好，有没有可能存在攻击服务端来获取各子图之间连接的关系情况？</p>

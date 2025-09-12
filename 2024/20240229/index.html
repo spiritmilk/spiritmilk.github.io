@@ -28,21 +28,21 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="微软研究院、国科大同一团队（作者部分变化）的研究者推出了 BitNet 的重要 1-bit 变体，即 BitNet b1.58，其中每个参数都是三元并取值为 {-1, 0, 1}。他们在原来的 1-bit 上添加了一个附加值 0，得到二进制系统中的 1.58 bits。   log_2(3)&#x3D;1.58  论文：The Era of 1-bit LLMs: All Large Langua">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/BitLinear.png">
-<meta property="og:image" content="https://lijianxiong.space/BitLinear1.png">
-<meta property="og:image" content="https://lijianxiong.space/bitnet.png">
-<meta property="og:image" content="https://lijianxiong.space/tab1.png">
-<meta property="og:image" content="https://lijianxiong.space/tab2.png">
-<meta property="og:image" content="https://lijianxiong.space/fig2.png">
-<meta property="og:image" content="https://lijianxiong.space/fig3.png">
-<meta property="og:image" content="https://lijianxiong.space/tab4.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/BitLinear.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/BitLinear1.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/bitnet.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/tab1.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/tab2.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/fig2.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/fig3.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240229/tab4.png">
 <meta property="article:published_time" content="2024-02-29T04:29:26.000Z">
 <meta property="article:modified_time" content="2024-02-29T05:14:15.792Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="自然语言处理">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/BitLinear.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2024/20240229/BitLinear.png">
   
   
   
@@ -367,23 +367,23 @@
 <span id="more"></span>
 
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="BitNet"><a href="#BitNet" class="headerlink" title="BitNet"></a>BitNet</h3><p>BitNet是之前的工作，《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.11453">Scaling 1-bit Transformers for Large Language Models</a>》，每个参数都是二元并取值为 {-1,  1}.</p>
-<p><img src="/BitLinear.png"></p>
+<p><img src="/2024/20240229/BitLinear.png"></p>
 <h4 id="BitLinear"><a href="#BitLinear" class="headerlink" title="BitLinear"></a>BitLinear</h4><p>我们首先用sgn函数将权值二值化为+1或- 1。我们在二值化之前将权重集中为零均值，以在有限的数值范围内增加容量。在二值化后使用一个比例因子β来减小实值和二值化后的权重之间的l2误差。权W∈Rn×m的二值化可以表示为:</p>
-<p><img src="/BitLinear1.png"></p>
+<p><img src="/2024/20240229/BitLinear1.png"></p>
 <h3 id="BitNet-b1-58"><a href="#BitNet-b1-58" class="headerlink" title="BitNet b1.58"></a>BitNet b1.58</h3><p>BitNet b1.58 基于 BitNet 架构，并且用 BitLinear 替代 nn.Linear 的 Transformer。BitNet b1.58 是从头开始训练的，具有 1.58 bit 权重和 8 bit 激活。与原始 BitNet 架构相比，它引入了一些修改，总结为如下：</p>
-<p><img src="/bitnet.png"></p>
+<p><img src="/2024/20240229/bitnet.png"></p>
 <p>用于激活的量化函数与 BitNet 中的实现相同，只是该研究没有将非线性函数之前的激活缩放到 [0, Q_b] 范围。相反，每个 token 的激活范围为 [−Q_b, Q_b]，从而消除零点量化。</p>
 <h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><h3 id="与LLaMA的对比"><a href="#与LLaMA的对比" class="headerlink" title="与LLaMA的对比"></a>与LLaMA的对比</h3><p>表 1 总结了 BitNet b1.58 和 LLaMA LLM 的困惑度和成本：在困惑度方面，当模型大小为 3B 时，BitNet b1.58 开始与全精度 LLaMA LLM 匹配，同时速度提高了 2.71 倍，使用的 GPU 内存减少了 3.55 倍。特别是，当模型大小为 3.9B 时，BitNet b1.58 的速度是 LLaMA LLM 3B 的 2.4 倍，消耗的内存减少了 3.32 倍，但性能显著优于 LLaMA LLM 3B。</p>
-<p><img src="/tab1.png"></p>
+<p><img src="/2024/20240229/tab1.png"></p>
 <p>表 2 结果表明，随着模型尺寸的增加，BitNet b1.58 和 LLaMA LLM 之间的性能差距缩小。更重要的是，BitNet b1.58 可以匹配从 3B 大小开始的全精度基线的性能。与困惑度观察类似，最终任务（ end-task）结果表明 BitNet b1.58 3.9B 优于 LLaMA LLM 3B，具有更低的内存和延迟成本。</p>
-<p><img src="/tab2.png"></p>
+<p><img src="/2024/20240229/tab2.png"></p>
 <h3 id="内存和延迟："><a href="#内存和延迟：" class="headerlink" title="内存和延迟："></a>内存和延迟：</h3><p>该研究进一步将模型大小扩展到 7B、13B 和 70B 并评估成本。图 2 显示了延迟和内存的趋势，随着模型大小的增加，增长速度（speed-up）也在增加。特别是，BitNet b1.58 70B 比 LLaMA LLM 基线快 4.1 倍。这是因为 nn.Linear 的时间成本随着模型大小的增加而增加，内存消耗同样遵循类似的趋势。延迟和内存都是用 2 位核测量的，因此仍有优化空间以进一步降低成本。</p>
-<p><img src="/fig2.png"></p>
+<p><img src="/2024/20240229/fig2.png"></p>
 <h3 id="能耗"><a href="#能耗" class="headerlink" title="能耗"></a>能耗</h3><p>该研究还对 BitNet b1.58 和 LLaMA LLM 的算术运算能耗进行了评估，主要关注矩阵乘法。图 3 说明了能耗成本的构成。BitNet b1.58 的大部分是 INT8 加法计算，而 LLaMA LLM 则由 FP16 加法和 FP16 乘法组成。根据 [Hor14，ZZL22] 中的能量模型，BitNet b1.58 在 7nm 芯片上的矩阵乘法运算能耗节省了 71.4 倍。</p>
 <p>该研究进一步报告了能够处理 512 个 token 模型的端到端能耗成本。结果表明，随着模型规模的扩大，与 FP16 LLaMA LLM 基线相比，BitNet b1.58 在能耗方面变得越来越高效。这是因为 nn.Linear 的百分比随着模型大小的增加而增长，而对于较大的模型，其他组件的成本较小。</p>
-<p><img src="/fig3.png"></p>
+<p><img src="/2024/20240229/fig3.png"></p>
 <h3 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h3><p>该研究比较了 BitNet b1.58 和 LLaMA LLM 在 70B 参数体量上在两个 80GB A100 卡上的吞吐量，使用 pipeline 并行性 [HCB+19]，以便 LLaMA LLM 70B 可以在设备上运行。实验增加了 batch size，直到达到 GPU 内存限制，序列长度为 512。表 中 显示 BitNet b1.58 70B 最多可以支持 LLaMA LLM batch size 的 11 倍，从而将吞吐量提高 8.9 倍</p>
-<p><img src="/tab4.png"></p>
+<p><img src="/2024/20240229/tab4.png"></p>
 
                 
               </div>

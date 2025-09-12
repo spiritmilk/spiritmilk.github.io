@@ -28,20 +28,20 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="各种GNN结构层出不穷，比如Graphformer等transformer模型。不禁产生一个疑问：经典的GNN被淘汰了吗？ 以下这几篇正是对这一疑问的驳斥。 正好对应图领域中的链接预测、节点分类、图层次三大任务。其中后两篇均为Yuankai Luo的作品。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/links.png">
-<meta property="og:image" content="https://lijianxiong.space/heart.png">
-<meta property="og:image" content="https://lijianxiong.space/nodedata.png">
-<meta property="og:image" content="https://lijianxiong.space/nodedata1.png">
-<meta property="og:image" content="https://lijianxiong.space/nodedata2.png">
-<meta property="og:image" content="https://lijianxiong.space/nodedata3.png">
-<meta property="og:image" content="https://lijianxiong.space/graph.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250606/links.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250606/heart.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250606/nodedata.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250606/nodedata1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250606/nodedata2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250606/nodedata3.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250606/graph.png">
 <meta property="article:published_time" content="2025-06-06T14:35:06.000Z">
 <meta property="article:modified_time" content="2025-06-06T15:40:45.029Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/links.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250606/links.png">
   
   
   
@@ -365,7 +365,7 @@
 <p>（NIP2 2024 ）<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.08993">Classic GNNs are Strong Baselines: Reassessing GNNs for Node Classification</a></p>
 <p>（ICML 2025 ）<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.09263">Unlocking the Potential of Classic GNNs for Graph-level Tasks: Simple Architectures Meet Excellence</a></p>
 <h2 id="节点预测"><a href="#节点预测" class="headerlink" title="节点预测"></a>节点预测</h2><p>（1）作者注意到，多个模型的性能被低估。对于某些方法，如标准 GNNs，<br>这是由于调参不当所致。一旦进行适当的调参，它们甚至可以在某些指标上达到最佳整体性能。</p>
-<p><img src="/links.png"></p>
+<p><img src="/2025/20250606/links.png"></p>
 <p>（2）大多数模型的排序指标标准差往往较高。例如，MRR的标准差在 Cora、Citeseer 和 Pubmed 上分别高达 8.82 、8.96 和 7.75 。此外，在 ogbl-ddi数据集上，Hits@20 的标准差甚至达到了 10.47 和 15.56。</p>
 <p>高方差意味着模型性能不稳定。这使得比较不同方法的结果变得困难，因为真实性能存在于更大的值域内。这进一步增加了复制模型性能的复杂性，因为即使与报告结果存在较大差异，也可能仍处于方差范围内。</p>
 <p>也导致作者可能会取偏高的作为结果，而难以体现模型的平均性能。</p>
@@ -383,24 +383,24 @@
 <p>作者的策略 HeaRT 通过以下方式解决这些挑战：</p>
 <p>(a) 为每个样本个性化负例</p>
 <p> (b) 使用启发式方法选择难负例。这使得负例能够与每个正例直接相关，同时又不失挑战性。</p>
-<p><img src="/heart.png"></p>
+<p><img src="/2025/20250606/heart.png"></p>
 <h2 id="节点分类"><a href="#节点分类" class="headerlink" title="节点分类"></a>节点分类</h2><p>具体采用的数据集有：</p>
-<p><img src="/nodedata.png"></p>
+<p><img src="/2025/20250606/nodedata.png"></p>
 <p><strong>在同质图上：</strong></p>
-<p><img src="/nodedata1.png"></p>
+<p><img src="/2025/20250606/nodedata1.png"></p>
 <p>经典 GNN 仅需对超参数进行微调，便能在同质图上的节点分类任务中表现出极强的竞争力，在许多情况下甚至超越了最先进的图Transformer！</p>
 <p><strong>在异质图上：</strong></p>
-<p><img src="/nodedata2.png"></p>
+<p><img src="/2025/20250606/nodedata2.png"></p>
 <p>传统 GNN依旧在异质图中是强有力的竞争者。</p>
 <p><strong>在大规模图上：</strong></p>
-<p><img src="/nodedata3.png"></p>
+<p><img src="/2025/20250606/nodedata3.png"></p>
 <p>传统 GNN在这些大规模图数据集上取得了最佳结果，无论是同质性还是异质性图，均超越了最先进的图 Transformer。这表明消息传递在大<br>规模图上学习结点表示仍然非常有效。</p>
 <h2 id="图层次"><a href="#图层次" class="headerlink" title="图层次"></a>图层次</h2><p>作者并不是使用传统的GNN，而是提出了GNN+，即GNN整合了六种流行技术边特征集成、Normalization、Dropout、残差连接、FFN以及位置编码。</p>
 <h3 id="边特征集成"><a href="#边特征集成" class="headerlink" title="边特征集成"></a>边特征集成</h3><p>$$<br>h_v^l&#x3D;\sigma(\sum_{u\in N(v)\cup{v}}\frac{1}{\sqrt{\hat d_u\hat d_v}}h_u^{l-1}W^l)<br>$$</p>
 <p>边特征集成即：<br>$$<br>h_v^l&#x3D;\sigma(\sum_{u\in N(v)\cup{v}}\frac{1}{\sqrt{\hat d_u\hat d_v}}h_u^{l-1}W^l+e_{uv}W^l_e)<br>$$<br>其中$e_{uv}、W^l_e$分别为u和v之间的特征向量和第$l$层的可训练权重矩阵。</p>
 <h3 id="位置编码"><a href="#位置编码" class="headerlink" title="位置编码"></a>位置编码</h3><p>作者采用的是随机游走结构编码（RWSE）。</p>
 <p>之前的博客曾介绍过相关的Graph Neural Networks with Learnable Structural and Positional Representations，在这里不再赘述。<br>$$<br>x_v&#x3D;[x_v||x_v^{RWSE}]W_{PE}<br>$$</p>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="/graph.png"></p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="/2025/20250606/graph.png"></p>
 
                 
               </div>

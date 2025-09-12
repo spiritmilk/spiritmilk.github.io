@@ -30,8 +30,8 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2024/20240512/house_read.gif">
 <meta property="og:image" content="https://lijianxiong.space/2024/20240512/house_generate.gif">
-<meta property="og:image" content="https://lijianxiong.space/model.png">
-<meta property="og:image" content="https://lijianxiong.space/dramresult.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240512/model.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240512/dramresult.png">
 <meta property="article:published_time" content="2024-05-12T08:48:12.000Z">
 <meta property="article:modified_time" content="2025-05-20T05:50:07.254Z">
 <meta property="article:author" content="LJX">
@@ -371,7 +371,7 @@
 </center>
 
 <h2 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM"></a>DRAM</h2><p>模型架构：</p>
-<p><img src="/model.png"></p>
+<p><img src="/2024/20240512/model.png"></p>
 <h3 id="Glimpse-Network"><a href="#Glimpse-Network" class="headerlink" title="Glimpse Network**"></a>Glimpse Network**</h3><p>该网络是一种非线性函数，接收当前输入的图像patch或者说是glimpse,$x_n$,以及其位置序列$l_n$,其中$l_n&#x3D;(x_n,y_n)$作为输入，输出一个向量$g _ {n}$。</p>
 <p>Glimpse Network 的工作就是从原始图像中从位置$l _ {n}$附近提取一组有用的特征。利用$G _ {image}(x_n|W _ {image})$来表示函数$G _ {image}(\dot)$的输出向量$G _ {image}(\dot)$的输入是图像patch $x_n$,然后以权重$W_image${参 数 化 }，$G _ {image}( \dot )$ 通常由三个卷积隐层构成，没有pooling layer,然后紧跟着一个全连接层。</p>
 <p>另外，$G _ {loc}(l _ {n}|W _ {loc})$利用全连接的隐层来映射出位置元组，$G _ {loc}(l _ {n}|W _ {loc})$ 和$G _ {image}(x_n|W _ {image})$拥有相同的维度。</p>
@@ -399,7 +399,7 @@
 <p>像所展示的那样，recurrent network state vector $r_n^{(2)}$用来估计每一个glimpse 基于状态的baseline $b$,此举明显的改善了学习的效率。该baseline 有效地中心化了随机变量 R,并且可以通过向期望的R值讲行回归而学习到。给定指示函数和baseline,我们有如下的梯度更新：<br>$$<br>\dfrac{\partial\mathcal{F}}{\partial W}\approx\dfrac{1}{M}\sum\limits _ {m&#x3D;1}^{M}\left[\dfrac{\partial\log p(y|\tilde{l}^m,I,W)}{\partial W}+\lambda(R-b)\dfrac{\partial\log p(\tilde{l}^m|I,W)}{\partial W}\right]<br>$$</p>
 <p>其中，超参数$\lambda$平衡了两个梯度成分的尺度。实际上，通过利用 0&#x2F;1指示函数，上式的学习规则就等价于利用强化学习的方法来训练attention model。当看作是强化学习更新时，公式13的第二项就是基于glimpse policy的期望奖励R的对应W的梯度无偏估计。(原文：the second term in equation 13 is an unbiased estimate of the gradient with respect to W of the expected reward R under the model glimpse policy。)<br>在推理的过程中，前馈位置估计可以用作位置坐标的决策性估计，以此提取模型下一个输入图像patch。该模型表现的像一个常规的前馈网络。我们的marginallized objective function equation 5 通过利用位置序列的采样，提供了一个预测期望的类别估计，并且对这些估计进行平均：<br>$$<br>\mathbb{E}_l[p(y|I)]\approx\frac{1}{M}\sum _ {m&#x3D;1}^Mp(y|I,\tilde{l}^m)<br>$$</p>
 <p>通过平均分类估计，这允许attention model 可以多次评价。作者的实验表明平均 log 概率可以得到最优的性能。</p>
-<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/dramresult.png"></p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/2024/20240512/dramresult.png"></p>
 
                 
               </div>

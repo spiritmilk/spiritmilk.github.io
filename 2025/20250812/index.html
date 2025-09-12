@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（NeurIPS 2024）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/2.jpg">
-<meta property="og:image" content="https://lijianxiong.space/3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250812/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250812/2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250812/3.jpg">
 <meta property="article:published_time" content="2025-08-12T01:38:25.000Z">
 <meta property="article:modified_time" content="2025-08-13T08:29:31.318Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/1.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250812/1.jpg">
   
   
   
@@ -363,11 +363,11 @@
 <h2 id="线性注意力"><a href="#线性注意力" class="headerlink" title="线性注意力"></a>线性注意力</h2><p>博客之前介绍过线性注意力从$sim(Q,K)&#x3D;softmax(QK^T&#x2F;\sqrt{d})$变为$sim(Q,K)&#x3D;\phi(Q)\phi(K)^T$，从而能先计算KV而不是QK来减少计算复杂度。</p>
 <h2 id="注意力函数的单射性"><a href="#注意力函数的单射性" class="headerlink" title="注意力函数的单射性"></a>注意力函数的单射性</h2><p>作者证明了，Softmax 注意力是单射的，但线性注意力不是单射的。</p>
 <p>如下图所示，线性注意力无法区分具有不同强度的相同语义。</p>
-<p><img src="/1.jpg"></p>
+<p><img src="/2025/20250812/1.jpg"></p>
 <p>作者通过往softmax的输入前加入非单射函数，结果发现准确率下降了，认定注意力函数单射属性的关键作用。</p>
 <h3 id="赋予线性注意力单射性"><a href="#赋予线性注意力单射性" class="headerlink" title="赋予线性注意力单射性"></a>赋予线性注意力单射性</h3><p>最简单的解决方法就是使线性注意力拥有单射性，作者简单地将线性注意力的规范化从除法变换为减法，提出了单射线性注意力（InLine）：<br>$$<br>InL_K(Q_i)&#x3D;[\phi(Q_i)^T\phi(K_1),…\phi(Q_i)^T\phi(K_N)]^T-\frac{1}{N}\sum_{s&#x3D;1}^N \phi(Q_i)^T\phi(K_s)+\frac{1}{N}<br>$$</p>
 <h2 id="局部建模能力"><a href="#局部建模能力" class="headerlink" title="局部建模能力"></a>局部建模能力</h2><p>Softmax 注意力为局部窗口分配了<br>大量的注意力，表明其相较于其他两种注意力范<br>式具有更强的局部建模能力。</p>
-<p><img src="/2.jpg"></p>
+<p><img src="/2025/20250812/2.jpg"></p>
 <p>两个关键观察结果显现：</p>
 <ol>
 <li>屏蔽局部 token 会显著降低模型性能，而随机屏蔽相同数量的 token 对结果影响较小。</li>
@@ -375,7 +375,7 @@
 </ol>
 <h3 id="赋予线性注意力单射性-1"><a href="#赋予线性注意力单射性-1" class="headerlink" title="赋予线性注意力单射性"></a>赋予线性注意力单射性</h3><p>作者采用MLP 来预测 InLine 注意力的额外局部注意力残差。</p>
 <p>具体而言，<br>$$<br>O_i&#x3D;InL_K(Q_i)^TV+\sum_{j&#x3D;1}^9r_jV_j^{N(i)},r&#x3D;MLP(\bar x)<br>$$<br>V代表3*3领域内的值$Q_i$。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/3.jpg"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2025/20250812/3.jpg"></p>
 
                 
               </div>

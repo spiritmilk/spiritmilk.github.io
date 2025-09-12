@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="来自华为发表于nature的《Accurate medium-range global weather forecasting with 3D neural networks》。  现阶段，AI 气象预报模型精度不足主要有两个原因：  第一，现有的 AI 气象预报模型都是基于 2D 神经网络，无法很好地处理不均匀的 3D 气象数据。 第二，AI 方法缺少数学物理机理约束，因此在迭代过程中会不断积累">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/model.png">
+<meta property="og:image" content="https://lijianxiong.space/2023/20230708/model.png">
 <meta property="article:published_time" content="2023-07-08T15:43:48.000Z">
 <meta property="article:modified_time" content="2024-02-14T14:21:45.586Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/model.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2023/20230708/model.png">
   
   
   
@@ -368,7 +368,7 @@
 <h2 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h2><p>首先，将高度信息整合到一个新的维度中，以便深度神经网络的输入和输出可以在三个维度上概念化。</p>
 <p>作者进一步设计了一个三维（3D）地球特定变压器（3DEST）架构，将地球特定先验注入深层网络。实验表明，3D 模型通过将高度表达为单独的维度，能够捕获不同压力水平下大气状态之间的关系，从而产生显着的精度增益 </p>
 <p>其次，作者应用了分层时间聚合算法，该算法涉及训练一系列具有增加的预测提前期的模型。因此，在测试阶段，中期天气预报所需的迭代次数大大减少，累积预报误差也得到缓解。第五代ECMWF再分析（ERA5）数据的实验验证了盘古天气在确定性预报和极端天气预报方面的优势，同时速度比业务IFS快10000倍以上。</p>
-<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="/model.png"></p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><img src="/2023/20230708/model.png"></p>
 <h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><p>（1）盘古天气是根据再分析数据进行训练和测试的，但现实世界的预报系统是在观测数据上工作的。这些数据来源之间存在差异</p>
 <p>（2）其次，本文没有研究降水等一些天气变量。忽略这些因素可能会导致当前模型缺乏一些能力，例如利用降水数据来准确预测小规模极端天气事件，例如龙卷风爆发。</p>
 <p>（3）基于人工智能的方法产生更平滑的预测结果，增加了低估极端天气事件严重程度的风险。我们研究了一个特殊情况，即气旋跟踪，但还有很多工作要做。</p>

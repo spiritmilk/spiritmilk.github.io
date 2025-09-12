@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2025）2507.20096 众所周知，注意力为$softmax(\frac{QK^T}{\sqrt{D_k}})V$。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/1.jpg">
-<meta property="og:image" content="https://lijianxiong.space/2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250807/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250807/2.jpg">
 <meta property="article:published_time" content="2025-08-07T15:36:55.000Z">
 <meta property="article:modified_time" content="2025-08-07T16:23:12.445Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/1.jpg">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250807/1.jpg">
   
   
   
@@ -359,11 +359,11 @@
 <p>而QK内积可以写为$&lt;Q,K&gt;&#x3D;\frac{1}{2}(||Q||^2_2+||K||^2_2-||Q-K||^2_2)$。</p>
 <p>若Q、K被L2规范化，则括号内前两项为常数，化简后最终为$softmax(\frac{-1}{2&#x2F;\sqrt{D}}||Q-K||^2_2)$。</p>
 <p>于是作者把其扩充为softmax(QK距离)，作者使用了L1距离乘上$\lambda$系数。</p>
-<p><img src="/1.jpg"></p>
+<p><img src="/2025/20250807/1.jpg"></p>
 <h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>思路其实比较简单。</p>
 <p>在此之前也有<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2105.02723v1">《Do You Even Need Attention? A Stack of Feed-Forward Layers Does Surprisingly Well on ImageNet》</a>干脆全用FFN。</p>
 <p>和用逐元素乘法代替点积的AFT，不过被ICLR 2021 拒了。</p>
-<p><img src="/2.jpg"></p>
+<p><img src="/2025/20250807/2.jpg"></p>
 
                 
               </div>
