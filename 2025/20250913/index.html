@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2025） [2509.09660] Steering MoE LLMs via Expert (De)Activation [2506.17368] SAFEx: Analyzing Vulnerabilities of MoE-Based LLMs via Stable Safety-critical Expert Identification">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-13T02:01:15.000Z">
-<meta property="article:modified_time" content="2025-09-13T02:27:24.166Z">
+<meta property="article:modified_time" content="2025-09-13T02:34:52.769Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          597 字
+          962 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          5 分钟
+          9 分钟
         
       </span>
     
@@ -379,7 +379,25 @@
 </ul>
 <p><strong>计算风险差异（RD）</strong>：</p>
 <p>最后，将这两种行为下的激活率相减，就得到了专家 <code>i</code> 的风险差异（RD），在论文中用符号 <strong>$\Delta_{i}$</strong> 表示，$\Delta_{i} &#x3D; P_i^{(1)} - P_i^{(2)}$</p>
-<h3 id="引导"><a href="#引导" class="headerlink" title="引导"></a>引导</h3>
+<p>若$\Delta_{i}$为正值，说明它与安全行为正相关，是安全专家。</p>
+<p>若$\Delta_{i}$为负值，说明它与不安全行为正相关，是不安全专家。</p>
+<p>若$\Delta_{i}$接近于0，说明该专家与这两种行为的关联性不强。</p>
+<h3 id="引导"><a href="#引导" class="headerlink" title="引导"></a>引导</h3><p><strong>确定目标专家</strong>： 根据 RD 分数对专家进行排序，以确定要促进或抑制哪些专家来实现预期结果。例如，为了让模型更安全，他们会激活具有高“安全”RD 分数的专家，并抑制具有高“不安全”RD 分数的专家 。</p>
+<p><strong>调整路由器 Logits</strong>： 在生成回答时，对于每个令牌，他们会截获路由器为每个专家生成的原始分数（logits） 。</p>
+<p>之前会首先进行logsoftmax，以将其置于一个共享的尺度上。即s&#x3D;logsoftmax(z)</p>
+<blockquote>
+<p>而我们有softmax(logsoftmax(z))&#x3D;softmax(z)</p>
+</blockquote>
+<p>应用引导规则，简单的规则 ：</p>
+<ul>
+<li>要激活一个专家，就人为地将其分数设置为所有专家中的<strong>最高分</strong> 。</li>
+</ul>
+<p>$$<br> s_k \leftarrow	 s_{min}-\epsilon<br>$$</p>
+<ul>
+<li>要抑制一个专家，就人为地将其分数设置为所有专家中的<strong>最低分</strong> 。</li>
+</ul>
+<p><strong>生成输出</strong>： 模型随后根据这些修改后的分数照常选择得分最高的 k 个专家，并继续生成过程。这种“软”引导确保了目标专家被优先选择或避免，而不会完全破坏模型的整体功能。</p>
+
                 
               </div>
             
