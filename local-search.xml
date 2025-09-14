@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>Vision Transformers Don&#39;t Need Trained Registers</title>
+    <link href="/2025/20250914/"/>
+    <url>/2025/20250914/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>ICLR 2024的《VISION TRANSFORMERS NEED REGISTERS》指出了VIT中也会出现类似attention sinks的伪影。</p><span id="more"></span><p><img src="/2019/20190323/1.png"></p><p>应对的方法类似于streamingllm，即额外添加一些元素来承载多余的注意力。</p><p><img src="/2019/20190323/2.png"></p><h2 id="反驳"><a href="#反驳" class="headerlink" title="反驳"></a>反驳</h2><p>但最近9月的一篇arxiv（2506.08010）指出我们其实不需要在训练就加入，我们完全可以在测试时再把多余的注意力移走。</p><p>作者提出了一种如何移动的方法。</p><p><img src="/2019/20190323/3.png"></p><p>我们可以随意移动。</p><p><img src="/2019/20190323/4.png"></p><p>我们既然可以随意移动，那我们也可以把它移动到图像外的额外token上。</p><p>从其代码看不出来额外的token的位置在哪。不过根据其demo<a href="https://github.com/nickjiang2378/test-time-registers/blob/910bf45a607bf0800f20c310b6c0d54b14d6d5d0/llava_demo.ipynb#L68">llava_demo.ipynb </a>，更像是类似GPT-OSS的处理方式，即需要对模型进行修改，而非对原生模型进行处理。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LLM中MOE的安全行为</title>
     <link href="/2025/20250913/"/>
     <url>/2025/20250913/</url>
