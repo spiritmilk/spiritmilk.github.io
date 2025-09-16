@@ -1,64 +1,69 @@
 ---
-title: MLGWSC-1 【持续更新】
-date: 2022-10-20 19:02:39
+title: 训练自己称为天才的五种方法
+date: 2022-08-09 21:24:53
 tags:
-    - 人工智能 
-  
+    - 学习      
+    - 笔记  
+
 ---
 
-论文：MLGWSC-1: The first Machine Learning Gravitational-Wave Search Mock Data Challenge
+[训练自己称为天才的五种方法](https://www.bilibili.com/video/BV1YV4y1J7T8?spm_id_from=333.337.search-card.all.click)
+5 Ways to Train Yourself to Be a Genius (3 Short-term, 2 Long-term)
+演讲者是训练教练。
 
-即第一节机器学习引力波搜索（模拟数据）挑战。
-
-本论文为比赛报告。
-
-在这项挑战中，参与者被要求识别淹没在探测器噪声中的引力波信号。
-
-引力波以下简称GW。
+总结：说一些众所周知的东西，有点食之无味
 
 <!--more-->
 
-## MFCNN
+---
 
-MFCNN组的提交是基于He等人的作品。
-[92]的作者将该模型称为匹配过滤卷积神经网络(match -filtering convolutional neural network, MFCNN)。
-MFCNN是一个半相干搜索模型。
-该模型的基本思想是在神经网络层中使用波形模板作为可学习权值。
-类似于标准的同步匹配滤波搜索，每个匹配滤波层的输出以每个GW探测器的匹配滤波信噪比为单位最大化和归一化。
-但是，触发器不是在单个检测器上生成的。
-神经网络的其余部分是一个常用的卷积神经网络，随后使用它来联合分析来自所有检测器的输出。
-最后，应用SoftMax函数对GW检测网络中存在的GW信号进行置信度评分。
-该体系结构利用匹配滤波和卷积神经网络的优点，并将它们结合起来搜索GWTC-1[5]中的真实GW事件。
-为了适应这一挑战，提交的源代码[93]从原文中使用的MXNet框架翻译为PyTorch实现。
+**当我们谈起天才时指的是什么特性？**
 
-模型的训练数据是由生成数据集4的代码生成的。
-训练数据直接输入到模型中，不进行带通、增白等常用预处理，与原文一致[92]。
-事实上，该模型配备了一个白化层来估计每个输入数据的功率谱。
-主要的修改。
+（1）记忆力好  ->正确快速编码信息
 
-MobileNetV3
+（2）有深刻理解  
 
-## PyCBC
+**学习的四个主要阶段**
 
+第一阶：priority/judeements 
 
+第二阶：relationship/group和其他知识的关系
 
-## CNN-Coinc
+第三阶：applied/related
 
+第四阶：isolation
 
+**具体步骤**
 
-## TPI FSU Jena
+要先了解：
 
+弄清楚你的学习水平
 
+大部分时间花在哪一阶级
 
-## Virgo-AUTh
+**短期策略**：
 
+（1）不可操之过急，要一步一步来
 
+（2）prestudy structure->根据Topic 选择3-4个idea弄清楚直接的联系
 
-## cWB
+prestudy 就是如何让接下来的学习（讲座、课堂等）效果更好
 
+lay out a basic organisational structure  搞个知识基本骨架
 
+（3）延迟做笔记
 
-参考资料：
+（4）make it make sense to you
 
-优秀参赛者代码：https://github.com/gwastro/ml-mock-data-challenge-1
+**长期策略：**
+
+（1）提高认知负荷容忍度
+
+像肌肉一样不断锻炼大脑
+
+如何提高呢：不断应用短期策略中提到的
+
+（2）批判性反思
+
+检查哪些是真正起作用的学习技术，哪些没有
 
