@@ -21,19 +21,19 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="（CVPR 2025） 在视觉语言模型中，**物体幻觉（OH）**指的是模型在生成图像描述时，错误地提到了图像中并不存在的物体。">
+    <meta name="description" content="（CVPR 2025） 在视觉语言模型中，物体幻觉（Object Hallucinations，OH）指的是模型在生成图像描述时，错误地提到了图像中并不存在的物体。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nullu：通过 HalluSpace 投影减轻大型视觉-语言模型中的对象幻觉">
 <meta property="og:url" content="https://lijianxiong.space/2025/20250915/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="（CVPR 2025） 在视觉语言模型中，**物体幻觉（OH）**指的是模型在生成图像描述时，错误地提到了图像中并不存在的物体。">
+<meta property="og:description" content="（CVPR 2025） 在视觉语言模型中，物体幻觉（Object Hallucinations，OH）指的是模型在生成图像描述时，错误地提到了图像中并不存在的物体。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/4.png">
 <meta property="article:published_time" content="2025-09-15T10:26:38.000Z">
-<meta property="article:modified_time" content="2025-09-16T02:53:55.906Z">
+<meta property="article:modified_time" content="2025-09-16T03:03:41.159Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.2k 字
         
       </span>
     
@@ -313,7 +313,7 @@
         
         
         
-          12 分钟
+          11 分钟
         
       </span>
     
@@ -356,7 +356,7 @@
               <div class="markdown-body">
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（CVPR 2025）</p>
-<p>在视觉语言模型中，**物体幻觉（OH）**指的是模型在生成图像描述时，<strong>错误地提到了图像中并不存在的物体</strong>。</p>
+<p>在视觉语言模型中，<strong>物体幻觉</strong>（Object Hallucinations，OH）指的是模型在生成图像描述时，<strong>错误地提到了图像中并不存在的物体</strong>。</p>
 <span id="more"></span>
 
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>构建成对视觉-语言输入数据集。这两个输入具有相同的图像但不同的文本提示，其中一个是包含真实值$x^{−}_i$的正确描述，该描述准确描述了图像中的物体，另一个是包含幻觉描述$x^+_i$的文本。</p>
@@ -372,9 +372,7 @@
 </blockquote>
 <p>故我们将MLP的权重投影到零空间上，即$W_\ell^{ed}&#x3D;(I-V_{\ell,k}V_{\ell,k}^T)W_{\ell}^{org}$。</p>
 <h3 id="和DPO的联系"><a href="#和DPO的联系" class="headerlink" title="和DPO的联系"></a>和DPO的联系</h3><p>$\mathcal{L}<em>{DPO} &#x3D; -\mathbb{E}</em>{(x,y^{+},y^{-})\sim\mathcal{D}}[\log \sigma(\beta \log\frac{\pi_{\theta}(y^{+}|x)}{\pi_{ref}(y^{+}|x)} - \beta \log\frac{\pi_{\theta}(y^{-}|x)}{\pi_{ref}(y^{-}|x)})]$</p>
-<p>为了简化，我们定义其中的核心部分为 $\hat{r}<em>{\theta}(x, y) &#x3D; \beta \log\frac{\pi</em>{\theta}(y|x)}{\pi_{ref}(y|x)}$。<br>那么损失函数可以写成：<br>$\mathcal{L}<em>{DPO} &#x3D; -\mathbb{E}[\log \sigma(\hat{r}</em>{\theta}(x, y^+) - \hat{r}_{\theta}(x, y^-))]$</p>
-<p><strong>第二步：应用链式法则</strong></p>
-<p>我们要对 $\mathcal{L}<em>{DPO}$ 求关于权重 $W$ 的梯度。这是一个复合函数，我们需要使用链式法则。<br>令 $z &#x3D; \hat{r}</em>{\theta}(x, y^+) - \hat{r}<em>{\theta}(x, y^-)$，那么 $\mathcal{L}</em>{DPO} &#x3D; -\log \sigma(z)$ (暂时忽略期望 $\mathbb{E}$)。</p>
+<p>为了简化，我们定义 $\hat{r}<em>{\theta}(x, y) &#x3D; \beta \log\frac{\pi</em>{\theta}(y|x)}{\pi_{ref}(y|x)}$。<br>那么损失函数可以写成：<br>$\mathcal{L}<em>{DPO} &#x3D; -\mathbb{E}[\log \sigma(\hat{r}</em>{\theta}(x, y^+) - \hat{r}<em>{\theta}(x, y^-))]$<br>令 $z &#x3D; \hat{r}</em>{\theta}(x, y^+) - \hat{r}<em>{\theta}(x, y^-)$，那么 $\mathcal{L}</em>{DPO} &#x3D; -\log \sigma(z)$ (暂时忽略期望 $\mathbb{E}$)。</p>
 <p>梯度可以分解为：<br>$\nabla_W \mathcal{L}<em>{DPO} &#x3D; \frac{\partial \mathcal{L}</em>{DPO}}{\partial z} \cdot \nabla_W z$</p>
 <p>首先计算第一部分 $\frac{\partial \mathcal{L}_{DPO}}{\partial z}$：</p>
 <ul>
@@ -383,30 +381,24 @@
 <li>因此，$\frac{d}{dz} \log(\sigma(z)) &#x3D; \frac{1}{\sigma(z)} \cdot \sigma(z)(1-\sigma(z)) &#x3D; 1 - \sigma(z)$</li>
 <li>所以，$\frac{\partial \mathcal{L}_{DPO}}{\partial z} &#x3D; -\frac{\partial}{\partial z} \log \sigma(z) &#x3D; -(1 - \sigma(z)) &#x3D; \sigma(z) - 1$</li>
 </ul>
-<p><strong>第三步：在初始状态下进行简化</strong></p>
-<p>论文中提到，梯度是在初始化状态下计算的，即策略模型与参考模型相等（$\pi_\theta &#x3D; \pi_{ref}$）。<br>在这种情况下：</p>
+<p>论文中假定，梯度是在初始化状态下计算的，即策略模型与参考模型相等（$\pi_\theta &#x3D; \pi_{ref}$）。<br>在这种情况下：</p>
 <ul>
 <li>$\log\frac{\pi_{\theta}(y|x)}{\pi_{ref}(y|x)} &#x3D; \log(1) &#x3D; 0$</li>
 <li>所以 $z &#x3D; \hat{r}<em>{\theta}(x, y^+) - \hat{r}</em>{\theta}(x, y^-) &#x3D; 0 - 0 &#x3D; 0$</li>
 <li>当 $z&#x3D;0$ 时，sigmoid函数 $\sigma(0) &#x3D; \frac{1}{1+e^0} &#x3D; \frac{1}{2}$</li>
 <li>代入第二步的结果，我们得到 $\frac{\partial \mathcal{L}<em>{DPO}}{\partial z} |</em>{\pi_\theta &#x3D; \pi_{ref}} &#x3D; \sigma(0) - 1 &#x3D; \frac{1}{2} - 1 &#x3D; -\frac{1}{2}$</li>
 </ul>
-<p><strong>第四步：计算 $z$ 对 $W$ 的梯度</strong></p>
-<p>现在我们计算梯度的第二部分 $\nabla_W z$：<br>$\nabla_W z &#x3D; \nabla_W (\hat{r}<em>{\theta}(x, y^+) - \hat{r}</em>{\theta}(x, y^-))$<br>$&#x3D; \nabla_W (\beta \log\frac{\pi_{\theta}(y^{+}|x)}{\pi_{ref}(y^{+}|x)}) - \nabla_W (\beta \log\frac{\pi_{\theta}(y^{-}|x)}{\pi_{ref}(y^{-}|x)})$<br>由于 $\pi_{ref}$ 不依赖于我们要优化的权重 $W$，它的梯度为零。<br>$&#x3D; \beta (\nabla_W \log \pi_{\theta}(y^{+}|x) - \nabla_W \log \pi_{\theta}(y^{-}|x))$</p>
-<p><strong>第五步：计算对数概率的梯度</strong></p>
-<p>这是最核心的一步。论文使用了一个简化的逻辑回归模型来表示概率（公式17）：<br>$\pi_W(y|x) &#x3D; Z_W^{-1} \exp(\sum_{m&#x3D;1}^{M} o_{y_m}^{\top} W x_m)$<br>取对数后得到：<br>$\log \pi_W(y|x) &#x3D; \sum_{m&#x3D;1}^{M} o_{y_m}^{\top} W x_m - \log Z_W$</p>
+<p>接着我们计算梯度的第二部分 $\nabla_W z$：<br>$\nabla_W z &#x3D; \nabla_W (\hat{r}<em>{\theta}(x, y^+) - \hat{r}</em>{\theta}(x, y^-))$<br>$&#x3D; \nabla_W (\beta \log\frac{\pi_{\theta}(y^{+}|x)}{\pi_{ref}(y^{+}|x)}) - \nabla_W (\beta \log\frac{\pi_{\theta}(y^{-}|x)}{\pi_{ref}(y^{-}|x)})$<br>由于 $\pi_{ref}$ 不依赖于我们要优化的权重 $W$，它的梯度为零。<br>$&#x3D; \beta (\nabla_W \log \pi_{\theta}(y^{+}|x) - \nabla_W \log \pi_{\theta}(y^{-}|x))$</p>
+<p>进一步的，论文使用了一个简化的逻辑回归模型来表示概率（公式17）：<br>$\pi_W(y|x) &#x3D; Z_W^{-1} \exp(\sum_{m&#x3D;1}^{M} o_{y_m}^{\top} W x_m)$<br>取对数后得到：<br>$\log \pi_W(y|x) &#x3D; \sum_{m&#x3D;1}^{M} o_{y_m}^{\top} W x_m - \log Z_W$</p>
 <p>现在对它求关于 $W$ 的梯度。</p>
 <ul>
 <li>$\nabla_W (\sum o_{y_m}^{\top} W x_m) &#x3D; \sum \nabla_W (\text{Tr}(o_{y_m}^{\top} W x_m)) &#x3D; \sum o_{y_m} x_m^{\top}$ (这是矩阵微积分的标准结论)</li>
 <li>$\nabla_W (\log Z_W)$ 这一项是存在的，但论文指出，当我们计算 $y^+$ 和 $y^-$ 之间的<strong>差值</strong>时，这个归一化项的梯度会相互抵消掉。</li>
 </ul>
-<p>因此，我们只关注 logits 部分的梯度。为了简化（如论文公式19，考虑M&#x3D;1的情况）：<br>$\nabla_W \log \pi_W(y|x) &#x3D; o_y x^{\top}$</p>
+<p>因此，我们只关注 logits 部分的梯度。为了简化（如论文中只考虑M&#x3D;1的情况）：<br>$\nabla_W \log \pi_W(y|x) &#x3D; o_y x^{\top}$</p>
 <p>代入第四步的结果：<br>$\nabla_W z &#x3D; \beta (o_{y^+}(x^+)^{\top} - o_{y^-}(x^-)^{\top})$</p>
-<p><strong>第六步：组合所有部分，得到最终梯度</strong></p>
-<p>现在，我们将第三步和第五步的结果组合起来：<br>$\nabla_W \mathcal{L}<em>{DPO} |</em>{\pi_\theta &#x3D; \pi_{ref}} &#x3D; \frac{\partial \mathcal{L}<em>{DPO}}{\partial z} \cdot \nabla_W z$<br>$&#x3D; (-\frac{1}{2}) \cdot \beta (o</em>{y^+}(x^+)^{\top} - o_{y^-}(x^-)^{\top})$</p>
-<p>考虑到损失函数是所有样本的期望（平均值），我们引入求和与系数 $-\frac{1}{N}$。常数 $1&#x2F;2$ 可以合并到超参数 $\beta$ 中。这样，我们就得到了和论文<strong>公式 (19)</strong> 一致的形式：<br>$\nabla_W \mathcal{L}<em>{DPO} &#x3D; -\frac{\beta}{N}\sum</em>{i&#x3D;1}^{N}(o_{y_{i}}^{+}(x_{i}^{+})^{\top}-o_{y_{i}}^{-}(x_{i}^{-})^{\top})$</p>
-<hr>
-<p><strong>从公式(19)到公式(7)的分解</strong></p>
+<p>现在，我们将前面的结果组合起来：<br>$\nabla_W \mathcal{L}<em>{DPO} |</em>{\pi_\theta &#x3D; \pi_{ref}} &#x3D; \frac{\partial \mathcal{L}<em>{DPO}}{\partial z} \cdot \nabla_W z$<br>$&#x3D; (-\frac{1}{2}) \cdot \beta (o</em>{y^+}(x^+)^{\top} - o_{y^-}(x^-)^{\top})$</p>
+<p>考虑到损失函数是所有样本的期望（平均值），我们引入求和与系数 $-\frac{1}{N}$。常数 $1&#x2F;2$ 可以合并到超参数 $\beta$ 中。这样，我们就得到了以下形式：<br>$\nabla_W \mathcal{L}<em>{DPO} &#x3D; -\frac{\beta}{N}\sum</em>{i&#x3D;1}^{N}(o_{y_{i}}^{+}(x_{i}^{+})^{\top}-o_{y_{i}}^{-}(x_{i}^{-})^{\top})$</p>
 <p>最后，为了展示“特征差异”和“输出差异”，论文对这个结果做了一个简单的代数变换。通过加上和减去同一个项 $o_{y_i^+}(x_i^-)^\top$：<br>$\nabla_W \mathcal{L}<em>{DPO} \propto -(o</em>{y^+}(x^+)^\top - o_{y^-}(x^-)^\top)$<br>$&#x3D; -(o_{y^+}(x^+)^\top \color{blue}{- o_{y^+}(x^-)^\top + o_{y^+}(x^-)^\top} - o_{y^-}(x^-)^\top)$<br>$&#x3D; -( [o_{y^+}(x^+)^\top - o_{y^+}(x^-)^\top] + [o_{y^+}(x^-)^\top - o_{y^-}(x^-)^\top] )$<br>$&#x3D; -( o_{y^+} (x^+ - x^-)^\top + (o_{y^+} - o_{y^-}) (x^-)^\top )$</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>理想情况下，如果HalluSpace 有效代表了这些偏差，那么将测试样本映射到 HalluSpace 时，差异向量应该具有较大的投影分量。</p>
 <p><img src="/2025/20250915/2.png"></p>
