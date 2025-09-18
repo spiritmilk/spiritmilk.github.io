@@ -4,11 +4,11 @@
   
   
   <entry>
-    <title>AutoDAN&amp;&amp;AutoDAN-Turbo</title>
+    <title>Mitigating Hallucinations in Large Vision-Language Models by Self-Injecting Hallucinations</title>
     <link href="/2025/20250917/"/>
     <url>/2025/20250917/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（EMNLP 2025 ）</p><p>Autonomous Preference Alignment via Self-Injection (APASI)</p><span id="more"></span><h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>LVLM幻觉模式的三个关键观察 ：</p><p><strong>物体共现</strong>：模型倾向于幻觉出那些经常与图像中真实存在的物体一同出现的物体（例如，在有“沙发”的场景中幻觉出“椅子”或“桌子”）。</p><p><strong>语言先验</strong>：模型在生成内容时会过度依赖语言中的常见搭配，而非完全基于视觉信息 。</p><p><strong>位置因素</strong>：幻觉内容通常出现在回复的后半部分 。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（EMNLP 2025 ）</p><p>Autonomous Preference Alignment via Self-Injection (APASI)</p><span id="more"></span><h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>LVLM幻觉模式的三个关键观察 ：</p><p><strong>物体共现</strong>：模型倾向于幻觉出那些经常与图像中真实存在的物体一同出现的物体（例如，在有“沙发”的场景中幻觉出“椅子”或“桌子”）。</p><p><strong>语言先验</strong>：模型在生成内容时会过度依赖语言中的常见搭配，而非完全基于视觉信息 。</p><p><strong>位置因素</strong>：幻觉内容通常出现在回复的后半部分 。</p><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="/2019/20190624/1.png"></p>]]></content>
     
     
     
@@ -50,7 +50,7 @@
     <link href="/2025/20250914/"/>
     <url>/2025/20250914/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>ICLR 2024的《VISION TRANSFORMERS NEED REGISTERS》指出了VIT中也会出现类似attention sinks的伪影。</p><span id="more"></span><p><img src="/2025/20250914/1.png"></p><p>应对的方法类似于streamingllm，即额外添加一些元素来承载多余的注意力。</p><p><img src="/2025/20250914/2.png"></p><h2 id="反驳"><a href="#反驳" class="headerlink" title="反驳"></a>反驳</h2><p>但最近9月的一篇arxiv（2506.08010）指出我们其实不需要在训练就加入，我们完全可以在测试时再把多余的注意力移走。</p><p>作者提出了一种如何移动的方法。</p><p><img src="/2025/20250914/3.png"></p><p>我们可以随意移动。</p><p><img src="/2025/20250914/4.png"></p><p>我们既然可以随意移动，那我们也可以把它移动到图像外的额外token上。</p><p>从其代码看不出来额外的token的位置在哪。不过根据其demo<a href="https://github.com/nickjiang2378/test-time-registers/blob/910bf45a607bf0800f20c310b6c0d54b14d6d5d0/llava_demo.ipynb#L68">llava_demo.ipynb </a>，更像是类似GPT-OSS的处理方式，即需要对模型进行修改，而非对原生模型进行处理。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>ICLR 2024的《VISION TRANSFORMERS NEED REGISTERS》指出了VIT中也会出现类似attention sinks的伪影。对于REGISTERS我们是否需要可训练呢？</p><span id="more"></span><hr><p>ICLR 2024的《VISION TRANSFORMERS NEED REGISTERS》指出了VIT中也会出现类似attention sinks的伪影。</p><p><img src="/2025/20250914/1.png"></p><p>应对的方法类似于streamingllm，即额外添加一些元素来承载多余的注意力。</p><p><img src="/2025/20250914/2.png"></p><h2 id="反驳"><a href="#反驳" class="headerlink" title="反驳"></a>反驳</h2><p>但最近9月的一篇arxiv（2506.08010）指出我们其实不需要在训练就加入，我们完全可以在测试时再把多余的注意力移走。</p><p>作者提出了一种如何移动的方法。</p><p><img src="/2025/20250914/3.png"></p><p>我们可以随意移动。</p><p><img src="/2025/20250914/4.png"></p><p>我们既然可以随意移动，那我们也可以把它移动到图像外的额外token上。</p><p>从其代码看不出来额外的token的位置在哪。不过根据其demo<a href="https://github.com/nickjiang2378/test-time-registers/blob/910bf45a607bf0800f20c310b6c0d54b14d6d5d0/llava_demo.ipynb#L68">llava_demo.ipynb </a>，更像是类似GPT-OSS的处理方式，即需要对模型进行修改，而非对原生模型进行处理。</p>]]></content>
     
     
     
