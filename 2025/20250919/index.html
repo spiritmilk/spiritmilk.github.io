@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/919/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/919/4.png">
 <meta property="article:published_time" content="2025-09-19T05:13:51.000Z">
-<meta property="article:modified_time" content="2025-09-19T06:00:51.882Z">
+<meta property="article:modified_time" content="2025-09-19T06:11:16.363Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -371,22 +371,22 @@
 <h3 id="任务为中心的跨注意力机制-Task-centric-Cross-Attention"><a href="#任务为中心的跨注意力机制-Task-centric-Cross-Attention" class="headerlink" title="任务为中心的跨注意力机制 (Task-centric Cross-Attention)"></a>任务为中心的跨注意力机制 (Task-centric Cross-Attention)</h3><p>在指令微调场景下，文本词元通常描述任务，而非文本词元提供上下文信息。为了有效捕捉任务描述与上下文之间的语义关联，MokA 在低秩空间中引入了跨注意力机制，以显式地增强跨模态交互。</p>
 <p>该机制的设计是：<strong>使用非文本模态 (音频、视觉) 的表征作为查询 (Query)，并使用文本模态的表征作为键 (Key) 和值 (Value)</strong>。这样做可以在不改变文本原有表征的前提下，将与任务相关的文本信息融入到非文本模态中。</p>
 <ol>
-<li><p><strong>计算音频模态的注意力增强</strong>:<br>$$Att_{a,t,t} &#x3D; \text{softmax}\left(\frac{(A^a x^a)(A^t x^t)^T}{\sqrt{N_t}}\right) A^t x^t$$<br>其中 $N_t$ 是文本词元的数量。</p>
+<li><p><strong>计算音频模态的注意力增强</strong>:<br>$$Att _ {a,t,t} &#x3D; \text{softmax}\left(\frac{(A^a x^a)(A^t x^t)^T}{\sqrt{N_t}}\right) A^t x^t$$<br>其中 $N_t$ 是文本词元的数量。</p>
 </li>
-<li><p><strong>计算视觉模态的注意力增强</strong>:<br>$$Att_{v,t,t} &#x3D; \text{softmax}\left(\frac{(A^v x^v)(A^t x^t)^T}{\sqrt{N_t}}\right) A^t x^t$$</p>
+<li><p><strong>计算视觉模态的注意力增强</strong>:<br>$$Att _ {v,t,t} &#x3D; \text{softmax}\left(\frac{(A^v x^v)(A^t x^t)^T}{\sqrt{N_t}}\right) A^t x^t$$</p>
 </li>
 <li><p><strong>通过残差连接更新非文本表征</strong>:</p>
 <ul>
-<li>增强后的音频表征: $A^a x^a + Att_{a,t,t}$</li>
-<li>增强后的视觉表征: $A^v x^v + Att_{v,t,t}$</li>
+<li>增强后的音频表征: $A^a x^a + Att _ {a,t,t}$</li>
+<li>增强后的视觉表征: $A^v x^v + Att _ {v,t,t}$</li>
 </ul>
 </li>
 </ol>
-<p>经过此步骤，整合了跨模态信息的序列变为：<br>$$Ax_{enhanced} &#x3D; [A^a x^a + Att_{a,t,t}; A^v x^v + Att_{v,t,t}; A^t x^t]$$</p>
+<p>经过此步骤，整合了跨模态信息的序列变为：<br>$$Ax _ {enhanced} &#x3D; [A^a x^a + Att _ {a,t,t}; A^v x^v + Att _ {v,t,t}; A^t x^t]$$</p>
 <p>线性的投影（Wq 、Wk 和 Wv ）并未包含在交叉注意力模块中，因为在这种情况下，每个模态的低秩矩阵 A 实际上可以被视为注意力中的线性投影。</p>
 <h3 id="共享多模态矩阵B"><a href="#共享多模态矩阵B" class="headerlink" title="共享多模态矩阵B"></a>共享多模态矩阵B</h3><p>在增强了跨模态交互之后，需要将所有模态的低秩表征投影回原始的高维空间，以实现最终的跨模态对齐。MokA 使用一个<strong>所有模态共享</strong>的矩阵 $B \in \mathbb{R}^{d \times r}$ 来完成这个任务。</p>
-<p>MokA 旁路计算的最终输出为：<br>$$BAx &#x3D; [B(A^a x^a + Att_{a,t,t}); B(A^v x^v + Att_{v,t,t}); BA^t x^t]$$</p>
-<h3 id="最终输出"><a href="#最终输出" class="headerlink" title="最终输出"></a>最终输出</h3><p>一个应用了 MokA 的层的最终输出 $h$ 是原始预训练权重 $W_0$ 的输出与 MokA 旁路输出的总和：<br>$$h &#x3D; W_0 x + \Delta W x$$将 $\Delta W x$ 的计算展开，可以清晰地看到单模态和跨模态自适应两个部分：$$h &#x3D; W_0 x + \underbrace{[BA^a x^a; BA^v x^v; BA^t x^t]}<em>{\text{unimodal adaptation}} + \underbrace{[BAtt</em>{a,t,t}; BAtt_{v,t,t}; 0_{N_t}]}<em>{\text{cross-modal adaptation}}$$<br>其中 $0</em>{N_t}$ 表示一个零向量，因为文本词元在跨注意力步骤中未被改变。</p>
+<p>MokA 旁路计算的最终输出为：<br>$$BAx &#x3D; [B(A^a x^a + Att _ {a,t,t}); B(A^v x^v + Att _ {v,t,t}); BA^t x^t]$$</p>
+<h3 id="最终输出"><a href="#最终输出" class="headerlink" title="最终输出"></a>最终输出</h3><p>一个应用了 MokA 的层的最终输出 $h$ 是原始预训练权重 $W_0$ 的输出与 MokA 旁路输出的总和：<br>$$h &#x3D; W_0 x + \Delta W x$$将 $\Delta W x$ 的计算展开，可以清晰地看到单模态和跨模态自适应两个部分：$$h &#x3D; W_0 x + \underbrace{[BA^a x^a; BA^v x^v; BA^t x^t]} _ {\text{unimodal adaptation}} + \underbrace{[BAtt _ {a,t,t}; BAtt _ {v,t,t}; 0 _ {N_t}]} _ {\text{cross-modal adaptation}}$$<br>其中 $0 _ {N_t}$ 表示一个零向量，因为文本词元在跨注意力步骤中未被改变。</p>
 <p>这个公式清晰地展示了 MokA 如何通过其结构设计，在一次前向传播中同时实现了对各个模态的独立调整以及模态间的显式交互。</p>
 <p>为了保证训练开始时的稳定性，初始化策略与 LoRA 类似：</p>
 <ul>
