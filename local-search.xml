@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>MokA：Multimodal Low-Rank Adaptation for MLLMs</title>
+    <link href="/2025/20250919/"/>
+    <url>/2025/20250919/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（NIPS 2025）</p><span id="more"></span><h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>现在的多模态大模型的微调直接接借用大型语言模型（LLM）的微调技术，往往忽略了多模态场景的内在差异，导致非文本模态的信息未能被充分利用。该论文的核心观点是，有效的MLLM微调应同时包含**单模态自适应（unimodal adaptation）<strong>和</strong>跨模态自适应（cross-modal adaptation）**两个关键部分 。</p><p>文本 token 推理能够达到与常规全模态情景相当的性能。然而，非文本 token（如音频或视觉）推理则导致性能显著下降。</p><p>MokA 保留了广泛采用的低秩分解矩阵，但重新定义了矩阵 A 和B 的角色，以更好地适应多模态特性。具体而言，矩阵 A 被设计为模态特定的，允许每个模态独立压缩信息，从而避免其他模态的干扰。随后，引入交叉注意力机制以加强文本 token与非文本 token 之间的交互，突出任务相关特征。最后，一个共享的多模态矩阵 B 将单模态低秩表示投影到一个统一的空间中，促进跨模态的有效对齐。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Mitigating Hallucinations in Large Vision-Language Models by Self-Injecting Hallucinations</title>
     <link href="/2025/20250917/"/>
     <url>/2025/20250917/</url>
