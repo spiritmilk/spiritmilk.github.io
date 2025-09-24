@@ -29,11 +29,12 @@
 <meta property="og:description" content="（CVPR 2025） 在视觉语言模型中，物体幻觉（Object Hallucinations，OH）指的是模型在生成图像描述时，错误地提到了图像中并不存在的物体。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250915/5.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250915/4.png">
 <meta property="article:published_time" content="2025-09-15T10:26:38.000Z">
-<meta property="article:modified_time" content="2025-09-17T14:55:07.216Z">
+<meta property="article:modified_time" content="2025-09-24T11:28:40.475Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -365,11 +366,7 @@
 <p>然后我们可以对$E_\ell$进行SVD分解。</p>
 <p>然后选取top k 奇异值的右奇异向量。（左代表样本维度，右代表特征维度。）</p>
 <p>而$V _ {\ell,k}$的零空间是$(I-V _ {\ell,k}V _ {\ell,k}^T)$。</p>
-<blockquote>
-<p>若$v^Tx&#x3D;0$，</p>
-<p>令$P&#x3D;I-vv^T$，$Px&#x3D;(I-vv^T)x&#x3D;x-v(v^Tx)$</p>
-<p>若x与v正交，那么$v^Tx&#x3D;0$，所以$Px&#x3D;x$</p>
-</blockquote>
+<p><img src="/2025/20250915/5.png"></p>
 <p>故我们将MLP的权重投影到零空间上，即$W_\ell ^ {ed}&#x3D;(I-V _ {\ell,k}V _ {\ell,k}^T)W _ {\ell} ^ {org}$。</p>
 <h3 id="和DPO的联系"><a href="#和DPO的联系" class="headerlink" title="和DPO的联系"></a>和DPO的联系</h3><p>$\mathcal{L} _ {DPO} &#x3D; -\mathbb{E} _ {(x,y ^ {+},y ^ {-})\sim\mathcal{D}}[\log \sigma(\beta \log\frac{\pi _ {\theta}(y ^ {+}|x)}{\pi _ {ref}(y ^ {+}|x)} - \beta \log\frac{\pi _ {\theta}(y ^ {-}|x)}{\pi _ {ref}(y ^ {-}|x)})]$</p>
 <p>为了简化，我们定义 $\hat{r} _ {\theta}(x, y) &#x3D; \beta \log\frac{\pi _ {\theta}(y|x)}{\pi _ {ref}(y|x)}$。<br>那么损失函数可以写成：<br>$\mathcal{L} _ {DPO} &#x3D; -\mathbb{E}[\log \sigma(\hat{r} _ {\theta}(x, y^+) - \hat{r} _ {\theta}(x, y^-))]$<br>令 $z &#x3D; \hat{r} _ {\theta}(x, y^+) - \hat{r} _ {\theta}(x, y^-)$，那么 $\mathcal{L} _ {DPO} &#x3D; -\log \sigma(z)$ (暂时忽略期望 $\mathbb{E}$)。</p>
