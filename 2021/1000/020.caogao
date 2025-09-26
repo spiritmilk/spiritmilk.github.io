@@ -1,0 +1,64 @@
+---
+title: MLGWSC-1 【持续更新】
+date: 2022-10-20 19:02:39
+tags:
+    - 人工智能 
+  
+---
+
+论文：MLGWSC-1: The first Machine Learning Gravitational-Wave Search Mock Data Challenge
+
+即第一节机器学习引力波搜索（模拟数据）挑战。
+
+本论文为比赛报告。
+
+在这项挑战中，参与者被要求识别淹没在探测器噪声中的引力波信号。
+
+引力波以下简称GW。
+
+<!--more-->
+
+## MFCNN
+
+MFCNN组的提交是基于He等人的作品。
+[92]的作者将该模型称为匹配过滤卷积神经网络(match -filtering convolutional neural network, MFCNN)。
+MFCNN是一个半相干搜索模型。
+该模型的基本思想是在神经网络层中使用波形模板作为可学习权值。
+类似于标准的同步匹配滤波搜索，每个匹配滤波层的输出以每个GW探测器的匹配滤波信噪比为单位最大化和归一化。
+但是，触发器不是在单个检测器上生成的。
+神经网络的其余部分是一个常用的卷积神经网络，随后使用它来联合分析来自所有检测器的输出。
+最后，应用SoftMax函数对GW检测网络中存在的GW信号进行置信度评分。
+该体系结构利用匹配滤波和卷积神经网络的优点，并将它们结合起来搜索GWTC-1[5]中的真实GW事件。
+为了适应这一挑战，提交的源代码[93]从原文中使用的MXNet框架翻译为PyTorch实现。
+
+模型的训练数据是由生成数据集4的代码生成的。
+训练数据直接输入到模型中，不进行带通、增白等常用预处理，与原文一致[92]。
+事实上，该模型配备了一个白化层来估计每个输入数据的功率谱。
+主要的修改。
+
+MobileNetV3
+
+## PyCBC
+
+
+
+## CNN-Coinc
+
+
+
+## TPI FSU Jena
+
+
+
+## Virgo-AUTh
+
+
+
+## cWB
+
+
+
+参考资料：
+
+优秀参赛者代码：https://github.com/gwastro/ml-mock-data-challenge-1
+

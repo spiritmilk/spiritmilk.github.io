@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>Machine Unlearning</title>
+    <link href="/2025/20250926/"/>
+    <url>/2025/20250926/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Lucas Bourtoule 等人于 2019年在 arXiv 上发表，并最终在 2021年的 IEEE Symposium on Security and Privacy (S&amp;P) 上正式发表的论文 《Machine Unlearning》。</p><p>比较早期的模型，方法比较朴素。</p><span id="more"></span><p><img src="/2021/1000/926/2.png"></p><p><strong>训练阶段 (Training Phase)：</strong></p><ol><li><p><strong>数据分片 (Sharding)</strong>：将完整的原始训练数据集 <code>D</code> 分割成 <code>S</code> 个互不相交的数据子集，称为“分片” (Shards)。</p></li><li><p><strong>数据切片 (Slicing)</strong>：将每个分片 <code>Dk</code> 内部的数据再进一步分割成 <code>R</code> 个互不相-交的“切片” (Slices)。</p></li><li><p><strong>隔离与增量训练 (Isolated &amp; Incremental Training)</strong>：为每一个分片 <code>Dk</code> 单独训练一个模型 <code>Mk</code>，过程如下：</p><ul><li><strong>步骤 1</strong>: 使用随机初始化的参数，仅在第一个切片 <code>Dk,1</code> 上训练模型。训练完成后，保存当前模型的参数状态。</li><li><strong>步骤 2</strong>: 加载上一步保存的模型参数，然后在 <code>Dk,1</code> ∪ <code>Dk,2</code> 的数据上继续训练。完成后保存新的模型状态。</li><li><strong>重复此过程</strong>: 直到模型在所有 <code>R</code> 个切片上都训练完毕。每次加入一个新的切片进行训练后，都要保存一次模型状态。</li></ul></li><li><p><strong>聚合 (Aggregation)</strong>：在需要进行预测时，将输入数据分别送入所有 <code>S</code> 个独立训练好的模型。然后通过“多数投票”等策略将它们的输出结果聚合起来，得到最终的预测结果。</p></li></ol><p><strong>反学习阶段 (Unlearning Phase)：</strong></p><p>当收到一个删除数据点 <code>du</code> 的请求时：</p><ol><li><p><strong>定位 (Locate)</strong>：首先，确定这个数据点 <code>du</code> 属于哪个分片 <code>Dk</code> 和哪个切片 <code>Dk,r</code>。</p></li><li><p><strong>回滚 (Rollback)</strong>：加载在训练阶段保存的模型状态，具体来说，是加载在第 <code>r</code> 个切片被引入<em>之前</em>保存的状态。</p></li><li><p><strong>重新训练 (Retrain)</strong>：从加载的状态开始，继续执行增量训练过程。但在处理第 <code>r</code> 个切片时，使用剔除了数据点 <code>du</code> 的数据。</p></li><li><p><strong>完成 (Complete)</strong>：只有包含 <code>du</code> 的这一个模型 <code>Mk</code> 被重新训练，其他所有模型完全不受影响。</p></li></ol><h2 id="优化策略"><a href="#优化策略" class="headerlink" title="优化策略"></a>优化策略</h2><p>作者提出了如何更智能地进行分片以最小化未来的unlearning成本，称为分布感知的智能分片 (Distribution-Aware Sharding)</p><p>我们定义：</p><ul><li>数据集 <code>D</code></li><li>一个常数阈值 <code>C</code></li></ul><p><strong>流程</strong>:</p><ol><li><p><strong>排序</strong>: 根据每个数据点 <code>du</code> 被请求删除的概率 <code>p(u)</code>，对整个数据集进行升序排序（概率最低的在前）。</p></li><li><p><strong>初始化</strong>: 创建第一个空的分片 <code>D0</code>。</p></li><li><p><strong>循环分配</strong>: 遍历排序后的数据集：</p><ul><li>从数据集中取出当前删除概率最低的数据点 <code>du</code>。</li><li>将 <code>du</code> 添加到当前的分片 <code>Di</code> 中。</li></ul></li><li><p><strong>检查阈值</strong>: 每次添加后，计算当前分片 <code>Di</code> 的“预期被删除次数” <code>E(χi)</code>。</p><ul><li><strong>如果 <code>E(χi) ≥ C</code></strong>:<ul><li>将刚刚添加的数据点 <code>du</code> 从当前分片 <code>Di</code> 中移出。</li><li>创建一个新的空分片 <code>Di+1</code>。</li><li>将数据点 <code>du</code> 添加到这个新的分片 <code>Di+1</code> 中。</li></ul></li></ul></li><li><p><strong>结束</strong>: 重复步骤3和4，直到所有数据点都被分配到某个分片中。</p></li></ol><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>比较早期的模型，方法比较朴素。</p><p>模型参数量大，重新训练就很耗时。</p><p>在当时，作者认为遗忘有以下难度。</p><p><img src="/2021/1000/926/1.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MokA：Multimodal Low-Rank Adaptation for MLLMs</title>
     <link href="/2025/20250919/"/>
     <url>/2025/20250919/</url>
