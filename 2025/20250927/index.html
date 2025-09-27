@@ -31,10 +31,12 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/6.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/7.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/3.png">
 <meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
-<meta property="article:modified_time" content="2025-09-27T09:33:47.756Z">
+<meta property="article:modified_time" content="2025-09-27T11:44:16.957Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -302,7 +304,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          3.1k 字
         
       </span>
     
@@ -313,7 +315,7 @@
         
         
         
-          21 分钟
+          26 分钟
         
       </span>
     
@@ -383,8 +385,23 @@
 <p><strong>视觉token偏移向量：</strong></p>
 <p>类似于特征平均，使用m种不同的随机掩码$C_i$，随机mask输入图像v。直观上，它们的平均嵌入$\bar h_{l,t}^v&#x3D;\sum h_{l,t}^{C_i(v)}$是鲁棒嵌入。</p>
 <p>故视觉方向如此计算：$\Delta_{l,t}^v&#x3D;\bar h_{l,t}^v-h_{l,t}^v$</p>
+<p>由于期望的视觉方向应能轻松应用于新的图像查询。为了去除方向向量中的图像特定信息，仅保留特征平均带来的变化。</p>
+<p>获取N个样本，并计算$[\Delta_{l,t}^{v_1},\Delta_{l,t}^{v_2},…,\Delta_{l,t}^{v_N}]$主方向$d_{l,t}^{vision}$。</p>
 <p><strong>文本偏移向量：</strong></p>
+<p>精心挑选N张无幻觉的图像描述，记为$x$，并采用GPT模型生成带有幻觉的版本$\tilde x$。</p>
+<p>简单地使用原始对应的图像v作为视觉输入，文本方向为：$\Delta_{l,t}^{x_i,v_i}&#x3D;h_{l,t}^{x_i,v_i}-h_{l,t}^{\tilde x_iv_i}$</p>
+<p>其中$h_{l,t}$代表在生成输出最后一个 token 时，第 t 个文本 token 在第 l 层的隐状态。特别地，因为文本解码器是因果建模的，我们仅使用最后一个 token 的潜在状态，t&#x3D;last token。同样地只取主方向$d_{l,t}^{text}$。</p>
+<blockquote>
+<p>作者有点符号混用。</p>
+</blockquote>
+<p>由于视觉编码器并非因果建模，在前向传播过程中对所有层的潜在状态在所有 token 位置进行了位移调整：<br>$$<br>h_{l,t}^v:&#x3D;h_{l,t}^v+\alpha\cdot d_{l,t}^{vision}<br>$$<br>对于文本，我们通过文本方向来调整文本解码器的潜在状态：<br>$$<br>h_{l,t}^{x,v}:&#x3D;h_{l,t}^{x,v}+\beta\cdot d_{l,t&#x3D;last token}^{text}<br>$$</p>
 <h2 id="Volcano-通过自我反馈引导修正减轻多模态幻觉"><a href="#Volcano-通过自我反馈引导修正减轻多模态幻觉" class="headerlink" title="Volcano: 通过自我反馈引导修正减轻多模态幻觉"></a>Volcano: 通过自我反馈引导修正减轻多模态幻觉</h2><p>Volcano: Mitigating Multimodal Hallucination through Self-Feedback Guided Revision</p>
+<h3 id="定性分析"><a href="#定性分析" class="headerlink" title="定性分析"></a>定性分析</h3><p>作者还定性分析反馈如何有效减少多模态幻觉。</p>
+<h4 id="视觉信息量"><a href="#视觉信息量" class="headerlink" title="视觉信息量"></a>视觉信息量</h4><p>对于每个实例，执行top-k 平均汇聚（作者尝试了最小值、最大值、平均值，但是还是top-k提供了最清晰的可视化效果）来聚合初始响应或反馈词元在每个图像特征上的注意力权重。具体来说，在隐藏层上对前 3 个注意力权重求平均，在自注意力头上的前 3 个权重求平均，然后在输出词元上对前-l 个权重求平均，其中 l 是初始响应和反馈中较短输出的长度。</p>
+<p><img src="/2021/1000/927/6.png"></p>
+<h4 id="视觉信息的覆盖"><a href="#视觉信息的覆盖" class="headerlink" title="视觉信息的覆盖"></a>视觉信息的覆盖</h4><p>作者进一步进一步通过实验研究单个词元的注意力如何有助于关键视觉信息的覆盖。</p>
+<p>将输出中所有词元的注意力权重与输出中一部分词元的注意力权重进行比较。对于后一种过程，生成过程中最强烈关注图像特征的词元被视为显著词元并被选择。</p>
+<p><img src="/2021/1000/927/7.png"></p>
 <h2 id="视觉语言模型中的多对象幻觉"><a href="#视觉语言模型中的多对象幻觉" class="headerlink" title="视觉语言模型中的多对象幻觉"></a>视觉语言模型中的多对象幻觉</h2><p>Multi-Object Hallucination in Vision Language Models</p>
 <p>NeurIPS 2024</p>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>系统地研究了一个重要问题：当大型视觉语言模型（LVLMs）被要求同时关注和识别图像中的多个物体时，它们会如何产生误解（例如，凭空捏造不存在的物体或分散注意力） 。</p>
