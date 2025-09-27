@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/3.png">
 <meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
-<meta property="article:modified_time" content="2025-09-27T09:09:53.929Z">
+<meta property="article:modified_time" content="2025-09-27T09:33:47.756Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.5k 字
         
       </span>
     
@@ -313,7 +313,7 @@
         
         
         
-          19 分钟
+          21 分钟
         
       </span>
     
@@ -377,7 +377,13 @@
 <p>然而，如上图所示，虽然大多数视觉特征保持稳定，但约 15% 的特征表现出显著的方差，形成了长尾分布。</p>
 <p>尽管特征平均能够缓解幻觉现象，但它也带来了显著的弊端。由于视觉编码器是在干净数据上训练的，对图像进行扰动会损害信息提取，导致细节丢失。此外，对视觉特征进行平均需要多次通过模型进行前向传播，大幅增加了计算成本。</p>
 <p>因此，作者的目标是开发一种方法，既能有效增强视觉特征的稳定性并减少幻觉，又不牺牲信息或产生过高的计算开销。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>具体而言，预先计算了更稳定特征的“方向”，并在推理过程中一致地应用于所有查询示例以减少幻觉，而无需引入额外的训练或推理成本。由于有时幻觉源于文本解码器（即 LLM），进一步获取了文本方向并将其应用于文本解码器以最大化性能。</p>
 <p><img src="/2021/1000/927/5.png"></p>
+<p>具体来说，给定视觉驶入v，其潜在状态为$h_{l,t}^v$，其中l表示层，t表示视觉token的索引。</p>
+<p><strong>视觉token偏移向量：</strong></p>
+<p>类似于特征平均，使用m种不同的随机掩码$C_i$，随机mask输入图像v。直观上，它们的平均嵌入$\bar h_{l,t}^v&#x3D;\sum h_{l,t}^{C_i(v)}$是鲁棒嵌入。</p>
+<p>故视觉方向如此计算：$\Delta_{l,t}^v&#x3D;\bar h_{l,t}^v-h_{l,t}^v$</p>
+<p><strong>文本偏移向量：</strong></p>
 <h2 id="Volcano-通过自我反馈引导修正减轻多模态幻觉"><a href="#Volcano-通过自我反馈引导修正减轻多模态幻觉" class="headerlink" title="Volcano: 通过自我反馈引导修正减轻多模态幻觉"></a>Volcano: 通过自我反馈引导修正减轻多模态幻觉</h2><p>Volcano: Mitigating Multimodal Hallucination through Self-Feedback Guided Revision</p>
 <h2 id="视觉语言模型中的多对象幻觉"><a href="#视觉语言模型中的多对象幻觉" class="headerlink" title="视觉语言模型中的多对象幻觉"></a>视觉语言模型中的多对象幻觉</h2><p>Multi-Object Hallucination in Vision Language Models</p>
 <p>NeurIPS 2024</p>
