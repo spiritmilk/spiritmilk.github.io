@@ -31,9 +31,9 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/2.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/4.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/3.png">
 <meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
-<meta property="article:modified_time" content="2025-09-27T09:01:51.342Z">
+<meta property="article:modified_time" content="2025-09-27T09:09:15.939Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.3k 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          18 分钟
+          19 分钟
         
       </span>
     
@@ -370,8 +370,12 @@
 <p>ICLR 2025 Spotlight</p>
 <p>代码：<a target="_blank" rel="noopener" href="https://github.com/shengliu66/VTI">shengliu66&#x2F;VTI: Code for Reducing Hallucinations in Vision-Language Models via Latent Space Steering</a></p>
 <p><strong>V</strong>isual and <strong>T</strong>extual <strong>I</strong>ntervention &#x3D; VTI</p>
-<p>证明了幻觉可能源于对视觉编码器不稳定性的敏感性。与计算机视觉中的传统神经网络类似，理想的视觉编码器应在图像语义保持不变时输出稳定的特征，例如在对图像进行轻微扰动后。这种情况在 LVLMs 中尤为突出，其中图像编码器和文本解码器是预训练分离的，并且仅进行了最小程度的联合微调。文本解码器对<br>图像特征的敏感性可能会加剧两种模态之间的错位，从而导致幻觉。</p>
+<h3 id="LVLMs-中的幻觉机制"><a href="#LVLMs-中的幻觉机制" class="headerlink" title="LVLMs 中的幻觉机制"></a>LVLMs 中的幻觉机制</h3><p>幻觉可能源于对视觉编码器不稳定性的敏感性。</p>
+<p>与计算机视觉中的传统神经网络类似，理想的视觉编码器应在图像语义保持不变时输出稳定的特征，例如在对图像进行轻微扰动后。这种情况在 LVLMs 中尤为突出，其中图像编码器和文本解码器是预训练分离的，并且仅进行了最小程度的联合微调。文本解码器对图像特征的敏感性可能会加剧两种模态之间的错位，从而导致幻觉。</p>
 <p><img src="/2021/1000/927/4.png"></p>
+<p>然而，如上图所示，虽然大多数视觉特征保持稳定，但约 15% 的特征表现出显著的方差，形成了长尾分布。</p>
+<p>尽管特征平均能够缓解幻觉现象，但它也带来了显著的弊端。由于视觉编码器是在干净数据上训练的，对图像进行扰动会损害信息提取，导致细节丢失。此外，对视觉特征进行平均需要多次通过模型进行前向传播，大幅增加了计算成本。</p>
+<p>因此，作者的目标是开发一种方法，既能有效增强视觉特征的稳定性并减少幻觉，又不牺牲信息或产生过高的计算开销。</p>
 <h2 id="Volcano-通过自我反馈引导修正减轻多模态幻觉"><a href="#Volcano-通过自我反馈引导修正减轻多模态幻觉" class="headerlink" title="Volcano: 通过自我反馈引导修正减轻多模态幻觉"></a>Volcano: 通过自我反馈引导修正减轻多模态幻觉</h2><p>Volcano: Mitigating Multimodal Hallucination through Self-Feedback Guided Revision</p>
 <h2 id="视觉语言模型中的多对象幻觉"><a href="#视觉语言模型中的多对象幻觉" class="headerlink" title="视觉语言模型中的多对象幻觉"></a>视觉语言模型中的多对象幻觉</h2><p>Multi-Object Hallucination in Vision Language Models</p>
 <p>NeurIPS 2024</p>
@@ -400,7 +404,7 @@
 <p><strong>被测物体的类别分布会影响幻觉行为：</strong> 模型在处理<strong>同质</strong>物体（都是同一类）时表现最好，而在处理<strong>异质</strong>物体（每个都不同类）时表现最差，幻觉最多 。这表明模型可能依赖于某种“捷径”或虚假的关联性来做出判断，而不是真正地逐一识别每个物体 。</p>
 <p><strong>对抗性测试揭示了模型的“思维捷径”：</strong> 在“AAAAB”这样的对抗性测试中，模型在识别前几个相同的物体（A）时准确率很高，甚至越来越高。但当识别到最后一个不同的物体（B）时，准确率会断崖式下跌，模型极大概率会把它也错误地识别成A 。这有力地证明了模型并没有真正理解任务，而只是在利用语言偏见和重复先前答案这样的“捷径” 。</p>
 <h3 id="影响幻觉的因素分析"><a href="#影响幻觉的因素分析" class="headerlink" title="影响幻觉的因素分析"></a>影响幻觉的因素分析</h3><p>深入分析了可能导致多目标幻觉的多种因素：</p>
-<h4 id="数据特定因素"><a href="#数据特定因素" class="headerlink" title="数据特定因素"></a>数据特定因素</h4><p><img src="/2021/1000/927/4.png"></p>
+<h4 id="数据特定因素"><a href="#数据特定因素" class="headerlink" title="数据特定因素"></a>数据特定因素</h4><p><img src="/2021/1000/927/3.png"></p>
 <p><strong>查询同质性（Query Homogeneity）：</strong> 当任务中需要识别的物体类别越单一时，模型幻觉越少 。</p>
 <p><strong>物体在图像中的位置（Object Centrality）：</strong> 位于图像边缘的物体比位于中心的物体更容易被错误识别 。</p>
 <h4 id="显著性和频率因素"><a href="#显著性和频率因素" class="headerlink" title="显著性和频率因素"></a>显著性和频率因素</h4><p>**物体显著性：**先前的研究表明，较小的物体更难被检测和定位到。本文将物体显著性定义为物体实例分割掩码占据的像素数量与图像总像素数量的比值。</p>
