@@ -31,13 +31,15 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/9.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/8.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/10.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/6.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/7.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/3.png">
 <meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
-<meta property="article:modified_time" content="2025-09-27T12:10:47.370Z">
+<meta property="article:modified_time" content="2025-09-27T12:49:34.080Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -305,7 +307,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          4k 字
         
       </span>
     
@@ -316,7 +318,7 @@
         
         
         
-          29 分钟
+          34 分钟
         
       </span>
     
@@ -397,7 +399,16 @@
 </blockquote>
 <p>由于视觉编码器并非因果建模，在前向传播过程中对所有层的潜在状态在所有 token 位置进行了位移调整：<br>$$<br>h_{l,t}^v:&#x3D;h_{l,t}^v+\alpha\cdot d_{l,t}^{vision}<br>$$<br>对于文本，我们通过文本方向来调整文本解码器的潜在状态：<br>$$<br>h_{l,t}^{x,v}:&#x3D;h_{l,t}^{x,v}+\beta\cdot d_{l,t&#x3D;last token}^{text}<br>$$</p>
 <h2 id="Volcano-通过自我反馈引导修正减轻多模态幻觉"><a href="#Volcano-通过自我反馈引导修正减轻多模态幻觉" class="headerlink" title="Volcano: 通过自我反馈引导修正减轻多模态幻觉"></a>Volcano: 通过自我反馈引导修正减轻多模态幻觉</h2><p>Volcano: Mitigating Multimodal Hallucination through Self-Feedback Guided Revision</p>
-<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><h4 id="迭代式自我修订"><a href="#迭代式自我修订" class="headerlink" title="迭代式自我修订"></a>迭代式自我修订</h4><p><img src="/2021/1000/927/8.png"></p>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><p><img src="/2021/1000/927/9.png"></p>
+<p><img src="/2021/1000/927/8.png"></p>
+<h4 id="迭代式自我修订"><a href="#迭代式自我修订" class="headerlink" title="迭代式自我修订"></a>迭代式自我修订</h4><p>Volcano 是一个通过四阶段顺序过程生成改进响应的单一模型。</p>
+<p>首先，类似于其他 LLM，它为图像 $R_{initial}$ 和问题 $I$ 生成初始响应 Q ，并将最佳响应 $R_{best}$ 初始化为 $R_{initial}$ 。此阶段在整个创建最终响应的过程中只执行一次。</p>
+<p>其次，它根据$R_{best}$ 生成反馈F (<strong>阶段 1</strong>) 。使用此反馈，它自我修订 $R_{best}$ (<strong>阶段 2</strong>)。由于无法保证修订后的响应 $R_{revised}$ 会比现有的 $R_{best}$更好，因此需要确定哪一响应对于给定的 Q 和I 更好。此时，Volcano 被提供 Q 、I 以及两个响应，并经历决定哪个响应更好的过程 (<strong>阶段 3</strong>)。在阶段 3 中，$R_{revised}$ 和 $R_{best}$ 的顺序是随机的，以防止位置影响结果。 （作者对此引用了《Siren’s Song in the AI Ocean: A Survey on Hallucination in Large Language Models》，但并未找到具体文字，只找到“Li et al. (2022c) 发现大型语言模型有时会 错误地将偶然相关性，例如位置接近或高度共 现的关联，当作事实知识。”）</p>
+<p>如果模型认为 $R_{revised}$ 比 $R_{best}$ 更好，则 $R_{best}$ 会被更新为 $R_{revised}$ ，并重复从阶段1 到阶段 3 的过程，直到达到预定的最大迭代次数。否则，循环将提前停止，$R_{best}$ 将被选为最终输出。</p>
+<h4 id="数据采集"><a href="#数据采集" class="headerlink" title="数据采集"></a>数据采集</h4><p><img src="/2021/1000/927/10.png"></p>
+<p>从开源的 LMM 中收集视觉问题的初始回答，并使用专有 LLM 生成反馈和修改。</p>
+<p>专有的大语言模型可能会利用黄金答案（Gold Answer，预先准备好的、完全正确的回答）来生成反馈，这可能导致在推理时由于未提供黄金答案而产生潜在的不准确性。为了避免这种情况，作者给大语言模型明确的提示，使其在生成反馈时关注文本格式的图像细节。</p>
+<p>在构建修订数据时，作者建立了一个系统，将现有的黄金答案作为输出进行预测，使用从上一步骤中获得的反馈数据、图像、问题和初始回答作为输入，而不涉及任何分离的模型生成过程。</p>
 <h3 id="定性分析"><a href="#定性分析" class="headerlink" title="定性分析"></a>定性分析</h3><p>作者还定性分析反馈如何有效减少多模态幻觉。</p>
 <h4 id="视觉信息量"><a href="#视觉信息量" class="headerlink" title="视觉信息量"></a>视觉信息量</h4><p>对于每个实例，执行top-k 平均汇聚（作者尝试了最小值、最大值、平均值，但是还是top-k提供了最清晰的可视化效果）来聚合初始响应或反馈词元在每个图像特征上的注意力权重。具体来说，在隐藏层上对前 3 个注意力权重求平均，在自注意力头上的前 3 个权重求平均，然后在输出词元上对前-l 个权重求平均，其中 l 是初始响应和反馈中较短输出的长度。</p>
 <p><img src="/2021/1000/927/6.png"></p>
