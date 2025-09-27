@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/3.png">
 <meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
-<meta property="article:modified_time" content="2025-09-27T11:44:16.957Z">
+<meta property="article:modified_time" content="2025-09-27T11:55:31.095Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -304,7 +304,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.4k 字
         
       </span>
     
@@ -315,7 +315,7 @@
         
         
         
-          26 分钟
+          29 分钟
         
       </span>
     
@@ -402,6 +402,9 @@
 <h4 id="视觉信息的覆盖"><a href="#视觉信息的覆盖" class="headerlink" title="视觉信息的覆盖"></a>视觉信息的覆盖</h4><p>作者进一步进一步通过实验研究单个词元的注意力如何有助于关键视觉信息的覆盖。</p>
 <p>将输出中所有词元的注意力权重与输出中一部分词元的注意力权重进行比较。对于后一种过程，生成过程中最强烈关注图像特征的词元被视为显著词元并被选择。</p>
 <p><img src="/2021/1000/927/7.png"></p>
+<p>此示例中的任务是识别图像中锅的颜色，初始响应错误地回答为（“红色”），然后反馈更正了答案（“银色”）。</p>
+<p>这种修正可以通过生成每个词元时对图像特征的注意力分布差异来解释。基于所有关注图像特征的词元的热力图，当 Volcano 生成初始响应时，它主要关注外边缘的特征，对应于锅的边缘；在生成反馈时，它关注整个图像，包括对应于银色锅的外部区域和包含红色浆果的<br>内部区域。关注图像特征的特定词元的热力图显示，在改进初始响应的过程中，Volcano 在生成这些词时确实关注了对应于关键颜色描述符“银色”和“红色”的确切图像区域。</p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p>Volcano 需要多次调用模型，因此比直接生成响应的效率更低。平<br>均而言，Volcano 的运行速度比基础模型慢约2 到 3 倍，对于给定的图像和指令生成响应需要 5.8 秒，而 LLaVA-1.5 只需要 2.7 秒。作者用来减少总体执行时间的一个策略是将迭代次数限制为 3 次。</p>
 <h2 id="视觉语言模型中的多对象幻觉"><a href="#视觉语言模型中的多对象幻觉" class="headerlink" title="视觉语言模型中的多对象幻觉"></a>视觉语言模型中的多对象幻觉</h2><p>Multi-Object Hallucination in Vision Language Models</p>
 <p>NeurIPS 2024</p>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>系统地研究了一个重要问题：当大型视觉语言模型（LVLMs）被要求同时关注和识别图像中的多个物体时，它们会如何产生误解（例如，凭空捏造不存在的物体或分散注意力） 。</p>
