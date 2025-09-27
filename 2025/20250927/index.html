@@ -29,8 +29,10 @@
 <meta property="og:description" content="师兄组会所提到。 2508.20181,2410.15778,2311.07362,2407.06192,2406.01920">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/2.png">
+<meta property="og:image" content="https://lijianxiong.space/4.png">
 <meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
-<meta property="article:modified_time" content="2025-09-27T06:06:25.957Z">
+<meta property="article:modified_time" content="2025-09-27T08:16:57.496Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -298,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          772 字
+          1.9k 字
         
       </span>
     
@@ -309,7 +311,7 @@
         
         
         
-          7 分钟
+          17 分钟
         
       </span>
     
@@ -371,11 +373,40 @@
 <p>NeurIPS 2024</p>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>系统地研究了一个重要问题：当大型视觉语言模型（LVLMs）被要求同时关注和识别图像中的多个物体时，它们会如何产生误解（例如，凭空捏造不存在的物体或分散注意力） 。</p>
 <p>系统地研究多目标幻觉，论文提出了一个名为<strong>ROPE (Recognition-based Object Probing Evaluation，基于识别的物体探测评估)</strong> 的自动化评估协议。</p>
-<p>ROPE 在测试时考虑图像中对象类别的分布，将 ROPE 分为四个子集：In-the-Wild、Homogeneous、Heterogeneous和 Adversarial。</p>
-<p>主要发现如下：</p>
+<p>为了避免使用文字描述物体时可能产生的歧义（比如一张图里有多个苹果，说“苹果”就不知道指哪个），ROPE 在图像上使用红色的边界框直接框出要识别的物体，从而精确指向特定对象 。</p>
+<p>ROPE 设计了标准化的问答格式（例如，要求模型以 <code>obj1: &lt;class1&gt;, obj2: &lt;class2&gt;, ...</code> 的格式输出），这样就可以通过简单的文本解析来自动评估模型的准确性，无需依赖人类或其他“黑箱”模型进行评判 。</p>
+<p>ROPE 在测试时考虑图像中对象类别的分布，将 ROPE 分为四个子集：</p>
+<ul>
+<li><p>In-the-Wild（真实场景）：随机选择和排序图像中的5个物体，类别分布混合 。</p>
+</li>
+<li><p>Homogeneous：所有被框出的5个物体都属于同一个类别（例如，5个都是苹果） </p>
+</li>
+<li><p>Heterogeneous：5个被框出的物体分别属于5个不同的类别 。</p>
+</li>
+<li><p>Adversarial：前4个物体属于同一类别，最后一个物体属于不同类别（例如，4个苹果，1个橙子），用来测试模型是否会因为惯性而出错 。</p>
+</li>
+</ul>
+<p>主要发现简介如下：</p>
 <p>(1)与仅关注单一对象相比，LVLM 在被要求关注多个对象时会产生更多幻觉；</p>
 <p>(2) 测试对象类别分布影响幻觉行为，揭示出 LVLM 可能依赖捷径和虚假相关系数；</p>
 <p>(3) LVLM 的幻觉行为受到数据特定因子、显著性与频率以及模型内在行为的影响。</p>
+<h3 id="主要发现"><a href="#主要发现" class="headerlink" title="主要发现"></a>主要发现</h3><p><img src="/2021/1000/927/2.png"></p>
+<p>在多种主流的视觉语言模型（如 LLaVA, GPT-4V, GPT-4O, CogVLM ，Yi-VL等）上进行了实验，得出了三个关键结论：</p>
+<p><strong>多目标任务比单目标任务更容易产生幻觉：</strong> 实验结果清晰地表明，与一次只识别一个物体相比，当模型被要求同时识别多个物体时，其准确率显著下降，幻觉现象更加严重 。</p>
+<p><strong>被测物体的类别分布会影响幻觉行为：</strong> 模型在处理<strong>同质</strong>物体（都是同一类）时表现最好，而在处理<strong>异质</strong>物体（每个都不同类）时表现最差，幻觉最多 。这表明模型可能依赖于某种“捷径”或虚假的关联性来做出判断，而不是真正地逐一识别每个物体 。</p>
+<p><strong>对抗性测试揭示了模型的“思维捷径”：</strong> 在“AAAAB”这样的对抗性测试中，模型在识别前几个相同的物体（A）时准确率很高，甚至越来越高。但当识别到最后一个不同的物体（B）时，准确率会断崖式下跌，模型极大概率会把它也错误地识别成A 。这有力地证明了模型并没有真正理解任务，而只是在利用语言偏见和重复先前答案这样的“捷径” 。</p>
+<h3 id="影响幻觉的因素分析"><a href="#影响幻觉的因素分析" class="headerlink" title="影响幻觉的因素分析"></a>影响幻觉的因素分析</h3><p>深入分析了可能导致多目标幻觉的多种因素：</p>
+<h4 id="数据特定因素"><a href="#数据特定因素" class="headerlink" title="数据特定因素"></a>数据特定因素</h4><p><img src="/4.png"></p>
+<p><strong>查询同质性（Query Homogeneity）：</strong> 当任务中需要识别的物体类别越单一时，模型幻觉越少 。</p>
+<p><strong>物体在图像中的位置（Object Centrality）：</strong> 位于图像边缘的物体比位于中心的物体更容易被错误识别 。</p>
+<h4 id="显著性和频率因素"><a href="#显著性和频率因素" class="headerlink" title="显著性和频率因素"></a>显著性和频率因素</h4><p>**物体显著性：**先前的研究表明，较小的物体更难被检测和定位到。本文将物体显著性定义为物体实例分割掩码占据的像素数量与图像总像素数量的比值。</p>
+<p><strong>语义显著性（Semantic Salience）：</strong> 如果某一类别的物体在图像中多次出现（例如，桌子上有很多罐子），那么模型在识别这个类别的单个物体时更不容易出错 。</p>
+<p><strong>训练数据频率（Training Salience）：</strong> 模型对于在训练数据中频繁出现的物体类别，更不容易产生幻觉 。</p>
+<h4 id="模型内在行为"><a href="#模型内在行为" class="headerlink" title="模型内在行为"></a>模型内在行为</h4><p><strong>模型不确定性（Object Token Entropy）：</strong> 当模型对自己的预测感到不确定时（表现为输出词元的熵更高），更容易产生幻觉 。</p>
+<p><strong>对视觉信息的关注度（Visual Modality Contribution）：</strong> 分析发现，模型在做判断时，对文本信息的依赖远大于视觉信息。当模型对视觉信息的关注度降低时，产生幻觉的可能性会略微增加 。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><strong>简单提升模型参数可能不够：</strong> 仅仅增加语言模型的参数量可以减少单目标幻觉，但对更复杂的多目标幻觉问题效果不明显 。</p>
+<p><strong>训练数据是关键：</strong> 需要构建更多样化、更平衡的训练数据，包含更多需要同时理解多个物体的指令，特别是那些不常见的、位于图像边缘的物体 。</p>
+<p><strong>应用上的建议：</strong> 在要求高准确率的场景下，可以考虑将复杂的多目标识别任务分解成多个单目标识别任务，即一次只问一个物体，以减少幻觉的风险 。</p>
 <h2 id="CODE：对比自生成描述以应对大型多模态模型中的幻觉问题"><a href="#CODE：对比自生成描述以应对大型多模态模型中的幻觉问题" class="headerlink" title="CODE：对比自生成描述以应对大型多模态模型中的幻觉问题"></a>CODE：对比自生成描述以应对大型多模态模型中的幻觉问题</h2><p>CODE: Contrasting Self-generated Description to Combat Hallucination in Large Multi-modal Models</p>
 <p>NeurIPS 2024</p>
 
