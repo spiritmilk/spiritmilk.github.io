@@ -31,12 +31,13 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/927/8.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/6.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/7.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/927/3.png">
 <meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
-<meta property="article:modified_time" content="2025-09-27T11:55:31.095Z">
+<meta property="article:modified_time" content="2025-09-27T12:10:47.370Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -396,6 +397,7 @@
 </blockquote>
 <p>由于视觉编码器并非因果建模，在前向传播过程中对所有层的潜在状态在所有 token 位置进行了位移调整：<br>$$<br>h_{l,t}^v:&#x3D;h_{l,t}^v+\alpha\cdot d_{l,t}^{vision}<br>$$<br>对于文本，我们通过文本方向来调整文本解码器的潜在状态：<br>$$<br>h_{l,t}^{x,v}:&#x3D;h_{l,t}^{x,v}+\beta\cdot d_{l,t&#x3D;last token}^{text}<br>$$</p>
 <h2 id="Volcano-通过自我反馈引导修正减轻多模态幻觉"><a href="#Volcano-通过自我反馈引导修正减轻多模态幻觉" class="headerlink" title="Volcano: 通过自我反馈引导修正减轻多模态幻觉"></a>Volcano: 通过自我反馈引导修正减轻多模态幻觉</h2><p>Volcano: Mitigating Multimodal Hallucination through Self-Feedback Guided Revision</p>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><h4 id="迭代式自我修订"><a href="#迭代式自我修订" class="headerlink" title="迭代式自我修订"></a>迭代式自我修订</h4><p><img src="/2021/1000/927/8.png"></p>
 <h3 id="定性分析"><a href="#定性分析" class="headerlink" title="定性分析"></a>定性分析</h3><p>作者还定性分析反馈如何有效减少多模态幻觉。</p>
 <h4 id="视觉信息量"><a href="#视觉信息量" class="headerlink" title="视觉信息量"></a>视觉信息量</h4><p>对于每个实例，执行top-k 平均汇聚（作者尝试了最小值、最大值、平均值，但是还是top-k提供了最清晰的可视化效果）来聚合初始响应或反馈词元在每个图像特征上的注意力权重。具体来说，在隐藏层上对前 3 个注意力权重求平均，在自注意力头上的前 3 个权重求平均，然后在输出词元上对前-l 个权重求平均，其中 l 是初始响应和反馈中较短输出的长度。</p>
 <p><img src="/2021/1000/927/6.png"></p>
@@ -403,8 +405,10 @@
 <p>将输出中所有词元的注意力权重与输出中一部分词元的注意力权重进行比较。对于后一种过程，生成过程中最强烈关注图像特征的词元被视为显著词元并被选择。</p>
 <p><img src="/2021/1000/927/7.png"></p>
 <p>此示例中的任务是识别图像中锅的颜色，初始响应错误地回答为（“红色”），然后反馈更正了答案（“银色”）。</p>
-<p>这种修正可以通过生成每个词元时对图像特征的注意力分布差异来解释。基于所有关注图像特征的词元的热力图，当 Volcano 生成初始响应时，它主要关注外边缘的特征，对应于锅的边缘；在生成反馈时，它关注整个图像，包括对应于银色锅的外部区域和包含红色浆果的<br>内部区域。关注图像特征的特定词元的热力图显示，在改进初始响应的过程中，Volcano 在生成这些词时确实关注了对应于关键颜色描述符“银色”和“红色”的确切图像区域。</p>
-<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p>Volcano 需要多次调用模型，因此比直接生成响应的效率更低。平<br>均而言，Volcano 的运行速度比基础模型慢约2 到 3 倍，对于给定的图像和指令生成响应需要 5.8 秒，而 LLaVA-1.5 只需要 2.7 秒。作者用来减少总体执行时间的一个策略是将迭代次数限制为 3 次。</p>
+<p>这种修正可以通过生成每个词元时对图像特征的注意力分布差异来解释。</p>
+<p>基于所有关注图像特征的词元的热力图，当 Volcano 生成初始响应时，它主要关注外边缘的特征，对应于锅的边缘；在生成反馈时，它关注整个图像，包括对应于银色锅的外部区域和包含红色浆果的内部区域。</p>
+<p>关注图像特征的特定词元的热力图显示，在改进初始响应的过程中，Volcano 在生成这些词时确实关注了对应于关键颜色描述符“银色”和“红色”的确切图像区域。</p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p>Volcano 需要多次调用模型，因此比直接生成响应的效率更低。平均而言，Volcano 的运行速度比基础模型慢约2 到 3 倍，对于给定的图像和指令生成响应需要 5.8 秒，而 LLaVA-1.5 只需要 2.7 秒。作者用来减少总体执行时间的一个策略是将迭代次数限制为 3 次。</p>
 <h2 id="视觉语言模型中的多对象幻觉"><a href="#视觉语言模型中的多对象幻觉" class="headerlink" title="视觉语言模型中的多对象幻觉"></a>视觉语言模型中的多对象幻觉</h2><p>Multi-Object Hallucination in Vision Language Models</p>
 <p>NeurIPS 2024</p>
 <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>系统地研究了一个重要问题：当大型视觉语言模型（LVLMs）被要求同时关注和识别图像中的多个物体时，它们会如何产生误解（例如，凭空捏造不存在的物体或分散注意力） 。</p>
