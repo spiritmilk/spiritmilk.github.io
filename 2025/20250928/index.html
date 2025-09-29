@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/928/1.png">
 <meta property="article:published_time" content="2025-09-27T08:34:54.000Z">
-<meta property="article:modified_time" content="2025-09-29T10:27:12.249Z">
+<meta property="article:modified_time" content="2025-09-29T10:31:42.434Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -370,15 +370,15 @@
 <p><strong>第一步：数据准备和概率收集</strong></p>
 <ol>
 <li><strong>选择模型家族</strong>：首先，需要一个包含多个不同尺寸模型的语言模型（LLM）家族，例如论文中使用的Pythia（包含70M, 160M, …, 6.9B等多个尺寸）。</li>
-<li><strong>收集概率</strong>：在训练语料库（例如维基百科的一个子集）上运行这个家族中的 N 个模型 。对于每一个上下文 <code>c</code>，记录下这些模型为下一个候选词元 <code>w</code> 输出的概率，得到一组经验概率点 $\{p(w|c, \theta_{s_i})\}_{i&#x3D;1}^{N}$ 。</li>
+<li><strong>收集概率</strong>：在训练语料库（例如维基百科的一个子集）上运行这个家族中的 N 个模型 。对于每一个上下文 <code>c</code>，记录下这些模型为下一个候选词元 <code>w</code> 输出的概率，得到一组经验概率点 $\{p(w|c, \theta _ {s_i})\} _ {i&#x3D;1}^{N}$ 。</li>
 <li><strong>选择候选词元</strong>：由于词汇表太大，不可能为所有词元都建模。因此，对于每个上下文，只选择一部分候选词元 <code>A_c</code> ，主要包括专家模型（ELM）认为最可能的Top-20个词元，以及一些随机采样的低概率词元 。</li>
 </ol>
 <p><strong>第二步：概率曲线参数化</strong><br>为了能够对外推进行建模，APD需要拟合一条穿过上述经验概率点的曲线。</p>
 <ol>
 <li><strong>统一曲线方向</strong>：因为概率曲线可能随模型增大而上升或下降，为了简化建模，论文首先使用一个预处理步骤 <code>R(·)</code>，将所有上升的概率曲线“翻转”（通过 <code>1-p</code> 的方式）为下降曲线。</li>
-<li><strong>选择曲线函数</strong>：使用一个简单的<strong>指数衰减函数</strong>来参数化这条（翻转后的）下降曲线 。这个函数的形式如下（见公式(7)） ：<br>$$<br>\hat{p}<em>{w,c}(s) &#x3D; \hat{P’}</em>{c}^{AP}(w) + a_{w,c}e^{-max(0, b_{w,c}(s-d_{w,c}))}<br>$$<ul>
+<li><strong>选择曲线函数</strong>：使用一个简单的<strong>指数衰减函数</strong>来参数化这条（翻转后的）下降曲线 。这个函数的形式如下（见公式(7)） ：<br>$$<br>\hat{p} _ {w,c}(s) &#x3D; \hat{P’} _ {c}^{AP}(w) + a _ {w,c}e^{-max(0, b _ {w,c}(s-d _ {w,c}))}<br>$$<ul>
 <li><code>s</code> 是模型大小的对数。</li>
-<li>$\hat{P’}_{c}^{AP}(w)$ 是模型尺寸趋于无穷大时的<strong>渐进概率</strong>，这也是我们最终想要预测的目标。</li>
+<li>$\hat{P’} _ {c}^{AP}(w)$ 是模型尺寸趋于无穷大时的<strong>渐进概率</strong>，这也是我们最终想要预测的目标。</li>
 <li><code>a, b, d</code> 是控制曲线形状的三个正参数。</li>
 </ul>
 </li>
@@ -387,7 +387,7 @@
 <ol>
 <li><strong>MLP的角色</strong>：论文使用一个4层的多层感知机（MLP）来确定上述曲线的参数 <code>a, b, d</code> 。这个MLP不直接预测概率，而是扮演一个“能量网络”或“评估器”的角色 。</li>
 <li><strong>MLP的输入和输出</strong>：<ul>
-<li><strong>输入</strong>：MLP接收两组数据：(1) 从不同大小模型收集到的经验概率点 $\{p’(w|c, \theta_{s_i})\}<em>{i&#x3D;1}^{N}$ ；(2) 由当前微调中的 ALM’ 和 ELM 计算出的<strong>预测渐进概率</strong> $\hat{P’}</em>{c}^{AP}(w)$。</li>
+<li><strong>输入</strong>：MLP接收两组数据：(1) 从不同大小模型收集到的经验概率点 $\{p’(w|c, \theta _ {s_i})\} _ {i&#x3D;1}^{N}$ ；(2) 由当前微调中的 ALM’ 和 ELM 计算出的<strong>预测渐进概率</strong> $\hat{P’} _ {c}^{AP}(w)$。</li>
 <li><strong>输出</strong>：MLP输出曲线参数 <code>a, b, d</code> 。</li>
 </ul>
 </li>
@@ -397,21 +397,21 @@
 <ul>
 <li><strong>损失1 ($L_1$)</strong>：拟合损失。计算MLP生成的曲线与真实经验概率点之间的均方根误差（RMSE），确保曲线能很好地拟合已知数据。</li>
 </ul>
-<p>$$<br>L_{1} &#x3D;<br>\sqrt{<br>\frac{1}{Z \cdot (N-1)}<br>\sum_{c \in B}<br>\sum_{w \in A_{c}}<br>\sum_{i&#x3D;1}^{N-1}<br>\left(<br>p’(w \mid c, \theta_{s_{i}}) - \hat{p}<em>{w,c}(s</em>{i})<br>\right)^{2}<br>}<br>$$</p>
+<p>$$<br>L _ {1} &#x3D;<br>\sqrt{<br>\frac{1}{Z \cdot (N-1)}<br>\sum _ {c \in B}<br>\sum _ {w \in A _ {c}}<br>\sum _ {i&#x3D;1}^{N-1}<br>\left(<br>p’(w \mid c, \theta _ {s _ {i}}) - \hat{p} _ {w,c}(s _ {i})<br>\right)^{2}<br>}<br>$$</p>
 <p>其中$A_c$为ELM的top token候选，归一化项$Z&#x3D;|B||A_c|$。</p>
 <ul>
 <li><strong>损失2 ($L_2$)</strong>：过高惩罚损失。为了防止模型对下降曲线的渐进概率预测过高，这个损失项专门惩罚那些在ELM尺寸上预测概率超过真实观测概率的情况。</li>
 </ul>
-<p>$$<br>L_2 &#x3D; \sqrt{\frac{1}{Z} \sum_{c \in B} \sum_{w \in A_c} \max(0, \hat{p}<em>{w,c}(s_N) - p’(w|c, \theta</em>{s_N}))}<br>$$</p>
+<p>$$<br>L_2 &#x3D; \sqrt{\frac{1}{Z} \sum _ {c \in B} \sum _ {w \in A_c} \max(0, \hat{p} _ {w,c}(s_N) - p’(w|c, \theta _ {s_N}))}<br>$$</p>
 <ul>
 <li><strong>损失3 ($L_3$)</strong>：正则化损失。为了防止微调后的 ALM’ 与原始的 ALM 偏离太远，这个损失项计算它们输出对数（logit）之间的差异，起到了稳定训练的作用。</li>
 </ul>
-<p>$$<br>L_3 &#x3D; \sqrt{\frac{1}{Z} \sum_{c \in B} \sum_{w \in A_c} (L_c^{ALM’}(w) - L_c^{ALM}(w))^2}<br>$$</p>
+<p>$$<br>L_3 &#x3D; \sqrt{\frac{1}{Z} \sum _ {c \in B} \sum _ {w \in A_c} (L_c^{ALM’}(w) - L_c^{ALM}(w))^2}<br>$$</p>
 <p>将这三个损失加权求和 <code>Loss = L_1 + \lambda_2 L_2 + \lambda_3 L_3</code> ，然后通过<strong>反向传播</strong>，梯度会从损失函数流经MLP，再流回到 ALM’。这样，ALM’ 的参数就会被更新，使其能够生成一个更好的渐进概率预测，从而让MLP更容易拟合曲线，最终使总损失降低。</p>
 <h3 id="2-推理（测试）阶段：高效生成文本"><a href="#2-推理（测试）阶段：高效生成文本" class="headerlink" title="2. 推理（测试）阶段：高效生成文本"></a>2. 推理（测试）阶段：高效生成文本</h3><p>一旦训练完成，我们就得到了一个优化后的业余模型 ALM’ 。推理阶段就变得非常简单和高效了：</p>
 <ol>
 <li><strong>抛弃复杂组件</strong>：在推理时，不再需要MLP和那些用于训练的中间尺寸模型。</li>
-<li><strong>使用新公式</strong>：直接使用微调好的 ALM’ 替换掉原始CD公式中的 ALM。最终的概率计算公式（见公式(5)）如下：<br>$$<br>\hat{P}<em>{c}^{AP}(w) &#x3D; \text{Softmax}(L</em>{c}^{ELM}(w) - \frac{1}{T}L_{c}^{ALM’}(w))<br>$$</li>
+<li><strong>使用新公式</strong>：直接使用微调好的 ALM’ 替换掉原始CD公式中的 ALM。最终的概率计算公式（见公式(5)）如下：<br>$$<br>\hat{P} _ {c}^{AP}(w) &#x3D; \text{Softmax}(L _ {c}^{ELM}(w) - \frac{1}{T}L _ {c}^{ALM’}(w))<br>$$</li>
 <li><strong>效率</strong>：这个计算过程和原始的对比解码（CD）完全一样，都只需要一次专家模型（ELM）和一次业余模型（ALM’）的前向传播。因此，<strong>APD在实现更复杂的外推的同时，没有增加任何额外的推理成本</strong> 。</li>
 </ol>
 
