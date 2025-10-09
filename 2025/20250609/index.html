@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20250609/vis.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250609/meanflow.jpg">
 <meta property="article:published_time" content="2025-06-09T14:24:45.000Z">
-<meta property="article:modified_time" content="2025-06-10T09:12:10.201Z">
+<meta property="article:modified_time" content="2025-10-09T11:03:57.768Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="物理">
@@ -376,7 +376,7 @@
 <p>然而，要求可逆映射的一个后果是，隐式空间的维度必须与数据空间的维度相同，这可能导致高维数据(如图像，动辄就是几百乘几百的维度)的大型模型的复杂性增加。比如计算 $D\times D$ 矩阵的行列式的成本是 $\mathcal{O}(D^{3})$。</p>
 <p>所以，我们希望对模型施加一些进一步的限制,以便更有效地计算雅可比矩阵行列式。</p>
 <p>如果我们考虑一个独立数据点训练集 $\mathcal{D}&#x3D;{x _ {1},…,x _ {N}}$，则：</p>
-<p>$$<br>\begin{align}<br>ln<del>p(\mathcal{D}|w)&amp;&#x3D;\sum _ {n&#x3D;1}^{N}ln</del>p _ {x}(x _ {n}|w)<br>\\<br>&amp;&#x3D;\sum _ {n&#x3D;1}^{N}{ln<del>p _ {z}(g(x _ {n},w))+ln|det</del>J(x _ {n})|}<br>\end{align}<br>$$</p>
+<p>$$<br>\begin{align}<br>lnp(\mathcal{D}|w)&amp;&#x3D;\sum _ {n&#x3D;1}^{N}lnp _ {x}(x _ {n}|w)<br>\\<br>&amp;&#x3D;\sum _ {n&#x3D;1}^{N}{ln<del>p _ {z}(g(x _ {n},w))+ln|det</del>J(x _ {n})|}<br>\end{align}<br>$$</p>
 <p>并且我们的目标是通过似然函数来训练神经网络。为了能够模拟各种分布,我们希望转换函数 $x&#x3D;f(z,w)$ 具有高度的灵活性,因此我们使用<strong>深度</strong> 神经网络架构。如果我们使网络中的每一层都是可逆的,那么我们可以确保整个函数是可逆的。为了看到这一点,考虑三个连续的变换,每个变换对应网络的一层,形式如下: </p>
 <p>$$<br>x&#x3D;f^{A}(f^{B}(f^{C}(z)))<br>$$</p>
 <p>那么逆函数由下式给出：</p>
