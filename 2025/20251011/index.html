@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/011/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/011/3.png">
 <meta property="article:published_time" content="2025-10-11T14:11:45.000Z">
-<meta property="article:modified_time" content="2025-10-12T10:56:24.807Z">
+<meta property="article:modified_time" content="2025-10-12T11:02:47.367Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          972 字
+          973 字
         
       </span>
     
@@ -382,7 +382,7 @@
 <p>因此，原本在文本语义空间中隐含且难以检测的幻觉，在投影到图像后变得可感知。原始图像和重构图像均通过图像编码器和投影头，获得嵌入表示，分别记为 f (I) 和 f (I′)。</p>
 <p>其中，f (I) 作为干净的语义锚点，引导表示向忠实的视觉语义方向发展；而 f (I′) 则显式捕捉通过重构放大的幻觉方向。通过同时将图像 token 嵌入拉向 f (I) 并推离 f (I′)，的方法建立了一种对抗性修正机制，无需手工设计的度量指标或外部监督。</p>
 <p>因此，该设计将幻觉抑制转化为完全自监督的过程，实现了无需人工干预的端到端修正。</p>
-<h4 id="潜在表示编辑"><a href="#潜在表示编辑" class="headerlink" title="潜在表示编辑"></a>潜在表示编辑</h4><p>$$<br>K’<em>{h,l}&#x3D;K</em>{h,l}+\alpha f(I)-\beta f(I’),h\in \mathcal{H}_{img},l\in[1,L]<br>$$</p>
+<h4 id="潜在表示编辑"><a href="#潜在表示编辑" class="headerlink" title="潜在表示编辑"></a>潜在表示编辑</h4><p>$$<br>K’ _ {h,l}&#x3D;K _ {h,l}+\alpha f(I)-\beta f(I’),h\in \mathcal{H} _ {img},l\in[1,L]<br>$$</p>
 <p>K表示嵌入。</p>
 <p>f (·) 表示图像编码器与投影器的联合变换。</p>
 <p><img src="/2021/1000/011/3.png"></p>
@@ -390,7 +390,8 @@
 <h2 id="通过图像标记注意力引导解码减轻多模态大型语言模型的幻觉"><a href="#通过图像标记注意力引导解码减轻多模态大型语言模型的幻觉" class="headerlink" title="通过图像标记注意力引导解码减轻多模态大型语言模型的幻觉"></a>通过图像标记注意力引导解码减轻多模态大型语言模型的幻觉</h2><p>ACL</p>
 <p>Mitigating Hallucinations in Multi-modal Large Language Models via Image Token Attention-Guided Decoding</p>
 <h2 id="抢占式幻觉减少：一种用于多模态语言-模型的输入级方法"><a href="#抢占式幻觉减少：一种用于多模态语言-模型的输入级方法" class="headerlink" title="抢占式幻觉减少：一种用于多模态语言 模型的输入级方法"></a>抢占式幻觉减少：一种用于多模态语言 模型的输入级方法</h2><p>An Input-Level Approach for Multimodal Language Model</p>
-<h2 id="ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术"><a href="#ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术" class="headerlink" title="ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术"></a>ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术</h2><p>ClearSight: Visual Signal Enhancement for Object Hallucination Mitigation in Multimodal Large Language Models</p>
+<h2 id="ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术"><a href="#ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术" class="headerlink" title="ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术"></a>ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术</h2><p>CVPR 2025</p>
+<p>ClearSight: Visual Signal Enhancement for Object Hallucination Mitigation in Multimodal Large Language Models</p>
 
                 
               </div>
