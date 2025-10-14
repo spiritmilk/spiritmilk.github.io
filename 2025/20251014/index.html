@@ -29,8 +29,13 @@
 <meta property="og:description" content="转自nvidia的blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/014/1.webp">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/014/2.webp">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/014/3.webp">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/014/4.webp">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/014/5.webp">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/014/6.webp">
 <meta property="article:published_time" content="2025-10-14T02:43:32.000Z">
-<meta property="article:modified_time" content="2025-10-14T02:49:57.982Z">
+<meta property="article:modified_time" content="2025-10-14T03:13:34.009Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="kaggle">
@@ -299,7 +304,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          925 字
+          4k 字
         
       </span>
     
@@ -310,7 +315,7 @@
         
         
         
-          8 分钟
+          34 分钟
         
       </span>
     
@@ -384,6 +389,84 @@
 <p>有了这些基础——快速行动并仔细验证——我们现在可以深入研究技术本身。每一个都建立在这些原则之上，并展示了我们如何将原始数据转化为世界一流的模型。</p>
 <h2 id="1-从更智能的-EDA-开始，而不仅仅是基础知识"><a href="#1-从更智能的-EDA-开始，而不仅仅是基础知识" class="headerlink" title="1. 从更智能的 EDA 开始，而不仅仅是基础知识"></a>1. 从更智能的 EDA 开始，而不仅仅是基础知识</h2><p>大多数从业者都知道基础知识：检查缺失值、异常值、相关性和特征范围。这些步骤很重要，但它们是赌注。要构建在现实世界中经得起考验的模型，您需要更深入地探索数据 - 我们发现一些有用的快速检查，但许多人忽略了：</p>
 <p><strong>训练与测试分布检查：</strong> 发现评估数据与训练何时不同，因为分布偏移可能会导致模型验证良好，但在部署中失败。</p>
+<p><img src="/2021/1000/014/2.webp"></p>
+<p>上图比较训练（蓝色）和测试（红色）之间的特征分布可以发现明显的转变——测试数据集中在更高的范围内，重叠最小。这种分布转移可能会导致模型验证良好，但在部署中失败。</p>
+<p><strong>分析目标变量的时间模式：</strong> 检查趋势或季节性，因为忽略时间模式可能会导致模型在训练中看起来准确，但在生产中中断。</p>
+<p><img src="/2021/1000/014/3.webp"></p>
+<p>随着时间的推移分析目标变量，可以发现季节性波动和加速增长的强劲上升趋势。忽略此类时间模式可能会误导模型，除非使用时间感知验证。</p>
+<p>这些技术并不新鲜，但它们经常被忽视，忽视它们可能会使项目沉沦。</p>
+<p><strong>为什么重要：</strong> 跳过这些检查可能会破坏原本可靠的工作流程。</p>
+<p><strong>在行动中：</strong> 在 Amazon KDD Cup ‘23 的获胜解决方案中，该团队发现了测试分布偏移和目标时间模式的列车——这些见解塑造了最终方法。<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=J3wj55kK5t"> 阅读全文 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 现实世界的数据集通常是数百万行，这在 pandas 中可能会变慢。通过使用 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cudf">NVIDIA cuDF</a> 添加 GPU 加速，您可以在几秒钟内大规模运行分布比较和相关性。<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/accelerated-data-analytics-speed-up-data-exploration-with-rapids-cudf/"> 阅读技术博客 &gt;</a></p>
+<h2 id="2-快速构建多样化的基线"><a href="#2-快速构建多样化的基线" class="headerlink" title="2. 快速构建多样化的基线"></a>2. 快速构建多样化的基线</h2><p>大多数人构建一些简单的基线（可能是均值预测、逻辑回归或快速 XGBoost），然后继续。问题在于，单个基线并不能告诉您太多有关数据格局的信息。</p>
+<p><strong>我们的方法不同：</strong> 我们立即跨模型类型启动一组不同的基线。了解线性模型、GBDT 甚至小型神经网络如何并排执行，为我们提供了更多的背景信息来指导实验。 </p>
+<p><strong>为什么重要：</strong> 基线是您的直觉检查——它们确认您的模型比猜测做得更好，设置最低性能标准，并充当快速反馈循环。在数据更改后重新运行基线可以揭示您是否取得了进展，或者发现泄漏等问题。</p>
+<p>多样化的基线还可以尽早显示哪些模型族最适合您的数据，因此您可以加倍努力，而不是在错误的路径上浪费周期。</p>
+<p><strong>在行动中：</strong> 在降<em>雨数据集二元预测</em>竞赛中，我们的任务是根据天气数据预测降雨量。我们的基线让我们走得很远——梯度增强树、神经网络和支持向量回归 （SVR） 模型的集合，没有任何特征工程，足以为我们赢得第二名。在探索其他基线时，我们发现即使是单个支持向量分类器 （SVC） 基线也会位于排行榜顶部附近。<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s5e3/writeups/chris-deotte-2nd-place-gbdt-nn-svr-original-data"> 阅读全文 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 在 CPU 上训练各种模型可能会非常慢。借助 GPU 加速，您可以尝试所有这些方法（用于快速统计的 cuDF、用于线性&#x2F;逻辑回归的 cuML，以及 GPU 加速的 XGBoost、LightGBM、CatBoost 和神经网络），因此您可以在几分钟内获得更好的洞察力，而不是几小时。</p>
+<h2 id="3-生成更多特征，发现更多模式"><a href="#3-生成更多特征，发现更多模式" class="headerlink" title="3. 生成更多特征，发现更多模式"></a>3. 生成更多特征，发现更多模式</h2><p>特征工程仍然是提高表格数据准确性的最有效方法之一。挑战：在 CPU 上使用 pandas 生成和验证数千个特征太慢，不切实际。</p>
+<p><strong>为什么重要：</strong> 从少数手动转换扩展到数百或数千个工程特征，通常会揭示仅靠模型无法捕获的隐藏信号。 </p>
+<p><strong>例：</strong> 组合分类列</p>
+<p>在一次 Kaggle 竞赛中，数据集有八个分类列。通过组合它们对，我们创建了 28 个新的分类特征，这些特征捕获了原始数据未显示的交互。以下是该方法的简化片段：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i,c1 <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(CATS[:-<span class="hljs-number">1</span>]):<br>     <span class="hljs-keyword">for</span> j,c2 <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(CATS[i+<span class="hljs-number">1</span>:]):<br>        n = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;c1&#125;</span>_<span class="hljs-subst">&#123;c2&#125;</span>&quot;</span><br>        train[n] = train[c1].astype(<span class="hljs-string">&#x27;str&#x27;</span>)+<span class="hljs-string">&quot;_&quot;</span>+train[c2].astype(<span class="hljs-string">&#x27;str&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>在行动中：</strong> 大规模功能工程推动了 Kaggle Backpack 和 Insurance 竞赛的第一名，数以千计的新功能发挥了作用。 </p>
+<p>使用 <strong>GPU 变得实用：</strong> 借助 cuDF，panda 作（如分组、聚合和编码）的运行速度提高了几个数量级，从而可以在几天而不是几个月内生成和测试数千个新功能。</p>
+<p>查看下面的技术博客和培训课程，了解实践示例：</p>
+<ul>
+<li>博客：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/grandmaster-pro-tip-winning-first-place-in-kaggle-competition-with-feature-engineering-using-nvidia-cudf-pandas/">Grandmaster Pro 提示：使用 cuDF pandas 在特征工程的 Kaggle 竞赛中赢得第一名</a></li>
+<li>课程：<a target="_blank" rel="noopener" href="https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-DS-06+V1"> 表格数据特征工程的最佳实践</a></li>
+</ul>
+<h2 id="组合不同的模型（集成）可提高性能"><a href="#组合不同的模型（集成）可提高性能" class="headerlink" title="组合不同的模型（集成）可提高性能"></a>组合不同的模型（集成）可提高性能</h2><p>我们发现，结合不同模型的优势通常会使性能超出任何一种模型所能达到的范围。两种特别有用的技术是爬山和模型堆叠。</p>
+<h3 id="4-爬山"><a href="#4-爬山" class="headerlink" title="4. 爬山"></a>4. 爬山</h3><p>爬山是一种简单但强大的模特组合方式。从最强的单个模型开始，然后系统地添加具有不同权重的其他模型，仅保留可改善验证的组合。重复直到没有进一步的收益。</p>
+<p><strong>为什么重要：</strong> 集成可以捕捉模型之间的互补优势，但很难找到正确的组合。爬山可以自动执行搜索，通常会降低准确性并优于单一模型解决方案。 </p>
+<p><strong>在行动中：</strong> 在<em>预测卡路里消耗</em>竞赛中，我们使用了 XGBoost、CatBoost、神经网络和线性模型的爬山集成来获得第一名。<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/cdeotte/gpu-hill-climbing-cv-0-05930"> 阅读写入 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 爬山本身并不新鲜——它是比赛中常见的合奏技术——但它通常会变得太慢而无法大规模应用。借助 GPU 上的 Cupy，我们可以矢量化度量计算（如 RMSE 或 AUC）并并行评估数千种权重组合。这种加速使得测试比在 CPU 上可行的更多的集成变得实用，通常会发现更强的混合。</p>
+<p>以下是用于在 GPU 上评估爬山合奏的代码的简化版本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cupy <span class="hljs-keyword">as</span> cp<br> <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">multiple_rmse_scores</span>(<span class="hljs-params">actual, predicted</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(actual.shape)==<span class="hljs-number">1</span>: <br>        actual = actual[:,cp.newaxis]<br>    rmses = cp.sqrt(cp.mean((actual-predicted)**<span class="hljs-number">2.0</span>,axis=<span class="hljs-number">0</span>))<br>    <span class="hljs-keyword">return</span> rmses<br> <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">multiple_roc_auc_scores</span>(<span class="hljs-params">actual, predicted</span>):<br>    n_pos = cp.<span class="hljs-built_in">sum</span>(actual)  <br>    n_neg = <span class="hljs-built_in">len</span>(actual) - n_pos  <br>    ranked = cp.argsort(cp.argsort(predicted, axis=<span class="hljs-number">0</span>), axis=<span class="hljs-number">0</span>)+<span class="hljs-number">1</span> <br>    aucs = (cp.<span class="hljs-built_in">sum</span>(ranked[actual == <span class="hljs-number">1</span>, :], axis=<span class="hljs-number">0</span>)- n_pos\<br>    *(n_pos + <span class="hljs-number">1</span>)/<span class="hljs-number">2</span>) / (n_pos*n_neg)     <br>    <span class="hljs-keyword">return</span> aucs<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-堆叠"><a href="#5-堆叠" class="headerlink" title="5. 堆叠"></a>5. 堆叠</h3><p>堆叠通过在另一个模型的输出上训练一个模型，使集成更进一步。堆叠不是用权重（如爬山）对预测进行平均，而是构建一个二级模型，该模型学习如何最好地组合其他模型的输出。</p>
+<p><strong>为什么重要：</strong> 当数据集具有不同模型以不同方式捕获的复杂模式时，堆叠尤其有效，例如线性趋势与非线互。 </p>
+<p><strong>专业提示：</strong> 两种堆叠方式：</p>
+<ul>
+<li>残差：根据第 1 阶段出错的地方（残差）训练第 2 阶段模型。</li>
+<li>OOF 功能：使用阶段 1 预测作为阶段 2 的新输入功能。</li>
+</ul>
+<p>这两种方法都有助于通过捕获基础模型遗漏的模式从数据中挤出更多信号。</p>
+<p><strong>在行动中：</strong> 堆叠被用于在播客收听时间竞赛中赢得第一名，该竞赛使用了不同模型（线性、GBDT、神经网络和 AutoML）的三级堆栈。<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/grandmaster-pro-tip-winning-first-place-in-a-kaggle-competition-with-stacking-using-cuml/"> 阅读技术博客 &gt;</a></p>
+<p><img src="/2021/1000/014/4.webp"></p>
+<h2 id="6-将未标记的数据转换为具有伪标记的训练信号"><a href="#6-将未标记的数据转换为具有伪标记的训练信号" class="headerlink" title="6. 将未标记的数据转换为具有伪标记的训练信号"></a>6. 将未标记的数据转换为具有伪标记的训练信号</h2><p>伪标记将未标记的数据转换为训练信号。您可以使用最佳模型在缺少标签的数据（例如，测试数据或外部数据集）上推断标签，然后将这些“伪标签”折叠回训练中以提高模型性能。</p>
+<p><img src="/2021/1000/014/5.webp"></p>
+<p>伪标记将未标记的数据转换为训练信号。您可以使用最佳模型在缺少标签的数据（例如，测试数据或外部数据集）上推断标签，然后将这些“伪标签”折叠回训练中以提高模型性能。</p>
+<p><strong>为什么重要：</strong> 更多数据 &#x3D; 更多信号。伪标记提高了鲁棒性，起到了知识蒸馏的作用（学生模型从强有力的教师的预测中学习），甚至可以通过过滤掉模型不同意的样本来帮助去噪标记的数据。使用<em>软标签</em> （概率而不是硬 0&#x2F;1）可以增加正则化并减少噪声。</p>
+<p><strong>有效伪标签的专业技巧：</strong></p>
+<ul>
+<li>模型越强，伪标签越好。集成或多轮伪标记通常优于单程方法</li>
+<li>伪标签也可用于预训练。作为最后一步，对初始数据进行微调，以减少之前引入的噪声。</li>
+<li>使用软伪标签。它们可以增加更多信号，降低噪声，并让您滤除低置信度样本。</li>
+<li>伪标记可用于标记数据，可用于去除有噪声的样品。</li>
+<li>避免信息泄露。使用 k 折时，必须计算 k 组伪标签，以便验证数据永远不会看到来自自身训练的模型的标签。</li>
+</ul>
+<p><strong>在行动中：</strong> 在 <em>BirdCLEF 2024</em> 比赛中，任务是根据鸟类录音对物种进行分类。伪标记在未标记的剪辑上使用软标签扩展了训练集，这有助于我们的模型更好地泛化到新物种和记录条件。<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/birdclef-2024/discussion/511905"> 阅读全文 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 伪标记通常需要多次重新训练管道（基线 &gt; 伪标记 &gt; 改进的伪标签）。这在 CPU 上可能需要数天时间，使得迭代不切实际。通过 GPU 加速（通过 cuML、XGBoost 或 CatBoost GPU 后端），您可以在数小时内运行多个伪标记周期。</p>
+<h2 id="7-通过额外培训加强您的最终模型"><a href="#7-通过额外培训加强您的最终模型" class="headerlink" title="7. 通过额外培训加强您的最终模型"></a>7. 通过额外培训加强您的最终模型</h2><p>即使在优化了我们的模型和整体之后，我们也发现了两个可以挤出额外性能的最终调整：</p>
+<ul>
+<li><strong>使用不同的随机种子进行训练</strong> 。更改初始化和训练路径，然后对预测进行平均，通常可以提高性能。</li>
+<li><strong>对 100% 的数据进行重新训练</strong> 。找到最佳超参数后，将最终模型拟合到所有训练数据上会挤出额外的准确性。</li>
+</ul>
+<p><strong>为什么重要：</strong> 这些步骤不需要新的架构，只需对您已经信任的模型进行更多运行即可。它们共同提高了稳健性并确保您充分利用数据。</p>
+<p><strong>在行动中：</strong> 在<em>预测最佳肥料</em>挑战中，对 100 种不同种子进行集成 XGBoost 模型明显优于单种子训练。对完整数据集进行重新训练提供了另一个排行榜提升。<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s5e6/discussion/587393"> 阅读全文 &gt;</a></p>
+<p><img src="/2021/1000/014/6.webp"></p>
+<p>使用 <strong>GPU 变得实用：</strong> 在 GPU 上更快的训练和推理使得多次重新运行模型成为可能。在 CPU 上可能需要数天的时间在 GPU 上变成数小时——将“额外”训练变成每个项目的现实步骤。 </p>
+<h2 id="总结：特级大师赛的战术手册"><a href="#总结：特级大师赛的战术手册" class="headerlink" title="总结：特级大师赛的战术手册"></a>总结：特级大师赛的战术手册</h2><p>这本剧本经过实战考验，是经过多年的比赛和无数实验锻造而成的。它基于两个原则——快速实验和仔细验证——我们把这些原则应用于每个项目。借助 GPU 加速，这些先进技术变得大规模实用，使其对于现实世界的表格问题和攀登排行榜同样有效。</p>
+<p>如果您想将这些想法付诸实践，这里有一些资源可以帮助您在已经使用的工具中开始使用 GPU 加速：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/rapidsai-community/showcase/blob/main/getting_started_tutorials/cudf_pandas_colab_demo.ipynb"><strong>Intro Notebook：使用 cuDF 加速 pandas</strong></a>（pandas 工作流程的零代码更改加速）</li>
+<li><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/rapidsai-community/showcase/blob/main/getting_started_tutorials/cuml_sklearn_colab_demo.ipynb"><strong>Intro Notebook：使用 cuML 加速 scikit-learn</strong></a>（常见 ML 模型的直接加速）</li>
+<li>入<a target="_blank" rel="noopener" href="https://colab.research.google.com/drive/1vlzvB981pej2RlKmXBUF1CNzyxl8YpJg?usp=sharing#scrollTo=p8MdG_7hthDD"><strong>门笔记本：GPU 加速的 XGBoost</strong></a>（在几分钟内训练数百万行上的梯度提升树）</li>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cudf"><strong>NVIDIA cuDF 概述</strong> </a>：了解有关加速 pandas 和 Polars 的更多信息。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cuml"><strong>NVIDIA cuML 概述</strong> </a>：具有 GPU 加速的 Scikit 学习式机器学习。</li>
+</ul>
 
                 
               </div>
