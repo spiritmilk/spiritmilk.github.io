@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>Kaggle Grandmasters playbook：7 种经过实战考验的表格数据建模技术</title>
+    <link href="/2025/20251014/"/>
+    <url>/2025/20251014/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>转自<a href="https://developer.nvidia.com/blog/the-kaggle-grandmasters-playbook-7-battle-tested-modeling-techniques-for-tabular-data/">nvidia的blog</a></p><span id="more"></span><p><img src="/2021/1000/014/1.webp"></p><p>在数百场 Kaggle 比赛中，我们改进了一本剧本（playbook），使我们始终接近排行榜的榜首——无论我们处理的是数百万行、缺失值还是行为与训练数据完全不同的测试集。这不仅仅是建模技巧的集合，它还是一个可重复的系统，用于快速解决现实世界的表格问题。</p><p>以下是我们经过实战考验的七种技术，每一种技术都通过 GPU 加速变得实用。无论您是攀登排行榜还是在生产中部署模型，这些策略都可以为您带来优势。</p><p>我们提供了指向每种技术过去比赛的示例文章或笔记本的链接。<br>**注意：**Kaggle 和 Google Colab 笔记本电脑附带免费的 GPU 和加速插入式，就像您将在下面预装的那样。</p><h2 id="核心原则：制胜工作流程的基础"><a href="#核心原则：制胜工作流程的基础" class="headerlink" title="核心原则：制胜工作流程的基础"></a>核心原则：制胜工作流程的基础</h2><p>在深入研究技术之前，值得暂停一下，介绍一下为本手册中的所有内容提供动力的两个原则：快速实验和仔细验证。这些不是可选的最佳实践，它们是我们处理每个表格建模问题的基础。</p><h3 id="快速实验"><a href="#快速实验" class="headerlink" title="快速实验"></a>快速实验</h3><p>在任何比赛或实际项目中，我们最大的杠杆是我们可以运行的高质量实验的数量。迭代次数越多，发现的模式就越多，当模型失败、漂移或过度拟合时，我们就能更快地发现，因此我们可以及早纠正方向并更快地改进。</p><p>在实践中，这意味着我们优化了整个管道的速度，而不仅仅是我们的模型训练步骤。</p><p><strong>以下是我们如何使其发挥作用：</strong></p><ul><li>使用 pandas 或 Polars 的 <a href="https://developer.nvidia.com/blog/7-drop-in-replacements-to-instantly-speed-up-your-python-data-science-workflows/?linkId=100000376196126">GPU 插入式替换</a>来加速数据帧作，以大规模转换和设计功能。</li><li>使用 <a href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cuml">NVIDIA cuML</a> 或 XGBoost、LightGBM 和 CatBoost 的 GPU 后端训练模型。</li></ul><p>GPU 加速不仅适用于深度学习，而且通常是使高级表格技术大规模实用的唯一方法。</p><h3 id="本地验证"><a href="#本地验证" class="headerlink" title="本地验证"></a>本地验证</h3><p>如果你不能相信你的验证分数，你就是盲目飞行。这就是为什么交叉验证 （CV） 是我们工作流程的基石。</p><p><strong>我们的方法：</strong></p><ul><li>使用 k 折交叉验证，其中模型对大部分数据进行训练，并在保留的部分上进行测试。</li><li>旋转折叠，以便数据的每个部分都经过一次测试。</li></ul><p>这提供了比单个训练&#x2F;验证拆分更可靠的性能衡量标准。</p><p><strong>专业提示：</strong> 将您的简历策略与测试数据的结构相匹配。 </p><p><strong>例如：</strong></p><ul><li>将 TimeSeriesSplit 用于与时间相关的数据</li><li>将 GroupKFold 用于分组数据（如用户或患者）</li></ul><p>有了这些基础——快速行动并仔细验证——我们现在可以深入研究技术本身。每一个都建立在这些原则之上，并展示了我们如何将原始数据转化为世界一流的模型。</p><h2 id="1-从更智能的-EDA-开始，而不仅仅是基础知识"><a href="#1-从更智能的-EDA-开始，而不仅仅是基础知识" class="headerlink" title="1. 从更智能的 EDA 开始，而不仅仅是基础知识"></a>1. 从更智能的 EDA 开始，而不仅仅是基础知识</h2><p>大多数从业者都知道基础知识：检查缺失值、异常值、相关性和特征范围。这些步骤很重要，但它们是赌注。要构建在现实世界中经得起考验的模型，您需要更深入地探索数据 - 我们发现一些有用的快速检查，但许多人忽略了：</p><p><strong>训练与测试分布检查：</strong> 发现评估数据与训练何时不同，因为分布偏移可能会导致模型验证良好，但在部署中失败。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>笔记</tag>
+      
+      <tag>kaggle</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>五篇幻觉相关论文速览（二）</title>
     <link href="/2025/20251011/"/>
     <url>/2025/20251011/</url>
