@@ -31,8 +31,9 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/011/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/011/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/011/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/011/4.png">
 <meta property="article:published_time" content="2025-10-11T14:11:45.000Z">
-<meta property="article:modified_time" content="2025-10-12T11:16:59.345Z">
+<meta property="article:modified_time" content="2025-10-15T10:45:09.882Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -302,7 +303,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.9k 字
         
       </span>
     
@@ -313,7 +314,7 @@
         
         
         
-          14 分钟
+          16 分钟
         
       </span>
     
@@ -421,6 +422,8 @@
 </ol>
 <h2 id="ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术"><a href="#ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术" class="headerlink" title="ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术"></a>ClearSight：面向多模态大语言模型物体幻觉缓解的视觉信号增强技术</h2><p>CVPR 2025</p>
 <p>ClearSight: Visual Signal Enhancement for Object Hallucination Mitigation in Multimodal Large Language Models</p>
+<p>对比解码方法无需训练或依赖外部工具，具备高计算效率与广泛适用性，在学术界引起了极大关注。然而，此类方法仍存在两大不足：生成内容质量下降及推理速度较慢。</p>
+<p>利用泰勒展开式计算注意力矩阵中每个元素的显著性得分：<br>$$<br>I_l&#x3D;\left|\sum_h A_{h,l}\odot \frac{\partial \mathcal{L}(x)}{\partial A_{h.l}} \right|<br>$$<br>为了更清晰地描绘 MLLMs 中的视觉信息流，基于 $I_l(i, j) $引入了两个定量指标，特别关注涉及图像 token 的信息交互。<br>$$<br>\begin{align}<br>S_{vv}&#x3D;\frac{\sum_{(i,j)\in C_{vv}}I_l(i,j)}{C_{vv}},C_{vv}&#x3D;((i,j):i,j\in\mathcal{V},i\ge j)<br>\\<br>S_{vt}&#x3D;\frac{\sum_{(i,j)\in C_{vt}}I_l(i,j)}{C_{vv}},C_{vt}&#x3D;((i,j):i\in\mathcal{T},j\in\mathcal{V})<br>\end{align}<br>$$<br><img src="/2021/1000/011/4.png"></p>
 
                 
               </div>
