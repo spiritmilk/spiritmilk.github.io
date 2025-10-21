@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/5.png">
 <meta property="article:published_time" content="2025-10-21T13:25:49.000Z">
-<meta property="article:modified_time" content="2025-10-21T14:46:36.834Z">
+<meta property="article:modified_time" content="2025-10-21T14:54:29.571Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -360,13 +360,13 @@
 <h2 id="核心思想与摘要"><a href="#核心思想与摘要" class="headerlink" title="核心思想与摘要"></a>核心思想与摘要</h2><p>大型推理模型（LRMs）虽然展现了强大的多步骤推理和解决问题的能力，但它们在安全对齐方面却常常表现不佳，存在令人担忧的漏洞 。这篇论文的核心目的就是从“机理解释性”的视角出发，探究这些推理模型安全对齐失败的内部机制 。</p>
 <span id="more"></span>
 
-<p><strong>核心发现：</strong> 研究者发现了一种惊人的现象，称之为**“拒绝悬崖”（Refusal Cliff）** 。具体来说，许多安全对齐不佳的推理模型，在它们内部的“思考”过程中，实际上是能够正确识别有害提示并保持强烈“拒绝意图”的 。然而，就在模型即将生成最终答案之前的最后几个词元（token）处，这种拒绝意图会突然急剧下降（仿佛掉下悬崖）。</p>
-<p>这表明，这些模型并非天生不安全或无法识别风险，而是它们原本的“拒绝意图”在最后关头被系统性地**抑制(Suppressed)**了 。</p>
+<p><strong>核心发现：</strong> 研究者发现了一种惊人的现象，称之为“<strong>拒绝悬崖</strong>”（Refusal Cliff） 。具体来说，许多安全对齐不佳的推理模型，在它们内部的“思考”过程中，实际上是能够正确识别有害提示并保持强烈“拒绝意图”的 。然而，就在模型即将生成最终答案之前的最后几个词元（token）处，这种拒绝意图会突然急剧下降（仿佛掉下悬崖）。</p>
+<p>这表明，这些模型并非天生不安全或无法识别风险，而是它们原本的“拒绝意图”在最后关头被系统性地<strong>抑制</strong>(Suppressed)了 。</p>
 <p><strong>机理与解决方案：</strong></p>
 <ol>
-<li><strong>原因定位：</strong> 通过因果干预分析，论文将这种抑制现象归因于模型中一小部分稀疏的**“拒绝抑制头”(Refusal Suppression Heads)** 。</li>
+<li><strong>原因定位：</strong> 通过因果干预分析，论文将这种抑制现象归因于模型中一小部分稀疏的“<strong>拒绝抑制头</strong> ”(Refusal Suppression Heads)。</li>
 <li><strong>修复验证：</strong> 实验证明，仅需禁用 <strong>3%</strong> 的这类注意力头，就能将模型的攻击成功率（Attack Success Rate, ASR）降低到10%以下 。</li>
-<li><strong>应用：</strong> 基于这一发现，论文提出了一种名为**“悬崖作为评判者”(Cliff-as-a-Judge)**的高效数据筛选方法 。该方法通过专门挑选那些“拒绝悬崖”最陡峭（即拒绝意图下降最严重）的训练样本 ，仅使用了 <strong>1.7%</strong> 的原始安全训练数据，就达到了与使用全部数据相当的安全对齐效果，展现了安全对齐中的“少即是多”（less-is-more）效应 。</li>
+<li><strong>应用：</strong> 基于这一发现，论文提出了一种名为“<strong>悬崖作为评判者</strong>”(Cliff-as-a-Judge)的高效数据筛选方法 。该方法通过专门挑选那些“拒绝悬崖”最陡峭（即拒绝意图下降最严重）的训练样本 ，仅使用了 <strong>1.7%</strong> 的原始安全训练数据，就达到了与使用全部数据相当的安全对齐效果，展现了安全对齐中的“少即是多”（less-is-more）效应 。</li>
 </ol>
 <p><img src="/2019/20190430/1.png"></p>
 <h2 id="拒绝悬崖"><a href="#拒绝悬崖" class="headerlink" title="拒绝悬崖"></a>拒绝悬崖</h2><p>当大型语言模型遇到有害提示时，它会提供拒绝响应，以避免向用户提供与问题相关有害的信息。期的研究表明，拒绝行为通常由其活性值空间中的一个单一拒绝方向所控制。</p>
