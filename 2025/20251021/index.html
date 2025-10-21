@@ -21,23 +21,21 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="我们可以减轻标签的作用吗？ 完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y&#x3D;f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。 听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}X">
+    <meta name="description" content="（arxiv 2510.06036） 核心思想与摘要大型推理模型（LRMs）虽然展现了强大的多步骤推理和解决问题的能力，但它们在安全对齐方面却常常表现不佳，存在令人担忧的漏洞 。这篇论文的核心目的就是从“机理解释性”的视角出发，探究这些推理模型安全对齐失败的内部机制 。 核心发现： 研究者发现了一种惊人的现象，称之为**“拒绝悬崖”（Refusal Cliff）** 。具体来说，许多安全对齐不佳的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模型参数与标签无关的模型">
-<meta property="og:url" content="https://lijianxiong.space/2025/20250521/index.html">
+<meta property="og:title" content="20251021">
+<meta property="og:url" content="https://lijianxiong.space/2025/20251021/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="我们可以减轻标签的作用吗？ 完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y&#x3D;f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。 听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}X">
+<meta property="og:description" content="（arxiv 2510.06036） 核心思想与摘要大型推理模型（LRMs）虽然展现了强大的多步骤推理和解决问题的能力，但它们在安全对齐方面却常常表现不佳，存在令人担忧的漏洞 。这篇论文的核心目的就是从“机理解释性”的视角出发，探究这些推理模型安全对齐失败的内部机制 。 核心发现： 研究者发现了一种惊人的现象，称之为**“拒绝悬崖”（Refusal Cliff）** 。具体来说，许多安全对齐不佳的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-05-21T08:49:49.000Z">
-<meta property="article:modified_time" content="2025-05-24T02:29:25.096Z">
+<meta property="article:published_time" content="2025-10-21T13:25:49.000Z">
+<meta property="article:modified_time" content="2025-10-21T13:29:06.071Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="机器学习">
-<meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>模型参数与标签无关的模型 - 小熊的小站</title>
+  <title>20251021 - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -274,7 +272,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">模型参数与标签无关的模型</span>
+            <span id="subtitle">20251021</span>
           
         </div>
 
@@ -285,8 +283,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-21 16:49" pubdate>
-          2025年5月21日 下午
+        <time datetime="2025-10-21 21:25" pubdate>
+          2025年10月21日 晚上
         </time>
       </span>
     
@@ -297,7 +295,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          660 字
+          484 字
         
       </span>
     
@@ -308,7 +306,7 @@
         
         
         
-          6 分钟
+          5 分钟
         
       </span>
     
@@ -345,34 +343,21 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">模型参数与标签无关的模型</h1>
+            <h1 id="seo-header">20251021</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>我们可以减轻标签的作用吗？</p>
-<p>完全舍弃标签？这也太疯狂了，而且显然这样会学不到什么。所以我们可以折中一下，使模型为$\hat y&#x3D;f(S,y)$，即S是训练后的、与标签无关的。有点类似于之前提过的PMLP，我们在训练中不使用邻接矩阵，但是测试的时候加上。</p>
-<p>听起来可能依旧荒谬，但回想一下线性模型，对于$\hat{y}&#x3D;Xw$，最佳权重可以写成$w&#x3D;(X^TX)^{-1}Xy$，即可以写成Sy的形式，且S与y无关。</p>
-<span id="more"></span>
-
-<p>在此基础上，我们能不能扩展到更多模型？</p>
-<p>这正是《Supervised Models Can Generalize Also When Trained on Random Labels 》要做的。</p>
-<p>我们先规定一些符号：</p>
-<p>y  训练样本的标签（我们不会提及测试样本的标签）</p>
-<p>上下标s代表样本内&#x2F;训练样本</p>
-<p>上下标o代表样本外&#x2F;测试样本</p>
-<p>f是预测</p>
-<p>我们会对所有的样本进行归一化。</p>
-<h2 id="不依赖y的二阶样本矩匹配（SSMM）"><a href="#不依赖y的二阶样本矩匹配（SSMM）" class="headerlink" title="不依赖y的二阶样本矩匹配（SSMM）"></a>不依赖y的二阶样本矩匹配（SSMM）</h2><p>将模型表述为“平滑器”（smoother），即 f&#x3D;Sy，其中 <code>S</code> 是平滑矩阵</p>
-<p>作者假设，一个能够很好泛化的模型，其样本外预测 ($f^o$) 的分布应该与真实观测数据 (y) 的分布大致相同 。</p>
-<p>故最小化:<br>$$<br>|\frac{1}{n}\sum^n y_i^2-\frac{1}{n_o}\sum^{n_o} (\hat f_i^o)^2|&#x3D;|y^T(\frac{1}{n}I_n-\frac{1}{n_o}S_o^TS_o^T)y|&#x3D;|y^TAy|<br>$$<br>有两种方法来让这条式子y-free：</p>
-<p>（1）使用随机标签 $y_R$ (基于迹半范数)</p>
-<p>如果 $y_R$ 的元素不相关，均值为0，方差为 $\sigma_y^2$，那么最小化$|y_R^TAy_R|$的期望就等价于最小化$|E_{y_R}(y_R^TAy_R)|&#x3D;|Tr(A)|\sigma_y^2$</p>
-<p>（2）利用不等式<br>$$<br>|y^TAy|\leq||A|| _ 2\cdot||y||^2 _ 2\leq||A|| _ {*}\cdot||y||^2 _ 2<br>$$<br>其中*代表核范数。</p>
-<h2 id="对于神经网络"><a href="#对于神经网络" class="headerlink" title="对于神经网络"></a>对于神经网络</h2><p>先前已有使用NTK，来生成$f&#x3D;S(\theta)y$的形式，但是$S(\theta)$与y有关</p>
-<p>即<br>$$<br>S_{k+1}&#x3D;S_k+\gamma(S_k-S_{k-1})+\eta K_{k+1}(I_n-S_k^s)<br>$$<br>其中$K_{k+1}$是一个广义的、随时间（训练迭代次数）变化的 NTK 。对于平方损失，它就是标准的 NTK；对于交叉熵损失，它会乘以一个依赖于当前预测的矩阵。</p>
-<p>为了y-free，我们依旧采用不使用真实的标签 y，而是使用一个随机生成（采样）的标签&#x2F;响应向量的方法。</p>
-<p>使用随机标签训练神经网络时，需要一个标准来决定何时停止训练。使用 Frobenius 范数版本的 y-free SSMM 来决定训练的时机。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（arxiv 2510.06036）</p>
+<h2 id="核心思想与摘要"><a href="#核心思想与摘要" class="headerlink" title="核心思想与摘要"></a>核心思想与摘要</h2><p>大型推理模型（LRMs）虽然展现了强大的多步骤推理和解决问题的能力，但它们在安全对齐方面却常常表现不佳，存在令人担忧的漏洞 。这篇论文的核心目的就是从“机理解释性”的视角出发，探究这些推理模型安全对齐失败的内部机制 。</p>
+<p><strong>核心发现：</strong> 研究者发现了一种惊人的现象，称之为**“拒绝悬崖”（Refusal Cliff）** 。具体来说，许多安全对齐不佳的推理模型，在它们内部的“思考”过程中，实际上是能够正确识别有害提示并保持强烈“拒绝意图”的 。然而，就在模型即将生成最终答案之前的最后几个词元（token）处，这种拒绝意图会突然急剧下降（仿佛掉下悬崖）。</p>
+<p>这表明，这些模型并非天生不安全或无法识别风险，而是它们原本的“拒绝意图”在最后关头被系统性地**抑制（Suppressed）**了 。</p>
+<p><strong>机理与解决方案：</strong></p>
+<ol>
+<li><strong>原因定位：</strong> 通过因果干预分析，论文将这种抑制现象归因于模型中一小部分稀疏的**“拒绝抑制头”（Refusal Suppression Heads）** 。</li>
+<li><strong>修复验证：</strong> 实验证明，仅需消融（Ablating，即禁用） <strong>3%</strong> 的这类注意力头，就能将模型的攻击成功率（Attack Success Rate, ASR）降低到10%以下 。</li>
+<li><strong>应用：</strong> 基于这一发现，论文提出了一种名为**“悬崖作为评判者”（Cliff-as-a-Judge）**的高效数据筛选方法 。该方法通过专门挑选那些“拒绝悬崖”最陡峭（即拒绝意图下降最严重）的训练样本 ，仅使用了 <strong>1.7%</strong> 的原始安全训练数据，就达到了与使用全部数据相当的安全对齐效果，展现了安全对齐中的“少即是多”（less-is-more）效应 。</li>
+</ol>
 
                 
               </div>
@@ -382,15 +367,6 @@
               <div class="post-metas my-3">
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
-      
-        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
-      
-    </div>
-  
 </div>
 
 
@@ -399,8 +375,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>模型参数与标签无关的模型</div>
-      <div>https://lijianxiong.space/2025/20250521/</div>
+      <div>20251021</div>
+      <div>https://lijianxiong.space/2025/20251021/</div>
     </div>
     <div class="license-meta">
       
@@ -412,7 +388,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月21日</div>
+          <div>2025年10月21日</div>
         </div>
       
       
@@ -444,18 +420,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/20250522/" title="5%&gt;100%-Breaking Performance Shackles of Full Fine-Tuning on Visual Recognition Tasks">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">5%&gt;100%-Breaking Performance Shackles of Full Fine-Tuning on Visual Recognition Tasks</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/20250520/" title="MCMC之前尘后事">
-                        <span class="hidden-mobile">MCMC之前尘后事</span>
+                      <a href="/2025/20251016/" title="LVLM幻觉幻觉思维导图">
+                        <span class="hidden-mobile">LVLM幻觉幻觉思维导图</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
