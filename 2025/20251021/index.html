@@ -31,8 +31,9 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/4.png">
 <meta property="article:published_time" content="2025-10-21T13:25:49.000Z">
-<meta property="article:modified_time" content="2025-10-21T14:18:08.956Z">
+<meta property="article:modified_time" content="2025-10-21T14:25:17.360Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          694 字
+          1k 字
         
       </span>
     
@@ -312,7 +313,7 @@
         
         
         
-          6 分钟
+          9 分钟
         
       </span>
     
@@ -368,11 +369,17 @@
 </ol>
 <p><img src="/2019/20190430/1.png"></p>
 <h2 id="拒绝悬崖"><a href="#拒绝悬崖" class="headerlink" title="拒绝悬崖"></a>拒绝悬崖</h2><p>当大型语言模型遇到有害提示时，它会提供拒绝响应，以避免向用户提供与<br>问题相关有害的信息。期的研究表明，拒绝行为通常由其活性值空间中的一个单一拒绝方向所控制。</p>
-<p>由于这一线性特性，我们可以使用一个简单的线性分类器 i.e.,一个拒绝探测器来有效识别该方向。拒绝探测器是一个逻辑回归模型，它以 token 位置 j 处的隐状态向量 $h_j \in H$ 作为输入，并输出拒绝的概率。</p>
+<p>由于这一线性特性，可以使用一个简单的线性分类器 i.e.,一个拒绝探测器来有效识别该方向。拒绝探测器是一个逻辑回归模型，它以 token 位置 j 处的隐状态向量 $h_j \in H$ 作为输入，并输出拒绝的概率。</p>
 <p><img src="/2019/20190430/2.png"></p>
 <p>使用训练好的拒绝探测器来探测推理模型的隐状态，以估计每个 token 位置处的 拒绝得分X。</p>
 <p><img src="/2019/20190430/3.png"></p>
-<h2 id="拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释"><a href="#拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释" class="headerlink" title="拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释"></a>拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释</h2>
+<h2 id="拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释"><a href="#拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释" class="headerlink" title="拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释"></a>拒绝悬崖中的“魔鬼”是谁？来自注意力头的机制解释</h2><p>从机械可解释性的角度来看，注意力头是 Transformer 架构中信息路由的主要载体，且不同的头通常专门负责不同的功能。也有研究证实，注意力头在安全性方面起着关键作用。《On the Role of Attention Heads in Large Language Model Safety》【 ICLR 2025 (oral)】</p>
+<p>为了准确评估每个注意力头对拒绝行为的因果影响，采样直接探测方法来追踪每个头的贡献。方法是单独评估每个头在拒绝悬崖发生的位置处的输出影响。</p>
+<p>具体而言，对于任意层 i 中的注意力头 h ，首先隔离其输出向量$o_i,h,t_{cliff}$。根据标准 Transformer 架构，该向量通过注意力块的输出权重矩阵$W_{O,i}$投影到残差流中。</p>
+<p>为了分析头 h 单独的贡献，仅头 h 的输出处于激活状态，而同一层中所有其他头的输出均被置零。随后，将仅包含单一头贡献的该向量输入至预训练的拒绝探测器，以评估该头的独立拒绝得分。其贡献得分 $s_{i,h}$ 计算如下<br>$$<br>s_{i,h}&#x3D;W^T\Delta h_{i,h,t_{cliff}}+b<br>$$<br>即移除了sigmoid。</p>
+<p><img src="/2019/20190430/4.png"></p>
+<p>这种贡献模式具有高度稀疏性：仅有少数头与拒绝行为呈现强负相关，我们将其称为<strong>拒绝抑制头</strong>。</p>
+
                 
               </div>
             
