@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（EMNLP 2024）">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2025-10-22T15:29:18.000Z">
-<meta property="article:modified_time" content="2025-10-23T03:07:31.992Z">
+<meta property="article:modified_time" content="2025-10-23T03:16:58.908Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          198 字
+          237 字
         
       </span>
     
@@ -357,6 +359,10 @@
 <p>虽然B、A的参数很少，但是BA是一个稠密矩阵。这在知识编辑中是致命的。（因为知识编辑的目标是精确地修改模型内部的某个特定知识（例如，“法国的首都是巴黎”），同时必须保持所有其他知识不变 。）</p>
 <p>LoRA的稠密更新使得选择性修改变得非常困难。 </p>
 <p>故RoseLoRA的目标是寻找一种PEFT方法，既能高效微调，又能实现<strong>稀疏更新</strong>。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>实现稀疏更新（即让 $BA$ 稀疏）面临两大挑战：</p>
+<p>1.直接$||BA||_0$约束是NP-hard问题。</p>
+<p>2.A和B系数≠BA稀疏。</p>
+<p><img src="/2019/20190430/1.png"></p>
 
                 
               </div>
