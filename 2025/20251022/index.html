@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（EMNLP 2024）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251022/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251022/2.png">
 <meta property="article:published_time" content="2025-10-22T15:29:18.000Z">
-<meta property="article:modified_time" content="2025-10-23T04:29:11.654Z">
+<meta property="article:modified_time" content="2025-10-23T11:46:48.741Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251022/1.png">
   
   
   
@@ -363,9 +363,9 @@
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>实现稀疏更新（即让 $BA$ 稀疏）面临两大挑战：</p>
 <p>1.直接$||BA||_0$约束是NP-hard问题。</p>
 <p>2.A和B系数≠BA稀疏。</p>
-<p><img src="/2019/20190430/1.png"></p>
+<p><img src="/2025/20251022/1.png"></p>
 <h3 id="创新方案"><a href="#创新方案" class="headerlink" title="创新方案"></a>创新方案</h3><p>RoseLoRA采用的方案是强制$A$ 矩阵的每一行 (row-wise) 和$B$矩阵的每一列(column-wise)保持稀疏。</p>
-<p><img src="/2019/20190430/2.png"></p>
+<p><img src="/2025/20251022/2.png"></p>
 <p>论文从理论上证明了，通过约束 $A$ 的行和 $B$ 的列的稀疏度，可以为最终乘积 $BA$ 的稀疏度提供一个数学上的下限保证。这意味着只要控制了 $A$ 的行和 $B$ 的列，就必然能得到一个稀疏的 $BA$ 更新。</p>
 <h3 id="具体方法"><a href="#具体方法" class="headerlink" title="具体方法"></a>具体方法</h3><p><strong>重要性评分（敏感度）</strong>：它使用“敏感度”（Sensitivity）来评估每个参数的重要性。一个参数的敏感度被定义为其<strong>权重的绝对值</strong>与<strong>梯度的绝对值</strong>的乘积 ($I &#x3D; |W \cdot \nabla\mathcal{L}|$) 。这个分数反映了如果将该参数设为零，会对模型的损失产生多大影响 。</p>
 <p><strong>迭代剪枝</strong>：在训练的每一步中，RoseLoRA会对于 $A$ 的每一行和 $B$ 的每一列，<strong>剪枝</strong>掉那些敏感度分数最低（即最不重要）的参数，将它们设为零。</p>
