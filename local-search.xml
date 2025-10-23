@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>RoseLoRA：面向知识编辑与微调的预训练语言模型行与列稀疏低秩适配</title>
+    <link href="/2025/20251022/"/>
+    <url>/2025/20251022/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（EMNLP 2024）</p><span id="more"></span><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><strong>参数高效微调</strong> （PEFT）是比较流行的微调方法，其中最流行的是 <strong>LoRA</strong> (Low-rank Adaptation) 。LoRA的原理是在模型的权重矩阵 $W^o$ 上，额外学习两个低秩矩阵 $B$ 和 $A$（$W &#x3D; W^o + BA$），微调时只训练 $B$ 和 $A$ 。</p><p>虽然B、A的参数很少，但是BA是一个稠密矩阵。这在知识编辑中是致命的。（因为知识编辑的目标是精确地修改模型内部的某个特定知识（例如，“法国的首都是巴黎”），同时必须保持所有其他知识不变 。）</p><p>LoRA的稠密更新使得选择性修改变得非常困难。 </p><p>故RoseLoRA的目标是寻找一种PEFT方法，既能高效微调，又能实现<strong>稀疏更新</strong>。</p><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>实现稀疏更新（即让 $BA$ 稀疏）面临两大挑战：</p><p>1.直接$||BA||_0$约束是NP-hard问题。</p><p>2.A和B系数≠BA稀疏。</p><p><img src="/2019/20190430/1.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>拒绝如坠悬崖：推理中的安全对齐为何失效？</title>
     <link href="/2025/20251021/"/>
     <url>/2025/20251021/</url>
