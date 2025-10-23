@@ -21,13 +21,15 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="（EMNLP 2024）">
+<meta property="og:type" content="article">
 <meta property="og:title" content="RoseLoRA：面向知识编辑与微调的预训练语言模型行与列稀疏低秩适配">
 <meta property="og:url" content="https://lijianxiong.space/2025/20251022/index.html">
 <meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="（EMNLP 2024）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-10-22T15:29:18.000Z">
-<meta property="article:modified_time" content="2025-10-22T15:34:04.362Z">
+<meta property="article:modified_time" content="2025-10-23T03:07:31.992Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -295,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          198 字
         
       </span>
     
@@ -306,7 +308,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -348,7 +350,13 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><span id="more"></span>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（EMNLP 2024）</p>
+<span id="more"></span>
+
+<h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p><strong>参数高效微调</strong> （PEFT）是比较流行的微调方法，其中最流行的是 <strong>LoRA</strong> (Low-rank Adaptation) 。LoRA的原理是在模型的权重矩阵 $W^o$ 上，额外学习两个低秩矩阵 $B$ 和 $A$（$W &#x3D; W^o + BA$），微调时只训练 $B$ 和 $A$ 。</p>
+<p>虽然B、A的参数很少，但是BA是一个稠密矩阵。这在知识编辑中是致命的。（因为知识编辑的目标是精确地修改模型内部的某个特定知识（例如，“法国的首都是巴黎”），同时必须保持所有其他知识不变 。）</p>
+<p>LoRA的稠密更新使得选择性修改变得非常困难。 </p>
+<p>故RoseLoRA的目标是寻找一种PEFT方法，既能高效微调，又能实现<strong>稀疏更新</strong>。</p>
 
                 
               </div>
