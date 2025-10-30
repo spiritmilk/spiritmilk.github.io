@@ -1,0 +1,1285 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="机器学习的建议面对模型的下一步操作： 我们可以  获得更多的训练样本——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。  尝试减少特征的数量  尝试获得更多的特征  尝试增加多项式特征  尝试减少正则化程度$\lambda$  尝试增加正则化程度$\lambda$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习之建议与应用">
+<meta property="og:url" content="https://lijianxiong.space/2021/20210805/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="机器学习的建议面对模型的下一步操作： 我们可以  获得更多的训练样本——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。  尝试减少特征的数量  尝试获得更多的特征  尝试增加多项式特征  尝试减少正则化程度$\lambda$  尝试增加正则化程度$\lambda$">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/1b908480ad78ee54ba7129945015f87f.jpg">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/7cf1cd9c123a72ca4137ca515871689d.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/bca6906add60245bbc24d71e22f8b836.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/25597f0f88208a7e74a3ca028e971852.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/8f557105250853e1602a78c99b2ef95b.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/38eed7de718f44f6bb23727c5a88bf5d.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/969281bc9b07e92a0052b17288fb2c52.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/973216c7b01c910cfa1454da936391c6.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/4a5099b9f4b6aac5785cb0ad05289335.jpg">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/2977243994d8d28d5ff300680988ec34.jpg">
+<meta property="og:image" content="https://z3.ax1x.com/2021/08/05/febRJg.jpg">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/919eabe903ef585ec7d08f2895551a1f.jpg">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/f1ecee10884098f98032648da08f8937.jpg">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/55d41ee748680a62e755d6aa5b95b53c.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/610fffb413d8d577882d6345c166a9fb.png">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/1e00d03719e20eeaf1f414f99d7f4109.jpg">
+<meta property="og:image" content="http://www.ai-start.com/ml2014/images/bc48a4b0c7257591643eb50f2bf46db6.jpg">
+<meta property="article:published_time" content="2021-08-05T09:21:50.000Z">
+<meta property="article:modified_time" content="2022-03-16T08:49:46.760Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://www.ai-start.com/ml2014/images/1b908480ad78ee54ba7129945015f87f.jpg">
+  
+  
+  
+  <title>机器学习之建议与应用 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">机器学习之建议与应用</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-08-05 17:21" pubdate>
+          2021年8月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">机器学习之建议与应用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h5 id="机器学习的建议"><a href="#机器学习的建议" class="headerlink" title="机器学习的建议"></a>机器学习的建议</h5><p>面对模型的下一步操作：</p>
+<p>我们可以</p>
+<ol>
+<li><p>获得更多的训练样本——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。</p>
+</li>
+<li><p>尝试减少特征的数量</p>
+</li>
+<li><p>尝试获得更多的特征</p>
+</li>
+<li><p>尝试增加多项式特征</p>
+</li>
+<li><p>尝试减少正则化程度$\lambda$</p>
+</li>
+<li><p>尝试增加正则化程度$\lambda$</p>
+</li>
+</ol>
+<span id="more"></span>
+
+<p>我们该怎么选择呢？我们应该运用一些方法——被称为”机器学习诊断法”——来帮助我们知道上面哪些方法对我们的算法是有效的。</p>
+<h6 id="训练集与测试集"><a href="#训练集与测试集" class="headerlink" title="训练集与测试集"></a>训练集与测试集</h6><p>为了检验算法是否过拟合，我们将数据分成训练集和测试集，通常用70%的数据作为训练集，用剩下30%的数据作为测试集。</p>
+<p>测试集评估在通过训练集让我们的模型学习得出其参数后，对测试集运用该模型。</p>
+<h6 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h6><p>假设我们要在10个不同次数的二项式模型之间进行选择：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/1b908480ad78ee54ba7129945015f87f.jpg" alt="img"></p>
+<p> 我们需要使用交叉验证集来帮助选择模型。 即：使用60%的数据作为训练集，使用 20%的数据作为交叉验证集，使用20%的数据作为测试集。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/7cf1cd9c123a72ca4137ca515871689d.png" alt="img"></p>
+<p><strong>模型选择的方法为：</strong></p>
+<ol>
+<li><p>使用训练集训练出10个模型</p>
+</li>
+<li><p>用10个模型分别对交叉验证集计算得出交叉验证误差（代价函数的值）</p>
+</li>
+<li><p>选取代价函数值最小的模型</p>
+</li>
+<li><p>用步骤3中选出的模型对测试集计算得出推广误差（代价函数的值）</p>
+<p><em><strong>Train&#x2F;validation&#x2F;test error</strong></em></p>
+<p><strong>Training error:</strong></p>
+</li>
+</ol>
+<p>$J _{train}(\theta)&#x3D;\frac{1}{2m}\sum _\limits{i&#x3D;1}^{m}(h _{\theta}(x^{(i)})-y^{(i)})^2$</p>
+<p><strong>Cross Validation error:</strong></p>
+<p>$J _{cv}(\theta)&#x3D;\frac{1}{2m _{cv}}\sum _\limits{i&#x3D;1}^{m}(h _{\theta}(x^{(i)} _{cv})-y^{(i)} _{cv})^2$</p>
+<p><strong>Test error:</strong></p>
+<p>$J _{test}(\theta)&#x3D;\frac{1}{2m _{test}}\sum _\limits{i&#x3D;1}^{m _{test}}(h _{\theta}(x^{(i)} _{cv})-y^{(i)} _{cv})^2$</p>
+<h6 id="偏差与方差"><a href="#偏差与方差" class="headerlink" title="偏差与方差"></a>偏差与方差</h6><p><img src="http://www.ai-start.com/ml2014/images/bca6906add60245bbc24d71e22f8b836.png" alt="img"></p>
+<p><strong>Bias&#x2F;variance</strong></p>
+<p><strong>Training error:</strong>				               $J_{train}(\theta) &#x3D; \frac{1}{2m}\sum_\limits{i&#x3D;1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^2$</p>
+<p><strong>Cross Validation error:</strong></p>
+<p>$J _{cv}(\theta) &#x3D; \frac{1}{2m _{cv}}\sum _\limits{i&#x3D;1}^{m}(h _{\theta}(x^{(i)} _{cv})-y^{(i)} _{cv})^2$</p>
+<p>我们如何判断是方差还是偏差呢？根据上面的图表，我们知道:</p>
+<p><img src="http://www.ai-start.com/ml2014/images/25597f0f88208a7e74a3ca028e971852.png" alt="img"></p>
+<p>训练集误差和交叉验证集误差近似时：偏差&#x2F;欠拟合 交叉验证集误差远大于训练集误差时：方差&#x2F;过拟合</p>
+<h6 id="正则化系数的选择"><a href="#正则化系数的选择" class="headerlink" title="正则化系数的选择"></a>正则化系数的选择</h6><p>我们选择一系列的想要测试的 $\lambda$ 值，通常是 0-10之间的呈现2倍关系的值（如：$0,0.01,0.02,0.04,0.08,0.15,0.32,0.64,1.28,2.56,5.12,10$共12个）。 我们同样把数据分为训练集、交叉验证集和测试集。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/8f557105250853e1602a78c99b2ef95b.png" alt="img"></p>
+<ol>
+<li>用训练集训练出12个不同程度正则化的模型</li>
+<li>用12个模型分别对交叉验证集计算的出交叉验证误差</li>
+<li>选择得出交叉验证误差<strong>最小</strong>的模型</li>
+<li>运用步骤3中选出模型对测试集计算得出推广误差，我们也可以同时将训练集和交叉验证集模型的代价函数误差与λ的值绘制在一张图表上：</li>
+</ol>
+<p><img src="http://www.ai-start.com/ml2014/images/38eed7de718f44f6bb23727c5a88bf5d.png" alt="img"></p>
+<p>• 当 $\lambda$ 较小时，训练集误差较小（过拟合）而交叉验证集误差较大<br>	<br>• 随着 $\lambda$ 的增加，训练集误差不断增加（欠拟合），而交叉验证集误差则是先减小后增加</p>
+<h6 id="学习曲线"><a href="#学习曲线" class="headerlink" title="学习曲线"></a>学习曲线</h6><p>学习曲线是将训练集误差和交叉验证集误差作为训练集样本数量（$m$）的函数绘制的图表。</p>
+<p>即，如果我们有100行数据，我们从1行数据开始，逐渐学习更多行的数据。思想是：当训练较少行数据的时候，训练的模型将能够非常完美地适应较少的训练数据，但是训练出来的模型却不能很好地适应交叉验证集数据或测试集数据。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/969281bc9b07e92a0052b17288fb2c52.png" alt="img"></p>
+<p><img src="http://www.ai-start.com/ml2014/images/973216c7b01c910cfa1454da936391c6.png" alt="img"></p>
+<p>（一）如何利用学习曲线识别高偏差&#x2F;欠拟合：</p>
+<p>作为例子，我们尝试用一条直线来适应下面的数据，可以看出，无论训练集有多么大误差都不会有太大改观：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/4a5099b9f4b6aac5785cb0ad05289335.jpg" alt="img"></p>
+<p>也就是说在高偏差&#x2F;欠拟合的情况下，增加数据到训练集不一定能有帮助。</p>
+<p>（二）如何利用学习曲线识别高方差&#x2F;过拟合：</p>
+<p>假设我们使用一个非常高次的多项式模型，并且正则化非常小，可以看出，当交叉验证集误差远大于训练集误差时，往训练集增加更多数据可以提高模型的效果。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/2977243994d8d28d5ff300680988ec34.jpg" alt="img"></p>
+<p>也就是说在高方差&#x2F;过拟合的情况下，增加更多数据到训练集可能可以提高算法效果</p>
+<h6 id="选择下一步"><a href="#选择下一步" class="headerlink" title="选择下一步"></a>选择下一步</h6><p>回顾前面中提出的六种可选的下一步，让我们来看一看我们在什么情况下应该怎样选择：</p>
+<ol>
+<li>获得更多的训练样本——解决高方差</li>
+<li>尝试减少特征的数量——解决高方差</li>
+<li>尝试获得更多的特征——解决高偏差</li>
+<li>尝试增加多项式特征——解决高偏差</li>
+<li>尝试减少正则化程度λ——解决高偏差</li>
+<li>尝试增加正则化程度λ——解决高方差</li>
+</ol>
+<h6 id="误差分析（Error-Analysis）"><a href="#误差分析（Error-Analysis）" class="headerlink" title="误差分析（Error Analysis）"></a>误差分析（Error Analysis）</h6><p>即人工检查交叉验证集中我们算法中产生预测误差的样本，看看这些样本是否有某种系统化的趋势。</p>
+<p>比如当我们在构造垃圾邮件分类器时，我会看一看我的交叉验证数据集，然后亲自看一看哪些邮件被算法错误地分类。因此，通过这些被算法错误分类的垃圾邮件与非垃圾邮件，你可以发现某些系统性的规律：什么类型的邮件总是被错误分类。经常地这样做之后，这个过程能启发你构造新的特征变量，或者告诉你：现在这个系统的短处，然后启发你如何去提高它。</p>
+<h6 id="类偏斜的误差度量"><a href="#类偏斜的误差度量" class="headerlink" title="类偏斜的误差度量"></a>类偏斜的误差度量</h6><p>训练集中有非常多同一类的样本，只有很少或者没有其他类的样本，这样的训练样本称为偏斜类。（skewed classes）</p>
+<p>比如预测癌症是否恶性的 100 个样本中：95 个是良性的肿瘤，5 个恶性的肿瘤，假设我们在这个样本上对比以下 2 种分类算法的百分比准确度，即分类错误的百分比：人为把所有的样本都预测为良性，则分错了 5 个恶性的样本，错误率为 <code>5 / 100 = 0.05 = 5%</code></p>
+<p>如果仅仅从错误率大小来判断算法的优劣是不合适的，</p>
+<p>为了解决这个问题，使用**查准率（Precision）<strong>和</strong>查全率（Recall）**这 2 个误差指标，为了计算这 2 者，我们需要把算法预测的结果分为以下 4 种：</p>
+<ol>
+<li>真阳性（True Positive，TP）：预测为真，实际为真</li>
+<li>真阴性（True Negative，TN）：预测为假，实际为假</li>
+<li>假阳性（False Positive，FP）：预测为真，实际为假</li>
+<li>假阴性（False Negative，FN）：预测为假，实际为真</li>
+</ol>
+<p>则：</p>
+<p>查准率&#x3D;<strong>TP&#x2F;(TP+FP)</strong>。例，在所有我们预测有恶性肿瘤的病人中，实际上有恶性肿瘤的病人的百分比，查准率越高越好。<br>	<br>查全率&#x3D;<strong>TP&#x2F;(TP+FN)</strong>。例，在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比。查全率越高越好。<br>	<br>这样，对于我们刚才那个总是预测病人肿瘤为良性的算法，其查全率是0。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>预测值</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td><strong>Positive</strong></td>
+<td><strong>Negtive</strong></td>
+</tr>
+<tr>
+<td><strong>实际值</strong></td>
+<td><strong>Positive</strong></td>
+<td><strong>TP</strong></td>
+<td><strong>FN</strong></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Negtive</strong></td>
+<td><strong>FP</strong></td>
+<td><strong>TN</strong></td>
+</tr>
+</tbody></table>
+<h6 id="均衡查准率和查全率"><a href="#均衡查准率和查全率" class="headerlink" title="均衡查准率和查全率"></a>均衡查准率和查全率</h6><p>高查准率意味着只在非常确信的情况下预测为真（肿瘤为恶性）。</p>
+<p>高查全率意味着尽可能地让所有有可能是恶性肿瘤的病人都得到进一步地检查、诊断。</p>
+<p>面对多个阙值参数选择，我们应该使用F1值较高的那系列参数。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/febRJg"><img src="https://z3.ax1x.com/2021/08/05/febRJg.jpg"></a></p>
+<h6 id="几个关键问题"><a href="#几个关键问题" class="headerlink" title="几个关键问题"></a>几个关键问题</h6><p>首先，一个人类专家看到了特征值 $x$，能很有信心的预测出$y$值吗？因为这可以证明 $ y$ 可以根据特征值$x$被准确地预测出来。</p>
+<p>其次，我们实际上能得到一组庞大的训练集，并且在这个训练集中训练一个有很多参数的学习算法吗？</p>
+<p>如果你能做到这两者，那么更多时候，你会得到一个性能很好的学习算法。</p>
+<h6 id="Mini-Batch"><a href="#Mini-Batch" class="headerlink" title="Mini-Batch"></a>Mini-Batch</h6><p>Mini-Batch是介于批量梯度下降算法和随机梯度下降算法（Stochastic Gradient Descent）之间的算法，每计算常数次（b次）训练实例，便更新一次参数  。</p>
+<h6 id="学习率"><a href="#学习率" class="headerlink" title="学习率"></a>学习率</h6><p>我们可以通过减小学习率来优化算法。</p>
+<p>例如令$\alpha &#x3D;\frac{常数1}{迭代次数+常数2}$                                                                                                                                             </p>
+<h6 id="在线学习（Online-Learning）"><a href="#在线学习（Online-Learning）" class="headerlink" title="在线学习（Online Learning）"></a>在线学习（Online Learning）</h6><p>在线学习的算法与随机梯度下降算法有些类似，我们对单一的实例进行学习，而非对一个提前定义的训练集进行循环。 </p>
+<p>一旦对一个数据的学习完成了，我们便可以丢弃该数据，不需要再存储它了。这种方式的好处在于，我们的算法可以很好的适应用户的倾向性，算法可以针对用户的当前行为不断地更新模型以适应该用户。</p>
+<h6 id="映射化简和数据并行（Map-Reduce-and-Data-Parallelism）"><a href="#映射化简和数据并行（Map-Reduce-and-Data-Parallelism）" class="headerlink" title="映射化简和数据并行（Map Reduce and Data Parallelism）"></a>映射化简和数据并行（Map Reduce and Data Parallelism）</h6><p>如果我们能够将我们的数据集分配给多台计算机，让每一台计算机处理数据集的一个子集，然后我们将计所的结果汇总在求和。这样的方法叫做映射简化（Map Reduce）。</p>
+<p>例如，我们有400个训练实例，我们可以将批量梯度下降的求和任务分配给4台计算机进行处理：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/919eabe903ef585ec7d08f2895551a1f.jpg" alt="img"></p>
+<p>很多高级的线性代数函数库已经能够利用多核<strong>CPU</strong>的多个核心来并行地处理矩阵运算，这也是算法的向量化实现如此重要的缘故（比调用循环快）。</p>
+<h6 id="获取更多数据"><a href="#获取更多数据" class="headerlink" title="获取更多数据"></a>获取更多数据</h6><p>以文字识别应用为例，我们可以字体网站下载各种字体，然后利用这些不同的字体配上各种不同的随机背景图片创造出一些用于训练的实例，这让我们能够获得一个无限大的训练集。这是从零开始创造实例。</p>
+<p>另一种方法是，利用已有的数据，然后对其进行修改，例如将已有的字符图片进行一些扭曲、旋转、模糊处理。只要我们认为实际数据有可能和经过这样处理后的数据类似，我们便可以用这样的方法来创造大量的数据。</p>
+<p>有关获得更多数据的几种方法：</p>
+<ol>
+<li>人工数据合成</li>
+<li>手动收集、标记数据</li>
+<li>众包</li>
+</ol>
+<h6 id="上限分析（Ceiling-Analysis）"><a href="#上限分析（Ceiling-Analysis）" class="headerlink" title="上限分析（Ceiling Analysis）"></a>上限分析（Ceiling Analysis）</h6><p><img src="http://www.ai-start.com/ml2014/images/f1ecee10884098f98032648da08f8937.jpg" alt="img"></p>
+<p> 我们的文字识别应用中，我们的流程图如下：</p>
+<p><img src="http://www.ai-start.com/ml2014/images/55d41ee748680a62e755d6aa5b95b53c.png" alt="img"></p>
+<p>流程图中每一部分的输出都是下一部分的输入，上限分析中，我们选取一部分，手工提供100%正确的输出结果，然后看应用的整体效果提升了多少。假使我们的例子中总体效果为72%的正确率。</p>
+<p>如果我们令文字侦测部分输出的结果100%正确，发现系统的总体效果从72%提高到了89%。这意味着我们很可能会希望投入时间精力来提高我们的文字侦测部分。</p>
+<p>接着我们手动选择数据，让字符切分输出的结果100%正确，发现系统的总体效果只提升了1%，这意味着，我们的字符切分部分可能已经足够好了。</p>
+<p>最后我们手工选择数据，让字符分类输出的结果100%正确，系统的总体效果又提升了10%，这意味着我们可能也会应该投入更多的时间和精力来提高应用的总体表现。</p>
+<h5 id="相关应用——图片文字识别-Photo-OCR"><a href="#相关应用——图片文字识别-Photo-OCR" class="headerlink" title="相关应用——图片文字识别(Photo OCR)"></a>相关应用——图片文字识别(Photo OCR)</h5><p>图像文字识别应用所作的事是，从一张给定的图片中识别文字。</p>
+<p>了完成这样的工作，需要采取如下步骤：</p>
+<ol>
+<li>文字侦测（<strong>Text detection</strong>）——将图片上的文字与其他环境对象分离开来</li>
+<li>字符切分（<strong>Character segmentation</strong>）——将文字分割成一个个单一的字符</li>
+<li>字符分类（<strong>Character classification</strong>）——确定每一个字符是什么 可以用任务流程图来表达这个问题，每一项任务可以由一个单独的小组来负责解决：</li>
+</ol>
+<p><img src="http://www.ai-start.com/ml2014/images/610fffb413d8d577882d6345c166a9fb.png" alt="img"></p>
+<h6 id="滑动窗口（Sliding-Windows）"><a href="#滑动窗口（Sliding-Windows）" class="headerlink" title="滑动窗口（Sliding Windows）"></a>滑动窗口（Sliding Windows）</h6><p>滑动窗口是一项用来从图像中抽取对象的技术。假使我们需要在一张图片中识别行人，首先要做的是用许多固定尺寸的图片来训练一个能够准确识别行人的模型。然后我们用之前训练识别行人的模型时所采用的图片尺寸在我们要进行行人识别的图片上进行剪裁，然后将剪裁得到的切片交给模型，让模型判断是否为行人，然后在图片上滑动剪裁区域重新进行剪裁，将新剪裁的切片也交给模型进行判断，如此循环直至将图片全部检测完。</p>
+<p>一旦完成后，我们按比例放大剪裁的区域，再以新的尺寸对图片进行剪裁，将新剪裁的切片按比例缩小至模型所采纳的尺寸，交给模型进行判断，如此循环。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/1e00d03719e20eeaf1f414f99d7f4109.jpg" alt="img"></p>
+<p>滑动窗口技术也被用于文字识别，首先训练模型能够区分字符与非字符，然后，运用滑动窗口技术识别字符，一旦完成了字符的识别，我们将识别得出的区域进行一些扩展，然后将重叠的区域进行合并。接着我们以宽高比作为过滤条件，过滤掉高度比宽度更大的区域（认为单词的长度通常比高度要大）。下图中绿色的区域是经过这些步骤后被认为是文字的区域，而红色的区域是被忽略的。</p>
+<p><img src="http://www.ai-start.com/ml2014/images/bc48a4b0c7257591643eb50f2bf46db6.jpg" alt="img"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>机器学习之建议与应用</div>
+      <div>https://lijianxiong.space/2021/20210805/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年8月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/20210813/" title="辛普森公式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">辛普森公式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/20210727/" title="一天学会深度学习">
+                        <span class="hidden-mobile">一天学会深度学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

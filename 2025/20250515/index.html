@@ -1,0 +1,1264 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="I-Con （I-Con: A Unifying Framework for Representation Learning ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（几乎涵盖一切的）表示学习统一框架">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250515/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="I-Con （I-Con: A Unifying Framework for Representation Learning ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250515/I-Con.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250515/model.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250515/detail.jpg">
+<meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
+<meta property="article:modified_time" content="2025-09-15T02:54:01.079Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250515/I-Con.jpg">
+  
+  
+  
+  <title>（几乎涵盖一切的）表示学习统一框架 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">（几乎涵盖一切的）表示学习统一框架</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-15 16:49" pubdate>
+          2025年5月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">（几乎涵盖一切的）表示学习统一框架</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>I-Con （<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.16929">I-Con: A Unifying Framework for Representation Learning</a> ，ICLR 2025）是第一个将监督学习、对比学习、聚类和降维目标统一到一个损失函数下的框架，从kmeans、TSNE到SimCLR、CLIP都能统一到一起。</p>
+<span id="more"></span>
+
+<p><img src="/2025/20250515/I-Con.jpg"></p>
+<p><img src="/2025/20250515/model.jpg"></p>
+<p><img src="/2025/20250515/detail.jpg"></p>
+<p>我们首先定义 $x _ {i}\in\mathbb{R}^{d}$ 代表高维数据点，  $\phi_{i}\in\mathbb{R}^{m}$ 代表低维嵌，其中 $m\ll d$。</p>
+<h2 id="统一SNE"><a href="#统一SNE" class="headerlink" title="统一SNE"></a>统一SNE</h2><p>基于SNE的定义，其目标分布（监督部分），由高维空间中的领域分布描述：</p>
+<p>$$<br>p_{\theta}(j|i)&#x3D;\frac{exp(-||x _ {i}-x _ {j}||^{2}&#x2F;2\sigma_{i}^{2})}{\sum _ {k\ne i}exp(-||x _ {i}-x _ {k}||^{2}&#x2F;2\sigma_{i}^{2})}<br>$$</p>
+<p>学习的低维领域分布是：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\frac{exp(-||\phi_{i}-\phi_{j}||^{2})}{\sum _ {k\ne i}exp(-||\phi_{i}-\phi_{k}||^{2})}<br>$$</p>
+<p>目标是使它们之间的KL散度最小化：</p>
+<p>$$<br>\mathcal{L}&#x3D;\sum _ {i}D_{KL}(p_{\theta}(\cdot|i)||q_{\phi}(\cdot|i))&#x3D;\sum _ {i}\sum _ {j}p_{\theta}(j|i)log\frac{p_{\theta}(j|i)}{q_{\phi}(j|i)}<br>$$</p>
+<h2 id="统一tSNE"><a href="#统一tSNE" class="headerlink" title="统一tSNE"></a>统一tSNE</h2><p>tSNE和SNE类似，不过低维分布变为了具有一个自由度的student t分布。</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\frac{(1+||\phi_{i}-\phi_{j}||^{2})^{-1}}{\sum _ {k\ne i}(1+||\phi_{i}-\phi_{k}||^{2})^{-1}}<br>$$</p>
+<h2 id="统一PCA"><a href="#统一PCA" class="headerlink" title="统一PCA"></a>统一PCA</h2><p><strong>引理1.</strong> <em>Let $X:&#x3D;{x _ {i}} _ {i&#x3D;1}^{n}$， then the following cohesion variance loss</em></p>
+<p>$$<br>L_{cohesion-var}&#x3D;\frac{1}{n}\sum _ {ij}w_{ij}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>$$</p>
+<p><em>is an instance of I-Con in the special case $w_{ij}&#x3D;p(j|i)$ and $q_{\phi}$ is Gaussian as with a large width as $\sigma\rightarrow\infty$</em> </p>
+<blockquote>
+<p>证明：By using AM-GM inequality， we have [cite: 269]</p>
+<p>$\frac{1}{n}\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge(\Pi_{k&#x3D;1}^{n}e^{-z_{k}})^{\frac{1}{n}}\Rightarrow\frac{1}{n}\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge(e^{-\sum _ {k&#x3D;1}^{n}z_{k}})^{\frac{1}{n}}$</p>
+<p>which implies that </p>
+<p>$log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}-logn\ge log(e^{-\sum _ {k&#x3D;1}^{n}z_{k}})^{\frac{1}{n}}\Rightarrow log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+log(n)$</p>
+<p>Alternatively， this can be written as </p>
+<p>$-log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\le\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}-log(n)$</p>
+<p>Now assume that we have a Gaussian Kernel $q_{\phi}$ [cite: 269]</p>
+<p>$q_{\phi}(j|i)&#x3D;\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}&#x2F;\sigma^{2})}{\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}&#x2F;\sigma^{2})}$</p>
+<p>Therefore， given the inequality of exp-sum that we showed above， we have [cite: 269]</p>
+<p>$logq_{\phi}(j|i)&#x3D;-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}}-log\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})$<br>$\le-\frac{1}{\sigma^{2}}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n\sigma^{2}}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}-log(n)$<br>$&#x3D;-\frac{1}{\sigma^{2}}(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n)$</p>
+<p>Therefore， the cross entropy $H(p_{\theta}，q_{\phi})$ is bounded by [cite: 269]</p>
+<p>$H(p_{\theta}，q_{\phi})&#x3D;-\frac{1}{n}\sum _ {i}\sum _ {j}p(j|i)logq_{\phi}(j|i)$</p>
+<p>$\le\frac{1}{n}\sum _ {i}\sum _ {j}p(j|i)(\frac{1}{\sigma^{2}}(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n))$<br>$&#x3D;\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-\frac{1}{n^{2}}\sum _ {ijk}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n)$<br>$&#x3D;\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X))+log(n)$<br>$&#x3D;\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X))+log(n)$<br>$&#x3D;\frac{1}{\sigma^{2}}\mathcal{L} _ {cohesion-var}+log(n)$</p>
+<p>On the other hand， the L.H.S. can be upper bounded by using second order bound $e^{-z}\le1-z+z^{2}&#x2F;2$， which implies that [cite: 270]</p>
+<p>$-log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge log(1-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}^{2})-log(n)$ [cite: 270]</p>
+<p>— PAGE 19 —</p>
+<p>On the other hand， $log(1+u)\ge u-u^{2}&#x2F;2$， therefore， [cite: 271]</p>
+<p>$-log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge(1-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}^{2})-\frac{1}{2}(1-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}^{2})^{2}-log(n)$</p>
+<p>Therefore， in the limit $\sigma\rightarrow\infty$ the bounds become tighter and the I-Con loss approaches the cohesion variance loss. [cite: 271] $\Pi$ [cite: 272]</p>
+</blockquote>
+<p>根据引理1， 当 $p_{j|i}&#x3D;1[i&#x3D;j]$ 我们有</p>
+<p>$$<br>\begin{align}<br>\mathcal{L}&amp;&#x3D;\frac{1}{n}\sum _ {ij}p_{j|i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>\\<br>&amp;&#x3D;\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i})||^{2}-2Var(X)<br>\\<br>&amp;&#x3D;-2Var(X)<br>\end{align}<br>$$</p>
+<p>故最小化 L 等于最大化方差，这与PCA的目标一致。如果我们限制 $f _ {\phi}$为一个线性投影映射，则等同于PCA。</p>
+<h2 id="统一InfoNCE"><a href="#统一InfoNCE" class="headerlink" title="统一InfoNCE"></a>统一InfoNCE</h2><p>InfoNCE 旨在最大化正样本对之间的相似度，同时最小化负样本对之间的相似度，在学习的特征空间中。在 I-Con 框架中，这可以解释为最小化两个分布之间的散度：原始空间中的邻域分布和学习到的嵌入空间中的分布。</p>
+<p>$$<br>p_{\theta}(j|i)&#x3D;\begin{cases}\frac{1}{k}，x_j为x_i的k \  positive \ views\\ 0\end{cases}<br>$$</p>
+<p>其中 k 是$x _ {i}$ 的positive pairs数量。</p>
+<p> $q_{\phi}(j|i)$ 基于 $f _ {\phi}(x _ {i})$ 和 $f _ {\phi}(x _ {j})$之间相似度，并约束在单位范数上 $(||f _ {\phi}(x _ {i})||&#x3D;1)$ 。使用一个带温度系数的高斯核为：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j})&#x2F;\tau)}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})&#x2F;\tau)}<br>$$</p>
+<p> $||f _ {\phi}(x _ {i})||&#x3D;1$， $f _ {\phi}(x _ {i})$ 和 $f _ {\phi}(x _ {j})$ 之间的欧氏距离为 $2-2(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j}))$</p>
+<p>而<br>$$<br>\mathcal{L} _ {InfoNCE}&#x3D;-\sum _ {i}log\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {i}^{+})&#x2F;\tau)}{\sum _ {k}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})&#x2F;\tau)}<br>$$</p>
+<p>故<br>$$<br>\mathcal{L} _ {InfoNCE}\propto\sum _ {i}\sum _ {j}p_{\theta}(j|i)logq_{\phi}(j|i)&#x3D;H(p_{\theta}，q_{\phi})<br>$$<br>H表示交叉熵，因为 $p_{\theta}(j|i)$ 是固定的，所以最小化交叉熵等价于最小化KL散度。</p>
+<h2 id="统一VICReg"><a href="#统一VICReg" class="headerlink" title="统一VICReg"></a>统一VICReg</h2><p>根据引理 1，我们知道任何凝聚方差形式的损失都是I-Con 的一个实例。</p>
+<p>$$<br>\mathcal{L}&#x3D;\frac{1}{n}\sum _ {ij}p_{j|i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>$$</p>
+<p>若我们选择 $p_{j|i}$ 作为正样本对的指示器， i and $i^{+}$， 则：</p>
+<p>$$<br>\mathcal{L}&#x3D;\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i^{+}})||^{2}-2Var(X)<br>$$</p>
+<p>这是没有协方差项且不变性-方差项比例为 1:2 的 VICReg 损失。观察到 VICReg 没有负样本，因为它对所有点施加相等的排斥力。这相当于在嵌入上的条件高斯分布中取 $\sigma\rightarrow\infty$ 。</p>
+<h2 id="统一Triplet-Loss"><a href="#统一Triplet-Loss" class="headerlink" title="统一Triplet Loss"></a>统一Triplet Loss</h2><p>$$<br>P_{\theta}(j|i) &#x3D; \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i}<br>\\<br>0 &amp; \text{otherwise，} \end{cases}<br>$$</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\frac{exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})^{2}}<br>$$<br>特别仅考虑两个邻居的特殊情况下，一个是正视图，一个是负视图。</p>
+<p>为了简化，我们设置 $\sigma&#x3D;1$ 。<br>$$<br>\mathcal{L}&#x3D;-\frac{1}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2})}{\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})}<br>$$<br>在锚点 $x _ {i}$ 恰好有一个正例 $x _ {i}^{+}$ 和一个负例 $x _ {i}^{-}$ 的情况下，分母简化为：<br>$$<br>\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})&#x3D;exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{+})||^{2})+exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{-})||^{2})<br>$$<br>将 $d_{i}^{+}&#x3D;||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{+})||^{2}$ 和 $d_{i}^{-}&#x3D;||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i}^{-})||^{2}$代入损失函数，我们得到：<br>$$<br>\begin{align}<br>\mathcal{L}&amp;&#x3D;-\frac{1}{N}\sum _ {i}log\frac{exp(-d_{i}^{+})}{exp(-d_{i}^{+})+exp(-d_{i}^{-})}<br>\\<br>&amp;&#x3D;-\frac{1}{N}\sum _ {i}log(\frac{1}{1+exp(d_{i}^{-}-d_{i}^{+})})<br>\\<br>&amp;&#x3D;\frac{1}{N}\sum _ {i}log(1+exp(d_{i}^{+}-d_{i}^{-}))<br>\end{align}<br>$$<br>我们知道：</p>
+<p>$$<br>max(z，0)\le log(1+exp(z))\le max(z，0)+log(2)<br>$$</p>
+<p>则有：</p>
+<p>$$<br>\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-}，0)\le\mathcal{L}\le\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-}，0)+log(2)<br>$$</p>
+<p>左侧是 Triplet loss $\mathcal{L} _ {Triplet}&#x3D;\frac{1}{N}\sum _ {i}max(d_{i}^{+}-d_{i}^{-}，0)$，故有以下bounds:</p>
+<p>$$<br>\mathcal{L}-log(2)\le\mathcal{L} _ {Triplet}\le\mathcal{L}<br>$$</p>
+<p>对于一般的 $\sigma$， 不等式界限为：</p>
+<p>$$<br>\mathcal{L} _ {\sigma}-\sigma^{2}log(2)\le\mathcal{L} _ {Triplet}\le\mathcal{L} _ {\sigma}<br>$$</p>
+<p>其中</p>
+<p>$$<br>\mathcal{L} _ {\sigma}&#x3D;-\frac{\sigma^{2}}{N}\sum _ {i}\sum _ {j}q_{\phi}(j|i)log\frac{exp(-\frac{||f _ {\sigma}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}})}{\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})}<br>$$</p>
+<p>当 $\sigma\to 0$， $\mathcal{L} _ {Triplet}$ 接近于 $\mathcal{L} _ {\sigma}$ </p>
+<h2 id="统一有监督对比损失"><a href="#统一有监督对比损失" class="headerlink" title="统一有监督对比损失"></a>统一有监督对比损失</h2><p>从统一InfoNCE的式子来看，定义：<br>$$<br>q_{\phi}(j|i)&#x3D;\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j})&#x2F;\tau)}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k})&#x2F;\tau)}<br>$$</p>
+<p>$$<br>p_{\theta}(j|i)&#x3D;\frac{1}{K_{i}-1}1[i \text{ and } j \text{ share the same label}]<br>$$</p>
+<p>其中 $f _ {\phi}$ 是映射到 deep feature space 的， $K_{i}$ 是类i样本数。</p>
+<h2 id="统一X-Sample对比损失"><a href="#统一X-Sample对比损失" class="headerlink" title="统一X-Sample对比损失"></a>统一X-Sample对比损失</h2><p>考虑以下p在相应特征（例如图像的caption embeddings）上的分布</p>
+<p>$$<br>\frac{exp(g _ {\theta}(x _ {i})\cdot g _ {\theta}(x _ {j}))}{\sum _ {k\ne i}exp(g _ {\theta}(x _ {i})\cdot_{\theta}(x _ {k}))}<br>$$<br>和大多数特征学习方法类似，学习到的分布是关于学习嵌入的余弦距离的高斯分布</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\frac{exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {j}))}{\sum _ {k\ne i}exp(f _ {\phi}(x _ {i})\cdot f _ {\phi}(x _ {k}))}<br>$$</p>
+<h2 id="统一CMC和CLIP"><a href="#统一CMC和CLIP" class="headerlink" title="统一CMC和CLIP"></a>统一CMC和CLIP</h2><p>CMC（Contrastive Multiview Coding） 和 CLIP 的关键区别在于它们优化了跨不同模态的alignment， $p_{\theta}(j|i)$ 可以表示为</p>
+<p>$$<br>p_{\theta}(j|i)&#x3D;\frac{1}{Z}1[i \text{ and } j \text{ are positive pairs and } V_{i}\ne V_{j}]<br>$$</p>
+<p>其中 $V_{i}$ and $V_{j}$ 表示 $x _ {i}$ and $x _ {j}$的模态集。在这里 $p_{\theta}(j|i)$ 对从不同模态中抽取的正样本对赋予均匀概率。这个学习到的分布 $q_{\phi}(j|i)$是基于深度特征之间的高斯相似度，但条件是来自相反模态集的点。因此，学习到的分布定义为：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2})}{\sum _ {k\in V_{j}}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})}<br>$$</p>
+<h2 id="统一交叉熵"><a href="#统一交叉熵" class="headerlink" title="统一交叉熵"></a>统一交叉熵</h2><p>交叉熵可以看作是CMC的特例，其中一个视角对应数据点特征，另一个对应类别logit。</p>
+<h2 id="统一Harmonic-Loss"><a href="#统一Harmonic-Loss" class="headerlink" title="统一Harmonic Loss"></a>统一Harmonic Loss</h2><p>这相当于从交叉熵中的 $q(j|i)$ 高斯分布移动到student-t分布，类似于从 SNE 移动到 t-SNE。更具体地说，令V 为数据点集，C为类原型集， $\phi_{i}$ 为第 i 类的学习到的类原型， n为谐波损失度。</p>
+<p>考虑以下p这是一个数据标签指示器（ data-label indicator）。</p>
+<p>$$<br>p(j|i)&#x3D;1[i \text{ belongs to class } j]<br>$$</p>
+<p>和以下q，这是一个2n-1自由度的student-t分布：</p>
+<p>$$<br>lim_{\sigma\rightarrow0}\frac{(1+||f _ {\phi}(x _ {i})-\phi_{j}||^{2}&#x2F;((2n-1)\sigma^{2}))^{-n}}{\sum _ {k\in C}(1+||f _ {\phi}(x _ {i})-\phi_{k}||^{2}&#x2F;((2n-1)\sigma^{2}))^{-n}}<br>$$</p>
+<p>它可以写成：</p>
+<p>$$<br>lim_{\sigma\rightarrow0}\frac{(((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{j}||^{2})^{-n}}{\sum _ {k\in C}((2n-1)\sigma^{2})+||f _ {\phi}(x _ {i})-\phi_{k}||^{2}&#x2F;)^{-n}}<br>$$</p>
+<p>当 $\sigma\rightarrow\infty$ 损失函数为$\mathcal{L}&#x3D;\sum _ {i\in C}\frac{(||f _ {\phi}(x _ {i})-\phi_{j}||^{2})^{-n}}{\sum _ {k\in C}(||f _ {\phi}(x _ {i})-\phi_{k}||^{2}&#x2F;)^{-n}}$</p>
+<h2 id="统一MLM"><a href="#统一MLM" class="headerlink" title="统一MLM"></a>统一MLM</h2><p>在掩码语言建模（MLM）中，目标是为被掩码的词j预测其周围的上下文$x_i$。这种设置自然地符合 I-Con 框架。</p>
+<p>目标分布 $p_{\theta}(j|i)$ 是关于上下文i和tokens j的经验分布，定义为：</p>
+<p>$$<br>p_{\theta}(j|i)&#x3D;\frac{1}{Z}\#[\text{Context } i \text{ precedes token } j]<br>$$</p>
+<p>其中 $\#[\text{Context } i \text{ precedes token } j]$ 表示在训练语料库中tokensj与上下文x_i之后出现的次数， Z是一个归一化常数，以确保 $\sum _ {j}p_{\theta}(j|i)&#x3D;1$。</p>
+<p> $q_{\phi}(j|i)$ 使用神经网络输出的tokens预测logits进行建模，它被定义为上下文嵌入 $f _ {\phi}(x _ {i})$ 和 token 嵌入 $\phi_{j}$ 的点积的softmax：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\frac{exp(f _ {\phi}(x _ {i})\cdot\phi_{j})}{\sum _ {k\in\mathcal{V}}exp(f _ {\phi}(x _ {i})\cdot\phi_{k})}<br>$$</p>
+<p>其中 $f _ {\phi}(x _ {i})$ 是模型生成的上下文 $x _ {i}$ 的嵌入， $\phi_{j}$ 是token j的嵌入，V是所有可能tokens的词汇表。</p>
+<p>MLM 损失旨在最小化目标分布p和学习分布q之间的交叉熵：</p>
+<p>$$<br>\mathcal{L} _ {MLM}&#x3D;-\sum _ {i}\sum _ {j}p_{\theta}(j|i)logq_{\phi}(j|i)&#x3D;H(p_{\theta}，q_{\phi})<br>$$</p>
+<p>由于在实践中，对于每个 $x _ {i}$ 仅考虑真实的masked token $j_{i}^{*}$ ，目标分布简化为：</p>
+<p>$$<br>p_{\theta}(j|i)&#x3D;\delta_{j，j_{i}^{*}}<br>$$</p>
+<p>其中 $\delta_{j.j_{i}^{<em>}}$ 是 Kronecker delta function， 当 $j&#x3D;j_{i}^{</em>}$ 时等于1，否则为0</p>
+<p>代入损失函数，MLM损失变为：</p>
+<p>$$<br>\mathcal{L} _ {MLM}&#x3D;-\sum _ {i}logq_{\phi}(j_{i}^{*}|x _ {i})<br>$$</p>
+<h2 id="统一Kmeans"><a href="#统一Kmeans" class="headerlink" title="统一Kmeans"></a>统一Kmeans</h2><p>经典Kmeans的定义：<br>$$<br>\mathcal{L} _ {k-Means}&#x3D;\sum _ {i&#x3D;1}^{N}\sum _ {c&#x3D;1}^{m}1(c^{(i)}&#x3D;c)||x _ {i}-\mu_{c}||^{2}<br>$$</p>
+<p> $c^{(i)}$代表聚类分配：<br>$$<br>c^{(i)}&#x3D;argmin_{c}||x _ {i}-\mu_{c}||^{2}<br>$$</p>
+<h3 id="Probabilistic-K-means-松弛"><a href="#Probabilistic-K-means-松弛" class="headerlink" title="Probabilistic K-means 松弛"></a>Probabilistic K-means 松弛</h3><p>在probabilistic K-means， $x _ {i}$ 属于c类的概率为 $\phi_{ic}$。</p>
+<p>$$<br>\mathcal{L} _ {Prob-k-Means}&#x3D;\sum _ {i&#x3D;1}^{N}\sum _ {c&#x3D;1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}<br>$$</p>
+<p>为了能融入到我们的框架中，我们尽量把它融入到对比学习那一套中。</p>
+<h3 id="似然-K-means-的对比公式"><a href="#似然-K-means-的对比公式" class="headerlink" title="似然 K-means 的对比公式"></a>似然 K-means 的对比公式</h3><p>定义条件概率为 $q_{\phi}(j|i)$ ：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\sum _ {c&#x3D;1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k&#x3D;1}^{N}\phi_{kc}}<br>$$</p>
+<p>我们可以将probabilistic K-means 重新表述为对比损失：</p>
+<p>$$<br>\mathcal{L}&#x3D;-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)<br>$$</p>
+<p>证明：</p>
+<p>$$<br>\mathcal{L} _ {Prob-k-Means}&#x3D;\sum _ {i&#x3D;1}^{N}\sum _ {c&#x3D;1}^{m}\phi_{ic}||x _ {i}-\mu_{c}||^{2}<br>$$</p>
+<p>展开：</p>
+<p>$$<br>\mathcal{L} _ {Prob\cdot k\cdot Means}&#x3D;\sum _ {c&#x3D;1}^{m}(\sum _ {i&#x3D;1}^{N}\phi_{ic})||\mu_{c}||^{2}-2\sum _ {c&#x3D;1}^{m}(\sum _ {i&#x3D;1}^{N}\phi_{ic}x _ {i})\cdot\mu_{c}+\sum _ {i&#x3D;1}^{N}||x _ {i}||^{2}<br>$$</p>
+<p>使该损失最小化的聚类中心由下式给出：</p>
+<p>$$<br>\mu_{c}&#x3D;\frac{\sum _ {i&#x3D;1}^{N}\phi_{ic}x _ {i}}{\sum _ {i&#x3D;1}^{N}\phi_{ic}}<br>$$</p>
+<p>代回损失函数的式子，得到：</p>
+<p>$$<br>\mathcal{L}&#x3D;-\sum _ {i，j}(x _ {i}\cdot x _ {j})q_{\phi}(j|i)<br>$$</p>
+<p>备选损失函数：</p>
+<p>$$<br>\mathcal{L}&#x3D;-\sum _ {i，j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)<br>$$</p>
+<p>在${\phi_{ic}}$的最小化下，它会产生相同的最佳聚类分配。</p>
+<p>证明：在损失函数中展开平方范数得到：</p>
+<p>$$<br>\begin{align}<br>\mathcal{L}&amp;&#x3D;-\sum _ {i，j}(||x _ {i}||^{2}-2x _ {i}\cdot x _ {j}+||x _ {j}||^{2})q_{\phi}(j|i)$<br>\\<br>&amp;&#x3D;2(-\sum _ {i，j}x _ {i}\cdot x _ {j}q_{\phi}(j|i))<br>\end{align}<br>$$</p>
+<h3 id="PROBABILISTIC-K-MEANS-作为-I-Con-方法"><a href="#PROBABILISTIC-K-MEANS-作为-I-Con-方法" class="headerlink" title="PROBABILISTIC K-MEANS 作为 I-Con 方法"></a>PROBABILISTIC K-MEANS 作为 I-Con 方法</h3><p>令 $q_{\phi}(j|i)$ 表示从$x _ {i}$的聚类中随机选择 $x _ {j}$ 的概率：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\sum _ {c&#x3D;1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k&#x3D;1}^{N}\phi_{kc}}<br>$$</p>
+<p>定义：</p>
+<p>$$<br>p_{\theta}(j|i)&#x3D;\frac{exp(-||x _ {i}-x _ {j}||^{2}&#x2F;2\sigma^{2})}{\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2}&#x2F;2\sigma^{2})}<br>$$</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\sum _ {c&#x3D;1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k&#x3D;1}^{N}\phi_{kc}}<br>$$</p>
+<p>则</p>
+<p>$$<br>\mathcal{L} _ {c\cdot SNE}&#x3D;\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))<br>$$<br>$$<br>\mathcal{L} _ {c\cdot SNE}&#x3D;\frac{1}{2\sigma^{2}}\mathcal{L} _ {Pmb\cdot k\cdot Means}-\sum _ {i}H(q_{\phi}(\cdot|i))<br>$$</p>
+<p>证明：假设 $2\sigma^{2}&#x3D;1$。记 $\sum _ {k}exp(-||x _ {i}-x _ {k}||^{2})$ 为 $Z_{i}$，则有：</p>
+<p>$$<br>logp_{\theta}(j|i)&#x3D;-||x _ {i}-x _ {j}||^{2}-logZ_{i}<br>$$</p>
+<p>令 $\mathcal{L} _ {i}$ 为 $-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)$ ，则：</p>
+<p>$$<br>\begin{align}<br>\mathcal{L} _ {i}&amp;&#x3D;-\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)<br>\\&amp;&#x3D;\sum _ {j}(log(p_{\theta}(j|i))+log(Z_{i}))q_{\phi}(j|i)<br>\\&amp;&#x3D;\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+\sum _ {j}q_{\phi}(j|i)log(Z_{i})<br>\\&amp;&#x3D;\sum _ {j}q_{\phi}(j|i)log(p_{\theta}(j|i))+log(Z_{i})<br>\\&amp;&#x3D;H(q_{\phi}(\cdot|i)，p_{\theta}(\cdot|i))+log(Z_{i})<br>\\&amp;&#x3D;D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})<br>\end{align}<br>$$</p>
+<p>故：<br>$$<br>\begin{align}<br>\mathcal{L} _ {Prob-KMeans}&amp;&#x3D;-\sum _ {i}\sum _ {j}||x _ {i}-x _ {j}||^{2}q_{\phi}(j|i)&#x3D;\sum _ {i}\mathcal{L} _ {i}<br>\\&amp;&#x3D;\sum _ {i}D_{KL}(q_{\phi}(\cdot|i)||p_{\theta}(\cdot|i))+H(q_{\phi}(\cdot|i))+log(Z_{i})<br>\\&amp;&#x3D;\mathcal{L} _ {c.SNE}+\sum _ {i}H(q_{\phi}(\cdot|i))+constant<br>\end{align}<br>$$<br>因此， </p>
+<p>$$<br>\mathcal{L} _ {c\cdot SNE}&#x3D;\mathcal{L} _ {Prob-KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))<br>$$</p>
+<p>如果我们允许 $\sigma$ 为任何值：</p>
+<p>$$<br>\mathcal{L} _ {c\cdot SNE}&#x3D;\frac{1}{2\sigma^{2}}\mathcal{L} _ {Prob\cdot KMeans}-\sum _ {i}H(q_{\phi}(\cdot|i))<br>$$</p>
+<p>注意上述关系仅差一个加性常数。这意味着最小化具有熵正则化的对比概率 K-means 损失，等价于最小化KL 散度之和。</p>
+<h2 id="统一谱聚类"><a href="#统一谱聚类" class="headerlink" title="统一谱聚类"></a>统一谱聚类</h2><p>谱聚类通过首先使用归一化拉普拉斯矩阵的前 k 个特征向量将数据嵌入到低维空间中，扩展了这个想法。亲和矩阵 A是通过相似性度量（例如径向基函数核）构建的，并编码了数据点之间的分配概率。在这个转换下，谱聚类是投影嵌入上的 I-Con 的一个实例。</p>
+<h2 id="统一Normalized-Cuts"><a href="#统一Normalized-Cuts" class="headerlink" title="统一Normalized Cuts"></a>统一Normalized Cuts</h2><p>其损失函数定义为：</p>
+<p>$$<br>\mathcal{L} _ {NomCus}&#x3D;\sum _ {c&#x3D;1}^{m}\frac{cut(A_{c}，\overline{A} _ {c})}{vol(A_{c})}<br>$$</p>
+<p>其中 $A_{c}$ 为对应于聚类c的数据子集， $\overline{A} _ {c}$ 是其补集，  $cut(A_{c}，\overline{A_{c}})$ 表示 $A_{c}$ 和 $\overline{A} _ {c}$之间的边权重之和，而 $vol(A_{c})$ 是聚类 $A_{c}$ 的总体积&#x2F;边权重之和。</p>
+<p>类似于 K-Means，通过以软分配的对比方式重新表述这一点，学习到的分布可以表示为概率簇分配 $\phi_{ic}&#x3D;p(c|x _ {i})$ ：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\sum _ {c&#x3D;1}^{m}\frac{\phi_{ic}\phi_{jc}d_{j}}{\sum _ {k&#x3D;1}^{N}\phi_{kc}d_{k}}<br>$$</p>
+<p>其中d为节点的度数。</p>
+<h2 id="统一互信息聚类"><a href="#统一互信息聚类" class="headerlink" title="统一互信息聚类"></a>统一互信息聚类</h2><p>鉴于 SimCLR、K-Means 和 I-Con 框架之间已建立的联系，这一结果自然而然地得出。具体来说，目标分布 $p_{\theta}(j|i)$ 是观测到的正对的一个均匀分布：</p>
+<p>$$<br>P_{\theta}(j|i) &#x3D; \begin{cases} 1 &amp; \text{if } x _ {j} \text{ is among the k positive views of } x _ {i} \\ 0 &amp; \text{otherwise.} \end{cases}<br>$$</p>
+<p>另一方面，学习到的嵌入 $\phi_{i}$ 表示 $x _ {i}$ 被分配到聚类中的概率。因此，类似于 K-Means 连接的分析，学习到的分布被建模为：</p>
+<p>$$<br>q_{\phi}(j|i)&#x3D;\sum _ {c&#x3D;1}^{m}\frac{\phi_{ic}\phi_{jc}}{\sum _ {k&#x3D;1}^{N}\phi_{kc}}<br>$$</p>
+<h2 id="统一变分法"><a href="#统一变分法" class="headerlink" title="统一变分法"></a>统一变分法</h2><p>互信息的变分界限被广泛探索，并与 InfoNCE 等损失函数联系起来，其中最小化 InfoNCE 最大化互信息下界（Oord 等人，2018；Poole 等人，2019）。证明通常从重写互信息开始：</p>
+<p>$$<br>I(X;Y)&#x3D;\mathbb{E} _ {p(x，y)}[log\frac{q(x|y)}{p(x)}]+\mathbb{E} _ {p(y)}[D_{KL}(p(x|y)||q(x|y))]<br>$$</p>
+<p>我们一般假设 $p(x _ {i})&#x3D;\frac{1}{N}$ ，则 $p(x，y)&#x3D;\frac{1}{N}p(x|y)$。互信息下界变为<br>$$<br>\begin{align}<br>I(X;Y)&amp;\geq \mathbb{E} _ {p(x，y)}[logq(x|y)]-\mathbb{E} _ {p(x，y)}[log p(x)]<br>\\&amp;&#x3D;\mathbb{E} _ {p(x，y)}[logq(x|y)]+log(N)<br>\\&amp;&#x3D;\frac{1}{N}\sum _ {x，y\in\mathcal{X}\times\mathcal{X}}p(x|y)logq(x|y)+log(N)<br>\\&amp;&#x3D;\frac{1}{N}\sum _ {y\in\mathcal{X}}\sum _ {x\in\mathcal{X}}p(x|y)logq(x|y)+log(N)<br>\\&amp;&#x3D;-H(p(x|y)，q(x|y))+log(N)<br>\end{align}<br>$$</p>
+<p>因此，最大化两个分布之间的交叉熵会最大化样本之间的互信息。</p>
+<p>变分贝叶斯中的近似是通过最小化变分分布和真实后验之间的 KL散度来实现的：</p>
+<p>$$<br>KL(q_{\phi}(z)||p(z|x))&#x3D;\mathbb{E} _ {q_{\phi}(z)}[log\frac{q_{\phi}(z)}{p(z|x)}]<br>$$</p>
+<p>优化目标（被称为ELBO）：</p>
+<p>$$<br>ELBO&#x3D;\mathbb{E} _ {q_{\varphi}(z)}[logp(x，z)]-\mathbb{E} _ {q_{\varphi}(z)}[logq_{\phi}(z)]<br>$$</p>
+<p>最大化 ELBO 等价于最小化 KL 散度，从而确保 $q_{\phi}(z)$ 接近 $p(z|x)$。VB 可以通过在变量和分布之间进行特定映射，在 I-Con 框架内进行描述。让i对应数据点x，j对应潜变量z，我们可以将监督分布 $p_{\theta}(z|x)$ 设置为真实后验$p(z|x)$。我们可以定义学习到的分布 $q_{\phi}(z|x)$ 与x无关，即 $q_{\phi}(z|x)&#x3D;q_{\phi}(z)$。</p>
+<p>则I-Con loss 简化为：</p>
+<p>$$<br>\mathcal{L}(\phi)&#x3D;\int_{x\in\mathcal{X}}KL(p(z|x)||q_{\phi}(z))dx&#x3D;\mathbb{E} _ {p(x)}[KL(p(z|x)||q_{\phi}(z))]<br>$$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>（几乎涵盖一切的）表示学习统一框架</div>
+      <div>https://lijianxiong.space/2025/20250515/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250517/" title="Graph Neural Networks with Learnable Structural and Positional Representations">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Graph Neural Networks with Learnable Structural and Positional Representations</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250513/" title="随机块模型">
+                        <span class="hidden-mobile">随机块模型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

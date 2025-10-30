@@ -1,0 +1,1321 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="流模型与流匹配介绍。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="流模型与流匹配">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250609/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="流模型与流匹配介绍。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/change.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/realnvp.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/morenvp.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/fault6.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/fault16.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/success.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/ag.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/averspeed.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/vis.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250609/meanflow.jpg">
+<meta property="article:published_time" content="2025-06-09T14:24:45.000Z">
+<meta property="article:modified_time" content="2025-10-09T11:03:57.768Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="物理">
+<meta property="article:tag" content="生成模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250609/change.jpg">
+  
+  
+  
+  <title>流模型与流匹配 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">流模型与流匹配</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-09 22:24" pubdate>
+          2025年6月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">流模型与流匹配</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>流模型与流匹配介绍。</p>
+<span id="more"></span>
+
+<h1 id="归一化流（Normalizing-Flow）"><a href="#归一化流（Normalizing-Flow）" class="headerlink" title="归一化流（Normalizing Flow）"></a>归一化流（Normalizing Flow）</h1><h2 id="先导"><a href="#先导" class="headerlink" title="先导"></a>先导</h2><p>我们首先会定义了一个分布 $p _ {z}(z)$,有时也称为基础分布，以及一个由深度神经网络给出的非线性函数 $x&#x3D;f(z,w)$，该函数将潜在空间（latent space）转换为数据空间。</p>
+<p> $p _ {z}(z)$ 会尽可能简单,例如高斯分布，以便从这种模型中进行采样。</p>
+<p>为了衡量分布的相似度，$g^\ast &#x3D;argmax\sum logP(x)\approx argmin (KL(P _ {data}||P_G))$，我们需要计算此模型的似然函数,我们需要数据空间分布，这取决于神经网络的逆函数。</p>
+<p>我们将其写为 $z&#x3D;g(x,w)$，它满足 $z&#x3D;g(f(z,w),w)$。即对于w的每个值,函数 $f(z,w)$ 和 $g(x,w)$ 是可逆的。</p>
+<p>然后我们可以使用变量变换公式（change of variable theorem）来计算数据密度:</p>
+<p>$$<br>p _ {x}(x|w)&#x3D;p _ {z}(g(x,w))|det J(x)|<br>$$</p>
+<p>其中 $J(x)$ 是雅可比矩阵，$J _ {ij}(x)&#x3D;\frac{\partial g _ {i}(x,w)}{\partial x _ {j}}$ 。</p>
+<p><img src="/2025/20250609/change.jpg"></p>
+<p>然而，要求可逆映射的一个后果是，隐式空间的维度必须与数据空间的维度相同，这可能导致高维数据(如图像，动辄就是几百乘几百的维度)的大型模型的复杂性增加。比如计算 $D\times D$ 矩阵的行列式的成本是 $\mathcal{O}(D^{3})$。</p>
+<p>所以，我们希望对模型施加一些进一步的限制,以便更有效地计算雅可比矩阵行列式。</p>
+<p>如果我们考虑一个独立数据点训练集 $\mathcal{D}&#x3D;{x _ {1},…,x _ {N}}$，则：</p>
+<p>$$<br>\begin{align}<br>lnp(\mathcal{D}|w)&amp;&#x3D;\sum _ {n&#x3D;1}^{N}lnp _ {x}(x _ {n}|w)<br>\\<br>&amp;&#x3D;\sum _ {n&#x3D;1}^{N}{ln<del>p _ {z}(g(x _ {n},w))+ln|det</del>J(x _ {n})|}<br>\end{align}<br>$$</p>
+<p>并且我们的目标是通过似然函数来训练神经网络。为了能够模拟各种分布,我们希望转换函数 $x&#x3D;f(z,w)$ 具有高度的灵活性,因此我们使用<strong>深度</strong> 神经网络架构。如果我们使网络中的每一层都是可逆的,那么我们可以确保整个函数是可逆的。为了看到这一点,考虑三个连续的变换,每个变换对应网络的一层,形式如下: </p>
+<p>$$<br>x&#x3D;f^{A}(f^{B}(f^{C}(z)))<br>$$</p>
+<p>那么逆函数由下式给出：</p>
+<p>$$<br>z&#x3D;g^{C}(g^{B}(g^{A}(x)))<br>$$</p>
+<p>对于雅克比矩阵也可以使用链式法则化为各个层的乘积。</p>
+<p>这种建模分布的方法称为归一化流（Normalizing Flow）。流，是因为通过一系列映射转换概率分布的过程与流体的流动有些类似。归一化，是因为逆映射的效果是将复杂的数据分布转换为归一化形式,通常是高斯或正态分布。</p>
+<h2 id="耦合流（Coupling-Flows）"><a href="#耦合流（Coupling-Flows）" class="headerlink" title="耦合流（Coupling Flows）"></a>耦合流（Coupling Flows）</h2><p>我们的目标是为单个可逆函数层,以便我们可以将许多层组合在一起来定义一个高度灵活的可逆函数类。</p>
+<p>首先考虑一个形式为$x&#x3D;az+b$，它很容易求逆,得到 $z&#x3D;\frac{1}{a}(x-b)$ 。</p>
+<p>但是，线性变换在复合下是封闭的——一系列线性变换等效于一个整体线性变换。此外,高斯分布的线性变换仍然是高斯分布。因此,即使我们有许多这样的线性变换,我们也只会得到一个高斯分布。</p>
+<p>问题是，我们能否在保持线性变换可逆性的同时,允许额外的灵活性,以便结果分布是非高斯的呢？</p>
+<p>这个问题的一个解决方案是由一种称为RealNVP<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio. Density estimation using Real NVP">[1]</span></a></sup> 的归一化流模型给出,它是“real-valued non-volume preserving”的缩写。</p>
+<p>想法是将潜在变量向量z分成两部分 $z&#x3D;(z _ {A},z _ {B})$,使得如果z的维度是 $D _ {i}$ 而 $Z _ {A}$ 的维度是d,那么 $z _ {B}$ 的维度是 $D-d _ {n}$ 。</p>
+<p>我们同样将输出向量 $x&#x3D;(x _ {A},x _ {B})$ 划分,其中 $x _ {A}$ 的维度为d。</p>
+<p>而对于输出向量的第一部分,我们简单地复制输入: $x _ {A}&#x3D;z _ {A}$ ，$x _ {B}$ 的维度为 $D-d _ {\circ}$</p>
+<p>向量的第二部分经过线性变换,但现在线性变换中的系数由 $Z _ {A}$ 的非线性函数给出：</p>
+<p>$$x _ {B}&#x3D;exp(s(z _ {A},w))\odot z _ {B}+b(z _ {A},w)$$</p>
+<p>其中 $s(z _ {A},w)$ 和 $b(z _ {A},w)$ 是神经网络的实值输出,指数函数确保乘法项为非负。这里表示涉及两个向量逐元素乘法的Hadamard积。</p>
+<p>由于使用了神经网络函数, $x$ 的值可以是非常灵活的函数。</p>
+<p>整体变换也很容易可逆：给定一个 $x&#x3D;(x _ {A},x _ {B})$的值，我们首先计算$z _ {A}&#x3D;x _ {A}$ ，然后有$z _ {B}&#x3D;exp(-s(z _ {A},w))\odot(x _ {B}-b(z _ {A},w))$。</p>
+<p><img src="/2025/20250609/realnvp.jpg"></p>
+<p>值得注意的是， $s(z;w)$ 和 $b(z;w)$ 无需可逆。</p>
+<p>现在考虑雅可比矩阵及其行列式。我们可以将雅可比矩阵分成块,对应于z和x的划分,得到:</p>
+<p>$$<br>J&#x3D;\begin{bmatrix}\frac{\partial z_A}{\partial x_A}&amp;\frac{\partial z_A}{\partial x_B}\\ \frac{\partial z_B}{\partial x_A}&amp;\frac{\partial z_B}{\partial x_B}\end{bmatrix}&#x3D;\begin{bmatrix}I _ {d}&amp;0\\ \frac{\partial z _ {B}}{\partial x _ {A}}&amp;diag(exp(-s))\end{bmatrix}<br>$$</p>
+<p>我们不在乎左下角的值，因为它是一个下三角矩阵，行列式直接是主对角线元素的乘积。因此,雅可比行列式简单地由 $exp(-s(z _ {A},w))$ 的元素乘积给出。</p>
+<p>这种方法的一个明显限制是 $z _ {A}$ 的值不受变换的影响。这很容易通过添加另一层来解决,在该层中 $z _ {A}$ 和 $z _ {B}$ 的角色被反转。然后可以重复这种双层结构多次。</p>
+<p><img src="/2025/20250609/morenvp.jpg"></p>
+<p>整体训练过程涉及创建数据点的mini-batches。对于形式为 $\mathcal{N}(z|0,I)$ 的潜在分布,对数密度简单地是 $-||z||^{2}&#x2F;2$,仅差一个加性常数。<br>$$<br>\ln(\frac{1}{\sqrt{2\pi}}\exp(-\frac{z^2}{2}))&#x3D;\ln(\frac{1}{\sqrt{2\pi}})+\frac{-||z||^2}{2}<br>$$<br>另外，Real NVP模型中会使用BatchNorm，这也会使得多一些变换行列式。</p>
+<p>RealNVP 模型属于一类称为耦合流（Coupling Flows）的正则化流,其中线性变换$x _ {B}&#x3D;exp(s(z _ {A},w))\odot z _ {B}+b(z _ {A},w)$被更一般的形式$x _ {B}&#x3D;h(z _ {B},g(z _ {A},w))$ 所替代。</p>
+<p>其中 $h(z _ {B}g)$ 是一个关于 $z _ {B}$ 的函数，对于任何给定的g值都是可逆的,称为耦合函数。函数 $g(z _ {A},w)$ 称为条件器（conditioner）,通常由神经网络表示。</p>
+<p>笔者也动手实现了realnvp的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CouplingLayer</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, input_dim, hidden_dim, mask_type=<span class="hljs-string">&#x27;even&#x27;</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.input_dim = input_dim<br>        <span class="hljs-variable language_">self</span>.mask = torch.zeros(input_dim, device=device)<br>        <span class="hljs-keyword">if</span> mask_type == <span class="hljs-string">&#x27;even&#x27;</span>:<br>            <span class="hljs-variable language_">self</span>.mask[::<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>  <span class="hljs-comment"># Condition on even, transform odd</span><br>        <span class="hljs-keyword">else</span>: <span class="hljs-comment"># &#x27;odd&#x27;</span><br>            <span class="hljs-variable language_">self</span>.mask[<span class="hljs-number">1</span>::<span class="hljs-number">2</span>] = <span class="hljs-number">1</span> <span class="hljs-comment"># Condition on odd, transform even</span><br>        <br>        <span class="hljs-variable language_">self</span>.s_net = nn.Sequential(<br>            nn.Linear(input_dim, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, input_dim),<br>            nn.Tanh() <span class="hljs-comment"># To stabilize: limits scale factor somewhat</span><br>        )<br>        <span class="hljs-variable language_">self</span>.t_net = nn.Sequential(<br>            nn.Linear(input_dim, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, input_dim)<br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; x -&gt; z (inverse transformation for density estimation) &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># x_masked conditions the transformation</span><br>        x_masked = x * <span class="hljs-variable language_">self</span>.mask <br>        s = <span class="hljs-variable language_">self</span>.s_net(x_masked) * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.mask) <span class="hljs-comment"># s applies only to non-masked part</span><br>        t = <span class="hljs-variable language_">self</span>.t_net(x_masked) * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.mask) <span class="hljs-comment"># t applies only to non-masked part</span><br>        <br>        <span class="hljs-comment"># Inverse affine transformation: z_B = (x_B - t) * exp(-s)</span><br>        z = (x * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.mask) - t) * torch.exp(-s) + x_masked<br>        <br>        <span class="hljs-comment"># Log determinant of Jacobian: sum of -s for the transformed part</span><br>        log_det_jacobian = (-s).<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> z, log_det_jacobian<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inverse</span>(<span class="hljs-params">self, z</span>):<br>        <span class="hljs-string">&quot;&quot;&quot; z -&gt; x (forward transformation for sampling) &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># z_masked conditions the transformation</span><br>        z_masked = z * <span class="hljs-variable language_">self</span>.mask<br>        s = <span class="hljs-variable language_">self</span>.s_net(z_masked) * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.mask)<br>        t = <span class="hljs-variable language_">self</span>.t_net(z_masked) * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.mask)<br>        <br>        <span class="hljs-comment"># Affine transformation: x_B = z_B * exp(s) + t</span><br>        x = (z * (<span class="hljs-number">1</span> - <span class="hljs-variable language_">self</span>.mask)) * torch.exp(s) + t + z_masked<br>        <br>        <span class="hljs-comment"># For generation, we also need log_det_jacobian (or its inverse) if we were to calc prob of x</span><br>        <span class="hljs-comment"># but here we just need x. The log_det_jacobian for x = f(z) would be sum(s).</span><br>        log_det_jacobian_inv = s.<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># log |det J_f| = -log|det J_g|</span><br>        <span class="hljs-keyword">return</span> x, log_det_jacobian_inv<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RealNVP</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, num_layers, input_dim, hidden_dim</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.layers = nn.ModuleList()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_layers):<br>            mask_type = <span class="hljs-string">&#x27;even&#x27;</span> <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;odd&#x27;</span><br>            <span class="hljs-variable language_">self</span>.layers.append(CouplingLayer(input_dim, hidden_dim, mask_type))<br>        <br>        <span class="hljs-comment"># Base distribution (e.g., standard normal)</span><br>        <span class="hljs-variable language_">self</span>.base_distribution = torch.distributions.Normal(<br>            torch.zeros(input_dim, device=device), <br>            torch.ones(input_dim, device=device)<br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>): <span class="hljs-comment"># For density estimation x -&gt; z</span><br>        log_det_jacobian_sum = <span class="hljs-number">0</span><br>        z = x<br>        <span class="hljs-keyword">for</span> layer <span class="hljs-keyword">in</span> <span class="hljs-built_in">reversed</span>(<span class="hljs-variable language_">self</span>.layers): <span class="hljs-comment"># Inverse direction for density</span><br>            z, log_det_jacobian = layer.forward(z) <span class="hljs-comment"># This is g(x)</span><br>            log_det_jacobian_sum += log_det_jacobian<br>        <span class="hljs-keyword">return</span> z, log_det_jacobian_sum<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inverse</span>(<span class="hljs-params">self, z</span>): <span class="hljs-comment"># For sampling z -&gt; x</span><br>        <span class="hljs-comment"># log_det_jacobian_inv_sum = 0 # Not typically needed for just sampling</span><br>        x = z<br>        <span class="hljs-keyword">for</span> layer <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.layers: <span class="hljs-comment"># Forward direction for sampling</span><br>            x, _ = layer.inverse(x) <span class="hljs-comment"># This is f(z)</span><br>            <span class="hljs-comment"># log_det_jacobian_inv_sum += log_det_jacobian_inv # If we needed prob(x) from f(z)</span><br>        <span class="hljs-keyword">return</span> x<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">log_prob</span>(<span class="hljs-params">self, x</span>):<br>        z, log_det_jacobian_sum = <span class="hljs-variable language_">self</span>.forward(x)<br>        <span class="hljs-comment"># log p(x) = log p(z) + log |det J_g|</span><br>        log_likelihood_z = <span class="hljs-variable language_">self</span>.base_distribution.log_prob(z).<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> log_likelihood_z + log_det_jacobian_sum<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">sample</span>(<span class="hljs-params">self, num_samples</span>):<br>        z = <span class="hljs-variable language_">self</span>.base_distribution.sample((num_samples,))<br>        x_generated = <span class="hljs-variable language_">self</span>.inverse(z)<br>        <span class="hljs-keyword">return</span> x_generated<br></code></pre></td></tr></table></figure>
+
+<p>值得注意的是，图像是离散数据，而Realnvp是针对连续数据，我们需要做一些处理才可能成功运行。</p>
+<p>一个最简单的方法是使用autoencoder，并用潜在向量来训练realnvp。神经网络是连续的，它可以把离散的图像转为连续的潜在向量，且能通过decoder很好地重建回离散图像。</p>
+<p>另一个方法是反量化（Dequantization）。一个最简单的反量化是对每个离散值添加一个范围在$ [0, 1)$之间的随机噪声，并将其映射为0~1之间，比如使用sigmoid等。</p>
+<p>另一种做法是变分反量化，在flow++<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ho, J., Chen, X., Srinivas, A., Duan, Y., and Abbeel. Flow++: Improving Flow-Based Generative Models with Variational Dequantization and Architecture Design">[2]</span></a></sup>中提出（flow++还引入了自注意力），即将反量化过程本身也变成了一个需要学习和优化的模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">VariationalDequantization</span>(<span class="hljs-title class_ inherited__">Dequantization</span>):<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, var_flows, alpha=<span class="hljs-number">1e-5</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        Inputs: </span><br><span class="hljs-string">            var_flows - A list of flow transformations to use for modeling q(u|x)</span><br><span class="hljs-string">            alpha - Small constant, see Dequantization for details</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-built_in">super</span>().__init__(alpha=alpha)<br>        <span class="hljs-variable language_">self</span>.flows = nn.ModuleList(var_flows)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">dequant</span>(<span class="hljs-params">self, z, ldj</span>):<br>        z = z.to(torch.float32)<br>        img = (z / <span class="hljs-number">255.0</span>) * <span class="hljs-number">2</span> - <span class="hljs-number">1</span> <span class="hljs-comment"># We condition the flows on x, i.e. the original image</span><br>        <br>        <span class="hljs-comment"># Prior of u is a uniform distribution as before</span><br>        <span class="hljs-comment"># As most flow transformations are defined on [-infinity,+infinity], we apply an inverse sigmoid first.</span><br>        deq_noise = torch.rand_like(z).detach()<br>        deq_noise, ldj = <span class="hljs-variable language_">self</span>.sigmoid(deq_noise, ldj, reverse=<span class="hljs-literal">True</span>)<br>        <span class="hljs-keyword">for</span> flow <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.flows:<br>            deq_noise, ldj = flow(deq_noise, ldj, reverse=<span class="hljs-literal">False</span>, orig_img=img)<br>        deq_noise, ldj = <span class="hljs-variable language_">self</span>.sigmoid(deq_noise, ldj, reverse=<span class="hljs-literal">False</span>)<br>        <br>        <span class="hljs-comment"># After the flows, apply u as in standard dequantization</span><br>        z = (z + deq_noise) / <span class="hljs-number">256.0</span><br>        ldj -= np.log(<span class="hljs-number">256.0</span>) * np.prod(z.shape[<span class="hljs-number">1</span>:])<br>        <span class="hljs-keyword">return</span> z, ldj<br></code></pre></td></tr></table></figure>
+
+<p><strong>处理前：</strong> 可以发现训练不一定能成功，有时会坍塌。</p>
+<p><img src="/2025/20250609/fault6.png"></p>
+<p><img src="/2025/20250609/fault16.png"></p>
+<p><strong>处理后：</strong></p>
+<p><img src="/2025/20250609/success.png"></p>
+<p> OpenAI在RealNVP改进得到了Glow模型<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Diederik P. Kingma, Prafulla Dhariwal.Glow: Generative Flow with Invertible 1x1 Convolutions">[3]</span></a></sup>。</p>
+<p>其核心是可逆1x1卷积层，其中巧妙地利用了LU分解。</p>
+<p>即任意矩阵都可以分解为$W&#x3D;PLU$，则$log|det(W)|&#x3D;\sum log|diag(U)|$</p>
+<p>故Glow中采用的是，先随机生成一个正交矩阵，然后做LU分解，得到P,L,U。</p>
+<p>固定P，固定U的对角线的正负号，约束L为对角线全1的下三角阵，U为上三角阵，优化训练L,U的其余参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> scipy <span class="hljs-keyword">import</span> linalg <span class="hljs-keyword">as</span> la<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">InvConv2dLU</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, in_channel</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br><br>        weight = np.random.randn(in_channel, in_channel)<br>        q, _ = la.qr(weight)<br>        w_p, w_l, w_u = la.lu(q.astype(np.float32)) <span class="hljs-comment"># PLU分解</span><br>        w_s = np.diag(w_u) <span class="hljs-comment"># 计算U对角线元素</span><br>        w_u = np.triu(w_u, <span class="hljs-number">1</span>) <span class="hljs-comment"># 约束U为上三角阵（不包括对角线）</span><br>        u_mask = np.triu(np.ones_like(w_u), <span class="hljs-number">1</span>) <span class="hljs-comment"># 全1上三角阵</span><br>        l_mask = u_mask.T <span class="hljs-comment"># 全1下三角阵</span><br><br>        w_p = torch.from_numpy(w_p)<br>        w_l = torch.from_numpy(w_l)<br>        w_s = torch.from_numpy(w_s)<br>        w_u = torch.from_numpy(w_u)<br><br>        <span class="hljs-variable language_">self</span>.register_buffer(<span class="hljs-string">&quot;w_p&quot;</span>, w_p)<br>        <span class="hljs-variable language_">self</span>.register_buffer(<span class="hljs-string">&quot;u_mask&quot;</span>, torch.from_numpy(u_mask))<br>        <span class="hljs-variable language_">self</span>.register_buffer(<span class="hljs-string">&quot;l_mask&quot;</span>, torch.from_numpy(l_mask))<br>        <span class="hljs-variable language_">self</span>.register_buffer(<span class="hljs-string">&quot;s_sign&quot;</span>, torch.sign(w_s)) <span class="hljs-comment"># U对角线的正负号</span><br>        <span class="hljs-variable language_">self</span>.register_buffer(<span class="hljs-string">&quot;l_eye&quot;</span>, torch.eye(l_mask.shape[<span class="hljs-number">0</span>])) <span class="hljs-comment"># 单位阵</span><br>        <span class="hljs-variable language_">self</span>.w_l = nn.Parameter(w_l) <span class="hljs-comment"># 可学习参数：L的下三角元素</span><br>        <span class="hljs-variable language_">self</span>.w_s = nn.Parameter(logabs(w_s)) <span class="hljs-comment"># 可学习参数：U的对角元素的对数值</span><br>        <span class="hljs-variable language_">self</span>.w_u = nn.Parameter(w_u) <span class="hljs-comment"># 可学习参数：U的上三角元素</span><br><br>        <span class="hljs-variable language_">self</span>.weight = (<br>            <span class="hljs-variable language_">self</span>.w_p <span class="hljs-comment"># P为固定值</span><br><span class="hljs-meta">            @ (<span class="hljs-params">self.w_l * self.l_mask + self.l_eye</span>) </span><span class="hljs-comment"># 下三角阵L对角线元素全为1，其余参数可学习</span><br><span class="hljs-meta">            @ (<span class="hljs-params">(<span class="hljs-params">self.w_u * self.u_mask</span>) + torch.diag(<span class="hljs-params">self.s_sign * torch.exp(<span class="hljs-params">self.w_s</span>)</span>)</span>) </span><span class="hljs-comment"># 上三角阵U对角线的正负号固定，其余参数可学习</span><br>        )<br>        <span class="hljs-variable language_">self</span>.weight = <span class="hljs-variable language_">self</span>.weight.unsqueeze(<span class="hljs-number">2</span>).unsqueeze(<span class="hljs-number">3</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span></span>):<br>        _, _, height, width = <span class="hljs-built_in">input</span>.shape<br>        out = F.conv2d(<span class="hljs-built_in">input</span>, <span class="hljs-variable language_">self</span>.weight)<br>        logdet = height * width * torch.<span class="hljs-built_in">sum</span>(<span class="hljs-variable language_">self</span>.w_s)<br>        <span class="hljs-keyword">return</span> out, logdet<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">reverse</span>(<span class="hljs-params">self, output</span>):<br>        <span class="hljs-keyword">return</span> F.conv2d(output, <span class="hljs-variable language_">self</span>.weight.squeeze().inverse().unsqueeze(<span class="hljs-number">2</span>).unsqueeze(<span class="hljs-number">3</span>))<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="自回归流（Autoregressive-Flows）"><a href="#自回归流（Autoregressive-Flows）" class="headerlink" title="自回归流（Autoregressive Flows）"></a>自回归流（Autoregressive Flows）</h2><p>一个与正则化流相关的公式可以从注意到一组变量的联合分布总是可以表示为每个变量的条件分布的乘积来推导。我们可以不失一般性地写出：</p>
+<p>$$p(x _ {1},…,x _ {D})&#x3D;\prod _ {i&#x3D;1}^{D}p(x _ {i}|x _ {1:i-1})$$ </p>
+<p>其中 $x _ {1:i-1}$ 表示 $x _ {1},…,x _ {i-10}$ 这种分解可用于构建一类称为掩码式自回归流(masked autoregressive flow，MAF)的归一化流,其定义为：</p>
+<p>$$x _ {i}&#x3D;h(z _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$$</p>
+<p>这里 $h(z _ {i},\cdot)$ 是耦合函数,其被选择为相对于易于 $z _ {i}$ 求逆的,而g是条件器,通常由深度神经网络表示。掩码式指的是使用单个神经网络来实现上式以及一个二元掩码，该掩码强制网络权重的子集为零以实现自回归约束。</p>
+<p><img src="/2025/20250609/ag.jpg"></p>
+<p>在这种情况下,用于评估似然函数的逆向计算需要给出：</p>
+<p>$z _ {i}&#x3D;h^{-1}(x _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$</p>
+<p>因为上式中用于评估的各个函数 $z _ {1},…,z _ {D}$ 可以并行评估，因此可以在现代硬件上高效执行。</p>
+<p>与上式对应的雅可比矩阵的元素 $\partial z _ {i}&#x2F;\partial x _ {j}$ 它们形成一个上三角矩阵,其行列式由对角元素的乘积给出,因此也可以高效评估。</p>
+<p>然而,从这个模型中进行采样必须通过评估$x _ {i}&#x3D;h(z _ {i},g _ {i}(x _ {1:i-1},w _ {i}))$来完成,这本质上是有序的，因此很慢。</p>
+<p>为了避免这种低效的采样，可以定义一个逆自回归流（inverse autoregressive flows，IAF）给出 ：</p>
+<p>$$x _ {i}&#x3D;h(z _ {i},\tilde{g} _ {i}(z _ {1:i-1},w _ {i}))$$</p>
+<p>现在采样就更快了。</p>
+<p>然而，其逆函数也还是具有序列性。</p>
+<p>$$z _ {i}&#x3D;h^{-1}(x _ {i},\tilde{g} _ {i}(z _ {1:i-1},w _ {i}))$$</p>
+<h2 id="连续流（Continuous-Flow）"><a href="#连续流（Continuous-Flow）" class="headerlink" title="连续流（Continuous Flow）"></a>连续流（Continuous Flow）</h2><h3 id="神经微分方程（Neural-differential-equations）"><a href="#神经微分方程（Neural-differential-equations）" class="headerlink" title="神经微分方程（Neural differential equations）"></a>神经微分方程（<strong>Neural differential equations</strong>）</h3><p>深度网络具有很深的层数是很有用。</p>
+<p>所以，我们可以探索神经网络达到无限层数的极限会发生什么。</p>
+<p>考虑一个残差网络,其中每一层的处理生成的输出由输入向量与输入向量的某些参数化非线性函数相加给出: </p>
+<p>$$z^{(t+1)}&#x3D;z^{(t)}+f(z^{(t)},w)$$ </p>
+<p>其中 $t&#x3D;1,…,T$ 标记网络中的层。</p>
+<p>为了简便，我们在每一层都使用了相同的函数,并共享参数向量w。</p>
+<p>在极限情况下,隐藏单元激活向量成为连续变量的函数 $z(t)$,我们可以将此向量在网络中的演变表示为一个微分方程:</p>
+<p>$$\frac{dz(t)}{dt}&#x3D;f(z(t),w)$$</p>
+<p>中的公式被称为一个神经常微分方程或神经 ODE。</p>
+<p>如果我们用向量 $z(0)$ 表示网络的输入,那么输出 $z(T)$ 是通过积分微分方程获得的：</p>
+<p>$$z(T)&#x3D;\int _ {0}^{T}f(z(t),w)dt$$</p>
+<p>这个积分可以使用标准的数值积分包来评估。求解微分方程的最简单方法是欧拉前向积分方法,它对应于表达式$z^{(t+1)}&#x3D;z^{(t)}+f(z^{(t)},w)$。</p>
+<p>在实践中,更强大的数值积分算法可以自适应地调整它们的函数评估以实现。特别是,它们可以自适应地选择的值,这些值通常不是均匀分布的。</p>
+<h3 id="神经ODE反向传播"><a href="#神经ODE反向传播" class="headerlink" title="神经ODE反向传播"></a>神经ODE反向传播</h3><p>我们得到了神经ODE的形式，那么如何通过优化损失函数来确定w的值呢？假设我们有一个数据集,其中包含输入向量 $z(0)$ 的值,以及相关的输出目标向量和损失函数 $L(\cdot)$,该函数取决于输出向量 $z(T)$。</p>
+<p>一种方法可能是使用自动微分来对ODE求解器在正向传递期间执行的所有操作进行微分。尽管这很直接，但从内存角度来看代价很高,并且在控制数值误差方面不是最优的。</p>
+<p>相反,Chen等人<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen. Neural Ordinary Differential Equations">[4]</span></a></sup>将ODE求解器视为一个黑盒,并使用一种称为伴随敏感性方法的技术,这可以看作是显式反向传播的连续类比。</p>
+<p>为了将反向传播应用于神经ODE,我们定义一个称为伴随的量,其定义为：</p>
+<p>$$a(t)&#x3D;\frac{dL}{dz(t)}$$ </p>
+<p>我们看到 $a(T)$ 对应于损失关于输出向量的常规导数。伴随子满足其自身的微分方程,该方程为：</p>
+<p>$$\frac{da(t)}{dt}&#x3D;-a(t)^{T}\nabla _ {z}f(z(t),w)$$ </p>
+<blockquote>
+<p>证明：<br>$$<br>\begin{align}<br>a(t)&amp;&#x3D;\frac{dL}{dz(t)}\\<br>a(t+\delta t)&amp;\approx\frac{dL}{dz(t+\delta t)}\\<br>z(t+\delta t)&amp;\approx z(t)+f(z(t),w)\delta t\\<br>\therefore \frac{\partial L}{\partial z(t)}&amp;&#x3D;\frac{\partial L}{\partial z(t+\delta t)}\frac{\partial z(t+\delta t)}{\partial z(t)}\\<br>a(t)&amp;&#x3D;a(t+\delta t)(I+\nabla_zf()\delta t)<br>\end{align}<br>$$</p>
+</blockquote>
+<p>这是一个微积分链式法则的连续版本。这可以通过从 $a(T)$ 开始反向积分来求解,这同样可以使用黑盒ODE求解器来完成。</p>
+<p>关于网络参数的导数。当一个参数值在网络的多个连接中共享时,总导数由每个连接的导数之和形成。</p>
+<p>对于我们的神经ODE,其中相同的参数向量 w在整个网络中共享,这个求和变成了对的积分,其形式为：</p>
+<p>$$\nabla _ {w}L&#x3D;-\int _ {0}^{T}a(t)^{T}\nabla _ {w}f(z(t),w)dt$$ </p>
+<p> $\nabla _ {z}f$ 和 $\nabla _ {w}f$ 可以使用自动微分高效地计算。注意,上述结果同样适用于一个更通用的神经网络函数 $f(z(t),t,w)$ 它在除了通过 $z(t)$ 隐式依赖之外,还对有显式依赖。</p>
+<p>使用伴随方法训练的神经ODE相比于传统层状网络的一个优点是,不需要存储前向传播的中间结果,因此内存成本是恒定的。</p>
+<p>此外，神经 ODE可以自然地处理连续时间数据,其中观测值在任意时间发生。如果误差函数 L 取决于除输出值之外的 $z(t)$ 的值,那么需要多次运行反向模型求解器,每次运行对应一对连续的输出,以便将单个解分解为多个连续解,从而访问中间状态。</p>
+<h3 id="神经ODE-flows"><a href="#神经ODE-flows" class="headerlink" title="神经ODE flows"></a>神经ODE flows</h3><p>神经ODE定义了一种高度灵活的从输入向量 $z(0)$ 到输出向量 $z(T)$ 的变换,该变换以微分方程的形式给出：</p>
+<p>$$\frac{dz(t)}{dt}&#x3D;f(z(t),w)$$</p>
+<p>如果我们定义一个关于输入向量 $p(z(0))$ 的基础分布,那么神经ODE 会将其随时间向前传播,为每个的值给出一个分布 $p(z(t))$,从而得到一个关于输出向量 $p(z(T))$ 的分布。</p>
+<p>Chen<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ricky T. Q. Chen. Neural Ordinary Differential Equations">[4]</span></a></sup>表明,对于神经ODE,密度的变换可以通过积分一个由下式给出的微分方程来评估：</p>
+<p>$$\frac{\partial~lnp(z(t))}{\partial t}&#x3D;-Tr(\frac{\partial f}{\partial z(t)})$$</p>
+<p>其中 $\partial f&#x2F;\partial z$ 表示雅可比矩阵,其元素为 $\partial f _ {i}&#x2F;\partial z _ {jc}$。</p>
+<p>作者使用的是泰勒级数展开式等来证明。</p>
+<p>我们也可以进一步展开为：<br>$$<br>\frac{\partial~lnp(z(t))}{\partial t}&#x3D;-\nabla\cdot f&#x3D;-Tr(\frac{\partial f}{\partial z(t)})<br>$$</p>
+<blockquote>
+<p>证明：</p>
+<p>根据连续性方程（其密度的局部变化率等于流入该点的通量（flux）的负散度，也叫传输方程）：<br>$$<br>\frac{\partial p(z)}{\partial t}+\nabla\cdot (p(z)f)&#x3D;0<br>$$<br>根据向量微积分的乘法法则：<br>$$<br>\nabla\cdot (pf)&#x3D;\nabla p (f)+p(\nabla \cdot f)<br>$$<br>根据多元链式法则，<br>$$<br>\frac{\partial<del>lnp(z(t))}{\partial t}&#x3D;\frac{1}{p}(\frac{\partial p}{\partial t}+(\nabla p)f)<br>$$<br>把二者结合起来有：<br>$$<br>\frac{\partial</del>lnp(z(t))}{\partial t}&#x3D;-\nabla\cdot f<br>$$<br>而一个向量场的散度在数学上等于其雅可比矩阵的迹。</p>
+</blockquote>
+<p> 这个积分可以使用标准的ODE 求解器来执行。同样,可以从基础密度 $p(z(0))$ 中采样,该分布被选择为一个简单的分布,例如高斯分布,并通过再次使用ODE 求解器积分将值传播到输出。</p>
+<p>由此产生的框架被称为一个连续归一化流。连续归一化流可以使用用于神经ODE的伴随敏感性方法进行训练,这可以看作是反向传播的连续时间等价物。</p>
+<p>由于涉及雅可比矩阵的迹而不是使用行列式，因此它可能看起来在计算上更高效。<br>通常,计算一个 $D\times D$ 矩阵的行列式需要 $\mathcal{O}(D^{3})$ 次操作,而计算迹只需要 $\mathcal{O}(D)$ 次操作。</p>
+<p>然而,如果行列式是下三角形的,如在许多归一化流的形式中,那么行列式是主对角线项的乘积,因此也涉及 $\mathcal{O}(D)$ 次操作。由于计算雅可比矩阵的各个元素需要单独的前向传播,而前向传播本身需要 $\mathcal{O}(D)$ 次操作,因此计算迹或行列式(对于下三角矩阵)总共需要 $\mathcal{O}(D^{2})$ 次操作。</p>
+<p>然而,通过使用 Hutchinson 迹估计器<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud. FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models">[5]</span></a></sup>,可以将计算迹的成本降低到 $\mathcal{O}(D)$。</p>
+<p>该估计器对于一个矩阵A采用以下形式 ：</p>
+<p>$$Tr(A)&#x3D;\mathbb{E} _ {\epsilon}[\epsilon^{T}A\epsilon]$$</p>
+<p>其中是$\epsilon$一个均值为零、协方差为一的随机向量,例如,高斯 $\mathcal{N}(0,I)$。</p>
+<p>我们不需要计算整个矩阵A，就能得到$\epsilon^{T}A\epsilon$的值。</p>
+<p>具体而言，</p>
+<p>（1）计算神经网络的前向传播f(z)</p>
+<p>（2）计算f(z)和$\epsilon$的点积，得到$L&#x3D;\epsilon\cdot f(z)$</p>
+<p>（3）执行反向传播，计算L关于z的梯度，则梯度为$\epsilon^T\frac{\partial f}{\partial z}$</p>
+<p>（4）最后计算梯度和$\epsilon$的点积，$(\epsilon^T\frac{\partial f}{\partial z})\cdot \epsilon$</p>
+<p>然后我们可以使用有限数量的样本来近似迹,形式为：</p>
+<p>$$Tr(A)\approx\frac{1}{M}\sum _ {m&#x3D;1}^{M}\epsilon _ {m}^{T}A\epsilon _ {m}$$</p>
+<p>这里其实牵扯到一个叫<strong>雅可比向量积 (Jacobian-Vector Product，JVP)<strong>的概念，即一个</strong>行向量 <code>v^T</code></strong> 与一个<strong>雅可比矩阵 <code>J</code></strong> 的乘积</p>
+<h1 id="流匹配（Flow-Matching）"><a href="#流匹配（Flow-Matching）" class="headerlink" title="流匹配（Flow Matching）"></a>流匹配（Flow Matching）</h1><p>该方法<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>于2022年提出。</p>
+<p>Flow代表继续延续连续归一化流（CNF）的核心。即一个类似流动的过程，或者说基于连续性方程&#x2F;传输方程的思想。</p>
+<p>Matching类似之前博客曾提过的分数匹配。</p>
+<p>而与前面的流模型不同，流匹配是一种在训练过程中不需要求解ODE来训练的方法。</p>
+<p>类似分数匹配，我们之间对向量场进行构建回归目标，（我们继续延续流模型中的符号，部分符号会和流匹配论文中常用的符号略有不同）：<br>$$<br>\mathcal{L} _ {FM}&#x3D;E _ {t\sim U(0,1),X_t\sim p_t}||f_t(X_t,t)-f^\theta_t(X_t,t)||^2<br>$$<br>然而我们并不知道$p_t$和真实向量场$f$，所以就有了条件流匹配的出现。</p>
+<h2 id="条件流匹配（Conditional-Flow-Matching）"><a href="#条件流匹配（Conditional-Flow-Matching）" class="headerlink" title="条件流匹配（Conditional Flow Matching）"></a>条件流匹配（Conditional Flow Matching）</h2><p>CFM 的核心思想是选择一个额外变量 z 和一个条件概率路径$p(x\mid t,z)$。<br>$$<br>\mathcal{L} _ {CFM}&#x3D;E _ {t\sim U(0,1),X_t\sim p_t,z\sim q(z)}||f_t(X_t,t;z)-f_t^\theta(X_t,t)||^2<br>$$<br>Lipman 等人<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>证明了$\mathcal{L} _ {FM}$和$\mathcal{L} _ {CFM}$只相差一个与$\theta$无关的常数，二者梯度相等。证明其实很简单，把期望内的括号展开分离即可。</p>
+<p>对于z，我们可以只考虑$x_1$，定义$\mu(z,t)&#x3D;tx_1$，$\sigma(z,t)&#x3D;t\sigma _ {const}-t+1$，则<br>$$<br>\begin{align}<br>p _ {t}(\mathbf{x} | \mathbf{z}) &amp;&#x3D; \mathcal{N}\left( \mathbf{x} | t \mathbf{x}_1, (t \sigma _ {const} - t + 1)^2 \mathbf{I} \right) \\<br>f(\mathbf{x}, t ; \mathbf{z}) &amp;&#x3D; \frac{ \mathbf{x}_1 - (1 - \sigma _ {const}) \mathbf{x} }{ 1 - (1 - \sigma _ {const}) t }<br>\end{align}<br>$$<br>这也就是原始的CFM<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。">[6]</span></a></sup>，也叫<strong>锥形高斯路径</strong>（<strong>Conical Gaussian paths</strong>）。</p>
+<p>对于z，我们也可以将$x_0$和$x_1$联合起来考虑，定义$\mu(z,t)&#x3D;(1-t)x_0+tx_1$，$\sigma(z,t)&#x3D;\sigma _ {const}$，则<br>$$<br>\begin{align}<br>p _ {t}(\mathbf{x} | \mathbf{z}) &amp;&#x3D; \mathcal{N}\left( \mathbf{x} | t \mathbf{x}_1+(1-t)x_0, \sigma _ {const}^2 \mathbf{I} \right) \\<br>f(\mathbf{x}, t ; \mathbf{z}) &amp;&#x3D; x_1-x_0<br>\end{align}<br>$$<br>这也就是independent CFM（iCFM)<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tong, A., Malkin, N. Improving and generalizing flow-based generative models with minibatch optimal transport.">[7]</span></a></sup>，也叫<strong>线性插值。</strong> 它也与最优传输（Optimal Transport）有关，正如其论文标题所述。</p>
+<p><strong>完整流程：</strong></p>
+<p>1.采样  t∼Uniform(0,1)</p>
+<p>2.采样  z∼q(z)</p>
+<p>3.计算$\mu_z$和$\sigma_t(z)$</p>
+<p>4.计算$x_t\sim\mathcal{N}(x\mid\mu(z,t),\sigma(z,t))$</p>
+<p>5.计算向量场$f$</p>
+<p>6.计算损失</p>
+<p>7.更新参数</p>
+<h2 id="MeanFlow"><a href="#MeanFlow" class="headerlink" title="MeanFlow"></a>MeanFlow</h2><p>我们直接跳到最新的研究。由何恺明组提出的《Mean Flows for One-step Generative Modeling》<sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="Zhengyang Geng, Mingyang Deng, Xingjian Bai, J. Zico Kolter,  Kaiming He. Mean Flows for One-step Generative Modeling">[8]</span></a></sup>。</p>
+<p>回顾一下前文：</p>
+<p>$$\frac{dz(t)}{dt}&#x3D;f(z(t),w)$$</p>
+<p>这实际上代表着瞬时速度。</p>
+<p>然而瞬时速度并不是直接指向数据点，所以无法一步生成，而要一步生成需要平均速度才能实现。</p>
+<p><img src="/2025/20250609/averspeed.jpg"></p>
+<p>展开来说，前文的flow matching尽管使用的是直线插值，但是实际上是线性加噪而非线性去噪。导致我们无法一步生成。</p>
+<p>我们也可以使用一些形象的方法来解释。</p>
+<p>当只有一个力源的情况下，它的场线是直线（左图和中图），这与我们的加噪相似，我们也可以类似PFGM，将这一过程理解为数据点被力场推着走向目标位置。</p>
+<p>然而，我们不止一个力源，所以最终场（右图）并不是一条直线。</p>
+<p><img src="/2025/20250609/vis.jpg"></p>
+<p>我们也很难去设计一种力，使得合并后的最终场是直线形式。</p>
+<p>面对天体运动，与其我们引入复杂的本轮均轮来完善地心说，更好的方法是直接引入日心说。</p>
+<p>故MeanFlow另起炉灶，虽然继续使用同样的力源，但不继续做文章，而是使用了平均速度。</p>
+<p>我们延用论文中的符号。</p>
+<p>瞬时速度：</p>
+<p>$$<br>\frac{dz(t)}{dt}&#x3D;v(z(t),w)<br>$$</p>
+<p>而平均速度场 u 和瞬时速度场 v 有以下关系：</p>
+<p>$$(t - r)u(z_t, r, t) &#x3D; \int_r^t v(z _ {\tau}, \tau) d\tau$$</p>
+<p>$$\frac{d}{dt} (t - r)u(z_t, r, t) &#x3D; \frac{d}{dt} \int_r^t v(z _ {\tau}, \tau) d\tau \implies u(z_t, r, t) + (t - r)\frac{d}{dt}u(z_t, r, t) &#x3D; v(z_t, t)$$</p>
+<p>若我们想利用平均速度一步就能得到结果, 则就需要平均速度场满足</p>
+<p>$$<br>\underbrace{u(z_t, r, t)} _ {\text{average vel.}} &#x3D; \underbrace{v(z_t, t)} _ {\text{instant. vel.}} - \underbrace{(t - r)\frac{d}{dt}u(z_t, r, t)} _ {\text{time derivative}}<br>$$</p>
+<p>对于最后一项有：</p>
+<p>$$<br>\frac{d}{dt}u(z_t, r, t) &#x3D; \frac{dz_t}{dt}\partial_z u + \frac{dr}{dt}\partial_r u + \frac{dt}{dt}\partial_t u<br>$$</p>
+<p>其中：</p>
+<p>$$<br>\frac{dz_t}{dt} &#x3D; v(z_t, t), \quad \frac{dr}{dt} &#x3D; 0, \quad \frac{dt}{dt} &#x3D; 1<br>$$</p>
+<p>在上文的 Hutchinson 迹估计器中，JVP已见其威力，我们不需要计算整个雅克比矩阵A，就能得到矩阵的迹。同样地我们在这里也可以对上式使用。</p>
+<p>最终设定损失函数：<br>$$<br>\mathcal{L}(\theta) &#x3D; \mathbb{E}\left[ || u_\theta(z_t, r, t) - \text{sg}(u _ {\text{tgt}}) ||^2_2 \right]<br>$$</p>
+<p>其中</p>
+<p>$$<br>u _ {\text{tgt}} &#x3D; v(z_t, t) - (t-r)(v(z_t, t)\partial_z u_\theta + \partial_t u_\theta)<br>$$<br>在这里我们会使用sg(stop gradient)，因为我们并不需要它的导数，也避免了再去求高阶导数。</p>
+<p><img src="/2025/20250609/meanflow.jpg"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>本文参考了多篇公开资料（博客、代码等等）<sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="生成扩散模型漫谈（三十）：从瞬时速度到平均速度. https://kexue.fm/archives/10958">[9]</span></a></sup><sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Flow Matching: Matching flows instead of scores. https://jmtomczak.github.io/blog/18/18_fm.html">[10]</span></a></sup><sup id="fnref:11" class="footnote-ref"><a href="#fn:11" rel="footnote"><span class="hint--top hint--rounded" aria-label="Yaron Lipman. Flow Matching Guide and Code">[11]</span></a></sup><sup id="fnref:12" class="footnote-ref"><a href="#fn:12" rel="footnote"><span class="hint--top hint--rounded" aria-label="A Visual Dive into Conditional Flow Matching. https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">[12]</span></a></sup><sup id="fnref:13" class="footnote-ref"><a href="#fn:13" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023. https://github.com/phlippe/uvadlc_notebooks">[13]</span></a></sup><sup id="fnref:14" class="footnote-ref"><a href="#fn:14" rel="footnote"><span class="hint--top hint--rounded" aria-label="流模型(Flow-based Model). https://0809zheng.github.io/2022/05/01/flow.html">[14]</span></a></sup><sup id="fnref:15" class="footnote-ref"><a href="#fn:15" rel="footnote"><span class="hint--top hint--rounded" aria-label="Diederik P. Kingma, Tim Salimans, Rafal Jozefowicz, Xi Chen, Ilya Sutskever, Max Welling. Improving Variational Inference with Inverse Autoregressive Flow">[15]</span></a></sup><sup id="fnref:16" class="footnote-ref"><a href="#fn:16" rel="footnote"><span class="hint--top hint--rounded" aria-label="George Papamakarios, Theo Pavlakou, Iain Murray. Masked Autoregressive Flow for Density Estimation">[16]</span></a></sup>和一些教科书<sup id="fnref:17" class="footnote-ref"><a href="#fn:17" rel="footnote"><span class="hint--top hint--rounded" aria-label="PRML">[17]</span></a></sup>和李宏毅的课程<sup id="fnref:18" class="footnote-ref"><a href="#fn:18" rel="footnote"><span class="hint--top hint--rounded" aria-label="李宏毅的Flow-based Generative Model课程">[18]</span></a></sup>。</p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>Laurent Dinh, Jascha Sohl-Dickstein, Samy Bengio. Density estimation using Real NVP
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ho, J., Chen, X., Srinivas, A., Duan, Y., and Abbeel. Flow++: Improving Flow-Based Generative Models with Variational Dequantization and Architecture Design
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>Diederik P. Kingma, Prafulla Dhariwal.Glow: Generative Flow with Invertible 1x1 Convolutions
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>Ricky T. Q. Chen. Neural Ordinary Differential Equations
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span>Will Grathwohl, Ricky T. Q. Chen, Jesse Bettencourt, Ilya Sutskever, David Duvenaud. FFJORD: Free-form Continuous Dynamics for Scalable Reversible Generative Models
+<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span>Yaron Lipman. FLOW MATCHING FOR GENERATIVE MODELING。
+<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:7" class="footnote-text"><span>Tong, A., Malkin, N. Improving and generalizing flow-based generative models with minibatch optimal transport.
+<a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span>Zhengyang Geng, Mingyang Deng, Xingjian Bai, J. Zico Kolter,  Kaiming He. Mean Flows for One-step Generative Modeling
+<a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:9" class="footnote-text"><span>生成扩散模型漫谈（三十）：从瞬时速度到平均速度. <a target="_blank" rel="noopener" href="https://kexue.fm/archives/10958">https://kexue.fm/archives/10958</a>
+<a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:10" class="footnote-text"><span>Flow Matching: Matching flows instead of scores. <a target="_blank" rel="noopener" href="https://jmtomczak.github.io/blog/18/18_fm.html">https://jmtomczak.github.io/blog/18/18_fm.html</a>
+<a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:11" class="footnote-text"><span>Yaron Lipman. Flow Matching Guide and Code
+<a href="#fnref:11" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:12" class="footnote-text"><span>A Visual Dive into Conditional Flow Matching. <a target="_blank" rel="noopener" href="https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9">https://dl.heeere.com/conditional-flow-matching/blog/conditional-flow-matching/#d-footnote-9</a>
+<a href="#fnref:12" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:13" class="footnote-text"><span>Deep Learning Course at the University of Amsterdam (MSc AI), Fall 2023. <a target="_blank" rel="noopener" href="https://github.com/phlippe/uvadlc_notebooks">https://github.com/phlippe/uvadlc_notebooks</a>
+<a href="#fnref:13" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:14" class="footnote-text"><span>流模型(Flow-based Model). <a target="_blank" rel="noopener" href="https://0809zheng.github.io/2022/05/01/flow.html">https://0809zheng.github.io/2022/05/01/flow.html</a>
+<a href="#fnref:14" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:15" class="footnote-text"><span>Diederik P. Kingma, Tim Salimans, Rafal Jozefowicz, Xi Chen, Ilya Sutskever, Max Welling. Improving Variational Inference with Inverse Autoregressive Flow
+<a href="#fnref:15" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:16" class="footnote-text"><span>George Papamakarios, Theo Pavlakou, Iain Murray. Masked Autoregressive Flow for Density Estimation
+<a href="#fnref:16" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:17" class="footnote-text"><span>PRML
+<a href="#fnref:17" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:18" class="footnote-text"><span>李宏毅的Flow-based Generative Model课程
+<a href="#fnref:18" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E7%89%A9%E7%90%86/" class="print-no-link">#物理</a>
+      
+        <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" class="print-no-link">#生成模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>流模型与流匹配</div>
+      <div>https://lijianxiong.space/2025/20250609/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年6月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250610/" title="学会排序算法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">学会排序算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250606/" title="经典的GNN被淘汰了吗？">
+                        <span class="hidden-mobile">经典的GNN被淘汰了吗？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

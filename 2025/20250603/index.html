@@ -1,0 +1,1159 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="后门攻击简单来说，是攻击者通过在训练过程中嵌入触发器（trigger）来操纵测试时的预测。 但后面攻击普遍用于CV或分类中，时间序列（预测）中比较少。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时间序列预测与后门攻击">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250603/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="后门攻击简单来说，是攻击者通过在训练过程中嵌入触发器（trigger）来操纵测试时的预测。 但后面攻击普遍用于CV或分类中，时间序列（预测）中比较少。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250603/method.png">
+<meta property="article:published_time" content="2025-06-03T10:33:24.000Z">
+<meta property="article:modified_time" content="2025-06-06T14:53:55.084Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="图神经网络">
+<meta property="article:tag" content="时间序列">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250603/method.png">
+  
+  
+  
+  <title>时间序列预测与后门攻击 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">时间序列预测与后门攻击</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-03 18:33" pubdate>
+          2025年6月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">时间序列预测与后门攻击</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>后门攻击简单来说，是攻击者通过在训练过程中嵌入触发器（trigger）来操纵测试时的预测。</p>
+<p>但后面攻击普遍用于CV或分类中，时间序列（预测）中比较少。</p>
+<span id="more"></span>
+
+<h2 id="通用方法"><a href="#通用方法" class="headerlink" title="通用方法"></a>通用方法</h2><p>发表于SaTML’23的《<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2211.07915">Backdoor Attacks on Time Series: A Generative Approach</a>》，SaTML是比较新的IEEE会议。</p>
+<p>既然是通用，其暗示即简单。事实也如此。</p>
+<p><img src="/2025/20250603/method.png"></p>
+<p>为了解决生成器训练的冷启动问题，首先在来自 D 的所有干净样本上对时间序列分类器 f 进行预训练，直到其交叉熵损失 LCE 稳定下<br>降。</p>
+<p>预训练完成后，我们同时训练触发器生成器 g 和部分训练的分类器 f 。</p>
+<p>在每次迭代中，两个网络都按照类似的过程逐步更新：</p>
+<p>1）在污染样本上训练 g ，以最小化针对后门类别 $y_t$ 的分类损失（第 15-17 行）；</p>
+<p>2）使用 g 生成污染数据集 D′ ；</p>
+<p>3）在污染数据集 D′ 上训练 f ，其中污染样本被重新标记为 $y_t$。</p>
+<p>整个过程中，后门触发模式被限制在信号幅度的 10% 以内，即 0.1 ∗ (xmax − xmin) ，以增强隐蔽性。</p>
+<h2 id="针对多元时间序列预测"><a href="#针对多元时间序列预测" class="headerlink" title="针对多元时间序列预测"></a>针对多元时间序列预测</h2><p>NIP2 24 《<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.02195">BACKTIME: Backdoor Attacks on Multivariate Time Series Forecasting</a>》</p>
+<p>多元时间序列（MTS）数据与单变量时间序列相比，会有变量间相关系数的存在，这会使对MTS 数据的攻击更为复杂。</p>
+<p>在多变量时间序列预测中，常见做法是将数据集切分为时间窗口，作为预测模型的输入。</p>
+<p>然而，在中毒数据集中，识别这些切分的时间窗口是否被中毒面临两大挑战。</p>
+<p>（1）这些时间窗口的长度可能与触发器或目标模式的长度不匹配。</p>
+<p>（2）当将数据集切分为时间窗口时，这些窗口可能仅包含触发器或目<br>标模式的一部分。</p>
+<p>为解决这些问题，作者假设只有当输入包含触发器的所有组成部分时，注入的后门才会被激活。</p>
+<p>对于后门攻击，我们需要确定三个关键要素：</p>
+<p>（1）攻击何处。这个由攻击者指定</p>
+<p>（2）何时攻击，即选择攻击的时间点</p>
+<p>（3）如何攻击，即指定注入的触发器。</p>
+<h3 id="攻击时间选择"><a href="#攻击时间选择" class="headerlink" title="攻击时间选择"></a>攻击时间选择</h3><p>预测误差较高的时间戳更容易遭受攻击。</p>
+<p>利用预训练的干净模型计算预测与真实值之间的 MAE，并进一步选择MAE 最高的前 α个时间戳。</p>
+<h3 id="攻击方法"><a href="#攻击方法" class="headerlink" title="攻击方法"></a>攻击方法</h3><p>首先，通过利用MLP 来捕捉目标变量 S 内部的变量间相关性，生成一个加权图。然后，进一步基于学成的加权图利用图卷积网络（GCN）进行触发器生成。</p>
+<p>由于时间序列跨度比较大，故作者采取的是使用DFT并取低维特征来降低维度和提取信息。即$z_i&#x3D;Filter(DFT(x_i),k)$。</p>
+<p>并使用MLP来构建相关性的图，即$A _ {i,j}&#x3D;cos(MLP(z_i)，MLP(z_j))$。</p>
+<p>使用长度为$t^{BEF}$的时间窗口对触发器之前的历史数据进行切片。随后，我们基于切片后的历史<br>数据，利用 GCN 进行触发器生成：<br>$$<br>\hat g_{t_i}&#x3D;GCN(X^{ATK}[t_i-t^{BEF}-t^{TGR}:t_i-t^{TGR},S],A),\forall t_i\in T^{ATK}<br>$$<br>然而，GCN 倾向于激进地增加输出 $\hat g _ {t_i}$的幅度。作者对这种行为的一个潜在解释是，较大的触发幅度会导致显著的偏差，而具有此类偏差特征的数据点更容易被预测模型学成，尽管它们违背了隐蔽性的要求。</p>
+<p>为了解决这一问题，作者提出引入一个非线性缩放函数tanh(·)，对输出幅度施加强制性限制来生成隐蔽的触发器。<br>$$<br>g_{t_i}&#x3D;\Delta^{TGR}\cdot tanh(\hat g_{t_i}) \tag{6}<br>$$</p>
+<p>由于原始问题是个双层优化问题，故作者引入了一个替代预测模型$f_s$，以提供精确解的实用近似</p>
+<p>同样的，也会使用预热来避免难以训练或难以收敛。在预热阶段，我们仅训练替代模型，使其具备合理的预测能力。一旦预热阶段结束，我们将同时更新替代模型和触发器生成器。</p>
+<p>第一阶段，替代模型更新：<br>$$<br>l _ {cln}&#x3D;L _ {CLN}(f_s(X^{ATK} _ {t_i,h}),X^{ATK} _ {t _ i,f})\tag{7}<br>$$<br>其中使用平滑L1loss。</p>
+<p>第二阶段，触发器生成器更新：</p>
+<p>固定代理模型的参数后，攻击损失可以形式化为：<br>$$<br>l_{atk}&#x3D;\sum _ {t_i&#x3D;t}^{t+t^{PTN}} L _ {ATK}(f_s(X^{ATK}_{t_i,h}),X^{ATK} _ {t_i,f})\eta(t_i)<br>$$<br>PTN表示目标。</p>
+<p>现实世界数据集中的多变量时间序列（MTS）数据普遍存在高频波动或噪声。然而该方法并不能天然保证触发器具有高频信号。因此，为了弥补这一差距，引入了以下规范化损失：<br>$$<br>l_{norm}&#x3D;AVG\left(\left|\sum_{i&#x3D;0}^{t^{TGR}} g_{t_i}[i,:]\right|\right)\tag{9}<br>$$<br>可能有点云里雾里，不妨我们来看代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Trainer</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config, atk_vars, target_pattern, train_mean, train_std,</span><br><span class="hljs-params">                 train_data, test_data, train_data_stamps, test_data_stamps, device</span>):<br>        <span class="hljs-variable language_">self</span>.net = MODEL_MAP[<span class="hljs-variable language_">self</span>.config.surrogate_name](<span class="hljs-variable language_">self</span>.config.Surrogate).to(device)<br>        <span class="hljs-variable language_">self</span>.optimizer = optim.Adam(<span class="hljs-variable language_">self</span>.net.parameters(), lr=config.learning_rate)<br><br><br>        train_set = TimeDataset(train_data, train_mean, train_std, device, num_for_hist=<span class="hljs-number">12</span>, num_for_futr=<span class="hljs-number">12</span>, timestamps=train_data_stamps)<br>        channel_features = fft_compress(train_data, <span class="hljs-number">200</span>)<br>        <span class="hljs-variable language_">self</span>.attacker = Attacker(train_set, channel_features, atk_vars, config, target_pattern, device)<br>        <span class="hljs-variable language_">self</span>.use_timestamps = config.Dataset.use_timestamps<br><br>        <span class="hljs-variable language_">self</span>.prepare_data()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.attacker.train()<br>        poison_metrics = []<br>        <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.num_epochs):<br>            <span class="hljs-variable language_">self</span>.net.train()  <span class="hljs-comment"># ensure dropout layers are in train mode</span><br><br>            <span class="hljs-keyword">if</span> epoch &gt; <span class="hljs-variable language_">self</span>.warmup:<br>                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">hasattr</span>(<span class="hljs-variable language_">self</span>.attacker, <span class="hljs-string">&#x27;atk_ts&#x27;</span>):<br>                    <span class="hljs-comment"># select the attacked timestamps</span><br>                    <span class="hljs-variable language_">self</span>.attacker.select_atk_timestamp(poison_metrics)<br>                <span class="hljs-comment"># attacker poison the training data</span><br>                <span class="hljs-variable language_">self</span>.attacker.sparse_inject()<br><br>            poison_metrics = []<br><br>            <span class="hljs-variable language_">self</span>.train_loader = DataLoader(<span class="hljs-variable language_">self</span>.train_set, batch_size=<span class="hljs-variable language_">self</span>.batch_size, shuffle=<span class="hljs-literal">True</span>)<br>            pbar = tqdm.tqdm(<span class="hljs-variable language_">self</span>.train_loader, desc=<span class="hljs-string">f&#x27;Training data <span class="hljs-subst">&#123;epoch&#125;</span>/<span class="hljs-subst">&#123;self.num_epochs&#125;</span>&#x27;</span>)<br><br>            <span class="hljs-keyword">for</span> batch_index, batch_data <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(pbar):<br>                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.use_timestamps:<br>                    encoder_inputs, labels, clean_labels, idx = batch_data<br>                    x_mark = torch.zeros(encoder_inputs.shape[<span class="hljs-number">0</span>], encoder_inputs.shape[-<span class="hljs-number">1</span>], <span class="hljs-number">4</span>).to(<span class="hljs-variable language_">self</span>.device)<br>                <span class="hljs-keyword">else</span>:<br>                    encoder_inputs, labels, clean_labels, x_mark, y_mark, idx = batch_data<br>                encoder_inputs = torch.squeeze(encoder_inputs).to(<span class="hljs-variable language_">self</span>.device).permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br>                labels = torch.squeeze(labels).to(<span class="hljs-variable language_">self</span>.device).permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br><br>                <span class="hljs-variable language_">self</span>.optimizer.zero_grad()<br><br>                x_des = torch.zeros_like(labels)<br>                outputs = <span class="hljs-variable language_">self</span>.net(encoder_inputs, x_mark, x_des, <span class="hljs-literal">None</span>)<br>                outputs = <span class="hljs-variable language_">self</span>.train_set.denormalize(outputs)<br>                loss_per_sample = F.smooth_l1_loss(outputs, labels, reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br>                loss_per_sample = loss_per_sample.mean(dim=(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))<br><br>                poison_metrics.append(torch.stack([loss_per_sample.cpu().detach(), idx.cpu().detach()], dim=<span class="hljs-number">1</span>))<br>                loss = loss_per_sample.mean()<br>                loss.backward()<br>                <span class="hljs-variable language_">self</span>.optimizer.step()<br><br>            <span class="hljs-keyword">if</span> epoch &gt; <span class="hljs-variable language_">self</span>.warmup:<br>                <span class="hljs-variable language_">self</span>.attacker.update_trigger_generator(<span class="hljs-variable language_">self</span>.net, epoch, <span class="hljs-variable language_">self</span>.num_epochs, use_timestamps=<span class="hljs-variable language_">self</span>.use_timestamps)<br><br><br></code></pre></td></tr></table></figure>
+
+<p>其中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">sparse_inject</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.dataset.init_poison_data()<br><br>        n, c, T = <span class="hljs-variable language_">self</span>.dataset.data.shape<br>        n = <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.atk_vars)<br>        trigger_len = <span class="hljs-variable language_">self</span>.trigger_generator.output_dim<br>        pattern_len = <span class="hljs-variable language_">self</span>.target_pattern.shape[-<span class="hljs-number">1</span>]<br><br>        <span class="hljs-keyword">for</span> beg_idx <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.atk_ts.tolist():<br>            data_bef_tgr = <span class="hljs-variable language_">self</span>.dataset.data[<span class="hljs-variable language_">self</span>.atk_vars, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, beg_idx - <span class="hljs-variable language_">self</span>.trigger_generator.input_dim:beg_idx]<br>            data_bef_tgr = <span class="hljs-variable language_">self</span>.dataset.normalize(data_bef_tgr)<br>            data_bef_tgr = data_bef_tgr.reshape(-<span class="hljs-number">1</span>, <span class="hljs-variable language_">self</span>.trigger_generator.input_dim)<br><br>            triggers = <span class="hljs-variable language_">self</span>.trigger_generator(data_bef_tgr)[<span class="hljs-number">0</span>]<br>            triggers = <span class="hljs-variable language_">self</span>.dataset.denormalize(triggers).reshape(n, <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)<br><br>            <span class="hljs-comment"># inject the trigger and target pattern</span><br>            <span class="hljs-variable language_">self</span>.dataset.poisoned_data[<span class="hljs-variable language_">self</span>.atk_vars, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, beg_idx:beg_idx + trigger_len] = triggers.detach()<br>            <span class="hljs-variable language_">self</span>.dataset.poisoned_data[<span class="hljs-variable language_">self</span>.atk_vars, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, beg_idx + trigger_len:beg_idx + trigger_len + pattern_len] = \<br>                <span class="hljs-variable language_">self</span>.target_pattern + <span class="hljs-variable language_">self</span>.dataset.poisoned_data[<span class="hljs-variable language_">self</span>.atk_vars, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, beg_idx - <span class="hljs-number">1</span>:beg_idx]<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>注入触发器</strong>: <code>self.dataset.poisoned_data[...] = triggers.detach()</code> 这一行将刚刚生成的 <code>triggers</code> 注入到 <code>poisoned_data</code>（中毒数据副本）中，位置是从 <code>beg_idx</code> 开始，持续 <code>trigger_len</code> 的长度。<code>.detach()</code> 用于切断梯度，因为注入过程本身不需要反向传播。</p>
+<p><strong>注入目标模式</strong>: 紧接着触发器之后，代码注入了<strong>目标模式</strong>。</p>
+<ul>
+<li><code>self.target_pattern</code>: 这是预先定义好的、攻击者希望模型在看到触发器后输出的模式。</li>
+<li><code>+ self.dataset.poisoned_data[...]</code>: 这里有一个值得注意的细节，目标模式并不是直接覆盖，而是<strong>加上了</strong>紧邻攻击点前一个时间步的数据**。** 这样做可能是为了让注入的模式在数值上与周围的数据更“平滑”地衔接，减少异常感，使攻击更隐蔽。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">update_trigger_generator</span>(<span class="hljs-params">self, net, epoch, epochs, use_timestamps=<span class="hljs-literal">False</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        update the trigger generator using the soft identification.</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> use_timestamps:<br>            tgr_slices = <span class="hljs-variable language_">self</span>.get_trigger_slices(<span class="hljs-variable language_">self</span>.fct_input_len - <span class="hljs-variable language_">self</span>.trigger_len,<br>                                                 <span class="hljs-variable language_">self</span>.trigger_len + <span class="hljs-variable language_">self</span>.pattern_len + <span class="hljs-variable language_">self</span>.fct_output_len)<br>        <span class="hljs-keyword">else</span>:<br>            tgr_slices, tgr_timestamps = <span class="hljs-variable language_">self</span>.get_trigger_slices(<span class="hljs-variable language_">self</span>.fct_input_len - <span class="hljs-variable language_">self</span>.trigger_len,<br>                                                             <span class="hljs-variable language_">self</span>.trigger_len + <span class="hljs-variable language_">self</span>.pattern_len + <span class="hljs-variable language_">self</span>.fct_output_len)<br>        pbar = tqdm.tqdm(tgr_slices, desc=<span class="hljs-string">f&#x27;Attacking data <span class="hljs-subst">&#123;epoch&#125;</span>/<span class="hljs-subst">&#123;epochs&#125;</span>&#x27;</span>)<br>        <span class="hljs-keyword">for</span> slice_id, <span class="hljs-built_in">slice</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(pbar):<br>            <span class="hljs-built_in">slice</span> = <span class="hljs-built_in">slice</span>.to(<span class="hljs-variable language_">self</span>.device)<br>            <span class="hljs-built_in">slice</span> = <span class="hljs-built_in">slice</span>[:, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, :]<br>            n, c, l = <span class="hljs-built_in">slice</span>.shape<br>            data_bef = <span class="hljs-built_in">slice</span>[<span class="hljs-variable language_">self</span>.atk_vars, :,<br>                       <span class="hljs-variable language_">self</span>.fct_input_len - <span class="hljs-variable language_">self</span>.trigger_len - <span class="hljs-variable language_">self</span>.bef_tgr_len:<span class="hljs-variable language_">self</span>.fct_input_len - <span class="hljs-variable language_">self</span>.trigger_len]<br>            data_bef = data_bef.reshape(-<span class="hljs-number">1</span>, <span class="hljs-variable language_">self</span>.bef_tgr_len)<br><br>            triggers, perturbations = <span class="hljs-variable language_">self</span>.predict_trigger(data_bef)<br><br>            <span class="hljs-comment"># add the trigger to the slice. x[t-trigger_len:x] = trigger</span><br>            triggers = triggers.reshape(<span class="hljs-variable language_">self</span>.atk_vars.shape[<span class="hljs-number">0</span>], -<span class="hljs-number">1</span>, <span class="hljs-variable language_">self</span>.trigger_len)<br>            <span class="hljs-built_in">slice</span>[<span class="hljs-variable language_">self</span>.atk_vars, :, <span class="hljs-variable language_">self</span>.fct_input_len - <span class="hljs-variable language_">self</span>.trigger_len:<span class="hljs-variable language_">self</span>.fct_input_len] = triggers<br><br>            <span class="hljs-comment"># add the pattern to the slice. x[t:t+ptn_len] = x[t-1-trigger_len] + target_pattern</span><br>            <span class="hljs-built_in">slice</span>[<span class="hljs-variable language_">self</span>.atk_vars, :, <span class="hljs-variable language_">self</span>.fct_input_len:<span class="hljs-variable language_">self</span>.fct_input_len + <span class="hljs-variable language_">self</span>.pattern_len] = \<br>                <span class="hljs-variable language_">self</span>.target_pattern + <span class="hljs-built_in">slice</span>[<span class="hljs-variable language_">self</span>.atk_vars, :, <span class="hljs-variable language_">self</span>.fct_input_len - <span class="hljs-variable language_">self</span>.trigger_len - <span class="hljs-number">1</span>].unsqueeze(-<span class="hljs-number">1</span>)<br><br>            <span class="hljs-comment"># mimic the soft identification, i.e., the input and output only contain a part of the trigger and pattern</span><br>            batch_inputs_bkd = [<span class="hljs-built_in">slice</span>[..., i:i + <span class="hljs-variable language_">self</span>.fct_input_len] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.pattern_len)]<br>            batch_labels_bkd = [<span class="hljs-built_in">slice</span>[..., i + <span class="hljs-variable language_">self</span>.fct_input_len:i + <span class="hljs-variable language_">self</span>.fct_input_len + <span class="hljs-variable language_">self</span>.fct_output_len].detach()<br>                                <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.pattern_len)]<br>            batch_inputs_bkd = torch.stack(batch_inputs_bkd, dim=<span class="hljs-number">0</span>)<br>            batch_labels_bkd = torch.stack(batch_labels_bkd, dim=<span class="hljs-number">0</span>)<br><br>            batch_inputs_bkd = batch_inputs_bkd[:, :, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, :]<br>            batch_labels_bkd = batch_labels_bkd[:, :, <span class="hljs-number">0</span>, :]<br>            batch_inputs_bkd = <span class="hljs-variable language_">self</span>.dataset.normalize(batch_inputs_bkd)<br><br>            <span class="hljs-comment"># calculate eta in the soft identification to reweight the loss</span><br>            loss_decay = (<span class="hljs-variable language_">self</span>.pattern_len - torch.arange(<span class="hljs-number">0</span>, <span class="hljs-variable language_">self</span>.pattern_len, dtype=torch.float32).to(<br>                <span class="hljs-variable language_">self</span>.device)) / <span class="hljs-variable language_">self</span>.pattern_len<br><br>            <span class="hljs-variable language_">self</span>.attack_optim.zero_grad()<br>            batch_inputs_bkd = batch_inputs_bkd.squeeze(<span class="hljs-number">2</span>).permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br>            batch_labels_bkd = batch_labels_bkd.permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)<br><br>            <span class="hljs-keyword">if</span> use_timestamps:<br>                batch_x_mark = [tgr_timestamps[slice_id][i:i + <span class="hljs-variable language_">self</span>.fct_input_len] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.pattern_len)]<br>                batch_y_mark = [<br>                    tgr_timestamps[slice_id][i + <span class="hljs-variable language_">self</span>.fct_input_len:i + <span class="hljs-variable language_">self</span>.fct_input_len + <span class="hljs-variable language_">self</span>.fct_output_len] <span class="hljs-keyword">for</span> i<br>                    <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.pattern_len)]<br>                batch_x_mark = torch.stack(batch_x_mark, dim=<span class="hljs-number">0</span>)<br>                batch_y_mark = torch.stack(batch_y_mark, dim=<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">else</span>:<br>                batch_x_mark = torch.zeros(batch_inputs_bkd.shape[<span class="hljs-number">0</span>], batch_inputs_bkd.shape[<span class="hljs-number">1</span>], <span class="hljs-number">4</span>).to(<span class="hljs-variable language_">self</span>.device)<br><br>            x_des = torch.zeros_like(batch_labels_bkd)<br>            outputs_bkd = net(batch_inputs_bkd, batch_x_mark, x_des, <span class="hljs-literal">None</span>)<br>            outputs_bkd = <span class="hljs-variable language_">self</span>.dataset.denormalize(outputs_bkd)<br><br>            loss_bkd = F.mse_loss(outputs_bkd[:, :, <span class="hljs-variable language_">self</span>.atk_vars], batch_labels_bkd[:, :, <span class="hljs-variable language_">self</span>.atk_vars],<br>                                  reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br>            loss_bkd = torch.mean(loss_bkd, dim=(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))<br>            loss_bkd = torch.<span class="hljs-built_in">sum</span>(loss_bkd * loss_decay)  <span class="hljs-comment"># reweight the loss</span><br>            loss_norm = torch.<span class="hljs-built_in">abs</span>(torch.<span class="hljs-built_in">sum</span>(perturbations, dim=<span class="hljs-number">1</span>)).mean()<br>            loss = loss_bkd + <span class="hljs-variable language_">self</span>.lam_norm * loss_norm<br><br>            loss.backward()<br>            <span class="hljs-variable language_">self</span>.attack_optim.step()<br>        <span class="hljs-variable language_">self</span>.atk_scheduler.step()<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>欧洲航天局举办了一场<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/trojan-horse-hunt-in-space">关于时间序列的后门提取比赛</a>，形式新颖，但<strong>不允许中国人获得奖金。</strong></p>
+<p>但也期待获胜方案是如何解决的。AmbrosM目前位列第一，他一向具有很高深的方法。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
+      
+        <a href="/tags/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97/" class="print-no-link">#时间序列</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>时间序列预测与后门攻击</div>
+      <div>https://lijianxiong.space/2025/20250603/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年6月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250606/" title="经典的GNN被淘汰了吗？">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">经典的GNN被淘汰了吗？</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250601/" title="卷积层与位置编码">
+                        <span class="hidden-mobile">卷积层与位置编码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

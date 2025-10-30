@@ -1,0 +1,1216 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="转自nvidia的blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle Grandmasters playbook：7 种经过实战考验的表格数据建模技术">
+<meta property="og:url" content="https://lijianxiong.space/2025/20251014/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="转自nvidia的blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251014/1.webp">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251014/2.webp">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251014/3.webp">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251014/4.webp">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251014/5.webp">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251014/6.webp">
+<meta property="article:published_time" content="2025-10-14T02:43:32.000Z">
+<meta property="article:modified_time" content="2025-10-14T03:13:34.009Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="kaggle">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251014/1.webp">
+  
+  
+  
+  <title>Kaggle Grandmasters playbook：7 种经过实战考验的表格数据建模技术 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Kaggle Grandmasters playbook：7 种经过实战考验的表格数据建模技术</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-14 10:43" pubdate>
+          2025年10月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Kaggle Grandmasters playbook：7 种经过实战考验的表格数据建模技术</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>转自<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/the-kaggle-grandmasters-playbook-7-battle-tested-modeling-techniques-for-tabular-data/">nvidia的blog</a></p>
+<span id="more"></span>
+
+<p><img src="/2025/20251014/1.webp"></p>
+<p>在数百场 Kaggle 比赛中，我们改进了一本剧本（playbook），使我们始终接近排行榜的榜首——无论我们处理的是数百万行、缺失值还是行为与训练数据完全不同的测试集。这不仅仅是建模技巧的集合，它还是一个可重复的系统，用于快速解决现实世界的表格问题。</p>
+<p>以下是我们经过实战考验的七种技术，每一种技术都通过 GPU 加速变得实用。无论您是攀登排行榜还是在生产中部署模型，这些策略都可以为您带来优势。</p>
+<p>我们提供了指向每种技术过去比赛的示例文章或笔记本的链接。<br>**注意：**Kaggle 和 Google Colab 笔记本电脑附带免费的 GPU 和加速插入式，就像您将在下面预装的那样。</p>
+<h2 id="核心原则：制胜工作流程的基础"><a href="#核心原则：制胜工作流程的基础" class="headerlink" title="核心原则：制胜工作流程的基础"></a>核心原则：制胜工作流程的基础</h2><p>在深入研究技术之前，值得暂停一下，介绍一下为本手册中的所有内容提供动力的两个原则：快速实验和仔细验证。这些不是可选的最佳实践，它们是我们处理每个表格建模问题的基础。</p>
+<h3 id="快速实验"><a href="#快速实验" class="headerlink" title="快速实验"></a>快速实验</h3><p>在任何比赛或实际项目中，我们最大的杠杆是我们可以运行的高质量实验的数量。迭代次数越多，发现的模式就越多，当模型失败、漂移或过度拟合时，我们就能更快地发现，因此我们可以及早纠正方向并更快地改进。</p>
+<p>在实践中，这意味着我们优化了整个管道的速度，而不仅仅是我们的模型训练步骤。</p>
+<p><strong>以下是我们如何使其发挥作用：</strong></p>
+<ul>
+<li>使用 pandas 或 Polars 的 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/7-drop-in-replacements-to-instantly-speed-up-your-python-data-science-workflows/?linkId=100000376196126">GPU 插入式替换</a>来加速数据帧作，以大规模转换和设计功能。</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cuml">NVIDIA cuML</a> 或 XGBoost、LightGBM 和 CatBoost 的 GPU 后端训练模型。</li>
+</ul>
+<p>GPU 加速不仅适用于深度学习，而且通常是使高级表格技术大规模实用的唯一方法。</p>
+<h3 id="本地验证"><a href="#本地验证" class="headerlink" title="本地验证"></a>本地验证</h3><p>如果你不能相信你的验证分数，你就是盲目飞行。这就是为什么交叉验证 （CV） 是我们工作流程的基石。</p>
+<p><strong>我们的方法：</strong></p>
+<ul>
+<li>使用 k 折交叉验证，其中模型对大部分数据进行训练，并在保留的部分上进行测试。</li>
+<li>旋转折叠，以便数据的每个部分都经过一次测试。</li>
+</ul>
+<p>这提供了比单个训练&#x2F;验证拆分更可靠的性能衡量标准。</p>
+<p><strong>专业提示：</strong> 将您的简历策略与测试数据的结构相匹配。 </p>
+<p><strong>例如：</strong></p>
+<ul>
+<li>将 TimeSeriesSplit 用于与时间相关的数据</li>
+<li>将 GroupKFold 用于分组数据（如用户或患者）</li>
+</ul>
+<p>有了这些基础——快速行动并仔细验证——我们现在可以深入研究技术本身。每一个都建立在这些原则之上，并展示了我们如何将原始数据转化为世界一流的模型。</p>
+<h2 id="1-从更智能的-EDA-开始，而不仅仅是基础知识"><a href="#1-从更智能的-EDA-开始，而不仅仅是基础知识" class="headerlink" title="1. 从更智能的 EDA 开始，而不仅仅是基础知识"></a>1. 从更智能的 EDA 开始，而不仅仅是基础知识</h2><p>大多数从业者都知道基础知识：检查缺失值、异常值、相关性和特征范围。这些步骤很重要，但它们是赌注。要构建在现实世界中经得起考验的模型，您需要更深入地探索数据 - 我们发现一些有用的快速检查，但许多人忽略了：</p>
+<p><strong>训练与测试分布检查：</strong> 发现评估数据与训练何时不同，因为分布偏移可能会导致模型验证良好，但在部署中失败。</p>
+<p><img src="/2025/20251014/2.webp"></p>
+<p>上图比较训练（蓝色）和测试（红色）之间的特征分布可以发现明显的转变——测试数据集中在更高的范围内，重叠最小。这种分布转移可能会导致模型验证良好，但在部署中失败。</p>
+<p><strong>分析目标变量的时间模式：</strong> 检查趋势或季节性，因为忽略时间模式可能会导致模型在训练中看起来准确，但在生产中中断。</p>
+<p><img src="/2025/20251014/3.webp"></p>
+<p>随着时间的推移分析目标变量，可以发现季节性波动和加速增长的强劲上升趋势。忽略此类时间模式可能会误导模型，除非使用时间感知验证。</p>
+<p>这些技术并不新鲜，但它们经常被忽视，忽视它们可能会使项目沉沦。</p>
+<p><strong>为什么重要：</strong> 跳过这些检查可能会破坏原本可靠的工作流程。</p>
+<p><strong>在行动中：</strong> 在 Amazon KDD Cup ‘23 的获胜解决方案中，该团队发现了测试分布偏移和目标时间模式的列车——这些见解塑造了最终方法。<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=J3wj55kK5t"> 阅读全文 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 现实世界的数据集通常是数百万行，这在 pandas 中可能会变慢。通过使用 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cudf">NVIDIA cuDF</a> 添加 GPU 加速，您可以在几秒钟内大规模运行分布比较和相关性。<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/accelerated-data-analytics-speed-up-data-exploration-with-rapids-cudf/"> 阅读技术博客 &gt;</a></p>
+<h2 id="2-快速构建多样化的基线"><a href="#2-快速构建多样化的基线" class="headerlink" title="2. 快速构建多样化的基线"></a>2. 快速构建多样化的基线</h2><p>大多数人构建一些简单的基线（可能是均值预测、逻辑回归或快速 XGBoost），然后继续。问题在于，单个基线并不能告诉您太多有关数据格局的信息。</p>
+<p><strong>我们的方法不同：</strong> 我们立即跨模型类型启动一组不同的基线。了解线性模型、GBDT 甚至小型神经网络如何并排执行，为我们提供了更多的背景信息来指导实验。 </p>
+<p><strong>为什么重要：</strong> 基线是您的直觉检查——它们确认您的模型比猜测做得更好，设置最低性能标准，并充当快速反馈循环。在数据更改后重新运行基线可以揭示您是否取得了进展，或者发现泄漏等问题。</p>
+<p>多样化的基线还可以尽早显示哪些模型族最适合您的数据，因此您可以加倍努力，而不是在错误的路径上浪费周期。</p>
+<p><strong>在行动中：</strong> 在降<em>雨数据集二元预测</em>竞赛中，我们的任务是根据天气数据预测降雨量。我们的基线让我们走得很远——梯度增强树、神经网络和支持向量回归 （SVR） 模型的集合，没有任何特征工程，足以为我们赢得第二名。在探索其他基线时，我们发现即使是单个支持向量分类器 （SVC） 基线也会位于排行榜顶部附近。<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s5e3/writeups/chris-deotte-2nd-place-gbdt-nn-svr-original-data"> 阅读全文 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 在 CPU 上训练各种模型可能会非常慢。借助 GPU 加速，您可以尝试所有这些方法（用于快速统计的 cuDF、用于线性&#x2F;逻辑回归的 cuML，以及 GPU 加速的 XGBoost、LightGBM、CatBoost 和神经网络），因此您可以在几分钟内获得更好的洞察力，而不是几小时。</p>
+<h2 id="3-生成更多特征，发现更多模式"><a href="#3-生成更多特征，发现更多模式" class="headerlink" title="3. 生成更多特征，发现更多模式"></a>3. 生成更多特征，发现更多模式</h2><p>特征工程仍然是提高表格数据准确性的最有效方法之一。挑战：在 CPU 上使用 pandas 生成和验证数千个特征太慢，不切实际。</p>
+<p><strong>为什么重要：</strong> 从少数手动转换扩展到数百或数千个工程特征，通常会揭示仅靠模型无法捕获的隐藏信号。 </p>
+<p><strong>例：</strong> 组合分类列</p>
+<p>在一次 Kaggle 竞赛中，数据集有八个分类列。通过组合它们对，我们创建了 28 个新的分类特征，这些特征捕获了原始数据未显示的交互。以下是该方法的简化片段：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i,c1 <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(CATS[:-<span class="hljs-number">1</span>]):<br>     <span class="hljs-keyword">for</span> j,c2 <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(CATS[i+<span class="hljs-number">1</span>:]):<br>        n = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;c1&#125;</span>_<span class="hljs-subst">&#123;c2&#125;</span>&quot;</span><br>        train[n] = train[c1].astype(<span class="hljs-string">&#x27;str&#x27;</span>)+<span class="hljs-string">&quot;_&quot;</span>+train[c2].astype(<span class="hljs-string">&#x27;str&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>在行动中：</strong> 大规模功能工程推动了 Kaggle Backpack 和 Insurance 竞赛的第一名，数以千计的新功能发挥了作用。 </p>
+<p>使用 <strong>GPU 变得实用：</strong> 借助 cuDF，panda 作（如分组、聚合和编码）的运行速度提高了几个数量级，从而可以在几天而不是几个月内生成和测试数千个新功能。</p>
+<p>查看下面的技术博客和培训课程，了解实践示例：</p>
+<ul>
+<li>博客：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/grandmaster-pro-tip-winning-first-place-in-kaggle-competition-with-feature-engineering-using-nvidia-cudf-pandas/">Grandmaster Pro 提示：使用 cuDF pandas 在特征工程的 Kaggle 竞赛中赢得第一名</a></li>
+<li>课程：<a target="_blank" rel="noopener" href="https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-DS-06+V1"> 表格数据特征工程的最佳实践</a></li>
+</ul>
+<h2 id="组合不同的模型（集成）可提高性能"><a href="#组合不同的模型（集成）可提高性能" class="headerlink" title="组合不同的模型（集成）可提高性能"></a>组合不同的模型（集成）可提高性能</h2><p>我们发现，结合不同模型的优势通常会使性能超出任何一种模型所能达到的范围。两种特别有用的技术是爬山和模型堆叠。</p>
+<h3 id="4-爬山"><a href="#4-爬山" class="headerlink" title="4. 爬山"></a>4. 爬山</h3><p>爬山是一种简单但强大的模特组合方式。从最强的单个模型开始，然后系统地添加具有不同权重的其他模型，仅保留可改善验证的组合。重复直到没有进一步的收益。</p>
+<p><strong>为什么重要：</strong> 集成可以捕捉模型之间的互补优势，但很难找到正确的组合。爬山可以自动执行搜索，通常会降低准确性并优于单一模型解决方案。 </p>
+<p><strong>在行动中：</strong> 在<em>预测卡路里消耗</em>竞赛中，我们使用了 XGBoost、CatBoost、神经网络和线性模型的爬山集成来获得第一名。<a target="_blank" rel="noopener" href="https://www.kaggle.com/code/cdeotte/gpu-hill-climbing-cv-0-05930"> 阅读写入 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 爬山本身并不新鲜——它是比赛中常见的合奏技术——但它通常会变得太慢而无法大规模应用。借助 GPU 上的 Cupy，我们可以矢量化度量计算（如 RMSE 或 AUC）并并行评估数千种权重组合。这种加速使得测试比在 CPU 上可行的更多的集成变得实用，通常会发现更强的混合。</p>
+<p>以下是用于在 GPU 上评估爬山合奏的代码的简化版本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cupy <span class="hljs-keyword">as</span> cp<br> <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">multiple_rmse_scores</span>(<span class="hljs-params">actual, predicted</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(actual.shape)==<span class="hljs-number">1</span>: <br>        actual = actual[:,cp.newaxis]<br>    rmses = cp.sqrt(cp.mean((actual-predicted)**<span class="hljs-number">2.0</span>,axis=<span class="hljs-number">0</span>))<br>    <span class="hljs-keyword">return</span> rmses<br> <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">multiple_roc_auc_scores</span>(<span class="hljs-params">actual, predicted</span>):<br>    n_pos = cp.<span class="hljs-built_in">sum</span>(actual)  <br>    n_neg = <span class="hljs-built_in">len</span>(actual) - n_pos  <br>    ranked = cp.argsort(cp.argsort(predicted, axis=<span class="hljs-number">0</span>), axis=<span class="hljs-number">0</span>)+<span class="hljs-number">1</span> <br>    aucs = (cp.<span class="hljs-built_in">sum</span>(ranked[actual == <span class="hljs-number">1</span>, :], axis=<span class="hljs-number">0</span>)- n_pos\<br>    *(n_pos + <span class="hljs-number">1</span>)/<span class="hljs-number">2</span>) / (n_pos*n_neg)     <br>    <span class="hljs-keyword">return</span> aucs<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-堆叠"><a href="#5-堆叠" class="headerlink" title="5. 堆叠"></a>5. 堆叠</h3><p>堆叠通过在另一个模型的输出上训练一个模型，使集成更进一步。堆叠不是用权重（如爬山）对预测进行平均，而是构建一个二级模型，该模型学习如何最好地组合其他模型的输出。</p>
+<p><strong>为什么重要：</strong> 当数据集具有不同模型以不同方式捕获的复杂模式时，堆叠尤其有效，例如线性趋势与非线互。 </p>
+<p><strong>专业提示：</strong> 两种堆叠方式：</p>
+<ul>
+<li>残差：根据第 1 阶段出错的地方（残差）训练第 2 阶段模型。</li>
+<li>OOF 功能：使用阶段 1 预测作为阶段 2 的新输入功能。</li>
+</ul>
+<p>这两种方法都有助于通过捕获基础模型遗漏的模式从数据中挤出更多信号。</p>
+<p><strong>在行动中：</strong> 堆叠被用于在播客收听时间竞赛中赢得第一名，该竞赛使用了不同模型（线性、GBDT、神经网络和 AutoML）的三级堆栈。<a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/grandmaster-pro-tip-winning-first-place-in-a-kaggle-competition-with-stacking-using-cuml/"> 阅读技术博客 &gt;</a></p>
+<p><img src="/2025/20251014/4.webp"></p>
+<h2 id="6-将未标记的数据转换为具有伪标记的训练信号"><a href="#6-将未标记的数据转换为具有伪标记的训练信号" class="headerlink" title="6. 将未标记的数据转换为具有伪标记的训练信号"></a>6. 将未标记的数据转换为具有伪标记的训练信号</h2><p>伪标记将未标记的数据转换为训练信号。您可以使用最佳模型在缺少标签的数据（例如，测试数据或外部数据集）上推断标签，然后将这些“伪标签”折叠回训练中以提高模型性能。</p>
+<p><img src="/2025/20251014/5.webp"></p>
+<p>伪标记将未标记的数据转换为训练信号。您可以使用最佳模型在缺少标签的数据（例如，测试数据或外部数据集）上推断标签，然后将这些“伪标签”折叠回训练中以提高模型性能。</p>
+<p><strong>为什么重要：</strong> 更多数据 &#x3D; 更多信号。伪标记提高了鲁棒性，起到了知识蒸馏的作用（学生模型从强有力的教师的预测中学习），甚至可以通过过滤掉模型不同意的样本来帮助去噪标记的数据。使用<em>软标签</em> （概率而不是硬 0&#x2F;1）可以增加正则化并减少噪声。</p>
+<p><strong>有效伪标签的专业技巧：</strong></p>
+<ul>
+<li>模型越强，伪标签越好。集成或多轮伪标记通常优于单程方法</li>
+<li>伪标签也可用于预训练。作为最后一步，对初始数据进行微调，以减少之前引入的噪声。</li>
+<li>使用软伪标签。它们可以增加更多信号，降低噪声，并让您滤除低置信度样本。</li>
+<li>伪标记可用于标记数据，可用于去除有噪声的样品。</li>
+<li>避免信息泄露。使用 k 折时，必须计算 k 组伪标签，以便验证数据永远不会看到来自自身训练的模型的标签。</li>
+</ul>
+<p><strong>在行动中：</strong> 在 <em>BirdCLEF 2024</em> 比赛中，任务是根据鸟类录音对物种进行分类。伪标记在未标记的剪辑上使用软标签扩展了训练集，这有助于我们的模型更好地泛化到新物种和记录条件。<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/birdclef-2024/discussion/511905"> 阅读全文 &gt;</a></p>
+<p>使用 <strong>GPU 变得实用：</strong> 伪标记通常需要多次重新训练管道（基线 &gt; 伪标记 &gt; 改进的伪标签）。这在 CPU 上可能需要数天时间，使得迭代不切实际。通过 GPU 加速（通过 cuML、XGBoost 或 CatBoost GPU 后端），您可以在数小时内运行多个伪标记周期。</p>
+<h2 id="7-通过额外培训加强您的最终模型"><a href="#7-通过额外培训加强您的最终模型" class="headerlink" title="7. 通过额外培训加强您的最终模型"></a>7. 通过额外培训加强您的最终模型</h2><p>即使在优化了我们的模型和整体之后，我们也发现了两个可以挤出额外性能的最终调整：</p>
+<ul>
+<li><strong>使用不同的随机种子进行训练</strong> 。更改初始化和训练路径，然后对预测进行平均，通常可以提高性能。</li>
+<li><strong>对 100% 的数据进行重新训练</strong> 。找到最佳超参数后，将最终模型拟合到所有训练数据上会挤出额外的准确性。</li>
+</ul>
+<p><strong>为什么重要：</strong> 这些步骤不需要新的架构，只需对您已经信任的模型进行更多运行即可。它们共同提高了稳健性并确保您充分利用数据。</p>
+<p><strong>在行动中：</strong> 在<em>预测最佳肥料</em>挑战中，对 100 种不同种子进行集成 XGBoost 模型明显优于单种子训练。对完整数据集进行重新训练提供了另一个排行榜提升。<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s5e6/discussion/587393"> 阅读全文 &gt;</a></p>
+<p><img src="/2025/20251014/6.webp"></p>
+<p>使用 <strong>GPU 变得实用：</strong> 在 GPU 上更快的训练和推理使得多次重新运行模型成为可能。在 CPU 上可能需要数天的时间在 GPU 上变成数小时——将“额外”训练变成每个项目的现实步骤。 </p>
+<h2 id="总结：特级大师赛的战术手册"><a href="#总结：特级大师赛的战术手册" class="headerlink" title="总结：特级大师赛的战术手册"></a>总结：特级大师赛的战术手册</h2><p>这本剧本经过实战考验，是经过多年的比赛和无数实验锻造而成的。它基于两个原则——快速实验和仔细验证——我们把这些原则应用于每个项目。借助 GPU 加速，这些先进技术变得大规模实用，使其对于现实世界的表格问题和攀登排行榜同样有效。</p>
+<p>如果您想将这些想法付诸实践，这里有一些资源可以帮助您在已经使用的工具中开始使用 GPU 加速：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/rapidsai-community/showcase/blob/main/getting_started_tutorials/cudf_pandas_colab_demo.ipynb"><strong>Intro Notebook：使用 cuDF 加速 pandas</strong></a>（pandas 工作流程的零代码更改加速）</li>
+<li><a target="_blank" rel="noopener" href="https://colab.research.google.com/github/rapidsai-community/showcase/blob/main/getting_started_tutorials/cuml_sklearn_colab_demo.ipynb"><strong>Intro Notebook：使用 cuML 加速 scikit-learn</strong></a>（常见 ML 模型的直接加速）</li>
+<li>入<a target="_blank" rel="noopener" href="https://colab.research.google.com/drive/1vlzvB981pej2RlKmXBUF1CNzyxl8YpJg?usp=sharing#scrollTo=p8MdG_7hthDD"><strong>门笔记本：GPU 加速的 XGBoost</strong></a>（在几分钟内训练数百万行上的梯度提升树）</li>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cudf"><strong>NVIDIA cuDF 概述</strong> </a>：了解有关加速 pandas 和 Polars 的更多信息。</li>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/topics/ai/data-science/cuda-x-data-science-libraries/cuml"><strong>NVIDIA cuML 概述</strong> </a>：具有 GPU 加速的 Scikit 学习式机器学习。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/kaggle/" class="print-no-link">#kaggle</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Kaggle Grandmasters playbook：7 种经过实战考验的表格数据建模技术</div>
+      <div>https://lijianxiong.space/2025/20251014/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20251016/" title="LVLM幻觉幻觉思维导图">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">LVLM幻觉幻觉思维导图</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20251011/" title="五篇幻觉相关论文速览（二）">
+                        <span class="hidden-mobile">五篇幻觉相关论文速览（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

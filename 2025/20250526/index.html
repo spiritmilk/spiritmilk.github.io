@@ -1,0 +1,1170 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="朗之万动力学是一种描述粒子在流体中运动的物理模型，它考虑了两种主要的力：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="朗之万动力学和diffusion">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250526/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="朗之万动力学是一种描述粒子在流体中运动的物理模型，它考虑了两种主要的力：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250526/pitfalls.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250526/multi_scale.jpg">
+<meta property="article:published_time" content="2025-05-26T03:06:50.000Z">
+<meta property="article:modified_time" content="2025-05-27T07:57:46.293Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="物理">
+<meta property="article:tag" content="生成模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250526/pitfalls.jpg">
+  
+  
+  
+  <title>朗之万动力学和diffusion - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">朗之万动力学和diffusion</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-26 11:06" pubdate>
+          2025年5月26日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">朗之万动力学和diffusion</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>朗之万动力学是一种描述粒子在流体中运动的物理模型，它考虑了两种主要的力：<span id="more"></span></p>
+<ol>
+<li><strong>耗散力 (Dissipative Force)</strong>：也称为摩擦力或阻尼力。这种力与粒子的速度成正比，方向相反，模拟了粒子在运动时由于与周围流体分子碰撞而受到的能量损失。数学上通常表示为 −γv，其中 γ 是阻尼系数，v 是粒子的速度。</li>
+<li><strong>随机力 (Random Force)</strong>：也称为噪声项。这种力模拟了流体中分子对粒子的随机碰撞，这些碰撞是无规则且快速变化的。它通常被建模为一个均值为零的高斯白噪声，其强度与系统的温度和阻尼系数有关。这个力是系统能量的来源，使得粒子能够克服耗散力并进行持续的随机运动（布朗运动）。</li>
+</ol>
+<p>粗略而言，朗之万动力学采样依赖于分数（score）函数。而Tweedie公式提供了估计分数函数的方法。</p>
+<p>故我们先介绍Tweedie公式和一些基本概念。</p>
+<h2 id="Tweedie公式和DDPM"><a href="#Tweedie公式和DDPM" class="headerlink" title="Tweedie公式和DDPM"></a>Tweedie公式和DDPM</h2><p>Tweedie公式为$E[x\mid y]&#x3D;y+\sigma^2\nabla log p(y)$。其中$\nabla logp(y)$被称为分数（score）。</p>
+<blockquote>
+<p>证明：</p>
+<p>$$<br>\begin{align}<br>p(y)&amp;&#x3D;\int p(y\mid x)p(x)dx<br>\\\nabla p(y)&amp;&#x3D;\nabla \int p(y\mid x)p(x)dx<br>\\&amp;&#x3D; \int \nabla p(y\mid x)p(x)dx<br>\end{align}<br>$$<br>由$p(y\mid x ) \propto exp(-\frac{1}{2\sigma^2}||y-x||^2)$得，$\nabla p(y\mid  x)&#x3D;-\frac{1}{\sigma^2}(y-x)p(y\mid x)$</p>
+<p>故<br>$$<br>\begin{align}<br>\nabla p(y)&amp;&#x3D; \int -\frac{1}{\sigma^2}(y-x)p(y\mid x)p(x)dx<br>\\&amp;&#x3D;-\frac{1}{\sigma^2}y\int p(y\mid x)p(x)dx+\frac{1}{\sigma^2}\int p(y\mid x)xp(x)dx<br>\\&amp;&#x3D;-\frac{1}{\sigma^2}yp(y)+\frac{1}{\sigma^2}E[x\mid y]p(y)<br>\end{align}<br>$$<br>而$\nabla log p(y)&#x3D;\frac{\nabla p(y)}{p(y)}$，两边同除$p(y)$即可得到。 </p>
+</blockquote>
+<p>沿用DDPM的$q(x_t\mid x_0) &#x3D; \mathcal{N}(x _ {t} ; \sqrt{\bar\alpha_t}x_0, \left(1 - \bar\alpha_t\right)\textbf{I})$，由Tweedie公式有：<br>$$<br>\begin{align}<br>\mathbb{E}\left[\mu _ {x_t}\mid x_t\right] &#x3D; x_t + (1 - \bar\alpha_t)\nabla _ {x_t}\log p(x_t)<br>\\<br>\therefore \sqrt{\bar\alpha_t}x_0 &#x3D; x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)<br>\\<br>    \therefore x_0 &#x3D; \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}<br>\end{align}<br>$$<br>对比DDPM中的$x _ 0&#x3D;\frac{x _ t - \sqrt{1 - \bar \alpha _ t} \epsilon _ 0}{\sqrt{\bar\alpha _ t}}$，可以发现$\nabla \log p(x _ t) &#x3D; -\frac{1}{ \sqrt{1 - \bar \alpha _ t}}\epsilon _ 0$。</p>
+<p>DDPM其实也是基于分数函数来去噪。</p>
+<h2 id="去噪分数匹配"><a href="#去噪分数匹配" class="headerlink" title="去噪分数匹配"></a>去噪分数匹配</h2><p>我们不妨考虑以下分布，被称为能量函数：<br>$$<br>\begin{align}<br>    p _ {\boldsymbol{\theta}}(\boldsymbol{x}) &#x3D; \frac{1}{Z _ {\boldsymbol{\theta}}}e^{-f _ {\boldsymbol{\theta}}(\boldsymbol{x})}<br>\end{align}<br>$$<br>我们可以通过神经网络来对学习$\nabla \log p(x)$：<br>$$<br>\begin{align}<br>\nabla _ {x} \log p _ {\theta}(x)<br>&amp;&#x3D; \nabla _ {x}\log(\frac{1}{Z _ {\theta}}e^{-f _ {\theta}(x)})<br>\\<br>&amp;&#x3D; \nabla _ {x}\log\frac{1}{Z _ {\theta}} + \nabla _ {x}\log e^{-f _ {\theta}(x)}\\<br>&amp;&#x3D; -\nabla _ {x} f _ {\theta}(x)\\<br>&amp;&#x3D; s _ {\theta}(x)<br>\end{align}<br>$$<br>具体而言，即我们可以使用神经网络f进行建模，通过任意计算其负梯度来查询分数；或者，更常见的是，我们可以直接使用神经网络对s进行建模。<br>$$<br>\mathbb{E} _ {p(x)}\left[\left\lVert s _ {\theta}(x) - \nabla\log p({x})\right\rVert_2^2\right]<br>$$<br>但接下来的一个难点是，我们很难知道$\nabla\log p({x})$。</p>
+<p>2005年Aapo Hyvarinen在他的《Estimation of Non-Normalized Statistical Models by Score Matching》中提出了：<br>$$<br>\mathbb{E} _ {p(x)}\left[tr(\nabla s_\theta(x) )+\frac{1}{2}\lVert s_\theta(x) \rVert^2\right]<br>$$<br>这种没有使用p的方法也被叫做Implicit Score Matching。但是这种方法随着应用场景的维度的升高，迹变得更加难求。</p>
+<p>2010年Pascal Vincent在他的《A connection between score matching and denoising autoencoders》中提出了：<br>$$<br>\mathbb{E} _ {p(\tilde x,x)}\left[\frac{1}{2}\lVert s_\theta(\tilde x)- \frac{x-\tilde x}{\sigma^2}\rVert^2\right]<br>$$<br>其中$\tilde x$是加噪后的，或者是x是去噪后的。</p>
+<p>逐渐有了现在去噪分数匹配的雏形，这样的形式就变得很好求了。</p>
+<p>当我们知道score，那我们就可以进行采样了，下式被称为（未调整的）朗之万动力学采样（Unadjusted Langevin Algorithm）：<br>$$<br>{x} _ {i+1} \leftarrow {x}_i + c\nabla\log p({x}_i) + \sqrt{2c}{\epsilon},\quad i &#x3D; 0, 1, …, K<br>$$<br>$\epsilon$为噪声，以实现更好的多样性。</p>
+<h2 id="朗之万动力学采样"><a href="#朗之万动力学采样" class="headerlink" title="朗之万动力学采样"></a>朗之万动力学采样</h2><p>这一章我们将证明上式是如何得到的。</p>
+<p>一般的朗之万方程——对于一个质量为m的粒子，其位置为m，其动力学行为可以用以下随机微分方程描述：<br>$$<br>m\frac{d^2x}{dt^2}&#x3D;F(x)-\gamma\frac{dx}{dt}+\eta(t)<br>$$<br>当粒子非常小或者阻尼非常大时，惯性项$m\frac{d^2x}{dt^2}$可以忽略不计，这被称为<strong>过阻尼朗之万动力学 (Overdamped Langevin Dynamics)</strong> 或布朗动力学。</p>
+<p>我们考虑过阻尼朗之万动力学方程：</p>
+<p>$$<br>\frac{d{x}(t)}{dt} &#x3D; \frac{1}{\gamma}{F}({x}(t)) + \sqrt{\frac{2k_B T}{\gamma}}{\xi}(t)<br>$$</p>
+<p>其中 ${F}({x}) &#x3D; -\nabla U({x})$ 是由势能 $U({x})$ 产生的力，${\xi}(t)$ 是均值为0、协方差为 $\langle \xi_i(t) \xi_j(t’) \rangle &#x3D; \delta _ {ij} \delta(t-t’)$ 的高斯白噪声。</p>
+<p>为了简化，设定一个“有效的扩散系数” $D &#x3D; k_B T &#x2F; \gamma$，并将方程改写为：<br>$$<br>d{x}(t) &#x3D; \frac{1}{\gamma}{F}({x}(t)) dt + \sqrt{2D} d{W}(t)<br>$$</p>
+<p>我们依旧使用采样的目标分布是 $p({x}) \propto e^{-U({x})&#x2F;(k_B T)}$，我们可以令 $U({x}) &#x3D; -\log p({x})$ 并简写为：</p>
+<p>$$<br>d{x}(t) &#x3D; \nabla \log p({x}(t)) dt + \sqrt{2} d{W}(t)<br>$$</p>
+<h3 id="平衡态"><a href="#平衡态" class="headerlink" title="平衡态"></a>平衡态</h3><p>福克-普朗克方程描述了在随机过程中概率密度函数 P(x,t) 如何随时间演化。我们采样的目标分布实际上是一个平稳解。</p>
+<p>福克-普朗克方程描述了概率密度 $P({x}, t)$ 如何随时间演化。</p>
+<p>对于一个由随机微分方程 $d{X}_t &#x3D; {b}({X}_t)dt + \sqrt{2{D}({X}_t)}d{W}_t$ 描述的系统，其福克-普朗克方程为：<br>$$<br>\frac{\partial P({x}, t)}{\partial t} &#x3D; -\sum_i \frac{\partial}{\partial x_i} [b_i({x}) P({x}, t)] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}({x}) P({x}, t)]<br>$$<br>这里 ${b}({x})$ 是漂移向量，$D _ {ij}({x})$ 是扩散张量。</p>
+<p>平稳解 $P_s({x})$ 是指不随时间变化的解，即 $\frac{\partial P_s({x})}{\partial t} &#x3D; 0$。所以，我们需要解以下偏微分方程：<br>$$<br>-\sum_i \frac{\partial}{\partial x_i} [b_i({x}) P_s({x})] + \sum _ {i,j} \frac{\partial^2}{\partial x_i \partial x_j} [D _ {ij}({x}) P_s({x})] &#x3D; 0<br>$$<br>这个方程通常可以写作 $\nabla \cdot [-{b}({x}) P_s({x}) + \nabla \cdot ({D}({x}) P_s({x}))] &#x3D; 0$。更清晰的写法是定义概率流 (probability current) ${J}(P_s)$:<br>$$<br>J_k(P_s) &#x3D; b_k({x}) P_s({x}) - \sum_j \frac{\partial}{\partial x_j} [D _ {kj}({x}) P_s({x})]<br>$$<br>则平稳的福克-普朗克方程变为散度为零：<br>$$<br>\sum_k \frac{\partial J_k(P_s)}{\partial x_k} &#x3D; \nabla \cdot {J}(P_s) &#x3D; 0<br>$$<br>寻找这个方程的通解可能非常困难，具体方法取决于漂移项 ${b}({x})$ 和扩散项 ${D}({x})$ 的形式以及边界条件。</p>
+<p>为了简便，在这里我们只讨论一维情况。</p>
+<p>在一维情况下，方程简化为：<br>$$<br>-\frac{d}{dx}[b(x) P_s(x)] + D \frac{d^2 P_s(x)}{dx^2} &#x3D; 0<br>$$<br>这可以写成：<br>$$<br>\frac{d}{dx} \left[ -b(x) P_s(x) + D \frac{dP_s(x)}{dx} \right] &#x3D; 0<br>$$<br>这意味着方括号内的项（即概率流 $J(x)$）是一个常数，记为 $J_0$：<br>$$<br>-b(x) P_s(x) + D \frac{dP_s(x)}{dx} &#x3D; J_0<br>$$<br>对于大多数物理系统，尤其是在无限区域或者有反射边界的情况下，我们期望平稳态下没有净的概率流动，即 $J_0 &#x3D; 0$。如果 $J_0 &#x3D; 0$，则：<br>$$<br>D \frac{dP_s(x)}{dx} &#x3D; b(x) P_s(x)<br>$$<br>这是一个可分离变量的一阶常微分方程：<br>$$<br>\frac{1}{P_s(x)} dP_s(x) &#x3D; \frac{b(x)}{D} dx<br>$$<br>两边积分：<br>$$<br>\ln P_s(x) &#x3D; \int \frac{b(x)}{D} dx + \text{const}<br>$$<br>所以，平稳解为：<br>$$<br>P_s(x) &#x3D; A \exp\left(\int \frac{b(x)}{D} dx\right)<br>$$<br>其中 $A$ 是归一化常数，通过 $\int P_s(x) dx &#x3D; 1$ 来确定。</p>
+<p>这与我们假设的 $P_s({x}) \propto e^{-U({x})&#x2F;(k_B T)}$ 形式类似。</p>
+<h3 id="离散化"><a href="#离散化" class="headerlink" title="离散化"></a>离散化</h3><p>欧拉-丸山法 (Euler-Maruyama method) 是离散化SDE最简单的方法之一。</p>
+<p>考虑过阻尼朗之万方程的简化形式：</p>
+<p>$$<br>d{x}(t) &#x3D;{b}({x}(t)) dt + \sigma({x}(t)) d{W}(t)<br>$$</p>
+<p>欧拉-丸山法的离散化更新规则如下：<br>给定当前状态 ${x}_k$ 在时间 $t_k$，下一个状态 ${x} _ {k+1}$ 在时间 $t _ {k+1} &#x3D; t_k + \Delta t$ 可以近似为：<br>$$<br>{x} _ {k+1} &#x3D;{x}_k +{b}({x}_k) \Delta t + \sigma({x}_k) \sqrt{\Delta t}{Z}_k<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$\Delta t$ 是离散的时间步长。</li>
+<li>${Z}_k$ 是一个从标准多元正态分布（均值为0，协方差矩阵为单位矩阵 ${I}$）中抽取的随机向量。</li>
+<li>$d{W}(t)$ 在离散时间步长 $\Delta t$ 内的增量 $\Delta{W}_k &#x3D;{W}(t _ {k+1}) -{W}(t_k)$ 服从均值为0、协方差矩阵为 $\Delta t \cdot{I}$ 的正态分布。因此，$\Delta{W}_k$ 可以表示为 $\sqrt{\Delta t}{Z}_k$。</li>
+</ul>
+<h2 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h2><p>在p(x)较小的低密度区域，模型可能很难学习，从而导致效果不佳：</p>
+<p><img src="/2025/20250526/pitfalls.jpg"></p>
+<p>一个可行的办法是加大噪声以遍历更多的空间。</p>
+<h2 id="具有多重噪声扰动的生成模型"><a href="#具有多重噪声扰动的生成模型" class="headerlink" title="具有多重噪声扰动的生成模型"></a>具有多重噪声扰动的生成模型</h2><p>但我们如何选取噪声的大小呢？</p>
+<p>yang song提出了同时使用多个尺度的噪声扰动。</p>
+<p><img src="/2025/20250526/multi_scale.jpg"></p>
+<p>定义一个逐渐增加的方差$\sigma_1&lt;\sigma_2&lt;…&lt;\sigma_L$，定义一个逐步扰动的数据分布序列：<br>$$<br>p _ {\sigma_t}({x}_t) &#x3D; \int p({x})\mathcal{N}({x}_t; {x}, \sigma_t^2\textbf{I})d{x}<br>$$</p>
+<p>使用神经网络同时学习所有噪声级别的得分函数：<br>$$<br>\underset{\arg\min}, \sum _ {t&#x3D;1}^T\lambda(t)\mathbb{E} _ {p _ {\sigma_t}({x}_t)}\left[\left\lVert {s} _ ({x}, t) - \nabla\log p _ {\sigma_t}({x}_t)\right\rVert_2^2\right]<br>$$<br>其中通常定义$\lambda(i)&#x3D;\sigma_i^2$。</p>
+<p>使用退火朗之万动力学采样作为生成过程，其中通过依次对每个 $t&#x3D;T,T-1…$运行朗之万动力学来生成样本。</p>
+<p>song yang也提出来一些实用建议：</p>
+<ul>
+<li><p>将$\sigma$选择为等比数列，其中$\sigma_1$足够小， $\sigma_L$与所有训练数据点之间的最大成对距离数量级相同。L为数百或数千的数量级。</p>
+</li>
+<li><p>用 U-Net 跳跃连接参数化模型 </p>
+</li>
+<li><p>在测试时对权重应用指数移动平均</p>
+</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>参考于yang song的博客，更多的内容也可以在该处查看。</p>
+<p><a target="_blank" rel="noopener" href="http://yang-song.net/blog/2021/score/">http://yang-song.net/blog/2021/score/</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E7%89%A9%E7%90%86/" class="print-no-link">#物理</a>
+      
+        <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" class="print-no-link">#生成模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>朗之万动力学和diffusion</div>
+      <div>https://lijianxiong.space/2025/20250526/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250527/" title="DDPM加速">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DDPM加速</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250523/" title="使用奇异值抵御标签噪声的免训练方法">
+                        <span class="hidden-mobile">使用奇异值抵御标签噪声的免训练方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

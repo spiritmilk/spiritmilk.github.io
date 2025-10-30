@@ -1,0 +1,1219 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MCMC之前尘后事">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250520/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250520/reject.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250520/mcmc.jpg">
+<meta property="article:published_time" content="2025-05-20T15:27:34.000Z">
+<meta property="article:modified_time" content="2025-05-22T14:52:32.477Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="概率论">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250520/reject.jpg">
+  
+  
+  
+  <title>MCMC之前尘后事 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">MCMC之前尘后事</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-20 23:27" pubdate>
+          2025年5月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MCMC之前尘后事</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MCMC即马尔可夫链蒙特卡罗（Markov Chain Monte Carlo, MCMC），是一类在统计学和机器学习等领域广泛应用的强大算法。</p>
+<span id="more"></span>
+
+<h2 id="前尘"><a href="#前尘" class="headerlink" title="前尘"></a>前尘</h2><p>最早的源于Metropolis等人发表于《Journal of Chemical Physics》的主要针对以下形式的积分：<br>$$<br>J&#x3D;\int F(\theta)exp(-E(\theta)&#x2F;kT)d\theta &#x2F; \int exp(-E(\theta)&#x2F;kT)d\theta<br>$$<br>$\theta$表示$R^2$上一组N个粒子（particles），能量E为：<br>$$<br>E(\theta)&#x3D;\frac{1}{2}\sum _ {i&#x3D;1}^N\sum _ {j&#x3D;1,j\ne i}^NV(d _ {ij})<br>$$<br>其中V是势函数，d是粒子i和j在$\theta$中的欧几里得距离。玻尔兹曼分布$exp(-E(\theta))$。</p>
+<p>考虑到问题的维度很大，即使是标准的蒙特卡洛技术也无法正确地近似$J$。</p>
+<p>因为对于粒子系统（在 2N 的正方形中均匀分布）的随机构型的大多数实现，exp{−E(θ)&#x2F;kT }非常小。为了提高蒙特卡洛方法的效率，Metropolis 等人（1953 年）提出了对 N 个粒子的随机游走修改，即<br>$$<br>\begin{align}<br>x_i’&#x3D;x_i+\sigma\xi _ {1i}<br>\\<br>y_i’&#x3D;y_i+\sigma\xi _ {2i}<br>\end{align}<br>$$<br>$\xi _ {1i}、\xi _ {2i}$都是均匀分布U(-1,1)。</p>
+<p>然后计算新配置（configuration）和旧配置之间的能量差∆E，并以概率接受新配置。<br>$$<br>min(1,exp(-\Delta E&#x2F;KT))<br>$$<br>否则，先前配置将被复制，即在随机游走 τ 步的 F (θ) 的最终平均中，其计数器增加一 。但Metropolis 等人一次移动一个粒子，而不是一起移动所有粒子，这使得初始算法看起来像是一种原始的吉布斯采样器。</p>
+<h2 id="基本采样方法"><a href="#基本采样方法" class="headerlink" title="基本采样方法"></a>基本采样方法</h2><p>像变分贝叶斯推断是基于确定性近似的推断⽅法，考虑基于数值采样的近似推断⽅法，也被称为蒙特卡罗方法。</p>
+<p>MCMC方法巧妙地将两个核心概念结合起来：<strong>蒙特卡罗方法</strong>和<strong>马尔可夫链</strong>。</p>
+<ul>
+<li><p><strong>蒙特卡罗方法</strong>：这是一种通过大量随机抽样来估计复杂问题数值解的方法。</p>
+</li>
+<li><p><strong>马尔可夫链</strong>：一个马尔可夫链是一个随机过程，其中未来的状态仅依赖于当前状态，而与过去的状态无关（即“无记忆性”）。在MCMC中，我们构造一个特殊的马尔可夫链，使其<strong>平稳分布</strong>恰好是我们想要抽样的目标概率分布 $\pi(x)$。这意味着，当马尔可夫链运行足够长的时间后，它所产生的样本将近似服从目标分布 $\pi(x)$。</p>
+</li>
+</ul>
+<p>在介绍MCMC之前，我们先介绍一些基本概念和基本方法。</p>
+<p>我们希望解决的基本的问题涉及到关于⼀个概率分布p(z)寻找某个函数f(z)的期望。即:<br>$$<br>E[f]&#x3D;\int f(z)p(z)dz<br>$$<br>采样⽅法背后的⼀般思想是得到从概率分布p(z)中独⽴抽取的⼀组变量$z^{(l)}$。这使得期望可以通过有限和的⽅式计算，即<br>$$<br>\hat f&#x3D;\frac{1}{L}\sum f(z^{(l)})<br>$$<br>且估计的精度不依赖于z的维度，且原则上数量较少也能达到较高的精度。</p>
+<blockquote>
+<p><strong>hoeffding不等式：</strong></p>
+<p>一系列随机有界独立变量，$z_1…z_n$，$z_i\in[a,b]$，对所有的i，有：<br>$$<br>P(\frac{1}{n}\sum(z_i-E(z_i))\ge t)\le exp(-\frac{2nt^2}{(b-a)^2})<br>$$</p>
+</blockquote>
+<h3 id="基本采样"><a href="#基本采样" class="headerlink" title="基本采样"></a>基本采样</h3><p>我们考虑如何从简单的⾮均匀分布中⽣成随机数，假定我们已经有了⼀个均匀分布的随机数的来源。假设<em>z</em>在区间(0*,* 1)上均匀分布，我们使⽤某个函数f(·)对z的值进⾏变换，即y&#x3D;f(z)。y上的概率分布为:<br>$$<br>p(y)&#x3D;p(z)\left|\frac{dz}{dy}\right|<br>$$<br>我们的⽬标是选择⼀个函数<em>f</em>(<em>z</em>)使得产⽣出的<em>y</em>值具有某种所需的具体的分布形式p(y)，对上式进行积分有：<br>$$<br>z&#x3D;h(y)&#x3D;\int _ {-\infty}^y p(\hat y)d\hat y<br>$$<br>它是p(y)的不定积分。因此，$y&#x3D;h^-1(z)$，因此我们必须使⽤⼀个函数来对这个均匀分布的随机数进⾏变换</p>
+<p>假如指数分布（exponential distribution）$p(y)&#x3D;\lambda exp(-\lambda y)$，其中$0\le y&lt;\infty$，故有<br>$$<br>\begin{align}<br>z&amp;&#x3D;h(y)&#x3D;\int_0^y p(y)dy<br>\\<br>&amp;&#x3D;\int_0^y \lambda exp(-\lambda y)dy<br>\\<br>&amp;&#x3D;1-exp(-\lambda y)<br>\end{align}<br>$$</p>
+<p>故我们均匀生成z，并通过$y&#x3D;-\lambda^{-1}ln(1-z)$来生成指数分布。</p>
+<p>另外统计学中还有一个Box-Muller⽅法⽤于⽣成⾼斯概率分布的样本。</p>
+<p>但是我们这种方法只能用于⼀些⾮常有限的简单的概率分布可⾏，因此我们必须寻找⼀些更加⼀般的⽅法。</p>
+<h3 id="拒绝采样"><a href="#拒绝采样" class="headerlink" title="拒绝采样"></a>拒绝采样</h3><p>为了应⽤拒绝采样⽅法，我们需要⼀些简单的概率分布q(z)，有时被称为提议分布（proposal distribution）。满足对所有的z，都要$kq(z)\ge \tilde p(z)$，函数kq(z)被称为⽐较函数。</p>
+<p>⾸先，我们从概率分布q(z)中⽣成⼀个数z0。</p>
+<p>接下来，我们在区间[0, kq(z0)]上的均匀分布中⽣成⼀个数u0。这对随机数在函数kq(z)的曲线下⽅是均匀分布。</p>
+<p>最后，如果$u_0&gt;\tilde{p}(z_0)$，那么样本被拒绝，否则u0被保留。因此，如果它位于下图的灰⾊阴影部分，它就会被拒绝。这样，剩余的点对在曲线$\tilde{p}(z)$下⽅是均匀分布的，因此对应的z值服从概率分布p(z)。</p>
+<p><img src="/2025/20250520/reject.jpg"></p>
+<p>在某些情况下，找到满足对所有的z，都要$kq(z)\ge \tilde p(z)$的q是困难的，所以又有可调节的拒绝采样。</p>
+<p>拒绝采样在⼀维或⼆维空间中是⼀个有⽤的⽅法，但是它不适⽤于⾼维空间。</p>
+<h3 id="重要采样"><a href="#重要采样" class="headerlink" title="重要采样"></a>重要采样</h3><p>与拒绝采样的情形相同，重要采样基于的是对提议分布q(z)的使⽤，我们很容易从提议分布中采样。之后，我们可以通过q(z)中的样本{$z^{(l)}$}的有限和的形式来表⽰期望：<br>$$<br>\begin{align}<br>E(f)&amp;&#x3D;\int f(z)p(z)dz<br>\\<br>&amp;&#x3D;\int f(z)\frac{p(z)}{q(z)}q(z)dz<br>\\<br>&amp;\approx\frac{1}{L}\sum^L f(z^{(l)})\frac{p(^{(l)})}{q(^{(l)})}<br>\end{align}<br>$$<br>其中$r_l&#x3D;\frac{p(^{(l)})}{q(^{(l)})}$​被称为重要性权重（importance weights），修正了由于从错误的概率分布中采样引⼊的偏差。注意，与拒绝采样不同，所有⽣成的样本都被保留。</p>
+<p>常见的情形是，概率分布p(z)的计算结果没有归⼀化，即$p(z)&#x3D;\tilde p(z)&#x2F;Z_p$，但$Z_p$未知。类似地，我们可能希望使⽤重要采样分布$q(z)&#x3D;\tilde q(z)&#x2F;Z_q$，它具有相同的性质。于是我们有：<br>$$<br>\begin{align}<br>E(f)&amp;&#x3D;\int f(z)p(z)dz<br>\\<br>&amp;&#x3D;\frac{Z_q}{Z_p}\int f(z)\frac{\tilde p(z)}{\tilde q(z)}q(z)dz<br>\\<br>&amp;\approx\frac{1}{L}\sum^L f(z^{(l)})\tilde r_l<br>\end{align}<br>$$<br>我们可以计算比值Zp&#x2F;Zq：<br>$$<br>\frac{Z_p}{Z_q}&#x3D;\frac{1}{Z_q}\int \tilde p(z)dz&#x3D;\int \frac{\tilde p(z)}{\tilde q(z)}q(z)dz\approx \frac{1}{L}\sum \tilde r_l<br>$$<br>故<br>$$<br>E(f)\approx\sum w_lf(z^{(l)})<br>$$<br>其中<br>$$<br>w_l&#x3D;\frac{\tilde r_l}{\sum_m \tilde r_m}&#x3D;\frac{\frac{\tilde p^{(l)}}{q(z^{(l)})}}{\frac{\sum_m \tilde p(z^{(m)})}{q(z^{(m)})}}<br>$$</p>
+<p>伪代码：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs text">Function Importance_Sampling_Normalized(N, f, tilde_p, q_sampler, tilde_q):<br>  // 初始化<br>  sum_weighted_f_numerator = 0.0<br>  sum_weights_denominator = 0.0<br><br>  // 抽样和计算权重阶段<br>  For i from 1 to N:<br>    1. // 从提议分布 q(x) 中抽取一个样本<br>       x_i = q_sampler()<br><br>    2. // 计算该样本在目标分布下的未归一化值<br>       tilde_p_value_at_x_i = tilde_p(x_i)<br><br>    3. // 计算该样本在提议分布下的未归一化值<br>       tilde_q_value_at_x_i = tilde_q(x_i)<br><br>    4. // 安全检查：避免除以零<br>       If tilde_q_value_at_x_i == 0:<br>         // 如果 tilde_p_value_at_x_i 也为零，则此样本贡献为0，可以跳过或赋权重0<br>         // 如果 tilde_p_value_at_x_i 不为零，这是一个严重问题，说明 q(x) 在 p(x) 有值的地方取了0<br>         // 实践中需要更稳健的错误处理或确保 q 的选择是合适的<br>         raw_weight_i = 0.0 // 简单处理：赋权重0<br>         // 也可以打印警告信息: print &quot;Warning: tilde_q(x_i) is zero!&quot;<br>       Else:<br>         // 计算原始（未归一化的）重要性权重<br>         raw_weight_i = tilde_p_value_at_x_i / tilde_q_value_at_x_i<br>       End If<br><br>    5. // 累加分子项：f(x_i) * 原始权重<br>       sum_weighted_f_numerator = sum_weighted_f_numerator + f(x_i) * raw_weight_i<br><br>    6. // 累加分母项：原始权重之和<br>       sum_weights_denominator = sum_weights_denominator + raw_weight_i<br>  End For<br><br>  // 计算最终估计值<br>  If sum_weights_denominator == 0:<br>    // 如果所有权重都为零，可能表示 p 和 q 的重叠非常差，或者 N 太小<br>    // 或者 f(x_i) * raw_weight_i 始终为0<br>    print &quot;Warning: Sum of weights is zero. Estimate might be unreliable.&quot;<br>    estimate_E_p_f = 0.0 // 或返回 NaN 或根据具体情况处理<br>  Else:<br>    estimate_E_p_f = sum_weighted_f_numerator / sum_weights_denominator<br>  End If<br><br>  Return estimate_E_p_f<br>End Function<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="MCMC"><a href="#MCMC" class="headerlink" title="MCMC"></a>MCMC</h2><h3 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h3><p>与拒绝采样和重要采样相同，我们再⼀次从提议分布中采样。但是这次我们记录下当前状态$z^{(\tau)}$，以及依赖于这个当前状态的提议分布$z^{(\tau)}$，从⽽样本序列$z^{(1)}$,$z^{(2)}$, . . .组成了⼀个马尔科夫链。与之前⼀样，如果我们有$p(z)&#x3D;\frac{\tilde p(z)}{Z_p}$，那么我们会假定对于任意的值z都可以计算$\tilde p(z)$，虽然$Z_p$的值可能位置。提议分布本⾝被选择为⾜够简单，从⽽直接采样很容易。在算法的每次迭代中，我们从提议分布中⽣成⼀个候选样本$z^{*}$，然后根据⼀个恰当的准则接受这个样本。</p>
+<p>在基本的Metropolis算法中，我们假定提议分布是对称的，即$q(z_A|z_B)&#x3D;q(z_B|z_A)$，则候选的样本被接受的概率为：<br>$$<br>A(z^{\ast},z^{(\tau)})&#x3D;min(1,\frac{\tilde p(z^{\ast})}{\tilde p(z^{(\tau)})})<br>$$<br>若候选样本被接受，则$z^{(\tau+1)}&#x3D;z^{*}$，否则候选样本点被丢弃，再设置$z^{\tau+1}&#x3D;z^{\tau}$，然后从概率分布$q(z|z^{(\tau+1)})$​中再次抽取⼀个候选样本。与拒绝采样不同，那⾥拒绝的样本被简单地丢弃。在Metropolis算法中，当⼀个候选点被拒绝时，前⼀个样本点会被包含到最终的样本的列表中，从⽽产⽣了样本点的多个副本。</p>
+<p>使⽤Metropolis算法从⼀个⾼斯分布中采样的简单例⼦，我们可以看出采样过程是连着的，这也就是链。</p>
+<p><img src="/2025/20250520/mcmc.jpg"></p>
+<p>比如我们从二维高斯分布中采样<code>N = multivariate_normal(mean=mu, cov=S)</code>，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">X = np.mgrid[-<span class="hljs-number">3</span>:<span class="hljs-number">3</span>:<span class="hljs-number">0.05</span>, -<span class="hljs-number">3</span>:<span class="hljs-number">3</span>:<span class="hljs-number">0.05</span>]<br>Z = np.apply_along_axis(N.pdf, <span class="hljs-number">0</span>, X)<br>obs = N.rvs(<span class="hljs-number">500</span>)<br>c = <span class="hljs-number">0.1</span><br>z = obs.mean(axis=<span class="hljs-number">0</span>)<br>samples = []<br>nrounds = <span class="hljs-number">0</span><br>nsamples = <span class="hljs-number">310</span><br><span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(samples) &lt; nsamples:<br>    nrounds += <span class="hljs-number">1</span><br>    q = multivariate_normal(z, cov=c)<span class="hljs-comment"># 定义提议分布</span><br>    z_star = q.rvs()<br><br>    A = <span class="hljs-built_in">min</span>(<span class="hljs-number">1</span>, N.pdf(z_star) / N.pdf(z))<br>    <span class="hljs-keyword">if</span> A &gt; rand():<br>        samples.append(z_star)<br>        z = z_star<br>samples = np.c_[samples]<br></code></pre></td></tr></table></figure>
+
+<p>但这个方法会受到随机游⾛⾏为的影响。</p>
+<p>比如我们考虑⼀个由整数组成的状态空间z，概率为：<br>$$<br>\begin{align}<br>p(z^{(\tau+1)}&#x3D;z^{(\tau)})&#x3D;0.5<br>\\<br>p(z^{(\tau+1)}&#x3D;z^{(\tau)}+1)&#x3D;0.5<br>\\<br>p(z^{(\tau+1)}&#x3D;z^{(\tau)}-1)&#x3D;0.5<br>\end{align}<br>$$<br>则根据对称性,$E[z^{(\tau)}]&#x3D;0$。且</p>
+<p>$$<br>\begin{align}<br>E_{\tau} [l(z^{(\tau)})^2] &amp;&#x3D; 0.5 \cdot E_{\tau-1}[l(z^{(\tau-1)})^2] + 0.25 \cdot E_{\tau-1}[l(z^{(\tau-1)}+1)^2] + 0.25 \cdot E_{\tau-1}[l(z^{(\tau-1)}-1)^2]<br>\\&amp;&#x3D; E_{\tau-1}[l(z^{(\tau-1)})^2] + 0.5<br>\end{align}<br>$$</p>
+<p>故$E[(z^{(\tau)})^2]&#x3D;\frac{\tau}{2}$。</p>
+<p>可以看出随机游⾛在探索状态空间时是很低效的。所以设计马尔科夫链蒙特卡罗⽅法的⼀个中⼼⽬标就是避免随机游⾛⾏为。</p>
+<h3 id="马尔科夫链"><a href="#马尔科夫链" class="headerlink" title="马尔科夫链"></a>马尔科夫链</h3><p>我们可以按照下面的方式具体化一个马尔可夫链：给定初始变量的概率分布 $p(z^{(0)})$，以及后续变量的条件概率，用转移概率 (transition probability) $T_m(z^{(m)}, z^{(m+1)}) \equiv p(z^{(m+1)} | z^{(m)})$ 的形式表示。</p>
+<p>如果对于所有的 $m$，转移概率都相同，那么这个马尔可夫链被称为同质的 (homogeneous)。</p>
+<p>对于一个特定的变量，边缘概率可以根据前一个变量的边缘概率用链式乘积的方式表示出来，形式为</p>
+<p>$$p(z^{(m+1)}) &#x3D; \sum _ {z^{(m)}} p(z^{(m+1)} | z^{(m)}) p(z^{(m)}) $$</p>
+<p>对于一个概率分布来说，如果马尔可夫链中的每一步都让这个概率分布保持不变，那么我们说这个概率分布关于这个马尔可夫链是不变的，或者静止的。因此，对于一个转移概率为 $T(z’, z)$ 的同质的马尔可夫链来说，如果</p>
+<p>$$\sum _ {z’} T(z’, z) p^\ast(z’) &#x3D; p^\ast(z) $$</p>
+<p>那么概率分布 $p^\ast(z)$ 是不变的。</p>
+<p>确保所求的概率分布 $p(z)$ 不变的一个充分（非必要）条件是令转移概率满足细节平衡 (detailed balance) 性质，定义为</p>
+<p>$$p^\ast(z) T(z, z’) &#x3D; p^\ast(z’) T(z’, z)$$</p>
+<p>对特定的概率分布 $p^\ast(z)$ 成立。</p>
+<p>很容易看到，满足关于特定概率分布的细节平衡性质的转移概率会使得那个概率分布具有不变性，因为</p>
+<p>$$\sum _ {z’} p^\ast(z’) T(z’, z) &#x3D; \sum _ {z’} p^\ast(z) T(z, z’) &#x3D; p^\ast(z) \sum _ {z’} T(z, z’) &#x3D; p^\ast(z)$$</p>
+<p>满足细节平衡性质的马尔可夫链被称为可翻转的 (reversible)。</p>
+<p>我们的目标是使用马尔可夫链从一个给定的概率分布中采样。如果我们构造一个马尔可夫链使得所求的概率分布是不变的，那么我们就可以达到这个目标。然而，我们还要求对于 $m \to \infty$，概率分布 $p(z^{(m)})$ 收敛于所求的不变的概率分布 $p^\ast(z)$，与初始概率分布 $p(z^{(0)})$ 无关，这种性质被称为各态历经性 (ergodicity)。这个不变的概率分布被称为均衡 (equilibrium) 分布。很明显，一个具有各态历经性的马尔可夫链只能有唯一的一个均衡分布。可以证明，同质的马尔可夫链具有各态历经性，只需对不变的概率分布和转移概率做出较弱的限制即可。</p>
+<h3 id="Metropolis-Hastings算法"><a href="#Metropolis-Hastings算法" class="headerlink" title="Metropolis-Hastings算法"></a>Metropolis-Hastings算法</h3><p>这种情形下，提议分布不再是参数的⼀个对称函数。<br>$$<br>A_k(z^{\ast},z^{(\tau)})&#x3D;min(1,\frac{\tilde p(z^{\ast})q_k(z^{(\tau)}|z^{\ast})}{\tilde p(z^{(\tau)})q_k(z^{\ast}|z^{\tau})})<br>$$</p>
+<p>我们可以证明该定义的马尔科夫链是⼀个不变的概率分布，我们可以先证细节平衡，再利用充分性：<br>$$<br>\begin{align}<br>p(z)q_k(z’|z)A_k(z’,z)&amp;&#x3D;min(p(z)q_k(z’|z),p(z’)q_k(z|z’))<br>\\<br>&amp;&#x3D;min(p(z’)q_k(z|z’),p(z)q_k(z’|z))<br>\\<br>&amp;&#x3D;p(z’)q_k(z|z’)A_k(z,z’)<br>\end{align}<br>$$<br>然而，如果概率分布在不同的⽅向上的差异⾮常⼤，那么Metropolis-Hastings算法的收敛速度会⾮常慢。故有了以下改进。</p>
+<h3 id="吉布斯采样"><a href="#吉布斯采样" class="headerlink" title="吉布斯采样"></a>吉布斯采样</h3><p>例如，对于一个三维随机向量 $(x_1, x_2, x_3)$，吉布斯采样的迭代步骤如下：</p>
+<ol>
+<li>从 $p(x_1 | x_2^{(t)}, x_3^{(t)})$ 中抽取 $x_1^{(t+1)}$</li>
+<li>从 $p(x_2 | x_1^{(t+1)}, x_3^{(t)})$ 中抽取 $x_2^{(t+1)}$</li>
+<li>从 $p(x_3 | x_1^{(t+1)}, x_2^{(t+1)})$ 中抽取 $x_3^{(t+1)}$</li>
+</ol>
+<p>为了证明这个步骤能够从所需的概率分布中采样，我们⾸先注意到对于吉布斯采样的每个步骤来说，概率分布p(z)是不变的，因此对于整个马尔科夫链来说也是不变的。这是由于当我们从$p(z_i|z _ {\backslash  i})$中采样时，边缘概率分布$p(z _ {\backslash i})$显然是不变的，因为$z _ {\backslash i }$的值是不变的。并且，根据定义，对于每个步骤中来⾃正确条件概率分布$p(z_i|z _ {\backslash  i})$的样本，条件概率分布都是不变的。由于条件概率分布和边缘概率分布共同确定的联合概率分布，因此我们看到联合概率分布本⾝是不变的。</p>
+<p>为了让吉布斯采样能够从正确的概率分布中得到样本，第⼆个需要满⾜的要求为各态历经性。各态历经性的⼀个充分条件是没有条件概率分布处处为零。如果这个要求满⾜，那么z空间中的任意⼀点都可以从其他的任意⼀点经过有限步骤达到，这些步骤中每次对⼀个变量进⾏更新。如果这个要求没有满⾜，即某些条件概率分布为零，那么在这种情况下应⽤吉布斯采样时，必须显式地证明各态历经性。</p>
+<p>吉布斯采样是MH算法的一个特例。考虑一个Metropolis-Hastings采样的步骤，它涉及到变量 $z_k$，同时保持剩余的变量 $z _ {\setminus k}$ 不变，并且对于这种情形来说，从 $z$ 到 $z^\ast$ 的转移概率为 $q _ k(z^\ast | z) &#x3D; p(z^\ast_k | z _ {\setminus k})$。我们注意到 $z^\ast  _ {\setminus k} &#x3D; z _ {\setminus k}$，因为在采样的步骤中，向量的各个元素都不改变。并且，$p(z) &#x3D; p(z_k | z _ {\setminus k})p(z _ {\setminus k})$。因此，确定Metropolis-Hastings算法中的接受概率的因子为</p>
+<p>$$<br>A(z^\ast, z) &#x3D; \frac{p(z^\ast)q_k(z | z^\ast)}{p(z)q_k(z^\ast | z)} &#x3D; \frac{p(z^\ast_k | z^\ast _ {\setminus k})p(z^\ast _ {\setminus k})p(z_k | z^\ast _ {\setminus k})}{p(z_k | z _ {\setminus k})p(z _ {\setminus k})p(z^\ast_k | z _ {\setminus k})} &#x3D; 1<br>$$</p>
+<p>注意我们用到了$z _ {\backslash  k}^\ast&#x3D;z _ {\backslash  k}$。</p>
+<p>我们也可以证明吉布斯采样是细节平衡的。<br>$$<br>\begin{align}<br>p^\ast(z) T(z, z’) &amp;&#x3D;p(z_1^\tau,z_2^\tau,…,z_M^\tau)p(z_j^{\tau+1}|z_{\backslash j}^\tau)<br>\\&amp;&#x3D;p(z_j^\tau|z_{\backslash j}^\tau)p(z_{\backslash j}^\tau)p(z_j^{\tau+1}|z_{\backslash j}^\tau)<br>\\&amp;&#x3D;p(z_j^\tau|z_{\backslash j}^{\tau+1})p(z_{\backslash j}^{\tau+1})p(z_j^{\tau+1}|z_{\backslash j}^{\tau+1})<br>\\&amp;&#x3D;p(z_j^{\tau}|z_{\backslash j}^{\tau+1})p(z_1^{\tau+1},z_2^{\tau+1},…,z_M^{\tau+1})<br>\\&amp;&#x3D; p^\ast(z’) T(z’, z)<br>\end{align}<br>$$<br><strong>代码：</strong></p>
+<p>比如我们对$p(x,y)&#x3D;exp(-x^2y^2)$，则：<br>$$<br>\begin{align}<br>X|Y&#x3D;y\sim N(0,\frac{1}{2y^2})<br>\\<br>Y|X&#x3D;x\sim N(0,\frac{1}{2x^2})<br>\end{align}<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">x, y = <span class="hljs-number">0.01</span>, <span class="hljs-number">0.01</span><br>samples = [(x, y)]<br><br>seed(<span class="hljs-number">31</span>)<br><span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1_000</span>):<br>    sigma_x = np.sqrt(<span class="hljs-number">1</span> / (<span class="hljs-number">2</span> * y ** <span class="hljs-number">2</span>))<br>    x_giv_y = norm(loc=<span class="hljs-number">0</span>, scale=sigma_x)<br>    x = x_giv_y.rvs()<br>    samples.append([x, y])<br>    <br>    sigma_y = np.sqrt(<span class="hljs-number">1</span> / (<span class="hljs-number">2</span> * x ** <span class="hljs-number">2</span>))<br>    y_giv_x = norm(loc=<span class="hljs-number">0</span>, scale=sigma_y)<br>    y = y_giv_x.rvs()<br>    samples.append([x, y])<br>    <br>samples = np.r_[samples]<br></code></pre></td></tr></table></figure>
+
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>此外，还有切⽚采样、源于模拟哈密顿动⼒学的混合蒙特卡罗⽅法等，我们在这里不再赘述。</p>
+<p>我们也可以结合神经网络来改进MCMC。比如可以使用神经网络（例如，归一化流 Normalizing Flows）来学习复杂的、自适应的提议分布，即训练一个归一化流模型来学习并逼近目标后验分布，然后利用这个训练好的流模型作为 MCMC 算法中的提议分布。像今年新出的《Can Transformers Learn Full Bayesian Inference in Context?》</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>MCMC的核心步骤</strong>可以概括为：</p>
+<ol>
+<li><strong>构造马尔可夫链</strong>：设计一个状态转移机制（通常由一个转移核或转移概率矩阵 $P$ 定义），使得该马尔可夫链的平稳分布是目标分布 $\pi(x)$。一个关键的条件是<strong>细致平稳条件（Detailed Balance Condition）</strong>，即对于任意两个状态 $i$ 和 $j$，满足 $\pi(i)P(i,j) &#x3D; \pi(j)P(j,i)$。满足细致平稳条件的马尔可夫链，其平稳分布就是 $\pi(x)$。</li>
+<li><strong>从初始状态开始迭代采样</strong>：选择一个初始状态 $x^{(0)}$，然后根据构造的马尔可夫链的转移规则，不断从当前状态转移到下一个状态，生成一系列样本 $x^{(1)}, x^{(2)}, \ldots, x^{(N)}$。</li>
+<li><strong>达到平稳分布后收集样本</strong>：由于马尔可夫链需要一段时间才能达到平稳分布，通常会舍弃初始阶段产生的一批样本（称为“老化期”或“burn-in period”）。之后产生的样本则被认为是来自目标分布 $\pi(x)$ 的近似独立同分布样本（尽管它们在链中是相关的）。</li>
+<li><strong>利用样本进行估计</strong>：使用收集到的有效样本来进行蒙特卡罗积分，例如估计某个函数 $f(x)$ 在目标分布 $\pi(x)$ 下的期望值：$E[f(x)] \approx \frac{1}{M} \sum _ {i&#x3D;1}^{M} f(x^{(i)})$，其中 $M$ 是有效样本的数量。</li>
+</ol>
+<p>有多种具体的MCMC算法：</p>
+<ul>
+<li><p><strong>Metropolis-Hastings (MH) 算法</strong>：这是一个非常通用和基础的MCMC算法。它通过一个“提议分布”（proposal distribution）$q(x’|x)$ 来生成候选样本 $x’$，然后根据一个接受概率 $A(x, x’)$ 来决定是否接受这个新样本。接受概率通常定义为：<br>  $$A(x, x’) &#x3D; \min\left(1, \frac{\pi(x’)q(x|x’)}{\pi(x)q(x’|x)}\right)$$<br>  如果提议分布是对称的，即 $q(x’|x) &#x3D; q(x|x’)$，则MH算法简化为Metropolis算法。MH算法的优点在于它只需要计算目标分布 $\pi(x)$ 的比例，而不需要知道其归一化常数。</p>
+</li>
+<li><p><strong>吉布斯采样 (Gibbs Sampling)</strong>：这是MH算法的一个特例，特别适用于处理高维联合分布。当直接从联合分布抽样困难，但从每个变量的<strong>全条件概率分布 (full conditional probability distribution)</strong> 抽样相对容易时，吉布斯采样非常有效。其基本思想是，轮流对每个变量进行抽样，抽样时固定其他所有变量的当前值。例如，对于一个三维随机向量 $(x_1, x_2, x_3)$，吉布斯采样的迭代步骤如下：</p>
+<ol>
+<li>从 $p(x_1 | x_2^{(t)}, x_3^{(t)})$ 中抽取 $x_1^{(t+1)}$</li>
+<li>从 $p(x_2 | x_1^{(t+1)}, x_3^{(t)})$ 中抽取 $x_2^{(t+1)}$</li>
+<li>从 $p(x_3 | x_1^{(t+1)}, x_2^{(t+1)})$ 中抽取 $x_3^{(t+1)}$<br>  吉布斯采样的接受概率恒为1，因此所有提议的样本都会被接受。</li>
+</ol>
+</li>
+</ul>
+<h2 id="MCMC的收敛性诊断"><a href="#MCMC的收敛性诊断" class="headerlink" title="MCMC的收敛性诊断"></a>MCMC的收敛性诊断</h2><p>评估MCMC算法是否收敛到目标平稳分布至关重要，因为基于未收敛的链进行的推断可能是错误的。常用的收敛诊断方法包括：</p>
+<ul>
+<li><strong>迹图 (Trace Plots)</strong>：绘制参数样本值随迭代次数变化的图形。如果链已收敛，迹图应该看起来像一个稳定的水平带状区域，没有明显的趋势或周期性模式。</li>
+<li><strong>密度图 (Density Plots)</strong>：绘制样本的经验概率密度图。对于从不同初始点开始的多条链，如果它们都已收敛，其密度图应该相似。</li>
+<li><strong>自相关图 (Autocorrelation Plots)</strong>：显示样本序列中不同滞后期的相关性。理想情况下，自相关性应随着滞后的增加而迅速下降。高自相关意味着链的混合较差，需要更多样本。</li>
+<li><strong>Gelman-Rubin 统计量 (R-hat)</strong>：通过比较多条从不同初始点并行运行的马尔可夫链的链内方差和链间方差来评估收敛性。R-hat值接近1表明链已收敛。通常认为小于1.1或1.2的值表示可接受的收敛。</li>
+<li><strong>有效样本量 (Effective Sample Size, ESS)</strong>：考虑到样本间的自相关性，ESS估计了等效的独立样本数量。ESS较低表明需要运行更长的链或改进采样器。</li>
+<li><strong>接受率 (Acceptance Rate)</strong> (主要针对MH算法)：指提议样本被接受的比例。过高或过低的接受率都可能表明采样效率低下。对于某些类型的MH算法，存在理论上的最优接受率范围（例如，对于高斯提议分布和高斯目标分布，最优接受率约为0.234）。</li>
+</ul>
+<p>实践中，通常会结合使用多种诊断方法来综合判断MCMC算法的收敛性。在确认收敛后，还需要丢弃“老化期”的样本，并可能对剩余样本进行“减薄”处理，以获得用于后续分析的近似独立的样本。</p>
+<p>总而言之，MCMC是一套功能强大的统计计算工具，它为从复杂概率分布中抽样提供了可行的解决方案，极大地推动了贝叶斯统计和相关领域的发展与应用。理解其原理、掌握常用算法并关注其收敛性是有效运用MCMC方法的关键。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1]A Short History of Markov Chain Monte Carlo: Subjective Recollections from Incomplete Data</p>
+<p>[2]PRML</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" class="print-no-link">#概率论</a>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MCMC之前尘后事</div>
+      <div>https://lijianxiong.space/2025/20250520/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250521/" title="模型参数与标签无关的模型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">模型参数与标签无关的模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250518/" title="18岁的AI天文学家">
+                        <span class="hidden-mobile">18岁的AI天文学家</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

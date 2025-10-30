@@ -1,0 +1,1421 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle是我参加最久的一次TPS（2025&#x2F;04&#x2F;01更新： 3月又全力参加了一次，排名18&#x2F;4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27&#x2F;2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TPSS5E1 复盘">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250210/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle是我参加最久的一次TPS（2025&#x2F;04&#x2F;01更新： 3月又全力参加了一次，排名18&#x2F;4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27&#x2F;2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less3.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less4.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less5.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less6.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less7.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less8.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/less9.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/holiday.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/product.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/store.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/gdp.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/gdp_kenya.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/allbank.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/sunday.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/inbox_1048539_0951cf95b72d72e0ff3275e22dcb96ac_Capture.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/inbox_1048539_9d65b667a572ec2e70fba2464f5c71c1_Capture.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/nochris.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/chris.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/future.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250210/inbox_4308868_04bdd76209c6db4a5d94e6679101c685_pgs501.png">
+<meta property="article:published_time" content="2025-02-10T09:54:32.000Z">
+<meta property="article:modified_time" content="2025-05-17T13:37:55.689Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="kaggle">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250210/less1.png">
+  
+  
+  
+  <title>TPSS5E1 复盘 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">TPSS5E1 复盘</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-10 17:54" pubdate>
+          2025年2月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TPSS5E1 复盘</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p><a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s5e1">预测贴纸销量 | Kaggle — Forecasting Sticker Sales | Kaggle</a>是我参加最久的一次TPS（<strong>2025&#x2F;04&#x2F;01更新：</strong> 3月又全力参加了一次，排名18&#x2F;4381，排名仍达不到拿swag的名次，但成为唯二的在shakeup中留存的top选手也算差强人意。不得不说第2的chiris是真的强），但成绩不够理想，只拿到了27&#x2F;2722，其中一个原因是一直参考@<a target="_blank" rel="noopener" href="https://www.kaggle.com/cabaxiom">Cabaxiom</a>的线性回归笔记本，但是其中年份product存在计算错误的问题。</p>
+<span id="more"></span>
+
+<hr>
+<p>之前TPS也有个<a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/playground-series-s3e19">类似的比赛</a>，可以说是之前的翻版，所以很多solution也是参考了过去的思路。</p>
+<h2 id="之前的第一名方案"><a href="#之前的第一名方案" class="headerlink" title="之前的第一名方案"></a>之前的第一名方案</h2><p><a target="_blank" rel="noopener" href="https://www.kaggle.com/code/ivyzang/1st-place-solution-less-is-more">https://www.kaggle.com/code/ivyzang/1st-place-solution-less-is-more</a></p>
+<h3 id="EDA"><a href="#EDA" class="headerlink" title="EDA"></a>EDA</h3><p>在检查商店后，发现每个商店都显示相似的销售额分布，仅差一个标量常数。</p>
+<p><img src="/2025/20250210/less1.png"></p>
+<p>在每年的每个国家中，num_sold 都遵循着一致的规律，尽管不同国家之间的年度变化幅度有所不同。</p>
+<p><img src="/2025/20250210/less2.png"></p>
+<p>使用归一化GDP后，发现仍有显然的趋势，因此可以使用 GDP 作为外部预测因子。</p>
+<p><img src="/2025/20250210/less3.png"></p>
+<p>产品具有周期性。</p>
+<p><img src="/2025/20250210/less4.png"></p>
+<p>疫情的影响。</p>
+<p><img src="/2025/20250210/less5.png"></p>
+<p>周一至周四的分布相同，而周五至周日的分布不同。</p>
+<p><img src="/2025/20250210/less6.png"></p>
+<p>具有节假日效应（即节假日前后消费更高）。且具有后续的“圣诞节和元旦的节假日效应可能会出现覆盖或影响的情况”，作者故新建了一个新年因子。</p>
+<h3 id="第一轮分析"><a href="#第一轮分析" class="headerlink" title="第一轮分析"></a>第一轮分析</h3><p>乘性线性模型：<br>$$<br>\begin{equation} \text{sold} &#x3D; \text{GDP}(\text{country}, \text{year}) \times \text{const}(\text{store}) \times \left[ \text{sine&#x2F;cosine waves}(\text{product}) + \text{holiday} + \text{weekday} + \text{covid} \right] \end{equation}<br>$$</p>
+<p>因为是乘法所以取对数，并利用$lnx\sim x-1$，对除了GDP以外的元素做此操作。</p>
+<p>检查残差，作者发现：年末奇怪的直线和一些奇怪的持续水平线</p>
+<p><img src="/2025/20250210/less7.png"></p>
+<p>检查发现是产品’Using LLMs to Win Friends and Influence People’引起的。</p>
+<p>继续分析数据，作者观察到 Kagglazon 的”num_sold”呈现出良好的正弦波。然而，对于阿根廷和爱沙尼亚这两个国家，Kaggle Learn 和 Kaggle Store 的”num_sold”则表现为直线。</p>
+<p><img src="/2025/20250210/less8.png"></p>
+<p>这引发了这样一个问题：这些商店是否每天都在销售相同数量的产品？作者继续深入挖掘数据。</p>
+<p><img src="/2025/20250210/less9.png"></p>
+<p>作者检查直线，发现：下面的代码从时间序列数据中识别潜在的候选国家特定假日。通过计算残差并根据国家和一年中的日期进行分组，它使用 z 分数检测显著偏差。这些偏差可能表明假日或特殊事件会影响销售模式</p>
+<table>
+<thead>
+<tr>
+<th align="left">country 国家</th>
+<th align="left">dayfix 日修正</th>
+<th align="left">residual 残差</th>
+<th align="left">z_score 标准分数</th>
+<th align="left">date 日期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Argentina 阿根廷</td>
+<td align="left">363</td>
+<td align="left">-0.068320</td>
+<td align="left">-3.576392</td>
+<td align="left">2017-12-29</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">364</td>
+<td align="left">-0.105399</td>
+<td align="left">-5.517371</td>
+<td align="left">2017-12-30</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">365</td>
+<td align="left">-0.097595</td>
+<td align="left">-5.108857</td>
+<td align="left">2017-12-31</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">366</td>
+<td align="left">-0.084645</td>
+<td align="left">-4.430960</td>
+<td align="left">2018-01-01</td>
+</tr>
+<tr>
+<td align="left">Canada 加拿大</td>
+<td align="left">53</td>
+<td align="left">0.060064</td>
+<td align="left">3.144173</td>
+<td align="left">2017-02-22</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">54</td>
+<td align="left">0.062321</td>
+<td align="left">3.262322</td>
+<td align="left">2017-02-23</td>
+</tr>
+<tr>
+<td align="left">Estonia 爱沙尼亚</td>
+<td align="left">365</td>
+<td align="left">-0.058432</td>
+<td align="left">-3.058758</td>
+<td align="left">2017-12-31</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">366</td>
+<td align="left">-0.062565</td>
+<td align="left">-3.275110</td>
+<td align="left">2018-01-01</td>
+</tr>
+<tr>
+<td align="left">Japan 日本</td>
+<td align="left">1</td>
+<td align="left">0.119266</td>
+<td align="left">6.243256</td>
+<td align="left">2017-01-01</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">2</td>
+<td align="left">0.058107</td>
+<td align="left">3.041753</td>
+<td align="left">2017-01-02</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">361</td>
+<td align="left">0.084893</td>
+<td align="left">4.443952</td>
+<td align="left">2017-12-27</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">362</td>
+<td align="left">0.160301</td>
+<td align="left">8.391348</td>
+<td align="left">2017-12-28</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">363</td>
+<td align="left">0.245581</td>
+<td align="left">12.855538</td>
+<td align="left">2017-12-29</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">364</td>
+<td align="left">0.298412</td>
+<td align="left">15.621061</td>
+<td align="left">2017-12-30</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">365</td>
+<td align="left">0.285922</td>
+<td align="left">14.967284</td>
+<td align="left">2017-12-31</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">366</td>
+<td align="left">0.233630</td>
+<td align="left">12.229903</td>
+<td align="left">2018-01-01</td>
+</tr>
+<tr>
+<td align="left">Spain 西班牙</td>
+<td align="left">363</td>
+<td align="left">-0.073186</td>
+<td align="left">-3.831102</td>
+<td align="left">2017-12-29</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">364</td>
+<td align="left">-0.107250</td>
+<td align="left">-5.614233</td>
+<td align="left">2017-12-30</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">365</td>
+<td align="left">-0.111582</td>
+<td align="left">-5.841026</td>
+<td align="left">2017-12-31</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">366</td>
+<td align="left">-0.086679</td>
+<td align="left">-4.537431</td>
+<td align="left">2018-01-01</td>
+</tr>
+</tbody></table>
+<p>作者发现这一些天中有一些不存在假期效应，故需要从假期中移除。还发现日本不在圣诞节和新年（除 2017 年外）庆祝假期。这就是为什么在年末会有很大的残差。</p>
+<p>另外作者还发现使用三角函数拟合周期时，只需要 sin_1&#x2F;cos_1 波，而对于其他产品，只需要组合 sin_0.5 和 cos_0.5。</p>
+<h3 id="第二轮分析"><a href="#第二轮分析" class="headerlink" title="第二轮分析"></a>第二轮分析</h3><p>通过第一轮，作者在这轮做了以下处理：</p>
+<ol>
+<li>删除一些假日。移除加拿大的一些“无效”节假日（2,4,5,8,10月）。移除日本2018-12-24的特定假日。</li>
+<li>新年和圣诞节排除日本</li>
+<li>调整产品周期性特征</li>
+</ol>
+<p>再次进行残差分析，发现仍有一些日期的残差较大。</p>
+<p>观察到数据后，发现加拿大和爱沙尼亚在12月26日和27日有节假日。模型已经单独处理了“大”的新年假期，为避免多重共线性，打算从普通节假日列表中移除1月1日和12月25日。</p>
+<p>假期效应用高斯分布拟合。</p>
+<p><img src="/2025/20250210/holiday.png"></p>
+<h3 id="第三轮分析"><a href="#第三轮分析" class="headerlink" title="第三轮分析"></a>第三轮分析</h3><ol>
+<li>从普通节假日列表中移除圣诞节和元旦（因为已由特殊日期特征处理）。</li>
+<li>单独处理加拿大和爱沙尼亚12月26日的节假日。</li>
+<li>使用高斯曲线拟合的权重来创建节假日特征（代替原来的10个0&#x2F;1指示变量）</li>
+</ol>
+<h3 id="第四轮分析"><a href="#第四轮分析" class="headerlink" title="第四轮分析"></a>第四轮分析</h3><p>绘制岭回归系数随正则化的变化，以找到最优的 alpha。</p>
+<p>尝试移除 <code>year_2020</code> 参数，增加 <code>year_2019_Dec</code> 参数（最终发现不加这两个参数的版本在公开排行榜更好）。</p>
+<p>尝试添加CCI（消费者信心指数）数据，但未改善CV分数。</p>
+<h3 id="最终提交"><a href="#最终提交" class="headerlink" title="最终提交"></a>最终提交</h3><h4 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h4><p><strong>日期特征</strong>: 与之前类似。</p>
+<p><strong>节假日特征 (<code>df_holidays</code>)</strong>:</p>
+<ul>
+<li>从<code>holidays</code>库获取节假日。</li>
+<li>移除了加拿大的一些“无效”节假日。</li>
+<li>移除了所有国家（阿根廷、加拿大、爱沙尼亚、西班牙）的1月1日和12月25日（因为它们由<code>special_date_columns</code>处理）。</li>
+<li>移除了加拿大和爱沙尼亚的12月26日（因为它们由<code>holiday_1226</code>特殊特征处理）。</li>
+<li>移除了日本2018-12-24的假日。</li>
+</ul>
+<p><strong>GDP特征</strong>: 之前类似。</p>
+<p><strong>高斯加权节假日特征 (<code>holiday</code>, <code>holiday_1226</code>)</strong>:</p>
+<ul>
+<li><code>holiday_diff = [np.exp(-(i - 4.5) ** 2 / 8.5) for i in range(11)]</code>: </li>
+<li>创建一个单一的<code>holiday</code>特征。对于<code>df_holidays</code>中的每个节假日，其影响会根据<code>holiday_diff</code>的权重分布到节假日当天及之后的10天。</li>
+<li><code>special_date_columns</code>: 创建12月25-31日和1月1-10日的指示变量（日本特殊处理）。</li>
+<li><code>holiday_1226</code>: 为爱沙尼亚和加拿大12月26日的节假日创建一个高斯加权特征。</li>
+</ul>
+<p><strong>周期性特征 (<code>product_year_columns</code>)</strong>: 与第二轮类似，根据不同产品的特性选择 <code>sin/cos_1</code> 或 <code>sin/cos_0.5</code>。</p>
+<p><strong>COVID特征 (<code>featured_month_columns</code>)</strong>: 2020年3-10月的月度指示变量。</p>
+<p><strong>其他分类特征</strong>: <code>week_columns</code> (周五、六、日)，<code>store_columns</code>，<code>product_columns</code> (均为独热编码，去掉第一类)。</p>
+<h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><p>使用<code>Pipeline</code>包含<code>StandardScaler</code>（标准化）和<code>Ridge(alpha=150, tol=0.00001, max_iter=10000)</code>（岭回归）。<code>alpha=150</code>是正则化强度，通过调优选择。</p>
+<h4 id="后处理"><a href="#后处理" class="headerlink" title="后处理"></a>后处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Argentina&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">3.372</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Spain&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">1.6</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Japan&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">1.394</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Estonia&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">1.651</span><br>result_2.loc[(result_2[<span class="hljs-string">&#x27;year&#x27;</span>] == <span class="hljs-number">2022</span>)&amp;(result_2[<span class="hljs-string">&#x27;country&#x27;</span>] == <span class="hljs-string">&#x27;Canada&#x27;</span>), <span class="hljs-string">&#x27;predict_exp&#x27;</span>] *= <span class="hljs-number">0.850</span><br>result_2 = result_2.loc[result_2[<span class="hljs-string">&#x27;date&#x27;</span>] &gt;= dt.datetime(<span class="hljs-number">2022</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), [<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-string">&#x27;predict_exp&#x27;</span>]]<br></code></pre></td></tr></table></figure>
+
+<h2 id="数据介绍"><a href="#数据介绍" class="headerlink" title="数据介绍"></a>数据介绍</h2><p>共五列分为日期（天为单位）、country、store、product、num_sold(目标值)。</p>
+<p>2010-2016是训练集</p>
+<p>2017是测试集的公榜</p>
+<p>2018-2019是测试集的私榜</p>
+<h2 id="EDA-1"><a href="#EDA-1" class="headerlink" title="EDA"></a>EDA</h2><p>@BROCCOLI BEEF指出，product具有周期性、store具有不变性、GDP和销售额具有较强相关性。</p>
+<p><img src="/2025/20250210/product.png"></p>
+<p><img src="/2025/20250210/store.png"></p>
+<p><img src="/2025/20250210/gdp.png"></p>
+<p>@Konstantin Dmitriev发现GDP在Kenya不符合，我和@BROCCOLI BEEF发现原因可能是因为$num_{sold}&#x3D;a*GDP+bias$，而我们忽视了bias。</p>
+<p><img src="/2025/20250210/gdp_kenya.png"></p>
+<p>由上，我顺带分析了所有的<a target="_blank" rel="noopener" href="https://data.worldbank.org/indicator?tab=featured">514个世界银行特殊指标</a>，其中GDP具有最高的R2，这也说明GDP已经足够了。</p>
+<p><img src="/2025/20250210/allbank.png"></p>
+<p>我发现，每周周日具有最多的销售额，且每周具有周期性。</p>
+<p><img src="/2025/20250210/sunday.png"></p>
+<p>@BROCCOLI BEEF指出了节假日效应：</p>
+<p><img src="/2025/20250210/inbox_1048539_0951cf95b72d72e0ff3275e22dcb96ac_Capture.png"></p>
+<p>并分析了节假日效应大概的持续时间：</p>
+<p><img src="/2025/20250210/inbox_1048539_9d65b667a572ec2e70fba2464f5c71c1_Capture.png"></p>
+<p>我指出圣诞节和元旦的节假日效应可能会出现覆盖或影响的情况：<br>（事实上，在比赛中，我并没有完整读完上届的第一名的solution，但是得到了不谋而合的结论）</p>
+<p><img src="/2025/20250210/nochris.jpg"></p>
+<p><img src="/2025/20250210/chris.jpg"></p>
+<p>接下来，我将介绍前6的solutions（solution类似的则只叙述最高排名的solution）</p>
+<p>其中“圣诞节和元旦的节假日效应可能会出现覆盖或影响的情况”这个性质，在前6名中，只被第一名所使用。也许这就是在高分者算法大致类似的情况下，第一名没有更多复杂的操作但能优于其他人的原因之一。</p>
+<h2 id="第一名-by-George-Koussa"><a href="#第一名-by-George-Koussa" class="headerlink" title="第一名 by George Koussa"></a>第一名 by George Koussa</h2><p>类似第三名的乘性线性模型</p>
+<p>闰年特征</p>
+<p>正弦余弦特征</p>
+<p>是否在节假日的十天内特征：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">df[<span class="hljs-string">&#x27;near_holiday&#x27;</span>] = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> country <span class="hljs-keyword">in</span> df[<span class="hljs-string">&#x27;country&#x27;</span>].unique():<br>    days = [day <span class="hljs-keyword">for</span> day <span class="hljs-keyword">in</span> holidays.CountryHoliday(country, years=df[<span class="hljs-string">&#x27;year&#x27;</span>].unique())]<br>    <span class="hljs-keyword">for</span> day <span class="hljs-keyword">in</span> days:<br>        df.loc[(df.country == country) &amp; (df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.date &lt; day + dt.timedelta(days=<span class="hljs-number">10</span>)) &amp; (df[<span class="hljs-string">&#x27;date&#x27;</span>].dt.date &gt; day - dt.timedelta(days=<span class="hljs-number">10</span>)), <span class="hljs-string">&#x27;near_holiday&#x27;</span>] = <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>gdp采用bias</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">df[<span class="hljs-string">&#x27;gdp_factor&#x27;</span>] =  (-<span class="hljs-number">17643.346899</span>+<span class="hljs-number">85.42355636</span>*df[<span class="hljs-string">&#x27;gdp&#x27;</span>]) / <span class="hljs-number">365</span><br></code></pre></td></tr></table></figure>
+
+<p>商店因子排除加拿大和肯尼亚进行考虑</p>
+<p>通过ridge来预测未来因子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">df[<span class="hljs-string">&#x27;ratio&#x27;</span>] = df[<span class="hljs-string">&#x27;store_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;gdp_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;product_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;day_of_week_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;sincos_factor&#x27;</span>]<br>df[<span class="hljs-string">&#x27;total&#x27;</span>] = df[<span class="hljs-string">&#x27;num_sold&#x27;</span>] / df[<span class="hljs-string">&#x27;ratio&#x27;</span>]<br><span class="hljs-comment"># ... (模型拟合和绘图代码) ...</span><br>model = Ridge(alpha=<span class="hljs-number">0.1</span>) <span class="hljs-comment"># 使用岭回归</span><br>model.fit(X, y)<br>df[<span class="hljs-string">&#x27;trend_factor&#x27;</span>] = model.predict(df[<span class="hljs-string">&#x27;n_day&#x27;</span>].to_numpy().reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br>df.loc[df[<span class="hljs-string">&#x27;date&#x27;</span>] &lt; dt.datetime(<span class="hljs-number">2013</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>), <span class="hljs-string">&#x27;trend_factor&#x27;</span>] = <span class="hljs-number">1</span> <span class="hljs-comment"># 2013年前趋势因子设为1</span><br><span class="hljs-comment"># ... (可视化) ...</span><br>df[<span class="hljs-string">&#x27;ratio&#x27;</span>] = df[<span class="hljs-string">&#x27;store_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;gdp_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;product_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;day_of_week_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;sincos_factor&#x27;</span>] * df[<span class="hljs-string">&#x27;trend_factor&#x27;</span>]<br>df[<span class="hljs-string">&#x27;total&#x27;</span>] = df[<span class="hljs-string">&#x27;num_sold&#x27;</span>] / df[<span class="hljs-string">&#x27;ratio&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>新年因子：为新年设置一个节假日因子，以应对“圣诞节和元旦的节假日效应可能会出现覆盖或影响的情况”。</p>
+<h2 id="第二名-by-Chris-Deotte"><a href="#第二名-by-Chris-Deotte" class="headerlink" title="第二名 by Chris Deotte"></a>第二名 by Chris Deotte</h2><h3 id="后处理-1"><a href="#后处理-1" class="headerlink" title="后处理"></a>后处理</h3><p>对于未来，我们会抱有更好的态度。</p>
+<p>所以Chris采用了两种策略，第一种是全乘以1.06，第二种是乘上1.06 + slope * (year - 2017)。</p>
+<p><img src="/2025/20250210/future.png"></p>
+<h3 id="模型一"><a href="#模型一" class="headerlink" title="模型一"></a>模型一</h3><p>Transformer，大致代码为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_model</span>():<br>        <br>    <span class="hljs-comment"># INPUT </span><br>    inp = tf.keras.Input(shape=(LEN,<span class="hljs-number">2</span>))<br>    <br>    <span class="hljs-comment"># POSITIONAL ENCODING</span><br>    x = layers.Dense(feat_dim)(inp)<br>    p = positional_encoding(<span class="hljs-number">1440</span>,feat_dim)<br>    x = x + p<br>    <br>    <span class="hljs-comment"># THREE BLOCKS of WAVENET and TRANSFORMER</span><br>    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_blocks):<br>        skip = x<br>        x = wave_block(x, feat_dim, <span class="hljs-number">3</span>, <span class="hljs-number">12</span>)<br>        x = wave_block(x, feat_dim, <span class="hljs-number">3</span>, <span class="hljs-number">12</span>)<br>        x = TransformerBlock(embed_dim, feat_dim, num_heads, ff_dim, dropout_rate)(x)<br>        x = <span class="hljs-number">0.9</span>*x + <span class="hljs-number">0.1</span>*skip <br><br>    <span class="hljs-comment"># HEAD</span><br>    x = tf.keras.layers.GlobalAveragePooling1D()(x)<br>    x = tf.keras.layers.Dense(<span class="hljs-number">64</span>, activation=<span class="hljs-string">&#x27;relu&#x27;</span>)(x)<br>    x = tf.keras.layers.Dense(<span class="hljs-number">32</span>,activation=<span class="hljs-string">&#x27;linear&#x27;</span>, dtype=<span class="hljs-string">&#x27;float32&#x27;</span>)(x)<br>    <br>    <span class="hljs-comment"># COMPILE MODEL</span><br>    model = tf.keras.Model(inputs=inp, outputs=x)<br>    opt = tf.keras.optimizers.Adam(learning_rate = <span class="hljs-number">1e-3</span>)<br>    loss = tf.keras.losses.MeanSquaredError()<br>    model.<span class="hljs-built_in">compile</span>(loss=loss, optimizer = opt)<br>    <br>    <span class="hljs-keyword">return</span> model<br></code></pre></td></tr></table></figure>
+
+<p>另外：</p>
+<ul>
+<li>在所有5个产品上训练1个模型（15个时期余弦调度）</li>
+<li>添加30个布尔特征用于30个节假日</li>
+<li>使用第一次预测（2017年，2018年）作为伪标签来训练第二次预测</li>
+<li>使用第二次预测（2017年、2018年、2019年）作为伪标签来训练第三次预测</li>
+<li>使用用不同种子训练的5个模型的中位数（用于第一次、第二次、第三次预测）</li>
+<li>提交第三轮预测</li>
+</ul>
+<blockquote>
+<p>事实上，我另外设计了一套大卷积核神经网络和类似FITS的傅里叶网络优于Chris的transformer模型，不过可惜没有像chris做那么多操作，使得最终分数并不是很好。</p>
+</blockquote>
+<h3 id="模型二"><a href="#模型二" class="headerlink" title="模型二"></a>模型二</h3><p>类似第三名的乘性线性模型</p>
+<h3 id="ensemble"><a href="#ensemble" class="headerlink" title="ensemble"></a>ensemble</h3><p>通过在transformer上叠加线性回归来预测残差</p>
+<h2 id="第三名-by-Konstantin-Dmitriev"><a href="#第三名-by-Konstantin-Dmitriev" class="headerlink" title="第三名 by Konstantin Dmitriev"></a>第三名 by Konstantin Dmitriev</h2><p>假期效应，同样使用高斯曲线来描述：<br>$$<br>H(t)&#x3D;exp(-\frac{(d-d_h-d_0)^2}{2\sigma_0^2})<br>$$</p>
+<h3 id="后处理-2"><a href="#后处理-2" class="headerlink" title="后处理"></a>后处理</h3><p><img src="/2025/20250210/inbox_4308868_04bdd76209c6db4a5d94e6679101c685_pgs501.png"></p>
+<p>使用$trend(d)&#x3D;1+s*ReLU(d-d1)$来描述，其中s和$d_1$是斜率和位移参数。</p>
+<h3 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h3><p>乘性线性模型（部分地方使用Lasso，而不是Ridge）</p>
+<blockquote>
+<p>我曾在论坛率先指出Lasso在某些地方会有更好的结果。</p>
+</blockquote>
+<p>引入了day-of-year的因子</p>
+<p>使用<code>scipy.optimize.minimize</code> 来优化MAPE</p>
+<p>给每个国家都训练一个模型，具体而言：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># %% [code] &#123;&quot;execution&quot;:&#123;...&#125;&#125;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">optimization_pipeline2</span>(<span class="hljs-params">df_train, df_test, cols, countries_groups, initial_guess_struct, optimization_steps_config</span>):<br>    x_params_list = [] <span class="hljs-comment"># 存储每个国家组优化后的参数</span><br>    df1, df2 = df_train.copy(), df_test.copy() <span class="hljs-comment"># 使用副本操作</span><br>    df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0</span> <span class="hljs-comment"># 初始化预测列</span><br>    df2[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0</span><br>    <br>    <span class="hljs-comment"># 遍历国家组</span><br>    <span class="hljs-keyword">for</span> countries_subset <span class="hljs-keyword">in</span> countries_groups:<br>        <span class="hljs-comment"># 如果测试集没有该国家组的数据，则跳过</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(df2[df2.country.isin(countries_subset)]) == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">continue</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;\tDo optimization on the countries: &#x27;</span> + <span class="hljs-string">&#x27;, &#x27;</span>.join(countries_subset))<br>        <br>        <span class="hljs-comment"># 为当前国家子集运行一级优化流程</span><br>        res, (train_score, test_score) = optimization_pipeline(<br>            df1[df1.country.isin(countries_subset)],  <span class="hljs-comment"># 该国家子集的训练数据</span><br>            df2[df2.country.isin(countries_subset)],  <span class="hljs-comment"># 该国家子集的测试数据</span><br>            cols,                                     <span class="hljs-comment"># 特征列</span><br>            initial_guess_struct,                     <span class="hljs-comment"># 初始参数猜测 (结构化)</span><br>            optimization_steps_config                 <span class="hljs-comment"># 优化步骤配置</span><br>        )<br>        <br>        <span class="hljs-comment"># 存储该国家组优化后的参数</span><br>        x_params_list.append(res.x)<br><br>        <span class="hljs-comment"># 为该国家组在训练集和测试集上生成并存储预测</span><br>        df1.loc[df1.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(res.x, df1[df1.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-literal">True</span>)<br>        df2.loc[df2.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(res.x, df2[df2.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-literal">True</span>)<br><br>    <span class="hljs-comment"># 整合结果</span><br>    res_final = &#123;<span class="hljs-string">&#x27;x&#x27;</span>: x_params_list&#125; <span class="hljs-comment"># 存储参数集列表 (每个国家组一个)</span><br>    <span class="hljs-comment"># 使用合并的预测计算完整训练集上的总体MAPE</span><br>    train_score_overall = mean_absolute_percentage_error(df1[<span class="hljs-string">&#x27;num_sold&#x27;</span>], df1[<span class="hljs-string">&#x27;prediction&#x27;</span>])<br>    <span class="hljs-comment"># 计算完整测试集上的总体MAPE (如果有效)</span><br>    test_score_overall = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> pd.isna(df2[<span class="hljs-string">&#x27;num_sold&#x27;</span>]).<span class="hljs-built_in">any</span>() <span class="hljs-keyword">else</span> mean_absolute_percentage_error(df2[<span class="hljs-string">&#x27;num_sold&#x27;</span>], df2[<span class="hljs-string">&#x27;prediction&#x27;</span>])<br><br>    <span class="hljs-keyword">return</span> res_final, (train_score_overall, test_score_overall)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict2</span>(<span class="hljs-params">coef_list, df, cols, countries_groups, <span class="hljs-built_in">round</span>=<span class="hljs-literal">False</span></span>):<br>    df1 = df.copy()<br>    df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] = <span class="hljs-number">0.0</span> <span class="hljs-comment"># 初始化预测列</span><br>    <span class="hljs-comment"># 遍历参数集 (coef_list) 和对应的国家组</span><br>    <span class="hljs-keyword">for</span> x_params, countries_subset <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(coef_list, countries_groups):<br>        <span class="hljs-comment"># 使用其特定参数为当前国家组生成预测</span><br>        df1.loc[df1.country.isin(countries_subset), <span class="hljs-string">&#x27;prediction&#x27;</span>] = predict(x_params, df1[df1.country.isin(countries_subset)][cols].to_numpy(), <span class="hljs-built_in">round</span>)<br>    <span class="hljs-keyword">return</span> df1[<span class="hljs-string">&#x27;prediction&#x27;</span>] <span class="hljs-comment"># 返回整合的预测序列</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="第六名-by-Pascal-Terpstra"><a href="#第六名-by-Pascal-Terpstra" class="headerlink" title="第六名 by Pascal Terpstra"></a>第六名 by Pascal Terpstra</h2><p>第一个模型是@kdmitrie 发布的公共笔记本的改编。第二个模型使用的是乘性线性回归模型，第三个模型是@cdeotte 发布的 transformer。</p>
+<p>对三者进行ensemble。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/kaggle/" class="print-no-link">#kaggle</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TPSS5E1 复盘</div>
+      <div>https://lijianxiong.space/2025/20250210/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250215/" title="Mixture of Experts(MoE)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mixture of Experts(MoE)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250115/" title="ARIMA">
+                        <span class="hidden-mobile">ARIMA</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

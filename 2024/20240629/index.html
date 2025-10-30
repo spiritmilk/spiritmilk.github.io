@@ -1,0 +1,1210 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》Motivation：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图鲁棒性论文速览">
+<meta property="og:url" content="https://lijianxiong.space/2024/20240629/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》Motivation：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/idgl.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/af_moti.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/af1.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/nrgnn.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/PAKDD2021.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/evennet.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/www.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/KDD2022.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/rsgnn.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/iscapp2023.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/multiteacher.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/rtgnn.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/aaai2023.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/clnode.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/pignn_mot.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/pignn.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/arxiv2024_mot.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/a2024.png">
+<meta property="og:image" content="https://lijianxiong.space/2024/20240629/a20242.png">
+<meta property="article:published_time" content="2024-06-29T07:52:18.000Z">
+<meta property="article:modified_time" content="2024-08-22T08:57:41.304Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="图神经网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2024/20240629/1.png">
+  
+  
+  
+  <title>图鲁棒性论文速览 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">图鲁棒性论文速览</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-29 15:52" pubdate>
+          2024年6月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">图鲁棒性论文速览</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h2 id="《Learning-Graph-Neural-Networks-with-Noisy-Labels-（arxiv-2019-》"><a href="#《Learning-Graph-Neural-Networks-with-Noisy-Labels-（arxiv-2019-》" class="headerlink" title="《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》"></a>《Learning Graph Neural Networks with Noisy Labels （arxiv 2019)》</h2><p><strong>Motivation</strong>：标签噪声使泛化差距（测试准确率下降，训练准确率不变）增加。</p>
+<span id="more"></span>
+
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/1.png"></p>
+<p><strong>Strength</strong>: 方法简单，计算量小</p>
+<p><strong>Weakness</strong>: 结果疑似不好，根据NoisyGL</p>
+<h2 id="《Symmetric-Cross-Entropy-for-Robust-Learning-with-Noisy-Labels-（ICCV-2019）》"><a href="#《Symmetric-Cross-Entropy-for-Robust-Learning-with-Noisy-Labels-（ICCV-2019）》" class="headerlink" title="《Symmetric Cross Entropy for Robust Learning with Noisy Labels （ICCV 2019）》"></a>《Symmetric Cross Entropy for Robust Learning with Noisy Labels （ICCV 2019）》</h2><p><strong>Motivation</strong>：交叉熵：（1）hard class处理不好；（2）遇到noisy label表现下降很多。作者受反向KL散度启发提出了另一种交叉熵</p>
+<p><strong>Method</strong>: </p>
+<p>交叉熵(CE)： -q(x)logp(x)</p>
+<p>RCE:  -p(x)logq(x)</p>
+<p>最终loss:  αCE+βRCE</p>
+<p><strong>Strength</strong>:</p>
+<p><strong>Weakness</strong>: 根据NoisyGL，效果比baseline高不了多少，可能是因为图数据的标签稀缺性</p>
+<h2 id="《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》"><a href="#《iterative-deep-graph-learning-for-graph-neural-networks-better-and-robust-node-embeddings-（Nips-2020-》" class="headerlink" title="《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》"></a>《iterative deep graph learning for graph neural networks better and robust node embeddings （Nips 2020)》</h2><p><strong>Motivation</strong>：</p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/idgl.png"></p>
+<p><strong>Strength</strong>:相似性使用了多头设置，学习能力更强。使用了历史邻接矩阵信息。<strong>Weakness</strong>:</p>
+<h2 id="《Adversarial-Label-Flipping-Attack-and-Defense-for-Graph-Neural-Networks-（ICDM-2020）》"><a href="#《Adversarial-Label-Flipping-Attack-and-Defense-for-Graph-Neural-Networks-（ICDM-2020）》" class="headerlink" title="《Adversarial Label-Flipping Attack and Defense for Graph Neural Networks （ICDM 2020）》"></a>《Adversarial Label-Flipping Attack and Defense for Graph Neural Networks （ICDM 2020）》</h2><p><strong>Motivation</strong>：社区标签和GCN输出具有一致性</p>
+<p><img src="/2024/20240629/af_moti.png"></p>
+<p><strong>Method</strong>: 使用community信息来帮助分类。先Embedding再聚类（k-means+NodeVec），得到community标签。有了community label后，将训练GCN用来预测community label作为辅助自监督任务，将L-1层的隐藏特征输入，输出K-路softmax 分布。</p>
+<p><img src="/2024/20240629/af1.png"></p>
+<p><strong>Strength</strong>: 形式简单</p>
+<p><strong>Weakness</strong>: 耗时严重（根据NoisyGL，运行时间最慢的第二个）。网络部分共享结构，此处不耗时。耗时应该在社区标签计算上。此处可能有改进空间。</p>
+<h2 id="《Data-Augmentation-for-Graph-Neural-Networks-AAAI-2021）》"><a href="#《Data-Augmentation-for-Graph-Neural-Networks-AAAI-2021）》" class="headerlink" title="《Data Augmentation for Graph Neural Networks  (AAAI 2021）》"></a>《Data Augmentation for Graph Neural Networks  (AAAI 2021）》</h2><p><strong>Motivation</strong>：最明显的方法涉及添加或删除节点或边。但问题仍然存在，哪些边缘需要改变？</p>
+<p><strong>Method</strong>:</p>
+<p>（1）使用边缘预测器函数（文中使用的是GAE）来获取𝒢中所有可能和现有边缘的边缘概率。边缘预测器的作用是灵活的，一般可以用任何合适的方法代替。</p>
+<p> (2) 使用预测的边概率，我们确定性地添加（删除）新（现有）边以创建修改后的图𝒢 ，该图用作 GNN 节点分类器的输入。</p>
+<h2 id="《NRGNN-learning-a-lable-noise-resistant-graph-neural-network-on-sparsely-and-noisily-labeled-graphs-2021-KDD》"><a href="#《NRGNN-learning-a-lable-noise-resistant-graph-neural-network-on-sparsely-and-noisily-labeled-graphs-2021-KDD》" class="headerlink" title="《NRGNN learning a lable noise-resistant graph neural network on sparsely and noisily labeled graphs 2021 KDD》"></a>《NRGNN learning a lable noise-resistant graph neural network on sparsely and noisily labeled graphs 2021 KDD》</h2><p><strong>Motivation</strong>：由于图上的标签稀疏，错误标记的节点可能会影响其邻域内未标记的节点，从而难以接受正确标记节点的监督。为了解决这些问题，NRGNN 首先连接具有相似特征的节点以创建精细图。基于这个精细化的图，生成精确的伪标签，使未标记的样本能够接受来自正确标记的样本的更多监督，从而减少噪声标签的影响。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/nrgnn.png"></p>
+<p><strong>Strength</strong>: 使用了单独的边预测器，更好的利用特征信息</p>
+<p><strong>Weakness</strong>: 边预测器单使用该loss而不使用分类器，疑似无增长。在理论上假设节点的特征相似性与其标签有较高的相关性</p>
+<h2 id="《Unified-Robust-Training-for-Graph-NeuralNetworks-against-Label-Noise-（PAKDD-2021-》"><a href="#《Unified-Robust-Training-for-Graph-NeuralNetworks-against-Label-Noise-（PAKDD-2021-》" class="headerlink" title="《Unified Robust Training for Graph NeuralNetworks against Label Noise （PAKDD 2021)》"></a>《Unified Robust Training for Graph NeuralNetworks against Label Noise （PAKDD 2021)》</h2><p><strong>Motivation</strong>：结构邻近性（直接或间接连接）高的节点往往具有相似的标签-&gt;随机游走</p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/PAKDD2021.png"></p>
+<p><strong>Strength</strong>: 样本有重新加权，可以让可靠标签在梯度更新时做出更多共享。标签校正在高噪声下，不能保证性能增益，而通过先验分布损失的正则化能发挥作用。</p>
+<p><strong>Weakness</strong>: 需要更多的时间复杂度和空间占用，因为要随机游走来收集</p>
+<h2 id="《EvenNet-Ignoring-Odd-Hop-Neighbors-Improves-Robustness-of-Graph-Neural-Networks-（NIPS-2022-》"><a href="#《EvenNet-Ignoring-Odd-Hop-Neighbors-Improves-Robustness-of-Graph-Neural-Networks-（NIPS-2022-》" class="headerlink" title="《EvenNet: Ignoring Odd-Hop Neighbors Improves Robustness of Graph Neural Networks （NIPS 2022)》"></a>《EvenNet: Ignoring Odd-Hop Neighbors Improves Robustness of Graph Neural Networks （NIPS 2022)》</h2><p><strong>Motivation</strong>：源于符号网络的平衡理论提供了一个很好的视角：“敌人的敌人就是我的朋友，我朋友的朋友也是我的朋友。”</p>
+<p><strong>Method</strong>: </p>
+<p><img src="/2024/20240629/evennet.png"></p>
+<h2 id="《Towards-Unsupervised-Deep-Graph-Structure-Learning-WWW-2022-》"><a href="#《Towards-Unsupervised-Deep-Graph-Structure-Learning-WWW-2022-》" class="headerlink" title="《Towards Unsupervised Deep Graph Structure Learning (WWW 2022)》"></a>《Towards Unsupervised Deep Graph Structure Learning (WWW 2022)》</h2><p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/www.png"></p>
+<h2 id="《Reliable-Representations-Make-A-Stronger-Defender-Unsupervised-Structure-Refinement-for-Robust-GNN（KDD-2022-》"><a href="#《Reliable-Representations-Make-A-Stronger-Defender-Unsupervised-Structure-Refinement-for-Robust-GNN（KDD-2022-》" class="headerlink" title="《Reliable Representations Make A Stronger Defender: Unsupervised Structure Refinement for Robust GNN（KDD 2022)》"></a>《Reliable Representations Make A Stronger Defender: Unsupervised Structure Refinement for Robust GNN（KDD 2022)》</h2><p><strong>Motivation</strong>：原始特征不能表示节点的节点的各种属性（如结构信息等）。</p>
+<p>故方法要：1）携带特征信息，同时携带尽可能多的正确结构信息；2）对结构扰动不敏感。只有少数邻居的节点比高度节点更容易受到攻击。对抗性边缘倾向于连接两个低度节点。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/KDD2022.png"></p>
+<p><strong>Strength</strong>: 图增强提高学习能力。Advanced GCN中针对低度高度做了不同的聚合权重</p>
+<p><strong>Weakness</strong>: 相似度策略比较单调。特征打乱如果按类内打乱效果会更好（（ICML 2024）Feature Distribution on Graph Topology Mediates the Effect of Graph Convolution: Homophily Perspective）。</p>
+<h2 id="《toward-robust-graph-neural-networks-for-noisy-graphs-with-sparse-labels-2022WSDM-》"><a href="#《toward-robust-graph-neural-networks-for-noisy-graphs-with-sparse-labels-2022WSDM-》" class="headerlink" title="《toward robust graph neural networks for noisy graphs with sparse labels (2022WSDM)》"></a>《toward robust graph neural networks for noisy graphs with sparse labels (2022WSDM)》</h2><p><strong>Strength</strong>:使用了单独的边预测器，更好的利用特征信息</p>
+<p><strong>Method</strong>: </p>
+<p><img src="/2024/20240629/rsgnn.png"></p>
+<h2 id="《Learning-on-Graphs-under-Label-Noise-（ICASSP-2023-》"><a href="#《Learning-on-Graphs-under-Label-Noise-（ICASSP-2023-》" class="headerlink" title="《Learning on Graphs under Label Noise （ICASSP 2023)》"></a>《Learning on Graphs under Label Noise （ICASSP 2023)》</h2><p><strong>Motivation</strong>：需要一种没有标签信息的正则化项，以获得针对标签噪声的卓越模型泛化能力</p>
+<p><strong>Method</strong>: 首先对图进行增强，第一种是随机丢边，第二种是随机mask节点属性。再使用对比学习和标签矫正。</p>
+<p><img src="/2024/20240629/iscapp2023.png"></p>
+<p><strong>Strength</strong>:两次图增强都公用一套GCN，耗时小。使用了多种图增强技术。图增强过程中不涉及标签。</p>
+<p><strong>Weakness</strong>:方法简单。相当于只进行了图增强+标签矫正。</p>
+<h2 id="《Multi-teacher-Self-training-for-Semi-supervised-Node-Classification-with-Noisy-Labels-（ACM-MM-2023-》"><a href="#《Multi-teacher-Self-training-for-Semi-supervised-Node-Classification-with-Noisy-Labels-（ACM-MM-2023-》" class="headerlink" title="《Multi-teacher Self-training for Semi-supervised Node Classification with Noisy Labels （ACM MM 2023)》"></a>《Multi-teacher Self-training for Semi-supervised Node Classification with Noisy Labels （ACM MM 2023)》</h2><p><strong>Motivation</strong>：根据文献《Selc: Self-ensemble label correction improves learning with noisy labels.》，在带有噪声标签的数据集上训练神经网络模型时，模型倾向于首先学习简单(干净)的样本。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/multiteacher.png"></p>
+<p>使用先前的作为教师模型，并积累教师模型的参数。来进行标签处理</p>
+<h2 id="《Robust-Training-of-Graph-Neural-Networks-via-Noise-Governance（WSDM-2023）》"><a href="#《Robust-Training-of-Graph-Neural-Networks-via-Noise-Governance（WSDM-2023）》" class="headerlink" title="《Robust Training of Graph Neural Networks via Noise Governance（WSDM 2023）》"></a>《Robust Training of Graph Neural Networks via Noise Governance（WSDM 2023）》</h2><p><strong>Motivation</strong>：作者指出，虽然 NRGNN 强调通过链接预测为未标记节点提供额外的监督，但它并没有区分错误标记和正确标记的节点。相反，它只是不加区别地连接具有相似特征的节点，这可能会导致错误标记节点的影响扩散。为了解决这个问题，作者提出了RTGNN，它在NRGNN的基础上构建，利用Co-teaching中的小损失准则来进一步区分可信和不可信节点，并纠正一些不可信节点的标签，减轻一些不可信节点的标签。</p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/rtgnn.png"></p>
+<p>边预测器部分类似NRGNN第二部分类似于coteaching，并对peer GCN进行KL散度正则化</p>
+<p><strong>Strength</strong>: 划分了多种节点的类型，cl、ns、sr。具有NRGNN的优点。</p>
+<p><strong>Weakness</strong>:NoisyGL中显示RTGNN疑似效果在大部分数据集上都不如GCN。多个神经网络，时间复杂度略高。</p>
+<h2 id="《Robust-Node-Classification-on-Graph-Data-with-Graph-and-Label-Noise-（AAAI-2023-》"><a href="#《Robust-Node-Classification-on-Graph-Data-with-Graph-and-Label-Noise-（AAAI-2023-》" class="headerlink" title="《Robust Node Classification on Graph Data with Graph and Label Noise （AAAI 2023)》"></a>《Robust Node Classification on Graph Data with Graph and Label Noise （AAAI 2023)》</h2><p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/aaai2023.png"></p>
+<p><strong>Strength</strong>:</p>
+<p><strong>Weakness</strong>: 耗时严重。NoisyGL显示是最慢的，几千倍于GCN</p>
+<h2 id="《Clnode-Curriculum-learning-for-node-classification》（WSDM-2023）"><a href="#《Clnode-Curriculum-learning-for-node-classification》（WSDM-2023）" class="headerlink" title="《Clnode:Curriculum learning for node classification》（WSDM 2023）"></a>《Clnode:Curriculum learning for node classification》（WSDM 2023）</h2><p><strong>Motivation</strong>：这些工作通常假设所有训练节点的贡献相等。事实上，训练节点的质量差异很大</p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/clnode.png"></p>
+<p><strong>Strength</strong>:将节点区分开来处理</p>
+<p><strong>Weakness</strong>:假设同质性</p>
+<h2 id="《Noise-robust-Graph-Learning-by-Estimating-and-Leveraging-Pairwise-Interactions-（TMLR-2023-》"><a href="#《Noise-robust-Graph-Learning-by-Estimating-and-Leveraging-Pairwise-Interactions-（TMLR-2023-》" class="headerlink" title="《Noise-robust Graph Learning by Estimating and Leveraging Pairwise Interactions （TMLR 2023)》"></a>《Noise-robust Graph Learning by Estimating and Leveraging Pairwise Interactions （TMLR 2023)》</h2><p><strong>Motivation</strong>：</p>
+<p><img src="/2024/20240629/pignn_mot.png"></p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/pignn.png"></p>
+<p><strong>Strength</strong>: 有效地利用了节点相互的关系，找到了一种比标签噪声要小的噪声特性<strong>Weakness</strong>: 只在同亲图（即，如果两个节点相连，那么它们很有可能具有相同的节点标签）上表现优异</p>
+<h2 id="《Universally-Robust-Graph-Neural-Networks-by-Preserving-Neighbor-Similarity-（arxiv-2024-》"><a href="#《Universally-Robust-Graph-Neural-Networks-by-Preserving-Neighbor-Similarity-（arxiv-2024-》" class="headerlink" title="《Universally Robust Graph Neural Networks by Preserving Neighbor Similarity （arxiv 2024)》"></a>《Universally Robust Graph Neural Networks by Preserving Neighbor Similarity （arxiv 2024)》</h2><p><strong>Motivation</strong>：普通鲁棒模型依靠自我特征的相似性来检测良性链接中的潜在恶意链接。然而，这种策略可能不适合在异质性场景下增强gnn的对抗鲁棒性。攻击与节点相似度呈负相关。图攻击者倾向于连接相似度得分值较低的节点对。</p>
+<p>不同相似度矩阵下的攻击表现：相似度矩阵定义：</p>
+<p><img src="/2024/20240629/arxiv2024_mot.png"></p>
+<p><strong>Method</strong>:</p>
+<p><img src="/2024/20240629/a2024.png"></p>
+<p>其分为正knn和负knn。对于正knn，我们为每个节点挑选出最接近的top-𝑘邻居来构建相应的kNN图。对于负knn，和正knn相反，这种方式可以捕获极端不同的信息，并作为正图的对立物。在双knn图构建阶段之后，确定聚合机制的最佳选择以有效地传播节点特征，同时保持邻居相似度是很重要的。为此，我们引入了一种自适应邻居相似度引导的传播机制。节点表示学习的信息流的形式为:</p>
+<p><img src="/2024/20240629/a20242.png"></p>
+<p><strong>Strength</strong>:从正反两方面考虑问题，以往一般只考虑一边，可解释性强</p>
+<p><strong>Weakness</strong>:是否忽略了中通滤波，如arxiv2023的Robust Mid-Pass Filtering Graph Convolutional Networks</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="print-no-link">#图神经网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>图鲁棒性论文速览</div>
+      <div>https://lijianxiong.space/2024/20240629/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/20240708/" title="最大率失真与图上的应用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">最大率失真与图上的应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/20240605/" title="Softmax Linear Units Softmax">
+                        <span class="hidden-mobile">Softmax Linear Units Softmax</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

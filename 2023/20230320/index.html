@@ -1,0 +1,1310 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="提示工程概览，来自Prompt Engineering | Lil’Log。  Prompt Engineering，也称为In-Context Prompting，指的是如何与 LLM 通信以在不更新模型权重的情况下引导其行为以获得预期结果的方法。这是一门经验科学，即时工程方法的效果在模型之间可能会有很大差异，因此需要大量的实验和启发式方法。 有用的资源：  OpenAI Cookbook有许多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prompt Engineering By Lil&#39;Log">
+<meta property="og:url" content="https://lijianxiong.space/2023/20230320/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="提示工程概览，来自Prompt Engineering | Lil’Log。  Prompt Engineering，也称为In-Context Prompting，指的是如何与 LLM 通信以在不更新模型权重的情况下引导其行为以获得预期结果的方法。这是一门经验科学，即时工程方法的效果在模型之间可能会有很大差异，因此需要大量的实验和启发式方法。 有用的资源：  OpenAI Cookbook有许多">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/SelfAsk-search.png">
+<meta property="og:image" content="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/PoT.png">
+<meta property="og:image" content="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM.png">
+<meta property="og:image" content="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM-iteration.png">
+<meta property="og:image" content="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer.png">
+<meta property="og:image" content="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer-annotation.png">
+<meta property="article:published_time" content="2023-03-20T02:19:28.000Z">
+<meta property="article:modified_time" content="2023-03-20T07:41:02.310Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="自然语言处理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/SelfAsk-search.png">
+  
+  
+  
+  <title>Prompt Engineering By Lil&#39;Log - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Prompt Engineering By Lil'Log</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-20 10:19" pubdate>
+          2023年3月20日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Prompt Engineering By Lil&#39;Log</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>提示工程概览，来自<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">Prompt Engineering | Lil’Log</a>。</p>
+<hr>
+<p><strong>Prompt Engineering</strong>，也称为<strong>In-Context Prompting</strong>，指的是如何与 LLM 通信以<em>在不</em>更新模型权重的情况下引导其行为以获得预期结果的方法。这是一门经验科学，即时工程方法的效果在模型之间可能会有很大差异，因此需要大量的实验和启发式方法。</p>
+<p>有用的资源：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/openai/openai-cookbook">OpenAI Cookbook</a>有许多关于如何有效利用 LLM 的深入示例。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dair-ai/Prompt-Engineering-Guide">Prompt Engineering Guide</a> repo 包含相当全面的有关 prompt engineering 的教育材料集合。</li>
+</ul>
+<p>这篇文章仅关注自回归语言模型的提示工程，因此与完形填空测试、图像生成或多模态模型无关。就其核心而言，即时工程的目标是对齐和模型可操纵性。查看我<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/">之前关于可控文本生成的帖子</a>。</p>
+<p>**[作者的个人看法]**在我看来，一些提示工程论文不值得 8 页长，因为那些技巧可以用一两句话解释，剩下的就是基准测试。一个易于使用和共享的基准基础设施应该对社区更有好处。迭代提示或外部工具的使用并非易事。使整个研究界都采用它也很重要。</p>
+<span id="more"></span>
+
+<h1 id="基本prompting"><a href="#基本prompting" class="headerlink" title="基本prompting"></a>基本prompting</h1><p>Zero-shot 和 few-shot learning 是两种最基本的模型提示方法，由许多 LLM 论文开创，通常用于基准 LLM 性能。</p>
+<h2 id="Zero-shot"><a href="#Zero-shot" class="headerlink" title="Zero-shot"></a>Zero-shot</h2><p><strong>Zero-shot 学习</strong>是简单地将任务文本输入模型并要求结果。</p>
+<p>（所有情感分析示例均来自SST-2）</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Few-shot"><a href="#Few-shot" class="headerlink" title="Few-shot"></a>Few-shot</h2><p><strong>Few-shot learning</strong>提供了一组关于目标任务的高质量演示，每个演示都包含输入和期望的输出。当模型首先看到好的例子时，它可以更好地理解人类的意图和需要什么样的答案的标准。因此，少样本学习通常比零样本学习有更好的性能。然而，它是以更多的token消耗为代价的，并且当输入和输出文本很长时可能会达到上下文长度限制。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Text:</span> (lawrence bounces) all over the stage, dancing, running, sweating, mopping his face <span class="hljs-built_in">and</span> generally displaying the wacky talent that brought him fame <span class="hljs-keyword">in</span> the first place.<br><span class="hljs-symbol">Sentiment:</span> positive<br><br><span class="hljs-symbol">Text:</span> despite all evidence <span class="hljs-keyword">to</span> the contrary, this clunker has somehow managed <span class="hljs-keyword">to</span> pose <span class="hljs-keyword">as</span> an actual feature movie, the kind that charges full admission <span class="hljs-built_in">and</span> gets hyped <span class="hljs-keyword">on</span> tv <span class="hljs-built_in">and</span> purports <span class="hljs-keyword">to</span> amuse small children <span class="hljs-built_in">and</span> ostensible adults.<br><span class="hljs-symbol">Sentiment:</span> negative<br><br><span class="hljs-symbol">Text:</span> <span class="hljs-keyword">for</span> the first time <span class="hljs-keyword">in</span> years, de niro digs deep emotionally, perhaps because he<span class="hljs-comment">&#x27;s been stirred by the powerful work of his co-stars.</span><br><span class="hljs-symbol">Sentiment:</span> positive<br><br><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
+
+<p>许多研究研究了如何构建上下文中的示例以最大限度地提高性能，并观察到<strong>prompt格式、训练示例和示例顺序的选择会导致</strong>从接近随机猜测到接近 SoTA 的显着不同的性能。</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2102.09690">赵等。(2021)</a>调查了少样本分类的情况，并提出 LLM 的几个偏差（他们在实验中使用 GPT-3）导致了如此高的方差：（1）如果示例中的标签分布不平衡，则存在多数标签<em>偏差</em>; (2) <em>Recency bias</em>是指模型可能在最后重复标签的倾向；(3) <em>Common token bias</em>表明 LLM 比 rare tokens 更倾向于产生 common token。为了克服这种偏差，他们提出了一种方法来校准模型输出的标签概率，使其在输入字符串为 时保持一致<code>N/A</code>。</p>
+<h3 id="示例选择技巧"><a href="#示例选择技巧" class="headerlink" title="示例选择技巧"></a>示例选择技巧</h3><ul>
+<li>选择在语义上与测试示例相似的示例k-嵌入空间中的 NN 聚类（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.06804">Liu et al., 2021</a>）</li>
+<li>为了选择多样化且具有代表性的示例集，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.01975">Su 等人。(2022)</a>提出使用基于图的方法：（1）首先，构造一个有向图$G&#x3D;(V,E)$基于嵌入（例如通过<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1908.10084">SBERT</a>或<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.10005">其他</a> <a target="_blank" rel="noopener" href="https://platform.openai.com/docs/guides/embeddings">嵌入</a> <a target="_blank" rel="noopener" href="https://openai.com/blog/new-and-improved-embedding-model">模型</a>）样本之间的余弦相似度，其中每个节点指向其k最近的邻居；(2) 从一组选定的样本开始$\mathcal{L}&#x3D;∅$和一组剩余样本$\mathcal{U}$在. 每个样品在∈在得分为</li>
+</ul>
+<p>$$<br>\text{score}(u) &#x3D; \sum_{v \in {v \mid (u, v) \in E, v\in \mathcal{U}}} s(v)\quad\text{where }s(v)&#x3D;\rho^{- \vert {\ell \in \mathcal{L} \vert (v, \ell)\in E }\vert},\quad\rho &gt; 1<br>$$</p>
+<p>吖如果选择了许多相邻的样本，那么$s(v)$就很低，因此评分鼓励选择不同的样本。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.08633">鲁宾等人。(2022)</a>提出通过特定于一个训练数据集的<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-05-31-contrastive/">对比学习</a>来训练嵌入，以进行上下文学习样本选择。给定每个训练对(X,y), 一个例子的质量$e_i$（格式化的输入输出对）可以通过 LM 分配的条件概率来衡量：$\text{score}(e_i) &#x3D; P_\text{LM}(y \mid e_i, x)$. 我们可以用 top-k 识别其他示例k和底部-k将每个训练对的候选正集和负集打分，并将其用于对比学习。</li>
+<li>一些研究人员尝试使用<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2018-02-19-rl-overview/#q-learning-off-policy-td-control">Q-Learning</a>来进行样本选择。( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.04486">Zhang et al. 2022</a> )</li>
+<li>受基于不确定性的<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2022-02-20-active-learning/">主动学习</a>的启发，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12246">Diao 等人。(2023)</a>建议在多次抽样试验中识别具有高分歧(high disagreement)或熵的例子。然后注释这些示例以用于 few-shot prompts。</li>
+</ul>
+<h3 id="Example-Ordering提示"><a href="#Example-Ordering提示" class="headerlink" title="Example Ordering提示"></a>Example Ordering提示</h3><ul>
+<li>一个普遍的建议是保持样本选择的多样性、与测试样本的相关性以及随机顺序，以避免多数标签偏差和近因偏差。</li>
+<li>增加模型大小或包含更多训练示例不会减少上下文示例的不同排列之间的方差。相同的订单可能适用于一种型号，但不适用于另一种型号。当验证集有限时，请考虑选择顺序，以使模型不会产生极度不平衡的预测或对其预测过于自信。( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.08786">Lu et al. 2022</a> )</li>
+</ul>
+<h1 id="Instruction-Prompting"><a href="#Instruction-Prompting" class="headerlink" title="Instruction Prompting"></a>Instruction Prompting</h1><p>在提示中展示few-shot示例的目的是向模型解释我们的意图；换句话说，以演示的形式向模型描述任务指令。然而，few-shot 在token使用方面可能很昂贵，并且由于上下文长度有限而限制了输入长度。那么，为什么不直接给出指令呢？</p>
+<p><em>Instructed LM</em>（例如<a target="_blank" rel="noopener" href="https://openai.com/research/instruction-following">InstructGPT</a>、<a target="_blank" rel="noopener" href="https://github.com/allenai/natural-instructions">natural instruction</a>）使用高质量元组（任务指令、输入、ground truth 输出）微调预训练模型，使 LM 更好地理解用户意图并遵循指令。<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#rl-fine-tuning-with-human-preferences">RLHF</a>（人类反馈强化学习）是一种常用的方法。instruction following style fine-tuning 的好处是改进了模型，使其更符合人类的意图，并大大降低了沟通成本。</p>
+<p>在与指令模型交互时，我们应该详细描述任务要求，尽量<em>具体</em>和<em>准确</em>，避免说“不做某事”，而是具体说明要做什么。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vbnet">Please label the sentiment towards the movie <span class="hljs-keyword">of</span> the given movie review. The sentiment label should be <span class="hljs-string">&quot;positive&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;negative&quot;</span>. <br><span class="hljs-symbol">Text:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film. </span><br><span class="hljs-symbol">Sentiment:</span><br></code></pre></td></tr></table></figure>
+
+<p>向目标听众解释是另一种聪明的指示方式</p>
+<ul>
+<li>例如为孩子们制作教育材料，</li>
+</ul>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">Describe what <span class="hljs-keyword">is</span> quantum physics <span class="hljs-keyword">to</span> a <span class="hljs-number">6</span>-<span class="hljs-built_in">year</span>-old.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>和安全的内容，</li>
+</ul>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta prompt_">...</span> <span class="language-python"><span class="hljs-keyword">in</span> language that <span class="hljs-keyword">is</span> safe <span class="hljs-keyword">for</span> work.</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>In-context instruction learning</strong>( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.14691">Ye et al. 2023</a> ) 将few-shot learning与instruction prompting结合。它在提示中包含多个跨不同任务的演示示例，每个演示都由指令、任务输入和输出组成。请注意，他们的实验仅针对分类任务，指令提示包含所有标签选项。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Definition:</span> Determine the speaker <span class="hljs-keyword">of</span> the dialogue, <span class="hljs-string">&quot;agent&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;customer&quot;</span>.<br><span class="hljs-symbol">Input:</span> I have successfully booked your tickets.<br><span class="hljs-symbol">Ouput:</span> agent<br><br><span class="hljs-symbol">Definition:</span> Determine which category the question asks <span class="hljs-keyword">for</span>, <span class="hljs-string">&quot;Quantity&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;Location&quot;</span>.<br><span class="hljs-symbol">Input:</span> What<span class="hljs-comment">&#x27;s the oldest building in US?</span><br><span class="hljs-symbol">Ouput:</span> Location<br><br><span class="hljs-symbol">Definition:</span> Classify the sentiment <span class="hljs-keyword">of</span> the given movie review, <span class="hljs-string">&quot;positive&quot;</span> <span class="hljs-built_in">or</span> <span class="hljs-string">&quot;negative&quot;</span>.<br><span class="hljs-symbol">Input:</span> i<span class="hljs-comment">&#x27;ll bet the video game is a lot more fun than the film.</span><br><span class="hljs-symbol">Output:</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="自洽抽样"><a href="#自洽抽样" class="headerlink" title="自洽抽样"></a>自洽抽样</h1><p><strong>自洽采样(Self-Consistency Sampling)</strong>( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.11171">Wang et al. 2022a</a> ) 是对温度 &gt; 0 的多个输出进行采样，然后从这些候选中选择最好的一个。选择最佳候选人的标准因任务而异。一个通用的解决方案是选择<strong>多数票</strong>。对于易于验证的任务，例如带有单元测试的编程问题，我们可以简单地运行解释器并通过单元测试验证正确性。</p>
+<h1 id="思维链-CoT"><a href="#思维链-CoT" class="headerlink" title="思维链 (CoT)"></a>思维链 (CoT)</h1><p><strong>思维链 (CoT) 提示</strong>( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903">Wei et al. 2022</a> ) 生成一系列短句来逐步描述推理逻辑，称为<em>推理链</em>或<em>基本原理</em>，最终得出最终答案。CoT 的好处对于<strong>复杂的推理任务</strong>更为明显，同时使用<strong>大型模型</strong>（例如，具有超过 50B 个参数）。简单的任务只能从 CoT 提示中略微获益。</p>
+<h2 id="CoT-提示的类型"><a href="#CoT-提示的类型" class="headerlink" title="CoT 提示的类型"></a>CoT 提示的类型</h2><p>CoT提示的两种主要类型：</p>
+<ul>
+<li><strong>Few-shot CoT</strong>。它是通过一些演示来提示模型，每个演示都包含手动编写（或模型生成）的高质量推理链。</li>
+</ul>
+<p>（所有数学推理示例均来自<a target="_blank" rel="noopener" href="https://github.com/openai/grade-school-math">GSM8k</a>）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs routeros">Question: Tom <span class="hljs-keyword">and</span> Elizabeth have a competition <span class="hljs-keyword">to</span> climb a hill. Elizabeth takes 30 minutes <span class="hljs-keyword">to</span> climb the hill. Tom takes four times as long as Elizabeth does <span class="hljs-keyword">to</span> climb the hill. How many hours does it take Tom <span class="hljs-keyword">to</span> climb up the hill?<br>Answer: It takes Tom 30<span class="hljs-number">*4</span> = &lt;&lt;30<span class="hljs-number">*4</span>=120&gt;&gt;120 minutes <span class="hljs-keyword">to</span> climb the hill.<br>It takes Tom 120/60 = &lt;&lt;120/<span class="hljs-attribute">60</span>=2&gt;&gt;2 hours <span class="hljs-keyword">to</span> climb the hill.<br>So the answer is 2.<br>===<br>Question: Jack is a soccer player. He needs <span class="hljs-keyword">to</span> buy two pairs of<span class="hljs-built_in"> socks </span><span class="hljs-keyword">and</span> a pair of soccer shoes. Each pair of<span class="hljs-built_in"> socks </span>cost <span class="hljs-variable">$9</span>.50, <span class="hljs-keyword">and</span> the shoes cost <span class="hljs-variable">$92</span>. Jack has <span class="hljs-variable">$40</span>. How much more money does Jack need?<br>Answer: The total cost of two pairs of<span class="hljs-built_in"> socks </span>is <span class="hljs-variable">$9</span>.50 x 2 = $&lt;&lt;9.5<span class="hljs-number">*2</span>=19&gt;&gt;19.<br>The total cost of the<span class="hljs-built_in"> socks </span><span class="hljs-keyword">and</span> the shoes is <span class="hljs-variable">$19</span> + <span class="hljs-variable">$92</span> = $&lt;&lt;19+<span class="hljs-attribute">92</span>=111&gt;&gt;111.<br>Jack need <span class="hljs-variable">$111</span> - <span class="hljs-variable">$40</span> = $&lt;&lt;<span class="hljs-attribute">111-40</span>=71&gt;&gt;71 more.<br>So the answer is 71.<br>===<br>Question: Marty has 100 centimeters of ribbon that he must cut into 4 equal parts. Each of the cut parts must be divided into 5 equal parts. How long will each final cut be?<br>Answer:<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Zero-shot CoT</strong>。使用自然语言语句<code>Let&#39;s think step by step</code>明确鼓励模型首先生成推理链，然后提示<code>Therefore, the answer is</code>生成答案（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.11916">Kojima 等人，2022 年</a>）。或者类似的说法<code>Let&#39;s work this out it a step by step to be sure we have the right answer</code>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.01910">Zhou et al. 2022</a>）。</li>
+</ul>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-symbol">Question:</span> Marty has <span class="hljs-number">100</span> centimeters <span class="hljs-keyword">of</span> ribbon that he must cut <span class="hljs-keyword">into</span> <span class="hljs-number">4</span> equal parts. <span class="hljs-keyword">Each</span> <span class="hljs-keyword">of</span> the cut parts must be divided <span class="hljs-keyword">into</span> <span class="hljs-number">5</span> equal parts. How <span class="hljs-type">long</span> will <span class="hljs-keyword">each</span> final cut be?<br><span class="hljs-symbol">Answer:</span> <span class="hljs-keyword">Let</span><span class="hljs-comment">&#x27;s think step by step.</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="提示和扩展"><a href="#提示和扩展" class="headerlink" title="提示和扩展"></a>提示和扩展</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/#self-consistency-sampling">自洽抽样</a>可以通过抽取多个不同的答案然后进行多数表决来提高推理的准确性。( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.11171">Wang et al. 2022a</a> )</li>
+<li>集成学习的另一种方法是改变示例顺序或使用模型生成的基本原理来代替人工编写的基本原理，以在多个样本试验中引入随机性。然后以多数票聚合模型输出以获得最终答案。（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2207.00747">王等人 2022b</a>）</li>
+<li>如果训练样例只与真答案相关联（易于验证！）但没有基本原理，我们可以遵循 STaR <em>（</em> Self-Taught Reasoner；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.14465">Zelikman et al. 2022</a>）方法： (1) 让 LLM 生成推理链，只保留那些导致正确答案的人；(2) 然后用生成的基本原理微调模型并重复该过程直到收敛。请注意，更高的温度更有可能产生错误的基本原理和正确的答案。如果训练样本没有真实答案，可以考虑使用多数票作为“正确”答案。</li>
+<li>提示具有更高推理复杂性的演示可以实现更好的性能，其中复杂性由链中推理步骤的数量来衡量。分隔推理步骤时，换行符<code>\n</code>比<code>step i</code>、句号<code>.</code>或分号<code>;</code>更有效。（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
+<li>*基于复杂性的一致性(Complexity-based consistency)*是通过仅在顶部进行多数投票，在所有世代中明确偏好复杂链k复杂的链条。（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
+<li>后来，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12822">Shum 等人。(2023)</a>发现在他们的实验中，仅使用复杂示例的 CoT 提示可以提高复杂问题的准确性，但在简单问题中表现不佳；GSM8k 上显示的证据。</li>
+<li>发现<code>Question:</code>改成<code>Q:</code>有用。（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.00720">Fu等，2023</a>）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.03401">Ye &amp; Durrett (2022)</a>发现，对于涉及文本推理的 NLP 任务（即 QA 和 NLI），在提示中包含解释的好处很小到中等，并且效果因模型而异。他们观察到解释更可能是非事实的而不是不一致的（即解释是否需要预测）。非事实的解释很可能导致错误的预测。</li>
+<li><em>Self-Ask</em> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a> ) 是一种反复提示模型提出<em>后续问题</em>以迭代构建思维过程的方法。可以通过搜索引擎结果回答后续问题。同样，<em>IRCoT</em>（Interleaving Retrieval CoT；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10509">Trivedi et al. 2022</a>）和<em>ReAct</em>（Reason + Act；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">Yao et al. 2023</a>）将迭代 CoT 提示与维基百科 API 查询相结合，以搜索相关实体和内容，然后将其添加回语境。</li>
+</ul>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/SelfAsk-search.png" alt="img"></p>
+<p>图 1. Self-Ask 如何与外部搜索查询一起使用。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03350">Press et al. 2022</a>）。</p>
+<h1 id="Automatic-Prompt-Design"><a href="#Automatic-Prompt-Design" class="headerlink" title="Automatic Prompt Design"></a>Automatic Prompt Design</h1><p>Prompt 是一系列前缀标记，可增加在给定输入的情况下获得所需输出的概率。因此，我们可以将它们视为可训练的参数，并通过梯度下降<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">直接在嵌入空间上对其进行优化</a>，例如<strong>AutoPrompt</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.15980">Shin et al., 2020</a> , <strong>Prefix-Tuning</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.00190">Li &amp; Liang (2021)</a> ), <strong>P-tuning</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.10385">Liu et al . 2021</a> ) 和<strong>Prompt-Tuning</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.08691">Lester et al. 2021</a> ).<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-01-02-controllable-text-generation/#smart-prompt-design">我的“可控神经文本生成”帖子中的这一部分</a>对它们有很好的介绍。从 AutoPrompt 到 Prompt-Tuning 的趋势是设置逐渐简化。</p>
+<p><strong>APE</strong>（Automatic Prompt Engineer；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.01910">Zhou et al. 2022</a>）是一种搜索模型生成的候选指令池，然后根据所选得分函数过滤候选集，最终选择得分最高的最佳候选指令的方法。</p>
+<ol>
+<li>提示 LLM 基于输入输出对形式的一小组演示生成候选指令。例如<code>&#123;&#123;Given desired input-output pairs&#125;&#125;\n\nThe instruction is</code>。</li>
+<li>对于给定的数据集$\mathcal{D}<em>\text{train} &#x3D; {(x, y)}$，我们想找到一条instruction$\rho$满足$\rho^* &#x3D; \arg\max</em>\rho \mathbb{E}<em>{(x, y) \in \mathcal{D}</em>\text{train}} [f(\rho, x, y)]$，其中$f(.)$是每个样本的得分函数，例如执行精度$\mathbb{1}[\text{LM}(.\vert \rho, x)&#x3D;y]$或对数概率：$p_\text{LM}(y \mid \rho, x)$</li>
+<li>使用迭代蒙特卡洛搜索方法通过提示提出语义相似的变体来改进最佳候选者，例如<code>Generate a variation of the following instruction while keeping the semantic meaning.\n\nInput: ...\n\nOutput:...</code></li>
+</ol>
+<p>为了自动构建思想链提示，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12822">Shum 等人。(2023)</a>建议 augment-prune-select，一个三步过程：</p>
+<ol>
+<li><em>增强</em>：使用few-shot或zero-shot CoT 提示生成给定问题的多个伪思维链；</li>
+<li><em>Prune</em>：根据生成的答案是否与基本事实相匹配来修剪伪链。</li>
+<li><em>选择</em>：应用方差减少的策略梯度策略来学习所选示例的概率分布，同时将示例的概率分布视为策略，将验证集的准确性视为奖励。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03493">张等。(2023)</a>改为采用<em>聚类</em>技术对问题进行抽样，然后生成链。他们观察到 LLM 倾向于犯某些类型的错误。一种类型的错误在嵌入空间中可能相似，因此被组合在一起。通过仅从频繁错误的集群中抽取一个或几个样本，我们可以防止对一种错误类型的过多错误演示，并收集一组不同的示例。</p>
+<ol>
+<li><em>问题聚类</em>：嵌入问题并运行k-means 聚类的方法。</li>
+<li><em>演示选择</em>：从每个集群中选择一组具有代表性的问题；即来自一个集群的一个演示。每个簇中的样本按到簇质心的距离排序，最接近质心的样本首先被选择。</li>
+<li><em>Rationale generation</em> : 使用zero-shot CoT 为选定的问题生成推理链，并构建few-shot prompt以运行推理。</li>
+</ol>
+<h1 id="Augmented-Language-Models"><a href="#Augmented-Language-Models" class="headerlink" title="Augmented Language Models"></a>Augmented Language Models</h1><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.07842">Mialon 等人</a>对Augmented Language Models的综述。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.07842">(2023)</a>广泛涵盖了多种语言模型类别，这些语言模型增强了推理技能和使用外部工具的能力。推荐它。</p>
+<h2 id="Retrieval"><a href="#Retrieval" class="headerlink" title="Retrieval"></a>Retrieval</h2><p>通常我们需要在模型预训练时间截止或内部&#x2F;私有知识库之后完成需要最新知识的任务。在这种情况下，如果我们没有在提示中明确提供上下文，模型将不知道上下文。<a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2020-10-29-odqa/">开放领域问答(Open Domain Question Answering)</a>的许多方法依赖于首先对知识库进行检索，然后将检索到的内容作为提示的一部分。这种过程的准确性取决于检索和生成步骤的质量。</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.05115">拉扎里杜等人。(2022)</a>研究了如何使用谷歌搜索进行文档检索以增强 LLM。给出一个问题q，从 Google 返回的 20 个 URL 中提取干净的文本，生成一组文档。因为这些文件很长，每个文件被分成6个句子的段落，{p}. 段落按照证据段落和查询之间基于 TF-IDF 的余弦相似度进行排序。提示中仅使用最相关的段落来生成答案A.</p>
+<p>对于闭卷 QA，每个演示的格式如下，以构建 few-shot 提示。发现将问题与证据交换（问题和答案之间的距离更长）在所有数据集中始终产生较低的结果。</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">Evidence:</span> ...<br><span class="hljs-symbol">Question:</span> ...<br><span class="hljs-symbol">Answer:</span> ...<br></code></pre></td></tr></table></figure>
+
+<p>答案概率以三种方式计算：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2020-10-29-odqa/#RAG">RAG</a>风格，$p(a_i \mid q) &#x3D; \sum_{i&#x3D;1}^n p_\text{tf-idf} (p_i \mid q) \cdot p_\text{LM}(a_i \mid q, p_i)$，其中$p_\text{tf-idf} (p_i \mid q)$是 TF-IDF 段落和问题表示之间的归一化余弦相似度。</li>
+<li>噪声信道推断，$p(a_i\mid q) &#x3D; \frac{p_\text{LM}(q \mid a_i, p_i) \cdot p_\text{LM}(a_i \mid p_i)}{p_\text{LM}(q \mid p_i)}$</li>
+<li>Product-of-Experts (PoE)，结合上面使用的所有概率，除了$p_\text{LM}(p_i \mid q)$.</li>
+</ol>
+<p>根据他们在生成和分类任务上的实验，在三个答案重新排序分数中 - PoE &gt; Noisy channel &gt; RAG。在个体概率中，$p_\text{LM}(a \mid q, p_i)$和$p_\text{LM}(q \mid p_i, a)$被发现是最有用的。$p_\text{LM}(q \mid p_i, a)$在给定证据段落和答案的情况下，捕获 LM 可以很好地解释问题，并且可以可靠地用于对候选答案进行重新排序。</p>
+<p>针对基于不同日期的问题的<a target="_blank" rel="noopener" href="https://situatedqa.github.io/">SituatedQA</a>数据集进行的一项观察是，尽管 LM（预训练截止日期为 2020 年）可以通过 Google 搜索访问最新信息，但其在 2020 年后问题上的表现仍然比 2020 年前问题差<em>很多</em>。这表明上下文信息和模型内部知识之间存在一些差异或参数冲突。</p>
+<p>有趣的是，即使仅使用“internal retrieval”也被发现是有益的，即在回答问题之前生成关于某个主题的知识（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2110.08387">Liu 等人，2022 年</a>）。首先我们可以使用下面的模板来抽取知识：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">Generate</span> some knowledge <span class="hljs-keyword">about</span> the <span class="hljs-keyword">input</span>. Examples:<br><br><span class="hljs-keyword">Input</span>: What <span class="hljs-keyword">type</span> of water formation is formed <span class="hljs-keyword">by</span> clouds?<br>Knowledge: Clouds are made of water vapor.<br><br><span class="hljs-keyword">Input</span>: &#123;question&#125;<br>Knowledge:<br></code></pre></td></tr></table></figure>
+
+<p>然后用模型生成的知识，进一步提示 LM 得到答案。</p>
+<h2 id="Programming-Language"><a href="#Programming-Language" class="headerlink" title="Programming Language"></a>Programming Language</h2><p>既有<strong>PAL</strong>（程序辅助语言模型）；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.10435">高等。2022</a> ) 和<strong>PoT</strong> (Program of Thoughts prompting; <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a> ) 要求 LLM 生成编程语言语句来解决自然语言推理问题，从而将求解步骤卸载到运行时，例如 Python 解释器。这样的设置解耦了复杂的计算和推理。它依赖于具有足够好的编码技能的 LM。</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/PoT.png" alt="图 2. 比较 CoT 和 PoT。"></p>
+<p>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.12588">Chen et al. 2022</a>）。</p>
+<h2 id="External-APIs"><a href="#External-APIs" class="headerlink" title="External APIs"></a>External APIs</h2><p><strong>TALM</strong>（工具增强语言模型；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）是一种通过文本到文本 API 调用进行增强的语言模型。LM 被引导生成<code>|tool-call</code>并<code>tool input text</code>以任务输入文本为条件来构造 API 调用请求。当<code>|result</code>出现时，调用指定的工具 API，并将返回的结果附加到文本序列。最终输出是在<code>|output</code>令牌之后生成的。</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM.png" alt="img"></p>
+<p>图 3. TALM 中 API 调用的格式。（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
+<p>TALM 采用自我对弈的方法来迭代引导工具使用示例的数据集，并用它来微调 LM。这个迭代的自我对弈管道模仿了一个 RL 过程，其中 LM 是策略网络，它由带有二元奖励信号的策略梯度训练。</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/TALM-iteration.png" alt="img"></p>
+<p>图 4. 自我对弈迭代有助于提升模型性能。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.12255">Parisi 等人，2022 年</a>）。</p>
+<p><strong>Toolformer</strong> ( <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a> ) 是一种可以通过简单的 API 使用外部工具的 LM，它以自我监督的方式构建，每个 API 只需要少量的演示。Toolformer 的工具箱包括：</p>
+<ul>
+<li><em>Calculator</em>帮助 LM 缺乏精确的数学技能；</li>
+<li><em>Q&amp;A system</em>以帮助解决不忠实的内容和幻觉；</li>
+<li><em>Search engine</em>在预训练截止时间后提供最新信息；</li>
+<li>提高低资源语言性能的<em>Translation system</em></li>
+<li>使 LM 了解时间进程的<em>calendar</em></li>
+</ul>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer.png" alt="img"></p>
+<p>图 5. 说明如何构建 Toolformer。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
+<p>Toolformer 的训练如下：</p>
+<ol>
+<li><p>*<em>Prompting to annotate potential API calls</em>. 。要求预训练的 LM 通过带有 API 调用使用示例的少量学习来注释数据集。格式化示例：</p>
+<p><img src="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/toolformer-annotation.png" alt="img"></p>
+<p>图 6. 如何注释数据集以进行 API 调用。<br>（图片来源：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">Schick et al. 2023</a>）。</p>
+<ul>
+<li><p>每个 API 调用都表示为（API 名称，相应输入）的元组，$c&#x3D;(a_c, i_c)$和其对应的结果表示为r. 有结果和无结果的API调用序列分别标注如下：</p>
+<p>$$<br>\begin{aligned}<br>  e(c) &amp;&#x3D; \langle\texttt{API}\rangle a_c(i_c) \langle\texttt{&#x2F;API}\rangle \<br>  e(c, r) &amp;&#x3D; \langle\texttt{API}\rangle a_c(i_c) \to r \langle\texttt{&#x2F;API}\rangle<br>  \end{aligned}<br>$$</p>
+</li>
+<li><p>基于概率的示例 API 调用$p_\text{LM}(\langle\texttt{API}\rangle \mid \text{prompt}(\mathbf{x}), \mathbf{x}_{1:i})$并选择top-k在 position i进行 API 调用的候选位置$i$如果概率大于阈值。</p>
+</li>
+<li><p>Then we sample potential API calls from the LM given the sequence $[\text{prompt}(\mathbf{x}), x_1, \dots, x_{i-1}, \langle\texttt{API}\rangle]$ as prefix and ⟨&#x2F;API⟩ as suffix.</p>
+</li>
+</ul>
+</li>
+<li><p>*根据 API 调用是否有助于模型预测未来标记过滤注释。*使用自我监督损失来确定哪些 API 调用实际上有帮助。</p>
+<ul>
+<li><p>执行每个 API 调用$c_i$得到相应的结果$r_i$.</p>
+</li>
+<li><p>计算 LM 在令牌上的加权交叉熵损失$X_i,…,Xn$当模型以提示为前缀时。计算了两个版本，一个带有 API 结果，另一个带有空序列$\varepsilon$.</p>
+<p>$$<br>\begin{aligned}<br>  L^+_i &amp;&#x3D; L_i(e(c_i, r_i)) \<br>  L^-_i &amp;&#x3D; \min(L_i(\varepsilon), L_i(e(c_i, \varepsilon))) \<br>  \end{aligned}<br>$$</p>
+<p>仅 API 调用$L^-_i - L^+_i$保留大于阈值的标记，这意味着添加此 API 调用及其结果有助于模型预测未来的标记。</p>
+</li>
+</ul>
+</li>
+<li><p>*在这个带注释的数据集上微调 LM。<em>新的训练序列构造为$\mathbf{x}^</em> &#x3D; x_{1:i-1}, e(c_i, r_i), x_{i:n}$. 训练数据是原始数据集（例如论文中的 CCNet 的子集）及其增强版本的组合。</p>
+</li>
+</ol>
+<p>在推理时，解码一直运行到模型产生“→” 令牌，表明它正在等待下一个 API 调用的响应。</p>
+<p>Toolformer 目前不支持链式使用工具（即使用一个工具的输出作为另一个工具的输入）或以交互方式（即在人工选择后采用 API 响应）。两者都是未来扩展模型的有趣方向。</p>
+<h1 id="Citation"><a href="#Citation" class="headerlink" title="Citation"></a>Citation</h1><p>格式如下</p>
+<blockquote>
+<p>Weng, Lilian. (Mar 2023). Prompt Engineering. Lil’Log. <a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/">https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/</a>.</p>
+</blockquote>
+<p>或</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs applescript">@article&#123;weng2023prompt,<br>  title   = <span class="hljs-string">&quot;Prompt Engineering&quot;</span>,<br>  author  = <span class="hljs-string">&quot;Weng, Lilian&quot;</span>,<br>  journal = <span class="hljs-string">&quot;lilianweng.github.io&quot;</span>,<br>  <span class="hljs-built_in">year</span>    = <span class="hljs-string">&quot;2023&quot;</span>,<br>  <span class="hljs-built_in">month</span>   = <span class="hljs-string">&quot;Mar&quot;</span>,<br>  url     = <span class="hljs-string">&quot;https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[1] Zhao et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2102.09690">“Calibrate Before Use: Improving Few-shot Performance of Language Models.”</a> ICML 2021</p>
+<p>[2] Liu et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.06804">“What Makes Good In-Context Examples for GPT-3?”</a> arXiv preprint arXiv:2101.06804 (2021).</p>
+<p>[3] Lu et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.08786">“Fantastically Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order Sensitivity.”</a> ACL 2022</p>
+<p>[4] Ye et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.14691">“In-Context Instruction Learning.”</a> arXiv preprint arXiv:2302.14691 (2023).</p>
+<p>[5] Su et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.01975">“Selective annotation makes language models better few-shot learners.”</a> arXiv preprint arXiv:2209.01975 (2022).</p>
+<p>[6] Rubin et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.08633">“Learning to retrieve prompts for in-context learning.”</a> NAACL-HLT 2022</p>
+<p>[7] Wei et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903">“Chain of thought prompting elicits reasoning in large language models.”</a> NeurIPS 2022</p>
+<p>[8] Wang et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.11171">“Self-Consistency Improves Chain of Thought Reasoning in Language Models.”</a> ICLR 2023.</p>
+<p>[9] Diao et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12246">“Active Prompting with Chain-of-Thought for Large Language Models.”</a> arXiv preprint arXiv:2302.12246 (2023).</p>
+<p>[10] Zelikman et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.14465">“STaR: Bootstrapping Reasoning With Reasoning.”</a> arXiv preprint arXiv:2203.14465 (2022).</p>
+<p>[11] Ye &amp; Durrett. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.03401">“The unreliability of explanations in few-shot in-context learning.”</a> arXiv preprint arXiv:2205.03401 (2022).</p>
+<p>[12] Trivedi et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10509">“Interleaving retrieval with chain-of-thought reasoning for knowledge-intensive multi-step questions.”</a> arXiv preprint arXiv:2212.10509 (2022).</p>
+<p>[13] Press et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03350">“Measuring and narrowing the compositionality gap in language models.”</a> arXiv preprint arXiv:2210.03350 (2022).</p>
+<p>[14] Yao et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03629">“ReAct: Synergizing reasoning and acting in language models.”</a> ICLR 2023.</p>
+<p>[15] Fu et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.00720">“Complexity-based prompting for multi-step reasoning.”</a> arXiv preprint arXiv:2210.00720 (2022).</p>
+<p>[16] Wang et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2207.00747">“Rationale-augmented ensembles in language models.”</a> arXiv preprint arXiv:2207.00747 (2022).</p>
+<p>[17] Zhang et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.03493">“Automatic chain of thought prompting in large language models.”</a> arXiv preprint arXiv:2210.03493 (2022).</p>
+<p>[18] Shum et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12822">“Automatic Prompt Augmentation and Selection with Chain-of-Thought from Labeled Data.”</a> arXiv preprint arXiv:2302.12822 (2023).</p>
+<p>[19] Zhou et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.01910">“Large Language Models Are Human-Level Prompt Engineers.”</a> ICLR 2023.</p>
+<p>[20] Lazaridou et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.05115">“Internet augmented language models through few-shot prompting for open-domain question answering.”</a> arXiv preprint arXiv:2203.05115 (2022).</p>
+<p>[21] Chen et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.12588">“Program of Thoughts Prompting: Disentangling Computation from Reasoning for Numerical Reasoning Tasks.”</a> arXiv preprint arXiv:2211.12588 (2022).</p>
+<p>[22] Gao et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2211.10435">“PAL: Program-aided language models.”</a> arXiv preprint arXiv:2211.10435 (2022).</p>
+<p>[23] Parisi et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.12255">“TALM: Tool Augmented Language Models”</a> arXiv preprint arXiv:2205.12255 (2022).</p>
+<p>[24] Schick et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">“Toolformer: Language Models Can Teach Themselves to Use Tools.”</a> arXiv preprint arXiv:2302.04761 (2023).</p>
+<p>[25] Mialon et al. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.07842">“Augmented Language Models: a Survey”</a> arXiv preprint arXiv:2302.07842 (2023).</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="print-no-link">#自然语言处理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Prompt Engineering By Lil&#39;Log</div>
+      <div>https://lijianxiong.space/2023/20230320/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/20230323/" title="联邦学习之跨客户端信息重建">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">联邦学习之跨客户端信息重建</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/20230319/" title="健身新手的减脂完全手册">
+                        <span class="hidden-mobile">健身新手的减脂完全手册</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

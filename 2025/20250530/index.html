@@ -1,0 +1,1250 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Child Mind Institute（下称CMI）之前在 Kaggle 上举办了两场竞赛，一场与检测睡眠状态有关，另一场与检测有问题的互联网使用有关。加上这个月开始举办的关于检测强迫性重复行为的比赛总计3场。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Child Mind Institute历届比赛获胜方案">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250530/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="Child Mind Institute（下称CMI）之前在 Kaggle 上举办了两场竞赛，一场与检测睡眠状态有关，另一场与检测有问题的互联网使用有关。加上这个月开始举办的关于检测强迫性重复行为的比赛总计3场。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/model_structure.jpeg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/target.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/inbox.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/1ststage.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/1ststagepp.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/2ndstage_r.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/Ensemble.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/sleep3.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250530/sleep31.png">
+<meta property="article:published_time" content="2025-05-30T13:21:22.000Z">
+<meta property="article:modified_time" content="2025-06-01T13:37:56.711Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="kaggle">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250530/model_structure.jpeg">
+  
+  
+  
+  <title>Child Mind Institute历届比赛获胜方案 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Child Mind Institute历届比赛获胜方案</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-30 21:21" pubdate>
+          2025年5月30日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Child Mind Institute历届比赛获胜方案</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>Child Mind Institute（下称CMI）之前在 Kaggle 上举办了两场竞赛，一场与检测睡眠状态有关，另一场与检测有问题的互联网使用有关。加上这个月开始举办的关于检测强迫性重复行为的比赛总计3场。</p>
+<span id="more"></span>
+
+<h2 id="识别睡眠状态"><a href="#识别睡眠状态" class="headerlink" title="识别睡眠状态"></a><a target="_blank" rel="noopener" href="https://www.kaggle.com/competitions/child-mind-institute-detect-sleep-states/overview">识别睡眠状态</a></h2><h3 id="比赛数据介绍"><a href="#比赛数据介绍" class="headerlink" title="比赛数据介绍"></a>比赛数据介绍</h3><p>数据量986.46MB</p>
+<p>该数据集包含大约500个手腕佩戴的加速度计数据的多日记录，这些记录被注释为两种事件类型：睡眠开始，和睡眠结束。任务是检测加速度计序列中这两种事件的发生。</p>
+<p>对于这些数据，有以下几条具体的指导方针：</p>
+<ul>
+<li>一个睡眠周期必须至少持续30分钟。</li>
+<li>一个睡眠期可能会被不超过30分钟的活动中断。</li>
+<li>除非手表被认为在整段时间内佩戴着，否则无法检测到不睡觉的时间窗口。</li>
+<li>夜晚中最长的睡眠窗口是唯一被记录的。</li>
+<li>如果无法识别有效的睡眠窗口，则不会记录该夜的入睡或唤醒事件。</li>
+<li>睡眠事件不需要跨越日界线，因此没有硬性规定定义在给定时间内可能发生的次数。然而，每晚不应分配超过一个窗口。例如，同一天内，一个人有01:00-06:00和19:00-23:30的睡眠窗口是有效的，尽管分配在连续的夜晚。</li>
+<li>记录的夜晚数大致等于该系列中的24小时周期数。</li>
+</ul>
+<h3 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h3><p>评估指标是mean average precision（mAP）</p>
+<h3 id="第一名-sakami"><a href="#第一名-sakami" class="headerlink" title="第一名@sakami"></a>第一名@sakami</h3><p><img src="/2025/20250530/model_structure.jpeg"></p>
+<ul>
+<li>SEScale</li>
+</ul>
+<p>在输入缩放方面，使用了 SEModule。（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1709.01507%EF%BC%89">https://arxiv.org/abs/1709.01507）</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SEScale</span>(nn.Module):<br>   <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, ch: <span class="hljs-built_in">int</span>, r: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>       <span class="hljs-built_in">super</span>().__init__()<br>       <span class="hljs-variable language_">self</span>.fc1 = nn.Linear(ch, r)<br>       <span class="hljs-variable language_">self</span>.fc2 = nn.Linear(r, ch)<br><br>   <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x: torch.FloatTensor</span>) -&gt; torch.FloatTensor:<br>       h = <span class="hljs-variable language_">self</span>.fc1(x)<br>       h = F.relu(h)<br>       h = <span class="hljs-variable language_">self</span>.fc2(h).sigmoid()<br>       <span class="hljs-keyword">return</span> h * x<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Minute connection</li>
+</ul>
+<p>当真实事件发生时，分钟存在偏差。为解决这个问题，在最终层中，与分钟相关的特征被分别连接。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, num_x: torch.FloatTensor, cat_x: torch.LongTensor</span>) -&gt; torch.FloatTensor:<br>    cat_embeddings = [embedding(cat_x[:, :, i]) <span class="hljs-keyword">for</span> i, embedding <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(<span class="hljs-variable language_">self</span>.category_embeddings)]<br>    num_x = <span class="hljs-variable language_">self</span>.numerical_linear(num_x)<br><br>x = torch.cat([num_x] + cat_embeddings, dim=<span class="hljs-number">2</span>)<br>x = <span class="hljs-variable language_">self</span>.input_linear(x)<br>x = <span class="hljs-variable language_">self</span>.conv(x.transpose(-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>)).transpose(-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>)<br><br><span class="hljs-keyword">for</span> gru <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.gru_layers:<br>    x, _ = gru(x)<br><br>x = <span class="hljs-variable language_">self</span>.dconv(x.transpose(-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>)).transpose(-<span class="hljs-number">1</span>, -<span class="hljs-number">2</span>)<br>minute_embedding = <span class="hljs-variable language_">self</span>.minute_embedding(cat_x[:, :, <span class="hljs-number">0</span>])<br>x = <span class="hljs-variable language_">self</span>.output_linear(torch.cat([x, minute_embedding], dim=<span class="hljs-number">2</span>))<br><span class="hljs-keyword">return</span> x<br></code></pre></td></tr></table></figure>
+
+<h4 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h4><p>每系列数据被分为每日的数据块，间隔为 0.35 天。在训练过程中，每个数据块的一半在每个 epoch 中使用。</p>
+<h4 id="目标值处理"><a href="#目标值处理" class="headerlink" title="目标值处理"></a>目标值处理</h4><p>基于与真实事件距离创建衰减目标，距离越大，值越小。</p>
+<p><img src="/2025/20250530/target.png"></p>
+<p>目标在每个 epoch 中都会更新以进一步衰减。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># update target</span><br>targets = np.where(targets == <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>, (targets - (<span class="hljs-number">1.0</span> / config.n_epochs)).clip(<span class="hljs-built_in">min</span>=<span class="hljs-number">0.0</span>))<br></code></pre></td></tr></table></figure>
+
+<h4 id="周期性滤波器"><a href="#周期性滤波器" class="headerlink" title="周期性滤波器"></a>周期性滤波器</h4><p>当测量设备被移除时，数据中存在日周期性。这被用来基于规则预测这些周期，并用作输入和预测的过滤器。</p>
+<p><img src="/2025/20250530/inbox.png"></p>
+<h4 id="后处理"><a href="#后处理" class="headerlink" title="后处理"></a>后处理</h4><p>1.数据特点</p>
+<p>目标事件的第二个值总是设置为 0。</p>
+<p>2.创建第二级模型</p>
+<p>第一级模型的预测被训练为识别与真实值在特定范围内的事件为正。</p>
+<p>第二级模型将这些转化为每分钟真实值事件存在的概率。</p>
+<p>第二级模型首先以每分钟为单位对第一级模型的预测进行平均，然后使用高度为 0.001、距离为 8 的 <code>find_peaks</code> 检测这些平均值中的峰值。</p>
+<ul>
+<li>根据检测到的峰值，从原始时间序列中创建数据块，每个峰值前后各捕获 8 分钟。<ul>
+<li>其中的<code>step_size</code>至关重要，因为正负样本的比例取决于包含的步数，这会影响后续阶段的准确性。因此调整了步数以获得最佳性能。</li>
+<li>如果数据块是连接的，它们被视为一个数据块。</li>
+</ul>
+</li>
+</ul>
+<p>对于每个数据块，汇总了第 1 个模型的预测结果以及其他特征，如 anglez 和 enmo。这些汇总特征随后用于训练 LightGBM 和 CatBoost 等模型。</p>
+<p>将每个数据块视为一个序列来训练 CNN-RNN、CNN 和 Transformer 模型。</p>
+<h3 id="第二名-K-MAT"><a href="#第二名-K-MAT" class="headerlink" title="第二名@K_MAT"></a>第二名@K_MAT</h3><h4 id="第一阶段：事件检测与睡眠-清醒分类"><a href="#第一阶段：事件检测与睡眠-清醒分类" class="headerlink" title="第一阶段：事件检测与睡眠&#x2F;清醒分类"></a>第一阶段：事件检测与睡眠&#x2F;清醒分类</h4><p><img src="/2025/20250530/1ststage.png"></p>
+<p><img src="/2025/20250530/1ststagepp.png"></p>
+<h4 id="第二阶段：考虑每天最多-2-次事件的限制，重新评估置信度"><a href="#第二阶段：考虑每天最多-2-次事件的限制，重新评估置信度" class="headerlink" title="第二阶段：考虑每天最多 2 次事件的限制，重新评估置信度"></a>第二阶段：考虑每天最多 2 次事件的限制，重新评估置信度</h4><p><img src="/2025/20250530/2ndstage_r.png"></p>
+<h4 id="第三阶段：尽可能添加更多事件"><a href="#第三阶段：尽可能添加更多事件" class="headerlink" title="第三阶段：尽可能添加更多事件"></a>第三阶段：尽可能添加更多事件</h4><ul>
+<li>准备 2 个 CNN 模型</li>
+<li>每个模型在第一阶段对 10(5 折 x2 种子)的预测进行平均</li>
+<li>对每个模型运行第二阶段</li>
+<li>2 个模型的 Weighted Boxes Fusion（WBF）式集成</li>
+</ul>
+<p>WBF出自<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.13302">《Weighted boxes fusion: Ensembling boxes from different object detection models》</a>。</p>
+<p>在这里，具体而言：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">weighted_fusion_ensemble</span>(<span class="hljs-params">df_0: pd.DataFrame,</span><br><span class="hljs-params">                             df_1: pd.DataFrame,</span><br><span class="hljs-params">                             distance_threshold: <span class="hljs-built_in">int</span> = <span class="hljs-number">12</span>,</span><br><span class="hljs-params">                             model_weights: <span class="hljs-built_in">list</span> = [<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>]</span>) -&gt; pd.DataFrame:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    对来自两个模型 (df_0, df_1) 的预测结果（包含 &#x27;step&#x27; 和 &#x27;score&#x27;）进行加权融合。</span><br><span class="hljs-string">    融合是按 &#x27;series_id&#x27; 分组进行的。</span><br><span class="hljs-string"></span><br><span class="hljs-string">    参数:</span><br><span class="hljs-string">    df_0 (pd.DataFrame): 第一个模型的预测结果 DataFrame，</span><br><span class="hljs-string">                         必须包含 &#x27;series_id&#x27;, &#x27;step&#x27;, &#x27;score&#x27; 列。</span><br><span class="hljs-string">    df_1 (pd.DataFrame): 第二个模型的预测结果 DataFrame，</span><br><span class="hljs-string">                         必须包含 &#x27;series_id&#x27;, &#x27;step&#x27;, &#x27;score&#x27; 列。</span><br><span class="hljs-string">    distance_threshold (int): &#x27;step&#x27; 值的距离阈值。如果来自 df_0 和 df_1 的两个 step</span><br><span class="hljs-string">                              的绝对差小于此阈值，则认为它们匹配。</span><br><span class="hljs-string">    model_weights (list): 包含两个浮点数的列表，分别代表 df_0 和 df_1 的基础权重。</span><br><span class="hljs-string">                          这些权重会被归一化。</span><br><span class="hljs-string"></span><br><span class="hljs-string">    返回:</span><br><span class="hljs-string">    pd.DataFrame: 包含融合后预测结果的 DataFrame。</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-comment"># 1. 归一化模型权重，使其总和为1</span><br>    normalized_model_weights = [model_weights[<span class="hljs-number">0</span>] / <span class="hljs-built_in">sum</span>(model_weights),<br>                                model_weights[<span class="hljs-number">1</span>] / <span class="hljs-built_in">sum</span>(model_weights)]<br><br>    large_val = <span class="hljs-number">1e8</span>  <span class="hljs-comment"># 用于标记已处理的 step 的一个大数值</span><br>    series_ids = df_0[<span class="hljs-string">&#x27;series_id&#x27;</span>].unique()  <span class="hljs-comment"># 获取所有唯一的 series_id</span><br>    out_df_list = []  <span class="hljs-comment"># 用于存储每个 series_id 处理后的结果</span><br><br>    <span class="hljs-comment"># 2. 按 series_id 遍历处理</span><br>    <span class="hljs-keyword">for</span> series_id <span class="hljs-keyword">in</span> series_ids:<br>        <span class="hljs-comment"># 复制当前 series_id 的数据，避免修改原始 DataFrame</span><br>        df_0_id = df_0[df_0[<span class="hljs-string">&#x27;series_id&#x27;</span>] == series_id].copy()<br>        df_1_id = df_1[df_1[<span class="hljs-string">&#x27;series_id&#x27;</span>] == series_id].copy()<br><br>        <span class="hljs-comment"># 按 &#x27;score&#x27; 降序排序，确保高分预测优先处理/匹配</span><br>        df_0_id = df_0_id.sort_values(<span class="hljs-string">&quot;score&quot;</span>, ascending=<span class="hljs-literal">False</span>).reset_index(drop=<span class="hljs-literal">True</span>)<br>        df_1_id = df_1_id.sort_values(<span class="hljs-string">&quot;score&quot;</span>, ascending=<span class="hljs-literal">False</span>).reset_index(drop=<span class="hljs-literal">True</span>)<br><br>        <span class="hljs-comment"># 提取 &#x27;step&#x27; 和 &#x27;score&#x27; 为 numpy 数组以提高效率</span><br>        <span class="hljs-comment"># df_0_id 的 steps_0 和 scores_0 将作为融合的基础</span><br>        steps_0 = df_0_id[<span class="hljs-string">&#x27;step&#x27;</span>].values.copy()<br>        scores_0 = df_0_id[<span class="hljs-string">&#x27;score&#x27;</span>].values.copy()<br>        steps_1 = df_1_id[<span class="hljs-string">&#x27;step&#x27;</span>].values.copy()<br>        scores_1 = df_1_id[<span class="hljs-string">&#x27;score&#x27;</span>].values.copy()<br><br>        not_assigned_predictions_from_df1 = [] <span class="hljs-comment"># 存储 df_1 中未匹配的预测</span><br><br>        <span class="hljs-comment"># 3. 遍历 df_1 中的每一个预测，尝试与 df_0 中的预测进行匹配和融合</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(steps_1)):<br>            step_1_current = steps_1[i]<br>            score_1_current = scores_1[i]<br><br>            <span class="hljs-comment"># 计算当前 df_1 预测与 df_0 所有（未被标记为 large_val 的）预测之间的距离</span><br>            dists = np.<span class="hljs-built_in">abs</span>(steps_0 - step_1_current)<br>            argmin_dist = np.argmin(dists) <span class="hljs-comment"># 找到距离最小的 df_0 预测的索引</span><br>            min_dist_val = dists[argmin_dist]<br><br>            <span class="hljs-comment"># 如果最小距离小于阈值，则认为匹配成功</span><br>            <span class="hljs-keyword">if</span> min_dist_val &lt; distance_threshold:<br>                <span class="hljs-comment"># 获取匹配到的 df_0 预测的 step 和 score</span><br>                matched_step_0 = steps_0[argmin_dist]<br>                matched_score_0 = scores_0[argmin_dist]<br><br>                <span class="hljs-comment"># 计算用于加权平均的权重，这些权重基于模型的基础权重和各自预测的原始分数</span><br>                <span class="hljs-comment"># 这种加权方式使得原始分数越高的预测在融合中占主导地位</span><br>                weight_for_avg_0 = normalized_model_weights[<span class="hljs-number">0</span>] * matched_score_0<br>                weight_for_avg_1 = normalized_model_weights[<span class="hljs-number">1</span>] * score_1_current<br><br>                <span class="hljs-comment"># 计算融合后的新 step 和 new score</span><br>                <span class="hljs-comment"># 分母为0的情况（理论上score&gt;0时不会发生）需要注意，但这里未显式处理</span><br>                denominator = weight_for_avg_0 + weight_for_avg_1<br>                <span class="hljs-keyword">if</span> denominator == <span class="hljs-number">0</span>: <span class="hljs-comment"># 避免除以零，尽管在score&gt;0时不太可能</span><br>                    new_score = (matched_score_0 + score_1_current) / <span class="hljs-number">2</span><br>                    new_step = (matched_step_0 + step_1_current) / <span class="hljs-number">2</span><br>                <span class="hljs-keyword">else</span>:<br>                    new_score = (matched_score_0 * weight_for_avg_0 + score_1_current * weight_for_avg_1) / denominator<br>                    new_step = (matched_step_0 * weight_for_avg_0 + step_1_current * weight_for_avg_1) / denominator<br><br>                <span class="hljs-comment"># 更新 df_0_id 中匹配到的预测的 score 和 step</span><br>                df_0_id.loc[argmin_dist, <span class="hljs-string">&quot;score&quot;</span>] = new_score<br>                df_0_id.loc[argmin_dist, <span class="hljs-string">&quot;step&quot;</span>] = new_step<br><br>                <span class="hljs-comment"># 将 df_0 中已匹配的 step 标记为一个大值，防止它被再次匹配</span><br>                steps_0[argmin_dist] = large_val<br>                <span class="hljs-comment"># 同时更新 scores_0 数组，尽管它在后续迭代中不直接用于距离计算，但保持一致性</span><br>                scores_0[argmin_dist] = new_score<br><br><br>            <span class="hljs-keyword">else</span>: <span class="hljs-comment"># 如果没有在 df_0 中找到足够近的匹配项</span><br>                <span class="hljs-comment"># 将这个来自 df_1 的未匹配预测暂存起来</span><br>                <span class="hljs-comment"># 其分数按其模型的权重进行缩放</span><br>                unmatched_pred_df1 = df_1_id.iloc[[i]].copy() <span class="hljs-comment"># 获取原始行</span><br>                unmatched_pred_df1[<span class="hljs-string">&#x27;score&#x27;</span>] = score_1_current * normalized_model_weights[<span class="hljs-number">1</span>]<br>                not_assigned_predictions_from_df1.append(unmatched_pred_df1)<br><br>        <span class="hljs-comment"># 4. 处理 df_0 中未被任何 df_1 预测匹配到的预测</span><br>        <span class="hljs-comment"># 这些预测的分数也需要按其模型的权重进行缩放</span><br>        <span class="hljs-comment"># `steps_0 != large_val` 条件用于选取那些未被标记（即未被匹配和融合）的原始 df_0 预测</span><br>        df_0_id.loc[steps_0 != large_val, <span class="hljs-string">&quot;score&quot;</span>] *= normalized_model_weights[<span class="hljs-number">0</span>]<br><br>        <span class="hljs-comment"># 5. 收集当前 series_id 的结果</span><br>        out_df_list.append(df_0_id)<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(not_assigned_predictions_from_df1) &gt; <span class="hljs-number">0</span>:<br>            <span class="hljs-comment"># 合并所有来自 df_1 的未匹配预测</span><br>            concatenated_not_assigned = pd.concat(not_assigned_predictions_from_df1)<br>            out_df_list.append(concatenated_not_assigned)<br><br>    <span class="hljs-comment"># 6. 将所有 series_id 的处理结果合并成一个 DataFrame</span><br>    final_out_df = pd.concat(out_df_list).reset_index(drop=<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">return</span> final_out_df<br></code></pre></td></tr></table></figure>
+
+<p>优先将两个模型中“相似”（<code>step</code>距离近）的预测进行智能融合，融合后的结果会赋予更高的权重（通过原始分数的参与）。</p>
+<p>对于未能找到匹配项的预测，则保留它们，但其分数会根据其来源模型的权重进行调整。</p>
+<ul>
+<li>运行第三阶段</li>
+</ul>
+<p><img src="/2025/20250530/Ensemble.png"></p>
+<h3 id="第三名-FNOA"><a href="#第三名-FNOA" class="headerlink" title="第三名@FNOA"></a>第三名@FNOA</h3><p><img src="/2025/20250530/sleep3.png"></p>
+<h4 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h4><p>对于最终提交，GRU + UNET 模型仅使用 7 个特征。</p>
+<h5 id="数据集构建"><a href="#数据集构建" class="headerlink" title="数据集构建"></a>数据集构建</h5><p>将序列分为一天一段的序列，并将粒度从 5 秒降低到 30 秒。</p>
+<p>因此得到了长度为 2880 的序列，其中通常包含一个睡眠开始和一个醒来。</p>
+<h5 id="噪声处理也重要"><a href="#噪声处理也重要" class="headerlink" title="噪声处理也重要"></a>噪声处理也重要</h5><p>当在相同的小时、分钟和秒内，同一系列中重复出现完全相同的值时，这基本上就是噪声。红线是检测到的噪声。</p>
+<p><img src="/2025/20250530/sleep31.png"></p>
+<h2 id="问题性互联网使用"><a href="#问题性互联网使用" class="headerlink" title="问题性互联网使用"></a>问题性互联网使用</h2><p><strong>shakeup的比赛</strong></p>
+<h3 id="比赛数据介绍-1"><a href="#比赛数据介绍-1" class="headerlink" title="比赛数据介绍"></a>比赛数据介绍</h3><p>6.73GB</p>
+<ul>
+<li><code>Demographics</code> - 参与者的年龄和性别信息。</li>
+<li><code>Internet Use</code> - 每天使用电脑&#x2F;互联网的小时数。</li>
+<li><code>Children&#39;s Global Assessment Scale</code> - 心理健康临床医生用于评估 18 岁以下青少年一般功能的数值量表。</li>
+<li><code>Physical Measures</code> - 血压、心率、身高、体重和腰围、臀围的测量数据集合。</li>
+<li><code>FitnessGram Vitals and Treadmill</code> - 使用 NHANES 跑步机协议评估的心血管健康测量。</li>
+<li><code>FitnessGram Child</code> - 健康相关的体能评估，测量五个不同参数，包括有氧能力、肌肉力量、肌肉耐力、柔韧性和身体成分。</li>
+<li><code>Bio-electric Impedance Analysis</code> - 关键身体成分指标的测量，包括 BMI、脂肪、肌肉和水分含量。</li>
+<li><code>Physical Activity Questionnaire</code> - 关于儿童在过去 7 天内参与剧烈活动的情况。</li>
+<li><code>Sleep Disturbance Scale</code> - 用于对儿童睡眠障碍进行分类的量表。</li>
+<li><code>Actigraphy</code> - 通过研究级生物追踪器对生态物理活动进行客观测量。</li>
+<li><code>Parent-Child Internet Addiction Test</code> - 20 项量表，用于测量与强迫性互联网使用相关的特征和行为，包括强迫性、逃避性和依赖性。</li>
+</ul>
+<p>目标 <code>sii</code> ： <code>0</code> 对应 <code>None</code> ， <code>1</code> 对应 <code>Mild</code> ， <code>2</code> 对应 <code>Moderate</code> ， <code>3</code> 对应 <code>Severe</code> 。</p>
+<h3 id="评估指标-1"><a href="#评估指标-1" class="headerlink" title="评估指标"></a>评估指标</h3><p>基于二次加权 kappa 系数</p>
+<h3 id="第一名-LENNART-HAUPTS"><a href="#第一名-LENNART-HAUPTS" class="headerlink" title="第一名@LENNART HAUPTS"></a>第一名@LENNART HAUPTS</h3><p>模型为投票集成，包括：</p>
+<ul>
+<li>LGBMRegressor</li>
+<li>两个 XGBoost 回归器</li>
+<li>CatBoostRegressor</li>
+<li>ExtraTreesRegressor</li>
+</ul>
+<h4 id="数据清洗、特征工程和插补"><a href="#数据清洗、特征工程和插补" class="headerlink" title="数据清洗、特征工程和插补"></a>数据清洗、特征工程和插补</h4><p><strong>数据清洗：</strong></p>
+<ul>
+<li>移除了不合理的值，例如超过 60%的身体脂肪百分比或负的骨矿物质含量，并用 NaN 替换。</li>
+</ul>
+<p><strong>特征工程：</strong></p>
+<ul>
+<li>创建了多种描述性的活动追踪器特征，并为白天和夜晚设置了不同的掩码。</li>
+<li>使用 PCA 对活动追踪器数据进行降维保留了 15 个成分。</li>
+<li>额外包含的特征基于年龄组均值进行归一化的值，以及其他看似合理的特征，如每日能量消耗与基础代谢率之间的差异。</li>
+<li>对大部分特征应用了分位数分箱来处理噪声，效果出奇地好。</li>
+</ul>
+<p><strong>插补：</strong></p>
+<ul>
+<li>Lasso 用于特征插补，由于维度较高且存在噪声。</li>
+<li>使用 Lasso 进行特征插补。对于每个目标列，使用缺失值少于 40%的特征训练模型，并基于训练好的模型插补这些特征中的缺失值。如果找不到可用于插补的有效特征（即缺失值少于 40%的特征），或者有效样本数量过少，解决方案则默认采用均值插补。</li>
+</ul>
+<h4 id="参数调优和特征选择"><a href="#参数调优和特征选择" class="headerlink" title="参数调优和特征选择"></a><strong>参数调优和特征选择</strong></h4><p>在比赛早期，很明显常规的参数调优与交叉验证设置会导致结果不稳定。<br>为解决这一问题：</p>
+<ul>
+<li>在参数调优过程中采用了重复分层 K 折交叉验证。重复次数为 10 到 20 次。计算成本更高，但得到了更稳健的结果。</li>
+<li>基于特征重要性手动进行特征选择，将数据集减少到 39 个特征</li>
+</ul>
+<h3 id="第三名-JOBAYER-HOSSAIN"><a href="#第三名-JOBAYER-HOSSAIN" class="headerlink" title="第三名@JOBAYER HOSSAIN"></a>第三名@JOBAYER HOSSAIN</h3><p> <strong>交叉验证</strong><br>主要关注点之一是建立一个稳定可靠的 CV 框架。</p>
+<p>在整个过程中，避免使用任何固定的随机种子。进行了 100 次 5 折分层 KFold 重复实验获得稳定的结果，而在 Optuna 超参数调优时使用了 20 次重复。<br>为了优化最终的 QWK 阈值，使用了所有这些重复实验的 OOF 预测。</p>
+<p> <strong>模型</strong><br> LightGBM</p>
+<p> <strong>特征工程</strong></p>
+<ul>
+<li>活动记录数据：</li>
+<li>计算了 X、Y、Z 和 AngleZ 的标准差，以及 Elmo 的平均值。</li>
+<li>使用 Elmo 表示的五组最长的非活跃和活跃连续时间特征。</li>
+<li>将”light”列按从黄昏到直射阳光的范围分类，并统计每个类别的值计数。</li>
+<li>仪器数据：</li>
+<li>从公共笔记本开始，检查每个特征是否真的对模型有贡献。之后，根据实验添加了一些自定义特征。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">feature_engineering</span>(<span class="hljs-params">df</span>):<br><br>    <span class="hljs-keyword">for</span> col, (col_min, col_max) <span class="hljs-keyword">in</span> min_max_dict.items():<br>        df[col] = df[col].clip(lower=col_min, upper=col_max)<br><br>    bins = [<span class="hljs-number">0</span>, <span class="hljs-number">6</span>, <span class="hljs-number">12</span>, <span class="hljs-number">18</span>, <span class="hljs-number">100</span>]<br>    labels = [<span class="hljs-string">&#x27;1 to 6&#x27;</span>, <span class="hljs-string">&#x27;7 to 12&#x27;</span>, <span class="hljs-string">&#x27;13 to 18&#x27;</span>, <span class="hljs-string">&#x27;19 to 100&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;Age_Binned&#x27;</span>] = pd.cut(df[<span class="hljs-string">&#x27;Basic_Demos-Age&#x27;</span>], bins=bins, labels=labels, right=<span class="hljs-literal">True</span>)<br>    df[<span class="hljs-string">&#x27;Age_Sex&#x27;</span>] = df[<span class="hljs-string">&#x27;Age_Binned&#x27;</span>].astype(<span class="hljs-built_in">str</span>) + <span class="hljs-string">&#x27;_&#x27;</span> + df[<span class="hljs-string">&#x27;Basic_Demos-Sex&#x27;</span>].astype(<span class="hljs-built_in">str</span>)<br>    <br>    df[<span class="hljs-string">&#x27;BFP_BMI&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_Fat&#x27;</span>] / df[<span class="hljs-string">&#x27;BIA-BIA_BMI&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;BFP_BMR&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_Fat&#x27;</span>] * df[<span class="hljs-string">&#x27;BIA-BIA_BMR&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;BMR_Weight&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_BMR&#x27;</span>] / df[<span class="hljs-string">&#x27;Physical-Weight&#x27;</span>]<br>    <br>    df[<span class="hljs-string">&#x27;Muscle_to_Fat&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_SMM&#x27;</span>] / df[<span class="hljs-string">&#x27;BIA-BIA_FMI&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;Hydration_Status&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_TBW&#x27;</span>] / df[<span class="hljs-string">&#x27;Physical-Weight&#x27;</span>]<br>    <br>    df[<span class="hljs-string">&#x27;PreInt_FGC_CU_PU&#x27;</span>] = df[<span class="hljs-string">&#x27;PreInt_EduHx-computerinternet_hoursday&#x27;</span>] * df[<span class="hljs-string">&#x27;FGC-FGC_CU&#x27;</span>] * df[<span class="hljs-string">&#x27;FGC-FGC_PU&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;FGC_GSND_GSD_Age&#x27;</span>] = df[<span class="hljs-string">&#x27;FGC-FGC_GSND&#x27;</span>] * df[<span class="hljs-string">&#x27;FGC-FGC_GSD&#x27;</span>] * df[<span class="hljs-string">&#x27;Basic_Demos-Age&#x27;</span>]<br>    df[<span class="hljs-string">&#x27;SDS_Activity&#x27;</span>] = df[<span class="hljs-string">&#x27;BIA-BIA_Activity_Level_num&#x27;</span>] * df[<span class="hljs-string">&#x27;SDS-SDS_Total_T&#x27;</span>]<br>    <br>    df[<span class="hljs-string">&#x27;CGasync_Score_Normalized&#x27;</span>] = df[<span class="hljs-string">&#x27;CGAS-CGAS_Score&#x27;</span>] - df.groupby(<span class="hljs-string">&#x27;Basic_Demos-Enroll_Season&#x27;</span>)[<span class="hljs-string">&#x27;CGAS-CGAS_Score&#x27;</span>].transform(<span class="hljs-string">&#x27;mean&#x27;</span>)<br>    df[<span class="hljs-string">&#x27;Internet_Physical_Difference&#x27;</span>] = df[<span class="hljs-string">&#x27;PreInt_EduHx-computerinternet_hoursday&#x27;</span>] - df[<span class="hljs-string">&#x27;PAQ_A-PAQ_A_Total&#x27;</span>]<br>   <br>    df[df.select_dtypes(include=<span class="hljs-string">&#x27;object&#x27;</span>).columns] = df.select_dtypes(include=<span class="hljs-string">&#x27;object&#x27;</span>).astype(<span class="hljs-string">&#x27;category&#x27;</span>)<br>    <span class="hljs-keyword">return</span> df<br></code></pre></td></tr></table></figure>
+
+<p> <strong>数据增强</strong></p>
+<ul>
+<li><p>NaN 增强：<br>最初在已有缺失值的列中随机填充 NaN。<br>后来在所有含有 NaN 的列中填充了 20%的 NaN 数据，并将这种增强数据与原始数据集合并。</p>
+</li>
+<li><p>高斯噪声和填充：<br>进行了简单填充，并向 20%的数据中添加了高斯噪声。这种增强数据随后与原始数据集合并。</p>
+</li>
+</ul>
+<p> <strong>后处理</strong><br>使用’PCIAT-PCIAT_Total’这一列进行训练。应用了优化后的阈值来计算每个 100*5 模型的 sii，并取众数来生成最终预测。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/kaggle/" class="print-no-link">#kaggle</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Child Mind Institute历届比赛获胜方案</div>
+      <div>https://lijianxiong.space/2025/20250530/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250601/" title="卷积层与位置编码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">卷积层与位置编码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250527/" title="DDPM加速">
+                        <span class="hidden-mobile">DDPM加速</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

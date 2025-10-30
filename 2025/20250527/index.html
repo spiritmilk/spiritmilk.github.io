@@ -1,0 +1,1187 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。” DDPM等扩散模型的慢速度一直被诟病。 在这篇博客中，将介绍一部分的加速模型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDPM加速">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250527/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。” DDPM等扩散模型的慢速度一直被诟病。 在这篇博客中，将介绍一部分的加速模型。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250527/diffusion13.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250527/tdpm.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250527/tea1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250527/tea.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250527/cd.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250527/ct.jpg">
+<meta property="article:published_time" content="2025-05-27T08:20:34.000Z">
+<meta property="article:modified_time" content="2025-05-28T11:41:38.881Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="生成模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250527/diffusion13.png">
+  
+  
+  
+  <title>DDPM加速 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">DDPM加速</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-27 16:20" pubdate>
+          2025年5月27日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DDPM加速</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>正如DDIM作者在其论文中所写，“从 DDPM 中采样 50k 个 32×32 大小的图像大约需要 20 小时，但在 Nvidia 2080 Ti GPU 上从 GAN 中完成这一操作不到一分钟。”</p>
+<p>DDPM等扩散模型的慢速度一直被诟病。</p>
+<p>在这篇博客中，将介绍一部分的加速模型。</p>
+<span id="more"></span>
+
+<h2 id="DDIM"><a href="#DDIM" class="headerlink" title="DDIM"></a>DDIM</h2><p> ICLR 2021。2010年10月发表。</p>
+<p>让我们回忆一下DDPM。</p>
+<p><img src="/2025/20250527/diffusion13.png"></p>
+<p>延续符号：</p>
+<p>$\bar \alpha_t&#x3D;\alpha_1\alpha_2…\alpha_t$</p>
+<p>$a_t&#x3D;1-\beta_t$</p>
+<p>$\tilde \beta_t&#x3D;\frac{1-\bar \alpha _ {t-1}}{1-\bar \alpha _ {t}}\beta_t$</p>
+<p>有<br>$$<br>\begin{align}<br>x_0&amp;&#x3D;\frac{x_t-\sqrt{1-\bar\alpha_t}\epsilon}{\sqrt{\bar\alpha_t}}<br>\\<br>q(x _ {t-1}\mid x_t,x_0)&amp;&#x3D;N(\frac{\sqrt{\alpha _ {t-1}}\beta_tx_0+\sqrt{\alpha_t}(1-\bar\alpha _ {t-1})x_t}{1-\bar\alpha_t},\frac{1-\bar \alpha _ {t-1}}{1-\bar \alpha _ {t}}\beta_tI)<br>\\&amp;&#x3D;N(\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon\right),\frac{1-\bar \alpha _ {t-1}}{1-\bar \alpha _ {t}}\beta_tI)<br>\end{align}<br>$$</p>
+<p>我们将方差分离开，（或者叫做重参数化），即：</p>
+<p>$$<br>\begin{align}<br>q(x _ {t-1}\mid x_t,x_0)&amp;&#x3D;\frac{1}{\sqrt{\alpha_t}}\left(x_t-\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon\right)+\sqrt{\tilde \beta_t}N(0,1)<br>\\&amp;&#x3D;\frac{1}{\sqrt{\alpha_t}}x_t-\frac{1}{\sqrt{\alpha_t}}\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon+\sqrt{\tilde \beta_t}N(0,1)<br>\\&amp;&#x3D;\frac{\sqrt{\bar\alpha _ {t-1}}}{\sqrt{\bar\alpha _ {t}}} x_t<br>-\frac{1}{\sqrt{\alpha_t}}\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon+\sqrt{\tilde \beta_t}N(0,1)<br>\\&amp;&#x3D;\sqrt{\bar\alpha _ {t-1}} \frac{x_t-\sqrt{1-\alpha_t}\epsilon}{\sqrt{\bar\alpha_t}}<br>+\sqrt{\bar\alpha _ {t-1}} \frac{\sqrt{1-\alpha_t}\epsilon}{\sqrt{\bar\alpha_t}}<br>-\frac{1}{\sqrt{\alpha_t}}\frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon<br>+\sqrt{\tilde \beta_t}N(0,1)<br>\\&amp;&#x3D;\sqrt{\bar\alpha _ {t-1}} x_0<br>+\frac{1}{\sqrt{\alpha_t}}\frac{1-\bar\alpha_t-(1-\alpha_t)}{\sqrt{1-\bar\alpha_t}}\epsilon<br>+\sqrt{\tilde \beta_t}N(0,1)<br>\\&amp;&#x3D;\sqrt{\bar\alpha _ {t-1}} x_0<br>+\frac{1}{\sqrt{\alpha_t}}\frac{\alpha_t-\bar\alpha_t}{\sqrt{1-\bar\alpha_t}}\epsilon<br>+\sqrt{\tilde \beta_t}N(0,1)<br>\\&amp;&#x3D;\sqrt{\bar\alpha _ {t-1}} x_0<br>+\frac{1}{\sqrt{\alpha_t}}\frac{\alpha_t(1-\bar\alpha _ {t-1})}{\sqrt{1-\bar\alpha_t}}\epsilon<br>+\sqrt{\tilde \beta_t}N(0,1)<br>\\&amp;&#x3D;\sqrt{\bar\alpha _ {t-1}} x_0<br>+\sqrt{1-\alpha _ {t-1}-\tilde\beta_t}\epsilon<br>+\sqrt{\tilde \beta_t}N(0,1)<br>\end{align}<br>$$</p>
+<p>我们干脆把$\sqrt{\tilde\beta_t}$定义为超参数$\sigma_t$，即$\sigma_t^2&#x3D;\eta \tilde\beta_t$。当$\eta&#x3D;0$为DDIM，当$\eta&#x3D;1$时为DDPM。</p>
+<p>方差为0有个好处，就是它变为了确定性的，我们就可以像GAN那样进行插值。</p>
+<p>虽然我们破坏了DDPM的$q(x _ {t-1}\mid x_t,x_0)$中原有的性质，但是我们并未破坏$q(x _ t\mid x_0)$的性质。这从推导过程中是可以看出来的。所以这样做也是可行的。</p>
+<h2 id="IDDPM"><a href="#IDDPM" class="headerlink" title="IDDPM"></a>IDDPM</h2><p>2021年2月发表。</p>
+<p>《Improved Denoising Diffusion Probabilistic Models》</p>
+<p>我们同样对方差进行操作，不过我们让神经网络去学习它。我们预测一个参数v，并令：<br>$$<br>\sigma_t^2(x,t)&#x3D;exp(vlog\beta_t+(1-v)log\tilde\beta_t)<br>$$<br>同时我们也在损失函数中加入与这个项相关的。</p>
+<h2 id="TDPM"><a href="#TDPM" class="headerlink" title="TDPM"></a>TDPM</h2><p>ICLR 2023。2022年2月发表。</p>
+<p>《Truncated Diffusion Probabilistic Models and Diffusion-based Adversarial Auto-Encoders》</p>
+<p><img src="/2025/20250527/tdpm.png"></p>
+<p>作者选择不是被扩散到纯高斯噪声 xT，而是只扩散到一个中间的、噪声程度较低的时刻$T _ {trunc}$。</p>
+<p>且$q(x _ {trunc}\mid x_0)$仍然遵循标准的扩散定义:<br>$$<br>X _ {trunc}&#x3D;\sqrt{\bar\alpha}x_0+\sqrt{1-\bar\alpha}\epsilon<br>$$<br>但是$q(X _ {trunc})$不再是高斯分布，所以作者使用GAN去生成它。</p>
+<h2 id="渐进式蒸馏"><a href="#渐进式蒸馏" class="headerlink" title="渐进式蒸馏"></a>渐进式蒸馏</h2><p>另一个常用于加速&#x2F;量化的策略是知识蒸馏。</p>
+<p>这篇正是这样做的。</p>
+<p>ICLR2022，2022二月发表。</p>
+<p>《Progressive Distillation for Fast Sampling of Diffusion Models》</p>
+<p><img src="/2025/20250527/tea1.png"></p>
+<p>使用学生模型去学习如何用<strong>一步</strong>来模拟教师模型<strong>多步</strong>（通常是两步）的去噪效果。</p>
+<p><img src="/2025/20250527/tea.png"></p>
+<h2 id="DPMSolver"><a href="#DPMSolver" class="headerlink" title="DPMSolver"></a>DPMSolver</h2><p>Neurips 2022。2022年6月发表。</p>
+<p>DPMSolver由于涉及到更高维度，比如从ODE&#x2F;SDE的角度上俯瞰问题。</p>
+<p>并非主要是模型上的改进，<strong>故我们不在这里做过多描述。</strong></p>
+<p>具体而言，扩散模型可以写成ODE的形式，但是标准的一阶 ODE 求解器（如欧拉法，注意与上一章中的欧拉-丸山法作区分）在求解上述 ODE 时，为了保证精度，通常需要非常小的步长，导致采样步数很多（例如 1000 步）。</p>
+<p>DPMSolver的核心思想来源于观察到扩散模型中的 ODE 具有特殊的<strong>半线性结构 (semi-linear structure)</strong>。</p>
+<p>我们简要介绍一下一阶DPMSolver。</p>
+<h3 id="欧拉法"><a href="#欧拉法" class="headerlink" title="欧拉法"></a>欧拉法</h3><p>欧拉法是最简单、最基础的 ODE 数值求解器。它的核心思想是用当前点的导数（即切线斜率）来线性外推到下一个点。</p>
+<p>假设我们知道在时刻$t_i$的样本$x_i$，以及此时的导数$F(x_i,t_i)$。如果我们想前进一个时间步长$h&#x3D;t _ {i+1}-t_i$：<br>$$<br>x _ {i+1}\approx x_i+hF(x_i,t_i)<br>$$</p>
+<h3 id="一阶-DPMSolver"><a href="#一阶-DPMSolver" class="headerlink" title="一阶 DPMSolver"></a>一阶 DPMSolver</h3><p>扩散模型的 ODE 通常可以被看作或转化为 $dx&#x2F;d\lambda&#x3D;LinearPart(\lambda,x)+NonLinearPart(\lambda,\epsilon_\theta(x,\lambda))$，其中$\lambda_t&#x3D;log(\bar\alpha_t&#x2F;\sigma_t^2)$。</p>
+<p>我们定义为：</p>
+<p>$$<br>\frac{d{x}}{d\lambda} &#x3D; F(\lambda){x} + G(\lambda){\epsilon}_\theta({x}, \lambda)<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>${x}$ 是当前的样本。</li>
+<li>$\lambda$ 是重新参数化后的时间或噪声水平。</li>
+<li>$F(\lambda){x}$ 是关于 ${x}$ 的线性部分。</li>
+<li>$G(\lambda){\epsilon} _ \theta({x}, \lambda)$ 是非线性部分，其中 ${\epsilon} _ \theta({x}, \lambda)$ 是神经网络对噪声的预测。</li>
+</ul>
+<p>在从当前时间 $\lambda_i$ 到下一个时间 $\lambda _ {i+1}$ 的一个小子区间内，我们将非线性相关的部分（即神经网络的输出 ${\epsilon} _ \theta({x}, \lambda)$）近似为在该区间开始时的值，即 $\epsilon _ {\theta,i} &#x3D; {\epsilon}_\theta({x}_i, \lambda _ i)$，并将其视为常数。</p>
+<p>这样，ODE 变为：</p>
+<p>$$<br>\frac{d{x}}{d\lambda} &#x3D; F(\lambda){x} + G(\lambda){\epsilon} _ {\theta,i}<br>$$</p>
+<p>这是一个关于 ${x}$ 的一阶线性非齐次微分方程。</p>
+<p>代入定义的：<br>$$<br>\begin{align}<br>F(\lambda)&amp;&#x3D;\frac{1}{2}\frac{dlog\sigma_\lambda^2}{d\lambda}<br>\\<br>G(\lambda)&amp;&#x3D;-\frac{\sigma_\lambda}{2\alpha_\lambda}\frac{dlog\sigma_\lambda^2}{d\lambda}<br>\end{align}<br>$$</p>
+<p>可得更新公式为：<br>$$<br>x _ {i+1}&#x3D;\frac{\sigma(\lambda _ {i+1})}{\sigma(\lambda _ {i})}x_I-\sigma(\lambda _ {i+1})(e^k-1)\epsilon_\theta(x_i,\lambda_i))<br>$$</p>
+<h2 id="Consistency-Models"><a href="#Consistency-Models" class="headerlink" title="Consistency Models"></a>Consistency Models</h2><p>一作Yang Song。Ilya Sutskever通讯。</p>
+<p>ICML 2023,2023 5月发表。</p>
+<p>Consistency Models 的基石是<strong>概率流常微分方程 (Probability Flow Ordinary Differential Equation, PF ODE)</strong>。在扩散模型的连续时间视角下，存在一个 PF ODE，其轨迹可以将任何数据点平滑地转换到不同噪声水平 t 下的含噪版本，反之亦然。</p>
+<p><strong>”一致性“定义为：</strong></p>
+<p>对于任何沿着同一条轨迹的数据点$(x_t,t)$和$(x _ {t’},t’)$，通过一致性函数$f$的映射，都应该得到相同的轨迹起点，即原始数据$x_0$。<br>$$<br>f(x_t,t)&#x3D;x_0\quad \text{for all}\quad t\in[\epsilon,T]<br>$$<br>其中$\epsilon$是一个接近于0很小的正数，T是总的扩散时间。</p>
+<p>对于同一轨迹上的任意两个点，我们期望：<br>$$<br>f(x_t,t)&#x3D;f(x _ {t’},t’)<br>$$<br><strong>边界条件：</strong></p>
+<p>对于任何$f$,都有$f(x_\epsilon，\epsilon)&#x3D;x_\epsilon$</p>
+<p>故$f$可设为：<br>$$<br>f_\theta (x,t)&#x3D;<br>\begin{cases}x\quad &amp;t&#x3D;\epsilon<br>\\<br>F_\theta(x,t)\quad &amp;t\in(\epsilon ,T]<br>\end{cases}<br>$$</p>
+<p>或$f_\theta(x,t)&#x3D;c _ {skip}(t)x+c _ {out}F_\theta(x,t)$，其中c是可微函数，且$c _ {skip}(\epsilon)&#x3D;1$和$c _ {out}(\epsilon)&#x3D;0$。</p>
+<p>有两种训练方法：</p>
+<p><strong>（1）一致性蒸馏（Consistency Distillation ，CD）</strong></p>
+<p>它依赖于一个已经训练好的扩散模型（教师模型）。一致性蒸馏损失定义为:<br>$$<br>\begin{aligned}<br> \mathcal{L}^N_\text{CD} (\theta, \theta^-; \phi) &amp;&#x3D; \mathbb{E}<br> [\lambda(t_n)d(f_\theta(x _ {t _ {n+1}}, t _ {n+1}), f _ {\theta^-}(\hat{x}^\phi _ {t_n}, t_n)]<br> \end{aligned}<br>$$<br>其中<br>$x\sim p _ {data}$，$n \sim \mathcal{U}[1, N-1]$，$x _ {t _ {n+1}}\sim N(x;t _ {n+1}^2I)$。<br>$\hat{x}^\phi _ {t_n} &#x3D; {x} _ {t _ {n+1}} - (t_n - t _ {n+1}) \Phi(x _ {t _ {n+1}}, t _ {n+1}; \phi)$，$\Phi$是在执行一步欧拉法，$\phi$代表教师模型。</p>
+<p>$\theta^-$是$\theta$ 的移动平均。<br>d是距离函数满足$d(x,y)\ge 0$ ，$d(x,y)&#x3D;0$ 仅当$x&#x3D;y$。论文中考虑L1、L2、LPIPS损失。<br>$\lambda$是正权重函数，论文定义为1。</p>
+<p>作者还发现设置stopgrad效果会更好，且稳定训练过程。</p>
+<p>即$\theta^-\leftarrow stopgrad(\mu\theta^-+(1-\mu)\theta)$。</p>
+<p><img src="/2025/20250527/cd.jpg"></p>
+<p><strong>(2)一致性训练(Consistency Training)</strong></p>
+<p><img src="/2025/20250527/ct.jpg"></p>
+<p>在前面的CD中，使用预训练的score model来近似真实的分数函数$\nabla logp_t(x)$。而<br>$$<br>\nabla logp_t(x_t)&#x3D;-E\left[\frac{x_t-x}{t^2}\mid x_t\right]<br>$$</p>
+<blockquote>
+<p>若 $x \sim p _ {\text{data}}(x)$, $x_t \sim \mathcal{N}(x; t^2 I)$, $p_t(x_t) &#x3D; p _ {\text{data}}(x) \otimes \mathcal{N}(0, t^2 I)$，或者写作$p_t(x_t)&#x3D;\int p _ {\text{data}}(x)  \mathcal{N}(x_t;x, t^2 I)dx$。则有 $\nabla \log p_t(x_t) &#x3D; -\mathbb{E}[\frac{x_t - x}{t^2} | x_t]$。</p>
+<p>证明：根据 $p_t(x_t)$的定义, 我们有$\nabla \log p_t(x_t) &#x3D; \nabla _ {x_t} \log \int p _ {\text{data}}(x) p(x_t | x) dx$, 其中 $p(x_t | x) &#x3D; \mathcal{N}(x_t; x, t^2 I)$.<br>$$<br>\begin{align}<br>\nabla \log p_t(x_t) &amp;&#x3D; \frac{\int p_{\text{data}}(x) \nabla_{x_t} p(x_t | x) dx}{\int p_{\text{data}}(x) p(x_t | x) dx} \\<br>&amp;&#x3D; \frac{\int p_{\text{data}}(x) p(x_t | x) \nabla_{x_t} \log p(x_t | x) dx}{\int p_{\text{data}}(x) p(x_t | x) dx} \\<br>&amp;&#x3D; \frac{\int p_{\text{data}}(x) p(x_t | x) \nabla_{x_t} \log p(x_t | x) dx}{p_t(x_t)} \\<br>&amp;&#x3D; \int \frac{p_{\text{data}}(x) p(x_t | x)}{p_t(x_t)} \nabla_{x_t} \log p(x_t | x) dx \\<br>&amp;\stackrel{(Bayes’rule)}{&#x3D;} \int p(x | x_t) \nabla_{x_t} \log p(x_t | x) dx \\<br>&amp;&#x3D; \mathbb{E}[\nabla_{x_t} \log p(x_t | x) | x_t] \\<br>&amp;&#x3D; -\mathbb{E}\left[\frac{x_t - x}{t^2} | x_t\right]<br>\end{align}<br>$$</p>
+</blockquote>
+<p>损失函数变为：<br>$$<br>\mathcal{L}^N_\text{CT} (\theta, \theta^-; \phi) &#x3D; \mathbb{E}<br>[\lambda(t_n)d(f_\theta({x} + t_{n+1} {z},;t_{n+1}), f_{\theta^-}({x} + t_n {z},;t_n)]<br>\text{ where }{z} \in \mathcal{N}({0}, {I})<br>$$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" class="print-no-link">#生成模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DDPM加速</div>
+      <div>https://lijianxiong.space/2025/20250527/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250530/" title="Child Mind Institute历届比赛获胜方案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Child Mind Institute历届比赛获胜方案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250526/" title="朗之万动力学和diffusion">
+                        <span class="hidden-mobile">朗之万动力学和diffusion</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

@@ -1,0 +1,1212 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="来自《A PhD Student’s Perspective on Research in NLP in the Era of Very Large Language Models》 通过汇集来自不同背景的博士生的意见，探索NLP领域丰富的研究方向，避免将研究仅仅局限于大型语言模型。提出了十四个研究领域，每个领域包含了2-4个具体的研究方向，涉及多语言性、推理、知识库、语言基础、计算社会学等主题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些博士生对超大型语言模型时代NLP研究的看法">
+<meta property="og:url" content="https://lijianxiong.space/2023/20230703/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="来自《A PhD Student’s Perspective on Research in NLP in the Era of Very Large Language Models》 通过汇集来自不同背景的博士生的意见，探索NLP领域丰富的研究方向，避免将研究仅仅局限于大型语言模型。提出了十四个研究领域，每个领域包含了2-4个具体的研究方向，涉及多语言性、推理、知识库、语言基础、计算社会学等主题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-03T02:38:10.000Z">
+<meta property="article:modified_time" content="2023-07-03T03:10:45.832Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="自然语言处理">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>一些博士生对超大型语言模型时代NLP研究的看法 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">一些博士生对超大型语言模型时代NLP研究的看法</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-03 10:38" pubdate>
+          2023年7月3日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          133 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">一些博士生对超大型语言模型时代NLP研究的看法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.12544">《A PhD Student’s Perspective on Research in NLP in the Era of Very Large Language Models》</a></p>
+<p>通过汇集来自不同背景的博士生的意见，探索NLP领域丰富的研究方向，避免将研究仅仅局限于大型语言模型。提出了十四个研究领域，每个领域包含了2-4个具体的研究方向，涉及多语言性、推理、知识库、语言基础、计算社会学等主题。</p>
+<p>作者全部来自于密歇根大学LIT组，也拥有着不同的国家背景，譬如中国、美国、日本、墨西哥等。</p>
+<p>LIT(Language and Information Technologies)是密歇根大学的一个研究小组，致力于自然语言处理、信息检索和应用机器学习方面的研究项目。<br>语言与信息技术研究小组于2002年在北德克萨斯大学成立，旨在促进自然语言处理、信息检索和应用机器学习方面的研究和教育。<br>该小组于2013年搬到了密歇根大学。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>大型语言模型的最新进展使许多生成式NLP应用程序得以部署。<br>与此同时，它也导致了一种误导性的公众话语，即“一切都解决了”。<br>毫不奇怪，这反过来又使许多NLP研究人员——尤其是那些刚开始从事NLP研究的人——想知道他们应该关注哪些NLP研究领域。<br>本文件是一个丰富的NLP研究方向的汇编，具有丰富的探索空间，反映了一个学术研究实验室中不同群体的博士生的观点。<br>虽然我们确定了许多研究领域，但还有许多其他领域存在;<br>我们不涵盖那些目前由LLM解决的领域，但LLM在性能上落后的领域，或者那些专注于LLM开发的领域。</p>
+<h2 id="1、-背景"><a href="#1、-背景" class="headerlink" title="1、 背景"></a>1、 背景</h2><p>当前LLM的输出质量可与人类的表现相媲美，并具有集成来自大量数据源的信息的额外好处，远远超过个人一生所能积累的信息。<br>受益于LLM的应用程序数量正在不断增长，在许多情况下，llm被用来取代整个复杂的管道。<br>LLM变得“有利可图”，导致行业兴趣和资金激增，有关LLM的研究论文数量也大幅增加。<br>例如，在Google Scholar上搜索“语言模型”，可以找到过去5年里发表的5万篇论文，占过去25年里发表的大约15万篇论文的三分之一。</p>
+<p>虽然LLM的这些进步是非常真实和令人兴奋的，并且给许多新部署的生成语言应用程序带来了希望，但llm也“吸走了房间里的空气”。DARPA最近的一次融资呼吁已经完全用LLM取代了NLP这个术语:在他们为该项目寻找的专家名单中，我们看到“计算机视觉”和“机器学习”领域与“大型语言模型”并列(但没有“自然语言处理”)。用llm代替NLP，主要有两个原因。</p>
+<p>第一，语言的空间洞见、方法和广泛应用。第二，即使技术上不新颖，LLM仍然是一个排他性的领域，因为训练所需的数据量和计算量。</p>
+<p>现实情况是，NLP不仅仅是LLM。本文档是博士生的想法汇编，基于他们最初的专业知识和现有的兴趣，并围绕以下问题进行头脑风暴:“在NLP领域有哪些丰富的探索领域可以导致博士论文，并涵盖法学硕士范围之外的空间。”</p>
+<p>剧透警告:有很多这样的研究领域!</p>
+<p>在编写本文件的想法时，我们遵循了三个主要指导原则。</p>
+<p>首先，我们的目标是确定研究的领域丰富，适合探索的领域;例如，可以写博士论文的领域。</p>
+<p>其次，我们希望突出那些不直接依赖付费资源的研究方向;虽然使用现有的付费api可以在某些任务中取得成果，例如构建合成数据集，但构建没有付费api就无法运行的系统并不符合学术核心研究目标。</p>
+<p>最后，第三，我们针对的研究方向是可以找到合理计算成本的解决方案，这些解决方案可以在学术实验室中更典型地实现。</p>
+<h2 id="2、Multilinguality-and-Low-Resource-Languages"><a href="#2、Multilinguality-and-Low-Resource-Languages" class="headerlink" title="2、Multilinguality and Low-Resource Languages"></a>2、Multilinguality and Low-Resource Languages</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>多语言模型被设计用于处理多种语言，无论是用于机器翻译（MT）任务还是其他任务。一个主要挑战是处理资源不足的语言，因为这些语言的培训数据有限，这可能导致翻译质量差，在这些语言上表现不佳。研究界提出了几种技术来克服这一挑战，例如数据扩充，包括通过反翻译生成合成数据（Sennrich等人，2015；Edunov等人，2018）、并行语料库挖掘（Artetxe和Schwenk，2018）或OCR（Rijhwani等人，2020；Ignat等人，2022）；以及多语言模型，这是一种预先训练的模型，可以处理多种语言，并可以对低资源语言进行微调，以提高翻译质量。最近为低资源语言开发多语言模型的努力包括NLLB-200（NLLB Team et al.，2022），这是一种经过训练的最先进的专家混合（MoE）模型。</p>
+<h3 id="缺陷。"><a href="#缺陷。" class="headerlink" title="缺陷。"></a><strong>缺陷。</strong></h3><p>现有的MT模型，如NLLB-200（NLLB Team et al.，2022），在许多低资源语言（如非洲语言）上仍然表现不佳。例如，最近的工作测试了ChatGPT MT在低资源语言（例如马拉地语、巽他语和布吉尼语）上的性能，发现总体性能较差，尤其是在非拉丁语脚本中（Bang et al.，2023b）。他们还发现，ChatGPT在低资源语言到英语的翻译方面可以表现得相当好，但不能进行英语到低资源语言的翻译。此外，世界上大约7000种语言中的绝大多数都不存在机器翻译系统。</p>
+<h3 id="研究方向"><a href="#研究方向" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.在当前低资源和极低资源的语言基准上提高MT性能。在FLORES-200等现有基准上，仍有很大的改进空间。这一基准最近激发了人们对为低资源语言（如非洲语言）创建其他基准的兴趣（V egi等人，2022；Reid等人，2021）。资源极低的语言没有显著的网络存在，因此没有足够的比特文本来训练MT系统。这些语言可能有《圣经》的译本（世界上翻译最多的文件），这可以作为开发MT系统的起点（McCarthy等人，2020；Mueller等人，2020）。最近也有人对手动创建平行语料库感兴趣，例如Amis语言（Zheng et al.，2022）和Minankabau语言（Koto和Koto，2020），但这一过程既昂贵又耗时。在缺乏双语甚至单语培训语料库的情况下</p>
+<p>2.适用于所有语言的多语言模型。尽管最近的LLM声称是多语言的，但在预测、分类或生成等任务中，它们在所有语言中的表现并不一样好。一些模型部分基于网络文本进行训练，如Common Crawl（Smith et al.，2013），其中主要包含英语文本。开放的问题包括需要多少数据以及语言的组合才能在多种语言上实现类似的性能。此外，跨语言投影仍然是其他语言模型的潜在数据来源，通过利用主要语言中的可用数据以及现有的机器翻译系统，将模型架构转移到其他语言上</p>
+<p>3.代码切换。语码转换（CS）是一种说话人在遵守至少一种语言的语法结构的同时在语言之间交替的现象。CS数据对NLP任务提出了一系列独特的挑战。CS的性质导致说话者创建“新”单词，这意味着为容纳CS数据而设计的模型必须对词汇表外的标记具有鲁棒性（Çetino˘glu et al.，2016）。训练数据很难获得，也使得学习CS特定模型变得困难。一个活跃的研究领域是确定LLM可以在多大程度上生成合成CS数据；以前的方法通常使用平行语料库来替换具有语法规则作为约束的标记（Xu和Yvon，2021；Lee和Li，2020）。其他研究领域包括探索模型在多大程度上可以在不同的语言组合中推广，以及可以有效区分高度相似语言的学习模型，例如同一母语的方言</p>
+<h2 id="3-Reasoning"><a href="#3-Reasoning" class="headerlink" title="3.Reasoning"></a>3.Reasoning</h2><h3 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h3><p>推理是人类智力的一个基本方面，通过使用逻辑原理和认知过程从前提、事实和知识中进行推理，在解决问题或决策中发挥着关键作用。推理类型多种多样，包括演绎推理、归纳推理、溯因推理、定量推理、因果推理和道德推理。提高NLP中的推理技能对于问答、阅读理解和对话系统等任务至关重要，因为它可以增强模型在看不见的场景中的泛化能力。NLP研究已经发生了重大变化，从早期的基于规则和符号的方法发展到20世纪90年代的统计方法，其中利用了概率模型和机器学习算法。近年来，深度学习和神经网络已经彻底改变了该领域，在各种任务上实现了最先进的性能。然而，在获得类似人类的推理和概括能力、推动持续的研究方面仍然存在挑战</p>
+<h3 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h3><p>尽管LLM在许多推理基准上表现出了令人印象深刻的性能（Brown等人，2020b；欧阳等人，2022；张等人，2022年；Touvron等人，2023a；OpenAI，2023），但仍有几个方向仍然具有挑战性。他们很难稳健地管理形式推理（Jin等人，2022b；Stolfo等人，2023；Jin et al.，2023a），因为我们经常看到LLM容易出现形式或符号系统不会犯的错误。此外，由于他们的大多数训练都与文本世界交互，NLP模型在推理时仍然缺乏现实世界经验的基础（Ignat等人，2021）。最后，更基本的问题还有待回答，比如区分经验知识和理性推理，以及揭示LLM是如何推理的。</p>
+<h3 id="研究方向-1"><a href="#研究方向-1" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.稳健的形式推理（Robust formal reasoning）。长期以来，形式推理一直是神经网络的一项具有挑战性的任务。LLM远未完全掌握数字推理（Stolfo等人，2023；Miao等人，2020）、逻辑推理（Jin等人，2022b）和因果推断（Jin et al.，2023a，c）等形式任务，经常会犯明显的错误（Goel等人，2021；Jin et al，2020）。为此，一个健壮的模型应该知道如何泛化。为了稳健地管理形式推理，可以探索多种方向，例如结合神经网络和符号人工智能的优势。一项流行的工作是集成外部推理系统，如计算器、python解释器、数据库或搜索引擎中的知识检索（Schick et al.，2023；Mialon等人，2023）。</p>
+<p>2.物理现实世界中的有根据的推理。虽然目前的模型产生了连贯的、与背景相关的反应，但它们往往缺乏对物理世界及其限制的理解。这可能导致语言上看似合理的反应，而这些反应在实践中是荒谬或不切实际的。为了解决这个问题，一个方向是探索如何结合外部知识源、多模式数据或模拟世界场景，以奠定模型的推理技能。</p>
+<p>3.在社会背景下进行负责任的推理。随着越来越多的应用程序使用NLP模型，可以预见的是，模型将需要做出复杂的决策，其中包括道德推理作为中间步骤。例如，在创建网站时，可能需要考虑一些道德选择，例如迎合某些子群体，或者过度优化用户注意力或点击率。这些决策原则普遍存在于我们的日常生活中，涉及大小任务。我们认为，在不同的社会背景和文化背景下，在理解或提高人工智能系统对社会复杂和道德复杂的场景进行推理的能力方面，还有很多需要研究的地方（Jin et al.，2023b；Hendrycks et al.，2021）。我们预计，将需要与领域专家和政策制定者进行跨学科合作。</p>
+<p>4.正式定义推理，设计合适的评价框架。人们越来越需要完善推理的定义，因为LLM开始使知识和推理之间的区别变得模糊——当一个模型记住一个推理模式时，它算是对推理或知识的掌握吗？模型已经开始通过模式匹配显示出对模板化解决方案的日益精通，这似乎是许多人想要的推理。从根本上说，这引出了一个问题，即人类擅长哪些智慧闪光点，以及这些闪光点与凭经验学习如何进行模板匹配有何不同。除了重新定义推理之外，另一个悬而未决的问题是如何测试模型的推理技能。我们面临着诸如数据污染、古德哈特定律（一个数据集一旦被利用就无法反映技能）以及缺乏评估多步骤推理的可靠指标等问题。</p>
+<p>5.分析提示如何帮助推理。有两种类型的提示对LLM的影响值得检验：情境学习和思维链。最近的工作表明，对上下文中的例子进行调节与微调模型具有类似的效果（Akyürek et al.，2022），研究人员开始解码模型开始从给定上下文中提取的机制，例如感应头（Olsson et al.，2021）。除了上下文中的指令外，我们还可以使用思维链提示通过中间步骤提示LLM。这种方法将推理任务分解为更小的子问题，类似于人类解决问题。然而，语言模型是真的推理还是只是生成统计上相似的序列，以及人工智能系统可以在多大程度上从少数样本中学习推理，这是有争议的。</p>
+<h2 id="4-Knowledge-Bases"><a href="#4-Knowledge-Bases" class="headerlink" title="4. Knowledge Bases"></a>4. Knowledge Bases</h2><h3 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h3><p>知识库是关于真实世界对象、抽象概念或事件的事实的集合。知识库中的知识通常表示为三元组，由头部实体、尾部实体及其关系组成。例如（巴拉克·奥巴马，出生地，檀香山）就是一个三胞胎表示出生地关系的例子。一些知识库更多地关注事实知识，如DBPedia（Auer et al.，2007）和Y AGO（Suchanek et al.，2017），而另一些知识库则更多地关注常识，如ConceptNet（Speer等人，2017）和ASER（Zhang et al.，2020）。知识库已被用于许多下游应用，包括关系提取（Weston et al.，2013）、机器阅读（Yang和Mitchell，2017）和咨询对话中的反思生成（Shen et al.，2022）。许多人发现，整合外部知识可以提高此类知识密集型任务的绩效（Yu et al.，2022）。此外，知识库通常是在关系和实体的明确本体中构建的，这使得人类能够更容易地解释基于知识库的推断。</p>
+<h3 id="缺陷-1"><a href="#缺陷-1" class="headerlink" title="缺陷"></a>缺陷</h3><p>尽管LLM是在广泛的数据集上训练的，并证明了其处理各种任务的能力（Brown等人，2020a；Bubeck等人，2023a），但其内部知识在许多方面仍然有限，既有一般知识，也有特定领域的知识（Ofek等人，2016）或特定文化的知识（Yin等人，2022）。此外，LLM经常产生幻觉，产生基于虚假事实的索赔。尽管从人类反馈中强化学习（RLHF）可以缓解这种现象，但幻觉的问题是该模型固有的。将模型的输出建立在明确的知识库上可能会减少幻觉，并使用户能够更容易地验证断言的正确性。它也为用大量现有作品进行逻辑推理开辟了可能性。</p>
+<h3 id="研究方向-2"><a href="#研究方向-2" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.以知识为导向的LLM。将知识整合到LLM中是解决幻觉问题的一个很有前途的研究方向，方法是将模型的响应建立在经过验证的知识资源上。ChatGPT试图通过插件来解决这一问题，这表明LLM本身不会解决这个问题，而是取决于单个用例。有人试图通过DialogGPT等系统检索或生成用于增强响应生成的知识（Zhang et al.，2019）。必应（Bing）等搜索引擎在撰写回复之前也会对事实问题进行网络查询。然而，LLM应该如何最有效地与定制的外部知识库进行交互仍然是一个悬而未决的问题。</p>
+<blockquote>
+<p>很好奇GPT联网功能是如何实现的，是不是也是一种knowledge bases的方法呢？</p>
+</blockquote>
+<p>2..知识库的自动构建。许多应用程序都可以受益于专门的知识库，无论是为了提高人类的可解释性，还是作为一个独立的资源。自动构建此类知识库是一个有趣的方向，需要解决许多挑战，如知识覆盖率、知识的真实性、知识链接等。当为医疗保健或化学等专业领域构建知识库时，这些挑战会被放大。然而，一旦这些问题得到解决，研究人员将能够利用LLM从最新的原始文本和本体中动态地策划知识库，用于复杂的应用，例如跟踪PubMed文章中的药物交互。</p>
+<p>3.一般和文化常识。NLP模型中可用的文化知识通常仅限于少数西方文化，并不能解释世界文化观的巨大多样性（Arora等人，2023）。随着NLP应用程序的日益广泛，这种限制可能会对这些应用程序的用户产生直接的不利影响，因为不考虑他们的价值观、信仰和世界观。需要做更多的工作来理解包括LLM在内的NLP模型在了解不同文化群体方面的局限性。此外，一旦更好地理解了这些局限性，一个主要的开放研究方向就是如何获得和表达编码这些文化观点的知识，以及如何以及何时调用这些文化知识。</p>
+<h2 id="5-语言基础（Language-Grounding）"><a href="#5-语言基础（Language-Grounding）" class="headerlink" title="5. 语言基础（Language Grounding）"></a>5. 语言基础（Language Grounding）</h2><h3 id="背景-3"><a href="#背景-3" class="headerlink" title="背景"></a>背景</h3><p>语言基础是指在非语言世界中将语言表达与其指称联系起来的能力（Patel和Pavlick，2022）。非语言世界可以是物理的也可以是非物理的，例如，TextWorld（Côtéet al.，2018）。重大的研究进展是由于利用感官数据来构建数据集和任务，以教授ML模型如何进行语言基础。流行的任务包括视觉问答（Agrawal et al.，2015；Singh et al.，2019）、图像和视频字幕（Mokady et al.，2021；周等人，2019），文本到图像检索（Wang et al.，2022；方等人，2021）和文本到图像&#x2F;视频生成（Ramesh et al.，2020；Villegas等人，2022）。像CLIP（Radford et al.，2021）这样的模型证明，大规模的图像文本预训练可以有利于基于转换器的视觉语言模型。顺应这一趋势，更多的多模态模型，如GPT-4，显著增加了它们的训练语料库（OpenAI，2023），并添加了新的模态，如音频（Zellers等人，2022）。</p>
+<h3 id="缺陷-2"><a href="#缺陷-2" class="headerlink" title="缺陷"></a>缺陷</h3><p>尽管GPT-4等最新的多模态模型表现出令人印象深刻的零样本性能，因为它们优于大多数微调但较小的多模态模式，但它们也有成本。首先，他们缺乏对世界的真实了解（Hendricks和Nematzadeh，2021；Thrush等人，2022），他们缺乏领域知识，无法概括到现实生活中的环境中（例如，野外数据中的个性化情况）。其次，这些模型很难解释，甚至无法解释。他们在生成新数据时偶尔会表现出不可靠的行为，如幻觉（例如，图像&#x2F;视频生成、图像&#x2F;视频字幕）。最后，只有少数大学和机构能够负担得起适当使用这些资源的费用。GPU的成本不断上升，使用不同的模式，尤其是视觉模式，在计算机内存和计算方面都要昂贵得多。</p>
+<h3 id="研究方向-3"><a href="#研究方向-3" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.如何最好地组合多种模式。高效和有效地组合不同的模式，即音频、视频、文本和其他模式，仍然是一个悬而未决的问题。不同的模式往往是相辅相成的（例如，手势可以用来表达对口头表达的内容的信心），从而减少了对数十亿个数据点的依赖。然而，在某些情况下，模态最终会相互竞争，因此许多单模态模型的性能优于多模态模型（Wang et al.，2019a；Huang等人，2021）。</p>
+<p>2.以较少研究的模式为基础。大多数关于基础的工作都围绕着视觉、文本或音频模式展开。然而，在接地背景下研究较少的模式，如生理、感觉或行为，在测量驾驶员警觉性（Jie et al.，2018；Riani et al.，2020）、检测抑郁（Bilalpur et al.，2023）或检测欺骗行为（Abouelenien et al.，2016）等不同应用中都很有价值。这些模式在整个管道中提出了有趣的问题，从数据收集和表示开始，一直到评估和部署。</p>
+<p>3.立足于“野外”和不同领域。大多数关于接地的研究都是在实验室环境中收集的数据上进行的，或者是在电影（Lei et al.，2019）或烹饪（Zhou et al.，2018）等室内活动的图像和视频上进行的。对更真实的环境和户外“野外”数据的研究要少得多（Castro等人，2022）。这些数据在可用性、质量、分布等方面提出了新的挑战，开辟了新的研究方向。此外，将这些模型应用于不同的领域（例如，机器人、医学、导航、教育、可访问性）需要适应使用更少的数据点或不同类型的数据，同时需要领域内的专业知识来更好地理解问题设置。</p>
+<h2 id="6-Computational-Social-Science"><a href="#6-Computational-Social-Science" class="headerlink" title="6. Computational Social Science"></a>6. Computational Social Science</h2><h3 id="背景-4"><a href="#背景-4" class="headerlink" title="背景"></a>背景</h3><p>计算社会科学（CSS），即使用计算方法研究社会科学，至少在一定程度上没有受到LLM的影响。虽然它们可以自动化一些与CSS相关的语言任务，如情绪分析和立场检测（Liang et al.，2022），但诸如“人类如何在社交网络中分享新闻”或“灾难性社会事件中语言使用的文化差异”等问题被认为在很大程度上超出了生成模型的范围。在过去的十年里，随着人工智能在社会科学中的成功和影响，计算和数据驱动方法已经渗透到社会科学的主要领域（Lazer et al.，20092020），产生了新的跨学科领域，如计算通信研究、计算经济学和计算政治学。</p>
+<h3 id="缺陷-3"><a href="#缺陷-3" class="headerlink" title="缺陷"></a>缺陷</h3><p>虽然NLP继续对CSS的成型研究产生巨大影响，但大型基础模型在假设和评估该领域的想法方面没有得到充分利用。生成模型旨在通过自然语言端到端地为用户提供服务，并且由于高昂的微调成本或专有技术，通常无法满足定制这些大型模型的需求。在缺乏专家或微调LLM的情况下，此类模型在CSS中的应用仍然局限于通用数据标记和处理，如立场检测或情绪分析。</p>
+<h3 id="研究方向-4"><a href="#研究方向-4" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.总体级别的数据注释和标记。CSS研究人员已经在人类互动的大型数据集上应用了不太完美的模型，以帮助他们缩小社会概念的范围并对其进行研究。虽然一些注释可以由LLM处理（Gilardi等人，2023），但对人类众包工作者的需求不太可能消失。在CSS中尤其如此，因为研究人员最感兴趣的是人口层面的趋势，而不是个人层面的准确性。</p>
+<p>2.开发有助于抽象、概念和方法的新CSS。近年来，单词和句子级别的嵌入对CSS产生了很大的影响。在引入嵌入之前，主题建模，如LDA（Blei et al.，2003）和关键字提取在CSS中已经很普遍。这些是在CSS中以高抽象级别封装通用功能的方法的示例，因为它们经常用于CSS的几个子领域的研究。随着CSS研究人员转向使用更强大的人工智能技术，为他们解锁新功能的概念和算法尚待开发。</p>
+<p>3.多元文化和多语言CSS。大多数CSS研究集中在英语或少数其他主要语言上，主要涉及西方文化。然而，社会科学中有许多重要问题需要进行大规模、多语言和多文化的分析。例如，语言是如何演变的，或者不同文化的价值观是如何变化的？这是一个未来工作的领域，可能会对社会科学产生复合影响。</p>
+<h2 id="7-NLP-on-online-environments"><a href="#7-NLP-on-online-environments" class="headerlink" title="7.NLP  on online environments"></a>7.NLP  on online environments</h2><h3 id="背景-5"><a href="#背景-5" class="headerlink" title="背景"></a>背景</h3><p>NLP对在线环境的影响可以通过两种对抗性现象来观察：内容生成和节制。内容的快速生成，如LLM生成的文章和社交媒体更新，可以得到各种利益相关者的支持。许多人很可能通过生成假新闻和虚假信息来实现网站的高点击率，这引发了需要及时监管的社会问题。相反，节制是一种把关的形式。通过使用NLP来监控和分析数字平台上用户生成的内容（Nakov等人，2021；Kazemi等人，2021a），以删除违反政策的材料，内容审核可以保持在线生态系统中的平衡（Thorne等人，2018；Nakov et al.，2021；Gillespie，2020；Kazemiet al.，2021a；Shaar等人，2020）。</p>
+<h3 id="缺陷-4"><a href="#缺陷-4" class="headerlink" title="缺陷"></a>缺陷</h3><p>关于内容生成和审核有几个问题。对于生成，确定生成的基本目的并避免恶意操纵用户是当务之急。对于节制，一个令人担忧的问题是，目前的节制模型仍然不透明、不精确、不负责任，而且人们对其了解甚少（Gorwa等人，2020）。此外，在构建检测不期望内容的模型方面存在一些现有的挑战，包括为不期望内容设计分类法的困难、数据标记的耗时性，以及学术数据集在揭示真实世界数据分布方面的不足（Markov et al.，2023）。此外，NLP辅助的事实核查通常是用英语构建的，因此越来越需要低资源和跨语言的NLP来帮助解决世界上资源不足地区的错误信息。检测和揭穿错误信息还涉及多模式处理，因为错误信息以各种形式传播。网络信号，如谁喜欢或转发内容，也对丰富的信息进行编码，这些信息可以与其他方式一起附加，以帮助改进错误信息检测。此外，用于事实核查的NLP可以在很大程度上受益于专注于检索和知识增强方法，因为为了检查索赔的真实性，需要搜索并找到索赔的相关上下文。</p>
+<h3 id="研究方向-5"><a href="#研究方向-5" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.检测和揭穿网上的错误信息。互联网上的误导性内容越来越多，未来几年，由于人工智能生成的内容越来越受欢迎，数量的增加可能是不可避免的。NLP可以在几个方面用来减缓误导性内容的传播。为了向事实核查人员和记者提供帮助，NLP系统仍然没有得到充分利用，这为构建事实核查技术留下了一个黄金机会，使事实核查人员能够加大工作力度（Kazemi等人，2022）。</p>
+<p>2.确保代表的多样性。随着LLM生成内容的流行，大多数人的声音最终可能会在网络上被放大，因为LLM等数据驱动模型往往会记住其语料库中最具代表性的数据类型。因此，随着LLM生成的内容将越来越多地在网上使用，缺乏多样性，尤其是边缘化群体声音的代表性将是一个令人担忧的问题。</p>
+<p>3.避免不当调节和检测过度调节。与内容生成中的异质性问题类似，内容调节技术也可能忽略代表性不足的群体或特定文化和社会环境中表达的细微差别。重要的是要使审核算法对所有群体都公平。</p>
+<p>相反，由于各种政治利益（例如，伊朗希望限制对妇女自由的讨论），政府可能会限制网上讨论的话题。追踪哪些话题和观点在互联网上被过滤或降级，反思政治环境中的言论自由，确实成为一个重要的方向。</p>
+<p>4.识别生成内容背后的利益相关者。随着机器生成内容的激增，判断信任哪些信息将变得越来越具有挑战性。一个有希望的方向是开发NLP模型，以确定生成内容背后的利益相关者，以及他们的兴趣类型，如商业利润（例如，来自广告或客户吸引力）或政治利益（例如，影响更多的人持有某些意见，这将在很大程度上有利于利益集团）。</p>
+<h2 id="8-Child-Language-Acquisition"><a href="#8-Child-Language-Acquisition" class="headerlink" title="8. Child Language Acquisition"></a>8. Child Language Acquisition</h2><h3 id="背景-6"><a href="#背景-6" class="headerlink" title="背景"></a>背景</h3><p>虽然有人声称LLM“显示出AGI的火花”（Bubeck et al.，2023b），但它们并没有模仿人类在学习语言时所遵循的路径（Bowerman和Levinson，2001）。理想情况下，我们希望更小、更高效的语言模型与环境基础紧密结合（Lazaridou et al.，2017）。在实现高效AGI的道路上，我们有一个难以逾越的底线：儿童的语言习得。大多数儿童通过有限的互动和对语言的观察，最多可以习得三种语言。虽然我们还不完全了解孩子们是如何学习语言的，但我们知道他们不需要太字节的文本训练实例。</p>
+<p>还有越来越多的研究探索LLM与儿童语言习得之间的联系，特别是在统计学习的背景下（Wilcox et al.，2022），最近的研究探索如何使用LLM来建模和模拟儿童用于习得语言的统计学习机制（Contreras Kallens et al.，2023）。这一领域的发展对低资源和濒危语言有着更广泛的影响，因为样本高效的语言建模算法可以为全新的语言和文化解锁LLM级别的功能。</p>
+<h3 id="缺陷-5"><a href="#缺陷-5" class="headerlink" title="缺陷"></a>缺陷</h3><p>实现这样一个有效的基线——儿童——的数据效率是令人兴奋的，但没有灵丹妙药：心理学家、神经科学家和语言学家是几十年来一直在研究儿童语言习得的科学家之一，尽管他们对人类儿童的语言习得过程有了更深入的了解，我们还没有开发出一种以可比的数据效率在计算上再现相同过程的工作理论。</p>
+<p>这种缺乏进展的情况可归因于研究儿童的困难，因为招募和IRB对此类研究的批准都对可以收集的数据类型施加了限制。除此之外，收集到的少量数据往往在可表达性方面受到限制，因为尚未学习过一门语言的儿童无法有效交流，这限制了实验设计。在广泛的儿童语言研究中，家长们都会在场，以确保孩子们能够专注于实验并遵循指导方针。此外，当你无法控制实验的受试者时，很难控制混杂变量。</p>
+<h3 id="研究方向-6"><a href="#研究方向-6" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.示例高效的语言学习。这是一个成熟的领域，有机会提高我们对语言的理解，并开发更高效的数据NLP工具。对样本有效的语言学习进行基础和理论研究是非常必要的。对于对核心NLP感兴趣的研究人员来说，在较小的数据范围内实现最先进的计算理论和算法是一个令人兴奋的领域，追求最先进的性能可能很快就会转向数据效率分数。与这个方向相关的是为样本有效的Lamlanguage学习建立基线的目标。有一个下限目标（例如，X小时的互动达到Y分）可以使NLP社区能够更准确地了解数据效率方面的进展。</p>
+<p>2.儿童语言习得的基准发展。随着大型语言和多模式系统的发展，有机会简化和扩展儿童语言基准构建。例如，在精心构建的监督基准上的受控实验可以通过儿童长时间学习语言的大型视频数据集来增强。此外，这些数据集可以用于训练专门针对儿童学习语言的方式定制的模型，这可以实现理解儿童语言使用的新方法，以及开发能够从更少的例子中学习的模型，类似于人类学习语言的方法。</p>
+<p>3.语言模型是儿童语言习得的生物学模型。生物模型是指对特定生物系统的研究，该系统被认为与特定的人类系统具有关键的相似性，以获得对所讨论的人类系统的见解和理解。麦克洛斯基著名地主张利用神经模型作为生物模型来研究人类的认知行为，从而发展有关该行为的理论（麦克洛斯基，1991）。随着NLP模型开始显示出与人类语言使用的一些相似之处，我们现在有机会探索有关人类婴儿如何获得语言的理论。例如，（Chang和Bergen，2021）通过创建单个单词的学习曲线和习得年龄，研究了语言模型中单词习得的过程。利用现有的数据集，如WordBank（Frank et al.，2016）和CHILDES（MacWhinney，1992），以及新的基准，以及越来越强大的语言模型，我们现在有能力进行实验来分析语言习得（例如，音素水平的习得、内在奖励），并获得对儿童语言习得的新见解。</p>
+<h2 id="9-Non-Verbal-Communication"><a href="#9-Non-Verbal-Communication" class="headerlink" title="9. Non-Verbal Communication"></a>9. Non-Verbal Communication</h2><h3 id="背景-7"><a href="#背景-7" class="headerlink" title="背景"></a>背景</h3><p>非语言交流包括手势、面部表情、肢体语言和姿势等。手语是一种特殊的非语言交流形式，是聋人使用的主要交流媒介。几项研究表明了非语言交流在日常互动中的重要性（McNeill，1992；Alibali等人，2000年）。最近在NLP中的工作强调了将非语言信息整合到现有语言表征中的重要性，作为获得更丰富表征的一种方式，包括例如语言模型（Wang et al.，2019b）或视觉模型（Fan et al.，2021）；先前的其他研究表明，面部表情或手势等非语言交流与语言渠道一致，不同的文化或语言背景可能与对这些非语言表达的不同解释有关（Abzaliev et al.，2022；Matsumoto和Assar，1992）。还有一整套研究侧重于手语的理解和生成（Joze，2019；Bragg et al.，2019），以及手语使用者不同社区之间的交流（Camgoz et al.，2020）。</p>
+<p>理解非语言模态和语言之间的一致性仍然是一个悬而未决的问题，特别是考虑到其中一些模态使用不同的频谱（连续与离散）的挑战。相应地，这些信号的离散化和解释可能很困难，导致它们的联合使用或将这些非语言信息整合到现有的基于语言的大型模型中面临挑战。在手语研究中，在理解和生成手语方面仍然存在许多悬而未决的问题，包括汇编具有代表性的手语数据集和开发有效的计算模型。</p>
+<h3 id="缺陷-6"><a href="#缺陷-6" class="headerlink" title="缺陷"></a>缺陷</h3><p>理解非语言模态和语言之间的一致性仍然是一个悬而未决的问题，特别是考虑到其中一些模态使用不同的频谱（连续与离散）的挑战。相应地，这些信号的离散化和解释可能很困难，导致它们的联合使用或将这些非语言信息整合到现有的基于语言的大型模型中面临挑战。在手语研究中，在理解和生成手语方面仍然存在许多悬而未决的问题，包括汇编具有代表性的手语数据集和开发有效的计算模型。</p>
+<h3 id="研究方向-7"><a href="#研究方向-7" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.非语言口译。由于非语言交际的许多子领域都需要非语言信息，因此对这些信息的表示、离散化和解释是一个丰富的探索方向。例如，虽然之前的工作已经确定了一个潜在的面部表情“代码手册”（Song et al.，2013），但还需要更多的工作来找到可以在模式、上下文和文化中使用的理想表示集。对这些表情和手势的解释，以及它们在不同模式之间的一致性，仍然是一个悬而未决的问题。特别是，LLM的日益使用有可能为通过文本描述理解非语言交流开辟新的范式。例如，当LLM被提示“请回答我描述的手势：一个人张开双臂，微笑着向另一个人移动”时，它会回答“你描述的手势很可能是拥抱，表示友好或深情的问候或告别……”，这可以用作拥抱手势的文本表示。</p>
+<p>2.手语的理解、生成和翻译。一个开放的研究问题是手语词典（Athitsos et al.，2008）和语料库（Li et al.，2020）的开发，它们可以用于训练和评估计算模型。这些资源对于开发和测试识别和解释模型至关重要，但创建这些资源往往既困难又昂贵。在手语理解中，最大的挑战之一是开发能够准确识别和解释手语手势的有效模型。这很困难，因为手语在手势方面表现出相对较高的可变性，包括手势形状、动作和方向的差异；此外，其他非手动特征，如面部表情、身体姿势和眼睛凝视，往往在手语中发挥作用，这会使识别过程更加复杂。最后，手语生成也是一个开放的研究领域。</p>
+<p>3.有效的联合言语和非言语交流。最终，在沟通过程中应该同时考虑语言和非语言信号。我们希望人工智能系统同样能够理解“我不知道”，耸耸肩，或者**(打不出来，此处是一个颜表情）**。共同表示、融合和解释这些信号最终是人工智能辅助通信的长期目标。开放的研究问题不仅包括为这些模式中的每一种开发语言模型，还包括有效的融合方法，这将使同时进行言语和非言语交流的大型联合模型成为可能。</p>
+<h2 id="10-Synthetic-Datasets"><a href="#10-Synthetic-Datasets" class="headerlink" title="10. Synthetic Datasets"></a>10. Synthetic Datasets</h2><h3 id="背景-8"><a href="#背景-8" class="headerlink" title="背景"></a>背景</h3><p>在NLP研究中，当更传统的人类数据收集不可行、昂贵或存在隐私问题时，通常需要合成数据（Mattern等人，2022）。随着生成模型的发展（Tang et al.，2023），合成数据生成在各个领域都具有适用性。例子包括低资源语言的反翻译（Sennrich et al.，2015；Edunov et al.，2018）、语义解析（Rosenbaum et al.，2022a）、意图分类（Rosenb鲍姆et al.，2020）、结构化数据生成（Borisov et al.，2022）或医学对话生成（Chintagunta et al.。2021a；Liednikova等人，2020）。如果需要领域自适应，该过程通常包括对模型进行预训练（Chintagunta等人，2021b），促使模型生成数据集，并自动或通过专家验证评估其质量。</p>
+<h3 id="缺陷-7"><a href="#缺陷-7" class="headerlink" title="缺陷"></a>缺陷</h3><p>合成数据的使用面临着诸如数据质量控制困难（Kim et al.，2022）（由于缺乏文本生成的评估指标）、缺乏多样性、数据生成模型中的潜在偏见以及数据生成模型的固有局限性（如难以捕获长程依赖性）等挑战（Orbach和Goldberg，2020；Guan et al.，2020）。</p>
+<h3 id="研究方向-8"><a href="#研究方向-8" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.知识提炼。知识提炼是将知识从教师模型转移到通常较小的学生模型的任务。例如，Kim等人（2022）将他们的合成对话框数据集框定为从InstructGPT中提取的。虽然早期的提炼方法涉及从教师模型的软输出逻辑中学习（Hinton et al.，2015），但这标志着直接利用LLM输出作为合成示例的趋势（West et al.，2022）。这允许从业者以不同的方式转换或控制生成的数据，例如使用微调模型来过滤质量。此外，合成数据可以用来直接模拟LLM的行为，使用更小、集中的模型，例如Alpaca的情况（Taori等人，2023）</p>
+<p>2.对生成的数据属性的控制。目前，主要的方法是为自然文本规范提供说明和示例，但优化这些提示通常依赖于简单的试错方法。此外，通过指令或示例指定属性可能不精确或有噪声。开发稳健、可控和可复制的合成数据生成管道仍然是一个悬而未决的研究问题。</p>
+<p>3.转换现有数据集。给定一个现有的数据集，我们可以应用各种更改来创建一个语义保持的新数据集，但要使用新的样式。常见的方法包括格式更改（例如，将新闻文章的数据集从HTML转换为纯文本格式）、模态转换（例如，生成图像或视频的文本描述或为视听内容生成字幕或字幕）或风格转换（Jin et al.，2022a）（例如，把文本的写作风格从冗长翻译为简洁）。</p>
+<h2 id="11-可解释性"><a href="#11-可解释性" class="headerlink" title="11. 可解释性"></a>11. 可解释性</h2><h3 id="背景-9"><a href="#背景-9" class="headerlink" title="背景"></a>背景</h3><p>可解释性是理解和解释机器学习模型的决策过程，使其更加透明和合理的任务（Danilevsky et al.，2020）。可解释的NLP系统可以通过使最终用户、从业者和研究人员了解模型的预测机制来促进推力，并确保合乎道德的NLP实践。从历史上看，传统的NLP系统，如基于规则的方法（Woods，1973）、隐马尔可夫模型（Ghahramani，2001；Rabiner，1989）和逻辑回归（Cramer，2002），本质上是可解释的，称为白盒技术。然而，NLP的最新进展，其中大多数是黑盒方法，是以可解释性的损失为代价的。为了解决这个问题，可解释性已成为一个研究方向，专注于开发深入了解NLP模型内部工作的技术（Mathews，2019；Danilevsky等人，2020）。关键研究发现包括注意力机制、基于规则的系统和可视化方法，这些方法有助于弥合复杂语言模型和人类可解释性之间的差距，最终有助于负责任地部署NLP系统。</p>
+<h3 id="缺陷-8"><a href="#缺陷-8" class="headerlink" title="缺陷"></a>缺陷</h3><p>NLP中可解释性研究的现状侧重于理解模型预测、特征重要性和决策过程。注意力机制（V aswani et al.，2017）、LIME（Ribeiro et al.，2016）和SHAP（Lundberg和Lee，2017）等技术已经出现，可以深入了解模型行为。然而，在稳健性、可推广性和伦理考虑等方面仍然存在差距。此外，可解释性方法往往缺乏标准化，难以解决transformer等复杂的大规模模型，限制了它们在现实世界场景中的适用性。</p>
+<h3 id="研究方向-9"><a href="#研究方向-9" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.探测。一个有希望的方向是通过设计能够揭示语言的探究任务来研究NLP模型的内部表征，包括LLM（Hewitt和Manning，2019；休伊特和梁，2019）和模型所捕获的世界知识（Elhage et al.，2022；Geva et al.，2022022）。这有助于理解模型的推理能力，并识别潜在的偏差（Li et al.，2022；Meng等人，2022）。</p>
+<p>2.机械解释能力。虽然探究主要着眼于模型学习的特征的属性，但机械可解释性旨在揭示模型中有助于其决策过程的潜在机制和算法（Nanda et al.，2023；Conmy et al.，2021）。它从神经网络中提取计算子图（Conmy et al.，2023；王等人，2023，Geiger et al.，2021），其高层目标是对整个深度神经网络进行逆向工程（Chughtai et al.，2022）。</p>
+<blockquote>
+<p>有点感兴趣</p>
+</blockquote>
+<p>3.提高human-in-the-loop的可解释性。NLP中的人在环可解释性研究侧重于结合人的反馈和专业知识来增强模型的可解释性。这种方法旨在提高模型的透明度，促进更好的决策，并促进人工智能系统和用户之间的信任。通过让人类参与进来，研究人员可以识别和解决偏见，确保伦理考虑，并开发更可靠和可理解的NLP模型。有各种有前景的方向，例如主动学习和交互式解释生成（Mosca等人，2023；Mosqueira-Rey等人，2023.）。</p>
+<p>4.基于参考文献生成的文本。可解释性涉及理解为什么提供某种生成NLP模型输出，并评估其正确性，可能通过校准（Naeini等人，2015）。事实上的正确性并不是生成模型必须遵循的限制；相反，他们通常被训练通过预测下一个最有可能出现的文本来模仿人类的书面文本。反过来，这种预测的文本容易产生幻觉（Ji et al.，2022），导致用户缺乏信任。一个有前途的解决方案是通过附加参考文献和显示任何额外的推理步骤，为模型输出的事实提供可靠的来源。例如，引文可以与其参考书目一起包括，或者指向训练数据（或文档数据库）中文档的指针可以附加到输出中。这样一个系统应该评估这些来源在多大程度上支持模型提出的主张。</p>
+<h2 id="12-高效NLP"><a href="#12-高效NLP" class="headerlink" title="12. 高效NLP"></a>12. 高效NLP</h2><h3 id="背景-10"><a href="#背景-10" class="headerlink" title="背景"></a>背景</h3><p>高效NLP是一个旨在优化NLP模型资源利用的研究方向。这一目标源于应对语言模型规模不断扩大所带来的挑战的需要，以及日益增长的资源消耗对NLP的进步提出了新的挑战（Touvron等人，2023b；张等人，2023）。事实上，人们普遍认为，扩大规模是在NLP任务上实现最先进表现的重要方法，尤其是那些随着规模定律而出现的技能（Wei et al.，2022；Bowman，2023）。然而，开发LLM需要大量的能源和财政资源来进行培训和推理，这引发了人们对人工智能碳足迹和NLP产品开发的经济负担的担忧（Strubell等人，2019）。鉴于这些问题，先前的研究强调了有效减少二氧化碳当量排放（CO2e）和兆瓦时（MWh）以及提高电力使用效率的迫切需要（Patterson等人。</p>
+<blockquote>
+<p>怎么都是提到碳排放？我还以为是为了减少训练时长之类的。</p>
+</blockquote>
+<h3 id="缺陷-9"><a href="#缺陷-9" class="headerlink" title="缺陷"></a>缺陷</h3><p>在包括数据管理、模型设计和训练范式在内的各个维度上，提高NLP的效率有很大的空间，这提供了许多研究机会。解决数据效率问题涉及到解决诸如增强重复数据消除技术、评估数据质量和管理大量数据等挑战。在细化模型设计时，关键挑战包括提高注意力机制的效率，开发用于参数约简的替代无参数模块，以及优化模型深度或效率。最后，在训练范式领域，在促进工程、微调和快速调整技术方面存在进步的潜力。</p>
+<h3 id="研究方向-10"><a href="#研究方向-10" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.可以通过重复数据消除来提高数据效率，消除冗余或有噪声的数据，从而用更少的数据项提高性能。尽管现有的工作旨在通过删除有噪声的示例和消除无用数据的重复来提高模型性能，减少数据点（Lee等人，2022；Mishra和Sachdeva，2020；Hoffmann等人，2022），但缺乏针对大量语料库（&gt;700B令牌）或原始网络数据管理的有效数据消除方法。</p>
+<p>2.模型设计。大量方法通过改进注意力机制来提高模型效率（Tay等人，202022；Dao等人，2022；Ma等人，2022）。然而，在转换器架构中处理超长上下文建模仍然存在挑战。稀疏模型可以扩大模型的宽度，以提高表达能力，同时减少理论FLOP。值得注意的实践包括在基于变压器的模型的前馈层中应用专家混合架构（Fedus等人，2022022；Du等人，2022）。设计这样的模型需要特定于体系结构的实现，并且需要进行多次试验才能获得最佳体系结构。它的性能也不稳定（Mustafa等人，2022）。</p>
+<p>3.高效的下游任务自适应。有效的微调旨在通过更新一小部分参数，使预先训练的模型适应下游任务（Pfeiffer等人，2020；Moosavi等人，2022；Schick和Schütze，2021）。提示调谐/前缀调谐在不改变模型参数的情况下用额外学习的向量修改激活（V alipour等人，2022；Lester等人，2021）。然而，有必要找到一种有效的自动提示构建方法。</p>
+<h2 id="13-NLP在教育"><a href="#13-NLP在教育" class="headerlink" title="13. NLP在教育"></a>13. NLP在教育</h2><h3 id="背景-11"><a href="#背景-11" class="headerlink" title="背景"></a>背景</h3><p>NLP在教育中的应用有着丰富的历史，包括专门的研讨会，如由建筑教育应用特别兴趣小组组织的年度ACL关于创新利用NLP构建教育应用的研讨会。这些应用程序包括帮助学习者的工具（例如，语言学习应用程序，如Duolingo*，或语法纠正工具，如Grammarly*），帮助教师和组织评分的工具（如，用于GRE论文评分的电子评分系统（Burstein等人，1997）），帮助课程和评估开发的工具（例如，开发多项选择题的系统（Kurdi et al.，2020））和教育研究人员的工具（如，构建课堂互动表示的系统（Alic et al.，2022））。自发布以来，研究人员一直在测试BERT（Devlin et al.，2019）和RoBERTa（Liu et al.，2017）等模型在这些领域的应用，现在开始纳入更大的模型。</p>
+<h3 id="缺陷-10"><a href="#缺陷-10" class="headerlink" title="缺陷"></a>缺陷</h3><p>教育领域中部署的许多NLP应用程序都是在LLM广泛使用之前开发的，我们很可能很快就会看到基于LLM的特定任务模型的大规模部署。虽然之前的许多工作包括独立的应用程序，但开发可以很容易地融入现有教育管道的模型，例如通过整合学生迄今为止所学的知识，是一个有待进一步探索的领域。重要的是，教育的一个长期目标是根据学生个人的需求个性化材料和评估，而NLP有潜力为这一目标做出贡献。</p>
+<h3 id="研究方向-11"><a href="#研究方向-11" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.可控制的文本生成。对话系统和更普遍的文本生成以前已经在教育应用中使用。在这个空间内，可控的文本生成可以用于更个性化的体验，例如，使用自动生成的与学生兴趣相关的故事向学生介绍新术语，或者修改故事，使不同阅读水平的小学生可以访问。同样，虽然我们已经在阅读理解方面看到了大量的工作，但我们现在可以开始想象应用程序，在这些应用程序中，将根据学生之前的经验以及他们之前接触过的测试来测试文本的理解，以获得更具适应性的学习体验。</p>
+<p>2.教育解释生成。个性化的课堂材料还可以包括根据学生对材料的理解（或缺乏理解）为他们生成解释。例如，NLP系统可以用来帮助学生理解学术论文中的一个棘手句子，或者改写老师给出的答案，希望找到与学生知识体系相关的解释。自动评分也是NLP做出许多贡献的领域（Mohler和Mihalcea，2009），但它仍然包括开放的研究问题，例如为不太完美的评分提供解释。</p>
+<p>3.智能辅导系统。智能辅导系统显示出个性化教育的巨大前景（Mousavinasab等人，2021）。可以开发NLP方法来生成有针对性的练习问题，并解释学生在广泛领域的错误，从英语或历史到物理或计算机科学。随着NLP向更可靠地模仿人类推理的方向发展，这些系统可能会得到改进；目前，在没有人参与的情况下，在教育中部署NLP时需要小心，因为即使给出简单的数学问题，NLP模型（包括最新的LLM（OpenAI，2023））也经常会自信地给出错误的答案和解释。</p>
+<p>值得一提的是，由于学术不诚实的可能性增加，教育界对LLM的接受在很大程度上是令人担忧的。这导致课程和大学采取了一些政策来规范如何在课程中使用人工智能，例如耶鲁大学的政策。*整体课程是否会进行调整，以积极的方式纳入LLM尚待观察，但我们乐观地认为，如果在适当的情况下部署，这一最新进展可以对教育产生积极影响。</p>
+<h2 id="14-NLP在医疗保健领域"><a href="#14-NLP在医疗保健领域" class="headerlink" title="14. NLP在医疗保健领域"></a>14. NLP在医疗保健领域</h2><h3 id="背景-12"><a href="#背景-12" class="headerlink" title="背景"></a>背景</h3><p>NLP在医疗保健中的应用可以根据其使用和对提供者、患者和公共卫生官员等关键利益相关者的影响进行分类（Zhou et al.，2022；Olaronke和Olaleke，2015）。当关注卫生服务提供者时，NLP通常用于支持临床决策，方法是（1）聚合和整合可用数据和研究，以及（2）从数据中提取相关信息。这些任务涉及重要的挑战，如医疗保健数据的标准化、健康概念的准确标记、提取和检索以及患者状况的分类（Dash等人，2019）。类似地，NLP用于处理患者对应用程序信息的请求，例如健康相关问题的问答，以及与医疗或疾病相关的信息的检索。最近在这一领域的工作集中在心理健康领域的语言分析，涵盖了专业治疗（Sharma et al.，2020；PérezRosas）</p>
+<p>类似地，NLP用于处理患者对应用程序信息的请求，例如健康相关问题的问答，以及与医疗或疾病相关的信息的检索。最近在这一领域的工作集中在心理健康领域的语言分析，涵盖了专业治疗（Sharma等人，2020；PérezRosas等人，2017；Min等人，2022）和社交媒体对话（Tabak和Purver，2020；Lee等人，2021；Biester等人，2020）。关于协助公共卫生官员，NLP正在用于公共卫生监测，以确定疾病和风险因素或高危人群（Naseem等人，2022；Jimeno Y epes等人，2015；Y ates等人，2014），也用于缓和网上错误信息或公众情绪等方面（Hou等人，2019；Kazemi等人，2021b）</p>
+<h3 id="缺陷-11"><a href="#缺陷-11" class="headerlink" title="缺陷"></a>缺陷</h3><p>NLP在医疗保健领域最明显的局限性之一是缺乏高质量的注释临床数据。尽管社交媒体数据在某些情况下可能有用，但临床数据在开发临床决策工具时至关重要，而且由于隐私和道德问题，临床数据往往无法公开。另一个缺点是缺乏语言多样性，因为迄今为止的工作主要集中在英语或其他高资源语言上（Mondal et al.，2022），但对少数民族语言的投入较少。此外，缺乏对基于NLP的卫生系统的人类评估，这使得在现实世界中衡量其有效性具有挑战性。当前的自动评估指标不一定与患者的结果有关。因此，在评估NLP动力工具在医疗保健中的疗效时，必须进行以人为中心的研究</p>
+<h3 id="研究方向-12"><a href="#研究方向-12" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.医疗基准建设。尽管最近LLM的文档报告了各种医疗问答基准或医疗许可文本的非常高的性能，但医疗保健中还有许多其他任务缺乏实现类似良好性能所需的数据。由于隐私问题，对医疗数据集的访问往往受到限制，因此可能需要其他方法来编制此类基准。合成数据集就是这样一种选择（Chintagunta等人，2021a；Liednikova等人，2020）。其他选择，包括将现有数据集转述为数据扩充的一种形式；或者使用LLM作为引导数据集的起点。另一个开放的研究方向是评估基准的质量。此外，还需要进行研究，以找到以低资源语言或低资源领域生成新的健康数据集的有效方法</p>
+<p>2.用于临床决策的NLP。NLP系统可以用作集思广益或决策工具，帮助专家进行评估和决策过程。它们可以用于综合新知识（例如，关于医学发现的最新研究论文），并将其提供给医生。此外，将一般医学知识和个人患者信息结合起来需要新的知识整合策略。由于临床诊断和治疗是高风险决策，因此NLP系统的可靠性和可解释性至关重要，以提供其预测背后的清晰推理。这些过程还需要与医学专家进行跨学科合作，以确保该系统与他们的领域知识和临床实践相一致。</p>
+<p>3.药物发现。药物发现是生物医学和化学研究中经常考虑的一个关键研究领域，但最近引起了NLP研究人员的注意。NLP方法可以有效地从大量科学文献、专利、学术媒体、临床记录和其他生物医学来源中提取和分析信息。开放的研究方向包括药物-靶标相互作用的识别和优先顺序、新候选药物的发现、化合物性质的预测以及药物设计的优化。新的NLP方法也可以有助于识别新的药物靶点关联，并可以实现更有效的药物再利用工作。</p>
+<blockquote>
+<p>既然可以从科学文献中提取，那是不是可以和图像或化学式等结合，那未来的方向是不是多模态的方向呢？</p>
+</blockquote>
+<h2 id="15-NLP与伦理"><a href="#15-NLP与伦理" class="headerlink" title="15. NLP与伦理"></a>15. NLP与伦理</h2><h3 id="背景-13"><a href="#背景-13" class="headerlink" title="背景"></a>背景</h3><p>人们越来越认识到伦理在NLP中的作用，尤其是随着具有潜在深远社会影响的越来越强大的模型的发展。在开发NLP模型时，有重要的伦理考虑因素（Bender等人，2020），并且正在进行旨在解决双重使用、公平和隐私等关键伦理方面的研究工作。</p>
+<h3 id="缺陷-12"><a href="#缺陷-12" class="headerlink" title="缺陷"></a>缺陷</h3><p>除了上述问题外，围绕最近LLM的使用和应用的其他伦理问题包括：缺乏归因、模型可解释性差、技能退化、劳动力市场混乱、模型滥用和模型废弃。除了对人们进行道德教育外，我们还需要进一步调查这些担忧的程度，并确定NLP技术如何减少其影响</p>
+<h3 id="研究方向-13"><a href="#研究方向-13" class="headerlink" title="研究方向"></a>研究方向</h3><p>1.两用。许多具有积极影响的NLP应用程序可能同时以有害的方式使用。可以通过部署前的讨论和部署后的数据调查来识别NLP模型和应用程序可能造成的危害，以识别潜在的有害应用程序。此外，开发有助于检测、劝阻和防止有害使用的NLP系统（如事实核查器）至关重要。对抗性NLP还可以用于探索NLP系统的局限性和漏洞，并提高其鲁棒性。</p>
+<p>2.公平。需要一种方法来评估NLP模型的公平性，并检测和减轻偏差。这包括调查数据集创建实践及其与模型偏差的相关性（Wang et al.，2020）。此类研究应检查对数据集创建的更严格要求是否可以减少偏见和不平等，这些偏见和不公平可能因基于偏见数据训练或评估的模型而加剧。</p>
+<p>3.隐私。由于个性化NLP应用程序（包括教育或医疗保健等领域）需要了解用户，NLP系统中的隐私保护已成为一个重要的研究方向。需要新的技术来识别和匿名敏感的用户信息，同时保持数据用于分析和决策的效用。这包括差分隐私、联合学习和安全多方计算等方法，以确保NLP驱动的医疗保健应用程序中患者数据的机密性和安全性。此外，NLP系统可以产生影响的一个领域是数据政策，可以开发NLP方法，以用户可以理解的格式总结数字产品的数据政策，并确保模型与这些政策保持一致（Carlini等人，2021）</p>
+<h2 id="16-那么我应该做什么呢？"><a href="#16-那么我应该做什么呢？" class="headerlink" title="16. 那么我应该做什么呢？"></a>16. 那么我应该做什么呢？</h2><p>NLP研究的前景是光明的。我们目前在LLM方面看到的快速进展并不意味着“一切都解决了”。相反，正如本文件所强调的，NLP中有许多未探索的研究方向没有被LLM的当前进展所解决。它们增加了NLP中LLM性能有限的许多现有任务（Bang et al.，2023a），以及新LLM功能所支持的越来越多的新领域。更广泛地说，作为一个领域，我们现在有机会摆脱以性能为中心的技术开发，并承认NLP是关于语言和人的，应该从根本上以人为中心。这带来了对扶持技术的新关注，这些技术具有文化和人口意识，稳健、可解释、高效，并与强大的道德基础相一致，最终对社会产生持久积极影响。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="print-no-link">#自然语言处理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>一些博士生对超大型语言模型时代NLP研究的看法</div>
+      <div>https://lijianxiong.space/2023/20230703/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/20230708/" title="华为预测天气大模型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">华为预测天气大模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/20230701/" title="天文学神经网络的历史、入门和展望">
+                        <span class="hidden-mobile">天文学神经网络的历史、入门和展望</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

@@ -1,0 +1,1179 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。 MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mixture of Experts(MoE)">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250215/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。 MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/begin.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/DMOE.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/jeffMOE.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/gshard.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/basic-moe-model.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/switch-transformers-moe-model.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/math1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/math2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/math3.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250215/deepseek-v3-model-architecture.png">
+<meta property="article:published_time" content="2025-02-15T13:26:13.000Z">
+<meta property="article:modified_time" content="2025-05-14T04:54:56.114Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250215/begin.png">
+  
+  
+  
+  <title>Mixture of Experts(MoE) - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Mixture of Experts(MoE)</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-15 21:26" pubdate>
+          2025年2月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Mixture of Experts(MoE)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>MOE是当前比较火的技术之一。比如Mistral、当前最火的deepseek都用到了这一技术。</p>
+<p>MOE具有预训练速度更快，推理速度更快的性质。但泛化能力不足，对显存需求比较高。</p>
+<span id="more"></span>
+
+<h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>MOE起源于1991的《Adaptive mixture of local experts》</p>
+<p>原论文和BP比，且有着不错的性能。</p>
+<p>从其论文图像就可以看出MOE的雏形和如今很像。</p>
+<p><img src="/2025/20250215/begin.png"></p>
+<h2 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h2><p>在LLM潮浪之前，谷歌多个团队都有着几篇惊艳的论文。</p>
+<h3 id="2013年的《Learning-Factored-Representations-in-a-Deep-Mixture-of-Experts》"><a href="#2013年的《Learning-Factored-Representations-in-a-Deep-Mixture-of-Experts》" class="headerlink" title="2013年的《Learning Factored Representations in a Deep Mixture of Experts》"></a>2013年的《Learning Factored Representations in a Deep Mixture of Experts》</h3><p>作者有Ilya Sutskever。</p>
+<p>架构图：</p>
+<p><img src="/2025/20250215/DMOE.png"></p>
+<p>可以看出在原始的基础上还更多考虑了深度。</p>
+<p>作者发现，Deep Mix of Experts 自动学习在第一层培养位置相关（“where”）的专家，在第二层自动学习培养特定于类（“what”）的专家。</p>
+<h3 id="2017年的《Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer》"><a href="#2017年的《Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer》" class="headerlink" title="2017年的《Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer》"></a>2017年的《Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer》</h3><p>作者有Jeff Dean和Hinton。</p>
+<p>架构图:</p>
+<p><img src="/2025/20250215/jeffMOE.png"></p>
+<p>稀疏门控函数选择两个专家来执行计算。他们的输出由门控网络的输出调制。类似于后面的Top2 MOE。</p>
+<h3 id="2020年的《GShard-Scaling-Giant-Models-with-Conditional-Computation-and-Automatic-Sharding》"><a href="#2020年的《GShard-Scaling-Giant-Models-with-Conditional-Computation-and-Automatic-Sharding》" class="headerlink" title="2020年的《GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding》"></a>2020年的《GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding》</h3><p>架构图也是类似的：</p>
+<p><img src="/2025/20250215/gshard.png"></p>
+<p>在前人的基础上增加了负载均衡、Auxiliary loss、为了能在多个GPU上并行运行的切片等相关操作。</p>
+<h2 id="基础版本MOE"><a href="#基础版本MOE" class="headerlink" title="基础版本MOE"></a>基础版本MOE</h2><p>MOE是FFN的替代品，其中的Expert 一般是一个 FeadFoward Network，FFN。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BasicExpert</span>(nn.Module):<br>    <span class="hljs-comment"># 一个 Expert 可以是一个最简单的， linear 层即可</span><br>    <span class="hljs-comment"># 也可以是 MLP 层</span><br>    <span class="hljs-comment"># 也可以是 更复杂的 MLP 层（active function 设置为 swiglu）</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, feature_in, feature_out</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.linear = nn.Linear(feature_in, feature_out)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.linear(x)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2025/20250215/basic-moe-model.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BasicMOE</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, feature_in, feature_out, expert_number</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.experts = nn.ModuleList(<br>            [<br>                BasicExpert(feature_in, feature_out) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(expert_number)<br>            ]<br>        )<br>        <span class="hljs-comment"># gate 就是选一个 expert </span><br>        <span class="hljs-variable language_">self</span>.gate = nn.Linear(feature_in, expert_number)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-comment"># x 的 shape 是 （batch, feature_in)</span><br>        expert_weight = <span class="hljs-variable language_">self</span>.gate(x)  <span class="hljs-comment"># shape 是 (batch, expert_number)</span><br>        expert_out_list = [<br>            expert(x).unsqueeze(<span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> expert <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.experts<br>        ]  <span class="hljs-comment"># 里面每一个元素的 shape 是： (batch, ) ??</span><br><br>        <span class="hljs-comment"># concat 起来 (batch, expert_number, feature_out)</span><br>        expert_output = torch.cat(expert_out_list, dim=<span class="hljs-number">1</span>)<br><br>        <span class="hljs-comment"># print(expert_output.size())</span><br><br>        expert_weight = expert_weight.unsqueeze(<span class="hljs-number">1</span>) <span class="hljs-comment"># (batch, 1, expert_nuber)</span><br><br>        <span class="hljs-comment"># expert_weight * expert_out_list</span><br>        output = expert_weight @ expert_output  <span class="hljs-comment"># (batch, 1, feature_out)</span><br>        <br>        <span class="hljs-keyword">return</span> output.squeeze()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_basic_moe</span>():<br>    x = torch.rand(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)<br><br>    basic_moe = BasicMOE(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>)<br>    out = basic_moe(x)<br>    <span class="hljs-built_in">print</span>(out)<br><br><br>test_basic_moe()<br></code></pre></td></tr></table></figure>
+
+<h2 id="SparseMoE-（大模型训练使用）"><a href="#SparseMoE-（大模型训练使用）" class="headerlink" title="SparseMoE （大模型训练使用）"></a>SparseMoE （大模型训练使用）</h2><p>比较有名的是switch transformer。</p>
+<p>编码器解码器结构</p>
+<p>1.6万亿参数的Moe, 2048个专家</p>
+<p>网络结构升级</p>
+<p>预训练速度为T5-XXL的4倍</p>
+<p><img src="/2025/20250215/switch-transformers-moe-model.png"></p>
+<p>和 Basic 区别是，MOE 选择 topK 个专家，然后对这 topK 个专家的输出进行加权求和，并且把输入样本变成了大模型中真实的输入 Shape，(batch, seq_len, hidden_dim)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment"># 主要参考自 mistral MOE 的实现</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MOERouter</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, hidden_dim, expert_number, top_k</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.gate = nn.Linear(hidden_dim, expert_number)<br>        <span class="hljs-variable language_">self</span>.expert_number = expert_number<br>        <span class="hljs-variable language_">self</span>.top_k = top_k<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, hidden_states</span>):<br>        <span class="hljs-comment"># 计算路由logits</span><br>        router_logits = <span class="hljs-variable language_">self</span>.gate(hidden_states)  <span class="hljs-comment"># shape is (b * s, expert_number)</span><br>        <br>        <span class="hljs-comment"># 计算专家经过softmax之后的概率</span><br>        routing_probs = F.softmax(router_logits, dim=-<span class="hljs-number">1</span>, dtype=torch.<span class="hljs-built_in">float</span>)<br>        <br>        <span class="hljs-comment"># 计算topk的专家的输出</span><br>        router_weights, selected_experts = torch.topk(<br>            routing_probs, <span class="hljs-variable language_">self</span>.top_k, dim=-<span class="hljs-number">1</span><br>        )  <span class="hljs-comment"># shape都是 (b * s, top_k)</span><br>        <br>        <span class="hljs-comment"># 专家权重归一化</span><br>         router_weights = router_weights / router_weights.<span class="hljs-built_in">sum</span>(dim=-<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>)<br>        router_weights = router_weights.to(hidden_states.dtype)<br>        <br>        <span class="hljs-comment"># 生成专家掩码</span><br>        expert_mask = F.one_hot(<br>            selected_experts,<br>            num_classes=<span class="hljs-variable language_">self</span>.expert_number<br>        )  <span class="hljs-comment"># shape是 (b * s, top_k, expert_number)</span><br>        expert_mask = expert_mask.permute(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)  <span class="hljs-comment"># (expert_number, top_k, b * s)</span><br>        <br>        <span class="hljs-keyword">return</span> router_logits, router_weights, selected_experts, expert_mask<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MOEConfig</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params"></span><br><span class="hljs-params">            self, </span><br><span class="hljs-params">            hidden_dim, </span><br><span class="hljs-params">            expert_number, </span><br><span class="hljs-params">            top_k, </span><br><span class="hljs-params">            shared_experts_number=<span class="hljs-number">2</span>,</span><br><span class="hljs-params">        </span>):<br>        <span class="hljs-variable language_">self</span>.hidden_dim = hidden_dim<br>        <span class="hljs-variable language_">self</span>.expert_number = expert_number<br>        <span class="hljs-variable language_">self</span>.top_k = top_k<br>        <span class="hljs-variable language_">self</span>.shared_experts_number = shared_experts_number<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SparseMOE</span>(nn.Module):<br>    <span class="hljs-comment"># 稀疏 MOE 模型，这里每一个 token 都会过 topk 个专家，得到对应token 的 hidden_embeddings</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br><br>        <span class="hljs-variable language_">self</span>.hidden_dim = config.hidden_dim<br><br>        <span class="hljs-variable language_">self</span>.expert_number = config.expert_number<br>        <span class="hljs-variable language_">self</span>.top_k = config.top_k<br><br>        <span class="hljs-variable language_">self</span>.experts = nn.ModuleList(<br>            [<br>                BasicExpert(<span class="hljs-variable language_">self</span>.hidden_dim, <span class="hljs-variable language_">self</span>.hidden_dim) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.expert_number)<br>            ]<br>        )<br><br>        <span class="hljs-variable language_">self</span>.router = MOERouter(<span class="hljs-variable language_">self</span>.hidden_dim, <span class="hljs-variable language_">self</span>.expert_number, <span class="hljs-variable language_">self</span>.top_k)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-comment"># x shape is (b, s, hidden_dim)</span><br>        batch_size, seq_len, hidden_dim = x.size()<br><br>        <span class="hljs-comment"># 合并前两个维度，因为不是 Sample 维度了，而是 token 维度</span><br>        hidden_states = x.view(-<span class="hljs-number">1</span>, hidden_dim) <span class="hljs-comment"># shape is(b * s, hidden_dim)</span><br><br>        router_logits, router_weights, selected_experts_indices, expert_mask = <span class="hljs-variable language_">self</span>.router(hidden_states)<br>        <span class="hljs-comment"># 其中 selected_experts_indices shape 是 (b * s, top_k)</span><br>        <span class="hljs-comment"># 其中 expert_mask shape 是 (expert_number, top_k, b * s)</span><br>        <br>        final_hidden_states = torch.zeros(<br>            (batch_size * seq_len, hidden_dim),<br>            dtype=hidden_states.dtype,<br>            device=hidden_states.device<br>        )<br><br>        <span class="hljs-keyword">for</span> expert_idx <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.expert_number):<br>            expert_layer = <span class="hljs-variable language_">self</span>.experts[expert_idx]<br>            <span class="hljs-comment"># expert_mask[expert_idx] shape 是 (top_k, b * s)</span><br>            idx, top_x = torch.where(expert_mask[expert_idx]) <br>            <span class="hljs-comment"># idx 和 top_x 都是一维 tensor</span><br>            <span class="hljs-comment"># idx 的值是 0 或 1, 表示这个 token 是作为当前专家的 top1 还是 top2</span><br>            <span class="hljs-comment"># top_x 的值是 token 在 batch*seq_len 中的位置索引</span><br>            <span class="hljs-comment"># 例如对于 batch_size=2, seq_len=4 的输入:</span><br>            <span class="hljs-comment"># top_x 的值范围是 0-7, 表示在展平后的 8 个 token 中的位置</span><br>            <span class="hljs-comment"># idx 的值是 0/1, 表示这个 token 把当前专家作为其 top1/top2 专家</span><br><br>            <span class="hljs-comment"># hidden_states 的 shape 是 (b * s, hidden_dim)</span><br>            <span class="hljs-comment"># 需要取到 top_x 对应的 hidden_states</span><br>            current_state = hidden_states.unsqueeze(<br>                <span class="hljs-number">0</span><br>            )[:, top_x, :].reshape(-<span class="hljs-number">1</span>, hidden_dim) <span class="hljs-comment"># （selected_token_number, hidden_dim）</span><br><br>            <span class="hljs-comment"># router_weight 的 shape 是 (b * s, top_k)</span><br>            current_hidden_states = expert_layer(<br>                current_state<br>            ) * router_weights[top_x, idx].unsqueeze(-<span class="hljs-number">1</span>)  <span class="hljs-comment"># （selected_token_number, 1） 这里有广播</span><br><br>            <span class="hljs-comment"># 把当前专家的输出加到 final_hidden_states 中</span><br>            <span class="hljs-comment"># 方式1 的写法性能更好，并且方式1容易出现</span><br>            final_hidden_states.index_add_(<span class="hljs-number">0</span>, top_x, current_hidden_states.to(hidden_states.dtype))<br>            <span class="hljs-comment"># 方式2</span><br>            <span class="hljs-comment"># final_hidden_states[top_x] += current_hidden_states.to(hidden_states.dtype)</span><br>            <span class="hljs-comment"># 方式1 的写法性能更差，并且方式1容易出现错误，+= 操作在处理重复索引时需要多次读写内存，可能会导致竞争条件</span><br><br>        <span class="hljs-comment"># 把 final_hidden_states 还原到原来的 shape</span><br>        final_hidden_states = final_hidden_states.reshape(batch_size, seq_len, hidden_dim)<br><br>        <span class="hljs-keyword">return</span> final_hidden_states, router_logits <span class="hljs-comment"># shape 是 (b * s, expert_number)</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_token_level_moe</span>():<br>    x = torch.rand(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">16</span>)<br>    config = MOEConfig(<span class="hljs-number">16</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)<br>    token_level_moe = SparseMOE(config)<br>    out = token_level_moe(x)<br>    <span class="hljs-built_in">print</span>(out[<span class="hljs-number">0</span>].shape, out[<span class="hljs-number">1</span>].shape)<br><br><br>test_token_level_moe()<br></code></pre></td></tr></table></figure>
+
+<h3 id="数学理解"><a href="#数学理解" class="headerlink" title="数学理解"></a>数学理解</h3><p>苏神对这一类型的MOE做了一个偏数学的分析。</p>
+<p><strong>1、一个常规的Dense模型FFN，可以等价改写为n个Expert向量v1,v2,⋯,vn之和；</strong></p>
+<p>FFN可以写为<br>$$<br>\begin{equation}\boldsymbol{y} &#x3D; f(\boldsymbol{x}\boldsymbol{W}^{(A)})\boldsymbol{W}^{(B)}\end{equation}<br>$$<br>即</p>
+<p><img src="/2025/20250215/math1.png"></p>
+<p><strong>2、为了节省计算量，我们试图挑出k个向量求和来逼近原本的n个向量之和；</strong></p>
+<p>MOE要解决的问题是：</p>
+<p><strong>能否只挑k个向量的和来逼近n个向量的和呢？这样就可以将计算量降低到k&#x2F;n了。</strong></p>
+<p><strong>3、转化为数学问题求解后，我们发现挑选规则是模长最大的k个向量；</strong></p>
+<p>写成数学公式是</p>
+<p><img src="/2025/20250215/math2.png"></p>
+<p>记$\gamma_i &#x3D; 1 - \lambda_i$，则</p>
+<p><img src="/2025/20250215/math3.png"></p>
+<p>在这里苏神强行地假设了$v_i$两两正交。（我觉得这个可以和<strong>高维空间任取两个向量几乎正交的性质</strong>结合起来）</p>
+<p>则上式最优解显然就是让模长$||v_i||$最小的$n-k$个$\gamma_i$等于1。</p>
+<p><strong>4、直接去算n个Expert的模长然后选k个实际上是不省计算量的，所以要重新设计Expert；</strong></p>
+<p><strong>5、将$v_i$归一化得到$e_i$，然后用另外的小模型（Router）预测模长$p_i$，最终的Expert为$p_ie_i$；</strong></p>
+<p>归一化即$\boldsymbol{e}_i &#x3D; \boldsymbol{v}_i&#x2F; \Vert\boldsymbol{v}_i\Vert$</p>
+<p>我们也不一定用L2 Normalize，也可以gamma参数恒等于1的RMS Norm等等等。</p>
+<p>PS：当实际上当前主流的MOE都没有归一化操作，苏神也在他博客的评论区指出。</p>
+<p><strong>6、此时，我们就可以先算全体$p_i$，挑出k个后才去计算$e_i$，达到节省计算量的目的。</strong></p>
+<h2 id="ShareExpert-SparseMoE-（deepseek-版本）"><a href="#ShareExpert-SparseMoE-（deepseek-版本）" class="headerlink" title="ShareExpert SparseMoE （deepseek 版本）"></a>ShareExpert SparseMoE （deepseek 版本）</h2><p>和前面的sparsemoe不同的是，有一个shared experts 的模型，是所有 token 共享的。</p>
+<p><img src="/2025/20250215/deepseek-v3-model-architecture.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ShareExpertMOE</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, config</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br><br>        <span class="hljs-variable language_">self</span>.moe_model = SparseMOE(config)<br>        <span class="hljs-variable language_">self</span>.shared_experts = nn.ModuleList(<br>            [<br>                BasicExpert(<br>                    config.hidden_dim, config.hidden_dim<br>                ) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(config.shared_experts_number)<br>            ]<br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-comment"># x shape 是 (b, s, hidden_dim)</span><br>        <span class="hljs-comment"># 首先过 moe 模型</span><br>        sparse_moe_out, router_logits = <span class="hljs-variable language_">self</span>.moe_model(x)<br>        <br>        <span class="hljs-comment"># 针对的还是 x 的每一个 </span><br>        <span class="hljs-comment"># 然后过 shared experts</span><br>        shared_experts_out = [<br>            expert(x) <span class="hljs-keyword">for</span> expert <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.shared_experts<br>        ] <span class="hljs-comment"># 每一个 expert 的输出 shape 是 (b, s, hidden_dim)</span><br>        <br>        shared_experts_out = torch.stack(<br>            shared_experts_out, dim=<span class="hljs-number">0</span><br>        ).<span class="hljs-built_in">sum</span>(dim=<span class="hljs-number">0</span>)<br>        <br>        <span class="hljs-comment"># 把 sparse_moe_out 和 shared_experts_out 加起来</span><br>        <span class="hljs-keyword">return</span> sparse_moe_out + shared_experts_out, router_logits<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_share_expert_moe</span>():<br>    x = torch.rand(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">16</span>)<br>    config = MOEConfig(<span class="hljs-number">16</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)<br>    share_expert_moe = ShareExpertMOE(config)<br>    out = share_expert_moe(x)<br>    <span class="hljs-built_in">print</span>(out[<span class="hljs-number">0</span>].shape, out[<span class="hljs-number">1</span>].shape)<br><br><br>test_share_expert_moe()<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="模型训练测试代码"><a href="#模型训练测试代码" class="headerlink" title="模型训练测试代码"></a>模型训练测试代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">switch_load_balancing_loss</span>(<span class="hljs-params">router_logits: torch.Tensor, num_experts: <span class="hljs-built_in">int</span></span>) -&gt; torch.Tensor:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    计算 Switch Transformers 的负载均衡损失</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        router_logits: shape [batch_size * sequence_length, num_experts]</span><br><span class="hljs-string">        num_experts: 专家数量</span><br><span class="hljs-string">    </span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">        total_loss: 总损失 = auxiliary_loss + z_loss</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 计算路由概率</span><br>    router_probs = torch.softmax(router_logits, dim=-<span class="hljs-number">1</span>)  <span class="hljs-comment"># [b*s, num_experts]</span><br>    <br>    <span class="hljs-comment"># 获取每个token的最优专家</span><br>    _, selected_experts = torch.topk(router_probs, k=<span class="hljs-number">2</span>, dim=-<span class="hljs-number">1</span>) <br>    <br>    <span class="hljs-comment"># 创建one-hot矩阵表示选中的专家</span><br>    mask = torch.nn.functional.one_hot(selected_experts, num_experts).<span class="hljs-built_in">float</span>() <br>    <br>    <span class="hljs-comment"># 计算每个专家的期望负载 (理想情况下应该是 1/num_experts)</span><br>    expected_load = torch.ones_like(router_probs) / num_experts<br>    <br>    <span class="hljs-comment"># 计算实际负载 (每个专家处理的token数量除以总token数量)</span><br>    <span class="hljs-comment"># 在batch维度上计算平均值</span><br>    actual_load = mask.mean(dim=<span class="hljs-number">0</span>)<br>    <br>    <span class="hljs-comment"># 计算auxiliary loss</span><br>    <span class="hljs-comment"># 这会惩罚负载分布与期望负载的差异</span><br>    aux_loss = torch.<span class="hljs-built_in">sum</span>(actual_load * router_probs.mean(dim=<span class="hljs-number">0</span>)) * num_experts<br>    <br>    <span class="hljs-comment"># 计算z_loss (可选)</span><br>    <span class="hljs-comment"># 这会惩罚过大的路由logits</span><br>    z_loss = torch.mean(torch.square(router_logits))<br>    z_loss_weight = <span class="hljs-number">0.001</span>  <span class="hljs-comment"># 可调整的超参数</span><br>    <br>    <span class="hljs-comment"># 总损失</span><br>    total_loss = aux_loss + z_loss * z_loss_weight<br>    <br>    <span class="hljs-keyword">return</span> total_loss<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_moe_training</span>():<br>    <span class="hljs-comment"># Create a simple dataset</span><br>    batch_size = <span class="hljs-number">32</span><br>    seq_len = <span class="hljs-number">16</span><br>    hidden_dim = <span class="hljs-number">32</span><br>    num_batches = <span class="hljs-number">100</span><br>    <br>    <span class="hljs-comment"># Initialize model and optimizer</span><br>    config = MOEConfig(hidden_dim=hidden_dim, <br>                      expert_number=<span class="hljs-number">4</span>,<br>                      top_k=<span class="hljs-number">2</span>,<br>                      shared_experts_number=<span class="hljs-number">2</span>)<br>    model = ShareExpertMOE(config)<br>    optimizer = torch.optim.Adam(model.parameters(), lr=<span class="hljs-number">0.001</span>)<br>    <br>    <span class="hljs-comment"># Training loop</span><br>    model.train()<br>    <span class="hljs-keyword">for</span> batch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_batches):<br>        <span class="hljs-comment"># Generate random input data</span><br>        x = torch.randn(batch_size, seq_len, hidden_dim)<br>        target = torch.randn(batch_size, seq_len, hidden_dim)<br>        <br>        <span class="hljs-comment"># Forward pass</span><br>        output, router_logits = model(x)<br><br>        <span class="hljs-comment"># Compute losses</span><br>        <span class="hljs-comment"># MSE loss for prediction</span><br>        mse_loss = F.mse_loss(output, target)<br>        <br>        aux_loss = switch_load_balancing_loss(router_logits, config.expert_number)<br>        <span class="hljs-comment"># Combined loss</span><br>        total_loss = mse_loss + <span class="hljs-number">0.01</span> * aux_loss<br>        <br>        <span class="hljs-comment"># Backward pass and optimize</span><br>        optimizer.zero_grad()<br>        total_loss.backward()<br>        optimizer.step()<br>        <br>        <span class="hljs-keyword">if</span> batch % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Batch <span class="hljs-subst">&#123;batch&#125;</span>, Loss: <span class="hljs-subst">&#123;total_loss.item():<span class="hljs-number">.4</span>f&#125;</span> &quot;</span><br>                  <span class="hljs-string">f&quot;(MSE: <span class="hljs-subst">&#123;mse_loss.item():<span class="hljs-number">.4</span>f&#125;</span>, Aux: <span class="hljs-subst">&#123;aux_loss.item():<span class="hljs-number">.4</span>f&#125;</span>)&quot;</span>)<br><br><span class="hljs-comment"># Run the training test</span><br>test_moe_training()<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="微调"><a href="#微调" class="headerlink" title="微调"></a>微调</h2><p>（1）冻结MOE，这个更好，和全量更新相当。</p>
+<p>（2）冻结除MOE以外的，类似于迁移学习。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://bruceyuan.com/llms-zero-to-hero/the-way-of-moe-model-evolution.html">LLM MOE的进化之路，从普通简化 MOE，到 sparse moe，再到 deepseek 使用的 share_expert sparse moe</a></li>
+<li><a target="_blank" rel="noopener" href="https://kexue.fm/archives/10699">MoE环游记：1、从几何意义出发</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Mixture of Experts(MoE)</div>
+      <div>https://lijianxiong.space/2025/20250215/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250216/" title="GELU函数以其近似">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">GELU函数以其近似</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250210/" title="TPSS5E1 复盘">
+                        <span class="hidden-mobile">TPSS5E1 复盘</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

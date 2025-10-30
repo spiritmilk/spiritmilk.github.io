@@ -1,0 +1,1689 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一章1.1 Purpose of Database Systems">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库系统概念">
+<meta property="og:url" content="https://lijianxiong.space/2022/20220316/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="第一章1.1 Purpose of Database Systems">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\%E6%9D%8E\AppData\Roaming\Typora\typora-user-images\image-20220318193447382.png">
+<meta property="og:image" content="c:\Users\%E6%9D%8E\AppData\Roaming\Typora\typora-user-images\image-20220318221451711.png">
+<meta property="article:published_time" content="2022-03-16T14:45:43.000Z">
+<meta property="article:modified_time" content="2022-07-22T13:36:43.572Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\Users\%E6%9D%8E\AppData\Roaming\Typora\typora-user-images\image-20220318193447382.png">
+  
+  
+  
+  <title>数据库系统概念 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">数据库系统概念</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-16 22:45" pubdate>
+          2022年3月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          62 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据库系统概念</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><h4 id="1-1-Purpose-of-Database-Systems"><a href="#1-1-Purpose-of-Database-Systems" class="headerlink" title="1.1 Purpose of Database Systems"></a>1.1 Purpose of Database Systems</h4><span id="more"></span>
+
+<p>In the early days, database applications were built directly on top of file systems.</p>
+<p>Problems:</p>
+<ul>
+<li><p>Data redundancy and inconsistency     （冗余，不一致性）</p>
+</li>
+<li><p>数据访问困难（difficulty in accessing data）。Need to write a new program to carry out each new task (eg. Finding out the students who come from…)</p>
+</li>
+<li><p>数据孤立。Multiple files and formats</p>
+</li>
+<li><p>Integrity problems                                             （完整性问题）<br>（1）Integrity constraints  (e.g. account balance &gt; 0) become “buried” in program code rather than being stated explicitly<br>（2）当新的约束加入时，很难通过修改程序来体现这些新的约束。Hard to add new constraints or change existing ones</p>
+</li>
+<li><p>原子性问题（Atomicity of updates）<br>比如说把A系的账户余额中的500美元转入B系的账户余额中的这样一个程序。计入在程序的执行过程中发生了系统故障。操作必须是原子的——它要么全部发生要么根本不发生。在传统的文件处理系统中，保持原子性是很难做到的。</p>
+</li>
+<li><p>并发访问异常（concurrent-access anomaly）</p>
+<p>Concurrent access by multiple users<br>Uncontrolled concurrent accesses may lead to inconsistencies<br>Example:  (a1) A &#x3D;  account<br>                 (a2) A &#x3D; A – 100<br>                                (b1) B &#x3D;  account<br>                 (a3) account &#x3D; A<br>                                (b2) B &#x3D; B – 100<br>                                (b3) account &#x3D; B</p>
+</li>
+<li><p>Security problems<br>Hard to provide user access to some, but not all, data<br>Database systems offer solutions to all the above problems<br>以上的问题促进了数据库系统的发展。</p>
+</li>
+</ul>
+<h4 id="1-2-View-of-Data"><a href="#1-2-View-of-Data" class="headerlink" title="1.2 View of Data"></a>1.2 View of Data</h4><p>数据抽象的三个层次：</p>
+<ul>
+<li><p>物理层（physical level)。</p>
+<p>（1）describes how data is actually stored.<br>（2）Database developers use this level.</p>
+</li>
+<li><p>Logical level:<br>（1）describes what data are stored in the database, and what relationships exist among those data<br>（2）Database administrators and application programmers use this level.</p>
+</li>
+<li><p>View level:<br>（1）simplifies the interaction with the system. Views can also hide information for security purposes.<br>（2）Computer users use this level.</p>
+</li>
+</ul>
+<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20220318193447382.png" alt="image-20220318193447382"></p>
+<h5 id="1-2-1-Instances-and-Schemas（实例和模式）"><a href="#1-2-1-Instances-and-Schemas（实例和模式）" class="headerlink" title="1.2.1 Instances and Schemas（实例和模式）"></a>1.2.1 Instances and Schemas（实例和模式）</h5><p>特定时刻存储在数据库中的信息的集合称作数据库的一个实例。而数据库的总体设计称为数据库模式。</p>
+<p>根据前面我们所讨论的不同的抽象层次，数据库系统可以分为几种不同的模式。<strong>物理模式</strong>（physical schema）在物理层描述数据库的设计。<strong>逻辑模式</strong>（logical schema）则在逻辑层描述数据库的设计。数据库在视图层也可以由几种模式，有时称为<strong>子模式</strong>（subschema）。</p>
+<p>应用程序如果不依赖于物理模式，它们就被称为是具有<strong>物理数据独立性</strong>（physical data independence），因此即使物理模式改变了它们也无需重写。</p>
+<h5 id="1-2-2-数据模型（data-model）"><a href="#1-2-2-数据模型（data-model）" class="headerlink" title="1.2.2 数据模型（data model）"></a>1.2.2 数据模型（data model）</h5><p>数据模型提供了一种描述物理层、逻辑层以及视图层数据库设计的方式</p>
+<p>可分为四类：</p>
+<ul>
+<li>关系模型（relational model）。</li>
+</ul>
+<p>关系模型用表的集合来表示数据和数据间的关系。每个表有多个列，每列有唯一的列名。</p>
+<ul>
+<li>实体-联系模型（entity-relationship model）。</li>
+</ul>
+<p>实体-联系（E-R）数据模型基于对现实世界的这样一种认识：现实世界由一组称作实体的基本对象以及这些对象间的联系构成。</p>
+<ul>
+<li>基于对象的数据模型（object-based data model）。</li>
+</ul>
+<p>面向对象的数据模型可以看成是E-R模型增加了封装、方法（函数）和对象标识等概念后的拓展。</p>
+<ul>
+<li>半结构化数据模型（semistructured data model）。</li>
+</ul>
+<p>半结构化数据模型允许那些相同类型的数据项含有不同的属性集的数据定义。</p>
+<h4 id="1-3-数据库语言"><a href="#1-3-数据库语言" class="headerlink" title="1.3 数据库语言"></a>1.3 数据库语言</h4><p>数据库系统提供<strong>数据定义语言</strong>（data-definition language）来定义数据库模式，以及<strong>数据操纵语言</strong>（data-manipulation language）来表达数据库的查询和更新。</p>
+<h5 id="1-3-1-数据操纵语言"><a href="#1-3-1-数据操纵语言" class="headerlink" title="1.3.1 数据操纵语言"></a>1.3.1 数据操纵语言</h5><p>DML能让用户可访问或操纵那些按照某种适当的数据模型组织起来的数据。有以下访问类型：</p>
+<ul>
+<li>对存储在数据库中的信息进行检索。</li>
+<li>向数据库中插入新的信息。</li>
+<li>从数据库中删除信息。</li>
+<li>修改数据库中存储的信息</li>
+</ul>
+<p>通常分为两类：</p>
+<ul>
+<li><strong>过程化DML</strong>（procedural DML)要求用户指定与要什么数据以及如何获得这些数据。</li>
+<li><strong>声明式DML</strong>（declarative DML)只要求用户指定需要什么数据，二不指明如何获得这些数据。</li>
+</ul>
+<p>查询（query)是要求对信息镜像检索的语句。DML中设计信息检索的部分称为查询语言。</p>
+<h5 id="1-3-2-数据定义语言"><a href="#1-3-2-数据定义语言" class="headerlink" title="1.3.2 数据定义语言"></a>1.3.2 数据定义语言</h5><p>数据库系统所使用的的存储结构和访问方式是通过一系列特殊的DDL语句来说明的。这种特殊的DDL称作<strong>数据存储和定义</strong>(data storage and definition)语言。</p>
+<p>存储在数据库中的数据值必须满足某些一致性约束（consistency constraint）。</p>
+<h4 id="1-4-关系数据库"><a href="#1-4-关系数据库" class="headerlink" title="1.4 关系数据库"></a>1.4 关系数据库</h4><p>SQL（Structured Query Language）</p>
+<h4 id="1-5数据库设计"><a href="#1-5数据库设计" class="headerlink" title="1.5数据库设计"></a>1.5数据库设计</h4><p>略</p>
+<h4 id="1-6事务管理"><a href="#1-6事务管理" class="headerlink" title="1.6事务管理"></a>1.6事务管理</h4><p>事物（transaction）是数据库应用中完成单一逻辑功能的操作集合。每一个事务是一个既具原子性又具一致性的单元。</p>
+<h4 id="1-7-数据库用户和管理员"><a href="#1-7-数据库用户和管理员" class="headerlink" title="1.7 数据库用户和管理员"></a>1.7 数据库用户和管理员</h4><ul>
+<li><strong>无经验的用户</strong>(naive user)是默认经验的用户。</li>
+<li><strong>应用程序员</strong>（application programmer）是编写应用程序的计算机专业人员。</li>
+<li><strong>老练的用户</strong>（sophisticated user）不通过编写程序来同系统交互，而是用数据库查询语言或数据分析软件这样的工具来表达他们的要求。</li>
+<li><strong>专门的用户</strong>（specialized user）是编写专门的、不适合于传统数据框架的数据库应用的富有经验的用户。</li>
+</ul>
+<h3 id="第二章-关系模型"><a href="#第二章-关系模型" class="headerlink" title="第二章 关系模型"></a>第二章 关系模型</h3><h4 id="2-1-关系模型介绍"><a href="#2-1-关系模型介绍" class="headerlink" title="2.1 关系模型介绍"></a>2.1 关系模型介绍</h4><p>在关系模型的术语中，关系（relation）来指代表，而元祖（tuple）用来指代行。属性（attribute）指代的是表中的列。</p>
+<p>对于关系的每个属性，都存在一个允许取值的集合，称为该属性的域（domain）。</p>
+<h4 id="2-2-码"><a href="#2-2-码" class="headerlink" title="2.2 码"></a>2.2 码</h4><p><strong>超码</strong>（superkey）是一个或多个属性的集合。这些属性的组合可以使我们在一个关系中唯一地表示一个元组。超码也有可能包含无关紧要的属性。</p>
+<p><strong>候选码</strong>（candidate key)：任意真子集都不能成为超码</p>
+<p><strong>主码</strong>（primary key）：被数据库设计者选中的、主要用来在一个关系中区分不同元组的<strong>候选码。</strong></p>
+<p><strong>外码</strong>（foreign key)：一个关系模式（如$r_1$)可能在它的属性中包括另一个关系模式（如$r_2$）的主码。这个属性在$r_1$上称作参照$r_2$的<strong>外码</strong>。关系$r_1$也称为外码依赖的<strong>参照关系</strong>（referencing relation），$r_2$叫做外码的<strong>被参照关系</strong>（referenced relation）。</p>
+<h4 id="2-3-模式图"><a href="#2-3-模式图" class="headerlink" title="2.3 模式图"></a>2.3 模式图</h4><p>一个含有主码和外码依赖的数据库模式可以用<strong>模式图</strong>（schema diagram）来表示。每一个关系用一个矩形来表示，关系的名字显示在矩形上方，矩形内列出各属性。主码属性用下划线标注。外码依赖用从参照关系的外码属性到被参照关系的主码属性之间的箭头来表示。</p>
+<p><img src="C:\Users\李\AppData\Roaming\Typora\typora-user-images\image-20220318221451711.png" alt="image-20220318221451711"></p>
+<h4 id="2-4-关系运算"><a href="#2-4-关系运算" class="headerlink" title="2.4 关系运算"></a>2.4 关系运算</h4><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\sigma$    (选择)</td>
+<td>$\sigma_{salary&gt;&#x3D;85000}(instructor)$</td>
+</tr>
+<tr>
+<td>$\prod$   (投影，projection)</td>
+<td>$\prod_{ID,salary}(instructor)$</td>
+</tr>
+<tr>
+<td>$\bowtie$    (自然连接)</td>
+<td>instructor$\bowtie$department</td>
+</tr>
+<tr>
+<td>x      (笛卡尔积)</td>
+<td>instructor x department</td>
+</tr>
+<tr>
+<td>$\cup$   （并）</td>
+<td></td>
+</tr>
+<tr>
+<td>$\rho$  ()</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="第三章-SQL"><a href="#第三章-SQL" class="headerlink" title="第三章 SQL"></a>第三章 SQL</h3><h4 id="3-1-SQL数据定义"><a href="#3-1-SQL数据定义" class="headerlink" title="3.1 SQL数据定义"></a>3.1 SQL数据定义</h4><p>数据库中的关系集合必须由数据定义语言（DDL）指定给系统。SQL的DDL不仅能够定义一组关系，还能够定义每个关系的信息，包括：</p>
+<ul>
+<li>每个关系的模式</li>
+<li>每个属性的取值类型</li>
+<li>完整性约束</li>
+<li>每个关系维护的索引集合</li>
+<li>每个关系的安全性和权限信息</li>
+<li>每个关系在磁盘上的物理存储结构</li>
+</ul>
+<h5 id="3-1-1-基本类型"><a href="#3-1-1-基本类型" class="headerlink" title="3.1.1 基本类型"></a>3.1.1 基本类型</h5><p>SQL标准支持多种固有类型，包括：</p>
+<ul>
+<li><strong>char(n)</strong>：固定长度的字符串，用户指定长度n。也可以使用全称<strong>character</strong>。</li>
+<li><strong>varchar(n)</strong>：可变长度的字符串</li>
+<li><strong>int</strong>：整数类型</li>
+<li><strong>smallint</strong>：小整数类型（和机器相关的整数类型的子集）</li>
+<li><strong>numeric(p,d)</strong>：定点数，精度由用户指定。这个数由p位数字（加上一个符号位），其中d位数字在小数点右边。所以在一个这种类型的字段上，numeric(3,1)可以精确储存44.5，但不能精确存储444.5或0.32.</li>
+<li><strong>real,double precision</strong>：浮点数与双精度浮点数，精度与机器相关。</li>
+<li><strong>float(n)</strong>：精度至少为n位的浮点数。</li>
+</ul>
+<h5 id="3-1-2-基本模式定义"><a href="#3-1-2-基本模式定义" class="headerlink" title="3.1.2 基本模式定义"></a>3.1.2 基本模式定义</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create table</span> r<br>	(A1 D1,<br>     A2 D2,<br>     ...,<br>     An Dn,<br>     <span class="hljs-operator">&lt;</span>完整性约束<span class="hljs-number">1</span><span class="hljs-operator">&gt;</span>,<br>     ...,<br>     <span class="hljs-operator">&lt;</span>完整性约束k<span class="hljs-operator">&gt;</span>);<br>	<br></code></pre></td></tr></table></figure>
+
+<p>SQL支持许多不同的完整性约束。</p>
+<ul>
+<li><strong>primary key</strong></li>
+</ul>
+<p>primary key 声明表示属性$A_{j1}、A_{j_2}…$构成关系的主码。主码属性必须非空其唯一，也就是说没有一个元组在主码属性上取空值，关系中也没有两个元组在所有主码属性上取值相同。</p>
+<ul>
+<li><strong>foreign key</strong></li>
+</ul>
+<p>foreign key 声明关系中任意元组在属性上的取值必须对应于关系s中某元组在主码属性上的取值。</p>
+<ul>
+<li><strong>not null</strong></li>
+</ul>
+<p>一个属性上的not null 约束表明在该属性上不允许空值。</p>
+<h5 id="3-1-3-Drop-and-Alter-Table-Constructs"><a href="#3-1-3-Drop-and-Alter-Table-Constructs" class="headerlink" title="3.1.3 Drop and Alter Table Constructs"></a>3.1.3 Drop and Alter Table Constructs</h5><ul>
+<li><p>To delete the table (the schema is also deleted): drop table   &lt; table name&gt;</p>
+</li>
+<li><p>To delete all contents of table (the schema is retained):</p>
+<p> delete from  &lt; table name &gt;</p>
+</li>
+</ul>
+<h4 id="3-2-SQL查询的基本结构"><a href="#3-2-SQL查询的基本结构" class="headerlink" title="3.2 SQL查询的基本结构"></a>3.2 SQL查询的基本结构</h4><h5 id="3-2-1-单关系查询"><a href="#3-2-1-单关系查询" class="headerlink" title="3.2.1 单关系查询"></a>3.2.1 单关系查询</h5><blockquote>
+<p><strong>select</strong> name</p>
+<p><strong>from</strong> instructor</p>
+</blockquote>
+<p>现在考虑另一个查询：“找出所有教师所在的系名”。</p>
+<blockquote>
+<p><strong>select</strong> dept_name</p>
+<p><strong>from</strong> instructor</p>
+</blockquote>
+<p>因为一个系有多个教师，所以上述查询到结果是一个包含多个系名的关系。在关系模型的形式化数学定义中，关系是一个集合。因此，重复的元组不会出现在关系中。在实践中，去除重复是相当费时的。所以SQL允许出现重复。</p>
+<p>如果我们想要删除重复，可在<strong>select</strong>后加入关键词<strong>distinct</strong>。</p>
+<p>默认是不去除重复的，如果我们想要显式保留重复，可以在<strong>select</strong>后加入关键词<strong>all</strong>。</p>
+<p>select子句还可带含义+、-、*、&#x2F;运算符的算术表达式。</p>
+<p>where子句允许我们只选出那些在from子句的结果关系中满足特定谓词的元组。</p>
+<h5 id="3-2-2多关系查询"><a href="#3-2-2多关系查询" class="headerlink" title="3.2.2多关系查询"></a>3.2.2多关系查询</h5><blockquote>
+<p><strong>select</strong> A1，A2…,An</p>
+<p><strong>from</strong> r1,r2…rm</p>
+<p>where P;</p>
+</blockquote>
+<h5 id="3-2-3-自然连接"><a href="#3-2-3-自然连接" class="headerlink" title="3.2.3 自然连接"></a>3.2.3 自然连接</h5><blockquote>
+<p> natural join</p>
+</blockquote>
+<p>另外，为了发扬自然连接的优点，同时避免不必要的相等属性带来的文献。SQL提供了一种自然连接的构造形式，允许用户来指定一个属性名列表——join … using …</p>
+<h4 id="3-3-附加的基本运算"><a href="#3-3-附加的基本运算" class="headerlink" title="3.3 附加的基本运算"></a>3.3 附加的基本运算</h4><h5 id="3-3-1-更名运算"><a href="#3-3-1-更名运算" class="headerlink" title="3.3.1 更名运算"></a>3.3.1 更名运算</h5><p>as子句。可出现在select 子句中也可出现在from子句中。</p>
+<h5 id="3-3-2-字符串运算"><a href="#3-3-2-字符串运算" class="headerlink" title="3.3.2 字符串运算"></a>3.3.2 字符串运算</h5><p>like子句来表示模式</p>
+<blockquote>
+<p><strong>select</strong> sept_name</p>
+<p><strong>from</strong> department</p>
+<p><strong>where</strong> building <strong>like</strong> ‘%Watson%’;</p>
+</blockquote>
+<p>模式：（大小写敏感）</p>
+<ul>
+<li>%：匹配任意子串</li>
+<li>_：匹配任意一个字符</li>
+</ul>
+<p>在like 比较运算中使用<strong>escape</strong>关键词来定义转义字符。</p>
+<p>SQL允许使用not like 比较运算符搜寻不匹配项。</p>
+<h5 id="3-3-3-select-子句中的属性说明"><a href="#3-3-3-select-子句中的属性说明" class="headerlink" title="3.3.3 select 子句中的属性说明"></a>3.3.3 select 子句中的属性说明</h5><p>星号*可以用在select子句中表示所有的属性。</p>
+<h5 id="3-3-4-排列元组的显示次序"><a href="#3-3-4-排列元组的显示次序" class="headerlink" title="3.3.4 排列元组的显示次序"></a>3.3.4 排列元组的显示次序</h5><p>order by 子句。默认使用升序，我们可以用<strong>desc</strong>表示降序，或者用asc表示升序。</p>
+<blockquote>
+<p><strong>select</strong> *</p>
+<p><strong>from</strong> instructor</p>
+<p><strong>order by</strong> salary <strong>desc</strong>, name <strong>asc</strong></p>
+</blockquote>
+<h5 id="3-3-5-where子句谓词"><a href="#3-3-5-where子句谓词" class="headerlink" title="3.3.5 where子句谓词"></a>3.3.5 where子句谓词</h5><p>SQL提供<strong>between</strong>比较运算符。</p>
+<p>SQL允许我们用记号(v1,v2,…,vn)来表示一个n维元组，在元组上可以运用比较运算符，按字典顺序进行比较运算。</p>
+<blockquote>
+<p><strong>select</strong> name,course_id</p>
+<p><strong>from</strong> instructor ,teaches</p>
+<p><strong>where</strong> (instructor.ID,dep_name)&#x3D;(teaches.ID,’Biology’);</p>
+</blockquote>
+<h4 id="3-4-集合运算"><a href="#3-4-集合运算" class="headerlink" title="3.4 集合运算"></a>3.4 集合运算</h4><p>union,intersect和except运算对应于数学集合论中的$\cup、\cap、-$运算。</p>
+<p>且自动去除重复。</p>
+<h4 id="3-5-空值"><a href="#3-5-空值" class="headerlink" title="3.5 空值"></a>3.5 空值</h4><p>SQL将涉及空值的任何比较运算的结果视为<strong>unknown</strong>。</p>
+<ul>
+<li><strong>and:</strong></li>
+</ul>
+<p>true and unknown &#x3D;unknown.</p>
+<p>false and unknown &#x3D;false.</p>
+<p>unknown and unknown &#x3D;unknown.</p>
+<ul>
+<li><strong>or:</strong></li>
+</ul>
+<p>true or unknown &#x3D;true.</p>
+<p>false or unknown &#x3D;unknown.</p>
+<p>unknown or unknown &#x3D;unknown</p>
+<ul>
+<li>not</li>
+</ul>
+<p>null&#x3D;null返回unknown,而不是true。</p>
+<h4 id="3-6-聚集函数"><a href="#3-6-聚集函数" class="headerlink" title="3.6 聚集函数"></a>3.6 聚集函数</h4><p>聚集函数是以值的一个集合（集或多重集）为输入、返回单个值的函数。SQL提供了五个固有聚集函数：</p>
+<ul>
+<li>平均值:avg</li>
+<li>最小值:min</li>
+<li>最大值:max</li>
+<li>总和：sum</li>
+<li>计数:count</li>
+</ul>
+<h5 id="3-6-1-分组聚集"><a href="#3-6-1-分组聚集" class="headerlink" title="3.6.1 分组聚集"></a>3.6.1 分组聚集</h5><p>group by 子句。在该子句中的所有属性取值相同的元组将被分在一个组中。</p>
+<h5 id="3-6-2-having-子句"><a href="#3-6-2-having-子句" class="headerlink" title="3.6.2 having 子句"></a>3.6.2 having 子句</h5><p>用于分组限定条件。</p>
+<h5 id="3-6-3-对空值和布尔值的聚集"><a href="#3-6-3-对空值和布尔值的聚集" class="headerlink" title="3.6.3 对空值和布尔值的聚集"></a>3.6.3 对空值和布尔值的聚集</h5><p>除了count外所有的聚集函数都忽略输入集合中的空值。</p>
+<p>count:规定空集的值为0。</p>
+<h4 id="3-7-嵌套子查询"><a href="#3-7-嵌套子查询" class="headerlink" title="3.7 嵌套子查询"></a>3.7 嵌套子查询</h4><p>select 、from、where语句都支持嵌套子查询。</p>
+<p>A common use of subqueries is to perform tests for  </p>
+<ul>
+<li>set membership: in, not in</li>
+<li>set comparisons: some, all </li>
+<li>empty set: exists, not exists </li>
+<li>set containment: not exists (B except A)</li>
+</ul>
+<p>返回true值</p>
+<ul>
+<li>duplicate tuples: unique, not unique</li>
+</ul>
+<h5 id="3-7-1-with-子句"><a href="#3-7-1-with-子句" class="headerlink" title="3.7.1 with 子句"></a>3.7.1 with 子句</h5><p>with 子句提供定义临时关系的方法。</p>
+<blockquote>
+<p><strong>with</strong> max_budget(value) <strong>as</strong></p>
+<p>​	(<strong>select</strong> <strong>max</strong> (budget)</p>
+<p>​	<strong>from</strong> department)</p>
+<p><strong>select</strong> budget</p>
+<p><strong>from</strong> department,max_budget</p>
+<p><strong>where</strong> departmen.budget&#x3D;max_budget.balue;</p>
+</blockquote>
+<h5 id="3-7-2-标量子查询"><a href="#3-7-2-标量子查询" class="headerlink" title="3.7.2 标量子查询"></a>3.7.2 标量子查询</h5><p>SQL允许子查询出现在返回单个值的表达式能够出现的任何地方，只要该子查询只返回包含单个数学的单个元组；这样的子查询称为<strong>标量子查询</strong>(scalar subquery)。</p>
+<h4 id="3-8-数据库的修改"><a href="#3-8-数据库的修改" class="headerlink" title="3.8 数据库的修改"></a>3.8 数据库的修改</h4><h4 id="3-8-1-删除"><a href="#3-8-1-删除" class="headerlink" title="3.8.1 删除"></a>3.8.1 删除</h4><p>删除与查询类似，我们只能删除整个元组，不能删除某些属性上的值</p>
+<blockquote>
+<p><strong>delete</strong> <strong>from</strong> r</p>
+<p><strong>where</strong> P;</p>
+</blockquote>
+<h5 id="3-8-1-1-插入"><a href="#3-8-1-1-插入" class="headerlink" title="3.8.1.1 插入"></a>3.8.1.1 插入</h5><blockquote>
+<p><strong>insert</strong> <strong>into</strong> student</p>
+<p>​		<strong>values</strong> (‘3003’,’Green’,’Finance’,null)</p>
+</blockquote>
+<h5 id="3-8-1-2-更新"><a href="#3-8-1-2-更新" class="headerlink" title="3.8.1.2 更新"></a>3.8.1.2 更新</h5><p>undate 语句</p>
+<blockquote>
+<p><strong>undate</strong> instructor</p>
+<p><strong>set</strong> salary&#x3D;salary*1.05s</p>
+</blockquote>
+<h3 id="第四章-中级SQL"><a href="#第四章-中级SQL" class="headerlink" title="第四章 中级SQL"></a>第四章 中级SQL</h3><h4 id="4-1-连接表达式"><a href="#4-1-连接表达式" class="headerlink" title="4.1 连接表达式"></a>4.1 连接表达式</h4><h5 id="4-1-1-连接条件"><a href="#4-1-1-连接条件" class="headerlink" title="4.1.1 连接条件"></a>4.1.1 连接条件</h5><p>前面介绍了<strong>join…using</strong>子句</p>
+<p>SQL还支持另外一种形式的连接。</p>
+<p><strong>on</strong>条件允许在参与连接的关系上设置统一的谓词。该谓词的写法与<strong>where</strong>子句谓词类似。</p>
+<blockquote>
+<p><strong>select</strong> *</p>
+<p><strong>from</strong> student <strong>join</strong> takes <strong>on</strong> student.ID &#x3D;takes.ID;</p>
+</blockquote>
+<h5 id="4-1-2-外连接"><a href="#4-1-2-外连接" class="headerlink" title="4.1.2 外连接"></a>4.1.2 外连接</h5><p>外连接（outer join ）运算与我们已经学过的连接运算类似，但通过在结果中创建包含空值元组的方式，保留了那些在连接中丢失的元组。</p>
+<p>实际上有三种形式的外连接：</p>
+<ul>
+<li><strong>左外连接</strong>（left outer join）只保留出现在左外连接运算之前（左边）的关系中的元组。</li>
+<li><strong>右外连接</strong>（right outer join）只保留出现在右外连接运算之前（右边）的关系中的元组。</li>
+<li><strong>全外连接</strong>（full outer join）保留出现在两个关系中的元组。</li>
+</ul>
+<p>为了与外连接运算区分，前面我们学习的称为<strong>内连接</strong>。</p>
+<p>on子句可以和外连接一起使用。on和where在外连接中的表现时不同的。on条件是外连接声明的一部分，但where不是。</p>
+<p>outer join 的执行过程分为4步:</p>
+<p>1、先对两个表执行交叉连接(笛卡尔积)</p>
+<p>2、应用on筛选器</p>
+<p>3、添加外部行</p>
+<p>4、应用where筛选器</p>
+<h4 id="4-2-视图"><a href="#4-2-视图" class="headerlink" title="4.2 视图"></a>4.2 视图</h4><p>在前面的例子中，我们一直都在逻辑模型层操作。</p>
+<h5 id="4-2-1-视图定义"><a href="#4-2-1-视图定义" class="headerlink" title="4.2.1 视图定义"></a>4.2.1 视图定义</h5><p>我们在SQL中用<strong>create view</strong>命令定义视图。为了定义视图，我们必须给视图一个名称，并且必须提供计算视图的查询。</p>
+<p>格式：</p>
+<blockquote>
+<p><strong>create</strong> <strong>view</strong> v <strong>as</strong> <quert expression></p>
+</blockquote>
+<p>为了创建一个视图，列出Physics 系在2009年秋季学期所开设的所有课程段，以及每个课程段在哪栋建筑的哪个房间授课的信息，我们可以写出：</p>
+<blockquote>
+<p><strong>create</strong> <strong>view</strong> physics_fall_2019 <strong>as</strong></p>
+<p>​	<strong>select</strong> course.course_id,sec_id ,building,room_number</p>
+<p>​	<strong>from</strong> course,section</p>
+<p>​	<strong>where</strong> course.course_id &#x3D;section.course_id</p>
+<p>​		<strong>and</strong> course.dept_name&#x3D;’phy’</p>
+<p>​		<strong>and</strong> section.semester&#x3D;’Fall’</p>
+<p>​		<strong>and</strong> section.year&#x3D;’2009’ </p>
+</blockquote>
+<h5 id="4-2-2-SQL查询中使用视图"><a href="#4-2-2-SQL查询中使用视图" class="headerlink" title="4.2.2 SQL查询中使用视图"></a>4.2.2 SQL查询中使用视图</h5><p>一旦定义了一个视图，我们就可以用视图名指代该视图生成的虚关系。</p>
+<p>使用视图physics_fall_2009，我们可以这样查询</p>
+<blockquote>
+<p><strong>select</strong> cource_id</p>
+<p><strong>from</strong> physics_fall_2009</p>
+<p><strong>where</strong> building &#x3D; ‘watson’</p>
+</blockquote>
+<p>视图的属性名可以按下列方式显式指定：</p>
+<blockquote>
+<p><strong>create</strong> <strong>view</strong> department_total_salary(dept_name,total_salary) <strong>as</strong></p>
+<p>​	<strong>select</strong> dept_name,<strong>sum</strong>(salary)</p>
+<p>​	<strong>from</strong> instructor</p>
+<p>​	<strong>group</strong> <strong>by</strong> dept_name; </p>
+</blockquote>
+<h5 id="4-2-3-物化视图"><a href="#4-2-3-物化视图" class="headerlink" title="4.2.3 物化视图"></a>4.2.3 物化视图</h5><p>特定数据库系统允许存储视图关系，但是它们保证：如果用于定义视图的实际关系改变，视图也跟着修改。这样的视图被称为物化视图（materialized view)。</p>
+<h4 id="4-3-事务"><a href="#4-3-事务" class="headerlink" title="4.3 事务"></a>4.3 事务</h4><p>事务（transaction）由查询和（或）更新语句的序列组成。SQL标准规定当一条SQL语句被执行，就隐式地开始了一个事务。下列SQL语句之一会结束一个事务：</p>
+<ul>
+<li>**Commit work:**提交当前事务，也就是将该事务所做的更新在数据库中持久保存。在事务被提交后，一个新的事务自动开始。</li>
+<li><strong>Rollback work</strong>：回退当前事务，即撤销改事务中所有SQL语句对数据库的更新。这样，数据库就恢复到执行该事务第一条语句之前的状态。</li>
+</ul>
+<h4 id="4-4-完整性约束"><a href="#4-4-完整性约束" class="headerlink" title="4.4 完整性约束"></a>4.4 完整性约束</h4><p>完整性约束保证授权用户对数据库的修改不会破坏数据的一致性。因此，完整性约束防止的是对数据的意外破坏。</p>
+<p>完整性约束的例子有：</p>
+<ul>
+<li>教师姓名不能为null</li>
+<li>任意两位教师不能有相同的教师标识</li>
+</ul>
+<p>完整性约束常被看作是数据库模式设计过程的一部分。也可以通过使用<strong>alter</strong> <strong>table</strong> table-name <strong>add</strong> constaint 命令施加到已有关系上。</p>
+<p><strong>create</strong> <strong>table</strong> 命令还可以包括完整性约束语句。</p>
+<p>除了主码约束之外，还有其他命令。</p>
+<p>比如：</p>
+<ul>
+<li>not null</li>
+<li>unique</li>
+<li>check(&lt;谓词&gt;)</li>
+</ul>
+<blockquote>
+<p> check (semester in (’Fall’, ’Winter’, ’Spring’, ’Summer’))</p>
+</blockquote>
+<ul>
+<li>初始值</li>
+</ul>
+<blockquote>
+<p> tot_cred  	numeric(3,0) <strong>default</strong> <strong>0</strong></p>
+</blockquote>
+<h5 id="4-4-1-参照完整性"><a href="#4-4-1-参照完整性" class="headerlink" title="4.4.1 参照完整性"></a>4.4.1 参照完整性</h5><p>我们常常希望保证在一个关系上给定属性集上的取值中出现。这种情况称为<strong>参照完整性</strong>（referential integrity）。</p>
+<p>一般地，令关系r1和r2的属性集分别为R1和R2，主码分别为K1和K2。如果要求对r2中任意元组t2，均存在r1中元组使得t1.K1&#x3D;t2.$\alpha$，我们称R2的子集$\alpha$为参照关系r1中K1的外码。</p>
+<p>这种要求称为<strong>参照完整性约束（referential-intergrity constraint)<strong>或</strong>子集依赖（subset dependency）</strong>。</p>
+<blockquote>
+<p>dept_name <strong>varchar</strong>(20) <strong>references</strong> department</p>
+</blockquote>
+<p>当违反参照完整性约束时，通常的处理是拒绝执行导致完整性破坏的操作（即镜像更新操作的事务被回滚）。</p>
+<p>但是也可在foreign key子句中指明：如果被参照关系上的删除或更新动作违反了约束，那么系统必须采取一些步骤通过修改参照关系中的元组来恢复完整性约束，而不是拒绝这样的动作。</p>
+<blockquote>
+<p><strong>create</strong> <strong>table</strong> course</p>
+<p>(…</p>
+<p><strong>foreign</strong> <strong>key</strong> (dept_name) <strong>reference</strong> department</p>
+<p>​		<strong>on</strong> <strong>delete</strong> <strong>cascade</strong></p>
+<p>​		<strong>on</strong> <strong>update</strong> <strong>cascade</strong>,</p>
+<p>…);</p>
+</blockquote>
+<p><strong>on delete cascade</strong> 子句 ：如果删除department 中的元组导致了此参照完整性约束被违反，则删除并不被系统拒绝，而是对course关系作“级联”删除，即删除参照了被删除系的元组。</p>
+<p><strong>on</strong> <strong>update</strong> <strong>cascade</strong> 子句：若果更新被参照字段时违反了约束，则更新操作并不被系统拒绝，而是将course中参照的元组的dept_name字段也改为新值。</p>
+<h5 id="4-4-2-事务中对完整性约束的违反"><a href="#4-4-2-事务中对完整性约束的违反" class="headerlink" title="4.4.2 事务中对完整性约束的违反"></a>4.4.2 事务中对完整性约束的违反</h5><p>事务可能包括几个步骤，在某一步之后完整性约束也许会暂时被违反，但是后面的某一步也许就会消除这个违反。例如，假设我们有一个主码name的person关系，还有一个属性时spouse，并且spouse是在person上的一个外码。也就是说，约束要求spouse属性必须包含在person表里出现的名字。</p>
+<p>为了处理“插入第一个元组违反外码约束，但是插入第二个元组后，外码约束又满足”的情况，SQL标准允许将<strong>initially</strong> <strong>deferred</strong> 子句加入到约束声明中；这样完整性约束不是在事务的中间步骤上检查，而是在事务结束的时候检查。</p>
+<blockquote>
+<p>create table person</p>
+<p>(name	char(15)     primary key,</p>
+<p>spouse	char(15),</p>
+<p>foreign key spouse references person (name) <strong>initially deferred</strong>)</p>
+</blockquote>
+<h5 id="4-4-3-断言"><a href="#4-4-3-断言" class="headerlink" title="4.4.3 断言"></a>4.4.3 断言</h5><p>断言(assertion)就是一个谓词，它表达了我们希望数据库总能满足的一个条件。域约束和参考完整性约束是断言的特殊形式。</p>
+<p>格式：</p>
+<blockquote>
+<p><strong>create</strong> <strong>assertion</strong> &lt; assertion-name &gt; <strong>check</strong> &lt; predicate &gt;;</p>
+</blockquote>
+<h4 id="4-5-SQL的数据类型与模式"><a href="#4-5-SQL的数据类型与模式" class="headerlink" title="4.5 SQL的数据类型与模式"></a>4.5 SQL的数据类型与模式</h4><h5 id="4-5-1-SQL中的日期和时间类型"><a href="#4-5-1-SQL中的日期和时间类型" class="headerlink" title="4.5.1 SQL中的日期和时间类型"></a>4.5.1 SQL中的日期和时间类型</h5><p>SQL除了前面介绍的基本数据类型以外，SQL标准还支持与日期和时间相关的几种数据类型：</p>
+<ul>
+<li><p><strong>date</strong>: 日历日期，包括年（四位）、月和日。</p>
+</li>
+<li><p><strong>time</strong>: 一天中的时间，包括小时、分和秒。可以用变量<strong>time</strong>(p)来表示秒的小数点后的数字位数（这里默认值为0）。通过指定<strong>time</strong> <strong>with</strong> <strong>timezone</strong>，还可以</p>
+</li>
+<li><p><strong>timestamp</strong>：<strong>date</strong> 和<strong>time</strong>的组合。可以用变量<strong>timestamp(p)<strong>来表示秒的小数点后的数字位数（这里默认值为6）。如果指定</strong>with timezone</strong>，则时区信息也会被存储。</p>
+</li>
+</ul>
+<h5 id="4-5-2-大对象类型"><a href="#4-5-2-大对象类型" class="headerlink" title="4.5.2 大对象类型"></a>4.5.2 大对象类型</h5><p>SQL提供字符数据的大对象数据类（clob）和二进制数据的大对象数据类型（blob）。</p>
+<h5 id="4-5-3-用户定义的类型"><a href="#4-5-3-用户定义的类型" class="headerlink" title="4.5.3 用户定义的类型"></a>4.5.3 用户定义的类型</h5><p>SQL支持两种形式的用户定义数据类型。第一种称为<strong>独特类型（distinct type)</strong>。另一种称为<strong>结构化数据类型</strong>（structured data type）。</p>
+<p>独特类型：</p>
+<p>使用**create type **子句来定义新类型</p>
+<blockquote>
+<p><strong>create type</strong> Dollars <strong>as numeric</strong> (12,2) <strong>final</strong></p>
+<p><strong>create type</strong> RMB **as numeric **(12,2) <strong>final</strong></p>
+</blockquote>
+<p>也可以使用cast命令强制转换</p>
+<blockquote>
+<p><strong>cast</strong> (department.budget  <strong>to</strong> numeric(12, 2))</p>
+</blockquote>
+<p>SQL提供了<strong>drop type</strong>和<strong>alter type</strong> 子句来删除或修改以前创建过的类型。</p>
+<p>SQL还有一个相似但稍有不同的概念：域（domain），它可以在基本类型上世家完整性约束。例如</p>
+<blockquote>
+<p><strong>create</strong> <strong>domain</strong> DDollars <strong>as</strong> <strong>numeric</strong>(12,2) <strong>not null</strong></p>
+</blockquote>
+<p>DDollars域可以用作属性类型。然而类型和域直接有两个重大的差别：</p>
+<p>1.在域上可以声明约束，例如not null，也可以为域类型变量定义默认值，然而在用户定义类型上不能声明约束或默认值。设计用户定义类型不仅是用它来指定属性类型，而且还将它用在不能施加约束的地方对SQL进行过程扩展。</p>
+<p>2.域并不是强类型的。因此一个域类型的值可以被赋给另一个域类型，只要他们的基本类型是相容的。</p>
+<h4 id="4-6-授权"><a href="#4-6-授权" class="headerlink" title="4.6 授权"></a>4.6 授权</h4><p>我们可能会给一个用户在数据库的某些部分授予几种形式的权限。对数据的授权包括：</p>
+<ul>
+<li>授权读取数据</li>
+<li>授权插入新数据</li>
+<li>授权更新数据</li>
+<li>授权删除数据</li>
+</ul>
+<p>我们使用grant语句来授予权限</p>
+<blockquote>
+<p>grant &lt; 权限列表 &gt;</p>
+<p>on &lt; 关系吗或视图名&gt;</p>
+<p>to &lt; 用户&#x2F;角色列表&gt;</p>
+</blockquote>
+<h5 id="4-6-1-角色"><a href="#4-6-1-角色" class="headerlink" title="4.6.1 角色"></a>4.6.1 角色</h5><p>角色：一组用户</p>
+<p>在SQL创建角色如下所示：</p>
+<p><strong>create role</strong> instructor</p>
+<h5 id="4-6-2-权限的转移"><a href="#4-6-2-权限的转移" class="headerlink" title="4.6.2 权限的转移"></a>4.6.2 权限的转移</h5><p>默认方式下，被授予权限的用户&#x2F;角色无权把得到的权限再授予给另外的用户&#x2F;角色。如果我们在授权时允许接受者把得到的权限再传递给其他用户，我们可以在响应的grant命令后面附加with grant option子句。</p>
+<blockquote>
+<p><strong>grant</strong> <strong>select</strong> <strong>on</strong> department <strong>to</strong> Amit <strong>with grant option</strong></p>
+</blockquote>
+<h3 id="第五章-高级SQL"><a href="#第五章-高级SQL" class="headerlink" title="第五章 高级SQL"></a>第五章 高级SQL</h3><h4 id="5-1-使用程序设计语言访问数据库"><a href="#5-1-使用程序设计语言访问数据库" class="headerlink" title="5.1 使用程序设计语言访问数据库"></a>5.1 使用程序设计语言访问数据库</h4><p>可以通过以下两种方法从通用编程语言中访问SQL：</p>
+<ul>
+<li>动态SQL</li>
+</ul>
+<p>通用程序设计语言可以通过函数（对于过程式语言）或者方法（对于面对对象的语言）来连接数据库服务器并与之交互。利用动态SQL可以在运行时以字符串形式构建SQL查询，提交查询，然后把结果存入程序变量中，每次一个元组。动态SQL的SQL组件允许程序在运行时构建和提交SQL查询。</p>
+<p>例如java语言的应用程序接口JDBC和另一种：ODBC</p>
+<ul>
+<li>嵌入式SQL</li>
+</ul>
+<p>如动态SQL类似，嵌入式SQL提供了另外一种使程序与数据库服务器交互的手段。然而，嵌入式SQL语句必须在编译时全部确定，并交给预处理器。预处理程序提交SQL语句到数据库系统进行预编译和优化，然后它把应用程序中的SQL语句替换成相应的代码和函数，最后调用程序语言的编译器进行编译。</p>
+<h3 id="第六章-形式化关系查询语言"><a href="#第六章-形式化关系查询语言" class="headerlink" title="第六章 形式化关系查询语言"></a>第六章 形式化关系查询语言</h3><h4 id="6-1-关系代数"><a href="#6-1-关系代数" class="headerlink" title="6.1 关系代数"></a>6.1 关系代数</h4><p>关系代数是一种过程化查询语言。它包括一个运算的集合，这些运算以一个或两个关系为输入，产生一个新的关系作为结果。</p>
+<h5 id="6-1-1-基本运算"><a href="#6-1-1-基本运算" class="headerlink" title="6.1.1 基本运算"></a>6.1.1 基本运算</h5><p><strong>（1）选择运算</strong></p>
+<p><strong>（2）投影运算</strong></p>
+<p>即选出某几列</p>
+<p><strong>（3）关系运算的组合</strong></p>
+<p><strong>（4）并运算</strong></p>
+<p><strong>（5）集合差运算</strong></p>
+<p><strong>（6）笛卡尔积运算</strong></p>
+<p><strong>（7）更名运算</strong></p>
+<h5 id="6-1-2-附加的关系代数运算"><a href="#6-1-2-附加的关系代数运算" class="headerlink" title="6.1.2 附加的关系代数运算"></a>6.1.2 附加的关系代数运算</h5><p>（1）集合交运算</p>
+<p>（2）自然连接运算</p>
+<p>（3）赋值运算</p>
+<p>赋值用←表示</p>
+<blockquote>
+<p>temp1← R $\times$ S</p>
+</blockquote>
+<p>（4）外连接运算</p>
+<h5 id="6-1-3-扩展的关系代数运算"><a href="#6-1-3-扩展的关系代数运算" class="headerlink" title="6.1.3 扩展的关系代数运算"></a>6.1.3 扩展的关系代数运算</h5><p><strong>（1）广义投影</strong></p>
+<p>广义投影运算形式为：</p>
+<blockquote>
+<p>$\prod_{F1,F2…,Fn}(E)$</p>
+</blockquote>
+<p>其中E是任意关系代数表达式，而F1，F2，…，Fn中的每一个都是涉及常量以及E的模式中属性的算术表达式。最基本的情况下算术表达式可以仅仅是一个属性或常量。</p>
+<p><strong>（2）聚集</strong></p>
+<p>聚集函数像有sum、count等。</p>
+<blockquote>
+<p> $\mathcal{G}_{sum(salary)}(instructor)$</p>
+</blockquote>
+<p>关系代数运算$\mathcal{G}$表示聚集将被应用，它的下标说明采用的聚集运算。</p>
+<p>有时，在计算聚集函数前我们必须去除重复值。如果我们想去除重复，我们仍然使用前面的函数名，但用连字符将”<strong>distinct</strong>“附加在函数名后（如<strong>count-distinct</strong>）</p>
+<p>有时候我们希望对一组元组集合而不是单个元组集合执行聚集函数。</p>
+<p>比如考虑查询“求出每个系的平均工资”。</p>
+<blockquote>
+<p>$<em>{dept_name}\mathcal{G}</em>{sum(salary)}(instructor)$</p>
+</blockquote>
+<p>聚集运算（aggregation operation）通常的形式如下：</p>
+<blockquote>
+<p>$<em>{G_1,G2,…,G_n}\mathcal{G}</em>{F_1(A_1),F_2(A_2),…,F_n{A_n}}{E}$</p>
+</blockquote>
+<p>其中E是任意关系代数表达式，$G_1,G_2,…,G_n$是用于分组的一系列属性；每个$F_i$是一个聚集函数，每个</p>
+<p>$F_i$是一个聚集函数，每个$A_i$是一个属性名。运算的含义如下，表达式E的结果中元组以如下方式被分为若干组：</p>
+<p>1.同一组中所有元组在$G_1,G2,…,G_n$上的值相同。</p>
+<p>2.不同组中元组在$G_1,G2,…,G_n$上的值不同。</p>
+<h3 id="第七章-待写"><a href="#第七章-待写" class="headerlink" title="第七章 待写"></a>第七章 待写</h3><p>待写</p>
+<h3 id="第八章-关系数据库设计"><a href="#第八章-关系数据库设计" class="headerlink" title="第八章 关系数据库设计"></a>第八章 关系数据库设计</h3><h4 id="8-1-函数依赖"><a href="#8-1-函数依赖" class="headerlink" title="8.1 函数依赖"></a>8.1 函数依赖</h4><p>函数的定义：$y&#x3D;f(x)\ \ \ \ \ \ \ \ x\in X,y\in Y$</p>
+<ul>
+<li><p>$X→Y$</p>
+</li>
+<li><p>对于任意的x1,x2都满足x1&#x3D;x2→f(x1)&#x3D;f(x2)</p>
+</li>
+</ul>
+<p>函数依赖的定义：</p>
+<p>设R是一个关系模式，$\alpha \subseteq R$,$\beta \subseteq  R$</p>
+<p>函数依赖：$\alpha \in \beta成立</p>
+<p>当且仅当任意R的实例r中的任意二行t1和t2都满足：</p>
+<p>t1[$\alpha$]&#x3D;t2[$\alpha$]→t2[$\beta$]&#x3D;t2[$\beta$]</p>
+<p>称为：$\alpha$确定$\beta$，$\beta$函数依赖于$\alpha$,$\alpha$可推出$\beta$</p>
+<p><strong>排除函数依赖：</strong></p>
+<p>只需要一组反例，满足：存在s,t$\in$r,s[X]&#x3D;t[X],但s[Y]$\neq$t[Y]</p>
+<p><strong>确认函数依赖</strong>:</p>
+<p>对于R的任意一个可能的实例r，都满足：不存在s,t$\in$r,s[X]&#x3D;t[X],但s[Y]$\neq$t[Y]</p>
+<p>**函数依赖集：**若干个函数依赖组成的集合</p>
+<p>如果一个关系r没有违反函依赖集F，那么称关系r满足函数依赖集F（r satisfies F）</p>
+<p>如果一个关系R的所有关系都满足函数依赖集F，那么称函数依赖集F在关系模式R上成立（F holds on R）</p>
+<h4 id="8-2-属性集的闭包"><a href="#8-2-属性集的闭包" class="headerlink" title="8.2 属性集的闭包"></a>8.2 属性集的闭包</h4><p>定义：根据一个给定的函数依赖集F，由属性集$\alpha$可退出的所有属性组成的集合，称为$\alpha$的闭包，记作$\alpha^+$</p>
+<blockquote>
+<p> 计算$\alpha^+$的算法:</p>
+<p>result:&#x3D;$\alpha$</p>
+<p>repeat </p>
+<p>​	检查F中的每个函数依赖$\beta\in \gamma$</p>
+<p>​	若$\beta \subseteq result$,则把$\gamma$属性都加入result</p>
+<p>until</p>
+<p>​	直到不能再添加属性到result</p>
+</blockquote>
+<p>属性集闭包的用途：</p>
+<p>（1）判断一个属性集是否超码</p>
+<ul>
+<li>要判断$\alpha$是不是R的超码，只要看$\alpha^+$是不是包含R</li>
+</ul>
+<p>（2）判断一个函数依赖是否成立</p>
+<ul>
+<li>要判断$\alpha \in \beta$是不是成立，只要看$\beta \subseteq \alpha^+$是不是成立</li>
+</ul>
+<p>（3）简洁的计算函数依赖集的闭包 </p>
+<h5 id="8-2-1-计算函数依赖集的闭包"><a href="#8-2-1-计算函数依赖集的闭包" class="headerlink" title="8.2.1 计算函数依赖集的闭包"></a>8.2.1 计算函数依赖集的闭包</h5><p>方法1：用Armstrong公理</p>
+<ul>
+<li><p>自反律：若$\beta \subseteq \alpha$那么$\alpha →\beta$</p>
+</li>
+<li><p>增广律：若$\alpha → \beta$，那么$\gamma\alpha → \gamma\beta$</p>
+</li>
+<li><p>传递律：若$\alpha → \beta$，$\beta → \gamma$，那么$\alpha → \gamma$</p>
+</li>
+<li><p>合并律：若$\alpha → \beta$，$\alpha → \gamma$，那么$\alpha → \beta\gamma$</p>
+</li>
+<li><p>分解律：若$\alpha → \beta\gamma$那么$\alpha→\beta$并且$\alpha → \gamma$</p>
+</li>
+<li><p>伪传递律：若$\alpha → \beta$并且$\gamma\beta → \delta$，那么$\gamma\alpha → \gamma\beta$</p>
+</li>
+</ul>
+<p>方法二：利用属性集的闭包（穷举法）</p>
+<ul>
+<li>对关系模式R的每一个子集S进行以下操作</li>
+</ul>
+<p>为$S^+$的每一个子集T，输出函数依赖$S→ T$</p>
+<h5 id="8-2-2-函数依赖集的等价性"><a href="#8-2-2-函数依赖集的等价性" class="headerlink" title="8.2.2 函数依赖集的等价性"></a>8.2.2 函数依赖集的等价性</h5><p>设F1和F2是两个函数依赖集，若由F1可以推出F2的所有函数依赖，由F2也可以推出F1的所有函数依赖，则说F1和F2是等价的。</p>
+<ul>
+<li>设F1和F2是两个函数依赖集，以下两个命题是等价<ul>
+<li>F1、F2有相同的闭包（$F1^+&#x3D;F2^+$</li>
+<li>F1和F2是等价的</li>
+</ul>
+</li>
+</ul>
+<h5 id="8-2-3-Canonical-最小覆盖-规范覆盖"><a href="#8-2-3-Canonical-最小覆盖-规范覆盖" class="headerlink" title="8.2.3 Canonical(最小覆盖&#x2F;规范覆盖)"></a>8.2.3 Canonical(最小覆盖&#x2F;规范覆盖)</h5><ul>
+<li>函数依赖集中某些函数依赖是多余的。</li>
+</ul>
+<p>例如，{A→B，B→C，A→C}可以简化为{A→B，B→C}</p>
+<ul>
+<li>函数依赖中某些属性是多余的。</li>
+</ul>
+<p>例如，{A→B，B→C，AC→D}可以简化为{A→B，B→C，A→D}</p>
+<p>把所有的多余属性和多余的函数依赖删掉，得到最小的函数依赖集合，称为F的最小覆盖或规范覆盖</p>
+<h6 id="8-2-3-1-规范覆盖的定义："><a href="#8-2-3-1-规范覆盖的定义：" class="headerlink" title="8.2.3.1 规范覆盖的定义："></a>8.2.3.1 <strong>规范覆盖的定义：</strong></h6><p>函数依赖集F的最小覆盖FC满足：</p>
+<ul>
+<li>F和FC是等价的</li>
+<li>FC的所有函数依赖都没有多余属性</li>
+<li>FC的每个函数依赖的决定部分（左氏）都是唯一的</li>
+</ul>
+<p>X→Y</p>
+<h6 id="8-2-3-2-多余的属性"><a href="#8-2-3-2-多余的属性" class="headerlink" title="8.2.3.2 多余的属性"></a>8.2.3.2 多余的属性</h6><p>考虑函数依赖集F中的某个函数依赖$\alpha→\beta$</p>
+<p>左式属性$A\in \alpha$是多余属性，如果函数依赖集F在逻辑上蕴含：$(F-{\alpha→\beta })\cup ({\alpha -A }→\beta)$</p>
+<p>右式属性$B\in \alpha$是多余属性，如果函数依赖集F在逻辑上蕴含：$(F-{\alpha→\beta })\cup (\alpha→ {\beta -B })$</p>
+<h6 id="8-2-3-3-计算最小覆盖"><a href="#8-2-3-3-计算最小覆盖" class="headerlink" title="8.2.3.3 计算最小覆盖"></a>8.2.3.3 计算最小覆盖</h6><p>函数依赖集F的最小覆盖FC的算法：</p>
+<p>FC&#x3D;F</p>
+<p>repeat</p>
+<p>​		合并FC中有相同决定部分的函数依赖，即把$\alpha 1→\beta 1$和$\alpha 1→\beta 2$合并为$\alpha 1→\beta 1\beta 2$</p>
+<p>​		把FC中的多余属性删掉</p>
+<p>until FC不再发生变化</p>
+<hr>
+<p>(PPT44）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="print-no-link">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据库系统概念</div>
+      <div>https://lijianxiong.space/2022/20220316/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/20220328/" title="验证集loss下降，准确率却上升的问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">验证集loss下降，准确率却上升的问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/20220311/" title="kaggle竞赛小技巧——为什么四舍五入能提高分数">
+                        <span class="hidden-mobile">kaggle竞赛小技巧——为什么四舍五入能提高分数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

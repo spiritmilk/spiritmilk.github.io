@@ -1,0 +1,1604 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="视觉-语言预训练模型(VLP安全) 共41篇论文。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多模态攻击与防御速览">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250727/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="视觉-语言预训练模型(VLP安全) 共41篇论文。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/bertattack.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/tvlp.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/tvlp1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/tvlp2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/advclip1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/advclip0.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/rib.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/rib1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/rib2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/setlevel.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/setlevel1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/saatt.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/etm.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/vlatt.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/vlatt1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/PRM.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/PRM1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/opie.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/deepfool.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/deepfool1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/etu.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/etu1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/dpfp0.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/dpfp.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/advp.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/opwie.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/prosmooth.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/fap.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/fap1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/APD.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/APD1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/apd2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/tapt.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/tapt1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/uzsar.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/uzsar1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/uzsar2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/PMGF.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/MMCOA.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/teaser0.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/fare.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/FARE1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/advxl.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/advxl1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/advxl2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/villa.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/teaser_mrr.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/AdvQDet.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/AdvQDet1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/pabcl.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/badencoder.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/dpba.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/dpba1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/algo1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/algo2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/bad1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/badclip.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/cleanclip.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/roclip.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/roclip2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/roclip3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/roclip1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/ssl.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/ssl1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/ssl2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/ssl4.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/tijo.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/mud.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/LID.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250727/dbs.jpg">
+<meta property="article:published_time" content="2025-07-26T16:56:04.000Z">
+<meta property="article:modified_time" content="2025-07-26T14:06:39.606Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="多模态">
+<meta property="article:tag" content="大模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250727/bertattack.jpg">
+  
+  
+  
+  <title>多模态攻击与防御速览 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">多模态攻击与防御速览</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-27 00:56" pubdate>
+          2025年7月27日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          90 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">多模态攻击与防御速览</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>视觉-语言预训练模型(VLP安全)</p>
+<p>共41篇论文。</p>
+<span id="more"></span>
+
+<p><strong>目录</strong></p>
+<p>[TOC]</p>
+<h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><h3 id="多模态一系列模型"><a href="#多模态一系列模型" class="headerlink" title="多模态一系列模型"></a>多模态一系列模型</h3><p>李沐老师的《多模态论文串讲》或博客上的《多模态速览》</p>
+<h3 id="BERT-attack"><a href="#BERT-attack" class="headerlink" title="BERT-attack"></a>BERT-attack</h3><p>(EMNLP 2020)</p>
+<p>利用以 BERT为代表的预训练掩码语言模型生成对抗样本。</p>
+<p><strong>1.计算重要性分数</strong></p>
+<p>把这个词从句子中去掉（用一个无意义的词如 <code>[MASK]</code> 替换），然后看模型的预测结果与正确标签 <code>Y</code> 的置信度下降了多少。下降得越多，说明这个词越重要。</p>
+<p><strong>2.筛选关键词</strong></p>
+<p>在计算完所有词的重要性分数后，算法会根据分数从高到低进行排序。</p>
+<p><strong>3.为重要词寻找最佳替换</strong></p>
+<p>如果 <code>w_j</code> 是一个完整的词（没有被切分成子词），就直接筛选候选词。</p>
+<p>如果 <code>w_j</code> 被切分成了多个子词，算法会使用 <strong>PPL (Perplexity，困惑度)</strong> 来进行排序和筛选。</p>
+<blockquote>
+<p>分词后的序列$X&#x3D;(x_0,x_1,…,x_t)$的ppl计算公式为：<br>$$<br>PPL(x)&#x3D;exp(-\frac{1}{t}\sum _ {i}^tlogp_\theta(x_i\mid x _ {&lt;i}))<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">c_loss = nn.CrossEntropyLoss(reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br>ppl = c_loss(word_predictions.view(N*L, -<span class="hljs-number">1</span>), all_substitutes.view(-<span class="hljs-number">1</span>)) <span class="hljs-comment"># [ N*L ] </span><br>ppl = torch.exp(torch.mean(ppl.view(N, L), dim=-<span class="hljs-number">1</span>)) <span class="hljs-comment"># N </span><br></code></pre></td></tr></table></figure>
+
+</blockquote>
+<p><strong>4.攻击</strong></p>
+<p>遍历候选替换词集合 <code>C</code> 中的每一个词 <code>c_k</code>。</p>
+<p>用候选词 <code>c_k</code> 替换掉原句中的重要词 <code>w_j</code>，生成一个新句子 <code>S&#39;</code>。</p>
+<p>将新句子 <code>S&#39;</code> 输入模型进行预测。如果模型的预测结果 <strong>不再是</strong> 正确标签 <code>Y</code>，则攻击成功。</p>
+<p><img src="/2025/20250727/bertattack.jpg"></p>
+<h3 id="Projected-Gradient-Descent-PGD"><a href="#Projected-Gradient-Descent-PGD" class="headerlink" title="Projected Gradient Descent(PGD)"></a>Projected Gradient Descent(PGD)</h3><p>(ICLR 2018)</p>
+<p>梯度攻击常用方法。</p>
+<p>在此之前有快速梯度符号方法（FGSM）等方法，具体而言，取梯度的符号方向，并乘以一个小的超参数。<br>$$<br>x+\epsilon sgn(\nabla_xL(\theta,x,y))<br>$$<br>PGD可以被看作是FGSM的迭代版本。</p>
+<p><strong>初始化:</strong> 在原始样本x的$\epsilon$-邻域内随机选择一个初始点$x _ {adv(0)}$。这个随机初始化有助于避免陷入局部最优。<br>$$<br>x _ {adv(0)}&#x3D;x+\text{random_perturbation}<br>$$<br><strong>迭代更新:</strong> 在进行T次迭代的每一步t中： </p>
+<ol>
+<li><p>计算损失函数关于当前对抗样本$x _ {adv}^{(t)}$的梯度： $$ g^{(t)} &#x3D; \nabla _ {x _ {adv}^{(t)}} J(\theta, x _ {adv}^{(t)}, y _ {true}) $$ </p>
+</li>
+<li><p>沿着梯度符号方向更新对抗样本，步长为$\alpha$： $$ x _ {adv}^{(t+1)} &#x3D; x _ {adv}^{(t)} + \alpha \cdot \text{sign}(g^{(t)}) $$ </p>
+</li>
+<li><p>将更新后的样本投影回原始样本x的$\epsilon$-邻域内。</p>
+</li>
+</ol>
+<p>L∞范数的话，投影操作为： $$ x _ {adv}^{(t+1)} &#x3D; x+\text{clip}(x _ {adv}^{(t+1)}-x,  - \epsilon,  + \epsilon) $$ </p>
+<p>L2范数的话，投影操作为： $$ x _ {adv}^{(t+1)} &#x3D; x+(x _ {adv}^{(t+1)}-x)\cdot\text{min}(1,\frac{\epsilon}{||x _ {adv}^{(t+1)}-x||_2})$$ </p>
+<p>其实就是把它clip到扰动范围内。</p>
+<p>直接来看<a target="_blank" rel="noopener" href="https://github.com/Jeffkang-94/pytorch-adversarial-attack/blob/master/attack/pgd.py">代码</a>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">PGD</span>(<span class="hljs-title class_ inherited__">Attacker</span>):<br>	...<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, y</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :param x: Inputs to perturb</span><br><span class="hljs-string">        :param y: Ground-truth label</span><br><span class="hljs-string">        :param target : Target label </span><br><span class="hljs-string">        :return adversarial image</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        x_adv = x.detach().clone()<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.config[<span class="hljs-string">&#x27;random_init&#x27;</span>] :<br>            x_adv = <span class="hljs-variable language_">self</span>._random_init(x_adv)<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.config[<span class="hljs-string">&#x27;attack_steps&#x27;</span>]):<br>            x_adv.requires_grad = <span class="hljs-literal">True</span><br>            <span class="hljs-variable language_">self</span>.model.zero_grad()<br>            logits = <span class="hljs-variable language_">self</span>.model(x_adv) <span class="hljs-comment">#f(T((x))</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.target <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<span class="hljs-comment">#是否需要错误分类到 self.target</span><br>                <span class="hljs-comment"># Untargeted attacks - gradient ascent</span><br>                loss = F.cross_entropy(logits, y,  reduction=<span class="hljs-string">&quot;sum&quot;</span>)<br>                loss.backward()                      <br>                grad = x_adv.grad.detach()<br>                grad = grad.sign()<br>                x_adv = x_adv + <span class="hljs-variable language_">self</span>.config[<span class="hljs-string">&#x27;attack_lr&#x27;</span>] * grad<br>            <span class="hljs-keyword">else</span>:<br>                ...<br>                x_adv = x_adv - <span class="hljs-variable language_">self</span>.config[<span class="hljs-string">&#x27;attack_lr&#x27;</span>] * grad<br>            <span class="hljs-comment"># Projection</span><br>            x_adv = x + torch.clamp(x_adv - x, <span class="hljs-built_in">min</span>=-<span class="hljs-variable language_">self</span>.config[<span class="hljs-string">&#x27;eps&#x27;</span>], <span class="hljs-built_in">max</span>=<span class="hljs-variable language_">self</span>.config[<span class="hljs-string">&#x27;eps&#x27;</span>])<br>            x_adv = x_adv.detach()<br>            x_adv = torch.clamp(x_adv, *<span class="hljs-variable language_">self</span>.clamp)<br><br>        <span class="hljs-keyword">return</span> x_adv<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="对抗攻击"><a href="#对抗攻击" class="headerlink" title="对抗攻击"></a>对抗攻击</h2><h3 id="白盒攻击"><a href="#白盒攻击" class="headerlink" title="白盒攻击"></a>白盒攻击</h3><h4 id="不可见"><a href="#不可见" class="headerlink" title="不可见"></a>不可见</h4><h5 id="ACMMM-2022-Towards-adversarial-attack-on-vision-language-pre-training-models"><a href="#ACMMM-2022-Towards-adversarial-attack-on-vision-language-pre-training-models" class="headerlink" title="(ACMMM 2022)Towards adversarial attack on vision language pre-training models"></a>(ACMMM 2022)Towards adversarial attack on vision language pre-training models</h5><p>Co-attack</p>
+<p><img src="/2025/20250727/tvlp.jpg"></p>
+<p><strong>攻击多模态嵌入（Attacking Multimodal Embedding）</strong><br>Co-Attack 的目标是促使被扰动的多模态嵌入偏离原始多模态嵌入。其损失函数定义为:</p>
+<p>$$ \text{max } \mathcal{L}(E_m(E_i(x_i’), E_t(x_t’)), E_m(E_i(x_i), E_t(x_t))) + \alpha_1 \mathcal{L}(E_m(E_i(x_i’), E_t(x_t’)), E_m(E_i(x_i), E_t(x_t))) $$ </p>
+<p>这里：</p>
+<ul>
+<li>$E_m(\cdot, \cdot)$ 代表多模态编码器。</li>
+<li>$E_i(\cdot)$ 代表图像编码器。</li>
+<li>$E_t(\cdot)$ 代表文本编码器。</li>
+<li>$x_i$ 是原始输入图像。</li>
+<li>$x_t$ 是原始输入文本。</li>
+<li>$x_i’$ 是扰动后的图像。</li>
+<li>$x_t’$ 是扰动后的文本。</li>
+<li>$\mathcal{L}$ 是一个损失函数，通常用于衡量嵌入之间的差异（例如，KL散度损失）。</li>
+<li>$\alpha_1$ 是一个超参数，控制第二项的贡献，第二项对应 $\delta _ {i\&amp;t}$，表示图像和文本扰动产生的合扰动。</li>
+</ul>
+<p>该优化问题通常通过类似 PGD 的程序解决。</p>
+<p><strong>攻击单模态嵌入（Attacking Unimodal Embedding）</strong><br>Co-Attack 旨在促使被扰动的图像模态嵌入偏离被扰动的文本模态嵌入。其损失函数定义为:</p>
+<p>$$ \text{max } \mathcal{L}(E_i(x_i’), E_i(x_i)) + \alpha_2 \cdot \mathcal{L}(E_i(x_i’), E_t(x_t’)) $$ </p>
+<p>在这两种情况下，攻击流程都是先扰动离散的文本输入，然后根据文本扰动的结果扰动连续的图像输入 。对于图像扰动，通常使用基于梯度的 PGD 攻击。对于文本扰动，则使用 BERT-Attack 方法。</p>
+<p>CoAttack能拉大距离和夹角。</p>
+<p><img src="/2025/20250727/tvlp1.jpg"></p>
+<p>论文中其实没有从理论上解释为什么能做到。只通过做实验表明，可以发现平均角度都提高了。</p>
+<p><img src="/2025/20250727/tvlp2.jpg"></p>
+<h5 id="ACM-MM-2023-Advclip-Downstream-agnostic-adversarial-examples-in-multimodal-contrastive-learning"><a href="#ACM-MM-2023-Advclip-Downstream-agnostic-adversarial-examples-in-multimodal-contrastive-learning" class="headerlink" title="(ACM MM 2023)Advclip: Downstream-agnostic adversarial examples in multimodal contrastive learning"></a>(ACM MM 2023)Advclip: Downstream-agnostic adversarial examples in multimodal contrastive learning</h5><p><img src="/2025/20250727/advclip1.jpg"></p>
+<p>AdvCLIP使用了GAN来生成一个通用对抗补丁将其加到数据集的图像上，从而得到一个对抗样本。<br>$$<br>\tilde{x_i^v}&#x3D;x\odot(1-m)+G(z)\odot m<br>$$<br>我们直接从损失函数来看是如何构建模型和训练模型的。</p>
+<p>除了GAN的G损失和D损失，还有：</p>
+<p><strong>重建损失</strong>：$||\tilde{x_i^v}-x||_2$</p>
+<p><strong>对比损失</strong>：即，使用InfoNCE来衡量编码器输出的向量之间的相似度。</p>
+<p>具体而言，拉大将良性图像和对抗图像的特征距离。由于InfoNCE不是对称的，所以要正反共计算两次损失函数。</p>
+<p><strong>拓扑偏差损失</strong>：</p>
+<p>也就是对应图中的Topology-deviation。旨在破坏对抗样本与其对应正常样本之间的拓扑相似性，即在表示空间中基于样本间相似度构建的邻域关系图。</p>
+<p>论文里是这么说的。构件图后，再通过交叉熵计算正常图和对抗图的损失函数。</p>
+<p><img src="/2025/20250727/advclip0.jpg"></p>
+<p>似乎和代码有些不同，我们直接来看代码。</p>
+<p>首先要进行进行归一化。</p>
+<p>接着计算点积，$S&#x3D;OO^T$。再将其转为距离，$D&#x3D;1-S$。并给每个点到自身的距离（即对角线元素）临时设置为一个很大的数（这里是3）。</p>
+<p>定义$\rho_i$为最近的正距离$\rho&#x3D;\text{min}D$。再把它转为新的相似度矩阵，$S&#x3D;1-(D-\rho)$。</p>
+<p>S的范围是-1到1，$\frac{S+1}{2}$把S转为[0,1]上。最好再把它进行行归一化，这就是定义的概率（因为概率要满足sum为1。）</p>
+<p>然后就是计算交叉熵了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">umap</span>(<span class="hljs-params">output_net, target_net, eps=<span class="hljs-number">0.0000001</span></span>):<br>    <span class="hljs-comment"># Normalize each vector by its norm</span><br>    (n, d) = output_net.shape<br>    output_net_norm = torch.sqrt(torch.<span class="hljs-built_in">sum</span>(output_net ** <span class="hljs-number">2</span>, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>))<br>    output_net = output_net / (output_net_norm + eps)<br>    output_net[output_net != output_net] = <span class="hljs-number">0</span><br>    target_net_norm = torch.sqrt(torch.<span class="hljs-built_in">sum</span>(target_net ** <span class="hljs-number">2</span>, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>))<br>    target_net = target_net / (target_net_norm + eps)<br>    target_net[target_net != target_net] = <span class="hljs-number">0</span><br>    <span class="hljs-comment"># Calculate the cosine similarity</span><br>    model_similarity = torch.mm(output_net, output_net.transpose(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))<br>    model_distance = <span class="hljs-number">1</span>-model_similarity <span class="hljs-comment">#[0,2]</span><br>    model_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">3</span><br>    model_distance = model_distance - torch.<span class="hljs-built_in">min</span>(model_distance, dim=<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>].view(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)<br>    model_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">0</span><br>    model_similarity = <span class="hljs-number">1</span>-model_distance<br>    target_similarity = torch.mm(target_net, target_net.transpose(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))<br>    target_distance = <span class="hljs-number">1</span>-target_similarity<br>    target_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">3</span><br>    target_distance = target_distance - torch.<span class="hljs-built_in">min</span>(target_distance,dim=<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>].view(-<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)<br>    target_distance[<span class="hljs-built_in">range</span>(n), <span class="hljs-built_in">range</span>(n)] = <span class="hljs-number">0</span><br>    target_similarity = <span class="hljs-number">1</span> - target_distance<br>    <span class="hljs-comment"># Scale cosine similarity to 0..1</span><br>    model_similarity = (model_similarity + <span class="hljs-number">1.0</span>) / <span class="hljs-number">2.0</span><br>    target_similarity = (target_similarity + <span class="hljs-number">1.0</span>) / <span class="hljs-number">2.0</span><br>    <span class="hljs-comment"># Transform them into probabilities</span><br>    model_similarity = model_similarity / torch.<span class="hljs-built_in">sum</span>(model_similarity, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>)<br>    target_similarity = target_similarity / torch.<span class="hljs-built_in">sum</span>(target_similarity, dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>)<br>    <span class="hljs-comment"># Calculate the KL-divergence</span><br>    loss = CE(target_similarity,model_similarity)<br>    <span class="hljs-keyword">return</span> loss<br></code></pre></td></tr></table></figure>
+
+<h4 id="可见"><a href="#可见" class="headerlink" title="可见"></a>可见</h4><h5 id="arxiv-2021-Reading-isn’t-believing-Adversarial-attacks-on-multi-modal-neurons"><a href="#arxiv-2021-Reading-isn’t-believing-Adversarial-attacks-on-multi-modal-neurons" class="headerlink" title="(arxiv 2021)Reading isn’t believing: Adversarial attacks on multi-modal neurons"></a>(arxiv 2021)Reading isn’t believing: Adversarial attacks on multi-modal neurons</h5><p>作者发现在CLIP模型中，文本标签可以覆盖纹理和图像形状。当CLIP模型读取标签、看到纹理 并分类形状时，这种对抗性攻击风格会获得额外的选项。</p>
+<p>比如我们明目张胆给图像加入一个文本标签，结果CLIP直接把标签当做正确的。</p>
+<p><img src="/2025/20250727/rib.jpg"></p>
+<p>哪怕打错字，也有效。</p>
+<p><img src="/2025/20250727/rib1.jpg"></p>
+<p>字体越大越有效。</p>
+<p><img src="/2025/20250727/rib2.jpg"></p>
+<h3 id="黑盒攻击"><a href="#黑盒攻击" class="headerlink" title="黑盒攻击"></a>黑盒攻击</h3><h4 id="样本级扰动"><a href="#样本级扰动" class="headerlink" title="样本级扰动"></a>样本级扰动</h4><h5 id="ICCV-2023-Set-level-guidance-attack-Boosting-adversarial-transferability-of-vision-language-pre-training-models"><a href="#ICCV-2023-Set-level-guidance-attack-Boosting-adversarial-transferability-of-vision-language-pre-training-models" class="headerlink" title="(ICCV 2023)Set-level guidance attack: Boosting adversarial transferability of vision-language pre-training models"></a>(ICCV 2023)Set-level guidance attack: Boosting adversarial transferability of vision-language pre-training models</h5><p>首次对视觉语言预训练（VLP）模型中对抗样本的可迁移性进行了研究。</p>
+<h6 id="可迁移性"><a href="#可迁移性" class="headerlink" title="可迁移性"></a>可迁移性</h6><p><img src="/2025/20250727/setlevel.jpg"></p>
+<p>作者认为，对抗样本的迁移性退化主要是由于现有攻击方法的局限性：</p>
+<ul>
+<li>Sep-Attack 的一个主要局限性是它没有考虑不同模态之间的交互作用。作为一种针对每个模态的独立攻击方法，它无法建模在多模态学习中成功攻击至关重要的模态间对应关系。这在图像-文本检索等多模态任务中尤为明显，其中真实值不是离散标签（例如，图像分类），而是与输入模态相对应的另一种模态数据。Sep-Attack 中完全缺乏跨模态交互，严重限制了对抗样本的泛化能力，并降低了它们在不同 VLP 模型之间的迁移性。</li>
+<li>虽然 Co-Attack 旨在利用模态之间的协作生成对抗样本，但它仍存在一个关键缺点，阻碍了其在其他 VLP 模型中的迁移性。与单模态学习不同，多模态学习涉及多个互补模态，并具有许多对许多的跨模态对齐，这给实现足够的对抗迁移性带来了独特的挑战。然而，Co-Attack 仅使用单个图像-文本对来生成对抗数据，限制了其他模态中多个标签提供的指导多样性。跨模态指导的这种缺乏多样性，使得对抗样本与白盒模型的对齐模式高度相关。因此，对抗样本的通用性受到限制，它们在迁移到其他模型时的效果也会下降。</li>
+</ul>
+<h6 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h6><p>一些符号计法：</p>
+<p>$B[,\epsilon]$表示合法搜索空间，$\epsilon$分别表示图像最大扰动范围或者文本中科改变单词的最大数量。</p>
+<p>正如名字所说，<strong>“集合”</strong>，算法不是简单地针对单个图像和单个标题进行优化，而是构建了一个<strong>对抗性标题集合</strong>和一个<strong>图像集合</strong>，并利用这些集合来“引导”对抗性样本的生成，从而使攻击效果更稳定和强大。</p>
+<p><strong>第一步</strong>，使用余弦相似度来构建对抗性标题集合 <code>t&#39;</code>。</p>
+<p><strong>第二步</strong>，通过加入<strong>高斯噪声</strong>来构建图像集合 <code>v</code>。</p>
+<p><strong>第三步</strong>，<strong>集合</strong>地生成对抗性图像和对抗性文本。</p>
+<p><img src="/2025/20250727/setlevel1.jpg"></p>
+<h5 id="arxiv-2023-Sa-attack-Improving-adversarial-transferability-of-vision-language-pre-training-models-via-self-augmentation"><a href="#arxiv-2023-Sa-attack-Improving-adversarial-transferability-of-vision-language-pre-training-models-via-self-augmentation" class="headerlink" title="(arxiv 2023)Sa-attack: Improving adversarial transferability of vision-language pre-training models via self-augmentation"></a>(arxiv 2023)Sa-attack: Improving adversarial transferability of vision-language pre-training models via self-augmentation</h5><p>中山大学网安院长为通讯。未录用未公开代码。</p>
+<p><img src="/2025/20250727/saatt.jpg"></p>
+<p>方法包含三个步骤：</p>
+<ul>
+<li>从良性图像和良性文本中生成对抗性中间文本。</li>
+<li>使用增强的良性文本和对抗性中间文本，结合良性图像，生成对抗性图像。¸ </li>
+<li>使用增强的良性图像和对抗性图像，结合对抗性中间文本，生成对抗性文本。不同颜色代表不同模块。图中各变量的描述见表</li>
+</ul>
+<p>其他部分和上一篇类似。</p>
+<p>主要区别有几个，噪声改为均值为0，方差为0.05的<strong>均匀分布</strong>，并会对图像的clip到[0,1]。</p>
+<h5 id="TMM-2023-Exploring-transferability-of-multimodal-adversarial-samples-for-vision-language-pre-training-models-with-contrastive-learning"><a href="#TMM-2023-Exploring-transferability-of-multimodal-adversarial-samples-for-vision-language-pre-training-models-with-contrastive-learning" class="headerlink" title="(TMM 2023)Exploring transferability of multimodal adversarial samples for vision language pre-training models with contrastive learning"></a>(TMM 2023)Exploring transferability of multimodal adversarial samples for vision language pre-training models with contrastive learning</h5><h6 id="两大贡献"><a href="#两大贡献" class="headerlink" title="两大贡献"></a>两大贡献</h6><p>(1) 通过将扰动优化与多模态对抗样本生成统一于一个基于梯度的框架中，能够更有效地攻击那些语义相似的多模态信息中的脆弱点。</p>
+<p>(2) 运用对比学习，从多角度扰动良性样本的内在结构及图文对的上下文一致性，从而提升了生成的多模态对抗样本的可迁移性。</p>
+<h6 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h6><p><img src="/2025/20250727/etm.jpg"></p>
+<p>使用$L_\infty$来约束对抗扰动。通过最大化给定前序 token 的似然来约束<code>t′</code>的流畅性。使用BERT 得分来约束对抗文本<code>t&#39;</code>。</p>
+<p><strong>图像-文本语义相似度损失</strong>$L _ {adv}$:<br>$$<br>L _ {adv} &#x3D; \begin{cases}<br>\min J(F_s(i’), F_s(t’)) \\<br>\text{s.t. } |i’ - i| _ {\infty} \leq \epsilon \\<br>\text{s.t. } \text{similarity}(t’, t) \leq \beta<br>\end{cases}<br>$$</p>
+<p><strong>软约束损失</strong>$L _ {prep}$：</p>
+<p>由于文本的离散性，所以需要将文本转为连续分布。</p>
+<p>采用Gumbel-Softmax来建模文本数据。</p>
+<p>具体而言，对于一个词序列$t&#x3D;[\omega_1,\omega_2,…,\omega_n]$，其中每个$\omega_j$属于固定词表V，使用由矩阵$\Theta\in R ^ {n\times V}$参数化的Gumbel-Softmax分布$P _ {\theta}$。用于采样$\pi$。<br>$$<br>\begin{align}<br>(\pi_k)_j &amp;&#x3D; \frac{\exp((\Theta _ {k,j} + g _ {k,j})&#x2F;\tau)}{\sum _ {\nu&#x3D;1} ^ {V} \exp((\Theta _ {k,\nu} + g _ {k,\nu})&#x2F;\tau)}<br>\\e(\pi) &amp;&#x3D; e(\pi_1) \cdots e(\pi_n)<br>\end{align}<br>$$<br>其中$g _ {k,j}\sim Gumbel(0,1)$。</p>
+<p>上面第一条式子其实就是Gumbel Softmax，具体而言，$softmax((logp_i-log(-log\epsilon_i))&#x2F;\tau),\epsilon\sim U[0,1]$。</p>
+<p>Gumbel 分布的分布函数为$F(x;\mu,\beta)&#x3D;e ^ {-e ^ {-(x-\mu)&#x2F;\beta}}$。若想从中采样，则$x&#x3D;F ^ {-1}(u)&#x3D;\mu-\beta ln(-ln(u)),u\sim U(0,1)$。</p>
+<blockquote>
+<p>证明：<br> $$<br>P(F ^ {-1}(u)\leq x)&#x3D;P(u\leq F(x))&#x3D;F(x)<br>$$</p>
+</blockquote>
+<p>为了生成对抗文本的流畅性，在给定前序 token 时最大化下一个 token 预测的似然。<br>$$<br>L _ {prep}(\pi)&#x3D;-\sum _ {k&#x3D;1} ^ {n} log p _ {dis}(\pi_k\mid \pi_1 …\pi _ {k-1})<br>$$<br>其中log是下一个词分布与先前预测词分布之间的交叉熵。</p>
+<p>采用下式来计算 BERT 得分，用来保持语义一致性并约束语义鸿沟：<br>$$<br>L _ {sim}&#x3D;\sum _ {k&#x3D;1} ^ {n} w_k\cdot\text{max} _ {j&#x3D;1,…,m}\phi(t)_k^T\phi(t’)_j<br>$$</p>
+<p>$\phi$是生成embedding的语言模型。</p>
+<p><strong>跨模态对比损失</strong>$L _ {itm}$：<br>$$<br>L _ {nce}(i, t^+, t^-) &#x3D; E \left[ \log \frac{e ^ {(sim(i, t^+)&#x2F;\tau)}}{\sum _ {k&#x3D;1} ^ {K} e ^ {(sim(i, \hat{t}_k)&#x2F;\tau)}} \right]<br>$$<br>同样使用InfoNCE，并类似之前要计算两次。<br>$$<br>L _ {itm}&#x3D;\frac{1}{2}[L _ {nce}(i’,i+,i-)+L _ {nce}(i’,i+,i-)]<br>$$<br><strong>模态内对比损失</strong>$L _ {i2i}$：</p>
+<p>同样使用InfoNCE，将同一模态中与良性样本语义不同的对抗样本推开。具体来说，将良性图像$i$在随机数据增强下的一些随机视图视为负例$i^-$ ，并从测试集中随机抽取图像作为正例。</p>
+<h5 id="IEEE-Computer-Society-2024-Transferable-multimodal-attack-on-vision-language-pre-training-models"><a href="#IEEE-Computer-Society-2024-Transferable-multimodal-attack-on-vision-language-pre-training-models" class="headerlink" title="(IEEE Computer Society 2024)Transferable multimodal attack on vision-language pre-training models"></a>(IEEE Computer Society 2024)Transferable multimodal attack on vision-language pre-training models</h5><p>pass</p>
+<h5 id="NeurIPS-2023-Vlattack-Multimodal-adversarial-attacks-on-vision-language-tasks-via-pre-trained-models"><a href="#NeurIPS-2023-Vlattack-Multimodal-adversarial-attacks-on-vision-language-tasks-via-pre-trained-models" class="headerlink" title="(NeurIPS 2023)Vlattack: Multimodal adversarial attacks on vision-language tasks via pre-trained models"></a>(NeurIPS 2023)Vlattack: Multimodal adversarial attacks on vision-language tasks via pre-trained models</h5><h6 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h6><p>(1) 第一个探索预训练和微调的 VL 模型之间的对抗脆弱性的。</p>
+<p>(2) 提出 VLAttack 从不同层次搜索对抗样本。对于单模态层次，提出 BSA 策略以在各种下游任务上统一扰动最优化目标。对于多模态层次，设计 ICSAC通过在不同模态上交叉搜索扰动来生成对抗图像-文本对。</p>
+<h6 id="算法-2"><a href="#算法-2" class="headerlink" title="算法"></a>算法</h6><p><img src="/2025/20250727/vlatt.jpg"></p>
+<p><strong>单模态：</strong></p>
+<p><strong>图像攻击</strong>。作者提出了块级相似度攻击 (BSA) 来破坏通用的基于上下文的表示。<br>$$<br>\mathcal{L} &#x3D; \underbrace{\sum _ {i&#x3D;1}^{M _ {\alpha}} \sum _ {j&#x3D;1}^{M_j^i} \text{Cos}(F _ {\alpha}^{i,j}(I), F _ {\alpha}^{i,j}(I’))} _ {\text{Image Encoder}} + \underbrace{\sum _ {k&#x3D;1}^{M _ {\beta}} \sum _ {t&#x3D;1}^{M_t^k} \text{Cos}(F _ {\beta}^{k,t}(I, T), F _ {\beta}^{k,t}(I’, T))} _ {\text{Transformer Encoder}}<br>$$</p>
+<p>其中 $M _ {\alpha}$ 是图像编码器中的块数，$M_j^i$ 是在 $i\text{-th}$ 块中生成的展平图像特征嵌入的数量。类似地，$M _ {\beta}$ 是 Transformer 编码器中的块数，$M_t^k$ 是在 $k\text{-th}$ 块中生成的图像词元特征数。$F _ {\alpha}^{i,j}$ 是在图像编码器的 $i\text{-th}$ 层中获得的 $j\text{-th}$ 特征向量，$F _ {\beta}^{k,t}$ 是在 Transformer 编码器的 $k\text{-th}$ 层中获得的 $t\text{-th}$ 特征向量。图像编码器仅以单个图像 $I$ 或 $I’$ 作为输入，但 Transformer 编码器将同时使用图像和文本作为输入。采用余弦相似度来计算扰动特征与良性特征之间的距离。</p>
+<p>使用PGD来进行迭代。</p>
+<blockquote>
+<p>其实也还是前面的那一套。</p>
+</blockquote>
+<p><strong>文本攻击</strong>。直接应用 BERT-Attack 来生成文本扰动。</p>
+<p><strong>多模态：</strong></p>
+<p>从第一阶段生成的有效候选文本集 T 中，根据语义相似度得分 γi进行排序，选出最相似的 K个候选文本 {T’1, …, T’K}。</p>
+<p>对于每一个顶级的候选文本 T’k： 协同优化。算法在<strong>已有的对抗性图像 I</strong> (来自第一阶段图像攻击的结果) 和<strong>当前的候选文本 T’k</strong> 的基础上，再次调用 <code>BSA</code> 函数。</p>
+<p><img src="/2025/20250727/vlatt1.jpg"></p>
+<h5 id="arxiv-2024-As-firm-as-their-foundations-Can-open-sourced-foundation-models-be-used-to-create-adversarial-examples-for-downstream-tasks"><a href="#arxiv-2024-As-firm-as-their-foundations-Can-open-sourced-foundation-models-be-used-to-create-adversarial-examples-for-downstream-tasks" class="headerlink" title="(arxiv 2024)As firm as their foundations: Can open-sourced foundation models be used to create adversarial examples for downstream tasks?"></a>(arxiv 2024)As firm as their foundations: Can open-sourced foundation models be used to create adversarial examples for downstream tasks?</h5><p>哈佛大学出品。提出了“补丁表示错位”（Patch Representation Misalignment，PRM）的跨任务攻击策略。</p>
+<p><img src="/2025/20250727/PRM.jpg"></p>
+<p>用 $F_l(x), F_l(x′) $来表示从第 l 层获得的中间编码器特征。</p>
+<p><img src="/2025/20250727/PRM1.jpg"></p>
+<p>和前面的主要区别是对每层操作，而非对最后进行操作。</p>
+<h4 id="通用扰动"><a href="#通用扰动" class="headerlink" title="通用扰动"></a>通用扰动</h4><h5 id="拒ICLR-2025-One-perturbation-is-enough-On-generating-universal-adversarial-pertur-bations-against-vision-language-pre-training-models"><a href="#拒ICLR-2025-One-perturbation-is-enough-On-generating-universal-adversarial-pertur-bations-against-vision-language-pre-training-models" class="headerlink" title="(拒ICLR 2025)One perturbation is enough: On generating universal adversarial pertur bations against vision-language pre-training models"></a>(拒ICLR 2025)One perturbation is enough: On generating universal adversarial pertur bations against vision-language pre-training models</h5><h6 id="算法-3"><a href="#算法-3" class="headerlink" title="算法"></a>算法</h6><p><img src="/2025/20250727/opie.jpg"></p>
+<p>loss基本就是InfoNCE，范数损失那一套。还有用到了《Set-level guidance attack》中的集合思想。</p>
+<p>创新点没看出来。除了使用Deepfool替换前人常用的PGD，然后还被审稿者怼了。</p>
+<h6 id="拒稿理由"><a href="#拒稿理由" class="headerlink" title="拒稿理由"></a>拒稿理由</h6><p><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=PdA9HAxO4w">https://openreview.net/forum?id=PdA9HAxO4w</a></p>
+<p>批评地挺狠的。</p>
+<p>AC：这项工作的主要弱点在于所提出的通用对抗性文本生成方法<strong>既低效又无效</strong>。生成的扰动质量存疑，因为仅替换词语并不能确保难以察觉，导致修改后的文本容易被识别。此外，原始文本与对抗性文本之间的高语义相似性表明攻击效果<strong>微乎其微</strong>，削弱了其有效性。使用大型语言模型来验证难以察觉性也缺乏说服力。</p>
+<h6 id="Deepfool"><a href="#Deepfool" class="headerlink" title="Deepfool"></a>Deepfool</h6><p>既然论文没啥价值，那就介绍一下Deepfool。</p>
+<p>出自CVPR 2016，《DeepFool: a simple and accurate method to fool deep neural networks》</p>
+<p>对抗的目标是：$\Delta(x;\hat{k}):&#x3D; \min _ {r} |r|_2  : \mathrm{subject} : \mathrm{to} : \hat{k}(x+r) \not &#x3D; \hat{k}(x)$</p>
+<p>其中k是估计。</p>
+<p><strong>对于二分类</strong></p>
+<p>k可以写作$sign(f(x))&#x3D;sign(w^Tx+b)$。</p>
+<p>那么点到决策边界的距离为$r_\ast(x_0)&#x3D;-\frac{f(x_0)}{||w||_2}w$。</p>
+<p>而f的一阶近似是$f(x_0+r)\approx f(x_0)+\nabla^Tf(x_0)r$，而$w&#x3D;\nabla f(x_0),b&#x3D;f(x_0)$。</p>
+<p>故<br>$$<br>\begin{align}<br>r_i&amp;&#x3D;-\frac{f(x_i)}{||\nabla f(x_0)||^2_2}\nabla f(x_i)<br>\\<br>x _ {i+1}&amp;&#x3D;x_i+r_i<br>\end{align}<br>$$<br><img src="/2025/20250727/deepfool.jpg"></p>
+<p><strong>多分类也是相似的。</strong></p>
+<p>决策边界也还是直线，类似OVR。<br>$$<br>\hat{k}(x)&#x3D;\text{argmax}_k f_k(x)<br>$$<br><img src="/2025/20250727/deepfool1.jpg"></p>
+<p>但值得注意的是，<a target="_blank" rel="noopener" href="https://github.com/LTS4/DeepFool/blob/master/Python/deepfool.py">代码</a>中所用的不是$x _ {i+1}&#x3D;x_i+r_i$，而是$x _ {i+1}&#x3D;x_i+(1+\eta)r_i$，其中$\eta$默认为0.02。</p>
+<p>论文中并无提到这样做的理由。但我觉得只加一倍且过程中间使用了约等于，可能会导致并不越过决策边界，最好是再越高边界一点。</p>
+<h5 id="SIGIR-2024-Universal-adversarial-perturbations-for-vision-language-pre-trained-models"><a href="#SIGIR-2024-Universal-adversarial-perturbations-for-vision-language-pre-trained-models" class="headerlink" title="(SIGIR 2024)Universal adversarial perturbations for vision-language pre-trained models"></a>(SIGIR 2024)Universal adversarial perturbations for vision-language pre-trained models</h5><p>Effective and Transferable Universal Adversarial Attack（ETU）</p>
+<p>主要贡献：</p>
+<ul>
+<li>这是首次在“黑箱”情景下学习通用对抗样本（UAPs），以检验视觉-语言预训练模型的鲁棒性。同时，该研究揭示了在多模态场景中发起<br>有效通用攻击所面临的关键挑战，为未来该领域的研究奠定了基石。</li>
+<li>设计了一种新颖高效且可迁移的通用对抗扰动（UAP）生成方法，该方法通过综合考虑多模态交互，提升了 UAP 的实用性和迁移能力。提出了一种新颖的局部 UAP 强化技术和 ScMix数据增强方法，以增强对抗攻击的有效性和可迁移性。</li>
+</ul>
+<p><img src="/2025/20250727/etu.jpg"></p>
+<p><strong>目标：</strong><br>$$<br>\arg\max _ {\delta} \mathcal{L}_1 &#x3D; \sum _ {i&#x3D;1}^{n} \left( \ell(f_x(x_i + \delta), f_x(x_i)) + \ell(f_x(x_i + \delta), f_t(t_i)) \right)<br>$$</p>
+<p><strong>进行裁剪数据增强：</strong></p>
+<p>记$\mathcal{A}$为随机裁剪子区域并将其调整至与原始图像相同的尺寸。<br>$$<br>\arg\max _ {\delta} \mathcal{L}_2 &#x3D; \sum _ {i&#x3D;1}^{n} \left( \ell(f_x(x_i + \mathcal{A}_s(\delta)), f_x(x_i)) + \ell(f_x(x_i + \mathcal{A}_s(\delta)), f_t(t_i)) \right)<br>$$</p>
+<p><strong>使用ScMix进行数据增强：</strong></p>
+<p><img src="/2025/20250727/etu1.jpg"><br>$$<br>\begin{align}<br>p_i &amp;&#x3D; \eta \cdot f_x(x_i^1) + (1 - \eta) \cdot f_x(x_i^2),<br>\\<br>\tilde{x}_i &amp;&#x3D; \underbrace{\beta_1 \cdot \hat{x}_i + \beta_2 \cdot x_j,} _ {\text{Cross-mix}}<br>\\<br>\hat{x}_i &amp;&#x3D; \underbrace{\eta \cdot x_i^1 + (1 - \eta) \cdot x_i^2,} _ {\text{Self-mix}}<br>\\<br>\text{s.t. } \eta &amp;&#x3D; \max(\eta’, 1 - \eta’), \quad \eta’ \sim \text{Beta}(\alpha, \alpha)<br>\end{align}<br>$$<br>其中$\beta_1&gt;\beta_2\in[0,1)$。</p>
+<p>记$\mathcal{A}$为增强操作。<br>$$<br>\begin{align}<br>\arg\max _ {\delta} \mathcal{L}_3 &amp;&#x3D; \sum _ {i&#x3D;1}^{n} (\ell(f_x(x_i + \mathcal{A}_s(\delta)), p_i)  \\<br>&amp;+<br>\ell(f_x(x_i + \mathcal{A}_s(\delta)), f_x(x_i)) \\<br>&amp;+ \ell(f_x(x_i + \mathcal{A}_s(\delta)), f_t(t_i)) )<br>\end{align}<br>$$</p>
+<h2 id="对抗防御"><a href="#对抗防御" class="headerlink" title="对抗防御"></a>对抗防御</h2><h3 id="PromptTuning"><a href="#PromptTuning" class="headerlink" title="PromptTuning"></a>PromptTuning</h3><h4 id="ICCV-2023-Workshop-Defense-prefix-for-preventing-typographic-attacks-on-clip"><a href="#ICCV-2023-Workshop-Defense-prefix-for-preventing-typographic-attacks-on-clip" class="headerlink" title="(ICCV 2023 Workshop)Defense-prefix for preventing typographic attacks on clip"></a>(ICCV 2023 Workshop)Defense-prefix for preventing typographic attacks on clip</h4><p>主要应对可见的攻击。</p>
+<p><img src="/2025/20250727/dpfp0.jpg"></p>
+<h5 id="算法-4"><a href="#算法-4" class="headerlink" title="算法"></a>算法</h5><p>主动学习一个前缀。</p>
+<p>即一张老鼠的照片→一张<code>[DP]</code>老鼠的照片、</p>
+<p>作者认为上图会类似于“一张老鼠的照片”的文本特征，但不会与”一张<code>[DP]</code>老鼠的照片“的特征相似。（？）</p>
+<blockquote>
+<p> 有点不理解。难道比如说，有可能学到”一张老虎老鼠的照片”，这样就能破坏掉embedding的相似度？</p>
+</blockquote>
+<p><img src="/2025/20250727/dpfp.jpg"></p>
+<h4 id="ECCV-2024-Adversarial-prompt-tuning-for-vision-language-models"><a href="#ECCV-2024-Adversarial-prompt-tuning-for-vision-language-models" class="headerlink" title="(ECCV 2024)Adversarial prompt tuning for vision-language models"></a>(ECCV 2024)Adversarial prompt tuning for vision-language models</h4><p>作者于复旦大学实习期间完成的。</p>
+<p><img src="/2025/20250727/advp.jpg"></p>
+<p>默认情况下，CLIP的默认prompt模板为 “a photo of a [CLASS]”。</p>
+<p>在该论文中，让模型去学习prompt $t_j&#x3D;[\text{context} _ \text{front}][\text{CLASS} _  j]$</p>
+<p>攻击样本使用PGD生成。</p>
+<h4 id="CVPR-2024-One-prompt-word-is-enough-to-boost-adversarial-robustness-for-pre-trained-vision-language-models"><a href="#CVPR-2024-One-prompt-word-is-enough-to-boost-adversarial-robustness-for-pre-trained-vision-language-models" class="headerlink" title="(CVPR 2024)One prompt word is enough to boost adversarial robustness for pre-trained vision-language models"></a>(CVPR 2024)One prompt word is enough to boost adversarial robustness for pre-trained vision-language models</h4><p>默认情况下，CLIP的默认prompt模板为 “a photo of a [CLASS]”。</p>
+<p>在该论文中，让模型去学习prompt$t_j&#x3D;[\text{context}_\text{front}][\text{CLASS} _ j][\text{context} _ \text{end}]$</p>
+<p><img src="/2025/20250727/opwie.jpg"></p>
+<h4 id="ICIC-2024-Mixprompt-Enhancing-generalizability-and-adversarial-robustness-for-vision-language-models-via-prompt-fusion"><a href="#ICIC-2024-Mixprompt-Enhancing-generalizability-and-adversarial-robustness-for-vision-language-models-via-prompt-fusion" class="headerlink" title="(ICIC 2024)Mixprompt: Enhancing generalizability and adversarial robustness for vision-language models via prompt fusion"></a>(ICIC 2024)Mixprompt: Enhancing generalizability and adversarial robustness for vision-language models via prompt fusion</h4><p>pass</p>
+<h4 id="MICCAI-2024-Promptsmooth-Certifying-robustness-of-medical-vision-language-mod-els-via-prompt-learning"><a href="#MICCAI-2024-Promptsmooth-Certifying-robustness-of-medical-vision-language-mod-els-via-prompt-learning" class="headerlink" title="(MICCAI 2024)Promptsmooth: Certifying robustness of medical vision-language mod els via prompt learning"></a>(MICCAI 2024)Promptsmooth: Certifying robustness of medical vision-language mod els via prompt learning</h4><p>医学方向。</p>
+<p>面对问题：Gaussian 噪声。</p>
+<p><img src="/2025/20250727/prosmooth.jpg"></p>
+<p><strong>Few-Shot PromptSmooth：</strong></p>
+<p>损失函数定义为攻击样本的预测与真实标签之间的交叉熵损失。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/nhussein/promptsmooth/blob/e8265ed075725d38fec9225062466c9fcf6c32da/certify_promptsmooth_plip.py#L358">代码</a>并没有训练而是直接load已经训练好的。</p>
+<p>说明Few Shot和Zero Shot是分开训练的，且无Few Shot的训练代码。关于此，已提Issue。</p>
+<p><strong>Zero-Shot PromptSmooth：</strong></p>
+<p>使用熵来定义损失。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">output = model(inputs) <br>loss = avg_entropy(output)<br></code></pre></td></tr></table></figure>
+
+<p>而</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">avg_entropy</span>(<span class="hljs-params">outputs</span>):<br>    logits = outputs - outputs.logsumexp(dim=-<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>) <span class="hljs-comment"># logits = outputs.log_softmax(dim=1) [N, 1000]</span><br>    avg_logits = logits.logsumexp(dim=<span class="hljs-number">0</span>) - np.log(logits.shape[<span class="hljs-number">0</span>]) <span class="hljs-comment"># avg_logits = logits.mean(0) [1, 1000]</span><br>    min_real = torch.finfo(avg_logits.dtype).<span class="hljs-built_in">min</span><br>    avg_logits = torch.clamp(avg_logits, <span class="hljs-built_in">min</span>=min_real)<br>    <span class="hljs-keyword">return</span> -(avg_logits * torch.exp(avg_logits)).<span class="hljs-built_in">sum</span>(dim=-<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+<p>注意，代码中有两种写法。但都是一样的。<br>$$<br>logsoftmax&#x3D;log(\frac{e^{z_i}}{\sum e^{z_i}})&#x3D;z_i-log(\sum e^{z_i})<br>$$</p>
+<p>$$<br>log(mean(p))&#x3D;logsumexp(log(p))-log(N)<br>$$</p>
+<h4 id="NeurIPS-2024-Few-shot-adversarial-prompt-learning-on-vision-language-models"><a href="#NeurIPS-2024-Few-shot-adversarial-prompt-learning-on-vision-language-models" class="headerlink" title="(NeurIPS 2024)Few-shot adversarial prompt learning on vision-language models"></a>(NeurIPS 2024)Few-shot adversarial prompt learning on vision-language models</h4><p>Few-shot Adversarial Prompt learning (FAP)</p>
+<p><img src="/2025/20250727/fap.jpg"></p>
+<p><img src="/2025/20250727/fap1.jpg"></p>
+<p>损失函数上进行改进。</p>
+<h5 id="对抗文本-图像对比损失"><a href="#对抗文本-图像对比损失" class="headerlink" title="对抗文本-图像对比损失"></a>对抗文本-图像对比损失</h5><p>$$<br>\mathcal{L} _ {\text{final}} &#x3D; \mathcal{L} _ {\text{CE}}(\cos(\mathbf{z}^{(I,P_v)}, \mathbf{z}^{(t,P_t)}), y) + \lambda   \mathcal{L} _ {\text{KL}}(\cos(\mathbf{z}^{(I,P_v)}, \mathbf{z}^{(t,P_t)}), \cos(\tilde{\mathbf{z}}^{(I,P_v)}, \mathbf{z}^{(t,P_t)}))<br>$$</p>
+<h5 id="单模态对抗感知损失"><a href="#单模态对抗感知损失" class="headerlink" title="单模态对抗感知损失"></a>单模态对抗感知损失</h5><p>$$<br>\mathcal{L} _ {\cos}&#x3D;\cos(\mathbf{z}^{(I,P_v)},\tilde{\mathbf{z}}^{(I,P_v)})+1<br>$$</p>
+<p><strong>总损失：</strong><br>$$<br>\mathcal{L} _ {\text{final}} &#x3D; \mathcal{L} _ {\text{CE}}(\cos(\mathbf{z}^{(I,P_v)}, \mathbf{z}^{(t,P_t)}), y) + \lambda \mathcal{L} _ {\cos} \cdot \mathcal{L} _ {\text{KL}}(\cos(\mathbf{z}^{(I,P_v)}, \mathbf{z}^{(t,P_t)}), \cos(\tilde{\mathbf{z}}^{(I,P_v)}, \mathbf{z}^{(t,P_t)}))<br>$$</p>
+<h4 id="ECCV-2024-Adversarial-prompt-distillation-for-vision-language-models"><a href="#ECCV-2024-Adversarial-prompt-distillation-for-vision-language-models" class="headerlink" title="(ECCV 2024)Adversarial prompt distillation for vision-language models"></a>(ECCV 2024)Adversarial prompt distillation for vision-language models</h4><p><img src="/2025/20250727/APD.jpg"></p>
+<p><img src="/2025/20250727/APD1.jpg"></p>
+<p>使用了教师模型和学生模型。算法所有内容都在这两幅图中。</p>
+<p>值得注意的是，作者还探究了教师模型不更新的情况（称为离线APD），结果发现离线APD也能超过基准。</p>
+<p><img src="/2025/20250727/apd2.jpg"></p>
+<h4 id="CVPR-2025-Tapt-Test-time-adversarial-prompt-tuning-for-robust-inference-in-vision-language-models"><a href="#CVPR-2025-Tapt-Test-time-adversarial-prompt-tuning-for-robust-inference-in-vision-language-models" class="headerlink" title="(CVPR 2025)Tapt: Test time adversarial prompt tuning for robust inference in vision-language models"></a>(CVPR 2025)Tapt: Test time adversarial prompt tuning for robust inference in vision-language models</h4><p>目前github仓库为空，无代码公开。</p>
+<p><img src="/2025/20250727/tapt.jpg"></p>
+<p><strong>1.数据增强</strong></p>
+<p>给定一个测试图像，TAPT 首先通过随机增强 A 生成 M 个随机增强视图。</p>
+<p><strong>2.基于多视图熵的样本选择</strong></p>
+<p>通过熵$-plogp$来选择。</p>
+<p><strong>3.对抗-干净嵌入对齐</strong></p>
+<p>对抗测试图像 x 可能会使图像编码器生成的图像嵌入相对于干净图像的嵌入发生偏移，从而可能误导模型。</p>
+<p>通过约束方差和均值来做到。</p>
+<p><img src="/2025/20250727/tapt1.jpg"></p>
+<h3 id="ContrastiveTuning"><a href="#ContrastiveTuning" class="headerlink" title="ContrastiveTuning"></a>ContrastiveTuning</h3><h4 id="ICLR-2023-Understanding-zero-shot-adversarial-robustness-for-large-scale-models"><a href="#ICLR-2023-Understanding-zero-shot-adversarial-robustness-for-large-scale-models" class="headerlink" title="(ICLR 2023)Understanding zero-shot adversarial robustness for large-scale models"></a>(ICLR 2023)Understanding zero-shot adversarial robustness for large-scale models</h4><p>Zero-Shot 对抗鲁棒性</p>
+<p><strong>大规模预训练 CLIP 模型针对 zero-shot 对抗鲁棒性的适应方法：</strong></p>
+<p><img src="/2025/20250727/uzsar.jpg"></p>
+<h5 id="算法-5"><a href="#算法-5" class="headerlink" title="算法"></a>算法</h5><p>大规模视觉-语言模型的 zero-shot 泛化能力可能源自其语言监督。</p>
+<p>如果仅用独热标签微调视觉编码器，可能会破坏这一联合特征空间，损害这种 zero-shot 泛化能力。这些观察促使作者在生成对抗样本时以及在模型适应期间的训练目标中考虑使用文本信息。</p>
+<p>作者提出了文本引导对比对抗（TeCoA）训练损失。</p>
+<p><img src="/2025/20250727/uzsar1.jpg"></p>
+<p>具体而言，</p>
+<p><img src="/2025/20250727/uzsar2.jpg"></p>
+<p>其实就是交叉熵。</p>
+<h4 id="CVPR-2024-Pre-trained-model-guided-f-ine-tuning-for-zero-shot-adversarial-robustness"><a href="#CVPR-2024-Pre-trained-model-guided-f-ine-tuning-for-zero-shot-adversarial-robustness" class="headerlink" title="(CVPR 2024)Pre-trained model guided f ine-tuning for zero-shot adversarial robustness"></a>(CVPR 2024)Pre-trained model guided f ine-tuning for zero-shot adversarial robustness</h4><p>PMG‑AFT</p>
+<p><img src="/2025/20250727/PMGF.jpg"></p>
+<p>通过TeCoA来生成对抗样本。</p>
+<p><strong>损失函数：</strong></p>
+<p><strong>鲁棒性信息分支：</strong></p>
+<p>对应上图的黑线，使用的是交叉熵。</p>
+<p><strong>泛化信息分支：</strong></p>
+<p>对应的是上图的橙线。</p>
+<p>将对抗样本输入到目标模型和 原始预训练模型中，得到adv和ori-adv。<br>$$<br>\begin{align}<br>P _ {adv}&amp;&#x3D;softmax(I _ {adv}\cdot T^T)<br>\\<br>P _ {ori-adv}&amp;&#x3D;softmax(I _ {ori-adv}\cdot T^T)<br>\\<br>L _ {general}&amp;&#x3D;\frac{1}{N}\sum D _ {KL}(P _ {adv_j}||P _ {ori-adv_j})<br>\end{align}<br>$$<br><strong>正则化损失：</strong><br>$$<br>\begin{align}<br>P _ {clean}&amp;&#x3D;softmax(I\cdot T^T)<br>\\<br>L _ {clean}&amp;&#x3D;\frac{1}{N}\sum D _ {KL}(P _ {adv_j}||P _ {clean_j})<br>\end{align}<br>$$</p>
+<h4 id="CoRR-2024-Revisiting-the-adversarial-robustness-of-vision-language-models-a-multimodal-perspective"><a href="#CoRR-2024-Revisiting-the-adversarial-robustness-of-vision-language-models-a-multimodal-perspective" class="headerlink" title="(CoRR 2024)Revisiting the adversarial robustness of vision language models: a multimodal perspective"></a>(CoRR 2024)Revisiting the adversarial robustness of vision language models: a multimodal perspective</h4><p><img src="/2025/20250727/MMCOA.jpg"></p>
+<p>多模态攻击依旧采用PGD和BERT-attack相结合的方式，并为了更针对CLIP，将PGD改为对比损失。</p>
+<p>损失函数和TeCoA基本一致，不过是改为了两套结构，交叉计算（见上图的圆圈箭头）。</p>
+<h4 id="ICML-2024-Oral-PMLR-2024-Robust-CLIP-Unsupervised-adversarial-fine-tuning-of-vision-embeddings-for-robust-large-vision-language-models"><a href="#ICML-2024-Oral-PMLR-2024-Robust-CLIP-Unsupervised-adversarial-fine-tuning-of-vision-embeddings-for-robust-large-vision-language-models" class="headerlink" title="(ICML 2024 Oral&#x2F; PMLR 2024)Robust CLIP: Unsupervised adversarial fine-tuning of vision embeddings for robust large vision-language models"></a>(ICML 2024 Oral&#x2F; PMLR 2024)Robust CLIP: Unsupervised adversarial fine-tuning of vision embeddings for robust large vision-language models</h4><p><img src="/2025/20250727/teaser0.png"></p>
+<p>把TeCoA的交叉熵改为L2。</p>
+<p><img src="/2025/20250727/fare.jpg"></p>
+<p>正如代码所示，</p>
+<p><strong>TeCoA:</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python -m train<span class="hljs-selector-class">.adversarial_training_clip</span>  <span class="hljs-attr">--loss</span> ce <span class="hljs-attr">--inner_loss</span> ce <br></code></pre></td></tr></table></figure>
+
+<p><strong>FARE：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python -m train<span class="hljs-selector-class">.adversarial_training_clip</span>  <span class="hljs-attr">--loss</span> l2 <span class="hljs-attr">--inner_loss</span> l2 <br></code></pre></td></tr></table></figure>
+
+<p>值得注意的是，FARE使用了干净的模型，而TeCoA不能使用干净的模型。我觉得这样比较是不公平的。而且你都有干净的模型了，为什么不直接用？</p>
+<p>论文另外顺便还证明了L2损失和优化余弦是等价的。</p>
+<p><img src="/2025/20250727/FARE1.jpg"></p>
+<h3 id="AdversarialTraining-Two-stageTraining"><a href="#AdversarialTraining-Two-stageTraining" class="headerlink" title="AdversarialTraining-Two-stageTraining"></a>AdversarialTraining-Two-stageTraining</h3><h4 id="CVPR-2024-Revisiting-adversarial-training-at-scale"><a href="#CVPR-2024-Revisiting-adversarial-training-at-scale" class="headerlink" title="(CVPR 2024)Revisiting adversarial training at scale"></a>(CVPR 2024)Revisiting adversarial training at scale</h4><p><strong>训练代码未公开。</strong></p>
+<p>在可承受的计算成本下，利用巨型模型和网络规模数据进行对抗训练成为可能。将这一新引入的框架命名为 AdvXL。</p>
+<p>在模型缩放方面，将模型参数从之前最大的 200M 大小增加到 1B；在数据缩放方面，在从包含约 1M 图像的中等规模ImageNet-1K 到包含超过 1B 图像的网络规模数据集上对模型进行对抗训练。为了使对抗训练的缩放计算上可行，引入了一种高效的方法，采用简单的两阶段训练计划，即首先进行轻量级预训练，然后进行密集微调。</p>
+<h5 id="预训练阶段"><a href="#预训练阶段" class="headerlink" title="预训练阶段"></a>预训练阶段</h5><p>模型以较短的 token 长度和较弱的攻击进行训练，持续时间相对较长。</p>
+<p>使用了三种图像token缩减策略。随机掩码、块掩码、图像缩放。</p>
+<p><img src="/2025/20250727/advxl.jpg"></p>
+<p>应用少量 PGD 步骤，PGD-1。</p>
+<h5 id="密集微调"><a href="#密集微调" class="headerlink" title="密集微调"></a>密集微调</h5><p>以全分辨率和更强的攻击进行训练，时间安排相对较短。</p>
+<p><img src="/2025/20250727/advxl1.jpg"></p>
+<p>相比预训练阶段，使用更多的PGD步骤，如PGD-3。</p>
+<h5 id="新的对比损失"><a href="#新的对比损失" class="headerlink" title="新的对比损失"></a>新的对比损失</h5><p>作者使用了前人的对比损失。</p>
+<p>$$\mathcal{L}(f^I, f^T, I, T) &#x3D; -\frac{1}{2n} \sum_i \left( \log \frac{\exp(h_i^{I^\top} h_i^T &#x2F; \tau)}{\sum_j \exp(h_i^{I^\top} h_j^T &#x2F; \tau)} + \log \frac{\exp(h_i^{T^\top} h_i^I &#x2F; \tau)}{\sum_j \exp(h_i^{T^\top} h_j^I &#x2F; \tau)} \right)$$</p>
+<p>其中 $n$ 表示批量大小； $\tau$ 是一个可学习的温度参数；$h_i^I &#x3D; f^I(I_i) &#x2F; |f^I(I_i)|$ 和 $h_i^T &#x3D; f^T(T_i) &#x2F; |f^T(T_i)|$ 表示图像-文本对 $(I_i, T_i)$ 的规范化投影特征。需要注意的是，作者选择 CLIPA 训练的文本编码器 作为初始的 $f^T$权重，并在训练过程中保持其冻结。</p>
+<blockquote>
+<p>不知道在哪里用这个损失。</p>
+<p>这篇论文写得不好，不清晰。也没给伪代码或者训练过程。</p>
+</blockquote>
+<h5 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h5><p>仅训练为L∞鲁棒，在L2、L1也能表现良好。</p>
+<p><img src="/2025/20250727/advxl2.jpg"></p>
+<h4 id="NeurIPS-2020-Spotlight-Large-scale-adversarial-training-for-vision-and-language-representation-learning"><a href="#NeurIPS-2020-Spotlight-Large-scale-adversarial-training-for-vision-and-language-representation-learning" class="headerlink" title="(NeurIPS 2020 Spotlight)Large-scale adversarial training for vision-and-language representation learning"></a>(NeurIPS 2020 Spotlight)Large-scale adversarial training for vision-and-language representation learning</h4><p>Villa 包含两个训练阶段：</p>
+<h5 id="（i）任务无关的对抗预训练；"><a href="#（i）任务无关的对抗预训练；" class="headerlink" title="（i）任务无关的对抗预训练；"></a>（i）任务无关的对抗预训练；</h5><p>由于图像和文本模态的独特特性，作者建议一次仅对一个模态添加扰动。</p>
+<h5 id="（ii）任务特定的对抗微调。"><a href="#（ii）任务特定的对抗微调。" class="headerlink" title="（ii）任务特定的对抗微调。"></a>（ii）任务特定的对抗微调。</h5><p><strong>损失函数：</strong></p>
+<p>$L _ {std}$为干净数据上的交叉熵损失。</p>
+<p>$R _ {at}$为保留标签的对抗训练损失。<br>$$<br>R _ {at}(\theta)&#x3D;\max _ {||\delta _ {img}||\le \epsilon}L(f_\theta(x _ {img}+\delta _ {img},x _ {txt}),y)+\max _ {||\delta _ {text}||\le \epsilon}L(f_\theta(x _ {img},x _ {txt}+\delta _ {txt}),y)<br>$$<br>其中L是交叉熵。范数是Frobenius 范数。</p>
+<p>所以PGD的投影不同于常用的$L^{\infty}$范数，而是球面投影。</p>
+<p>$R _ {kl}$是一个更细粒度的对抗正则化项。</p>
+<p>其实就是把前面的交叉熵换成KL散度：$KL(p||q)+KL(q||p)$。</p>
+<p>另外，K 步 PGD 需要 K 次前向-后向传播，这在计算上是繁重的。</p>
+<p>在 K 步之后，只有最后一步的扰动被用于模型训练。为了实现大规模训练的对抗训练并促进多样化的对抗样本，作者在每个小批次中只loss.backward()，不更新模型，而是等处理了 <code>gradient_accumulation_steps</code> （默认值为16）个小批次之后，再用它们累积起来的总梯度来更新一次模型。</p>
+<p>作者称之为，累积“免费”的参数梯度。</p>
+<p><img src="/2025/20250727/villa.jpg"></p>
+<h3 id="AdversarialDetection-One-shotDetection"><a href="#AdversarialDetection-One-shotDetection" class="headerlink" title="AdversarialDetection One-shotDetection"></a>AdversarialDetection One-shotDetection</h3><h4 id="撤ICLR-2025-Mirrorcheck-Efficient-adversarial-defense-for-vision-language-models"><a href="#撤ICLR-2025-Mirrorcheck-Efficient-adversarial-defense-for-vision-language-models" class="headerlink" title="(撤ICLR 2025)Mirrorcheck: Efficient adversarial defense for vision-language models"></a>(撤ICLR 2025)Mirrorcheck: Efficient adversarial defense for vision-language models</h4><p><img src="/2025/20250727/teaser_mrr.png"></p>
+<p>使用一个对抗检测器，来将图像分类为对抗或者干净类。</p>
+<h5 id="拒稿理由-1"><a href="#拒稿理由-1" class="headerlink" title="拒稿理由"></a>拒稿理由</h5><p><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=p4jCBTDvdu">https://openreview.net/forum?id=p4jCBTDvdu</a></p>
+<p>评分1366</p>
+<p>作者不rebutal。</p>
+<h3 id="AdversarialDetection-StatefulDetection"><a href="#AdversarialDetection-StatefulDetection" class="headerlink" title="AdversarialDetection StatefulDetection"></a>AdversarialDetection StatefulDetection</h3><h4 id="ACM-MM-2024-AdvQDet-Detecting-query-based-adversarial-attacks-with-adversarial-contrastive-prompt-tuning"><a href="#ACM-MM-2024-AdvQDet-Detecting-query-based-adversarial-attacks-with-adversarial-contrastive-prompt-tuning" class="headerlink" title="(ACM MM 2024)AdvQDet: Detecting query-based adversarial attacks with adversarial contrastive prompt tuning"></a>(ACM MM 2024)AdvQDet: Detecting query-based adversarial attacks with adversarial contrastive prompt tuning</h4><p>与Tapt同作者。</p>
+<p><strong>疑似没给训练代码</strong>。</p>
+<p>对抗对比提示调优（ACPT）</p>
+<p>通过 ACPT，引入了一个检测框架 AdvQDet，能够在 5 次查询内以 &gt; 99% 的检测率检测到 7 种最先进的基于查询的攻击。</p>
+<h5 id="应对攻击"><a href="#应对攻击" class="headerlink" title="应对攻击"></a>应对攻击</h5><p>【待补充】</p>
+<p>查询攻击。</p>
+<h5 id="算法-6"><a href="#算法-6" class="headerlink" title="算法"></a>算法</h5><p><img src="/2025/20250727/AdvQDet.jpg"></p>
+<h6 id="经过-ACPT-微调的图像编码器"><a href="#经过-ACPT-微调的图像编码器" class="headerlink" title="经过 ACPT 微调的图像编码器"></a>经过 ACPT 微调的图像编码器</h6><p><img src="/2025/20250727/AdvQDet1.jpg"></p>
+<p>使用InfoNCE。</p>
+<h6 id="相似度计算模块"><a href="#相似度计算模块" class="headerlink" title="相似度计算模块"></a>相似度计算模块</h6><p>提取并保存每个查询图像的嵌入到嵌入库 Q中。</p>
+<p>嵌入库带来了两个问题：1) 存储成本和 2) 计算成本。</p>
+<p>可以使用自动混合精度（AMP）技术。可以使用一些成熟的技术来加速高维相似度搜索。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AdvQDet</span>(<span class="hljs-title class_ inherited__">StateModule</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, arguments</span>):<br>        add_prompt_len=<span class="hljs-number">20</span><br><br>        checkpoint = torch.load(<span class="hljs-string">&#x27;/path/to/checkpoint.pth.tar&#x27;</span>)<br>        <br>        <span class="hljs-variable language_">self</span>.device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)<br>        model, <span class="hljs-variable language_">self</span>.preprocess = clip.load(<span class="hljs-string">&quot;ViT-B/32&quot;</span>, device=<span class="hljs-variable language_">self</span>.device, prompt_len=add_prompt_len)<br> <br>        convert_models_to_fp32(model)<br>        model = torch.nn.DataParallel(model)<br><br>        model.<span class="hljs-built_in">eval</span>()<br>        <span class="hljs-variable language_">self</span>.encoder = model.module.encode_image<br>    <br>        add_prompter = TokenPrompter(prompt_len=add_prompt_len)<br>        add_prompter = torch.nn.DataParallel(add_prompter).to(<span class="hljs-variable language_">self</span>.device)<br><br>        add_prompter.load_state_dict(checkpoint[<span class="hljs-string">&#x27;add_prompter&#x27;</span>])<br>        add_prompter.<span class="hljs-built_in">eval</span>()<br>        <span class="hljs-variable language_">self</span>.ind_prompt = add_prompter()<br><br>        model_dtype = <span class="hljs-built_in">next</span>(model.parameters()).dtype<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Model dtype: <span class="hljs-subst">&#123;model_dtype&#125;</span>&quot;</span>)<br>        add_prompter_dtype = <span class="hljs-built_in">next</span>(add_prompter.parameters()).dtype<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Add_prompter dtype: <span class="hljs-subst">&#123;add_prompter_dtype&#125;</span>&quot;</span>)<br>        <br>        <span class="hljs-variable language_">self</span>.input_shape = arguments[<span class="hljs-string">&quot;input_shape&quot;</span>]<br><br>        <span class="hljs-variable language_">self</span>.cache = &#123;&#125;<br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">getDigest</span>(<span class="hljs-params">self, img</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(img.shape) != <span class="hljs-number">3</span>:<br>            <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&quot;expected 3d image&quot;</span>)<br><br>        pil_img = transforms.ToPILImage()(img)<br>        image = <span class="hljs-variable language_">self</span>.preprocess(pil_img).unsqueeze(<span class="hljs-number">0</span>).to(<span class="hljs-variable language_">self</span>.device)<br><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            embed = multiGPU_CLIP(<span class="hljs-variable language_">self</span>.encoder, image, <span class="hljs-variable language_">self</span>.ind_prompt).squeeze(<span class="hljs-number">0</span>)<br><br>        <span class="hljs-keyword">return</span> embed<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">resetCache</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.cache = &#123;&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">self, img, prediction</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(img.shape) != <span class="hljs-number">3</span>:<br>            <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&quot;expected 3d image&quot;</span>)<br>        encoding = <span class="hljs-variable language_">self</span>.getDigest(img)<br>        <span class="hljs-variable language_">self</span>.cache[encoding] = prediction<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">resultsTopk</span>(<span class="hljs-params">self, img, k</span>):<br>        img = torch.clamp(img, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)<br>        embed = <span class="hljs-variable language_">self</span>.getDigest(img)<br>        dists = []<br>        preds = []<br>        <span class="hljs-keyword">for</span> query_embed, pred <span class="hljs-keyword">in</span> <span class="hljs-variable language_">self</span>.cache.items():<br>            dist = torch.cosine_similarity(embed, query_embed, dim=<span class="hljs-number">0</span>).item()<br>            dists.append(dist)<br>            preds.append(pred)<br>        top_dists = np.argsort(dists)<br>        result = [(dists[i], preds[i]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> top_dists][::-<span class="hljs-number">1</span>]<br><br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="防御动作"><a href="#防御动作" class="headerlink" title="防御动作"></a>防御动作</h6><p>一旦检测到查询为攻击，防御者可采取以下几种应对措施：</p>
+<p>1）拒绝该查询，适用于假正例率较低的情况，否则可能损害用户体验；</p>
+<p>2）限制用户的查询次数和频率，此举会吸引攻击者的注意力；</p>
+<p>3）向用户返回有意扰动的输出，但仍存在泄露梯度（或其他）信息的风险；</p>
+<p>4）封禁账户或封锁 IP 地址，这是一种激进措施，仅在极端情况下采用；</p>
+<p>5）直接返回之前相似查询的缓存结果，这是一种稳妥的做法，既不会向用户暴露新信息，也不会影响用户体验。</p>
+<h2 id="后门-投毒攻击"><a href="#后门-投毒攻击" class="headerlink" title="后门&amp;投毒攻击"></a>后门&amp;投毒攻击</h2><h3 id="Visual-Trigger"><a href="#Visual-Trigger" class="headerlink" title="Visual Trigger"></a>Visual Trigger</h3><h4 id="ICLR-2022-Oral-Poisoning-and-backdooring-contrastive-learning"><a href="#ICLR-2022-Oral-Poisoning-and-backdooring-contrastive-learning" class="headerlink" title="(ICLR 2022 Oral)Poisoning and backdooring contrastive learning"></a>(ICLR 2022 Oral)Poisoning and backdooring contrastive learning</h4><p><img src="/2025/20250727/pabcl.jpg"></p>
+<p>探讨了两种在图像上放置后门的方法。在一致情景下，将补丁置于图像的左上角；而在随机情景下，将补丁随机放置在图像中的某个位置。</p>
+<p>给定目标图像 x′ 和期望的目标标签 y′，首先构建一个与标签 y′ 相关的描述集 Y ′。</p>
+<p><strong>没怎么介绍算法。</strong></p>
+<h4 id="IEEE-Symposium-on-Security-and-Privacy-2022-Badencoder-Backdoor-attacks-to-pre-trained-encoders-in-self-supervised-learning"><a href="#IEEE-Symposium-on-Security-and-Privacy-2022-Badencoder-Backdoor-attacks-to-pre-trained-encoders-in-self-supervised-learning" class="headerlink" title="(IEEE Symposium on Security and Privacy 2022)Badencoder: Backdoor attacks to pre trained encoders in self-supervised learning"></a>(IEEE Symposium on Security and Privacy 2022)Badencoder: Backdoor attacks to pre trained encoders in self-supervised learning</h4><p><img src="/2025/20250727/badencoder.jpg"></p>
+<p>干净的预训练图像编码器和后门编码器分别表示为 f 和 f ′。</p>
+<p><strong>有效性损失：</strong></p>
+<p>$$L_0 &#x3D; - \frac{\sum _ {i&#x3D;1}^t \sum _ {j&#x3D;1}^{r_i} \sum _ {x \in D_s} s(f’(x \oplus e_i), f’(x _ {ij}))}{|D_s| \cdot \sum _ {i&#x3D;1}^t r_i}$$</p>
+<p>$$L_1 &#x3D; - \frac{\sum _ {i&#x3D;1}^t \sum _ {j&#x3D;1}^{r_i} s(f’(x _ {ij}), f(x _ {ij}))}{\sum _ {i&#x3D;1}^t r_i}$$</p>
+<p><strong>效用损失:</strong><br>$$<br>L_2&#x3D;-\frac{1}{\mathcal{D} _ s}\sum _ {x\in \mathcal{D} _ s}s(f’(x),f(x))<br>$$<br>作者发现，使用简单且物理上可实现的触发器（例如，位于图像右下角的白色方阵）的BadEncoder 已经能够实现这两个目标。因此，为了简化，本文中不对触发器进行优化，并将此类联合优化留作未来工作。</p>
+<h4 id="CVPR-2024-Data-poisoning-based-backdoor-attacks-to-contrastive-learning"><a href="#CVPR-2024-Data-poisoning-based-backdoor-attacks-to-contrastive-learning" class="headerlink" title="(CVPR 2024)Data poisoning based backdoor attacks to contrastive learning"></a>(CVPR 2024)Data poisoning based backdoor attacks to contrastive learning</h4><p>CorruptEncoder</p>
+<p>通过利用随机裁剪机制制作中毒图像，因为这是 CL 成功的关键。若缺少随机裁剪，编码器的性能将大幅下降。</p>
+<h5 id="制作有毒数据集"><a href="#制作有毒数据集" class="headerlink" title="制作有毒数据集"></a>制作有毒数据集</h5><p>理论分析表明，为了最大化这一概率从而提升攻击效果，1) 背景图像的大小应约为参考对象的两倍，2) 参考对象应位于背景图像的角落，3) 触发器应位于背景图像中除去参考对象后剩余部分的中心。</p>
+<p><img src="/2025/20250727/dpba.jpg"></p>
+<p><img src="/2025/20250727/dpba1.jpg"></p>
+<p>【待补充】这部分有数学证明。</p>
+<p><strong>流程：</strong></p>
+<p><img src="/2025/20250727/algo1.jpg"></p>
+<p><img src="/2025/20250727/algo2.jpg"></p>
+<p><strong>触发器设置：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建一个纯白色的方块作为触发器</span><br>trigger = Image.new(<span class="hljs-string">&quot;RGB&quot;</span>, (trigger_size, trigger_size), ImageColor.getrgb(<span class="hljs-string">&quot;white&quot;</span>))<br></code></pre></td></tr></table></figure>
+
+<h5 id="CorruptEncoder"><a href="#CorruptEncoder" class="headerlink" title="CorruptEncoder+"></a>CorruptEncoder+</h5><p>联合优化以下两个项：</p>
+<p>$$<br>\max _ {D_p} [S_C(f_o, f_e; \theta _ {DUD_p}) + \lambda \cdot S_C(f_o, f _ {cls}; \theta _ {DUD_p})]<br>$$</p>
+<p>其中 $S_C(\cdot, \cdot)$ 表示两个特征向量之间的余弦相似度，$\theta _ {DUD_p}$ 是 (被后门攻击的) 编码器在污染训练数据集上预训练的权重。$f_o$、$f_e$ 和 $f _ {cls}$ 分别表示参考对象 $o$、触发器 $e$ 和目标类的簇中心的特征向量。</p>
+<h4 id="CVPR-2024-Badclip-Dual-embedding-guided-backdoor-attack-on-multimodal-contrastive-learning"><a href="#CVPR-2024-Badclip-Dual-embedding-guided-backdoor-attack-on-multimodal-contrastive-learning" class="headerlink" title="(CVPR 2024)Badclip: Dual-embedding guided backdoor attack on multimodal contrastive learning"></a>(CVPR 2024)Badclip: Dual-embedding guided backdoor attack on multimodal contrastive learning</h4><p>【待补充】</p>
+<p>从贝叶斯规则的角度出发，提出了一个双嵌入引导的后门攻击框架。具体而言，确保视觉触发模式在嵌入空间中逼近文本目标语义，使得由后门学习引起的细微参数变化难以被检测。</p>
+<p>此外，优化视觉触发模式，使中毒样本与目标视觉特征对齐，从而阻碍通过干净微调进行的后门遗忘。</p>
+<p><img src="/2025/20250727/bad1.jpg"></p>
+<h3 id="Multi-modal-Trigger"><a href="#Multi-modal-Trigger" class="headerlink" title="Multi-modal Trigger"></a>Multi-modal Trigger</h3><h4 id="CVPR-2024spotlight-Badclip-Trigger-aware-prompt-learning-for-backdoor-attacks-on-clip"><a href="#CVPR-2024spotlight-Badclip-Trigger-aware-prompt-learning-for-backdoor-attacks-on-clip" class="headerlink" title="(CVPR 2024spotlight)Badclip: Trigger aware prompt learning for backdoor attacks on clip"></a>(CVPR 2024spotlight)Badclip: Trigger aware prompt learning for backdoor attacks on clip</h4><p>首个通过提示学习研究CLIP 后门攻击的团队</p>
+<p><img src="/2025/20250727/badclip.jpg"></p>
+<p>【待补充】</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jiawangbai/BadCLIP">https://github.com/jiawangbai/BadCLIP</a></p>
+<h3 id="Multi-modal-Poisoning"><a href="#Multi-modal-Poisoning" class="headerlink" title="Multi-modal Poisoning"></a>Multi-modal Poisoning</h3><h4 id="ICML-2023-拒ICLR-2023-Data-poisoning-attacks-against-multimodal-encoders"><a href="#ICML-2023-拒ICLR-2023-Data-poisoning-attacks-against-multimodal-encoders" class="headerlink" title="(ICML 2023&#x2F;拒ICLR 2023)Data poisoning attacks against multimodal encoders"></a>(ICML 2023&#x2F;拒ICLR 2023)Data poisoning attacks against multimodal encoders</h4><h5 id="拒稿理由-2"><a href="#拒稿理由-2" class="headerlink" title="拒稿理由"></a>拒稿理由</h5><p><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=7qSpaOSbRVO">https://openreview.net/forum?id=7qSpaOSbRVO</a></p>
+<h2 id="后门-投毒防御"><a href="#后门-投毒防御" class="headerlink" title="后门&amp;投毒防御"></a>后门&amp;投毒防御</h2><h3 id="Backdoor-Removal-Fine-tuning"><a href="#Backdoor-Removal-Fine-tuning" class="headerlink" title="Backdoor Removal Fine-tuning"></a>Backdoor Removal Fine-tuning</h3><h4 id="ICCV-2023-Cleanclip-Mitigating-data-poisoning-attacks-in-multimodal-contrastive-learning"><a href="#ICCV-2023-Cleanclip-Mitigating-data-poisoning-attacks-in-multimodal-contrastive-learning" class="headerlink" title="(ICCV 2023)Cleanclip: Mitigating data poisoning attacks in multimodal contrastive learning"></a>(ICCV 2023)Cleanclip: Mitigating data poisoning attacks in multimodal contrastive learning</h4><p><img src="/2025/20250727/cleanclip.jpg"><br>$$<br>\mathcal{L} _ {\text{CLIP}} &#x3D; -\frac{1}{2N} \left\{ \sum _ {j&#x3D;1}^{N} \log \frac{\exp(\langle I_j^e, T_j^e \rangle &#x2F; \tau)}{\underbrace{\sum _ {k&#x3D;1}^{N} \exp(\langle I_j^e, T_k^e \rangle &#x2F; \tau)} _ {\text{Contrasting images with texts}}} + \sum _ {k&#x3D;1}^{N} \log \frac{\exp(\langle I_k^e, T_k^e \rangle &#x2F; \tau)}{\underbrace{\sum _ {j&#x3D;1}^{N} \exp(\langle I_j^e, T_k^e \rangle &#x2F; \tau)} _ {\text{Contrasting texts with images}}} \right\}<br>$$</p>
+<p>$$<br>\mathcal{L} _ {SS} &#x3D; -\frac{1}{2N} \left( \sum _ {j&#x3D;1}^{N} \log \underbrace{\left[ \frac{\exp(\langle I_j^e, \tilde{I}_j^e \rangle &#x2F; \tau)}{\sum _ {k&#x3D;1}^{N} \exp(\langle I_j^e, \tilde{I}_k^e \rangle &#x2F; \tau)} \right]} _ {\text{Contrasting images with the augmented images}} + \sum _ {j&#x3D;1}^{N} \log \underbrace{\left[ \frac{\exp(\langle T_j^e, \tilde{T}_j^e \rangle &#x2F; \tau)}{\sum _ {k&#x3D;1}^{N} \exp(\langle T_j^e, \tilde{T}_k^e \rangle &#x2F; \tau)} \right]} _ {\text{Contrasting texts with the augmented texts}} \right)<br>$$</p>
+<p>$$<br>\mathcal{L} _ {\text{CleanCLIP}} &#x3D; \lambda_1 \mathcal{L} _ {\text{CLIP}} + \lambda_2 \mathcal{L} _ {SS}<br>$$</p>
+<h4 id="拒ICLR-2024-Better-safe-than-sorry-Pre-training-CLIP-against-targeted-data-poisoning-and-backdoor-attacks"><a href="#拒ICLR-2024-Better-safe-than-sorry-Pre-training-CLIP-against-targeted-data-poisoning-and-backdoor-attacks" class="headerlink" title="(拒ICLR 2024)Better safe than sorry: Pre training CLIP against targeted data poisoning and backdoor attacks"></a>(拒ICLR 2024)Better safe than sorry: Pre training CLIP against targeted data poisoning and backdoor attacks</h4><h5 id="拒稿理由-3"><a href="#拒稿理由-3" class="headerlink" title="拒稿理由"></a>拒稿理由</h5><p><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=Ge0GEOvifh">https://openreview.net/forum?id=Ge0GEOvifh</a></p>
+<p>主要弱点包括：实验不足、需要在实践中大量调整以获得正确的超参数，以及以下假设：1) 单一模态（图像&#x2F;文本）上的对比学习对中毒&#x2F;后门攻击免疫。2) 使用降低的学习率在可能被中毒&#x2F;后门攻击的数据上进行一个周期的 CLIP 训练是安全的。</p>
+<h3 id="Robust-Training-Pre-training"><a href="#Robust-Training-Pre-training" class="headerlink" title="Robust Training Pre-training"></a>Robust Training Pre-training</h3><h4 id="NeurIPS-2023-Robust-contrastive-language-image-pretraining-against-data-poisoning-and-backdoor-attacks"><a href="#NeurIPS-2023-Robust-contrastive-language-image-pretraining-against-data-poisoning-and-backdoor-attacks" class="headerlink" title="(NeurIPS 2023)Robust contrastive language-image pretraining against data poisoning and backdoor attacks"></a>(NeurIPS 2023)Robust contrastive language-image pretraining against data poisoning and backdoor attacks</h4><p><img src="/2025/20250727/roclip.jpg"></p>
+<h5 id="标准CLIP："><a href="#标准CLIP：" class="headerlink" title="标准CLIP："></a><strong>标准CLIP：</strong></h5><p>$$<br>\mathcal{L} _ {\text{CLIP}} &#x3D; -\frac{1}{2N} \sum _ {j&#x3D;1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_j^I, \mathbf{z}_j^T \rangle &#x2F; \tau)}{\sum _ {k&#x3D;1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}_k^T \rangle &#x2F; \tau)} \right] - \frac{1}{2N} \sum _ {k&#x3D;1}^{N} \log \left[ \frac{\exp(\langle \mathbf{z}_k^I, \mathbf{z}_k^T \rangle &#x2F; \tau)}{\sum _ {j&#x3D;1}^{N} \exp(\langle \mathbf{z}_j^I, \mathbf{z}_k^T \rangle &#x2F; \tau)} \right]<br>$$</p>
+<h5 id="RoCLIP："><a href="#RoCLIP：" class="headerlink" title="RoCLIP："></a><strong>RoCLIP</strong>：</h5><h6 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h6><p>被投毒样本的图像-描述对与数据中的其他干净样本并不相似。因此，它们的梯度与干净样本的梯度无法良好对齐。</p>
+<p><img src="/2025/20250727/roclip2.jpg"></p>
+<h6 id="算法-7"><a href="#算法-7" class="headerlink" title="算法"></a>算法</h6><p>用两种技术来打破被投毒图像-描述对之间的关联：（1）一个庞大且不断变化的随机选择描述池；（2）对图像和描述同时进行增强。</p>
+<p><strong>描述池</strong>：</p>
+<p><img src="/2025/20250727/roclip3.jpg"></p>
+<p>选择相对较大的池大小，以便每个干净的图像都能找到与其原始标题相似的标题；(2) 每隔 K轮次使用该方法进行训练，在其他轮次中使用标准的 CLIP 损失进行训练。</p>
+<p>选择了 2% 的总数据集大小作为池大小。</p>
+<p><strong>数据增强：</strong></p>
+<p>图像增强策略中，采用了随机裁剪、水平翻转、颜色抖动、灰度转换 和模糊处理。</p>
+<p>文本增强采用了 同义词替换、随机交换和随机删除等。</p>
+<p>RoCLIP 首先从 P 个描述符 $P &#x3D; {z_i^T} _ {i&#x3D;1}^P$ 中均匀随机采样一个池。</p>
+<p>在训练过程中, 对于每个示例 $(x_j^I, x_j^T)$，在小批量中, 首先用增强策略对它的图像和文本进行增强, 然后将其增强后的图像表示 $\tilde{z}_j^I$ 与池中最相似的增强描述符 $\tilde{z}_j^T$ 进行匹配, 即<br>$$z _ {nn(j)}^T &#x3D; \operatorname{argmin} _ {z_p^T \in P} |\tilde{z}_j^I - z_p^T|_2$$有效地, 形成了正的图像-描述符表示对 $(\tilde{z}_j^I, z _ {nn(j)}^T)$ 并用它代替 $(z_j^I, z_j^T)$。</p>
+<p>类似于 CLIP 损失, 从小批量中获取负对。也就是说, 对于一个小批量的 N 个图像-描述符对 ${(x_j^I, x_j^T)} _ {j&#x3D;1}^N$, 以及它们的嵌入 ${(\tilde{z}_j^I, \tilde{z}_j^T)} _ {j&#x3D;1}^N$, 损失定义为:<br>$$<br>\mathcal{L} _ {\text{RoCLIP}} &#x3D; -\frac{1}{2N}\sum _ {j&#x3D;1}^{N}\log\left[\frac{\exp(\langle \tilde{z}_j^I, z _ {nn(j)}^T \rangle&#x2F;\tau)}{\sum _ {k&#x3D;1}^N \exp(\langle \tilde{z}_j^I, z _ {nn(k)}^T \rangle&#x2F;\tau)}\right] - \frac{1}{2N}\sum _ {k&#x3D;1}^{N}\log\left[\frac{\exp(\langle \tilde{z}_k^I, z _ {nn(k)}^T \rangle&#x2F;\tau)}{\sum _ {j&#x3D;1}^N \exp(\langle \tilde{z}_j^I, z _ {nn(k)}^T \rangle&#x2F;\tau)}\right]<br>$$</p>
+<p>对于池 $P$, 考虑一个先进先出的队列, 它初始化为随机的 caption 表示。在每个小批量训练后, 通过获取小批量中 $N$ 个样本的 caption 表示并将它们连接到队列的末尾来更新 $P$。从队列中丢弃最旧的 $N$ 个元素, 这个数量等于训练批量大小。</p>
+<h5 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h5><p><img src="/2025/20250727/roclip1.jpg"></p>
+<h3 id="Backdoor-Detection-Backdoor-Model-Detection"><a href="#Backdoor-Detection-Backdoor-Model-Detection" class="headerlink" title="Backdoor Detection Backdoor Model Detection"></a>Backdoor Detection Backdoor Model Detection</h3><h4 id="CVPR-2023-Detecting-backdoors-in-pre-trained-encoders"><a href="#CVPR-2023-Detecting-backdoors-in-pre-trained-encoders" class="headerlink" title="(CVPR 2023)Detecting backdoors in pre-trained encoders"></a>(CVPR 2023)Detecting backdoors in pre-trained encoders</h4><p>DECREE </p>
+<h5 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h5><p>这是首个针对 SSL 中预训练编码器的后门检测方法。</p>
+<p><img src="/2025/20250727/ssl.jpg"></p>
+<p>为了解决现有检测方法的不足，DECREE 直接扫描编码器。具体而言，对于目标编码器，DECREE 首先搜索一个最小触发模式，使得任何带有该触发的输入共享相似的嵌入。然后，利用识别出的触发模式来判断给定编码器是良性的还是被植入后门的。</p>
+<p>仅考虑针对视觉编码器的后门攻击。</p>
+<h5 id="现有局限性"><a href="#现有局限性" class="headerlink" title="现有局限性"></a>现有局限性</h5><p>为了识别编码器是否被植入后门，防御者可以利用现有的后门扫描工具（如 Neural Cleanse (NC) 和 ABS）来检查使用该编码器的下游分类器，而无需直接扫描编码器本身。然而，这一策略存在局限性，如后文所示。</p>
+<p>另一类后门扫描器，如 MNTD，采用元分类器来区分良性模型和后门模型。它们首先训练数千个良性和后门模型，然后在这些模型提取的特征上训练一个元分类器。在自监督学习（SSL）情景下这种设计可能因成本过高而不太实际。</p>
+<p>例如，通过对比学习创建一个后门编码器需要 48 小时。而 MNTD则需构建 2048 个良性编码器和 2048 个被植入后门的编码器。</p>
+<p>下表为各检测器表现。</p>
+<p><img src="/2025/20250727/ssl1.jpg"></p>
+<p>然而，当下游分类器的训练数据集（STL-10 和 GTSRB）不包含攻击目标时，如最后两行所示，NC 和 ABS 均未能检测到编码器中的后门。这对现有后门扫描器提出了两点启示：</p>
+<p>(1) 它们必须掌握攻击目标及相应下游任务的知识，这对于一个编码器而言，鉴于存在大量不同的下游任务，获取这些信息并非易事。</p>
+<p>(2) 它们需要获取下游任务的原始训练数据集以构建用于检测的分类器，而这些数据可能是私有的。</p>
+<p>另外，对于<strong>零样本预测场景</strong>，零样本分类器直接计算图像嵌入与每个候选标题文本嵌入之间的相似度，并选择与输入图像嵌入最相似的标题。在此场景中，显然现有的后门扫描器不适用。故需要一种能够在嵌入空间中处理攻击的后门检测方法</p>
+<h5 id="motivation-1"><a href="#motivation-1" class="headerlink" title="motivation"></a>motivation</h5><p><img src="/2025/20250727/ssl2.jpg"></p>
+<p><strong>观察一</strong>：尽管 SSL 在预训练过程中不需要标签，但通过训练后的编码器，相同标签的样本的嵌入倾向于聚集在一起，而不同标签的样本则倾向于分散。</p>
+<p><strong>观察二</strong>：被植入后门的编码器会为带有触发器的样本生成高度相似的嵌入，而干净的编码器则不会。</p>
+<p><strong>观察三</strong>：与干净的编码器相比，被植入后门的编码器需要更小的扰动就能使样本落入稠密区域。</p>
+<p><strong>直觉</strong>：稠密区域即为攻击目标所在之处。故模型设计旨在判断编码器的嵌入空间中是否存在一个中心稠密区域（被干净样本的嵌入所包围）。直观上，带有中心稠密区域的后门编码器只需施加微小扰动即可将干净样本推向该稠密区域。而干净的编码器则不具备这样的稠密区域，这意味着通过在样本上添加小触发器无法轻易实现嵌入间的高相似度。因此，该技术在编码器层面检测后门，无需依赖目标标签。</p>
+<h5 id="算法-8"><a href="#算法-8" class="headerlink" title="算法"></a>算法</h5><p><img src="/2025/20250727/ssl4.jpg"></p>
+<h3 id="Backdoor-Detection-Trigger-Inversion"><a href="#Backdoor-Detection-Trigger-Inversion" class="headerlink" title="Backdoor Detection Trigger Inversion"></a>Backdoor Detection Trigger Inversion</h3><h4 id="ICCV-2023-Tijo-Trigger-inversion-with-joint-optimization-for-defending-multimodal-backdoored-models"><a href="#ICCV-2023-Tijo-Trigger-inversion-with-joint-optimization-for-defending-multimodal-backdoored-models" class="headerlink" title="(ICCV 2023)Tijo: Trigger inversion with joint optimization for defending multimodal backdoored models"></a>(ICCV 2023)Tijo: Trigger inversion with joint optimization for defending multimodal backdoored models</h4><p><img src="/2025/20250727/tijo.jpg"></p>
+<h4 id="USENIX-Security-2024-Mudjacking-Patching-backdoor-vulnerabilities-in-foundation-models"><a href="#USENIX-Security-2024-Mudjacking-Patching-backdoor-vulnerabilities-in-foundation-models" class="headerlink" title="(USENIX Security 2024)Mudjacking: Patching backdoor vulnerabilities in foundation models"></a>(USENIX Security 2024)Mudjacking: Patching backdoor vulnerabilities in foundation models</h4><p>误分类输入$x_b$和参考输入$x_r$。<br>$$<br>\begin{align}<br>\mathcal{L}_e&amp;&#x3D;-sim(h’(x_b),h’(x_r))<br>\\<br>\mathcal{L}_l&amp;&#x3D;-\frac{1}{|D _ {val}|+1}\sum _ {x\in D _ {val}\cup x_r }sim(h(x),h’(x))<br>\\<br>\mathcal{L}_g&amp;&#x3D;-\frac{1}{|D _ {val}|+1}\sum _ {x\in D _ {val}\cup x_r }sim(h’(x\oplus t_b),h’(x))<br>\end{align}<br>$$<br>另，给定这样的目标函数，利用一种解释方法来计算 xb 中每个像素&#x2F;词的属性得分。较高的属性得分可能表明相应的像素&#x2F;词对目标函数有更大的影响。<br>$$<br>l(h,x_b,x_r)&#x3D;1-sin(h(x_b),h(x_r)) \tag{5}<br>$$<br><img src="/2025/20250727/mud.jpg"></p>
+<h3 id="Backdoor-Detection-Backdoor-Sample-Detection"><a href="#Backdoor-Detection-Backdoor-Sample-Detection" class="headerlink" title="Backdoor Detection Backdoor Sample Detection"></a>Backdoor Detection Backdoor Sample Detection</h3><h4 id="AAAI-2024-Seer-Backdoor-detection-for-vision-language-models-through-searching-target-text-and-image-trigger-jointly"><a href="#AAAI-2024-Seer-Backdoor-detection-for-vision-language-models-through-searching-target-text-and-image-trigger-jointly" class="headerlink" title="(AAAI 2024)Seer: Backdoor detection for vision-language models through searching target text and image trigger jointly"></a>(AAAI 2024)Seer: Backdoor detection for vision-language models through searching target text and image trigger jointly</h4><p>pass</p>
+<h4 id="ICLR-2025-Detecting-backdoor-samples-in-contrastive-language-image-pretraining"><a href="#ICLR-2025-Detecting-backdoor-samples-in-contrastive-language-image-pretraining" class="headerlink" title="(ICLR 2025)Detecting backdoor samples in contrastive language image pretraining"></a>(ICLR 2025)Detecting backdoor samples in contrastive language image pretraining</h4><p><strong>简化局部异常值因子</strong>（SLOF）:<br>$$<br>SLOF_k(q)&#x3D;\frac{1}{k}\sum _ {o\in NN_k(q)}\frac{k-dist(q)}{k-dist(o)}<br>$$<br>其中$k-dist(x)$是样本到其第k个最近邻的距离。</p>
+<p><strong>局部内在维度</strong> (LID)：</p>
+<p><img src="/2025/20250727/LID.jpg"></p>
+<p><strong>维度感知异常值检测 (DAO)</strong>：<br>$$<br>DAO_k(q)&#x3D;\frac{1}{k}\sum _ {o\in NN_k(q)}\left(\frac{k-dist(q)}{k-dist(o)}\right)^{\hat {LID^\ast _ {F_o}}}<br>$$</p>
+<p><img src="/2025/20250727/dbs.jpg"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>Safety at Scale: A Comprehensive Survey of Large Model Safety</li>
+<li><a target="_blank" rel="noopener" href="https://kexue.fm/">https://kexue.fm</a></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" class="print-no-link">#多模态</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>多模态攻击与防御速览</div>
+      <div>https://lijianxiong.space/2025/20250727/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250805/" title="可训练动态掩码稀疏注意力">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">可训练动态掩码稀疏注意力</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250726/" title="Attention Sink">
+                        <span class="hidden-mobile">Attention Sink</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

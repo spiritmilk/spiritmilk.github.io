@@ -1,0 +1,1140 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="（CVPR 2024)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OPERA：通过过度信任惩罚和回顾分配减轻多模态大语言模型中的幻觉">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250722/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="（CVPR 2024)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250722/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250722/2.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250722/3.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250722/4.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250722/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250722/2.png">
+<meta property="article:published_time" content="2025-07-22T08:26:44.000Z">
+<meta property="article:modified_time" content="2025-09-01T15:08:33.521Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="多模态">
+<meta property="article:tag" content="大模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250722/1.jpg">
+  
+  
+  
+  <title>OPERA：通过过度信任惩罚和回顾分配减轻多模态大语言模型中的幻觉 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">OPERA：通过过度信任惩罚和回顾分配减轻多模态大语言模型中的幻觉</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-22 16:26" pubdate>
+          2025年7月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OPERA：通过过度信任惩罚和回顾分配减轻多模态大语言模型中的幻觉</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（CVPR 2024)</p>
+<span id="more"></span>
+
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>MLLMs 也面临着一个称为“幻觉”问题的重大挑战。具体而言，MLLMs 经常对用户提供的图像和提示产生不正确的声明，例如生成无关或无意义的响应，在颜色、数量和位置方面识别图像中不存在的错误物体。</p>
+<p>各种方法 [23, 33, 34, 39]被提出以减少 MLLM 中的幻觉。</p>
+<p>作者发现，幻觉许多幻觉内容的出现与列状注意力模式生成的后续词元相吻合。</p>
+<p><img src="/2025/20250722/1.jpg"></p>
+<p>值得注意的是，这些列状注意力模式通常出现在缺乏实质性信息的词元上，例如句号或引号。</p>
+<p>一个表现出列状注意力模式的词元通常包含有限的信息，却对所有后续词元的预测产生显著影响，大多数后续内容包含推理或幻觉。基于上述观察，作者假设此类词元作为摘要词元，即从序列中的先前词元中聚合关键知识并指导后续词元生成。</p>
+<p><img src="/2025/20250722/2.jpg"></p>
+<p>在解码词元$x_t$时，每个候选假设将根据 Logit 中的Top-$N _ {beam}$ 概率选择 $N _ {beam}$ 个候选词元。最后，解码过程将输出获得最佳束得分的假设。</p>
+<p>另外，基于$Logit p(x_t|x _ {&lt;t}) $，发展了几种解码策略。OPERA 基于束搜索 （bean search），这是一种基于累积得分的解码策略。简而言之，给定一个束大小 $N _ {beam}$ ，束搜索会保留 Nbeam 个候选序列，其中每个候选序列是一个解码序列 $x^{N _ {beam}}$，带有束得分。</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="过度信任-Logit-惩罚"><a href="#过度信任-Logit-惩罚" class="headerlink" title="过度信任 Logit 惩罚"></a>过度信任 Logit 惩罚</h3><p><img src="/2025/20250722/3.jpg"></p>
+<p><strong>裁剪局部窗口：</strong><br>$$<br>W _ {t-1}^k &#x3D; \{ w^i \} _ {i &#x3D; t-k}^{t-1}, \quad \text{s.t. } w^i &#x3D; \{ \omega _ {i,j} \} _ {j &#x3D; t-k}^{i}\tag{3}<br>$$</p>
+<p><strong>注意力缩放：</strong></p>
+<p>$$<br>W _ {t-1}^k &#x3D; \{ w^i \} _ {i &#x3D; t-k}^{t-1}, \quad \text{s.t. } w^i &#x3D; \{\sigma \omega _ {i,j} \} _ {j &#x3D; t-k}^{i}\tag{4}<br>$$</p>
+<p><strong>对注意力矩阵的下三角部分进行列-wise 乘法运算：</strong><br>$$<br>\phi(\omega _ {&lt;t}) &#x3D; \prod _ {i &#x3D; c}^{t-1} \sigma \omega _ {i,c}, \quad \text{s.t. } c &#x3D; \arg\max _ {t-k \leq j \leq t-1} \prod _ {i &#x3D; j}^{t-1} \sigma \omega _ {i,j}<br>\tag{5}<br>$$<br>最终使用beam search限制候选集$\mathcal{Y}$：<br>$$<br>p(x_t\mid x _ {&lt;t})&#x3D;Softmax[\mathcal{H}(h_t)-\alpha\phi(\omega _ {\le t})] _ {x_t},\text{ s.t. }x_t\in \mathcal{Y}<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python">attn_pos = key_position<br>attn_local = attn_last[..., attn_pos[<span class="hljs-string">&quot;response_start&quot;</span>]:, attn_pos[<span class="hljs-string">&quot;response_start&quot;</span>]:]<br>attn_local = scale_factor * attn_local<span class="hljs-comment"># scale_factor默认为50</span><br><br><span class="hljs-comment"># 计算 rollback_scores</span><br>attn_local_scores = torch.zeros((...), dtype=torch.float16).to(candidate_token_scores.device)<br><span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(attn_local.shape[-<span class="hljs-number">1</span>]):<br>    local_score = <span class="hljs-number">1e-7</span> * attn_local[..., j:, j].prod(-<span class="hljs-number">1</span>).data<br>    attn_local_scores[..., j] = local_score.to(torch.float32)<br><br><span class="hljs-comment"># 计算 image attention 惩罚</span><br>cur_response_lens = attn_local.shape[-<span class="hljs-number">1</span>]<br>attn_i = attn_last[..., -<span class="hljs-number">1</span>, attn_pos[<span class="hljs-string">&quot;image_start&quot;</span>]:attn_pos[<span class="hljs-string">&quot;image_end&quot;</span>]+<span class="hljs-number">1</span>].<span class="hljs-built_in">sum</span>(-<span class="hljs-number">1</span>)<br>attn_scores = attn_i<br><br>rollback_scores, rollback_locs = attn_local_scores.<span class="hljs-built_in">max</span>(-<span class="hljs-number">1</span>)<br>rollback_loc = rollback_locs.mode().values.data<br><br>penalty_scores = -attn_scores <span class="hljs-keyword">if</span> cur_response_lens &lt;= <span class="hljs-number">10</span> <span class="hljs-keyword">else</span> rollback_scores<br>candidate_token_scores -= penalty_weights * penalty_scores<br>current_state[<span class="hljs-string">&quot;candidate_token_scores&quot;</span>] = candidate_token_scores.clone()<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="回顾-分配策略"><a href="#回顾-分配策略" class="headerlink" title="回顾-分配策略"></a>回顾-分配策略</h3><p>然而，仍然存在一些情况，其中所有候选词都受到惩罚且幻觉已经发生。这是由于前几个后续词元过度信任了摘要词元，而惩罚机制未能纠正它们。因此，一个直观但激进的想法是，如果我们能排除导致幻觉的词元，并在摘要词元之后重新选择合适的前几个词元，这种模式将大大减弱。</p>
+<p><img src="/2025/20250722/4.jpg"></p>
+<p>$$<br>N _ {overlap}&#x3D;\sum _ {c\in\mathcal{C}}1 _ {c&#x3D;s},\text{ s.t. }s&#x3D;Mode(\mathcal{C})<br>$$<br>若$N _ {overlap}\ge r$，考虑回溯，并将$s&#x3D;Mode(\mathcal{C})$视为摘要词元的位置。</p>
+<p>假设序列$\{x_0, x_1, . . . , x_s, . . . , x _ {t−1}\}$在 摘 要 词 元 xs 处 展 示 了<br>知 识 聚 合 模 式，将 解 码 过 程 回 滚 到 序 列$\{x_0, x_1, . . . , xs\}$并在补集$\mathcal{Y}&#x2F;{x _ {s+1}}$中选择新的下一个词元。由于后续的回滚将比之前的更向前，手动指定回滚位置 s 必须是单调不递减的。此外，为回滚配置了一个最大时间 β ，如果$x_s$ 已经达到了最大回滚次数，我们考虑回滚到 $\{x_0, x_1, . . . , x _ {s−1}\}$。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">try</span>:<br>                <span class="hljs-keyword">if</span> <span class="hljs-built_in">all</span>((rollback_loc_gather == rollback_loc).long().<span class="hljs-built_in">sum</span>() &gt; <span class="hljs-built_in">int</span>(threshold) <span class="hljs-keyword">for</span> _, rollback_loc_gather <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(rollback_loc_gathers)):<br>                    <span class="hljs-keyword">if</span> rollback_loc &lt; <span class="hljs-number">10</span>: <span class="hljs-comment"># or rollback_loc + 1 &lt; rollback_pos:</span><br>                        <span class="hljs-keyword">assert</span> <span class="hljs-literal">False</span><br>                    <span class="hljs-comment"># locate the rollback position</span><br>                    <span class="hljs-comment"># —— 1) 确定 rollback_pos，更新 max_rollback_time —— </span><br>                    rollback_pos = rollback_loc + <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">if</span> max_rollback_time[rollback_pos] &gt;= num_attn_candidates:<br>                        <span class="hljs-comment"># print(f&quot;Already reach the maximum rollback times at position &#123;rollback_pos&#125;, so shift the rollback position to &#123;rollback_pos-1&#125;&quot;)</span><br>                        <span class="hljs-comment"># 已在该位置回滚过足够多次，先尝试往前退一格</span><br>                        rollback_pos = rollback_pos - <span class="hljs-number">1</span><br>                        <span class="hljs-keyword">if</span> max_rollback_time[rollback_pos] &gt;= num_attn_candidates:<span class="hljs-comment"># 如果前一位置也达到极限，则抛错进入 except 分支</span><br>                            <span class="hljs-keyword">assert</span> <span class="hljs-literal">False</span><br>                        <span class="hljs-keyword">else</span>:<br>                            max_rollback_time[rollback_pos] += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">else</span>:<br>                        max_rollback_time[rollback_pos] += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">if</span> cur_response_lens - rollback_pos &gt; history_length + <span class="hljs-number">1</span>:<span class="hljs-comment">## 如果当前位置与历史窗口长度差太大，也往前移动</span><br>                        rollback_pos = <span class="hljs-built_in">max</span>(<span class="hljs-number">1</span>, cur_response_lens - history_length - <span class="hljs-number">1</span>)<br>                    <span class="hljs-comment"># print(f&quot;rollback from pos &#123;cur_response_lens-1&#125; to pos &#123;rollback_pos&#125; for the time &#123;int(max_rollback_time[rollback_pos])&#125;&quot;)</span><br><br>                    <span class="hljs-comment"># discard the rollbacked states in history</span><br>                    <span class="hljs-comment"># —— 2) 丢弃过多历史状态 —— </span><br>    				<span class="hljs-comment"># history_states 按时间顺序保存着每一步的快照，最后一条是刚加入的 current_state</span><br>    				<span class="hljs-comment"># 要回到 rollback_pos，就要把最新的 (cur_len - rollback_pos - 1) 条状态弹出</span><br>                    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(cur_response_lens-rollback_pos-<span class="hljs-number">2</span>):<br>                        history_states.pop(-<span class="hljs-number">1</span>)<br>                        history_rollback_locs.pop(-<span class="hljs-number">1</span>)<br>                        reject_token_pos_gather[-(j+<span class="hljs-number">1</span>)] = []<br><br>                    <span class="hljs-comment"># Revive all of variables in the state of the rollback position</span><br>                    input_ids = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;input_ids&quot;</span>]<br>                    beam_scorer = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;beam_scorer&quot;</span>]<br>                    beam_indices = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;beam_indices&quot;</span>]<br>                    cur_len = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;cur_len&quot;</span>]<br><br>                    attn_previous = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;attn_previous&quot;</span>].to(input_ids.device)<br>                    candidate_token_scores = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;candidate_token_scores&quot;</span>]<br>                    candidate_tokens = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;candidate_tokens&quot;</span>]<br><br>                    beam_scores = history_states[-<span class="hljs-number">2</span>][<span class="hljs-string">&quot;beam_scores&quot;</span>]<br>                    beam_next_tokens = history_states[-<span class="hljs-number">1</span>][<span class="hljs-string">&quot;beam_next_tokens&quot;</span>]<br>                    beam_idx = history_states[-<span class="hljs-number">1</span>][<span class="hljs-string">&quot;beam_idx&quot;</span>]<br><br>                    <span class="hljs-comment"># first inference to get model kwargs</span><br>                    <span class="hljs-comment"># —— 4) 重新前向两次 —— </span><br>    				<span class="hljs-comment"># 第一次：先构造 model_kwargs（恢复上下文）</span><br>                    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;images&quot;</span> <span class="hljs-keyword">in</span> model_kwargs_ori.keys():<br>                        model_kwargs = model_kwargs_ori.copy()<br>                        model_kwargs[<span class="hljs-string">&quot;attention_mask&quot;</span>] = torch.cat([<br>                            model_kwargs[<span class="hljs-string">&quot;attention_mask&quot;</span>], torch.ones((<br>                                input_ids.shape[<span class="hljs-number">0</span>], input_ids[:,:-<span class="hljs-number">1</span>].shape[<span class="hljs-number">1</span>] - model_kwargs[<span class="hljs-string">&quot;attention_mask&quot;</span>].shape[<span class="hljs-number">1</span>]<br>                            )).to(input_ids.device)], <span class="hljs-number">1</span>)<br><br>                        model_inputs_tmp = <span class="hljs-variable language_">self</span>.prepare_inputs_for_generation(input_ids[:,:-<span class="hljs-number">1</span>], **model_kwargs)<br>                    <span class="hljs-keyword">else</span>:<br>                        answer_embeds = <span class="hljs-variable language_">self</span>.model.embed_tokens(input_ids[:,<span class="hljs-number">1</span>:-<span class="hljs-number">1</span>])<br>                        model_kwargs = model_kwargs_ori.copy()<br>                        model_kwargs[<span class="hljs-string">&quot;inputs_embeds&quot;</span>] = torch.cat([model_kwargs[<span class="hljs-string">&quot;inputs_embeds&quot;</span>], answer_embeds], <span class="hljs-number">1</span>)<br>                        model_kwargs[<span class="hljs-string">&quot;attention_mask&quot;</span>] = torch.cat(<br>                            [model_kwargs[<span class="hljs-string">&quot;attention_mask&quot;</span>], torch.ones_like(input_ids[:,<span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]).to(input_ids.device)], <span class="hljs-number">1</span>)<br><br>                        model_inputs_tmp = <span class="hljs-variable language_">self</span>.prepare_inputs_for_generation(input_ids[:,<span class="hljs-number">1</span>:-<span class="hljs-number">1</span>], **model_kwargs)<br><br>                    outputs_tmp = <span class="hljs-variable language_">self</span>(<br>                        **model_inputs_tmp,<br>                        return_dict=<span class="hljs-literal">True</span>,<br>                        output_attentions=output_attentions,<br>                        output_hidden_states=output_hidden_states,<br>                    )<br>                    model_kwargs = <span class="hljs-variable language_">self</span>._update_model_kwargs_for_generation(<br>                        outputs_tmp, model_kwargs, is_encoder_decoder=<span class="hljs-variable language_">self</span>.config.is_encoder_decoder<br>                    )<br><br>                    <span class="hljs-comment"># another inference to get outputs and logits</span><br>                    model_inputs_tmp = <span class="hljs-variable language_">self</span>.prepare_inputs_for_generation(input_ids, **model_kwargs)<br><br>                    outputs = <span class="hljs-variable language_">self</span>(<br>                        **model_inputs_tmp,<br>                        return_dict=<span class="hljs-literal">True</span>,<br>                        output_attentions=output_attentions,<br>                        output_hidden_states=output_hidden_states,<br>                    )<br>                    next_token_logits = outputs.logits[:, -<span class="hljs-number">1</span>, :]<br>                    <span class="hljs-keyword">del</span> outputs_tmp, model_inputs_tmp<br><br>                    <span class="hljs-comment"># discard the last rollbacked state in history</span><br>                    history_states.pop(-<span class="hljs-number">1</span>)<br>                    history_rollback_locs.pop(-<span class="hljs-number">1</span>)<br>                    reject_token_pos_gather[rollback_pos+<span class="hljs-number">1</span>] = []<br><br>                    <span class="hljs-comment"># set penalty on the corresponding candidates</span><br>                    <span class="hljs-comment"># —— 5) 在 logits 上对已拒绝 token 施加极大惩罚 —— </span><br>    				<span class="hljs-comment"># 将所有 logits 减去一个大数，使这些 token 在后续 topk 中永远得分最小</span><br>                    next_token_logits -= <span class="hljs-number">999.</span> + next_token_logits.<span class="hljs-built_in">min</span>(-<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>).values.data<br>                    next_token_logits = next_token_logits.view(batch_size, num_beams * vocab_size)<br>                    beam_idx = beam_idx.view(batch_size, num_beams)<br>                    beam_next_tokens = beam_next_tokens.view(batch_size, num_beams)<br>                    reject_token_pos = beam_idx * vocab_size + beam_next_tokens<br>                    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(reject_token_pos_gather[rollback_pos]) &gt; <span class="hljs-number">0</span>:<br>                        reject_token_pos = torch.cat([reject_token_pos_gather[rollback_pos], reject_token_pos], -<span class="hljs-number">1</span>)<br>                    reject_token_pos_gather[rollback_pos] = reject_token_pos<br>                    next_token_logits = next_token_logits.scatter_(-<span class="hljs-number">1</span>, reject_token_pos, -<span class="hljs-number">999.</span>)<br>                    next_token_logits = next_token_logits.view(batch_size * num_beams, vocab_size)<br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-keyword">assert</span> <span class="hljs-literal">False</span><br>            <span class="hljs-keyword">except</span>:<br>                next_token_logits.fill_(-<span class="hljs-number">999.</span>)<br>                next_token_logits = next_token_logits.scatter_(-<span class="hljs-number">1</span>, candidate_tokens, candidate_token_scores)<br></code></pre></td></tr></table></figure>
+
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2025/20250722/1.png"></p>
+<p><img src="/2025/20250722/2.png"></p>
+<p>令人奇异的是，beam search的幻觉率居然比top-k、top-p相对更低。</p>
+<p>但想想似乎也存在一定的合理性。提出top-p的《The Curious Case of Neural Text Degeneration》也说明了beam search更容易重复，而缺乏新意。</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>后续的还有2407.15130、2409.20429、2501.15269、2503.08342。</p>
+<p>视觉方面也有相关研究：2503.07772</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" class="print-no-link">#多模态</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OPERA：通过过度信任惩罚和回顾分配减轻多模态大语言模型中的幻觉</div>
+      <div>https://lijianxiong.space/2025/20250722/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250724/" title="OATS-通过稀疏与低秩分解实现异常值感知的剪枝">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">OATS-通过稀疏与低秩分解实现异常值感知的剪枝</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250720/" title="通过VIB减少大型视觉-语言模型中的幻觉现象">
+                        <span class="hidden-mobile">通过VIB减少大型视觉-语言模型中的幻觉现象</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

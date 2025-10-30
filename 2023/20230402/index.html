@@ -1,0 +1,1243 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="来自Open Samizdat  简介：chatgpt的流行及其各种令人印象深刻的功能使一些人相信它是在现有系统的语言能力上向前迈出的重要一步，nlp领域很快就会被生成语言模型所吞噬，甚至它预示着AGI。 为了验证这些说法，我对arXiv预打印进行了调查，将chatgpt与其他方法进行了比较，主要是使用较小的微调模型。 chatgpt的性能并不像我预期的那样令人印象深刻，因为它经常被更小的模型所超">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chatgpt在数据集上的性能调查">
+<meta property="og:url" content="https://lijianxiong.space/2023/20230402/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="来自Open Samizdat  简介：chatgpt的流行及其各种令人印象深刻的功能使一些人相信它是在现有系统的语言能力上向前迈出的重要一步，nlp领域很快就会被生成语言模型所吞噬，甚至它预示着AGI。 为了验证这些说法，我对arXiv预打印进行了调查，将chatgpt与其他方法进行了比较，主要是使用较小的微调模型。 chatgpt的性能并不像我预期的那样令人印象深刻，因为它经常被更小的模型所超">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Bang-Benchmark.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Koco%C5%84-Benchmark.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Qin-Understanding.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Zhong-Understanding.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Jang-Consistency1.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Jang-Consistency2.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Jang-Consistency3.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Robustness.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Summarization.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Yang-Summarization.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Hendy-Translation.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Jiao-Translation1.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Jiao-Translation2.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Kocmi-Evaluation.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Evaluation1.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Evaluation2.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Evaluation3.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Tan-QA.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Omar-QA.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Wei-Extraction.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Gao-Extraction.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Amin-Affective.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Kuzman-Genre.png">
+<meta property="og:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Zhang-Stance.png">
+<meta property="article:published_time" content="2023-04-02T14:07:09.000Z">
+<meta property="article:modified_time" content="2024-02-14T14:22:57.313Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="自然语言处理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://opensamizdat.com/posts/chatgpt_survey/images/Bang-Benchmark.png">
+  
+  
+  
+  <title>chatgpt在数据集上的性能调查 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">chatgpt在数据集上的性能调查</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-02 22:07" pubdate>
+          2023年4月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">chatgpt在数据集上的性能调查</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/">Open Samizdat</a></p>
+<hr>
+<h2 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h2><p>chatgpt的流行及其各种令人印象深刻的功能使一些人相信它是在现有系统的语言能力上向前迈出的重要一步，nlp领域很快就会被生成语言模型所吞噬，甚至它预示着AGI。</p>
+<p>为了验证这些说法，我对arXiv预打印进行了调查，将chatgpt与其他方法进行了比较，主要是使用较小的微调模型。</p>
+<p>chatgpt的性能并不像我预期的那样令人印象深刻，因为它经常被更小的模型所超越。</p>
+<span id="more"></span>
+
+<h2 id="方法论"><a href="#方法论" class="headerlink" title="方法论"></a>方法论</h2><p>截至2023-03-23，在arXiv上搜索chatgpt可以找到141篇论文。</p>
+<p>为了过滤掉无关的论文，我忽略了那些似乎不是关于nlp研究的论文，或者那些讨论非性能方面的论文，比如chatgpt的政治倾向。</p>
+<p>然后，我打开剩下的论文，滚动浏览它们，寻找一个可以在chatgpt和其他模型之间进行定量比较的表格或图表。</p>
+<p>我找到了19篇符合这些标准的论文。这19篇论文的表格和图表在下面的附录中，并附有简要的评论。对于每篇论文，我统计了chatgpt比表现最好的非llm方法1获得更好分数的数据集的数量。如果一个数据集报告了多个分数，我会试着选择信息量最大的分数。如果报告了一个数据集的多个分割或变体，我试图找到信息量最大的子集。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>在151次比较中，Chatgpt赢得了34次(22.5%)。<br>在大多数经典的nlp任务中，chatgpt的性能并不优于现有的微调基线，尽管它通常很接近。<br>在某些情况下，它甚至无法击败简单的词袋模型(例如，预测Amin-Affective的亲和性- 58.5 vs 44.8的准确度)，或者它比监督基线差得惊人的显著(例如，Bang-Benchmark中的clutrr关系推理数据集- 48.4 vs 23.3的准确度或kococo - benchmark中的goemotions情绪分类数据集- 52.75 vs 25.55的准确度)。<br>chatgpt与情感任务(kococo - benchmark, Amin-Affective)斗争，它有时比旧的bert-tier模型(Jang-Consistency)表现出更高的脆弱性。<br>我惊讶地发现chatgpt并不擅长文本生成任务，如总结或问题回答(wang - summary, Tan-QA)，尽管人们非常喜欢这些功能。<br>chatgpt在语义相似性任务上似乎不是很强大，但它确实很擅长将生成的文本与引用进行比较(komic - evaluation, Wang-Evaluation)。<br>我认为这两种技能是高度相关的，但我想不是。</p>
+<p>一些论文(<a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#qin-understanding">Qin-Understanding</a>, <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#wang-robustness">Wang-Robustness</a>, <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#hendy-translation">Hendy-Translation</a>)也对不同版本的gpt-3进行了比较。<br>结果好坏参半，我在任务中找不到chatgpt获胜或失败的任何模式。<br>这表明在训练过程中有一定程度的脆弱性，其中模型获得了一些能力，但它可能会失去其他能力，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.10420">Ye等人2023</a>。<br>当他们证明chatgpt在几个数据集和任务上比text-davinci-003更差时，就证实了这一点，令人惊讶的是，包括小队问答数据集。</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>有几个重要的注意事项需要考虑。</p>
+<p>我已经标记了每个说明是否表明chatgpt可能比报告的强(+)或弱(-)。</p>
+<ul>
+<li><strong>Suboptimal utilization of chatgpt (+)</strong></li>
+</ul>
+<p>提示工程可以显著提高llm的表现(例如，在中理解中，78.7分vs 86.2分)，但这里的一些论文只使用非常基本的提示技术。</p>
+<p>很明显，一些chatgpt实验是在最后一分钟匆忙添加的。</p>
+<p>随着未来人们对chatgpt和适当的提示技术越来越熟悉，性能利用率可能会提高，chatgpt可能会获得额外的胜利。</p>
+<ul>
+<li><strong>Self-selected datasets (+).</strong></li>
+</ul>
+<p>研究人员倾向于设计数据集，这样它们就可以用现有的方法和途径来解决。</p>
+<p>我相信，这就是为什么一些旧的分类数据集仍然具有单词袋方法的竞争性结果。</p>
+<p>经过微调的模型可能会有很好的结果，因为数据集与它们的强项相匹配。</p>
+<p>另一方面，由于缺乏适当的数据集或方法，许多有趣的chatgpt的能力目前难以衡量，因此它们没有包括在本次调查中。</p>
+<ul>
+<li><strong>Data leakage (-)</strong></li>
+</ul>
+<p>完全有可能一些用于评估的数据集被泄露到chatgpt的训练集，这可能会影响结果。</p>
+<p>一些数据集是公开可用的，在使用chatgpt期间可能发生了额外的泄漏。</p>
+<p>实验gpt模型的研究人员通常会提供原始数据，如果他们使用较少的提示，甚至会提供标签。</p>
+<p>目前还不清楚openai对这些数据做了什么，很可能对于许多数据集来说，chatgpt已经被污染了。</p>
+<ul>
+<li><strong>Positive result bias (-).</strong></li>
+</ul>
+<p>当研究人员无法让chatgpt在他们特定的数据集或用例上工作时，他们可能不会报告。</p>
+<ul>
+<li><strong>Weak baselines (-).</strong></li>
+</ul>
+<p>许多用于比较的基线不再是真正的sota模型。<br>对于chatgpt胜出的一些任务，您可能可以找到更好的模型。</p>
+<ul>
+<li>主要是英语。</li>
+</ul>
+<p>通常情况下，chatgpt的评估主要集中在英语语言上。众所周知，多语言评估缺乏适当的数据集。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我对chatgpt的表现有点失望，也许这是不公平的。它没有达到宣传的效果，也没有达到我迄今为止看到的所有精选的例子。它仍然是一个伟大的多面手模型，它可以以某种方式执行许多技能，这是一个奇迹。但这距离真正的语言智能还很远。对于大多数经典的nlp任务来说，小型微调模型并不是那么令人印象深刻，这通常比这更糟糕。<br>我认为vanilla chatgpt将被用作一些应用程序的快速原型，但对于大多数生产就绪的解决方案，它将被一个经过微调的模型(出于经济原因，通常更小)所取代，除非需要自由文本交互。我还想知道他们将来是否会允许对gpt-3.5模型(包括chatgpt)进行微调。Openai(再次)提出了关于他们模型的安全问题，让人们对模型进行微调意味着他们违反了自己的安全措施。我想他们最终会这么做的，就像他们之前的所有模型一样。</p>
+<p>很难预测新模型是否会明显优于chatgpt。在某种程度上，无论是计算方面还是数据方面，扩展范式都遇到了瓶颈。指数增长不可能无限期地持续下去，这一事实不应该那么令人惊讶。我们将不得不等待几个月的类似批次的论文来评估gpt-4，因为作者在他们的论文中除了回答问题之外没有报告任何内容。他们的api页面简单地说明:对于许多基本任务，gpt-4和gpt-3.5模型之间的差异并不显著。然而，在更复杂的推理情况下，gpt-4比我们之前的任何模型都更有能力。<br>这是否意味着扩展完全停止了对基本功能的改进，chatgpt基本上是性能的峰值?另一方面，复杂的推理可能是目前这些模型最有趣的特征，但不幸的是，在本次调查中，它几乎没有。</p>
+<p>看起来gpt-3甚至更老的nlp模型通常具有类似的功能，但是chatgpt得到了所有媒体的关注。我想这说明了用户体验有多重要。人们不关心智能自动补全，因为他们需要摆弄一些模糊的参数，比如温度或top-p。但只要你把它包装成聊天工具，并赋予它一点个性，人们就会为之疯狂。我想知道 <a target="_blank" rel="noopener" href="https://galactica.org/">galactica</a>的情况。如果他们不试图以科学界为目标，它可能会像chatgpt一样成功——在科学界，事实性(llms的一个众所周知的弱点)是最重要的价值观之一。</p>
+<p>评估llms正变得越来越困难。gpt模型的作者只报告了少数数据集上的结果，社区需要以不协调的方式测试其余的数据集。数据泄露对评估的有效性是一个持续的威胁，我们可能不得不从头开始重新思考。我可以预见用户研究在未来会被更多地使用，但那将会更加昂贵。Big-bench是一个由442名志愿研究人员共同撰写的大型基准集合，旨在测试llms，由于数据泄漏，对于最受欢迎的llms之一来说，它几乎完全无用。学术界花费数千小时或美元来测试(阅读，为模型所有者提供价值)完全封闭的模型，这有点病态，这些模型可以随时被删除、更新或污染，（我在这里的工作与此类似。讽刺的是，我也知道）。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h4 id="Bang-Benchmark"><a href="#Bang-Benchmark" class="headerlink" title="Bang-Benchmark"></a>Bang-Benchmark</h4><p>Bang, Y., Cahyawijaya, S., Lee, N., Dai, W., Su, D., Wilie, B., … &amp; Fung, P. (2023). A Multitask, Multilingual, Multimodal Evaluation of ChatGPT on Reasoning, Hallucination, and Interactivity. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04023">arXiv preprint arXiv:2302.04023</a>.</p>
+<p><strong>3 out of 21.</strong> This is the most thorough paper in this survey. They compared chatgpt with fine-tuned and zero-shot sota on 21 datasets from 7 tasks: summarization, machine translation, sentiment analysis, question answering, misinformation detection, task-oriented dialogue, and open-domain knowledge-grounded dialogue. chatgpt was able to win only in a small handful of cases. Additionally, they evaluated chatgpt’s multilinguality, multimodality, reasoning capabilities, factuality, and interactivity, but that’s outside of my scope here. There is not much information about their prompt design, and they did not report confidence intervals for the scores, despite calculating them only from a small test sets (mostly 50 samples). Small samples size is actually a problem for many of the papers here, probably because of the limited API access people had.</p>
+<p>I am skeptical about the covid-scientific dataset, which they describe as <em>a testset that consists of covid-19-related scientific or medical myths that must be debunked correctly to ensure the safety of the public.</em> In my experience, it appears that chatgpt was heavily reinforced to align its communication regarding covid-19 in a particular manner and was likely exposed to significant amounts of texts about covid-19 misinformation. The excellent performance on this dataset may be the result of what is essentially a data leak.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Bang-Benchmark.png" alt="img"></p>
+<h4 id="Kocon-Benchmark"><a href="#Kocon-Benchmark" class="headerlink" title="Kocoń-Benchmark"></a>Kocoń-Benchmark</h4><p>Kocoń, J., Cichecki, I., Kaszyca, O., Kochanek, M., Szydło, D., Baran, J., … &amp; Kazienko, P. (2023). ChatGPT: Jack of All Trades, Master of None. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.10724">arXiv preprint arXiv:2302.10724</a>.</p>
+<p><strong>0 out of 25.</strong> This <em>benchmarking</em> paper analyzes chatgpt’s performance on 25 datasets from 11 tasks: offensiveness detection, linguistic acceptability, humor recognition, spam detection, word sense disambiguation, natural language inference, question answering, emotion recognition, sentiment analysis, emoji prediction, and stance detection. Some of these tasks are in Polish. chatgpt performed worse in all tasks, often by a significant margin. It particularly struggled with <em>emotion</em> and <em>pragmatic</em> tasks. They used few-shot prompting in some cases (aggressionper and goemoper datasets), while other tasks only had vanilla prompting.</p>
+<p>They calculated some interesting correlations regarding the performance metrics. First, Figure 7 in their paper shows that chatgpt seems to perform worse for more difficult tasks — tasks where sota is further away from 100% performance. This may suggest that chatgpt struggles with long-tail tasks. Second, they estimated the probability of data leaking to chatgpt for each dataset. Most datasets were marked as either <em>probable</em> or <em>highly probable</em>, which is alarming in its own right. Figure 10 shows that datasets with a lower leak probability had worse performance, suggesting that data leak might have inflated the results in some cases. However, I would like to see this without the goemoper tasks, where chatgpt was asked to imitate specific annotators based on 1-3 examples of their annotations. chatgpt performed 30-47% worse than sota on these tasks, and it might have skewed the results.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Koco%C5%84-Benchmark.png" alt="img"></p>
+<h4 id="Qin-Understanding"><a href="#Qin-Understanding" class="headerlink" title="Qin-Understanding"></a>Qin-Understanding</h4><p>Qin, C., Zhang, A., Zhang, Z., Chen, J., Yasunaga, M., &amp; Yang, D. (2023). Is ChatGPT a General-Purpose Natural Language Processing Task Solver? <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.06476">arXiv preprint arXiv:2302.06476</a>.</p>
+<p><strong>0 out of 7.</strong> This is another paper that compares chatgpt’s performance across a significant number of tasks. Figure 1 is actually misleading since the <em>Fine-tuning</em> models for all the <em>Reasoning</em> tasks (the first two rows of results) are also just language models prompted with <em>chain-of-thought few-shot prompts</em>. Therefore, I only consider the results from the last row where fine-tuned models are actually used. They outperform chatgpt in all cases.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Qin-Understanding.png" alt="img"></p>
+<h4 id="Zhong-Understanding"><a href="#Zhong-Understanding" class="headerlink" title="Zhong-Understanding"></a>Zhong-Understanding</h4><p>Zhong, Q., Ding, L., Liu, J., Du, B., &amp; Tao, D. (2023). Can ChatGPT Understand Too? A Comparative Study on ChatGPT and Fine-tuned BERT. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.10198">arXiv preprint arXiv:2302.10198</a>.</p>
+<p><strong>1 out of 8.</strong> This is a comparison on the glue <em>natural language understanding</em> benchmark. They actually use some of the more advanced prompting strategies, including <em>few-shot</em> and <em>chain-of-thought prompts</em>. Their basic prompts were generated by chatgpt, a bizzare decision, as I doubt that chatgpt is self-conscious enough that it’s able to generate optimal prompts for itself. The prompting techniques helped to improve the average performance from 78.7 to 86.2.</p>
+<p>chatgpt arguably outperformed the roberta-large model in 4 out of the 8 tasks reported here. However, in this case, I have decided to compare the performance with the <a target="_blank" rel="noopener" href="https://gluebenchmark.com/leaderboard/">glue leaderboard</a> instead, as roberta is a bit outdated by now. Compared to the true sota results (turing ulr v6 model), chatgpt performed better only for sentiment analysis. chatgpt did not perform particularly well for sentiment analysis in the three previous papers, but they all used only vanilla prompts. The authors also discuss the instability of few-shot prompting. The performance for the cola dataset can differ by more than 20% depending on the selected examples.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Zhong-Understanding.png" alt="img"></p>
+<h4 id="Jang-Consistency"><a href="#Jang-Consistency" class="headerlink" title="Jang-Consistency"></a>Jang-Consistency</h4><p>Jang, M., &amp; Lukasiewicz, T. (2023). Consistency Analysis of ChatGPT. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.06273">arXiv preprint arXiv:2303.06273</a>.</p>
+<p><strong>3 out of 9.</strong> The authors show that chatgpt is surprisingly <em>brittle</em> when the input texts are perturbed, in some cases even more so than bert-tier models. They tested two text comparison tasks (paraphrase detection and natural language inference) with three types of perturbations:</p>
+<ul>
+<li><strong>Semantic perturbations.</strong> How do the predictions change if we paraphrase one of the inputs? The paraphrases were generated by quilbot or chatgpt. chatgpt changes its prediction 10-30% of the time if we rephrase one of the inputs. It\s more consistent for paraphrases generated by itself.</li>
+<li><strong>Negation perturbations.</strong> How do the predictions change if we negate the input? chatgpt performs better than older models, which are notorious for not understanding negation Kassner &amp; Schütze 2020 . In this case, we expect negation to flip the prediction.</li>
+<li><strong>Symmetric perturbations.</strong> How do the predictions change if we switch the order of the inputs? chatgpt is incredibly inconsistent in this regard, much more so than any of the older models. mrpc is a completely symmetric task (<em>do the two sentences have the same meaning?</em>), but chatgpt changes its prediction based on the order of the two sentences in 12.5% of cases. To improve the results, they had to merge neutral and contradiction labels into one in snli-2c. The fact that the model cannot distinguish between these two concepts is also concerning.</li>
+</ul>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Jang-Consistency1.png" alt="img"><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Jang-Consistency2.png" alt="img"><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Jang-Consistency3.png" alt="img"></p>
+<h4 id="Wang-Robustness"><a href="#Wang-Robustness" class="headerlink" title="Wang-Robustness"></a>Wang-Robustness</h4><p>Wang, J., Hu, X., Hou, W., Chen, H., Zheng, R., Wang, Y., … &amp; Xie, X. (2023). On the Robustness of ChatGPT: An Adversarial and Out-of-Distribution Perspective. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.12095">arXiv preprint arXiv:2302.12095</a>.</p>
+<p><strong>8 out of 8.</strong> The <em>brittleness</em> (or robustness) is the main topic of this paper as well. They test two scenarios: (1) <em>adversarial attacks</em> and (2) <em>out-of-domain generalization</em>. chatgpt is the clean winner as it was able to achieve the best results in all cases. I specifically checked for possible data leaks for the adversarial datasets in this case, as this is the paper where chatgpt has the best win ratio. There are a handful of samples leaked on the advglue benchmark website, but the biggest leak is probably <a target="_blank" rel="noopener" href="https://huggingface.co/datasets/adv_glue/viewer/adv_mnli/validation">HuggingFace Datasets page</a> where they show 100 samples for each of the subsets tested here. Some of them are quite small (e.g., rte has only 302 samples) and a large portion of the datasets could have been leaked this way. Otherwise, I don’t understand how chatgpt became so much better than <code>text-davinci-003</code> in some cases .</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Robustness.png" alt="img"></p>
+<h4 id="Wang-Summarization"><a href="#Wang-Summarization" class="headerlink" title="Wang-Summarization"></a>Wang-Summarization</h4><p>Wang, J., Liang, Y., Meng, F., Li, Z., Qu, J., &amp; Zhou, J. (2023). Cross-Lingual Summarization via ChatGPT. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.14229">arXiv preprint arXiv:2302.14229</a>.</p>
+<p><strong>0 out of 5.</strong> <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#qin-understanding">Qin-Understanding</a> and <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#bang-benchmark">Bang-Benchmark</a> have already shown that chatgpt does not beat the sota models for English <em>summarization</em>. Here, the authors show the same for crosslingual summarization (English to Mandarin and English to German). It could be argued that the evaluation metrics (mainly rouge) do not match the use case perfectly, and a user study should be conducted to see how people react to the outputs. On the other hand, <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#bang-benchmark">Bang-Benchmark</a> claim that the summaries produced by chatgpt are sometimes longer than the input documents, so it’s hard to believe that chatgpt really gets what this task is about.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Summarization.png" alt="img"></p>
+<h4 id="Yang-Summarization"><a href="#Yang-Summarization" class="headerlink" title="Yang-Summarization"></a>Yang-Summarization</h4><p>Yang, X., Li, Y., Zhang, X., Chen, H., &amp; Cheng, W. (2023). Exploring the Limits of ChatGPT for Query or Aspect-Based Text Summarization. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.08081">arXiv preprint arXiv:2302.08081</a>.</p>
+<p><strong>2 out of 6.</strong> chatgpt was actually able to achieve some <em>summarization</em> wins here, although the tasks are query-based and aspect-based summarization. Perhaps these tasks are better aligned with chatgpt’s training. It wins an aspect-based newts dataset and is also competitive for qmsum, where the task is to summarize a meeting transcript according to a specific query. The <em>golden</em> version only includes the parts of the meeting that are relevant to the input query.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Yang-Summarization.png" alt="img"></p>
+<h4 id="Hendy-Translation"><a href="#Hendy-Translation" class="headerlink" title="Hendy-Translation"></a>Hendy-Translation</h4><p>Hendy, A., Abdelrehim, M., Sharaf, A., Raunak, V., Gabr, M., Matsushita, H., … &amp; Awadalla, H. H. (2023). How Good are GPT Models at Machine Translation? A Comprehensive Evaluation. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.09210">arXiv preprint arXiv:2302.09210</a>.</p>
+<p><strong>1 out of 8.</strong> This paper is a pretty robust evaluation of the <em>machine translation</em> capabilities of the gpt models. The one experiment that uses chatgpt is shown in the Figure below. The best performing models from the wmt benchmark outperformed the gpt models for most metrics. The comparison between <code>text-davinci-003</code> and chatgpt is less clear and depends on the language. There are other experiments in the paper, but they do not use chatgpt. The paper is actually exceptionally in-depth, and the follow-up investigation paints a much better picture of the capabilities of gpt models than the basic table shown here.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Hendy-Translation.png" alt="img"></p>
+<h4 id="Jiao-Translation"><a href="#Jiao-Translation" class="headerlink" title="Jiao-Translation"></a>Jiao-Translation</h4><p>Jiao, W., Wang, W., Huang, J. T., Wang, X., &amp; Tu, Z. (2023). Is ChatGPT a Good Translator? A Preliminary Study. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2301.08745">arXiv preprint arXiv:2301.08745</a>.</p>
+<p><strong>1 out of 16.</strong> This is another, in my opinion, weaker, <em>machine translation</em> paper. chatgpt falls behind the available machine translation systems in almost all cases, except for one dataset, wmt20 rob3 — an <em>out-of-distribution</em> test set based on transcribed speech. This is another paper that made the bizarre decision to ask chatgpt for the prompts.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Jiao-Translation1.png" alt="img"><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Jiao-Translation2.png" alt="img"></p>
+<h4 id="Kocmi-Evaluation"><a href="#Kocmi-Evaluation" class="headerlink" title="Kocmi-Evaluation"></a>Kocmi-Evaluation</h4><p>Kocmi, T., &amp; Federmann, C. (2023). Large Language Models are State-of-the-Art Evaluators of Translation Quality. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.14520">arXiv preprint arXiv:2302.14520</a>.</p>
+<p><strong>1 out of 1.</strong> This paper has found that chatgpt is an excellent <em>evaluator</em> of translations. gpt models have outperformed existing measures and models in terms of their alignment with human judgements. The performance of individual gpt models depends on the prompt formulation. <code>text-davinci-003</code> works best with a 0-100 scale, <code>text-davinci-002</code> when it has to select 1-5 stars, and chatgpt when it has to select from five text descriptions (e.g., <em>No meaning preserved</em> or <em>Some meaning preserved, but not understandable</em>).</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Kocmi-Evaluation.png" alt="img"></p>
+<h4 id="Wang-Evaluation"><a href="#Wang-Evaluation" class="headerlink" title="Wang-Evaluation"></a>Wang-Evaluation</h4><p>Wang, J., Liang, Y., Meng, F., Shi, H., Li, Z., Xu, J., … &amp; Zhou, J. (2023). Is ChatGPT a Good NLG Evaluator? A Preliminary Study. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.04048">arXiv preprint arXiv:2303.04048</a>.</p>
+<p><strong>2 out of 3.</strong> This paper confirms the results from <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#kocmi-evaluation">Kocmi-Evaluation</a> and shows that chatgpt is great for <em>text evaluation</em>. Instead of machine translation, they use summarization (summeval), story generation (openmeva), and data-to-text (bagel) tasks.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Evaluation1.png" alt="img"><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Evaluation2.png" alt="img"><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Wang-Evaluation3.png" alt="img"></p>
+<h4 id="Tan-QA"><a href="#Tan-QA" class="headerlink" title="Tan-QA"></a>Tan-QA</h4><p>Tan, Y., Min, D., Li, Y., Li, W., Hu, N., Chen, Y., &amp; Qi, G. (2023). Evaluation of ChatGPT as a Question Answering System for Answering Complex Questions. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.07992">arXiv preprint arXiv:2303.07992</a>.</p>
+<p><strong>2 out of 8.</strong> The authors evaluated chatgpt’s performance on 8 <em>question answering</em> datasets, including two multilingual ones. The results showed that chatgpt’s performance varied significantly. It outperformed the sota model by a significant margin for wqsp, but fell completely behind for qald-9. This unpredictability is not surprising, as question answering depends on two factors: (1) the number of answers in the training data, and (2) the number of answers the model memorized. These factors can vary significantly for questions from different domains or languages. The authors also observed that chatgpt is less stable for similar&#x2F;nearly identical inputs (see also <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#jang-consistency">Jang-Consistency</a>).</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Tan-QA.png" alt="img"></p>
+<h4 id="Omar-QA"><a href="#Omar-QA" class="headerlink" title="Omar-QA"></a>Omar-QA</h4><p>Omar, R., Mangukiya, O., Kalnis, P., &amp; Mansour, E. (2023). ChatGPT versus Traditional Question Answering for Knowledge Graphs: Current Status and Future Directions Towards Knowledge Graph Chatbots. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.06466">arXiv preprint arXiv:2302.06466</a>.</p>
+<p><strong>1 out of 4.</strong> This is another paper that evaluates <em>question answering</em>, but they focus on knowledge graphs. chatgpt performs reasonably well on the general knowledge datasets (yago and qald-9), but it fails completely on the academic datasets (dblp and mag). These academic datasets have questions about the virtual academic knowledge graph of authors, publications, and citations. Theoretically, chatgpt has seen most of this graph during the training, but it’s obviously unable to infer this level of information from the raw text data. Compared to <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#tan-qa">Tan-QA</a>, the non-gpt baselines used here are actually quite weak (the sota models have f1 in 80s for the qald-9).</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Omar-QA.png" alt="img"></p>
+<h4 id="Wei-Extraction"><a href="#Wei-Extraction" class="headerlink" title="Wei-Extraction"></a>Wei-Extraction</h4><p>Wei, X., Cui, X., Cheng, N., Wang, X., Zhang, X., Huang, S., … &amp; Han, W. (2023). Zero-Shot Information Extraction via Chatting with ChatGPT. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.10205">arXiv preprint arXiv:2302.10205</a>.</p>
+<p><strong>2 out of 6.</strong> This paper evaluates three <em>information extraction</em> tasks: entity-relation triple extraction (re), named entity recognition (ner), even extraction (ee). They report the results for Mandarin and English, with the first dataset for all three tasks in the table below being Mandarin. They compared fine-tuning smaller models (<em>full-shot</em> for normal fine-tuning or <em>fs-x</em> for few-shot tuning) with vanilla chatgpt prompting (<em>single</em>), and a more complex multi-turn chatgpt dialogue (chatie). Don’t get fooled by the bolded results. The fine-tuned baselines are mostly better. chatgpt performed poorly for ner but was able to outperform full-shot solutions for Mandarin re and ee.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Wei-Extraction.png" alt="img"></p>
+<h4 id="Gao-Extraction"><a href="#Gao-Extraction" class="headerlink" title="Gao-Extraction"></a>Gao-Extraction</h4><p>Gao, J., Zhao, H., Yu, C., &amp; Xu, R. (2023). Exploring the Feasibility of ChatGPT for Event Extraction. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.03836">arXiv preprint arXiv:2303.03836</a>.</p>
+<p><strong>0 out of 1.</strong> This paper evaluates <em>event extraction</em> on the ace dataset. The results are calculated only from a handful of samples (20 for each category), there are no confidence intervals, and the f1 score for chatgpt <em>Simple Examples</em> does not make sense given the <em>Precision</em> and <em>Recall</em> values. The authors split the samples based on the event <em>frequency</em> (how many times that event is mentioned in the training dataset) and the sample <em>complexity</em> (how many events are in one sample), but the results are all over the place, likely due to the small size of the test sets.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Gao-Extraction.png" alt="img"></p>
+<h4 id="Amin-Affective"><a href="#Amin-Affective" class="headerlink" title="Amin-Affective"></a>Amin-Affective</h4><p>Amin, M. M., Cambria, E., &amp; Schuller, B. W. (2023). Will Affective Computing Emerge from Foundation Models and General AI? A First Evaluation on ChatGPT. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.03186">arXiv preprint arXiv:2303.03186</a>.</p>
+<p><strong>1 out of 7</strong>. A very straightforward comparison between chatgpt and a set of rather simple baselines for three <em>affective classification</em> tasks: big-five personality prediction, sentiment analysis, and suicide tendency detection. chatgpt’s results are really not impressive and it managed to win only sentiment analysis. In some cases, it was beaten even by a <em>bag-of-words</em> approach. Note that <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#kocon-benchmark">Kocoń-Benchmark</a> also claim that chatgpt does not work well on emotional tasks. chatgpt managed to win sentiment analysis in this paper and in <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#zhong-understanding">Zhong-Understanding</a>, but in both cases it was only compared to roberta. When it’s compared with the sota models, it falls behind (<a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#bang-benchmark">Bang-Benchmark</a>, <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#kocon-benchmark">Kocoń-Benchmark</a>, <a target="_blank" rel="noopener" href="http://opensamizdat.com/posts/chatgpt_survey/#qin-understanding">Qin-Understanding</a>).</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Amin-Affective.png" alt="img"></p>
+<h4 id="Kuzman-Genre"><a href="#Kuzman-Genre" class="headerlink" title="Kuzman-Genre"></a>Kuzman-Genre</h4><p>Kuzman, T., Mozetič, I., &amp; Ljubešić, N. (2023). ChatGPT: Beginning of an End of Manual Linguistic Data Annotation? Use Case of Automatic Genre Identification. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.03953">arXiv preprint arXiv:2303.03953</a>.</p>
+<p><strong>1 out of 2.</strong> A very straight-forward paper where they compare chatgpt with an xlm-roberta based fine-tuned model for <em>genre classification</em>. They use English (en-ginco) and Slovenian (ginco) datasets. chatgpt performed better on the English one.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Kuzman-Genre.png" alt="img"></p>
+<h4 id="Zhang-Stance"><a href="#Zhang-Stance" class="headerlink" title="Zhang-Stance"></a>Zhang-Stance</h4><p>Zhang, B., Ding, D., &amp; Jing, L. (2022). How would Stance Detection Techniques Evolve after the Launch of ChatGPT?. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.14548">arXiv preprint arXiv:2212.14548</a>.</p>
+<p><strong>5 out of 6.</strong> They evaluate the performance on <em>stance detection</em>, which is a task that aims to identify whether a text is in favor of or against something. They used two datasets, the first of which contains texts about the feminist movement (fm), the legalization of abortion (la), and Hillary Clinton (hc). The second dataset is about us politicians. chatgpt outperformed sota in 5 out of 6 splits, with the only exception being the <em>abortion</em> split.</p>
+<p><img src="http://opensamizdat.com/posts/chatgpt_survey/images/Zhang-Stance.png" alt="img"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="print-no-link">#自然语言处理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>chatgpt在数据集上的性能调查</div>
+      <div>https://lijianxiong.space/2023/20230402/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/20230629/" title="Voice Conversion With Just Nearest Neighbors">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Voice Conversion With Just Nearest Neighbors</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/20230401/" title="全世界国家计算机方向博士申请和毕业走向粗略分析">
+                        <span class="hidden-mobile">全世界国家计算机方向博士申请和毕业走向粗略分析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

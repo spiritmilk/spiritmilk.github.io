@@ -1,0 +1,1271 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="来自发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？ 个人评价： 大致算是讲述了人工智能的历史，没有很好的讲述人工智能在天文学的特殊性，生硬的讲述人工智能+天文学，简单的1+1-2，没有看到想要看到的1+1&gt;2。 让我印象最深的是文中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天文学神经网络的历史、入门和展望">
+<meta property="og:url" content="https://lijianxiong.space/2023/20230701/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="来自发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？ 个人评价： 大致算是讲述了人工智能的历史，没有很好的讲述人工智能在天文学的特殊性，生硬的讲述人工智能+天文学，简单的1+1-2，没有看到想要看到的1+1&gt;2。 让我印象最深的是文中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/90b9eaa0-e734-4b61-a8d5-2e5927f08300/rsos221454f01.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/93422bc3-b9a5-4d4e-9050-3886362723cb/rsos221454f02.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/40dcc939-01dd-4d46-b6b8-6be55850457a/rsos221454f07.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/c1f2d96d-144d-4e06-8f46-77c19d5f354b/rsos221454f35.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/66e23b08-fa55-4363-8d1a-4538eb8a8676/rsos221454f10.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/f36adb52-507c-4dcd-b1b1-5eb92f412fe0/rsos221454f16.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/1ad572f7-b10e-4d1c-bdde-945675eda404/rsos221454f17.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/0955c95a-d19f-4d38-8a11-8d340024b6d9/rsos221454f24.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/81cee15a-9f23-4689-9f6a-b03ffd828d3f/rsos221454f25.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/1fcd5843-5bef-4a27-8e3a-413263ee8586/rsos221454f26.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/115230be-9fee-4b9d-87b0-00ee1e061c71/rsos221454f27.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/b8526010-8ace-4a72-a2ce-e552b892f6e8/rsos221454f28.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/d8c452eb-f47c-44eb-b46d-e50684589244/rsos221454f29.gif">
+<meta property="og:image" content="https://royalsocietypublishing.org/cms/asset/e0b8cdf3-3dc9-42f6-9585-9fe2aa146f52/rsos221454f32.gif">
+<meta property="article:published_time" content="2023-07-01T13:48:19.000Z">
+<meta property="article:modified_time" content="2024-02-12T14:38:51.383Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="天文">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://royalsocietypublishing.org/cms/asset/90b9eaa0-e734-4b61-a8d5-2e5927f08300/rsos221454f01.gif">
+  
+  
+  
+  <title>天文学神经网络的历史、入门和展望 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">天文学神经网络的历史、入门和展望</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-01 21:48" pubdate>
+          2023年7月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          23k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          194 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">天文学神经网络的历史、入门和展望</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#">发表于Royal Society上的《Astronomia ex machina: a history, primer and outlook on neural networks in astronomy？</a></p>
+<p>个人评价：</p>
+<p>大致算是讲述了人工智能的历史，没有很好的讲述人工智能在天文学的特殊性，生硬的讲述人工智能+天文学，简单的1+1-2，没有看到想要看到的1+1&gt;2。</p>
+<p>让我印象最深的是文中提到居然只有三篇天文学的论文用了diffusion，是数据集的问题？</p>
+<hr>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>在这篇综述中，我们探讨了人工智能（AI）和深度学习在天文学中的历史发展和未来前景。我们通过三个浪潮来追踪天文学中联结主义的演变，从多层感知器的早期使用，到卷积神经网络和循环神经网络的兴起，最后到当今无监督和生成深度学习方法的时代。随着天文数据的指数级增长，深度学习技术提供了前所未有的机会来发现有价值的见解并解决以前棘手的问题。当我们进入预期的天文联结主义第四波浪潮时，我们主张采用针对天文应用进行微调的类似 GPT 的基础模型。这些模型可以利用高质量、多模态天文数据服务于最先进的下游任务。为了跟上大科技推动的进步，我们在天文学界提出了一种协作、开源的方法来开发和维护这些基础模型，利用这两个领域的独特优势，促进人工智能和天文学之间的共生关系。</p>
+<span id="more"></span>
+
+<h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>工智能 (AI) 的概念至少可以追溯到 350 年前莱布尼茨的《<em>组合艺术论文》</em> [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C1">1</a> ]。受笛卡尔和鲁尔的启发，莱布尼茨提出，通过“通用语言”的发展，所有思想都可以通过一小组基本概念的组合来表示，并且新概念可以以逻辑方式产生，可能<em>是</em>通过一些计算机。莱布尼茨的雄心勃勃的愿景（“让我们计算”）尚未实现，但模拟人类推理，或者至少建造一台机器来模仿人脑的计算和数据处理能力的追求，一直持续到今天。</p>
+<p>可以公平地说，人工智能的根源甚至可以追溯到启发莱布尼茨的 Llull 中世纪哲学 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C2">2</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C3">3</a> ]。然而，如果我们现在认为人工智能是一门真正的科学学科，那么这个学科显然是在二十世纪战后几年出现的，遵循图灵的简单问题“机器能思考吗？” [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C4">4</a>]。从本质上讲，图灵在 1950 年提出的问题简洁地阐明了人工智能的雄心，但从具体细节的角度来看，从图灵提出第一个人工智能程序（即所谓的“逻辑理论家”）的问题起，又花了 5 年时间。由艾伦·纽厄尔 (Allen Newell)、克里夫·肖 (Cliff Shaw) 和赫伯特·西蒙 (Herbert Simon) 开发。逻辑理论家由研究与开发（兰德）公司资助，其设计部分是为了模仿人类数学家的角色，因为它可以自动证明数学定理。这是计算机科学领域的一项突破，《逻辑理论家》在 1956 年开创性的达特茅斯人工智能夏季研究项目 (DSRPAI) 会议上提出，现在被视为人工智能领域的真正诞生。的确，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C5">5</a>].</p>
+<p>来自迪克的《机器人会梦见<em>电子羊吗？<em>克莱顿的</em>《西部世界》</em>、<em>《终结者》的《天网》<em>等等。伊恩·M·班克斯（Iain M. Banks）的银河文明被称为“文化”，想象了一个由强大的“思想”统治的社会，其智力和智慧远远超过人类，并且具有同等感知能力的生物和机器通常和平、合作和公平地共存。尽管有科幻小说，但如果这些梦想成为可能，我们距离一台能够真正独立思考的机器还需要很多年的时间 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C6">6</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C7">7</a>]。然而，如何在数学上（和算法上）对生物神经元（神经网络）的工作和相互关系进行建模，以及随后探索它们如何在数据分析师研讨会中找到作为工具的实用性的问题，才是真正被提及的问题。今天大多数人使用“人工智能”这个词。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN1">1</a>虽然我们必须时刻警惕炒作和流行语，但正是神经网络的</em>应用以及解决迄今为止棘手问题的可能性，才为包括天文学在内的许多不同领域的研究提供了令人兴奋的真正理由。</em></p>
+<p>天文学家使用人工神经网络（ANN）已有三十多年了。1994 年，早期开拓者 Ofer Lahav 讽刺地指出了“神经怀疑论者”——那些抵制在严肃的天体物理学研究中使用此类技术的人——并认为人工神经网络“应该被视为一个通用的统计框架，而不是一个深奥的方法”[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C8">8</a> ]。不幸的是，这种怀疑一直存在。尽管最近神经网络（以及一般机器学习）在该领域的使用激增，如图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F1">1</a>所示。这种怀疑也与天文学领域的成就相反，如果不使用人工神经网络就不可能取得这些成就，例如光度红移估计（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C9">9</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C10">10</a>]）、大规模天文物体识别和聚类（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C11">11</a> ]）以及完全数据驱动的模拟（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C12">12</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C13">13</a> ]）。大多数对机器学习技术和深度学习的批评<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN2">2</a>特别是针对该方法论的“黑匣子”性质。在这篇综述中，我们提供了关于如何构建深度神经网络以及控制其学习的数学规则的入门知识，我们希望这将为神经怀疑论者提供有用的资源。尽管如此，我们必须认识到，关于深度神经网络如何工作的统一理论图景尚不存在。即使在深度学习社区中，这仍然是一个争论点。例如，Yann LeCun 在第 31 届神经信息处理系统 (NIPS) 会议上回应 Ali Rahimi 的“Test of Time”获奖演讲时说道：</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/90b9eaa0-e734-4b61-a8d5-2e5927f08300/rsos221454f01.gif" alt="Figure 1. "></p>
+<p>图 1.这里我们看到每月 arXiv:astro-ph 提交的摘要或标题包含一个或多个字符串的数量：“机器学习”、“ML”、“人工智能”、“AI”、“深度”学习”或“神经网络”。原始数据属于公共领域，可在<a target="_blank" rel="noopener" href="https://www.kaggle.com/Cornell-University/arxiv%E4%B8%8A%E8%8E%B7%E5%8F%96%E3%80%82%3E">https://www.kaggle.com/Cornell-University/arxiv上获取。&gt;</a> </p>
+<blockquote>
+<p> Ali发表了一次有趣且精彩的演讲。但我从根本上不同意这个消息。从本质上讲，主要信息是当前的机器学习实践类似于“炼金术”（他的原话）。这是侮辱性的，是的。但不要介意：这是错误的！Ali 抱怨说，人们对目前 ML 中使用的许多方法缺乏（理论）理解，尤其是在深度学习中……仅仅因为可以对其进行理论研究而坚持使用一组方法，而忽略了一组经验上的方法仅仅因为您（还）不理解它们就可以更好地工作，理论上类似于在路灯下寻找丢失的车钥匙，但知道您在其他地方丢失了它们。是的，我们需要更好地理解我们的方法。但正确的态度是尝试解决问题，不要因为尚未成功解决问题而侮辱整个社区。这就像批评詹姆斯·瓦特不是卡诺或亥姆霍兹一样[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C14">14</a>]. </p>
+</blockquote>
+<p>抛开哲学问题不谈，LeCun 的基本观点是深度学习“有效”，因此我们应该使用它，即使我们不完全理解它。如果一个人不仁慈，我们可以对这个问题提出类似的论点。LL清洁发展机制范式。</p>
+<p>显然，在深度学习渗透的每个领域，我们都看到专业知识的使用减少，取而代之的是从数据中自动获取的知识。我们已经看到这个过程在许多“应用深度学习”领域中发挥作用，例如计算机围棋[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C15">15</a> ]、蛋白质折叠[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C16">16</a> ]、自然语言处理[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> ]和计算机视觉[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> ]。我们认为，天文学的数据丰富性使其走上了一条与其他应用深度学习领域所走过的道路没有什么不同的道路。这种丰富并不是一个短暂的阶段；而是一个阶段。天文数据总量已经很大，并将在未来几年呈指数级增长。我们在<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F2">图 2中对此进行了说明</a>，其中我们展示了一系列天文调查及其在其生命周期内的估计数据量输出[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C19">19</a> ]。这甚至没有考虑与更大、更详细的数值模拟相关的数据（例如[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C22"> </a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C20">20-22</a>]）。目前的数据量规模已经给天文学带来了一个问题，因为许多经典方法依赖于人类监督和专业知识，而不断增加的数据量将使通过传统的人类监督和半监督方式探索和利用这些调查成为一个棘手的问题。令人严重关切的是，我们有可能错过——或大大延迟——有趣和重要的发现，仅仅是因为我们无法准确、一致地大规模询问天文数据。深度学习在各种数据密集型领域的自动化信息提取方面显示出了巨大的前景，因此非常适合作为处理超大规模天文数据挑战的解决方案。但我们不需要就此止步。这篇评论的展望更进一步，</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/93422bc3-b9a5-4d4e-9050-3886362723cb/rsos221454f02.gif" alt="Figure 2. "></p>
+<p>图 2.一系列天文调查在其生命周期内的数据量输出。我们可以看到天文调查数据量每16个月就会翻一番。数据取自Zhang 和Zhao [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C19">19</a> ]。</p>
+<p>自天文学联结主义<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C25">在20 世纪 80 年代末的</a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN3">3 个</a>不起眼的开端以来，关于人工神经网络在天文学中的应用已经有许多优秀的评论（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C23">23-25</a> ]）。我们对之前的文献综述采取了另一种方法，对这一领域进行了全面的调查，试图描绘出天文联结主义的“大图景”。虽然我们不可能将所有作品都纳入天文学联结论中，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN4">4</a>我们希望这篇评论能够作为天文学日益自动化的联结论“三波”的历史背景，并提供神经网络的一般入门知识，以帮助那些寻求探索的人这个有趣的话题还是第一次。</p>
+<p>在§§2和§§3中，我们探索了天文学中多层感知器的初步工作，其中模型需要手动选择涌现属性作为输入。在第 4 节和第 5 节中，我们探讨了第二波浪潮，它与卷积神经网络和循环神经网络的传播相一致，在这些模型中，多层感知器的手动选择的输入被原始数据摄取所取代。在现在正在发生的第三次浪潮中，我们看到人类监督的消除与深度学习方法直接从数据中推断标签和知识有关，我们将在第 6-8 节中探讨这一浪潮。最后，在第 9 节中，我们展望未来并预测我们将很快进入天文联结主义的第四次浪潮。我们认为，如果天文学遵循其他应用深度学习领域的模式，我们将看到精心设计的深度学习模型被移除，取而代之的是经过微调的包罗万象的“基础”模型。作为第四波浪潮的一部分，我们主张天文学和联结主义之间的共生，这种共生基于天文学的相对数据财富和深度学习永不满足的数据胃口。机器学习中的许多超大型数据集都是专有的或质量较差，因此天文学家作为一个社区有机会开发和提供高质量的多模式公共数据集。反过来，该数据集可用于训练天文基础模型，以服务于最先进的下游任务。由于基础模型对数据和计算的渴望，单个天文学研究小组无法单独建立这样的模型。因此，我们得出的结论是，天文学作为一门学科，跟上大型科技巨头设定的研究步伐的机会很小——也就是说，除非我们效仿 EleutherAI 和 HuggingFace 的例子，并以草根开源的方式集中我们的资源。</p>
+<p>在继续之前，我们必须首先向读者承认我们对他们并不完全诚实。这篇评论的摘要不是我们写的。它是通过本文介绍 [26, 27] 提示 OpenAI 的基于生成式预训练 Transformer 4（“GPT-4”）神经网络的基础模型<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C26">而</a>生成<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C27">的</a>。准确地说，我们提示“ChatGPT Plus”提供的 GPT-4 引擎使用原始 LaTeX 格式的第 1 段到本段落中的所有文本。然后，我们将以下提示附加到介绍文本中：</p>
+<blockquote>
+<p>”为上述文本写一个摘要，以吸引读者的眼球，并使他们对论文感兴趣。使摘要不超过 160 个字，并触及类 GPT 模型在天文学中的价值。“</p>
+</blockquote>
+<p>我们没有改变 GPT 生成的输出。我们在第 9 节中更详细地探讨了这些基础模型及其可能的天文用途。</p>
+<h3 id="2-人工神经元入门"><a href="#2-人工神经元入门" class="headerlink" title="2.人工神经元入门"></a>2.人工神经元入门</h3><p style="color:#FF0000;">略过枯燥无味的基础介绍</p>
+
+<h3 id="3-天文学的第一波联结主义浪潮"><a href="#3-天文学的第一波联结主义浪潮" class="headerlink" title="3.天文学的第一波联结主义浪潮"></a>3.天文学的第一波联结主义浪潮</h3><p>在反向传播（见脚注 9）普及以及第一个“人工智能冬天”随之过去之后，联结主义首次在 20 世纪 80 年代末在天文学领域进行讨论。1988 年出现了两项激进的研究，它们认识到天文学可以从使用人工神经网络中受益的领域 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C51">51</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C52">52</a> ]。他们共同发现天文物体分类<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN11">11</a>和望远镜调度可以通过使用人工神经网络来解决。这些研究随后导致了领域的迅速拓宽，并将联结主义应用于许多不同的天文用例（[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C23">23</a> ]和其中的参考文献）。在本节中，我们将概述 MLP 在天文学中早期使用的领域。</p>
+<h4 id="3-1-分类问题"><a href="#3-1-分类问题" class="headerlink" title="3.1. 分类问题"></a>3.1. 分类问题</h4><p>奥德瓦恩<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C53">53</a> ]将天体分为恒星和星系类型。这些取自 Palomar Sky Survey 自动平板扫描仪目录 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C54">54</a> ]。为了编译他们的数据集，他们首先从扫描的观察中提取了一组新出现的图像参数。这些参数包括直径、椭圆率、面积和板透射率。然后使用这些参数来训练线性感知器和前馈 MLP，以将物体分类为恒星或星系。奥德瓦恩<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C53">53</a> ]发现他们表现最好的模型可以对星系进行分类，其完整性为95%95%对于星等小于 19.5 的物体。这项工作之后是<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C58">关于</a>恒星&#x2F;星系分类问题的更多研究（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C55">55-58</a> ]）。星系形态类型分类在 20 世纪 90 年代初就被探索过。Storrie-Lombardi &amp; Lahav [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C59">59</a> ] 描述了一种 MLP，它将一组选定的 13 个星系汇总统计数据作为输入，并使用此信息将星系分类为五种形态类型之一。Storrie-Lombardi &amp; Lahav [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C59">59</a> ]报告前一准确率为 64%，前二准确率为 90%。在这项试点研究之后，同一小组进行了几项研究，证实 MLP 是有效的自动星系形态分类器（[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C60">60</a> – <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C65">65</a>]，请参阅第 5 节以了解该研究的后续内容）。</p>
+<p>MLP 也被用于其他分类任务；在此，我们重点介绍 MLP 的应用的其他几个领域。冯·希佩尔<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C66">66</a> ]将恒星光谱分为温度类型，Klusch &amp; Napiwotzki [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C67">67</a> ]对摩根-基南系统类型做了同样的事情。Chon [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C68">68</a> ] 描述了在萨德伯里中微子天文台中使用 MLP 来搜索和分类 μ 子事件（以及中微子观测）。几项研究已经探讨了类星体分类<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C69">69-71 </a>。本质上，Carballo<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C69">69</a>] 使用 MLP 来选择类星体候选者，考虑到它们的射电通量、积分与峰值通量比、红色和蓝色波段的光度测量和点扩散函数，以及它们的射电光学位置分离。<em>他们发现他们的模型与 White等人</em>描述的决策树模型非常一致。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C72">72</a> ]，确认 MLP 是传统机器学习的竞争替代品。作为超新星光度分类挑战赛（SPCC，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C73">73</a> ]）的一部分，Karpenka<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C74">74</a>] 提出使用神经网络将超新星分为 Type-1a&#x2F;非 Type-1a 类。为了对光变曲线进行分类，他们首先使用手工制作的拟合函数，然后根据拟合系数训练 MLP。他们发现他们的模型与在 SPCC 数据集上训练的其他更复杂的模型相比具有竞争力。从本节讨论的研究中，我们可以安全地得出结论，当给定专家指南提取的重要参数时，MLP 是天文数据的有效分类器。</p>
+<h4 id="3-2-回归问题"><a href="#3-2-回归问题" class="headerlink" title="3.2. 回归问题"></a>3.2. 回归问题</h4><p>MLP 也用于回归问题。安吉尔<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C75">75</a> ]首先将它们应用于自适应望远镜光学器件。他们利用多镜望远镜 (MMT) 所观察到的 250 000 次模拟的聚焦和失焦恒星观测数据来训练 MLP。根据扁平化的 13 × 13 像素观测结果，他们的网络预测了每个 MMT 镜子使恒星聚焦所需的活塞位置和倾斜度。应用这些更正后，作者能够恢复原始配置文件。在后续研究中，桑德勒<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C76">76</a> ] 和劳埃德-哈特<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C77">77</a> ]证明了Angel<em>等人</em>的MLP对真正的MMT有效。</p>
+<p>许多并行研究都探索了光度红移估计<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C79">（</a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C78">例如</a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C9"> <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C10">9,10,65,78,79 </a>[]</a>）<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C65">。</a>弗斯<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C10">10</a> ]训练了一个神经网络来预测斯隆数字巡天（SDSS）早期数据发布中包含的星系红移[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C80">80</a> ]。星系作为一组汇总参数输入到神经网络，输出是代表星系红移的单个浮点。他们发现他们的网络达到了与经典技术相当的性能。<em>扩展并确认了 Firth等人</em>的工作。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C10">10</a> ]，鲍尔<em>等人。</em>[[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C65">65</a> ]使用MLP来预测SDSS第一个数据发布中包含的星系红移[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C81">81</a> ]。他们还表明，MLP 能够预测星系的光谱类型和形态分类。</p>
+<p>当然，MLP 在天文回归任务中得到了更广泛的应用。在这里，我们将挑选一些研究来展示 MLP 的早期使用广度。太阳黑子极大值预测是由 Koons &amp; Gorney 进行的[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C82">82</a> ]。他们发现，基于 MLP 的方法在接受先前周期的训练时能够预测太阳黑子的数量。拜勒-琼斯<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C83">83</a> ]从恒星的光谱中预测了恒星的有效温度。奥尔德<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C84">84</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C85">85</a> ]将MLP应用于宇宙学，证明在给定一组宇宙学参数时，MLP能够预测宇宙微波背景功率谱和物质功率谱。诺加德-尼尔森和约根森 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C86">86</a>] 使用 MLP 去除微波温度图中的前景。从本节讨论的研究中，我们可以看到，当给定专家指南提取的重要参数时，MLP 是天文数据的有效回归器。</p>
+<h3 id="4-当代监督深度学习"><a href="#4-当代监督深度学习" class="headerlink" title="4.当代监督深度学习"></a>4.当代监督深度学习</h3><p>MLP 存在一些问题。主要是它们不能很好地扩展到高维数据集。例如，如果我们的数据集由 128 × 128 像素的图像组成，则仅 MLP 的输入层就需要 16 384 个神经元！当我们进入隐藏层时，这种缩放问题只会变得更糟。此外，由于 MLP 必须将展开的图像作为输入，因此它们会忽略训练图像的任何空间属性，因此要么需要大量的训练数据来分类或生成大图像，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN12">12</a>或专家在预处理步骤中从数据中提取描述性特征。我们可以在上一节中看到这个问题 - 第 3 节中描述的大多数 MLP 应用程序都需要专家从网络数据中提取特征，然后进行训练！这个缺点并不理想；如果原始数据中存在这些精心挑选的统计数据中不存在的特征怎么办？在这种情况下，最好让神经网络将原始数据作为输入，然后学习哪些特征最具描述性。在本节中，我们将讨论同时解决 MLP 缩放问题和专家依赖问题的神经网络架构。在我们总体探索了这些架构之后，我们将在第 5 节中讨论它们在天文问题中的应用。</p>
+<h4 id="4-1-卷积神经网络"><a href="#4-1-卷积神经网络" class="headerlink" title="4.1. 卷积神经网络"></a>4.1. 卷积神经网络</h4><p>与上一节中描述的 MLP 不同，卷积神经网络（CNN；在 Fukushima [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C46">46</a> ] 中引入，并在 LeCun<em>等人</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C93">93</a> ] 中首次与反向传播相结合）并不完全由全连接层组成，其中每个神经元都连接到前一层和后一层中的每个神经元。相反，CNN（如图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F7">7</a>所示）使用卷积层代替大部分（或全部）密集层。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/40dcc939-01dd-4d46-b6b8-6be55850457a/rsos221454f07.gif" alt="图 7."></p>
+<p>图 7.对螺旋星系图像进行分类的卷积神经网络。</p>
+<h4 id="4-2-循环神经网络"><a href="#4-2-循环神经网络" class="headerlink" title="4.2. 循环神经网络"></a>4.2. 循环神经网络</h4><p>标准前馈神经网络（例如 MLP（第 2.2 节）和 CNN（第 4.1 节））会在给定固定大小输入的情况下生成固定大小的向量。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN15">15</a>但是，如果我们想要分类或生成可变大小的向量怎么办？例如，我们可能想根据星系的旋转曲线对其形态进行分类。旋转曲线描述了星系可见恒星的速度与它们距星系中心的距离的关系。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F8">图8</a>显示了 Messier 81 可能的旋转曲线。旋转曲线的长度取决于其星系的大小，并且由于长度可变，以及 MLP 采用固定大小的输入这一事实，我们无法轻松使用 MLP 进行分类。然而，循环神经网络 (RNN) 可以采用可变长度输入并产生可变长度输出。RNN 与前馈 MLP 的不同之处在于它有一个隐藏状态，充当先前看到的信息的“记忆”存储。当 RNN 遇到新数据时，其权重通过时间反向传播算法（BPTT；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C97">97</a> ]和其中的参考文献。另见脚注 9）进行改变。</p>
+<h4 id="4-3-解决梯度消失问题"><a href="#4-3-解决梯度消失问题" class="headerlink" title="4.3. 解决梯度消失问题"></a>4.3. 解决梯度消失问题</h4><p>20 世纪 90 年代初，研究人员发现了通过反向传播训练深度神经网络的一个主要问题。Hochreiter 在他们的毕业论文中首次正式研究了“梯度消失”问题（Hochreiter [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C98">98</a> ]，另请参阅 Bengio<em>等人</em>后来的工作[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C99">99</a> ]）。由于梯度消失问题，人们普遍认为通过反向传播从头开始训练非常深的人工神经网络是不可能的。在本节中，我们将探讨什么是梯度消失问题，以及当代端到端训练的神经网络如何回避这个问题。</p>
+<p>随着我们深入网络，通过反向传播的学习速度会减慢。这个问题再次导致人们对联结主义模型失去信心，迎来第二个人工智能冬天。直到2012年，新的繁荣才开始。在下面的三个小节中，我们将探讨一些针对梯度消失问题提出的部分解决方案，并展示它们如何结合在一起为当前的深度学习热潮做出贡献。</p>
+<h5 id="4-3-1-非饱和激活函数"><a href="#4-3-1-非饱和激活函数" class="headerlink" title="4.3.1. 非饱和激活函数"></a>4.3.1. 非饱和激活函数</h5><p>我们可以从方程（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M4x8">4.8</a>）和（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M4x7">4.7</a>）中看到，如果 φ′ &#x3D; 1，那么乘积项不会自动趋于零或无穷大。如果是这样的话，为什么不简单地围绕这个属性设计我们的激活函数呢？修正线性单元 (ReLU; [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C46">46</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C47">47</a> ]) 是一个激活函数，它正是执行此操作，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN17">17</a></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/c1f2d96d-144d-4e06-8f46-77c19d5f354b/rsos221454f35.gif" alt="显示公式"></p>
+<p>如果输入大于零，则 ReLU 的梯度为 1，这正是我们缓解梯度消失问题所需的属性。类似的非饱和激活函数也共享 ReLU 梯度的有用属性，例如参见<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F6">图 6</a>中的指数线性单元、Swish 和 Mish 函数。</p>
+<h5 id="4-3-2-图形处理单元加速"><a href="#4-3-2-图形处理单元加速" class="headerlink" title="4.3.2. 图形处理单元加速"></a>4.3.2. 图形处理单元加速</h5><p>如果我们可以加快训练速度，我们就可以运行低效算法（例如通过饱和激活进行反向传播）以在更短的时间内完成训练。加速训练的一种方法是使用专门适合神经网络训练的硬件。图形处理单元 (GPU) 最初是为了渲染视频游戏和其他密集型图形处理任务而开发的。这些渲染任务需要具有大规模并行能力的处理器。我们在前面的章节中已经看到，通过反向传播训练的神经网络也需要许多小的权重更新计算。考虑到这一点，尝试使用 GPU 加速深度神经网络就很自然了。</p>
+<p>2004 年，Oh &amp; Jung [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C102">102</a> ] 率先使用 GPU 加速 MLP 模型，报告使用“ATI RADEON 9700 PRO”GPU 加速神经网络的推理性能提高了 20 倍。不久之后，Steinkrau<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C103">103</a> ]表明反向传播也可以受益于 GPU 加速，报告称训练和推理的性能提高了三倍。这两项突破之后，该领域开展了一系列活动（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C104">104</a> - <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C107">107</a> ]），最终在 ImageNet 2012 上 GPU 加速神经网络取得了里程碑式的胜利。AlexNet [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C108">108</a> ]赢得了 ImageNet 分类和本地化挑战[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C109">109 ]</a>]，取得了前所未有的 top-5 分类错误 16.4%，单个目标定位错误 34.2%。在这两项挑战中，AlexNet 的得分都比第二名的模型高出了 10% 以上。Sutskever 和 Hinton 的获胜网络是通过反向传播 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C40">40</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C93">93</a> ] 训练的CNN [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C46">46</a> ] ，并使用 ReLU 激活 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C47">47</a> ] 和 dropout [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C110">110</a> ] 作为正则化器。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN18">18</a>GPU 加速训练带来的性能提升使网络能够在合理的时间内通过反向传播从头开始训练。发现可以使用现成的硬件从头开始训练神经网络，最终导致了联结主义第二个冬天的结束，并迎来了 2010 年代中后期和 2020 年代的寒武纪式深度学习爆炸（图 10 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F10">）</a>）。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/66e23b08-fa55-4363-8d1a-4538eb8a8676/rsos221454f10.gif" alt="图 10."></p>
+<p>图 10.如果我们绘制训练神经网络模型所需的浮点运算 (FLOP) 总数，并将其与模型的发布日期进行比较，我们可以看到 2012 年左右的趋势变化。这对应于GPU 加速的超深度神经网络训练，2012 年标志着人工智能的“深度学习时代”和天文学第二波联结主义的开始（§5）。数据取自 Sevilla<em>等人。</em></p>
+<h5 id="4-3-3-门控循环神经网络和残差网络"><a href="#4-3-3-门控循环神经网络和残差网络" class="headerlink" title="4.3.3. 门控循环神经网络和残差网络"></a>4.3.3. 门控循环神经网络和残差网络</h5><p style="color:#FF0000;">略过关于resnet和GRU的介绍</p>
+
+<h5 id="4-4-注意力和transformer"><a href="#4-4-注意力和transformer" class="headerlink" title="4.4 注意力和transformer"></a>4.4 注意力和transformer</h5><p style="color:#FF0000;">略过关于注意力和transformer的介绍</p>
+
+<h3 id="5-天文学的第二波联结主义"><a href="#5-天文学的第二波联结主义" class="headerlink" title="5.天文学的第二波联结主义"></a>5.天文学的第二波联结主义</h3><p>与经典联结主义方法相比，第 4 节中概述的<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN25">25</a>深度学习不需要提取涌现参数来训练其模型。CNN 特别适合观察基于图像的数据中的原始信息。同样，RNN 非常适合观察时间序列内的完整原始信息。天文学中这两种类型的数据都很丰富，在本节中，我们将回顾 CNN、RNN 和 Transformer 模型在天文数据中应用的历史。</p>
+<h4 id="5-1-卷积神经网络应用"><a href="#5-1-卷积神经网络应用" class="headerlink" title="5.1. 卷积神经网络应用"></a>5.1. 卷积神经网络应用</h4><p><em>克里热夫斯基等人</em>不久后就提出了这一点。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C108">108</a> ] 将 CNN 建立为事实上的图像分类网络，引起天文学家的注意：2014 年，它们作为方法集合的一部分被应用于寻找脉冲星 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C129">129 ]。</a>朱<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C129">129</a> ]发现他们的集成非常有效，他们的测试集 pulsar 候选者 100% 在 90 008 个测试候选者中排名前 961。不久之后，哈拉 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C130">130</a>] 描述了使用一维 CNN 解决三元分类问题。他们发现他们的模型能够以令人印象深刻的精度将一维光谱分类为类星体、星系和恒星。CNN 也被广泛应用于星系形态分类。第一个到达现场的是 Dieleman<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C131">131</a> ]。[他们使用 CNN 对星系图像中 Galaxy Zoo 数据集 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C132"> 132</a> ]中定义的星系形态参数进行分类。他们通过 SDSS 观察星系，发现星系动物园标签与 CNN 分类之间有 99% 的一致性。韦尔塔斯公司<em>等。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C133">133 ]表明Dieleman</a><em>等人</em>引入的CNN 。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C131">131]</a>]同样适用于CANDELS场中星系的形态分类[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C134">134</a> ]。同样，Aniyan 和 Thorat [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C135">135</a> ] 表明 CNN 能够对射电星系进行分类。<em>Dieleman等人</em>的联合工作。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C131">131</a> ]，Huertas-Company<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C133">133</a> ] 和 Aniyan &amp; Thorat [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C135">135</a> ] 证实 CNN 同样适用于视觉上不同的调查，几乎不需要修改。<em>王尔德等人</em>把目光放得更远一些。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C136">136</a> ]使用深度CNN模型对模拟透镜事件进行分类。他们还使用遮挡映射对其数据应用了一些可解释性技术[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C137">137</a> ]、梯度类激活映射[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C138">138</a> ]和Google的DeepDream证明CNN确实通过观察引力透镜进行分类。还使用了替代的 CNN 模型，例如 U-Net（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F12">图 12b </a><em>）</em>。U-Net 最初是为了分割生物图像而开发的[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C120">120</a> ]。它在天文学中的首次使用是相关的：Akeret<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C139">139</a> ]使用U-Net[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C120">120</a> ]CNN通过分段隔离并最终消除射电望远镜数据中的射频干扰。同样，Berger 和 Stein [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C140">140</a> ] 使用了三维 U-Net（V-Net；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C141">141]</a>]）在模拟中预测和分割出星系暗物质晕，Aragon-Calvo [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C142">142</a> ] 使用 V-Net 分割出构成宇宙大规模结构的宇宙细丝和墙壁。Hausen &amp; Robertson [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C143">143</a> ] 证明 U-Net 能够对 HST&#x2F;CANDELS 图像中的对象进行像素语义分类，从而证明 U-Net 能够直接在大型成像调查中发挥有用的作用，特别是在重叠的去混合方面物体，这是深度成像中长期存在的挑战。Lauritsen 等人的 U-Net <em>。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C144">144]</a>] 用于超分辨模拟亚毫米观测。他们发现，当使用由 L1 损失和测量预测点源与地面真实点源之间距离的自定义损失组成的损失时，U-Net 可以成功做到这一点。乔马<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C145">145</a> ] 是第一个证明图卷积神经网络（GCNN）在天文背景下有用的人。他们展示了他们的三维 GCNN 可以对来自 IceCube 中微子观测站的信号进行分类，并发现它的性能优于经典方法和标准三维 CNN。维拉纽瓦-多明戈<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C146">146</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C147">147 ]</a>] 证明 EdgeNet（一类 GCNN）可以在给定宿主星系的位置、速度、恒星质量和半径时估计晕质量 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C148">148</a> ]。作者还证明 EdgeNet 可以估计仙女座星系和银河系的光晕质量。我们必须从本小节中描述的研究中得出结论，CNN 是基于图像的天文数据的有效分类器和回归器。</p>
+<h4 id="5-2-循环神经网络应用"><a href="#5-2-循环神经网络应用" class="headerlink" title="5.2. 循环神经网络应用"></a>5.2. 循环神经网络应用</h4><p>RNN 最初应用于离我们很近的天文学领域；奥塞姆<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C149">149</a> ] 预测了欧洲南方天文台甚大望远镜观测的大气视宁度，并且在 1990 年代中后期和 2000 年代初也探索了根据太阳风数据预测地磁暴的方法（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C151"> 150 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C150">,</a> 151 []</a>和同一小组的其他工作；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C152">152</a> ]）。</p>
+<p>Brodrick 等人在一项有先见之明的研究中首次使用 RNN 进行天文学分类*。*[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C153">153</a> ]。他们描述了类似 RNN 的 Elman 网络的使用 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C154">154</a> ]。他们的 RNN 的任务是寻找人工生成的窄带无线电信号，这些信号类似于外星文明可能产生的信号。他们发现他们的模型在测试集上的准确率为 92%，这表明 RNN 可能是寻找外星智慧生物的有用工具。<em>布罗德里克等人</em>十多年后。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C153">153</a> ]，Charnock &amp; Moss[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C155">155</a> ]使用了 LSTM（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F11">图 11</a>）对模拟超新星进行分类。他们描述了两个分类问题。一个是 Ia 型和非 Ia 型超新星的二元分类，另一个是 I、II 和 III 型超新星之间的分类。对于性能最佳的模型，他们报告二元分类问题的准确率超过 95%，三元分类问题的准确率超过 90%。这项研究巩固了 RNN 在天文学分类问题中的有用性。Charnock &amp; Moss [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C155">155</a> ] 随后开展了许多研究使用 RNN 对时间序列天文数据进行分类的项目。现代 RNN 在天文学中的使用的非详尽列表包括：随机采样变星分类 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C156">156</a> ]、系外行星实例分割 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C157">157]</a>]、变星&#x2F;星系序列图像分类[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C158">158</a> ]和伽马射线源分类[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C159">159</a> ]。我们必须从这些研究中得出结论，只要有足够的数据可用，RNN 就是天文时间序列的有效分类器。</p>
+<p>当然，循环网络不仅限于分类；它们也可用于回归问题。首先，Weddell &amp; Webb [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C160">160</a> ] 成功地使用回声状态网络 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C161">161</a> ] 来预测宽视场中目标物体的点扩散函数。卡皮齐<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C162">162]</a>] 使用 RNN 来修复丢失的 NASA 开普勒恒星天体时间序列数据。他们发现他们的模型可以以极高的精度重新创建缺失的时间序列，这表明 RNN 可以内化有关其所训练的恒星的信息。与分类案例一样，关于使用 RNN 解决回归问题的研究在 2010 年代末大量兴起，在这里我们将重点介绍代表 RNN 使用案例范围的这些研究的精选。沉<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C163">163</a> ]使用 LSTM 和基于自动编码器的 RNN 对引力波数据进行去噪，Morningstar<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C164">164</a> ]使用循环推理机来重建引力透镜星系。刘<em>等人。</em>[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C165">165</a> ]使用 LSTM 来预测太阳耀斑活动。从这些研究中，与上面的分类案例类似，我们可以再次得出结论：RNN 是天文时间序列的有效回归器。</p>
+<p>RNN 也被用于一些非常规的情况。例如，库格勒<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C166">166</a> ]使用自动编码RNN（特别是回声状态网络）来提取可变主序星的表示嵌入。他们发现这些嵌入捕获了这些变星的一些新兴特性，例如温度和表面重力，这表明嵌入空间内的聚类可能会产生语义上有意义的变星分类。当我们在第 8 节详细探讨天文学中的表示学习时，我们将重新审视这一研究方向。Smith 等人是深度学习中的思想与天文学中的思想之间更激烈的异花授粉的一个例子*。*[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C167">167]</a>]。他们使用由 CNN 编码器和 RNN 解码器组成的编码器-解码器网络来预测星系的表面亮度剖面。此类神经网络以前广泛用于自然语言图像字幕（captions)中，通过将表面亮度轮廓视为“字幕”，他们的模型能够比之前基于人类代理的经典方法快 100 倍以上。</p>
+<h4 id="5-3-变压器应用"><a href="#5-3-变压器应用" class="headerlink" title="5.3. 变压器应用"></a>5.3. 变压器应用</h4><p><em>虽然 Transformer 最初用于自然语言，但也已被 Parmar等人</em>首先应用于图像。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C168">168</a> ]，以及 Dosovitskiy<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> ]。据我们所知，变形金刚尚未应用于天文图像，但它们已开始在时间序列天文学中得到应用。多诺索-奥利瓦<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a> ]使用BERT[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C123">123</a> ]以自监督的方式生成光变曲线的表示空间。莫万<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C170">170</a> ]使用编码变压器对凌日系外行星勘测卫星（TESS，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C171">171]</a>]）并表明去噪代理任务会产生一个富有表现力的嵌入空间。潘<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C172">172</a> ]还使用变压器模型来分析系外行星的光变曲线。Transformer 席卷了自然语言处理和计算机视觉领域（§9），因此，如果我们从其他领域的趋势推断，我们预计在不久的将来会看到更多 Transformer 应用于天文用例的示例。[我们将在第 9 节中在基础模型（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C173"> 173</a> ]和其中的参考文献）及其未来可能的天文应用的背景下重新审视变压器架构。</p>
+<h4 id="5-4-监督学习的一个问题"><a href="#5-4-监督学习的一个问题" class="headerlink" title="5.4. 监督学习的一个问题"></a>5.4. 监督学习的一个问题</h4><p>监督学习需要高质量的标记数据集来训练神经网络。反过来，这些数据集需要费力的人工干预才能创建，因此监督数据供不应求。人们可以通过促使深度学习模型从完全未标记的数据中收集语义信息来避免这一问题。然后可以通过隐藏的描述性“潜在空间”访问学到的语义信息，然后用于数据生成、分类和回归等下游任务。事实上，本综述之前描述的所有网络都可以重新用于非监督任务，并且在第 6 节和第 7 节中，我们将探索一些不需要监督的深度学习框架。</p>
+<h3 id="6-深度生成建模"><a href="#6-深度生成建模" class="headerlink" title="6.深度生成建模"></a>6.深度生成建模</h3><p>在本节中，我们将讨论天文学背景下的生成建模。与判别模型不同，生成模型显式学习数据集中类的分布（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F16">图 16</a>）。一旦我们了解了数据的分布，我们就可以利用这些知识来生成类似于训练数据集中的新合成数据。在以下小节中，我们将详细探讨深度生成模型的三种流行形式：变分自动编码器（第 6.1 节）、生成对抗网络（第 6.2 节）和基于分数（或扩散）模型系列（第 6.3 节） 。最后，在第 8 节中，我们讨论深度生成模型在天文学中的应用。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/f36adb52-507c-4dcd-b1b1-5eb92f412fe0/rsos221454f16.gif" alt="图 16."></p>
+<p>图 16。这里我们展示了一组星系和一组恒星的可能潜在空间表示。潜在（或嵌入）空间是一组对象的压缩表示，其中相似的对象比不相似的对象聚集得更近。虽然这个空间通常是高维的，但这里我们将潜在空间投影到二维上以实现可视化目的。在（<em>a</em>）中，我们看到一个生成模型试图学习包含一组星系和一组恒星的数据集的潜在表示的概率分布。在（<em>b</em>）中，我们看到一个判别模型试图学习区分恒星和星系类型的边界</p>
+<h4 id="6-1-（变分）自动编码器"><a href="#6-1-（变分）自动编码器" class="headerlink" title="6.1. （变分）自动编码器"></a>6.1. （变分）自动编码器</h4><p>自动编码器长期以来一直是神经网络架构的主要内容。<em>在反向传播普及者 Rumelhart等人</em>的姐妹论文中。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C174">174</a> ]演示了自动编码器内的反向传播。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F17">图 17</a>演示了基本的神经网络自动编码器架构。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/1ad572f7-b10e-4d1c-bdde-945675eda404/rsos221454f17.gif" alt="图 17."></p>
+<p>图 17.自动编码器 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C174">174</a> ] 处理黑洞图像。<strong>z</strong>是潜在向量，<strong>x</strong>是训练集中的样本。编码器<em>q</em>学习将输入数据编码为潜在向量，而解码器<em>p将</em><strong>z</strong>作为输入并尝试重新创建<strong>x</strong>。</p>
+<p>天真地，人们会认为一旦训练完毕，就可以“仅仅”采样一个新的潜在向量，并通过解码神经网络产生新的图像</p>
+<p>$p (\hat{x}|z)$。我们不能这样做，因为纯粹通过重建损失训练的自动编码器没有动力产生平滑可插值的潜在空间。这意味着我们可以使用标准自动编码器来嵌入和检索训练集中包含的数据，但不能使用标准自动编码器来生成新数据。为了生成新数据，我们需要一个平滑的潜在空间，这是变分自动编码器（VAE，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F18">图 18</a>）通过设计产生的[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C175">175</a> ]。</p>
+<p style="color:#FF0000;">略过关于VAE的介绍</p>
+
+<h4 id="6-2-生成对抗网络"><a href="#6-2-生成对抗网络" class="headerlink" title="6.2. 生成对抗网络"></a>6.2. 生成对抗网络</h4><p style="color:#FF0000;">略过关于GAN的介绍</p>
+
+<h5 id="6-3-diffusion模型"><a href="#6-3-diffusion模型" class="headerlink" title="6.3 diffusion模型"></a>6.3 diffusion模型</h5><p style="color:#FF0000;">略过关于diffusion的介绍</p>
+
+<h3 id="7-表征学习"><a href="#7-表征学习" class="headerlink" title="7. 表征学习"></a>7. 表征学习</h3><p>自监督<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN31">31</a>表示学习最近迅速流行，大量模型被快速连续开发（例如[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C214">214</a> - <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C219">219</a> ]）。本质上，表示学习试图生成复杂的高维数据的语义上有意义的压缩表示（或嵌入）。除了简单地作为压缩设备之外，这些嵌入还可以用于下游任务，例如聚类、异常检测或分类。</p>
+<p>在本节中，我们将描述天文学中流行的两种表示学习方法。第一种方法使用 SimCLR 模型定义的对比学习。第二种方法定义并使用“代理任务”（例如自动编码或下一个值预测）来训练深度学习模型，并从后续训练的网络中提取语义上有意义的表示。</p>
+<h4 id="7-1-对比学习"><a href="#7-1-对比学习" class="headerlink" title="7.1. 对比学习"></a>7.1. 对比学习</h4><p style="color:#FF0000;">略过关于对比学习的介绍</p>
+
+<h4 id="7-2-通过代理任务学习表征"><a href="#7-2-通过代理任务学习表征" class="headerlink" title="7.2. 通过代理任务学习表征"></a>7.2. 通过代理任务学习表征</h4><p>人们还可以通过代理任务来学习表征。代理任务是与网络最终使用无关的任何任务。然而，在学习执行代理任务的过程中，网络会了解训练集中的数据什么是重要的，什么是不重要的。然后可以以学习表示的形式提取该信息。如果代理任务足够通用，这些表示将包含有关数据集中项目的有用语义信息，然后可用于下游应用程序。</p>
+<p>让我们通过回顾之前在第 4.2 节中讨论的示例来具体化这个过程。让我们想象一下，我们有一大组星系旋转曲线，我们想要从中提取嵌入。我们可以训练一个 LSTM 模型（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F24">图 24</a>）来预测旋转曲线中的下一个项目，该模型只能访问配置文件中的前一个项目。一旦 LSTM 模型接受了此任务的训练，我们就可以输入完整的新旋转曲线，并将最终隐藏状态重新用作代表性嵌入。请注意，此设置不依赖于任何外部标签，仅依赖于旋转曲线本身。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN33">33</a></p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/0955c95a-d19f-4d38-8a11-8d340024b6d9/rsos221454f24.gif" alt="图 24."></p>
+<p>图 24.显示了用于提取旋转曲线表示的假设代理任务。{ <em>x</em> 0 , …, <em>x</em> <em>N</em> } 是星系旋转曲线的一组观测值，按距星系中心的径向距离的顺序排列。{ <em>p</em> 1 , …, <em>p</em> <em>N</em> } 是 LSTM 对应的 { <em>x</em> 1 , …, <em>x</em> <em>N</em> } 预测集。<strong>h</strong>是 LSTM 隐藏状态向量。有关 LSTM 内部工作原理的更多信息，请参见图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F11">11 。</a>( <em>a</em> ) 在训练时，我们输入星系旋转曲线，并预测其序列中的下一个观测结果。( <em>b</em>）在推断时，我们输入完整的星系旋转曲线，并提取 LSTM 隐藏状态作为曲线的压缩表示嵌入。否则，我们会忽略LSTM 生成的任何输出</p>
+<p>我们可以通过自动编码任务生成嵌入。再次，让我们使用一个天文示例来指定这一点，并说我们想要从一组星系观测中提取嵌入。我们可以为此重新调整变分自动编码器的用途，按照第 6.1 节中所述的正常方式对其进行训练。然而，一旦模型训练完毕，我们将放弃网络的解码部分，只考虑编码器。为了生成嵌入，我们只需将星系图像传递给经过训练的编码器。GAN 可以执行相同的过程（第 6.2 节）。在 GAN 的情况下，我们会在训练后丢弃生成器，并使用鉴别器的倒数第二层输出作为我们的嵌入。</p>
+<p>监督网络也可用于生成嵌入。如果网络经过监督方式训练来对数据进行分类或回归，它将了解该数据的一些属性，以帮助其执行任务。我们可以通过将经过训练的网络的倒数第二层的输出作为嵌入来访问这些学习到的表示。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN34">34</a></p>
+<h3 id="8-天文学的第三次联结主义浪潮"><a href="#8-天文学的第三次联结主义浪潮" class="headerlink" title="8.天文学的第三次联结主义浪潮"></a>8.天文学的第三次联结主义浪潮</h3><p>自 2010 年代中期在天文学中首次亮相以来[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C176">176</a> ]，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN35">35</a>深度生成模型已成为天文联结论中的一个流行子领域。这种流行是由其固有的可扩展性驱动的；由于不需要标记数据，因此可以将这些方法重新用于可能手头的任何数据集。自我监督的联结主义已经存在了更长时间（即[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C227">227</a>]），但最近由于它在处理大量未标记数据集方面的有用性而再次流行起来。本节分为两个主要部分。我们将首先在第 8.1 节中概述深度天文生成模型的历史，并在第 8.2 节中讨论天文表示学习的历史。尽管表示学习只是第 8.2 节中描述的研究的明确目标，但必须强调的是，<em>表示</em> <em>也可以从第 8.1 节中描述的所有深度生成模型中提取。</em></p>
+<h4 id="8-1-深度天文生成模型"><a href="#8-1-深度天文生成模型" class="headerlink" title="8.1. 深度天文生成模型"></a>8.1. 深度天文生成模型</h4><p>捕获真正的天文数据需要准确了解望远镜的行为、设备特征、观测过程中的环境因素和数据缩减技术。这些复杂的步骤通常是针对单独的观察集量身定制的。然而，经典模拟还有一种替代方案：利用特定调查中的示例，可以开发数据驱动的方法，不仅可以模拟天文信号，还可以模拟数据的固有特征。除此之外，经过训练来复制天文观测的深度学习模型的运行成本比经典模拟要便宜得多，因此可以快速生成大量数据；然后可将数据用于大规模天文管道原型设计，帮助开发新的分析方法以及数据集扩充。</p>
+<p>本质上，Regier<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C176">176</a> ]提出使用VAE来模拟星系观测。他们使用来自包含 43 444 个星系的 SDSS 采样数据集的缩小尺寸的 69 × 69 星系片段来训练网络。他们以与第 6.1 节中描述的相同方式训练网络，并发现该网络能够生成与训练集中发现的星系类似的星系。他们还发现他们的网络产生了语义上有意义的嵌入，并指出他们的星系是按方向和形态类型聚集的。Ravanbakhsh 等人也进行了同样的调查*。<em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C228">228</a> ]，他证明了 VAE 可以用来有条件地生成星系。拉万巴赫什</em>等人。<em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C228">228]</a>] 还率先使用 GAN 生成星系图像。斯平德勒</em>等人。<em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C177">177</a> ]使用VAE结合先验高斯混合模型（参见方程（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M6x2">6.2</a>）和随附文本）来生成星系图像并将其聚类为形态类型。虽然本段之前的研究在训练集中使用了像素尺寸相对较小的图像，但 Fussell &amp; Moews [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C229">229</a> ] 和 Holzschuh</em>等人。<em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C230">230</a> ]证明了 GAN 能够生成大型高保真星系观测结果。Fussell &amp; Moews [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C229">229</a> ] 通过堆叠式 GAN 架构 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C231">231</a> ] 实现了这一目标，Holzschuh</em>等人。<em>[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C230">230</a> ]使用相关的StyleGAN架构[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C189">189</a> ]达到相同的目的。布托尼埃</em>等人。<em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C12">12</a> ]使用基于流的模型<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN36">36</a> [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C233">233,234</a> ]有条件地模拟星系观测<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C234">。</a>他们发现，他们的方法可以比以前的分析方法产生更准确的模拟，但代价是推理时间。相关地，史密斯</em>等人。*[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C13">13</a> ]使用扩散模型来生成大型高保真星系。他们在暗能量光谱仪器（DESI，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C235">235</a>]）。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C237">一个是</a>在 SDSS 数据版本 7 [81、236、237] 中编录的一组 306 006 个星系<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C81">，</a>另一个是在河外巡天的光度学和旋转曲线观测（PROBES <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C236">、</a> [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C238">238]</a>]) 数据集。PROBES 包含分辨率良好的星系，这些星系表现出旋臂、条形和晚型星系的其他特征。他们发现，他们的模型产生的星系在质量和统计上都与训练集中的星系没有区别，这证明扩散模型是用于天文模拟的更成熟的 GAN 和 VAE 模型的竞争替代品。从所有这些研究中，我们可以得出结论，深层生成模型可以内化能够在物理和形态上描述星系的模型。</p>
+<p>生成模型也被用来模拟更大规模的天文数据。在与星系生成相关的用例中，Smith &amp; Geach [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C239">239</a> ] 表明 Spatial-GAN [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C240">240</a> ] 可以模拟任意宽的领域调查。他们在哈勃极限深场上进行训练，发现在模型的合成深场中“检测到”的星系在统计上与真实的星系没有什么区别。罗德里格斯等人也探索了宇宙学模拟*。<em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C241">241</a> ]使用 GAN 快速生成宇宙网模拟，Mustafa</em>等人。<em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C242">242</a> ]以比经典模拟更快的速度生成弱透镜收敛图。除了 GAN，Remy</em>等人。*[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C243">243</a> ] <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN37">37</a>在 MassiveNus 的模拟地图上训练 SBGM [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C245">245</a> ]，并发现他们的模型能够复制这些地图。他们还证明，他们的模型能够在后验预测中产生可能的分布。最后，他们证明 SBGM 能够预测真实的哈勃宇宙演化巡天（COSMOS）场的质量图 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C246">246</a> ]。</p>
+<p>GAN 在类似 Pix2Pix 的公式中的图像域翻译能力（[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C184">184</a> ]，另见图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F19">19 </a><em>b</em>）在天文学中特别有用。沙温斯基<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C247">247</a> ]首先通过训练类似 Pix2Pix 的模型来对天文数据进行去噪来演示这种用途。他们在从 SDSS 采样的 4550 个星系上训练了他们的网络。星系被卷积以增加视宁度，并添加了散斑噪声。GAN 的任务就是扭转这一过程。他们发现他们的方法优于盲反卷积和 Lucy-Richardson 反卷积。<em>正如 Stark等人</em>所言，生成模型还能够分离来源。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C248">248]</a>] 通过使用 Pix2Pix 模型来演示类星体从其宿主星系的扩展光中发出的点源发射。Reiman &amp; Göhre [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C249">249 ] 使用与 Stark</a><em>等人类</em>似的模型。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C248">248</a> ]去混合重叠的星系。</p>
+<p>在撰写本文时，天文学文献中只有三个基于扩散模型的<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C243">的</a>示例<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C13">13、243、244 </a>。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN38">38</a>令人惊讶的是，这些研究是天文学中基于分数的建模的唯一例子，因为 SBGM 产生的一代可以与最先进的 GAN 模型相媲美，并且没有其他模型中存在的缺点（例如在VAE，或者 GAN 中的模式崩溃和训练不稳定）。SBGM 在天文数据管道中也有一些自然用途。例如，类似于 Sasaki<em>等人的实现。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C206">206</a> ]可用于类似于 Buncher<em>等人的调查到调查的光度测量转换。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C254">254</a> ]。[Jayaram &amp; Thickstun <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C207"> 207</a> ]中描述的源图像分离模型具有作为天文物体去混合器<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C249">的</a>明显应用（即<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C255"> 248、249、255 [] </a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C248">）</a>。总而言之，天文学界开发 SBGM 的时机已经成熟，我们希望在未来几年看到人们对这一领域的浓厚兴趣。</p>
+<h4 id="8-2-自监督天文表示学习"><a href="#8-2-自监督天文表示学习" class="headerlink" title="8.2. 自监督天文表示学习"></a>8.2. 自监督天文表示学习</h4><p>1993 年，Serra-Ricart<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C227">227</a> ]提出使用自动编码器来学习两微米银河巡天观测到的恒星嵌入[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C256">256</a> ]。他们首先证明了他们的自动编码器模型在分离高斯分布的玩具问题上比主成分分析 (PCA) 效果更好，然后他们证明他们的模型在实际数据上也优于经典的 PCA 方法。20 多年后，Graff<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C257">257</a> ] <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN39">39</a>表明自动编码器还能够捕获星系的属性，如映射暗物质挑战中所述 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C258">258</a>] 通过证明从自动编码器中提取的嵌入有利于计算星系的椭圆率作为下游任务。我们不局限于图像；Yang &amp; Li [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C259">259</a> ] 表明，自动编码器可以学习表示，然后可以使用这些表示来训练神经网络，以执行估计恒星大气参数的下游任务，而 Tsang &amp; Schultz [260] 则表明，自动编码器可以<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C260">生成</a>可以然后用于对变星光变曲线进行分类。从这些研究中，我们必须得出结论，通过代理任务训练的神经网络能够学习跨天文领域的语义上有意义的嵌入。</p>
+<p>近，有人将自监督对比学习模型应用于星系图像聚类。哈亚特<em>等人。</em>[ [11 ] 使用 SDSS <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C11"> </a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C81">81</a> ]的多波段星系光度测量训练 SimCLR [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C214">214</a> ] 。他们表明，最终的嵌入通过直接在星系形态分类模型和红移估计模型的训练集中使用它们来捕获有用的信息。同样，萨米恩托<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C261">261</a> ] 对 SimCLR 进行了训练，使用从阿帕奇点天文台巡天测绘附近星系映射中的星系捕获的积分场光谱数据（MaNGA，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C262">262</a>]）。他们再次发现 SimCLR 生成语义上有意义的嵌入。斯利耶普切维奇<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C263">263</a> ]证明“Bootstrap Your Own Latent”（BYOL，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C216">216</a> ]）<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN40">40</a>对比学习模型能够学习射电星系的语义上有意义的表示。他们的模型在 100 000 个 Radio Galaxy Zoo 星系上进行训练，并在 1256 个星系的强 Mirabest 数据集上运行推理 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C264">264</a>]。他们发现从他们的模型派生的嵌入在语义上是有意义的，这表明自我监督方法可以在不同的调查之间转移。这些研究表明对比学习适用于图像；需要进一步研究以证明其对其他类型天文数据（例如时间序列和体积数据）的有效性。</p>
+<h3 id="9-基础模型：第四次天体联结主义浪潮？"><a href="#9-基础模型：第四次天体联结主义浪潮？" class="headerlink" title="9. 基础模型：第四次天体联结主义浪潮？"></a>9. 基础模型：第四次天体联结主义浪潮？</h3><p>迄今为止，这篇综述表明深度学习已在天文学中得到广泛应用，这种应用取决于大量计算能力和数据的可用性。本节展望未来，并预测如果天文学继续追随其他应用深度学习领域的脚步，将会出现什么结果。简而言之，我们预测并认为天文联结主义可能会取消精心制作的深度学习模型，取而代之的是无所不包的“基础”模型。在第 9.1 节中，我们探讨了基础模型是什么，以及它们在深度学习中的背景。然后，第 9.2 节将这些模型置于天文学的背景下，并建议我们作为一个社区可以采取的行动来实现天文学基础模型。最后，§9。</p>
+<h4 id="9-1-基础模型"><a href="#9-1-基础模型" class="headerlink" title="9.1. 基础模型"></a>9.1. 基础模型</h4><p>自诞生以来，联结主义一直遵循着更大的计算性和更大的通用性的道路[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C91">91</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C92">92</a> ]。那时，人为的偏见已经被抛在一边，取而代之的是直接从数据中学习的模型和技术。Sutton [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C91">91</a> ]通过语音识别领域举例说明了这个过程：</p>
+<blockquote>
+<p>“在语音识别方面，早在 20 世纪 70 年代就曾有过一项由 DARPA（国防高级研究计划局）赞助的竞赛。参赛者包括许多利用人类知识的特殊方法——单词、音素、人类声道等知识。另一方面是更新的方法，它们本质上更具统计性，并进行更多的计算，基于隐马尔可夫模型（HMM）。统计方法再次战胜了基于人类知识的方法。这导致了整个自然语言处理领域的重大变化，几十年来逐渐发生，统计和计算开始主导该领域。最近语音识别领域深度学习的兴起是朝着这个一致方向迈出的最新一步。深度学习方法对人类知识的依赖更少，并且使用更多的计算，结合大量训练集的学习，可以产生更好的语音识别系统。就像在[计算机围棋和计算机国际象棋]中一样，研究人员总是试图制造出按照研究人员认为自己的思维方式工作的系统——他们试图将这些知识放入他们的系统中——但事实证明，这最终适得其反，并且对研究人员的资源造成了巨大的浪费。当时，通过摩尔定律，大规模计算变得可用，并且找到了充分利用它的方法。</p>
+</blockquote>
+<p>我们看到这一原则通过深度学习的新范式转变再次发挥作用，甚至底层的神经网络架构也不再重要。此前，神经网络通过研究人员注入的归纳偏差来适应特定领域，例如计算机视觉的卷积和语言处理的递归。现在我们看到 Transformer 网络（参见第 4.4 节和 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C117">117</a> ]）在所有应用或其他深度学习领域中展开竞争<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN41">41</a>[ ：从语言处理 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17"> 17</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C123">123</a> ] <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN42">42</a>到计算机视觉 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C168">168</a> ] 到图形学习 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C267">267</a> ]蛋白质折叠[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C16">16</a> ]到天文学[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a>,<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C170">170</a>,<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C172">172</a>]。Transformer 的多功能性使我们能够采用针对一项任务训练的模型，并将其应用于类似但不同的任务，这一过程称为迁移学习。例如，我们可以在预测序列中下一个单词的“代理”任务上训练模型，然后将该模型应用于预测地理问题答案的类似但不同的任务。在此示例中，第一个模型称为“基础”模型，下游模型从中派生。这种设置带来了一些有用的优势。例如，如果基础模型得到改进，所有下游任务也会得到改进。因此，只需要一种模型就可以让研究人员以一种在资源分配给多个项目时不可能实现的方式集中精力。</p>
+<p>为了训练基础模型，我们首先需要定义一个代理任务。由于标记数据集价格昂贵，而原始数据相对便宜，因此最简单且最具可扩展性的方法是通过自我监督学习。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN43">43</a>自监督学习不需要人类提供用于训练的标记数据集。相反，监控信号是根据原始数据自动生成的。例如，在天文学的背景下，此任务可以预测变星光曲线中的掩蔽值[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a> ]。另一项任务可能是使用自动编码器（§6.1）来复制星系观测[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C177">177</a>]。进一步的任务可以是在自我监督框架内进行培训，例如对比学习（§7.1）。自监督学习的重要一点是它不需要带注释的数据。这意味着我们可以利用大量的原始数据（例如教科书、抓取的互联网文本、原始图像等）。</p>
+<p>经过大量数据训练的大型模型表现出了令人惊讶的突发行为。例如，GPT-3 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> ] 是一个 1750 亿 (B) 参数模型，可以“提示”执行新任务（有关提示基础模型的更多信息，请参阅<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F25">图 25 ）。</a>这种能力在 GPT-3 的较旧、较小的 1.5B 参数兄弟中根本没有表现出来 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C122">122</a> ]。<em>此外，Wei等人</em>描述的一项荟萃研究。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C269">269</a> ]发现，较大的模型一旦达到一定规模，就会突然“解锁”算术、翻译和修辞格理解等能力。这些发现表明，除了扩展之外，无需进行架构更改即可执行自然语言处理中的许多任务[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C92">92</a>，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C270">270</a> ]。在<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F25">图 25中，我们看到了 Alayrac</a><em>等人</em>的一些结果。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C268">268</a> ]，一个包含LLM和图像编码器的模型。在此图中，我们可以看到该模型能够算术、阅读、计数，并且具有艺术、地理和动物学 44 以及文学的广泛知识（尽管不是“理解” <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN44">）</a>。该模型包含用于编码图像的 ResNet 变体 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C119">119</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C272">272</a> ] 和用于编码和生成文本的 Chinchilla LLM [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a> ]。Chinchilla（以及 Flamingo）接受了预测文本序列中下一个单词的代理任务的训练，因此上述的紧急属性都没有被明确优化。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/81cee15a-9f23-4689-9f6a-b03ffd828d3f/rsos221454f25.gif" alt="图 25."></p>
+<p>图 25.Flamingo是一个基础模型，能够理解自然语言背景下的图像。在这里，我们看到了火烈鸟新兴能力的一些例子。该图改编自图。1 在 Alayrac<em>等人中。</em></p>
+<p>在下一小节中，我们将陈述并解释天文学基础模型的必要性，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN45">45</a>不仅是为了天文学，也是为了深度学习研究的开放性。</p>
+<h4 id="9-2-扩展法则和数据护城河"><a href="#9-2-扩展法则和数据护城河" class="headerlink" title="9.2. 扩展法则和数据护城河"></a>9.2. 扩展法则和数据护城河</h4><p>霍夫曼<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273 ]建议对 Kaplan</a><em>等人</em>首次提出的基础模型缩放定律进行更新。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C275">275</a> ]。他们的缩放定律方程将神经网络模型的大小和训练数据集的大小与可实现的最小损失联系起来。从数学上来说，方程是<br>$$<br>\mathcal{L_min}(N,D)&#x3D;\frac{A}{N^\alpha}+\frac{B}{D^\beta}+E<br>$$<br>其中<em>E</em>是一个常数，表示给定特定训练数据集时的最低可能损失。<em>N</em>是神经网络中可训练参数的数量，<em>D</em>是以标记为单位的数据集大小（有关标记化的更多信息，请参阅第 4.4 节）。我们可以看到，当我们在无限大数据集（即<em>N</em> &#x3D; <em>D</em> &#x3D; ∞）上训练无限大模型时，剩下的唯一项是“数据集熵”常数<em>E</em>。因此，我们只能通过增加模型的大小或训练集的大小来减少损失。</p>
+<p>拟合上述方程后，Hoffmann<em>等人发现：<br>$$<br>\mathcal{L_min}(N,D)&#x3D;\frac{406.4}{N^{0.34}}+\frac{410.7}{D^{0.28}}+.69<br>$$<br>如果我们随后插入</em>N<em>和</em>D*以选择真实的基础模型，我们将得到<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">图 26</a>。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">我们可以在图 26</a>中看到，真实基础模型的模型大小项远低于数据集大小项。这意味着数据集大小的增加有可能比更大的模型减少更多的最小损失。因此，进一步改进这些基础模型的下一步显然是增加其数据集大小。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/1fcd5843-5bef-4a27-8e3a-413263ee8586/rsos221454f26.gif" alt="图 26."></p>
+<p>图 26.所选基础模型的最小损失之间的比较。上表显示了模型中参数的数量 ( <em>N</em> )、模型训练集中的标记数量 ( <em>D )，以及从方程 (</em> <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M9x1">9.1</a> )中计算出的相应的涌现项。这里我们使用 Hoffmann<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a> ] 获取<em>A</em>、<em>α</em>、<em>B</em>和<em>β</em>的源值。</p>
+<p><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">图 26</a>所示的比较中最大的数据集（MassiveText-English；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a> ]）总计 1.4 万亿 (T) 个令牌。然而，该数据集是专有的，仅供谷歌雇用的研究人员使用。在撰写本文时，最大的公共文本数据集是 The Pile [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C279">279</a> ]，总大小约为 260B 个令牌。我们可以通过无限期地从表面网络中抓取文本数据来增加这些数据集的大小，但这些数据往往质量较低。此外，我们已经耗尽了一些重要的高质量数据储备，例如基础研究论文和开源代码[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C280">280</a>]。我们还必须问自己：当生成模型开始大量创建数据并将其不加区别地转储到互联网上时会发生什么？如果从互联网上抓取的数据集中很大一部分文本是通过法学硕士生成的，则对其进行训练将导致不可预见的问题，并可能最终导致模型性能较差。因此，我们必须确保数据不是由深度生成模型生成的。除此之外，学院和广大公众将永远无法访问由字节跳动、谷歌、Meta、微软和其他科技巨头管理的深层网络中包含的大量数据。出于所有这些原因，如果我们想挖掘新的高质量数据，我们就需要跳出框框思考。</p>
+<p>输入多模式基础模型。里德<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C124">124</a> ] <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN46">46</a>证明大型 Transformer 神经网络能够学习许多任务，从玩 Atari 游戏、为图像添加字幕、聊天到操作真正的机器人手臂。该模型在所有任务之间共享权重，并在推理时根据上下文决定要预测哪个任务。重要的是，里德<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C124">124</a> ]发现他们的模型遵循与其他基础模型相同的缩放法则，因此多模态基础模型对数据具有与我们在<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">图 26</a>中看到的相同的渴望。更令人惊讶的是，Aghajanyan<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C282">282]</a>]发现一旦神经网络达到一定规模，在连接的独立数据集上训练的基础模型显着优于单独训练的单峰模型。因此，我们可以使用高质量、公开的天文数据来扩充我们的文本数据集。</p>
+<p>维拉鲁宾天文台的 189 16 兆像素 CCD 将每晚观测 1000 个科学帧，同时进行遗留时空勘测 (LSST) [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C283">283</a> ]。如果我们使用与 Dosovitskiy 等人相同的标记化方案，这相当于每晚3 × 10 12 个像素，或者每晚大约 12B 个标记*。*的视觉转换器[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> ]。仅经过 1 年的观察，LSST 将产生 4.4T 的原始数据，甚至比 MassiveText-English 数据集还要大。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN47">47</a>这些数据以及其他类似的天文数据可以编译成一个非常大的开放数据集，类似于 EleutherAI 的 Pile [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C279">279</a>]。该数据集将为大型科技公司以外的学者提供一种训练和研究大型基础模型的方法。对于一个资源相对匮乏的研究小组来说，编译这样的数据集是很困难的，但它可以通过集市式的开放开发来完成[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C284">284</a> ]。我们已经在大型开源项目中看到了这种开发模式的成功，其中最著名的是Linux内核。[EleutherAI（例如 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C279"> 279、285、286</a> ]）以及 HuggingFace 的 BigScience 计划 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C286">287</a> ]也证明了这种开发模型在<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C287">深度</a><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C285">学习</a>领域的有效性。]。一旦编译完成，我们必须确保进展保持公开，并且数据不会简单地吸收到专有数据集中 - 为此，我们必须为我们的数据集提供强大的（病毒式）copyleft 风格许可证。</p>
+<p>一旦数据集编译完毕，我们训练所需的只是一些自我监督的替代任务，供我们的“天文基础”模型尝试。这些任务可能包括预测变星时间序列中的下一次观测、预测星系的低表面亮度剖面、预测星系的形态参数或简单地生成一系列观测中的下一次观测。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN48">48</a>正如我们将在下一小节中探讨的那样，这些代理任务根本不需要与我们最终将使用模型的下游任务相关。经过训练后，我们的 astrofoundation 模型将继承法学硕士享有的所有有趣属性，例如少样本到零样本生成和其他突发行为。</p>
+<h4 id="9-3-天文基础模型的实际意义和用途"><a href="#9-3-天文基础模型的实际意义和用途" class="headerlink" title="9.3. 天文基础模型的实际意义和用途"></a>9.3. 天文基础模型的实际意义和用途</h4><p>本节探讨假设的天体基础模型（第 9.3.1 节）的更广泛含义，以及一些实际的天文学用途（第 9.3.2 节）。在§9.3.3中，我们强调了一项可能对天文学有用的下游任务；天文模拟的条件生成模型。</p>
+<h5 id="9-3-1-基金会模式民主化"><a href="#9-3-1-基金会模式民主化" class="headerlink" title="9.3.1. 基金会模式民主化"></a>9.3.1. 基金会模式民主化</h5><p>2023 年春天<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN49">49</a>随之而来的是全球时代精神的注意力转向基础模型，特别是大型语言模型的 GPT 系列。领先的是 OpenAI 的 ChatGPT，它的发布已成为大型语言模型所拥有能力的公开广告（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F27">图 27</a>）。虽然很有影响力，但我们注意到 ChatGPT “只是”GPT-3 和 GPT-4 版本的 Web 界面包装器，这些版本已使用人类反馈进行了微调 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C292">291 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C291">,</a> 292 []</a>]。因此，ChatGPT 的受欢迎程度表明，人们对深度学习和基础模型有很多潜在的普遍兴趣，并且这种兴趣可以通过令人信服的公开演示来实现。这些模型的完全开放开发和传播也许是最公开的演示。我们确实看到开源基础模型的发布导致了创新和兴趣的爆发。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN50">50</a>一个特殊的例子是“Meta AI 的大型语言模型”的发布和影响（LLaMA；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C293">293</a> ]）。LLaMA 是开源 LLM 的集合，最大的 LLaMA 具有与 GPT-3 相当的性能。自从 LLaMA 发布以来，整个项目生态系统已经兴起，以创新和有趣的方式使用该模型（例如 [<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C294">294</a> – <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C297">297</a> ]）。类似的故事发生在 2022 年，当时 StabilityAI 发布了基于潜在扩散的开放文本到图像扩散模型 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C94">94</a> ]。[接下来的一系列活动远远超过了 OpenAI 与其竞争的闭源 DALL-E 2 模型 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C203"> 203</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C298">298</a> ]所取得的进展。我们相信，如果开放的天文学基础模型得到有效开发和营销，天文学将会出现与 LLaMA 和稳定扩散模型发布类似的创新爆炸式增长。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/115230be-9fee-4b9d-87b0-00ee1e061c71/rsos221454f27.gif" alt="图 27."></p>
+<p>图 27.这里我们显示了术语“GPT”在 Google 搜索中的相对流行度。当 ChatGPT 模型推出供公众使用时，我们可以看到 GPT 的搜索量大幅增加（令人惊讶的是，当 GPT-1、GPT-2 和 GPT-3 论文发布时，搜索量几乎没有增加！） [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C26">26</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C122">122</a>，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C290">290</a> ]。这些数据取自 Google 趋势 ( <a target="_blank" rel="noopener" href="https://trends.google.co.uk/">https://trends.google.co.uk/</a> )。</p>
+<p>3月中旬GPT-4发布了[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C26">26</a> ]。其随附的“技术报告”不包含有关模型架构、训练集大小或训练例程的详细信息。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN51">51</a>对于一个历史上建立在开源和开放研究基础上的领域来说，无耻地发布封闭模型是一个相当令人担忧的发展。最令人担忧的是，该领域的行业参与者关闭了商店，作为对 OpenAI 设定的开放&#x2F;封闭模型囚徒困境的反应。如图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F28">28</a>表明，自 2010 年代中期以来，工业界已经产生了大部分有影响力的深度学习模型；如果未来的发展由于商业压力而被隐藏，我们将看到人才和创新的集中被锁在行业的大门后面。此外，基础建模的最新发展有可能通过普遍的自动化对全球经济和劳动力产生重大影响 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C173">173</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C300">300</a>]。随着自动化程度的提高，大型工业参与者的权力、专业知识和经济影响力的集中将削弱那些无法获得这些技术的人的经济讨价还价地位。这可能会导致社会平衡，获得经济和社会机会的人越来越少。这是一种被 Brynjolfsson [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C301">301</a> ] 模因地称为“图灵陷阱”的平衡：</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/b8526010-8ace-4a72-a2ce-e552b892f6e8/rsos221454f28.gif" alt="图 28."></p>
+<p>图 28.这里我们显示了学术界和工业界每年产生的被高度引用、最先进或具有历史意义的作品的数量。这些数据来自 Sevilla<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C299">299</a> ]。</p>
+<blockquote>
+<p>原则上，完全自动化的经济可以被构建为广泛地重新分配生产的利益，甚至分配给那些不再严格需要创造价值的人。然而，受益人在阻止分配变化方面处于弱势讨价还价地位，而这种变化使他们几乎一无所有。他们将不稳定地依赖于那些控制技术的人的决定。这为财富和权力的进一步集中打开了大门。</p>
+</blockquote>
+<p>为了避免这个陷阱，我们必须共同努力使基础模型以及自动化的最新成果可供所有人使用。在 Copyleft 数据集上训练的 Copyleft 基础模型（例如我们假设的天文基础模型）将在某种程度上减少大型科技公司与更广泛社会之间日益严重的技术不平等。</p>
+<p>考虑到上述讨论，我们想重新审视第 9.2 节中的简要分析，并重申并强调迫切需要一个独立的、可验证的、完全开放的、强大的 Copyleft 许可替代方案，以替代由 OpenAI、微软、Anthropic 控制的封闭基础模型。 、谷歌和其他大型科技集团。虽然价格昂贵，但计算资源相当容易获得——最重要的问题是基础模型需要大量数据才能有效地训练它们。这些模型通常通过锁定在深层网络中的大量高质量的公开可用的文本数据进行训练。然而幸运的是，第 9.2 节表明，大量有用的多模态数据可以很容易地从天文观测中获得。</p>
+<h5 id="9-3-2-可能的天文用例"><a href="#9-3-2-可能的天文用例" class="headerlink" title="9.3.2. 可能的天文用例"></a>9.3.2. 可能的天文用例</h5><p>在本小节中，我们概述了我们的天体基础模型的一些可能令人兴奋的天文用途。在我们深入研究之前，我们必须声明，这里我们只是粗略地了解了这项技术的潜力，我们希望——正如 LLaMA 和稳定扩散生态系统（第 9.3.1 节）所证明的那样——我们将有更多的用例此处尚未讨论社区参与所产生的问题。我们将本小节分为两部分。第一部分讨论基础模型如何帮助推广、公民科学和跨学科合作，第二部分讨论该模型如何帮助天文学研究。</p>
+<h5 id="9-3-2-1-合作、公民科学和外展"><a href="#9-3-2-1-合作、公民科学和外展" class="headerlink" title="9.3.2.1. 合作、公民科学和外展"></a>9.3.2.1. 合作、公民科学和外展</h5><p>通过提供一个用于生成模拟和分析数据的通用平台，基于神经网络的天文基础模型将简化和促进以前不同领域的研究人员之间的协作。除此之外，底层技术的任何改进都可以轻松集成到特定领域（或与领域无关）的基础模型中，这些模型可用于以前需要多年专业培训才能操作的任务。天文学的一个具体例子是天文模拟。物理感知的天文基础模型可用于模拟和询问模拟的天文事件，其方式与现在的<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C22">经典</a>模拟非常相似[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C20">20-22</a> ]。第 9.3.3 节详细描述了一个可以促进这种模型的框架。</p>
+<p>神经网络的多模态训练使我们能够在数据模式之间建立连接，这在当前方法中是不可能或困难的。作为一个例子，让我们考虑一下公民科学。在像银河动物园这样的公民科学项目中 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C132">132</a>]，公民科学家被要求用定量标签来标记天文物体。对于未经天文学训练的人来说，这可能是一个不直观的过程。具有自然语言意识的天文基础模型将允许参与者用自己的语言描述天文物体。这将减少对专门培训的需求，从而增加这些项目的可及性。人们可以想象一个类似银河动物园的新项目，其中公民科学家提供星系形态的自然语言描述。然后，基础模型可以处理和分析这些描述，这最终将有助于更全面地了解星系演化。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN52">52</a></p>
+<p>具有天文学知识的基础模型可用于开发能够让学生、教育工作者和公众参与有关天文学的对话的聊天机器人。这些聊天机器人可以回答问题、提供解释，甚至可以根据用户的兴趣和先验知识建议个性化的学习资源。这将扩大天文学知识的获取范围并使之民主化，而这种获取天文学知识的便捷方式可以激发并帮助招募下一代天文学家。基金会模型已经可以充当导师，商业演员目前正在这个领域工作；最显着的例子是“Duolingo Max”，它为用户提供了用于外语学习的个性化聊天机器人，以及可汗学院的“Khanmigo”，它为学生的课程提供了个人导师。<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C26">26</a> ]，因此开放的天文学基础模型将比封闭的 GPT- <em>N</em>模型提供更广泛的访问，而后者已被促使具有天文学意识。</p>
+<h5 id="9-3-2-2。加强研究"><a href="#9-3-2-2。加强研究" class="headerlink" title="9.3.2.2。加强研究"></a>9.3.2.2。加强研究</h5><p>虽然基础模型必须在现有数据上进行训练，但其识别数据内的模式和关系的能力可以带来新的知识发现，并提供一种更有效的方法来处理以前困难或耗时的数据。正如前面第 6-8 节中所讨论的，天体连接主义者可以使用基础模型来生成一组天文物体的嵌入。就像我们在第6-8 节中讨论的那样，这些嵌入可以用于下游天文任务，或者可以放入可视化管道中，例如 t 分布随机邻域嵌入方法 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C304"> <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C303">303、304 </a>[]</a>]。由于天文基础模型将是多模态的，研究人员可以组合从完全不同的仪器生成的多个数据集的嵌入，从而使他们能够鸟瞰其数据，</p>
+<p>而这在目前很难实现。我们还可以利用基础模型的新兴能力来发挥我们的优势；<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F25">如图25</a>所示，我们可以使用少样本学习，并使用一些示例输入对来提示经过训练的模型。例如，我们可以使用成对的输入星系观测值和相应的输出表面亮度剖面[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C167">167</a>]。如果天文基础模型是一个小样本学习器（并且知道其训练数据中存在类似的输入输出配对），它将确定研究人员想要计算新星系的表面亮度剖面。然后，研究人员将使用提示的模型作为表面亮度轮廓提取器，从而避免了此类任务对专门分析或深度学习模型的需求。这个过程并不限于这个例子——它适用于基础模型知道的模式内的任何输入-输出对。更好的是，这个过程不需要对基础模型进行重新训练，只需要在推理时进行几次提示。</p>
+<p>自主代理不再是科幻小说；而是现实。当仅由人类操作员给出高级提示时，由基础模型的拟像驱动的任务驱动的自主代理能够解决非常一般的任务[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C305">305</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C306">306]</a>]。因此，人们可以想象一个半自动化的研究管道，其中具有天文知识的自主代理可以通过 API 访问一组天文数据。代理将被提示一个高级研究目标（例如“在这个数据集中找到一些有趣和令人惊讶的东西”），然后将采取措施来完成此任务。这些步骤可能包括查询研究论文以进行文献综述、搜索大型多模态天文数据集以查找支持理论的数据、用额外的拟像来唤起和讨论其发现，或者旋转模拟来检验假设[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C307">307</a>]。当代理在后台运行时，人类研究人员将能够对结果提供高水平的解释，并且将成为为更一般的研究方向提供指导和完善的稳定之手。通过这种方式，天文学基础模型将提供工具，使所有天文学家成为他们自己强大的“人工智能实验室”的首席研究员。</p>
+<h5 id="9-3-3-一类新的模拟"><a href="#9-3-3-一类新的模拟" class="headerlink" title="9.3.3. 一类新的模拟"></a>9.3.3. 一类新的模拟</h5><p>我们希望以我们假设的天体基础模型的实际应用来结束本小节；本着最近文本到图像建模工作的精神（即[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C94">94</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C308">308</a> ]），天文模拟的条件生成模型。如果我们训练无条件生成模型，我们无法在推理时控制其输出。如果我们想要生成特定类别的观测来训练下游任务（例如红移</p>
+<p>作为一个思想实验，让我们考虑一下 Google 最近的“Imagen”模型，<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN53">53</a>并想象如何将其重新用于天文用例（图<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F29">29</a>和<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F30">30</a>，[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C308">308</a> ]）。Imagen 是冻结的 LLM（特别是 T5-XXL；[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C310">310</a> ]）和级联扩散模型（[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C309">309</a>]，另见§6.3）。LLM 充当语言编码器，然后将其生成的潜在空间表示作为条件向量传递到扩散模型上。如果我们用“天文基础”模型取代冻结的法学硕士（参见第 9.1 和 9.2 节），我们就可以利用天文学本质上的多模态性质。例如，如果我们的 astrofoundation 模型经过训练来理解 Galaxy Zoo 2 (GZ2) 形态分类 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C311">311</a> ]，我们可以将 GZ2 描述符作为<strong>y</strong>，将它们相应的星系对作为<strong>x</strong>并对其进行训练。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/d8c452eb-f47c-44eb-b46d-e50684589244/rsos221454f29.gif" alt="图 29."></p>
+<p>图 29.选择从文本输入生成的 1024 × 1024 Imagen 样本。每个图像下方是其相应的条件文本。图改编自图。[<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C308"> 308</a> ]中的A.2 。</p>
+<p>经过训练后，我们的天文 Imagen 模型可以生成类似于其所训练的真实星系观测结果的合成星系。然而，与无条件天文模拟器不同，该模型能够生成与共享 GZ2 参数调节集的真实星系特别相似的星系！</p>
+<p><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454M9x2">与方程（ 9.2</a> ）描述的条件模型不同，天文基础型模型允许我们对条件向量进行创造性的处理。例如，我们可以反向运行模型来生成引用非常具体的天文物体的表示，然后生成该“类”的更多物体，并注入卫星遮挡、特定仪器响应函数、特定红移等特征，等（参见 Gal<em>等人</em>关于“文本倒置”的工作。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C312">312</a>]）。这些模拟将使研究人员能够为各种研究目的创建定制的数据集，例如研究特定的星系类型、形态或宇宙学现象。我们甚至可以创建一个“银河动物园”类型的数据集，要求公民科学家通过自然语言描述星系形态（§9.3.2）。这是可能的，因为编码基础模型从根本上并不关心标题采用哪种形式。由于自然语言固有的直观性，这种方法将减少公民科学家的培训成本。此外，由于推理时间生成相对便宜，因此像本节中描述的模型将允许天文学家比使用经典模拟更快地探索和测试假设和场景。</p>
+<h3 id="10-联结主义的警告"><a href="#10-联结主义的警告" class="headerlink" title="10.联结主义的警告"></a>10.联结主义的警告</h3><p>到目前为止，在这篇评论中，我们对天文联结论的潜力非常乐观。然而，这并不意味着联结主义没有陷阱。10.1 节概述了天文联结论的一些实际缺点，并讨论了实践者如何减轻这些缺点。由于其重要性，我们将第 10.2 节专门讨论气候变化和碳排放，并通过对现代大型语言和基础模型的碳排放的案例研究来说明联结主义的影响。</p>
+<h4 id="10-1-可能的实际陷阱"><a href="#10-1-可能的实际陷阱" class="headerlink" title="10.1. 可能的实际陷阱"></a>10.1. 可能的实际陷阱</h4><p><a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F26">如图26</a>所示，深度学习对数据有着永不满足的渴望。获取和标记用于深度学习模型训练的数据可能非常昂贵且耗时。精明的天体连接主义者可以通过不需要标记数据的自我监督或生成学习来缓解这个问题，然后将学习到的嵌入重新用于更专业的下游任务 54（参见§§6-9 <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN54">）</a>。与此相关的是罕见或完全意想不到的天文事件和现象<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#FN55">55</a>根据定义，在任何训练数据中采样都很差，因此深度学习模型将难以概括和内化这些事件。一种解决方案是使用异常检测方法来发现这些罕见现象。我们将读者引向 Pang<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C315">315</a> ]最近对异常检测技术的精彩回顾。</p>
+<p>非常大的深度学习模型的训练和运行推理成本可能很高。一些天文应用，例如检测瞬态事件，需要实时处理大量数据。深度学习模型的计算复杂性可能会给它们在这些时间敏感场景中的部署带来挑战。在这种情况下，最好采用快速、简单、经典的技术或使用较小的深度学习模型。</p>
+<p>天文数据可以通过各种不同的仪器（或模拟）进行观测，并且最终的输出数据可以通过任意数量的后处理管道进行处理。这些管道都有自己的特点、特质和缺陷，因此在通过深度神经网络传播时可能会显得非常不同。此外，调查中已知天体的分布可能会受到观测偏差或历史兴趣的影响，因此需要仔细检查数据集以确保它们能够代表所需的用例。除了护理之外，天体连接主义者还可以采用领域适应技术来确保他们的数据集能够代表其下游任务[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C316">316</a>]。最后，正如我们在第 9 节中探讨的那样，在数据集集合上简单地训练一个非常大的深度学习模型甚至可能就足够了 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C282">282</a> ]，但这种方法目前对于普通研究人员来说是遥不可及的。</p>
+<p>当然，对深度学习长期的批评是可解释性。由于深度学习模型高度参数化，因此很难理解它们为何会做出某种行为或决策。有很多方法可以回避这个问题，本段将简要概述这个方向的一些进展，可能对从业者有用。也许可解释性的黄金标准是神经网络用自然语言逐步引导用户完成其“思维”过程，就像人类所做的那样。大型语言基础模型可以做到这一点，并且这种能力是“免费”的，具有足够大的模型和数据集[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C317">317</a>]。然而不幸的是，目前不存在这样的基础模型，它也具有深厚的天文学知识（§9），所以我们必须更有创意。注意力映射可用于显示深度学习模型在生成输出时关注哪些特征，并且这种注意力映射可以描述为数据的热图。注意力映射可以通过多种方式生成；例如，我们可以使用第 4.4 节中讨论的机制来突出显示输入数据中最有用的部分，以便模型预测或生成其输出。还可以使用类激活映射[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C231">231</a>] 将全卷积神经网络的输出追溯到其输入，以查看输入图像的哪些部分用于预测。遮挡映射（和其他扰动技术）可用于可视化所有架构的注意力。遮挡图要求我们遮挡输入数据的一部分，进而允许我们观察这如何影响输出预测[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C137">137</a> ]。我们还可以将某些统计方法应用于深度学习模型，以深入了解其内部运作方式。在贝叶斯范式（或“贝叶斯神经网络”）内训练的随机神经网络可用于估计神经网络预测中的不确定性[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C318">318</a>]。训练贝叶斯神经网络时，不需要先了解数据集；神经网络可以利用近似贝叶斯计算技术（例如无似然推理）来估计后验[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C319">319</a> ]。除了这些方法之外，许多其他深度可解释性管道也在使用中——远远超出了我们在这里讨论的空间——因此我们强烈推荐 Ras<em>等人。</em>[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C320">320</a> ]对可解释的深度学习领域进行了全面而广泛的概述。</p>
+<h4 id="10-2-联结主义的碳危机"><a href="#10-2-联结主义的碳危机" class="headerlink" title="10.2. 联结主义的碳危机"></a>10.2. 联结主义的碳危机</h4><p style="color:#FF0000;">不看</p>
+
+<h3 id="11-最后的评论，或者说我们如何学会停止担忧并热爱天文学的大数据时代"><a href="#11-最后的评论，或者说我们如何学会停止担忧并热爱天文学的大数据时代" class="headerlink" title="11. 最后的评论，或者说我们如何学会停止担忧并热爱天文学的大数据时代"></a>11. 最后的评论，或者说我们如何学会停止担忧并热爱天文学的大数据时代</h3><p>重复我们的介绍性陈述：在深度学习渗透的每个领域，我们都看到专业知识的使用减少，取而代之的是从数据中自动派生的知识。我们已经看到这个过程在许多不同的领域中发挥作用，从计算机围棋[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C15">15</a> ]到蛋白质折叠[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C16">16</a> ]，到自然语言处理[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> ]，到计算机视觉[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C18">18</a> ]。这个过程在深度学习社区中已被称为“痛苦的教训”，引文总结了这一原则：</p>
+<blockquote>
+<p>从 70 年的人工智能研究中可以学到的最大教训是，利用计算的通用方法最终是最有效的，而且效率很高。[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C91">91</a> ]</p>
+</blockquote>
+<p>没有理由相信天文学有根本上的不同。事实上，在这篇评论中，我们看到了指向这一结论的叙述（<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454F32">图 32</a>）。天文学中 MLP 的初始工作需要手动选择涌现属性作为输入（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C53">53</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C75">75</a> ]）。随着 CNN 和 RNN 的出现，这些手动选择的输入让位于原始数据摄取（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C131">131</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C155">155</a> ]）。现在，我们看到深度学习方法直接从数据中推断标签和知识，从而消除了人类监督（例如 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C170">170</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C177">177</a>]）。最终，如果天文学追随其他应用深度学习领域的脚步，我们将看到精心设计的深度学习模型被移除，取而代之的是经过微调的包罗万象的“基础”模型<a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C173">173 []</a>。这个过程绝不是一件坏事；在天文发现过程中消除人类偏见使我们能够通过机缘巧合找到“未知的未知数”[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C169">169</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C261">261</a> ]。同样，利用数据的能力使我们能够直接生成和询问真实且综合的观察结果，从而避免了昂贵且脆弱的经典模拟的需要[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C13">13</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C239">239</a> ]。</p>
+<p><img src="https://royalsocietypublishing.org/cms/asset/e0b8cdf3-3dc9-42f6-9585-9fe2aa146f52/rsos221454f32.gif" alt="图 32."></p>
+<p>图 32.这里我们看到标题或摘要与图例中给出的术语匹配的 arXiv:astro-ph 提交的数量。我们可以看到三个不同的“波浪”。第一个对应于使用 MLP 的研究 (§§2.1–3)，第二个对应于使用注入原始数据的“深度学习”方法的研究 (§§4.1–5)，第三个对应于使用生成或自我生成的研究-监督模型（§§6–8）。原始数据属于公共领域，可在<a target="_blank" rel="noopener" href="https://www.kaggle.com/Cornell-University/arxiv">https://www.kaggle.com/Cornell-University/arxiv</a>             </p>
+<p>上获取。</p>
+<p>天文学的相对数据财富使我们有机会与深度学习研究的前沿形成共生关系，这是一个日益需要数据的领域[ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C92">92</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C280">280</a> ]。机器学习中的许多超大型数据集都是专有的，因此天文学界有机会介入并提供高质量的多模态公共数据集。反过来，该数据集可用于训练天文“基础”模型，该模型可用于最先进的下游任务（例如天文模拟，请参阅§9.3.3）。最后，根据联结主义的最新发展 [ <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C17">17</a> , <a target="_blank" rel="noopener" href="https://royalsocietypublishing.org/doi/10.1098/rsos.221454#RSOS221454C273">273</a>] 大多数天文学家缺乏训练该领域前沿模型的资源。如果天文学想要有机会跟上大型科技巨头的步伐，我们必须效仿 EleutherAI 和 HuggingFace 的例子，并以草根式的开源方式集中我们的资源（§9）。我们将此作为对社区的挑战。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="print-no-link">#人工智能</a>
+      
+        <a href="/tags/%E5%A4%A9%E6%96%87/" class="print-no-link">#天文</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>天文学神经网络的历史、入门和展望</div>
+      <div>https://lijianxiong.space/2023/20230701/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/20230703/" title="一些博士生对超大型语言模型时代NLP研究的看法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一些博士生对超大型语言模型时代NLP研究的看法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/20230629/" title="Voice Conversion With Just Nearest Neighbors">
+                        <span class="hidden-mobile">Voice Conversion With Just Nearest Neighbors</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>

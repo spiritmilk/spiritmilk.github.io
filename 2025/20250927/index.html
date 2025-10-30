@@ -1,0 +1,1240 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="师兄组会所提到。 2508.20181,2410.15778,2311.07362,2407.06192,2406.01920">
+<meta property="og:type" content="article">
+<meta property="og:title" content="五篇幻觉相关论文速览">
+<meta property="og:url" content="https://lijianxiong.space/2025/20250927/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="师兄组会所提到。 2508.20181,2410.15778,2311.07362,2407.06192,2406.01920">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/4.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/9.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/8.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/10.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/6.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/7.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/11.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/12.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/13.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/14.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20250927/15.png">
+<meta property="article:published_time" content="2025-09-27T04:05:35.000Z">
+<meta property="article:modified_time" content="2025-09-29T12:34:06.378Z">
+<meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="多模态">
+<meta property="article:tag" content="大模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20250927/1.png">
+  
+  
+  
+  <title>五篇幻觉相关论文速览 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">五篇幻觉相关论文速览</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-09-27 12:05" pubdate>
+          2025年9月27日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">五篇幻觉相关论文速览</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>师兄组会所提到。</p>
+<p>2508.20181,2410.15778,2311.07362,2407.06192,2406.01920</p>
+<span id="more"></span>
+
+<h2 id="《通过目标感知的偏好优化来缓解多模态大语言模型中的幻觉》"><a href="#《通过目标感知的偏好优化来缓解多模态大语言模型中的幻觉》" class="headerlink" title="《通过目标感知的偏好优化来缓解多模态大语言模型中的幻觉》"></a>《通过目标感知的偏好优化来缓解多模态大语言模型中的幻觉》</h2><p>《Mitigating Hallucinations in Multimodal LLMs via Object-aware Preference Optimization》</p>
+<p>BMVC 2025（CCF C，17年知乎上都称是略低于CV顶会的第二档会议）</p>
+<p>但感觉这篇论文的含金量并不足。</p>
+<p>CHAIR-DPO 基于 CHAIR。<br>$$<br>CHAIR&#x3D;\frac{|回答y中提到的、但图像中不存在的物体|}{|回答y中所提到的所有物体|}<br>$$<br>本文将缓解幻觉问题视为一个对齐问题，通过训练让模型更“偏爱”那些不含幻觉的回答 。（<strong>这不是废话吗</strong>）</p>
+<p><img src="/2025/20250927/1.png"></p>
+<p>首先，对于数据集中的每个三元组，丢弃 y ，并从参考的指令微调多模态大模型$\pi_{ref}$中采样一组新的可能答案 {y1, y2} 。然后，我们将一个现成的检测器应用于图像$x_I$，该检测器经过训练以识别预定义的一组对象，将检测到的项目类别名称视为图像中实际存在的真实物体集合$x_I$。此时，可以计算生成答案的$CHAIR_i$得分，任何未出现在真实物体集合中的提及对象均被视为幻觉。</p>
+<p>然后就是DPO了。</p>
+<p>还有作者发现，一个关键挑战源于存在多个完成对的$CHAIR_i$得分无法区分，导致无法分配胜者和败者标签。将此类配对纳入最优化过程会引入噪声监督，因为模型被迫从随机选择的偏好标签中学习。为解决此问题，我们提出一种简单而有效的过滤策略：我们丢弃所有完成对之间$CHAIR_i$得分差为零的训练实例。</p>
+<h2 id="通过潜在空间引导减少视觉-语言模型中的幻觉"><a href="#通过潜在空间引导减少视觉-语言模型中的幻觉" class="headerlink" title="通过潜在空间引导减少视觉-语言模型中的幻觉"></a>通过潜在空间引导减少视觉-语言模型中的幻觉</h2><p>Reducing Hallucinations in Vision-Language Models via Latent Space Steering</p>
+<p>ICLR 2025 Spotlight</p>
+<p>代码：<a target="_blank" rel="noopener" href="https://github.com/shengliu66/VTI">shengliu66&#x2F;VTI: Code for Reducing Hallucinations in Vision-Language Models via Latent Space Steering</a></p>
+<p><strong>V</strong>isual and <strong>T</strong>extual <strong>I</strong>ntervention &#x3D; VTI</p>
+<h3 id="LVLMs-中的幻觉机制"><a href="#LVLMs-中的幻觉机制" class="headerlink" title="LVLMs 中的幻觉机制"></a>LVLMs 中的幻觉机制</h3><p>幻觉可能源于对视觉编码器不稳定性的敏感性。</p>
+<p>与计算机视觉中的传统神经网络类似，理想的视觉编码器应在图像语义保持不变时输出稳定的特征，例如在对图像进行轻微扰动后。这种情况在 LVLMs 中尤为突出，其中图像编码器和文本解码器是预训练分离的，并且仅进行了最小程度的联合微调。文本解码器对图像特征的敏感性可能会加剧两种模态之间的错位，从而导致幻觉。</p>
+<p><img src="/2025/20250927/4.png"></p>
+<p>然而，如上图所示，虽然大多数视觉特征保持稳定，但约 15% 的特征表现出显著的方差，形成了长尾分布。</p>
+<p>尽管特征平均能够缓解幻觉现象，但它也带来了显著的弊端。由于视觉编码器是在干净数据上训练的，对图像进行扰动会损害信息提取，导致细节丢失。此外，对视觉特征进行平均需要多次通过模型进行前向传播，大幅增加了计算成本。</p>
+<p>因此，作者的目标是开发一种方法，既能有效增强视觉特征的稳定性并减少幻觉，又不牺牲信息或产生过高的计算开销。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>具体而言，预先计算了更稳定特征的“方向”，并在推理过程中一致地应用于所有查询示例以减少幻觉，而无需引入额外的训练或推理成本。由于有时幻觉源于文本解码器（即 LLM），进一步获取了文本方向并将其应用于文本解码器以最大化性能。</p>
+<p><img src="/2025/20250927/5.png"></p>
+<p>具体来说，给定视觉驶入v，其潜在状态为$h_{l,t}^v$，其中l表示层，t表示视觉token的索引。</p>
+<p><strong>视觉token偏移向量：</strong></p>
+<p>类似于特征平均，使用m种不同的随机掩码$C_i$，随机mask输入图像v。直观上，它们的平均嵌入$\bar h_{l,t}^v&#x3D;\sum h_{l,t}^{C_i(v)}$是鲁棒嵌入。</p>
+<p>故视觉方向如此计算：$\Delta_{l,t}^v&#x3D;\bar h_{l,t}^v-h_{l,t}^v$</p>
+<p>由于期望的视觉方向应能轻松应用于新的图像查询。为了去除方向向量中的图像特定信息，仅保留特征平均带来的变化。</p>
+<p>获取N个样本，并计算$[\Delta_{l,t}^{v_1},\Delta_{l,t}^{v_2},…,\Delta_{l,t}^{v_N}]$主方向$d_{l,t}^{vision}$。</p>
+<p>不同于其他论文，本论文使用的是归一化的SVD，也就是PCA。</p>
+<p><strong>文本偏移向量：</strong></p>
+<p>精心挑选N张无幻觉的图像描述，记为$x$，并采用GPT模型生成带有幻觉的版本$\tilde x$。</p>
+<p>简单地使用原始对应的图像v作为视觉输入，文本方向为：$\Delta_{l,t}^{x_i,v_i}&#x3D;h_{l,t}^{x_i,v_i}-h_{l,t}^{\tilde x_iv_i}$</p>
+<p>其中$h_{l,t}$代表在生成输出最后一个 token 时，第 t 个文本 token 在第 l 层的隐状态。特别地，因为文本解码器是因果建模的，我们仅使用最后一个 token 的潜在状态，t&#x3D;last token。同样地只取主方向$d_{l,t}^{text}$。</p>
+<blockquote>
+<p>作者有点符号混用。</p>
+</blockquote>
+<p>由于视觉编码器并非因果建模，在前向传播过程中对所有层的潜在状态在所有 token 位置进行了位移调整：<br>$$<br>h_{l,t}^v:&#x3D;h_{l,t}^v+\alpha\cdot d_{l,t}^{vision}<br>$$<br>对于文本，我们通过文本方向来调整文本解码器的潜在状态：<br>$$<br>h_{l,t}^{x,v}:&#x3D;h_{l,t}^{x,v}+\beta\cdot d_{l,t&#x3D;last token}^{text}<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">VTILayer</span>(nn.Module):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, vti_direction, lam</span>):<br>        <span class="hljs-built_in">super</span>(VTILayer, <span class="hljs-variable language_">self</span>).__init__()<br>        <span class="hljs-variable language_">self</span>.vti_direction = vti_direction<br>        <span class="hljs-variable language_">self</span>.lam = lam<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.vti_direction <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            norm = torch.norm(x.<span class="hljs-built_in">float</span>(),dim=-<span class="hljs-number">1</span>).unsqueeze(-<span class="hljs-number">1</span>)            <br>            y = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.vti_direction)):<br>                <span class="hljs-keyword">if</span> x.size(<span class="hljs-number">1</span>) &lt; <span class="hljs-number">2</span>:<br>                    lambda_sim = <span class="hljs-number">1.0</span> <span class="hljs-comment">#+ torch.max(torch.tensor([0.]).to(x.device), F.cosine_similarity(x.float(), -self.vti_direction[i][None,None,:], dim=-1)).unsqueeze(-1)</span><br>                    y += <span class="hljs-variable language_">self</span>.lam[i] * lambda_sim * F.normalize(<span class="hljs-variable language_">self</span>.vti_direction[i], dim=-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>,x.shape[<span class="hljs-number">1</span>],<span class="hljs-number">1</span>)<br>                <span class="hljs-keyword">else</span>:<br>                    lambda_sim = <span class="hljs-number">1.0</span><br>                    y += <span class="hljs-variable language_">self</span>.lam[i] * lambda_sim * F.normalize(<span class="hljs-variable language_">self</span>.vti_direction[i], dim=-<span class="hljs-number">1</span>)<br>            y = y/<span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.vti_direction)<br>            x = F.normalize(F.normalize(x.<span class="hljs-built_in">float</span>(),dim=-<span class="hljs-number">1</span>) +  <span class="hljs-number">0.1</span> * y, dim=-<span class="hljs-number">1</span>) * norm<br>                <br>            <span class="hljs-keyword">return</span> x.half()<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> x<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Volcano-通过自我反馈引导修正减轻多模态幻觉"><a href="#Volcano-通过自我反馈引导修正减轻多模态幻觉" class="headerlink" title="Volcano: 通过自我反馈引导修正减轻多模态幻觉"></a>Volcano: 通过自我反馈引导修正减轻多模态幻觉</h2><p>Volcano: Mitigating Multimodal Hallucination through Self-Feedback Guided Revision</p>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><p><img src="/2025/20250927/9.png"></p>
+<p><img src="/2025/20250927/8.png"></p>
+<h4 id="迭代式自我修订"><a href="#迭代式自我修订" class="headerlink" title="迭代式自我修订"></a>迭代式自我修订</h4><p>Volcano 是一个通过四阶段顺序过程生成改进响应的单一模型。</p>
+<p>首先，类似于其他 LLM，它为图像 $R_{initial}$ 和问题 $I$ 生成初始响应 Q ，并将最佳响应 $R_{best}$ 初始化为 $R_{initial}$ 。此阶段在整个创建最终响应的过程中只执行一次。</p>
+<p>其次，它根据$R_{best}$ 生成反馈F (<strong>阶段 1</strong>) 。使用此反馈，它自我修订 $R_{best}$ (<strong>阶段 2</strong>)。由于无法保证修订后的响应 $R_{revised}$ 会比现有的 $R_{best}$更好，因此需要确定哪一响应对于给定的 Q 和I 更好。此时，Volcano 被提供 Q 、I 以及两个响应，并经历决定哪个响应更好的过程 (<strong>阶段 3</strong>)。在阶段 3 中，$R_{revised}$ 和 $R_{best}$ 的顺序是随机的，以防止位置影响结果。 （作者对此引用了《Siren’s Song in the AI Ocean: A Survey on Hallucination in Large Language Models》，但并未找到具体文字，只找到“Li et al. (2022c) 发现大型语言模型有时会 错误地将偶然相关性，例如位置接近或高度共 现的关联，当作事实知识。”）</p>
+<p>如果模型认为 $R_{revised}$ 比 $R_{best}$ 更好，则 $R_{best}$ 会被更新为 $R_{revised}$ ，并重复从阶段1 到阶段 3 的过程，直到达到预定的最大迭代次数。否则，循环将提前停止，$R_{best}$ 将被选为最终输出。</p>
+<h4 id="数据采集"><a href="#数据采集" class="headerlink" title="数据采集"></a>数据采集</h4><p><img src="/2025/20250927/10.png"></p>
+<p>从开源的 LMM 中收集视觉问题的初始回答，并使用专有 LLM 生成反馈和修改。</p>
+<p>专有的大语言模型可能会利用黄金答案（Gold Answer，预先准备好的、完全正确的回答）来生成反馈，这可能导致在推理时由于未提供黄金答案而产生潜在的不准确性。为了避免这种情况，作者给大语言模型明确的提示，使其在生成反馈时关注文本格式的图像细节。</p>
+<p>在构建修订数据时，作者建立了一个系统，将现有的黄金答案作为输出进行预测，使用从上一步骤中获得的反馈数据、图像、问题和初始回答作为输入，而不涉及任何分离的模型生成过程。</p>
+<h3 id="定性分析"><a href="#定性分析" class="headerlink" title="定性分析"></a>定性分析</h3><p>作者还定性分析反馈如何有效减少多模态幻觉。</p>
+<h4 id="视觉信息量"><a href="#视觉信息量" class="headerlink" title="视觉信息量"></a>视觉信息量</h4><p>对于每个实例，执行top-k 平均汇聚（作者尝试了最小值、最大值、平均值，但是还是top-k提供了最清晰的可视化效果）来聚合初始响应或反馈词元在每个图像特征上的注意力权重。具体来说，在隐藏层上对前 3 个注意力权重求平均，在自注意力头上的前 3 个权重求平均，然后在输出词元上对前-l 个权重求平均，其中 l 是初始响应和反馈中较短输出的长度。</p>
+<p><img src="/2025/20250927/6.png"></p>
+<h4 id="视觉信息的覆盖"><a href="#视觉信息的覆盖" class="headerlink" title="视觉信息的覆盖"></a>视觉信息的覆盖</h4><p>作者进一步进一步通过实验研究单个词元的注意力如何有助于关键视觉信息的覆盖。</p>
+<p>将输出中所有词元的注意力权重与输出中一部分词元的注意力权重进行比较。对于后一种过程，生成过程中最强烈关注图像特征的词元被视为显著词元并被选择。</p>
+<p><img src="/2025/20250927/7.png"></p>
+<p>此示例中的任务是识别图像中锅的颜色，初始响应错误地回答为（“红色”），然后反馈更正了答案（“银色”）。</p>
+<p>这种修正可以通过生成每个词元时对图像特征的注意力分布差异来解释。</p>
+<p>基于所有关注图像特征的词元的热力图，当 Volcano 生成初始响应时，它主要关注外边缘的特征，对应于锅的边缘；在生成反馈时，它关注整个图像，包括对应于银色锅的外部区域和包含红色浆果的内部区域。</p>
+<p>关注图像特征的特定词元的热力图显示，在改进初始响应的过程中，Volcano 在生成这些词时确实关注了对应于关键颜色描述符“银色”和“红色”的确切图像区域。</p>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p>Volcano 需要多次调用模型，因此比直接生成响应的效率更低。平均而言，Volcano 的运行速度比基础模型慢约2 到 3 倍，对于给定的图像和指令生成响应需要 5.8 秒，而 LLaVA-1.5 只需要 2.7 秒。作者用来减少总体执行时间的一个策略是将迭代次数限制为 3 次。</p>
+<h2 id="视觉语言模型中的多对象幻觉"><a href="#视觉语言模型中的多对象幻觉" class="headerlink" title="视觉语言模型中的多对象幻觉"></a>视觉语言模型中的多对象幻觉</h2><p>Multi-Object Hallucination in Vision Language Models</p>
+<p>NeurIPS 2024</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>系统地研究了一个重要问题：当大型视觉语言模型（LVLMs）被要求同时关注和识别图像中的多个物体时，它们会如何产生误解（例如，凭空捏造不存在的物体或分散注意力） 。</p>
+<p>系统地研究多目标幻觉，论文提出了一个名为<strong>ROPE (Recognition-based Object Probing Evaluation，基于识别的物体探测评估)</strong> 的自动化评估协议。</p>
+<p>为了避免使用文字描述物体时可能产生的歧义（比如一张图里有多个苹果，说“苹果”就不知道指哪个），ROPE 在图像上使用红色的边界框直接框出要识别的物体，从而精确指向特定对象 。</p>
+<p>ROPE 设计了标准化的问答格式（例如，要求模型以 <code>obj1: &lt;class1&gt;, obj2: &lt;class2&gt;, ...</code> 的格式输出），这样就可以通过简单的文本解析来自动评估模型的准确性，无需依赖人类或其他“黑箱”模型进行评判 。</p>
+<p>ROPE 在测试时考虑图像中对象类别的分布，将 ROPE 分为四个子集：</p>
+<ul>
+<li><p>In-the-Wild（真实场景）：随机选择和排序图像中的5个物体，类别分布混合 。</p>
+</li>
+<li><p>Homogeneous：所有被框出的5个物体都属于同一个类别（例如，5个都是苹果） </p>
+</li>
+<li><p>Heterogeneous：5个被框出的物体分别属于5个不同的类别 。</p>
+</li>
+<li><p>Adversarial：前4个物体属于同一类别，最后一个物体属于不同类别（例如，4个苹果，1个橙子），用来测试模型是否会因为惯性而出错 。</p>
+</li>
+</ul>
+<p>主要发现简介如下：</p>
+<p>(1)与仅关注单一对象相比，LVLM 在被要求关注多个对象时会产生更多幻觉；</p>
+<p>(2) 测试对象类别分布影响幻觉行为，揭示出 LVLM 可能依赖捷径和虚假相关系数；</p>
+<p>(3) LVLM 的幻觉行为受到数据特定因子、显著性与频率以及模型内在行为的影响。</p>
+<h3 id="主要发现"><a href="#主要发现" class="headerlink" title="主要发现"></a>主要发现</h3><p><img src="/2025/20250927/2.png"></p>
+<p>在多种主流的视觉语言模型（如 LLaVA, GPT-4V, GPT-4O, CogVLM ，Yi-VL等）上进行了实验，得出了三个关键结论：</p>
+<p><strong>多目标任务比单目标任务更容易产生幻觉：</strong> 实验结果清晰地表明，与一次只识别一个物体相比，当模型被要求同时识别多个物体时，其准确率显著下降，幻觉现象更加严重 。</p>
+<p><strong>被测物体的类别分布会影响幻觉行为：</strong> 模型在处理<strong>同质</strong>物体（都是同一类）时表现最好，而在处理<strong>异质</strong>物体（每个都不同类）时表现最差，幻觉最多 。这表明模型可能依赖于某种“捷径”或虚假的关联性来做出判断，而不是真正地逐一识别每个物体 。</p>
+<p><strong>对抗性测试揭示了模型的“思维捷径”：</strong> 在“AAAAB”这样的对抗性测试中，模型在识别前几个相同的物体（A）时准确率很高，甚至越来越高。但当识别到最后一个不同的物体（B）时，准确率会断崖式下跌，模型极大概率会把它也错误地识别成A 。这有力地证明了模型并没有真正理解任务，而只是在利用语言偏见和重复先前答案这样的“捷径” 。</p>
+<h3 id="影响幻觉的因素分析"><a href="#影响幻觉的因素分析" class="headerlink" title="影响幻觉的因素分析"></a>影响幻觉的因素分析</h3><p>深入分析了可能导致多目标幻觉的多种因素：</p>
+<h4 id="数据特定因素"><a href="#数据特定因素" class="headerlink" title="数据特定因素"></a>数据特定因素</h4><p><img src="/2025/20250927/3.png"></p>
+<p><strong>查询同质性（Query Homogeneity）：</strong> 当任务中需要识别的物体类别越单一时，模型幻觉越少 。</p>
+<p><strong>物体在图像中的位置（Object Centrality）：</strong> 位于图像边缘的物体比位于中心的物体更容易被错误识别 。</p>
+<h4 id="显著性和频率因素"><a href="#显著性和频率因素" class="headerlink" title="显著性和频率因素"></a>显著性和频率因素</h4><p><strong>物体显著性</strong>：先前的研究表明，较小的物体更难被检测和定位到。本文将物体显著性定义为物体实例分割掩码占据的像素数量与图像总像素数量的比值。</p>
+<p><strong>语义显著性（Semantic Salience）：</strong> 如果某一类别的物体在图像中多次出现（例如，桌子上有很多罐子），那么模型在识别这个类别的单个物体时更不容易出错 。</p>
+<p><strong>训练数据频率（Training Salience）：</strong> 模型对于在训练数据中频繁出现的物体类别，更不容易产生幻觉 。</p>
+<h4 id="模型内在行为"><a href="#模型内在行为" class="headerlink" title="模型内在行为"></a>模型内在行为</h4><p><strong>模型不确定性（Object Token Entropy）：</strong> 当模型对自己的预测感到不确定时（表现为输出词元的熵更高），更容易产生幻觉 。</p>
+<p><strong>对视觉信息的关注度（Visual Modality Contribution）：</strong> 分析发现，模型在做判断时，对文本信息的依赖远大于视觉信息。当模型对视觉信息的关注度降低时，产生幻觉的可能性会略微增加 。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p><strong>简单提升模型参数可能不够：</strong> 仅仅增加语言模型的参数量可以减少单目标幻觉，但对更复杂的多目标幻觉问题效果不明显 。</p>
+<p><strong>训练数据是关键：</strong> 需要构建更多样化、更平衡的训练数据，包含更多需要同时理解多个物体的指令，特别是那些不常见的、位于图像边缘的物体 。</p>
+<p><strong>应用上的建议：</strong> 在要求高准确率的场景下，可以考虑将复杂的多目标识别任务分解成多个单目标识别任务，即一次只问一个物体，以减少幻觉的风险 。</p>
+<h2 id="CODE：对比自生成描述以应对大型多模态模型中的幻觉问题"><a href="#CODE：对比自生成描述以应对大型多模态模型中的幻觉问题" class="headerlink" title="CODE：对比自生成描述以应对大型多模态模型中的幻觉问题"></a>CODE：对比自生成描述以应对大型多模态模型中的幻觉问题</h2><p>CODE: Contrasting Self-generated Description to Combat Hallucination in Large Multi-modal Models</p>
+<p>NeurIPS 2024</p>
+<p>CODE (<strong>CO</strong>untering <strong>DE</strong>scription Contrastive Decoding)</p>
+<p><strong>贡献</strong>：</p>
+<ul>
+<li>CODE是一种无需训练的解码策略，利用自生成的描述来减少大型多模态模型中的幻觉现象。通过对比描述所包含的 Logit 信息与实际视觉内容，CODE 提升了模型响应的视觉一致性和连贯性。</li>
+<li>在对比解码阶段引入了动态限制策略。通过根据 token 在词表中的分布来调整其层级预测，有选择性地调控信息流，从而确保生成更具上下文相关性的响应。</li>
+<li>在多种基准上验证了有效性。</li>
+</ul>
+<h2 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h2><p><img src="/2025/20250927/11.png"></p>
+<p><img src="/2025/20250927/12.png"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2025/20250927/13.png"></p>
+<p><img src="/2025/20250927/14.png"></p>
+<p>代码流程已经写得还明白了。</p>
+<blockquote>
+<p>直接把有界散度代入$\alpha$很能work有点太奇了</p>
+</blockquote>
+<h2 id="失败案例"><a href="#失败案例" class="headerlink" title="失败案例"></a>失败案例</h2><p>作者推断，仅依赖自生成的描述并不总是足够，尤其是在描述本身存在偏见或不准确的情况下。</p>
+<p><img src="/2025/20250927/15.png"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" class="print-no-link">#多模态</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>五篇幻觉相关论文速览</div>
+      <div>https://lijianxiong.space/2025/20250927/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年9月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/20250928/" title="通过外推一个巨大且假设的语言模型的概率来解释和改进对比解码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">通过外推一个巨大且假设的语言模型的概率来解释和改进对比解码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/20250926/" title="Machine Unlearning">
+                        <span class="hidden-mobile">Machine Unlearning</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-08",1],["2023-07-11",2],["2023-07-18",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,2,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,4,3,3,6,3,6,2,1,6,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,8,11,9,13,9],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":111},{"name":"人工智能","value":44},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"大模型","value":21},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>
