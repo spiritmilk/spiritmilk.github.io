@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20251029/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251029/4.png">
 <meta property="article:published_time" content="2025-10-29T15:16:23.000Z">
-<meta property="article:modified_time" content="2025-10-30T08:43:29.923Z">
+<meta property="article:modified_time" content="2025-10-30T08:51:22.392Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          898 字
+          1.4k 字
         
       </span>
     
@@ -313,7 +313,7 @@
         
         
         
-          8 分钟
+          12 分钟
         
       </span>
     
@@ -381,8 +381,24 @@
 <p><img src="/2025/20251029/4.png"></p>
 <h2 id="（TDSC-2025）A-Multimodal-Adversarial-Attack-Method-via-Frequency-Domain-Enhancement-and-Fine-grained-Cross-modal-Guidance"><a href="#（TDSC-2025）A-Multimodal-Adversarial-Attack-Method-via-Frequency-Domain-Enhancement-and-Fine-grained-Cross-modal-Guidance" class="headerlink" title="（TDSC 2025）A Multimodal Adversarial Attack Method via Frequency Domain Enhancement and Fine-grained  Cross-modal Guidance"></a>（TDSC 2025）A Multimodal Adversarial Attack Method via Frequency Domain Enhancement and Fine-grained  Cross-modal Guidance</h2><p>大多数现有的基于频率的方法仅关注视觉模态，而忽略了与语言的跨模态交互。</p>
 <p>现有的对抗攻击方法通常采用空间域增强来提高对抗 样本在黑盒模型中的可迁移性。旋转、裁剪和翻转等技术 增加了样本的多样性。然而，这些增强技术仍然依赖于原 始数据的变换，这可能导致模型在训练过程中过度拟合细 节和噪声，最终限制对抗样本的泛化能力。</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>使用DFT来消除高频。</p>
-<h4 id="图像模态：频域增强-Frequency-domain-Enhancement"><a href="#图像模态：频域增强-Frequency-domain-Enhancement" class="headerlink" title="图像模态：频域增强 (Frequency-domain Enhancement)"></a>图像模态：频域增强 (Frequency-domain Enhancement)</h4><h4 id="文本模态：细粒度跨模态指导-Fine-grained-Cross-modal-Guidance"><a href="#文本模态：细粒度跨模态指导-Fine-grained-Cross-modal-Guidance" class="headerlink" title="文本模态：细粒度跨模态指导 (Fine-grained Cross-modal Guidance)"></a>文本模态：细粒度跨模态指导 (Fine-grained Cross-modal Guidance)</h4><h2 id="额外阅读"><a href="#额外阅读" class="headerlink" title="额外阅读"></a>额外阅读</h2><p>1.<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1vQuyzZEk7">频率原则：神经网络通常会先学习低频</a></p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="图像模态：频域增强-Frequency-domain-Enhancement"><a href="#图像模态：频域增强-Frequency-domain-Enhancement" class="headerlink" title="图像模态：频域增强 (Frequency-domain Enhancement)"></a>图像模态：频域增强 (Frequency-domain Enhancement)</h4><p><strong>动机</strong>：减少对高频细节和噪声的依赖，转而攻击更稳定的低频结构信息，以提高迁移性 。</p>
+<p>使用DFT来消除高频。</p>
+<p><strong>结合空间增强</strong>：在频域增强的基础上，仍然辅以多尺度变换和高斯噪声等空间域增强手段，以增加样本多样性 。</p>
+<h4 id="文本模态：细粒度跨模态指导-Fine-grained-Cross-modal-Guidance"><a href="#文本模态：细粒度跨模态指导-Fine-grained-Cross-modal-Guidance" class="headerlink" title="文本模态：细粒度跨模态指导 (Fine-grained Cross-modal Guidance)"></a>文本模态：细粒度跨模态指导 (Fine-grained Cross-modal Guidance)</h4><p><strong>动机</strong>：现有的文本攻击只关注词级别，粒度太粗 。作者类比图像的频率，认为词级别特征（Word-level）类似高频（细节），而句子级别特征（Sentence-level）类似低频（全局）。</p>
+<p><strong>多级特征提取</strong>：使用BERT模型</p>
+<ul>
+<li>提取<strong>词级别特征</strong> $h_{w_i}$ （每个token的隐藏状态）。</li>
+<li>提取<strong>句子级别特征</strong> $h_s$ （[CLS] token的嵌入）。</li>
+</ul>
+<p><strong>细粒度重要性评分</strong>：为了找到最值得替换的“关键词”，作者设计了一个新的评分公式 $S_i$ ：</p>
+<ul>
+<li>$S_i^{KL}$：计算原始文本嵌入与**掩码（Mask）**掉单词 $w_i$ 后的文本嵌入之间的KL散度。这衡量了该词对整个句子信息的改变程度。</li>
+<li>$S_i^{cos}$：计算词级别特征 $h_{w_i}$ 和句子级别特征 $h_s$ 之间的余弦相似度（$1 - \text{sim}$）。这衡量了该词与全局上下文的关联度。</li>
+<li><strong>最终得分</strong>：$S_i &#x3D; \lambda S_i^{KL} + (1-\lambda)S_i^{cos}$ 25。$\lambda$ 是一个超参数（实验中设为0.7）。</li>
+</ul>
+<p><strong>生成对抗文本</strong>：根据 $S_i$ 得分选择Top-k个词进行替换 ，并利用图像嵌入作为指导，通过梯度迭代优化对抗文本的嵌入。</p>
+<p><strong>生成对抗图像</strong>：最后，使用生成的对抗文本嵌入 $h_{tj}^{adv}$ 作为指导 ，对经过频域增强的图像使用PGD等方法进行攻击，目标是最大化地破坏图像和对抗文本之间的对齐关系。</p>
+<h2 id="额外阅读"><a href="#额外阅读" class="headerlink" title="额外阅读"></a>额外阅读</h2><p>1.<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1vQuyzZEk7">频率原则：神经网络通常会先学习低频</a></p>
 <p>2.[<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1903.00073">1903.00073] On the Effectiveness of Low Frequency Perturbations</a></p>
 
                 
