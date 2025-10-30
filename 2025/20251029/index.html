@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20251029/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251029/4.png">
 <meta property="article:published_time" content="2025-10-29T15:16:23.000Z">
-<meta property="article:modified_time" content="2025-10-30T09:59:13.869Z">
+<meta property="article:modified_time" content="2025-10-30T10:05:38.596Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -392,7 +392,7 @@
 </ul>
 <p><strong>细粒度重要性评分</strong>：为了找到最值得替换的“关键词”，作者设计了一个新的评分公式 $S_i$ ：</p>
 <ul>
-<li>$S_i^{KL}$：计算原始文本嵌入与**掩码（Mask）**掉单词 $w_i$ 后的文本嵌入之间的KL散度。这衡量了该词对整个句子信息的改变程度。</li>
+<li>$S_i^{KL}$：计算原始文本嵌入与<strong>Mask</strong>掉单词 $w_i$ 后的文本嵌入之间的KL散度。这衡量了该词对整个句子信息的改变程度。</li>
 <li>$S_i^{cos}$：计算词级别特征 $h _ {w_i}$ 和句子级别特征 $h_s$ 之间的余弦相似度（$1 - \text{sim}$）。这衡量了该词与全局上下文的关联度。</li>
 <li><strong>最终得分</strong>：$S_i &#x3D; \lambda S_i^{KL} + (1-\lambda)S_i^{cos}$ 25。$\lambda$ 是一个超参数（实验中设为0.7）。</li>
 </ul>
