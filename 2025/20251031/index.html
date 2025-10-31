@@ -28,11 +28,13 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ ICLR 2025） SISA的改进版。 没想到25年居然还有涉及的论文。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/031/1.png">
 <meta property="article:published_time" content="2025-10-31T08:48:44.000Z">
-<meta property="article:modified_time" content="2025-10-31T08:59:58.315Z">
+<meta property="article:modified_time" content="2025-10-31T12:20:00.366Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/031/1.png">
   
   
   
@@ -296,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          599 字
+          803 字
         
       </span>
     
@@ -307,7 +309,7 @@
         
         
         
-          5 分钟
+          7 分钟
         
       </span>
     
@@ -361,6 +363,15 @@
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>SISA 的一个关键缺陷在于，如果删除请求影响到所有分片的切片 1，则整个服务将无法运行，必须从头开始重新训练。另一个缺点是，每当执行删除请求时，集成中的各个模型都需要重新训练。即使仅对单个切片进行重新训练，对于大规模模型在为大量用户提供生产级服务的情况下，成本也非常高昂。一种简单的替代方案是使用最后一个可用的检查点，并定期进行重新训练。显然，随着删除请求数量的增加，整体模型的性能将逐渐下降。</p>
 <p>$S^3T$使用LoRA来描述，但是也不仅限于LoRA。</p>
 <p>再回顾一下LoRA，它是一种低秩更新：<br>$$<br>W&#x3D;\bar W+X^TY<br>$$<br>$S^3T$的核心思想是使用不同的数据切片来训练不同的 LoRA 层。这种方法允许我们在删除某一切片的数据时，有选择性地禁用（置零）与该层相关的 LoRA 参数（X 或 Y）。</p>
+<p>与SISA相似，它采用的也是使用不同的数据切片去训练。但是他是巧妙地将模型的不同层与不同的数据切片绑定。</p>
+<p>它选择冻结前$i-1$层，使用$S_1+…+S_i$的数据，来训练第i层的LoRA参数。</p>
+<p>$S^{3}T$ 的遗忘策略：</p>
+<p>假设一个删除请求命中了 $S_3$。</p>
+<ul>
+<li><strong>SISA 必须：</strong> 加载 $S_2$ 的检查点，用 $S_4, S_5…$ 的数据重新训练。</li>
+<li><strong>$S^{3}T$ 仅需：</strong> <strong>停用 (Deactivate)</strong>（即参数设为零）所有在训练中接触过 $S_3$ 数据的 LoRA 层。根据 $S^{3}T$ 的训练策略，第 1 层 (只用了 $S_1$) 和第 2 层 (只用了 $S_1+S_2$) <strong>没有</strong>受到 $S_3$ 的影响。因此，系统<strong>无需任何重新训练</strong>，只需停用第 3 层、第 4 层 … 第 L 层的 LoRA 参数即可。</li>
+</ul>
+<p><img src="/2021/1000/031/1.png"></p>
 
                 
               </div>
