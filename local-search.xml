@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>基于参数高效微调的可扩展确切机器遗忘方法</title>
+    <link href="/2025/20251031/"/>
+    <url>/2025/20251031/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ ICLR 2025）</p><p>SISA的改进版。</p><p>没想到25年居然还有涉及的论文。</p><span id="more"></span><h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>机器遗忘技术分为两大类：近似遗忘和确切遗忘。</p><p>近似遗忘无法保证完全移除该样本的影响，其对模型仍可能保留非零影响。</p><p>确切遗忘能够确保从已训练模型中彻底移除某个数据样本的影响。确切遗忘技术采用模块化系统，系统中的不同组件分别在互不重叠的数据子集上进行训练。当发生删除请求时，仅需重新训练受影响的组件即可。然而，在真实场景中，即使暂停生产系统以重新训练单个组件，也可能导致服务中断并产生巨大开销。另一种选择是绕过受影响的组件继续运行，但这可能导致性能下降，最终影响终端用户。</p><p>核心思想是在部署初始模型之前进行额外的离线训练，以降低重新训练的成本。在$S^3T$的核心中，我们采用了一种新颖的轻量级微调方法，通过依次使用不相交的数据切片训练模型各层，实现参数隔离。</p><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>SISA 的一个关键缺陷在于，如果删除请求影响到所有分片的切片 1，则整个服务将无法运行，必须从头开始重新训练。另一个缺点是，每当执行删除请求时，集成中的各个模型都需要重新训练。即使仅对单个切片进行重新训练，对于大规模模型在为大量用户提供生产级服务的情况下，成本也非常高昂。一种简单的替代方案是使用最后一个可用的检查点，并定期进行重新训练。显然，随着删除请求数量的增加，整体模型的性能将逐渐下降。</p><p>$S^3T$使用LoRA来描述，但是也不仅限于LoRA。</p><p>再回顾一下LoRA，它是一种低秩更新：<br>$$<br>W&#x3D;\bar W+X^TY<br>$$<br>$S^3T$的核心思想是使用不同的数据切片来训练不同的 LoRA 层。这种方法允许我们在删除某一切片的数据时，有选择性地禁用（置零）与该层相关的 LoRA 参数（X 或 Y）。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>频域特征对多模态大模型的幻觉影响</title>
     <link href="/2025/20251029/"/>
     <url>/2025/20251029/</url>
