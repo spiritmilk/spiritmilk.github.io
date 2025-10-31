@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/031/1.png">
 <meta property="article:published_time" content="2025-10-31T08:48:44.000Z">
-<meta property="article:modified_time" content="2025-10-31T12:20:00.366Z">
+<meta property="article:modified_time" content="2025-10-31T12:31:33.893Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          803 字
+          1.3k 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          7 分钟
+          11 分钟
         
       </span>
     
@@ -372,6 +372,30 @@
 <li><strong>$S^{3}T$ 仅需：</strong> <strong>停用 (Deactivate)</strong>（即参数设为零）所有在训练中接触过 $S_3$ 数据的 LoRA 层。根据 $S^{3}T$ 的训练策略，第 1 层 (只用了 $S_1$) 和第 2 层 (只用了 $S_1+S_2$) <strong>没有</strong>受到 $S_3$ 的影响。因此，系统<strong>无需任何重新训练</strong>，只需停用第 3 层、第 4 层 … 第 L 层的 LoRA 参数即可。</li>
 </ul>
 <p><img src="/2021/1000/031/1.png"></p>
+<h3 id="序列感知-Sequence-Aware"><a href="#序列感知-Sequence-Aware" class="headerlink" title="序列感知 (Sequence-Aware)"></a>序列感知 (Sequence-Aware)</h3><p>以上的过程其实有很大的缺点，比如S3有问题，则往后的S4、S5都要被删除了。</p>
+<p>所以引入了<strong>训练预算 (Budget, B)</strong> 。它不再是为每个分片只训练一个模型，而是训练 $B$ 个模型副本，每个副本使用<strong>不同排列顺序 (Permutation)</strong> 的数据切片进行训练。</p>
+<p>当然我们不可能训练B&#x3D;L!种排列，所以我们需要序列感知。</p>
+<p><strong>情况 1：均匀删除先验 (Uniform Deletion Prior)</strong> (不知道哪个切片更容易被删)</p>
+<p>使用 <strong>迭代循环轮换 (Iterative Cyclic Rotation)</strong> 。</p>
+<p>例如 (L&#x3D;3)：(S1, S2, S3), (S2, S3, S1), (S3, S1, S2) 。这保证了 $S_1, S_2, S_3$ 在每个位置（第1、2、3位）都只出现一次。</p>
+<p><strong>情况 2：非均匀删除先验 (Non-uniform Deletion Prior)</strong> (知道某些切片（如新用户数据）更容易被删)</p>
+<ul>
+<li><strong>策略：</strong> 使用 <strong>基于二分图匹配的序列选择 (BMS)</strong> 。</li>
+<li>这个算法的目标是，将那些<strong>最不可能被删除</strong>的切片，尽可能地排在序列的<strong>最前面</strong>（因为最前面的切片最敏感，一旦被删，整个模型报废） 。</li>
+</ul>
+<p>作者也从理论证明了$S^3T$的优越性：</p>
+<p>首先定义删除率 (Deletion Rate)为一个系统在需要从头开始重新训练之前，预期可以处理的删除请求总数。</p>
+<p><strong>引理 1 (Deletion Rate)：</strong></p>
+<ul>
+<li>SISA 的删除率: $\delta(SISA) \sim O(mL \log m)$。</li>
+<li>$S^{3}T$ 的删除率: $\delta(S^{3}T) \sim O(mL \log(m \min(B,L)))$ 。</li>
+<li><strong>结论：</strong> $S^{3}T$ 的删除率明显更高，并且随着预算 $B$ 的增加而提高（直到 $B&#x3D;L$ 为止）。</li>
+</ul>
+<p><strong>引理 2 (Performance Retention)：</strong></p>
+<ul>
+<li>$S^{3}T$ 在经历 $r$ 次删除后，保持至少 $F(k)$（即 $k$ 个切片）性能的概率，显著高于 SISA。</li>
+<li><strong>结论：</strong> 增加预算 $B$ 可以有效提高系统在删除后的性能保留能力。</li>
+</ul>
 
                 
               </div>
