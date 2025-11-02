@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>性能提升的幻觉：为什么对比解码无法缓解多模态大模型中的对象幻觉问题？</title>
+    <link href="/2025/20251101/"/>
+    <url>/2025/20251101/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（NIPS 2025）</p><p>作者认为，目前的一些对比解码方法在POPE等基准测试上观察到的性能提升是一种假象 ，并非真正解决了幻觉问题。</p><span id="more"></span><p>在 POPE 基准上观察到的性能提升主要由两个误导性因素驱动：(1) 对模型输出分布进行粗略的单向调整；(2) 自适应合理性约束将采样策略退化为贪心搜索。</p><p>0939</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>基于参数高效微调的可扩展确切机器遗忘方法</title>
     <link href="/2025/20251031/"/>
     <url>/2025/20251031/</url>
