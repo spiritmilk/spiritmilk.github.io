@@ -31,8 +31,10 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20251101/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251101/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251101/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/101/4.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/101/5.png">
 <meta property="article:published_time" content="2025-11-01T09:19:29.000Z">
-<meta property="article:modified_time" content="2025-11-02T02:25:27.961Z">
+<meta property="article:modified_time" content="2025-11-02T02:27:56.176Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -384,13 +386,15 @@
 <li><strong>方法B (OLM)</strong>：在输出层修改，如果“Yes”和“No”的概率很接近，就强行改成“Yes” 。</li>
 <li><strong>结果</strong>：在POPE上，这两种“作弊”方法取得了与VCD和SID相当甚至更好的性能提升 。</li>
 </ul>
+<p><img src="/2021/1000/101/4.png"></p>
 <p><strong>实验二：模仿“采样退化”</strong></p>
 <ul>
 <li><strong>方法</strong>：不使用完整的对比解码，只使用“自适应合理性约束”（APC）模块，并配合采样策略 。</li>
 <li><strong>结果</strong>：仅仅使用APC这一个模块，就取得了和完整VCD、ICD、SID方法几乎相同的性能提升 。</li>
 <li><strong>结论</strong>：这有力地证明了，在采样模式下，所有的性能提升都来自APC（即采样退化为贪婪搜索），而与对比解码逻辑无关 。</li>
 </ul>
-<p>0939</p>
+<p><img src="/2021/1000/101/5.png"></p>
+<h2 id="其他数据集"><a href="#其他数据集" class="headerlink" title="其他数据集"></a>其他数据集</h2><p>0939</p>
 
                 
               </div>
