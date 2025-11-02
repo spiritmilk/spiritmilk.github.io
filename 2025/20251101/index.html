@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（NIPS 2025） 作者认为，目前的一些对比解码方法在POPE等基准测试上观察到的性能提升是一种假象 ，并非真正解决了幻觉问题。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/101/1.png">
 <meta property="article:published_time" content="2025-11-01T09:19:29.000Z">
-<meta property="article:modified_time" content="2025-11-02T01:41:45.892Z">
+<meta property="article:modified_time" content="2025-11-02T01:53:00.205Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/101/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          112 字
+          384 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -354,7 +356,15 @@
 <p>作者认为，目前的一些对比解码方法在POPE等基准测试上观察到的性能提升是一种假象 ，并非真正解决了幻觉问题。</p>
 <span id="more"></span>
 
-<p>在 POPE 基准上观察到的性能提升主要由两个误导性因素驱动：(1) 对模型输出分布进行粗略的单向调整；(2) 自适应合理性约束将采样策略退化为贪心搜索。</p>
+<p>在 POPE 基准上观察到的性能提升主要由两个误导性因素驱动：</p>
+<p>R1 ：一种单向调整输出分布的方法，该方法简单地使模型更倾向于生成更多的“是”类输出，从而在某些数据集上实现分布平衡。<br>R2 ：这些方法中的自适应约束将采样解码策略退化为贪心搜索的近似，导致性能出现欺骗性的提升。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ustc-hyin/cd_rethink">代码</a></p>
+<h2 id="对比解码"><a href="#对比解码" class="headerlink" title="对比解码"></a>对比解码</h2><p>对比解码由两个部分组成。</p>
+<p><strong>解码模块.</strong> $(1+\alpha)原始logits-\alpha\cdot 幻觉logits$</p>
+<p>生成幻觉有分为指令级或者或者图像级或者模型级（从自我内部生成）。</p>
+<p><img src="/2021/1000/101/1.png"></p>
+<p><strong>自适应合理性约束.</strong><br>$$<br>\begin{align}<br>\mathcal{V}<em>{head}(y</em>{&lt;t})&amp;&#x3D;(y_t\in\mathcal{V}\mid p_\theta(y_t\mid v,x,y_{&lt;t})\ge \beta max_w p_\theta(w\mid v,x,y_{&lt;t}))\\<br>p_{cd}(y_t\mid v ,x)&amp;&#x3D;0\text{  if  }y_t \notin  \mathcal{V}<em>{head}(y</em>{&lt;t})<br>\end{align}<br>$$</p>
+<h2 id="POPE"><a href="#POPE" class="headerlink" title="POPE"></a>POPE</h2><p> POPE是评估多模态大模型（MLLMs）的对象幻觉的数据集。与基于描述的方法不同，它将幻觉检测问题定义为一个二分类任务，采用直接的是或否问答形式（例如，“图像中是否有椅子？”），从而实现更清晰的解释性。该基准确保了“是”和“否”样本的均衡分布（各占 50%）。</p>
 <p>0939</p>
 
                 
