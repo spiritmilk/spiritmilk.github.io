@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/3.png">
 <meta property="article:published_time" content="2025-11-02T10:28:11.000Z">
-<meta property="article:modified_time" content="2025-11-03T15:17:25.120Z">
+<meta property="article:modified_time" content="2025-11-03T15:20:34.415Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          618 字
+          963 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          6 分钟
+          9 分钟
         
       </span>
     
@@ -374,7 +374,27 @@
 <h3 id="标准训练（MLE）的缺陷"><a href="#标准训练（MLE）的缺陷" class="headerlink" title="标准训练（MLE）的缺陷"></a>标准训练（MLE）的缺陷</h3><p>标准的“最大似然估计”（MLE）训练目标会破坏上述的“适可而止”机制。</p>
 <p>在训练时，当模型在某个位置（比如句子中间）认为“我已经描述完了”（$p_{v_{EOS}}$ 概率很高），但此时的标签（label）并不是 $v_{EOS}$，而是一个普通的内容 token（因为训练数据过度详细，要求它继续说） 。</p>
 <p>在这种情况下，MLE 会惩罚模型产生 $v_{EOS}$ 的想法，迫使它降低 $p_{v_{EOS}}$，并鼓励它继续生成内容。这就等于在训练模型“<strong>即使超出了你的视觉感知极限，也要继续说</strong>”，从而加剧了幻觉。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="选择性EOS监督（Selective-EOS-Supervision-SES）"><a href="#选择性EOS监督（Selective-EOS-Supervision-SES）" class="headerlink" title="选择性EOS监督（Selective EOS Supervision, SES）"></a>选择性EOS监督（Selective EOS Supervision, SES）</h3><p>这是一种改进的训练目标（Learning Objective）。</p>
+<p><strong>目标</strong>： 在不影响学习内容生成的同时，保护模型在非 $v_{EOS}$ 位置上“想要停止”的内在倾向。</p>
+<p>具体做法：</p>
+<ol>
+<li><p><strong>当标签是 $v_{EOS}$ 时：</strong> 保持原样，使用标准 MLE 训练，让模型学会何时该停止。</p>
+</li>
+<li><p><strong>当标签不是 $v_{EOS}$ 时：</strong> 修改 softmax 计算。在计算概率分布时，<strong>将 $v_{EOS}$ token 排除在外</strong> 。</p>
+</li>
+</ol>
+<h4 id="方法二：EOS监督评分（Scoring-EOS-Supervision）"><a href="#方法二：EOS监督评分（Scoring-EOS-Supervision）" class="headerlink" title="方法二：EOS监督评分（Scoring EOS Supervision）"></a>方法二：EOS监督评分（Scoring EOS Supervision）</h4><p>这是一种数据过滤策略（Data Filtering Strategy）。</p>
+<p><strong>目标：</strong> 识别并<strong>过滤掉那些“有害”的</strong>（即会严重抑制模型 EOS 倾向的）训练数据。</p>
+<p><strong>具体做法：</strong><br>设计两个分数来评估每条数据 ：</p>
+<ol>
+<li><p><strong>$S_{pos}$（正面效应）：</strong> 评估数据在“应该停止”的位置（$y &#x3D; v_{EOS}$）教会模型停止的能力。$S_{pos}$ 越高，说明模型在此处本不想停而数据强迫它停，<strong>正面效应越强</strong> 。</p>
+</li>
+<li><p><strong>$S_{neg}$（负面效应）：</strong> 评估数据在“不该停止”的位置（$y \ne v_{EOS}$）抑制模型停止倾向的程度。$S_{neg}$ 越高，说明模型在此处本想停而数据强迫它继续说，<strong>负面效应（危害）越大</strong> 。</p>
+</li>
+</ol>
+<p>$S_{final} &#x3D; S_{neg} - S_{pos}$ 。$S_{final}$ 越高的数据，被认为“危害越大”。</p>
+<p>移除训练集中 $S_{final}$ 分数最高的数据（例如，移除Top 20%）。</p>
+
                 
               </div>
             
