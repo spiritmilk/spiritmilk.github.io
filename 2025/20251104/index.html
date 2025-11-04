@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2025-11-04T02:58:21.000Z">
-<meta property="article:modified_time" content="2025-11-04T03:21:25.748Z">
+<meta property="article:modified_time" content="2025-11-04T04:06:54.220Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          858 字
+          1.3k 字
         
       </span>
     
@@ -310,7 +310,7 @@
         
         
         
-          8 分钟
+          12 分钟
         
       </span>
     
@@ -364,7 +364,7 @@
 <p>越狱，即攻击者操纵模型行为以绕过安全约束。</p>
 <p>令人惊讶的是，我们观察到这两种失败不仅相互关联，而且在实践中彼此影响。应用一种逃逸防御提示可以缓解视觉推理任务中的幻觉现象，使模型如 LLaVA-1.5和 MiniGPT-4能够正确判断视觉错觉。反之，引入一种幻觉缓解策略可能导致模型拒绝此前有效的逃逸提示。这种双向效应表明存在一个共享的潜在机制，挑战了幻觉与逃逸源于独立原因的传统观点。</p>
 <p><img src="/2019/20190430/1.png"></p>
-<h2 id="初步研究"><a href="#初步研究" class="headerlink" title="初步研究"></a>初步研究</h2><p>使用统一的输入表示来建模大模型（LLMs）和视觉-语言模型（VLMs）上的越狱攻击。今 $x^t$ 表示文本输入，其被编码为文本嵌入 $\mathbf{H}^t _ {1:n}$。如果模型为多模态，则视觉输入 $x^v$ 通过特征提取器 $g$ 处理，并投影到语言空间以生成视觉嵌入 $\mathbf{H}^v _ {1:l} &#x3D; W \cdot g(x^v)$。完整的输入表示为 $[\mathbf{H}^v _ {1:l}; \mathbf{H}^t _ {1:n}]$；对于单模态 LLMs，这简化为 $[\mathbf{H}^t _ {1:n}]$。</p>
+<h2 id="初步建模"><a href="#初步建模" class="headerlink" title="初步建模"></a>初步建模</h2><h3 id="建模越狱"><a href="#建模越狱" class="headerlink" title="建模越狱"></a>建模越狱</h3><p>使用统一的输入表示来建模大模型（LLMs）和视觉-语言模型（VLMs）上的越狱攻击。今 $x^t$ 表示文本输入，其被编码为文本嵌入 $\mathbf{H}^t _ {1:n}$。如果模型为多模态，则视觉输入 $x^v$ 通过特征提取器 $g$ 处理，并投影到语言空间以生成视觉嵌入 $\mathbf{H}^v _ {1:l} &#x3D; W \cdot g(x^v)$。完整的输入表示为 $[\mathbf{H}^v _ {1:l}; \mathbf{H}^t _ {1:n}]$；对于单模态 LLMs，这简化为 $[\mathbf{H}^t _ {1:n}]$。</p>
 <p>模型生成输出序列 $\mathbf{y}$ 的概率为：</p>
 <p>$$<br>p(\mathbf{y} \mid \mathbf{H}^v _ {1:l}, \mathbf{H}^t _ {1:n}) &#x3D; \prod _ {i&#x3D;1} p(y_i \mid \mathbf{y} _ {1:i-1}, [\mathbf{H}^v _ {1:l}, \mathbf{H}^t _ {1:n}])<br>$$</p>
 <p>在对齐的 LFM 中，输出行为由一个潜在的奖励模型 $R^*$ 间接塑造，该模型反映了与人类偏好的对齐程度。越狱攻击旨在通过将一个良性输入 $[\mathbf{H}^v _ {1:l}; \mathbf{H}^t _ {1:n}]$ 扰动为对抗性输入 $[\mathbf{\tilde{H}}^v _ {1:l}; \mathbf{\tilde{H}}^t _ {1:n}]$，从而诱导模型生成低奖励或有害的输出：</p>
@@ -374,6 +374,18 @@
 <p>通过在约束扰动集 $\mathcal{A}$ 上最小化该目标，获得最优对抗嵌入：</p>
 <p>$$<br>[\mathbf{\tilde{H}}^v _ {1:k}; \mathbf{\tilde{H}}^t _ {1:n}] &#x3D; \underset{[\mathbf{\tilde{H}}^v _ {1:k}; \mathbf{\tilde{H}}^t _ {1:n}] \in \mathcal{A}([\mathbf{H}^v _ {1:k}; \mathbf{H}^t _ {1:n}])}{\arg \min} \mathcal{L}^{adv}([\mathbf{\tilde{H}}^v _ {1:k}; \mathbf{\tilde{H}}^t _ {1:n}])<br>$$</p>
 <p>该公式捕捉了攻击者的意图：通过在嵌入层面施加扰动，将模型输出分布推向不安全的补全结果，这在白盒和黑盒越狱文献中是一种常见情景。</p>
+<h3 id="建模幻觉"><a href="#建模幻觉" class="headerlink" title="建模幻觉"></a>建模幻觉</h3><p>作者将幻觉建模为注意力级别的扰动，这些扰动会错误地分配输入序列中的关注点。考虑输入嵌入 $[\mathbf{H}^v_{1:l}; \mathbf{H}^t_{1:n}]$ 位于一个 $d_e$ 维空间中。</p>
+<p>为简化分析，只研究单个注意力块 ，其中注意力权重 $A_{ij}$ 与输出嵌入 $o_i$ 的计算方式如下：<br>$$<br>A_{ij} &#x3D; \frac{\exp \left((W_Q \mathbf{H}_i)^T (W_K \mathbf{H}<em>j)\right)}{\sum</em>{k&#x3D;1}^{n+l} \exp \left((W_Q \mathbf{H}_i)^T (W_K \mathbf{H}_k)\right)}<br>$$</p>
+<p>$$<br>o_i &#x3D; \sum_{j&#x3D;1}^{n+l} A_{ij} \cdot (W_V \mathbf{H}_j)<br>$$</p>
+<p>其中 $W_Q$、$W_K$ 和 $W_V$ 是投影矩阵。幻觉发生在注意力分配错误时，这会降低对相关区域的关注，同时增加对语义无关 token 的关注。</p>
+<p>为了模拟这种行为，向输入嵌入添加扰动向量 $\Delta^t$ 和 $\Delta^v$：</p>
+<p>$$<br>\mathbf{\tilde{H}}^t_{1:n} &#x3D; \mathbf{H}^t_{1:n} + \Delta^t, \quad \mathbf{\tilde{H}}^v_{1:k} &#x3D; \mathbf{H}^v_{1:k} + \Delta^v<br>$$</p>
+<p>扰动后的嵌入 $[\mathbf{\tilde{H}}^v_{1:l}; \mathbf{\tilde{H}}^t_{1:n}]$ 导致更新的注意力得分：</p>
+<p>$$<br>A^\Delta_{ij} &#x3D; \frac{\exp \left((W_Q \mathbf{\tilde{H}}_i)^T (W_K \mathbf{\tilde{H}}<em>j)\right)}{\sum</em>{k&#x3D;1}^{n+l} \exp \left((W_Q \mathbf{\tilde{H}}_i)^T (W_K \mathbf{\tilde{H}}_k)\right)}<br>$$</p>
+<p>以及对应的输出嵌入 $\tilde{o}<em>i &#x3D; \sum</em>{j&#x3D;1}^{n+l} A^\Delta_{ij} \cdot (W_V \mathbf{\tilde{H}}_j)$。</p>
+<p>我们定义一个幻觉损失，以引导注意力集中在目标位置 $t$，同时最小化对非目标区域的注意力：</p>
+<p>$$<br>\mathcal{L}^{hallu} &#x3D; \sum_{i&#x3D;1}^m \left( -\log \left( A^\Delta_{it} \right) + \lambda \sum_{j \neq t} \log \left( A^\Delta_{ij} \right) \right)<br>$$</p>
+<p>其中 $m$ 为输出 token 的数量，$\lambda$ 用于平衡关注与抑制。该损失函数将幻觉可被建模并通过对注意力重新分配进行结构化约束来缓解的概念具体化。</p>
 
                 
               </div>
