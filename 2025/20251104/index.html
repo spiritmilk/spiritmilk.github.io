@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2025-11-04T02:58:21.000Z">
-<meta property="article:modified_time" content="2025-11-04T03:13:04.008Z">
+<meta property="article:modified_time" content="2025-11-04T03:21:25.748Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          856 字
+          858 字
         
       </span>
     
@@ -369,7 +369,7 @@
 <p>$$<br>p(\mathbf{y} \mid \mathbf{H}^v _ {1:l}, \mathbf{H}^t _ {1:n}) &#x3D; \prod _ {i&#x3D;1} p(y_i \mid \mathbf{y} _ {1:i-1}, [\mathbf{H}^v _ {1:l}, \mathbf{H}^t _ {1:n}])<br>$$</p>
 <p>在对齐的 LFM 中，输出行为由一个潜在的奖励模型 $R^*$ 间接塑造，该模型反映了与人类偏好的对齐程度。越狱攻击旨在通过将一个良性输入 $[\mathbf{H}^v _ {1:l}; \mathbf{H}^t _ {1:n}]$ 扰动为对抗性输入 $[\mathbf{\tilde{H}}^v _ {1:l}; \mathbf{\tilde{H}}^t _ {1:n}]$，从而诱导模型生成低奖励或有害的输出：</p>
 <p>$$<br>\mathbf{y}^* &#x3D; \min R^* (\mathbf{y} \mid [\mathbf{\tilde{H}}^v _ {1:l}, \mathbf{\tilde{H}}^t _ {1:n}])<br>$$</p>
-<p>不直接访问 $R^<em>$，我们优化对抗输出 $\mathbf{y}^</em>$ 的似然，将越狱损失定义为：</p>
+<p>不直接访问 $R^\ast$，我们优化对抗输出 $\mathbf{y}^\ast$ 的似然，将越狱损失定义为：</p>
 <p>$$<br>\mathcal{L}^{adv}([\mathbf{\tilde{H}}^v _ {1:l}; \mathbf{\tilde{H}}^t _ {1:n}]) &#x3D; -\log p(\mathbf{y}^* \mid [\mathbf{\tilde{H}}^v _ {1:l}, \mathbf{\tilde{H}}^t _ {1:n}])<br>$$</p>
 <p>通过在约束扰动集 $\mathcal{A}$ 上最小化该目标，获得最优对抗嵌入：</p>
 <p>$$<br>[\mathbf{\tilde{H}}^v _ {1:k}; \mathbf{\tilde{H}}^t _ {1:n}] &#x3D; \underset{[\mathbf{\tilde{H}}^v _ {1:k}; \mathbf{\tilde{H}}^t _ {1:n}] \in \mathcal{A}([\mathbf{H}^v _ {1:k}; \mathbf{H}^t _ {1:n}])}{\arg \min} \mathcal{L}^{adv}([\mathbf{\tilde{H}}^v _ {1:k}; \mathbf{\tilde{H}}^t _ {1:n}])<br>$$</p>
