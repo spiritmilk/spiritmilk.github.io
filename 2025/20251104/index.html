@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2025-11-04T09:45:01.000Z">
-<meta property="article:modified_time" content="2025-11-04T11:47:15.178Z">
+<meta property="article:modified_time" content="2025-11-04T12:45:37.708Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          185 字
+          617 字
         
       </span>
     
@@ -310,7 +310,7 @@
         
         
         
-          2 分钟
+          6 分钟
         
       </span>
     
@@ -359,8 +359,27 @@
 <p>作者认为产生幻觉的主要原因是：</p>
 <p>1.<strong>过度的语言先验（Excessive Language Priors）：</strong> LVLM 通常由一个视觉编码器和一个强大的大型语言模型（LLM）组成。LLM 的参数量和能力远超视觉编码器 。这导致模型在回答时，<strong>过度依赖其在训练中学到的语言知识（先验）</strong>，而<strong>忽视了当前的视觉输入</strong> 。</p>
 <p>2.<strong>细粒度视觉语义捕获不准：</strong> 当前的视觉解码器难以准确捕捉图像中的<strong>细粒度细节</strong>（如物体的精确颜色或数量） 。</p>
-<p>感知增强：这种方法结合了额外的信息，如深度图和分割<br>图</p>
+<p>已有的缓解幻觉的方法主要有三类，但都有缺陷：</p>
+<ol>
+<li><strong>使用额外数据进行微调：</strong> 需要大量高质量的人工标注数据，不仅成本高昂，而且需要消耗大量计算资源来更新模型参数 。</li>
+<li>感知增强：这种方法结合了额外的信息，如深度图和分割图</li>
+</ol>
+<p>比如CVPR 2024的《VCoder: Versatile Vision Encoders for Multimodal Large Language Models》</p>
 <p><img src="/2019/20190430/1.png"></p>
+<ol start="3">
+<li><strong>对比解码</strong>。缺陷：<strong>错杀有益先验：</strong> VCD 无法区分“有害的幻觉先验”和“有益的知识先验” 。它会<strong>无差别地消除所有语言先验</strong>，包括那些对正确推理有帮助的知识。推理延迟高。</li>
+</ol>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>模型分为图像级干预和对象级干预。</p>
+<p>前一个模块使用的是类似VCD的<strong>全局高斯加噪（diffusion）</strong>，使 LVLM 能够关注图像，从而减少对语言先验的过度依赖。</p>
+<p>后一个模块使用<strong>Grounding DINO</strong>，根据提示词去找到对应的物体。鼓励 LVLM 更密切地注意图像中的物体，有助于减轻关键物体的遗漏并减少幻觉。</p>
+<p>计算偏移量<br>$$<br>S&#x3D;\frac{1}{B}\sum (A^{(l)}<em>{i,n}-A’^{(l)}</em>{i,n})<br>$$<br>其中A为原始，A‘为扰动。</p>
+<p>并构造可信数据对$(q+O_i,V_i)$和不可信数据对$(q+O_i,V_i’)$。</p>
+<p>作者还有一个筛选注意力头的过程。即使用二分类器（SVM）。</p>
+<blockquote>
+<p>缺点是一个像 LLaVA-v1.5 这样的模型拥有很多注意力头（例如，32层，每层32个头，总共1024个头） 。这样就有1024的头，太大了。</p>
+</blockquote>
+<p>最后将将图像级和对象级的干预模块进行整合。<br>$$<br>H^{(l+1)} &#x3D; H^{(l)} + \sum_{n&#x3D;1}^{N} \left( \text{Attn}<em>n^{(l)}(H^{(l)}) + 1</em>{\text{img},n}^{(l)} \alpha S_n^{(l)} + \Pi_{\text{obj},n}^{(l)} \beta S_{\text{obj},n}^{(l)} \right) \cdot W_o^{(l)}<br>$$</p>
+<p>$\mathcal{I}$</p>
 
                 
               </div>
