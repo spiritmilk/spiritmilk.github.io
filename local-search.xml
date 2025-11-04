@@ -8,7 +8,7 @@
     <link href="/2025/20251104/"/>
     <url>/2025/20251104/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ICLR 2026在投）</p><p>原标题是《从幻觉到越狱：重新思考大型基础模型的脆弱性》</p><p>作者提出一个统一的理论框架，将越狱行为建模为 token 级别的最优化，将幻觉现象建模为注意力级别的最优化。</p><p>在此框架下，作者建立了两个关键命题：</p><p>(1) 相似损失收敛——在优化目标特定输出时，两种漏洞的损失函数表<br>现出相似的收敛特性</p><p> (2) 注意力重分配中的梯度一致性——两者均表现出由共享注意力动态驱动的一致梯度行为。</p><span id="more"></span>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ICLR 2026在投）</p><p>原标题是《从幻觉到越狱：重新思考大型基础模型的脆弱性》</p><p>作者提出一个统一的理论框架，将越狱行为建模为 token 级别的最优化，将幻觉现象建模为注意力级别的最优化。</p><p>在此框架下，作者建立了两个关键命题：</p><p>(1) 相似损失收敛——在优化目标特定输出时，两种漏洞的损失函数表<br>现出相似的收敛特性</p><p> (2) 注意力重分配中的梯度一致性——两者均表现出由共享注意力动态驱动的一致梯度行为。</p><span id="more"></span><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>幻觉，即模型生成的内容偏离事实准确性。</p><p>越狱，即攻击者操纵模型行为以绕过安全约束。</p>]]></content>
     
     
     
