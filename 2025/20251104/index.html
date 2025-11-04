@@ -29,8 +29,10 @@
 <meta property="og:description" content="（ICLR 2026在投） 原标题是《从幻觉到越狱：重新思考大型基础模型的脆弱性》 作者提出一个统一的理论框架，将越狱行为建模为 token 级别的最优化，将幻觉现象建模为注意力级别的最优化。 在此框架下，作者建立了两个关键命题： (1) 相似损失收敛——在优化目标特定输出时，两种漏洞的损失函数表现出相似的收敛特性  (2) 注意力重分配中的梯度一致性——两者均表现出由共享注意力动态驱动的一致梯度">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/3.png">
 <meta property="article:published_time" content="2025-11-04T02:58:21.000Z">
-<meta property="article:modified_time" content="2025-11-04T06:39:45.898Z">
+<meta property="article:modified_time" content="2025-11-04T07:49:50.526Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.5k 字
         
       </span>
     
@@ -310,7 +312,7 @@
         
         
         
-          12 分钟
+          13 分钟
         
       </span>
     
@@ -386,6 +388,10 @@
 <p>我们定义一个幻觉损失，以引导注意力集中在目标位置 $t$，同时最小化对非目标区域的注意力：</p>
 <p>$$<br>\mathcal{L}^{hallu} &#x3D; \sum _ {i&#x3D;1}^m \left( -\log \left( A^\Delta _ {it} \right) + \lambda \sum _ {j \neq t} \log \left( A^\Delta _ {ij} \right) \right)<br>$$</p>
 <p>其中 $m$ 为输出 token 的数量，$\lambda$ 用于平衡关注与抑制。该损失函数将幻觉可被建模并通过对注意力重新分配进行结构化约束来缓解的概念具体化。</p>
+<h2 id="命题"><a href="#命题" class="headerlink" title="命题"></a>命题</h2><p>作者假设了两个命题，并通过实验证明了它们的可靠性。</p>
+<h3 id="相似的损失收敛"><a href="#相似的损失收敛" class="headerlink" title="相似的损失收敛"></a>相似的损失收敛</h3><p><img src="/2019/20190430/2.png"></p>
+<h3 id="注意力重新分配中的梯度一致性"><a href="#注意力重新分配中的梯度一致性" class="headerlink" title="注意力重新分配中的梯度一致性"></a>注意力重新分配中的梯度一致性</h3><p><img src="/2019/20190430/3.png"></p>
+<p>这意味着，无论是为了诱导幻觉还是为了实现越狱，对模型输入（嵌入）的扰动，都会在嵌入空间中沿着相似的方向推动模型 。换句话说，影响一个漏洞的扰动很可能也会影响另一个 。</p>
 
                 
               </div>
