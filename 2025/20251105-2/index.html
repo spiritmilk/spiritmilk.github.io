@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/2/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/2/ED.png">
 <meta property="article:published_time" content="2025-11-05T15:17:01.000Z">
-<meta property="article:modified_time" content="2025-11-05T15:35:41.173Z">
+<meta property="article:modified_time" content="2025-11-05T15:37:52.140Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/2/1.png">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          129 字
+          179 字
         
       </span>
     
@@ -357,7 +357,7 @@
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p><img src="/2019/20190430/2/1.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190430/2/ED.png"></p>
-<h3 id="自适应合理性约束"><a href="#自适应合理性约束" class="headerlink" title="自适应合理性约束"></a>自适应合理性约束</h3><p>同样的，他也有对比解码中常用的自适应合理性约束。</p>
+<h3 id="自适应合理性约束"><a href="#自适应合理性约束" class="headerlink" title="自适应合理性约束"></a>自适应合理性约束</h3><p>同样的，他也有对比解码中常用的自适应合理性约束。<br>$$<br>\mathcal{V} _ {\text{head}}(y _ {&lt;t}) &#x3D; \left\{ y_t \in \mathcal{V} : \sum _ {k&#x3D;1}^{N} p _ {\theta}(y_t | v_k, x, y _ {&lt;t}) \ge \beta \max _ {w} \left( \sum _ {k&#x3D;1}^{N} p _ {\theta}(w | v_k, x, y _ {&lt;t}) \cdot f _ {k,t} \right) \right\}<br>$$</p>
 <h3 id="FastED"><a href="#FastED" class="headerlink" title="FastED"></a>FastED</h3><p>诸如VCD的对比解码的缺点是需要两次前向传播。</p>
 <p>而这个方法更加重了这一缺点，它切N块，需要N+1次。</p>
 <p>为了解决这个问题，作者进一步提出了FastED。即只集成<strong>原始图像</strong>和<strong>当前步骤中具有最高注意力权重的那个子图像</strong>。</p>
