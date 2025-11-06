@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/2/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/2/ED.png">
 <meta property="article:published_time" content="2025-11-05T15:17:01.000Z">
-<meta property="article:modified_time" content="2025-11-06T03:51:14.015Z">
+<meta property="article:modified_time" content="2025-11-06T03:56:18.500Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -300,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          475 字
+          477 字
         
       </span>
     
@@ -365,7 +365,7 @@
 <p>(2) 降低图像中物体的分辨率，以评估它们对模型性能的影响。</p>
 <p><img src="/2019/20190430/2/1.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190430/2/ED.png"></p>
-<p>在多头注意力机制中，识别出平均注意力得分最高的 H 个头，并将其平均以获得单一的注意力矩阵。最终得到的注意力矩阵$\hat A_t$ 被重塑为大小为 d × d 的矩阵：<br>$$<br>\hat A_t&#x3D;\frac{1}{H}\sum_{j&#x3D;1}^H sorted\left(\frac{1}{K}\sum_{i&#x3D;1}^K sorted(A_t)[i]\right)[j]\in R^{d\times d}<br>$$<br>再对每个子图中的注意力求和，再接个softmax：<br>$$<br>\begin{align}<br>s_{k,t}&amp;&#x3D;\sum \hat A_{t,i,j} \text{  for k  }&#x3D;1,2,…N<br>\\<br>f_{k,t}&amp;&#x3D;\frac{exp(s_{k,t}&#x2F;\tau)}{\sum_{j&#x3D;1}^N exp(s_{j,t}&#x2F;\tau)}<br>\end{align}<br>$$<br>最终对比解码为<br>$$<br>p_{ED}(y_t | V, x, y_{&lt;t}) &#x3D; \operatorname{softmax} \left[ (1 - \alpha) \operatorname{logit}<em>{\theta}(y_t | v, x, y</em>{&lt;t}) + \alpha \sum_{k&#x3D;1}^{N} \operatorname{logit}<em>{\theta}(y_t | v_k, x, y</em>{&lt;t}) \cdot f_{k,t} \right]<br>$$</p>
+<p>在多头注意力机制中，识别出平均注意力得分最高的 H 个头，并将其平均以获得单一的注意力矩阵。最终得到的注意力矩阵$\hat A_t$ 被重塑为大小为 d × d 的矩阵：<br>$$<br>\hat A_t&#x3D;\frac{1}{H}\sum _ {j&#x3D;1}^H sorted\left(\frac{1}{K}\sum _ {i&#x3D;1}^K sorted(A_t)[i]\right)[j]\in R^{d\times d}<br>$$<br>再对每个子图中的注意力求和，再接个softmax：<br>$$<br>\begin{align}<br>s _ {k,t}&amp;&#x3D;\sum \hat A _ {t,i,j} \text{  for k  }&#x3D;1,2,…N<br>\\<br>f _ {k,t}&amp;&#x3D;\frac{exp(s _ {k,t}&#x2F;\tau)}{\sum _ {j&#x3D;1}^N exp(s _ {j,t}&#x2F;\tau)}<br>\end{align}<br>$$<br>最终对比解码为<br>$$<br>p _ {ED}(y_t | V, x, y _ {&lt;t}) &#x3D; \operatorname{softmax} \left[ (1 - \alpha) \operatorname{logit} _ {\theta}(y_t | v, x, y _ {&lt;t}) + \alpha \sum _ {k&#x3D;1}^{N} \operatorname{logit} _ {\theta}(y_t | v_k, x, y _ {&lt;t}) \cdot f _ {k,t} \right]<br>$$</p>
 <h3 id="自适应合理性约束"><a href="#自适应合理性约束" class="headerlink" title="自适应合理性约束"></a>自适应合理性约束</h3><p>同样的，他也有对比解码中常用的自适应合理性约束。<br>$$<br>\mathcal{V} _ {\text{head}}(y _ {&lt;t}) &#x3D; \left\{ y_t \in \mathcal{V} : \sum _ {k&#x3D;1}^{N} p _ {\theta}(y_t | v_k, x, y _ {&lt;t}) \ge \beta \max _ {w} \left( \sum _ {k&#x3D;1}^{N} p _ {\theta}(w | v_k, x, y _ {&lt;t}) \cdot f _ {k,t} \right) \right\}<br>$$</p>
 <h3 id="FastED"><a href="#FastED" class="headerlink" title="FastED"></a>FastED</h3><p>诸如VCD的对比解码的缺点是需要两次前向传播。</p>
 <p>而这个方法更加重了这一缺点，它切N块，需要N+1次。</p>
