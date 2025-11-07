@@ -21,15 +21,15 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="大模型的扩展始终强调深度增加，实证证据表明模型性能随着层数增加而提高——尽管收益递减。早年的深度学习也强调深度比宽度更重要，且深度能提高模型性能。 但是也有不少文章（比如博客之前写过的一些）指出，后面的层会扼杀模型原有的能力。 模型后面的层究竟执行什么样的任务？ 这次进行三篇论文的串读。一篇NIPS workshop，两篇arxiv。">
+    <meta name="description" content="大模型的扩展始终强调深度增加，实证证据表明模型性能随着层数增加而提高——尽管收益递减。早年的深度学习也强调深度比宽度更重要，且深度能提高模型性能。 但是也有不少文章（比如博客之前写过的一些）指出，后面的层会扼杀模型原有的能力。 模型后面的层究竟执行什么样的任务？ 这次进行四篇论文的串读。一篇ICLR2025，一篇NIPS workshop，两篇arxiv。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模型后面的层（待定）">
+<meta property="og:title" content="模型后面的层是否无用？">
 <meta property="og:url" content="https://lijianxiong.space/2025/20251106/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="大模型的扩展始终强调深度增加，实证证据表明模型性能随着层数增加而提高——尽管收益递减。早年的深度学习也强调深度比宽度更重要，且深度能提高模型性能。 但是也有不少文章（比如博客之前写过的一些）指出，后面的层会扼杀模型原有的能力。 模型后面的层究竟执行什么样的任务？ 这次进行三篇论文的串读。一篇NIPS workshop，两篇arxiv。">
+<meta property="og:description" content="大模型的扩展始终强调深度增加，实证证据表明模型性能随着层数增加而提高——尽管收益递减。早年的深度学习也强调深度比宽度更重要，且深度能提高模型性能。 但是也有不少文章（比如博客之前写过的一些）指出，后面的层会扼杀模型原有的能力。 模型后面的层究竟执行什么样的任务？ 这次进行四篇论文的串读。一篇ICLR2025，一篇NIPS workshop，两篇arxiv。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-06T11:40:35.000Z">
-<meta property="article:modified_time" content="2025-11-06T13:07:57.889Z">
+<meta property="article:modified_time" content="2025-11-07T14:48:45.565Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -37,7 +37,7 @@
   
   
   
-  <title>模型后面的层（待定） - 小熊的小站</title>
+  <title>模型后面的层是否无用？ - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -274,7 +274,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">模型后面的层（待定）</span>
+            <span id="subtitle">模型后面的层是否无用？</span>
           
         </div>
 
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          135 字
+          267 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -345,7 +345,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">模型后面的层（待定）</h1>
+            <h1 id="seo-header">模型后面的层是否无用？</h1>
             
             
               <div class="markdown-body">
@@ -353,9 +353,15 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>大模型的扩展始终强调深度增加，实证证据表明模型性能随着层数增加而提高——尽管收益递减。早年的深度学习也强调深度比宽度更重要，且深度能提高模型性能。</p>
 <p>但是也有不少文章（比如博客之前写过的一些）指出，后面的层会扼杀模型原有的能力。</p>
 <p>模型后面的层究竟执行什么样的任务？</p>
-<p>这次进行三篇论文的串读。一篇NIPS workshop，两篇arxiv。</p>
+<p>这次进行四篇论文的串读。一篇ICLR2025，一篇NIPS workshop，两篇arxiv。</p>
 <span id="more"></span>
 
+<h2 id="什么因素影响LLM的有效深度"><a href="#什么因素影响LLM的有效深度" class="headerlink" title="什么因素影响LLM的有效深度?"></a>什么因素影响LLM的有效深度?</h2><p>（NIPS workshop）《What Affects the Effective Depth of Large Language Models?》</p>
+<p><strong>分析对象：</strong> 研究了Qwen-2.5模型家族（从1.5B到32B） </p>
+<p><strong>分析技术：</strong> 使用了多种前沿的“可解释性”技术来探测模型每层的行为，包括残差余弦相似度 (residual cosine similarity) 、Logit透镜 (logit lens) 、层跳过效应 (layer skipping) 、残差擦除 (residual erasure) 和积分梯度 (integrated gradients) 。</p>
+<h2 id="LLM如何使用它们的深度"><a href="#LLM如何使用它们的深度" class="headerlink" title="LLM如何使用它们的深度?"></a>LLM如何使用它们的深度?</h2><p>（arxiv 10月）《How Do LLMs USE THEIR DEPΤΗ?》</p>
+<h2 id="深层网络的惊人无效性"><a href="#深层网络的惊人无效性" class="headerlink" title="深层网络的惊人无效性"></a>深层网络的惊人无效性</h2><p>（ICLR 2025）《The Unreasonable Ineffectiveness of the Deeper Layers》</p>
+<h2 id="DR-LLM-LLM中的动态层路由"><a href="#DR-LLM-LLM中的动态层路由" class="headerlink" title="DR.LLM: LLM中的动态层路由"></a>DR.LLM: LLM中的动态层路由</h2><p>《DR.LLM: DYNAMIC LAYER ROUTING IN LLMS》</p>
 
                 
               </div>
@@ -382,7 +388,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>模型后面的层（待定）</div>
+      <div>模型后面的层是否无用？</div>
       <div>https://lijianxiong.space/2025/20251106/</div>
     </div>
     <div class="license-meta">
