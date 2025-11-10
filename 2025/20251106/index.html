@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20251106/5.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251106/6.png">
 <meta property="article:published_time" content="2025-11-06T11:40:35.000Z">
-<meta property="article:modified_time" content="2025-11-10T12:13:28.340Z">
+<meta property="article:modified_time" content="2025-11-10T12:52:08.876Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -303,7 +303,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2k 字
         
       </span>
     
@@ -413,6 +413,8 @@
 <h3 id="直接移除最后面的n层"><a href="#直接移除最后面的n层" class="headerlink" title="直接移除最后面的n层"></a>直接移除最后面的n层</h3><p><img src="/2025/20251106/6.png"></p>
 <p>经过“治愈”后，<strong>简单的“移除最深层”策略，其效果与复杂的“相似度”策略几乎一样好</strong> 。这强有力地证明了，最深的那些层是“最不重要”的。</p>
 <h2 id="DR-LLM-LLM中的动态层路由"><a href="#DR-LLM-LLM中的动态层路由" class="headerlink" title="DR.LLM: LLM中的动态层路由"></a>DR.LLM: LLM中的动态层路由</h2><p>《DR.LLM: DYNAMIC LAYER ROUTING IN LLMS》</p>
+<p>DR.LLM保持预训练LLM的权重完全冻结。它只为每一层额外添加一个极轻量的“路由器” (Router) 。</p>
+<p>在推理时，每一层的路由器会检查当前的隐藏状态，然后做出三个决策之一：<strong>跳过 (Skip)</strong> 当前层，<strong>执行 (Execute)</strong> 当前层，或<strong>重复 (Repeat)</strong> 当前层（即再执行一次） 。</p>
 
                 
               </div>
