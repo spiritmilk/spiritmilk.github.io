@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="大模型的扩展始终强调深度增加，实证证据表明模型性能随着层数增加而提高——尽管收益递减。早年的深度学习也强调深度比宽度更重要，且深度能提高模型性能。 但是也有不少文章（比如博客之前写过的一些）指出，后面的层会扼杀模型原有的能力。 模型后面的层究竟执行什么样的任务？ 这次进行四篇论文的串读。一篇ICLR2025，一篇NIPS workshop，两篇arxiv。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
 <meta property="article:published_time" content="2025-11-06T11:40:35.000Z">
-<meta property="article:modified_time" content="2025-11-07T14:48:45.565Z">
+<meta property="article:modified_time" content="2025-11-10T05:54:19.042Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          267 字
+          764 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          3 分钟
+          7 分钟
         
       </span>
     
@@ -358,7 +360,22 @@
 
 <h2 id="什么因素影响LLM的有效深度"><a href="#什么因素影响LLM的有效深度" class="headerlink" title="什么因素影响LLM的有效深度?"></a>什么因素影响LLM的有效深度?</h2><p>（NIPS workshop）《What Affects the Effective Depth of Large Language Models?》</p>
 <p><strong>分析对象：</strong> 研究了Qwen-2.5模型家族（从1.5B到32B） </p>
-<p><strong>分析技术：</strong> 使用了多种前沿的“可解释性”技术来探测模型每层的行为，包括残差余弦相似度 (residual cosine similarity) 、Logit透镜 (logit lens) 、层跳过效应 (layer skipping) 、残差擦除 (residual erasure) 和积分梯度 (integrated gradients) 。</p>
+<p><strong>分析技术：</strong> 使用了多种前沿的“可解释性”技术来探测模型每层的行为，包括</p>
+<p>残差余弦相似度 (residual cosine similarity)</p>
+<p>Logit透镜 (logit lens) </p>
+<p>层跳过效应 (layer skipping) </p>
+<p>残差擦除 (residual erasure) ：通过用无信息的基线替换其残差向量</p>
+<p>积分梯度 (integrated gradients) 。该指标将模型的预测结果分配到每个答案token上，并归因于每一层的贡献。计算所有答案token的输出logits相对于每一层和每个token位置的激活值的梯度。</p>
+<p>引入两种定量指标来比较不同模型和数据集的有效深度。</p>
+<p>对于残差余弦相似度，将各层、MLP和SelfAttention模块的相似度分数进行平均，并将有效深度识别为平均相似度从负转正的点。</p>
+<p>对于logit镜头，使用两个指标：我们将有效深度定义为KL散度从最终输出下降到其最大观测值一半以下的层，或者定义为top‑5 token与最终输出首次超过0.3的层。</p>
+<p><img src="/2019/20190323/1.png"></p>
+<p><strong>关键发现</strong>：</p>
+<ol>
+<li><strong>规模的影响：</strong> 模型的“有效深度”确实随模型规模的增大而增加，但**“有效深度”占“总深度”的比例却保持稳定** 。这意味着，更大的模型只是在复制相同的层利用模式，而不是更深入地使用其层级 。模型计算存在一个明显的“相变”：早期层负责特征组合，而后期层（占了很大比例）仅在进行微小的调整 。</li>
+<li><strong>训练类型的影响：</strong> 研究者们本以为用于复杂推理的Long-CoT模型会“思考得更深” ，但<strong>结果令人惊讶：Long-CoT模型的有效深度与基础模型相比没有显著增加</strong> 。其推理能力的提升，很可能来自处理更长上下文的能力，而不是更深的单令牌（per-token）计算 。</li>
+<li><strong>任务难度的影响：</strong> 同样反直觉的是，<strong>模型的有效深度在所有不同难度的任务上都基本保持一致</strong> 。模型并不会因为问题更难（例如从常识问答到高中数学竞赛）就动态地使用更多的层 。</li>
+</ol>
 <h2 id="LLM如何使用它们的深度"><a href="#LLM如何使用它们的深度" class="headerlink" title="LLM如何使用它们的深度?"></a>LLM如何使用它们的深度?</h2><p>（arxiv 10月）《How Do LLMs USE THEIR DEPΤΗ?》</p>
 <h2 id="深层网络的惊人无效性"><a href="#深层网络的惊人无效性" class="headerlink" title="深层网络的惊人无效性"></a>深层网络的惊人无效性</h2><p>（ICLR 2025）《The Unreasonable Ineffectiveness of the Deeper Layers》</p>
 <h2 id="DR-LLM-LLM中的动态层路由"><a href="#DR-LLM-LLM中的动态层路由" class="headerlink" title="DR.LLM: LLM中的动态层路由"></a>DR.LLM: LLM中的动态层路由</h2><p>《DR.LLM: DYNAMIC LAYER ROUTING IN LLMS》</p>
