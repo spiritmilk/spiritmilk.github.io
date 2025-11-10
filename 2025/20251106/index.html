@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.png">
 <meta property="article:published_time" content="2025-11-06T11:40:35.000Z">
-<meta property="article:modified_time" content="2025-11-10T09:23:11.267Z">
+<meta property="article:modified_time" content="2025-11-10T11:32:27.048Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -373,7 +373,7 @@
 <p><img src="/2019/20190323/1.png"></p>
 <p><strong>关键发现</strong>：</p>
 <ol>
-<li><strong>规模的影响：</strong> 模型的“有效深度”确实随模型规模的增大而增加，但**“有效深度”占“总深度”的比例却保持稳定** 。这意味着，更大的模型只是在复制相同的层利用模式，而不是更深入地使用其层级 。模型计算存在一个明显的“相变”：早期层负责特征组合，而后期层（占了很大比例）仅在进行微小的调整 。</li>
+<li><strong>规模的影响：</strong> 模型的“有效深度”确实随模型规模的增大而增加，但<strong>有效深度占总深度的比例却保持稳定</strong> 。这意味着，更大的模型只是在复制相同的层利用模式，而不是更深入地使用其层级 。模型计算存在一个明显的“相变”：早期层负责特征组合，而后期层（占了很大比例）仅在进行微小的调整 。</li>
 <li><strong>训练类型的影响：</strong> 研究者们本以为用于复杂推理的Long-CoT模型会“思考得更深” ，但<strong>结果令人惊讶：Long-CoT模型的有效深度与基础模型相比没有显著增加</strong> 。其推理能力的提升，很可能来自处理更长上下文的能力，而不是更深的单令牌（per-token）计算 。</li>
 <li><strong>任务难度的影响：</strong> 同样反直觉的是，<strong>模型的有效深度在所有不同难度的任务上都基本保持一致</strong> 。模型并不会因为问题更难（例如从常识问答到高中数学竞赛）就动态地使用更多的层 。</li>
 </ol>
