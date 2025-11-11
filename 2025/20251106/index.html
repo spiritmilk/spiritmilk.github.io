@@ -33,9 +33,9 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20251106/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251106/5.png">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251106/6.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/7.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/8.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/9.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251106/7.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251106/8.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251106/9.png">
 <meta property="article:published_time" content="2025-11-06T11:40:35.000Z">
 <meta property="article:modified_time" content="2025-11-10T13:26:12.114Z">
 <meta property="article:author" content="LJX">
@@ -418,18 +418,18 @@
 <h2 id="DR-LLM-LLM中的动态层路由"><a href="#DR-LLM-LLM中的动态层路由" class="headerlink" title="DR.LLM: LLM中的动态层路由"></a>DR.LLM: LLM中的动态层路由</h2><p>《DR.LLM: DYNAMIC LAYER ROUTING IN LLMS》</p>
 <p>DR.LLM保持预训练LLM的权重完全冻结。它只为每一层额外添加一个极轻量的“路由器” (Router) 。</p>
 <p>在推理时，每一层的路由器会检查当前的隐藏状态，然后做出三个决策之一：<strong>跳过 (Skip)</strong> 当前层，<strong>执行 (Execute)</strong> 当前层，或<strong>重复 (Repeat)</strong> 当前层（即再执行一次） 。</p>
-<p><img src="/2019/20190430/7.png"></p>
+<p><img src="/2025/20251106/7.png"></p>
 <h3 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h3><p>作者首先使用蒙特卡洛树搜索 (MCTS)，在训练数据上（如ARC和DART）为每个样本搜索“最优执行路径” 。MCTS的目标是找到在一定计算预算下，能使准确率最大化（或保持不变）的路径组合（例如：[执行, …, 跳过, …, 重复, …]） 。 </p>
 <p>作者使用这个MCTS找到的4000个“最优路径”作为标签 ，通过监督学习的方式来训练那些轻量级的路由器，使其学会模仿MCTS的决策 。 </p>
 <p>路由器使用窗口池化 (windowed pooling) 来高效处理长序列 ，并使用Focal Loss来解决决策标签极度不平衡的问题（因为“执行”远多于“跳过”和“重复”） 。<br>$$<br>\alpha_c &#x3D; \frac{1 - \beta}{1 - \beta^{n_c}} &#x2F; \frac{1}{3} \sum_{c’} \frac{1 - \beta}{1 - \beta^{n_{c’}}}, \quad \mathcal{L} &#x3D; -\frac{1}{L} \sum_{\ell&#x3D;1}^L \alpha_{y_\ell^\ast} (1 - p_{\ell, y_\ell^\ast})^\gamma \log p_{\ell, y_\ell^\ast}<br>$$</p>
 <p>默认使用$\gamma&#x3D;2,\beta&#x3D;0.999$.</p>
-<p><img src="/2019/20190430/8.png"></p>
+<p><img src="/2025/20251106/8.png"></p>
 <h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><p>红色 (值&gt;1) 表示该层倾向于被“重复”；蓝色 (值&lt;1) 表示倾向于被“跳过”；接近白色的浅蓝 (值≈1) 表示被“执行”。</p>
 <p>作者指出，这与先前的论文相似，<strong>模型在早期层保持稳定，在中期层节省算力（跳过），并在晚期层（尤其是在困难任务上）投入额外算力（重复）</strong> 。</p>
 <blockquote>
 <p>也许我是色盲，我好像并没有看到红色。</p>
 </blockquote>
-<p><img src="/2019/20190430/9.png"></p>
+<p><img src="/2025/20251106/9.png"></p>
 <h2 id="更多阅读"><a href="#更多阅读" class="headerlink" title="更多阅读"></a>更多阅读</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1969422373771018562">什么？！你跟我说LLM的最后几层都没啥用？你觉得我信吗？——三篇关于LLM层深的工作速通 - 知乎</a></p>
 
                 
