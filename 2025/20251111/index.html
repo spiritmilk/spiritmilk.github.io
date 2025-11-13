@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251111/1.png">
 <meta property="article:published_time" content="2025-11-11T11:31:35.000Z">
-<meta property="article:modified_time" content="2025-11-12T12:13:12.019Z">
+<meta property="article:modified_time" content="2025-11-13T08:08:43.068Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          291 字
+          867 字
         
       </span>
     
@@ -310,7 +310,7 @@
         
         
         
-          3 分钟
+          8 分钟
         
       </span>
     
@@ -367,6 +367,32 @@
 </ul>
 <p>如果 $M_{ij}$ 很高，说明图像(V)对答案贡献很大。如果 $M_{ij}$ 很低（甚至是负数），说明模型主要依赖问题(Q)在瞎猜（即语言偏见）。</p>
 <p>因此，当 $M_{ij} &lt; \theta$ （某个阈值）时，ARA 触发检索 。</p>
+<h3 id="由粗到精的层次化检索"><a href="#由粗到精的层次化检索" class="headerlink" title="由粗到精的层次化检索"></a>由粗到精的层次化检索</h3><p><strong>粗粒度检索 (Coarse-grained)</strong>：</p>
+<p>使用 CLIP 提取<strong>整个输入图像</strong>的视觉嵌入。</p>
+<p>在知识库（如 COCO 数据集）中检索最相似的 Top-K <strong>图像及其配对的标题</strong>。</p>
+<p><strong>细粒度检索 (Fine-grained)</strong>：</p>
+<p>首先，使用 LLM (LLaMA2-7B) 从**输入的问题(Query)**中提取关键实体（如 “clothing”）。</p>
+<p>然后，使用 Grounding Dino（一个检测模型）在<strong>输入图像</strong>中定位这些实体，并将其<strong>裁切 (crop)</strong> 出来。</p>
+<p>使用 CLIP 提取这些<strong>裁切区域</strong>的嵌入。</p>
+<p>在细粒度知识库（如 VisualGenome）中检索最相似的 Top-K <strong>区域图像及其配对的标题</strong>。</p>
+<h3 id="检索结果重排序-Reranking-Retrieving-Results"><a href="#检索结果重排序-Reranking-Retrieving-Results" class="headerlink" title="检索结果重排序 (Reranking Retrieving Results)"></a>检索结果重排序 (Reranking Retrieving Results)</h3><p>初步检索（基于CLIP视觉相似性）可能会召回“视觉相似但语义不同”的噪声结果。</p>
+<p><strong>ARA 的解决方案是</strong>：</p>
+<p>让 LVLM（如 LLaVA 1.5）为<strong>输入图像</strong>（或裁切区域）<strong>生成一个新的、详细的描述（Caption）</strong> 。</p>
+<p>计算这个“新描述”与所有“检索到的描述”之间的<strong>文本语义相似度</strong>（使用 CLIP 文本编码器）。</p>
+<p>根据这个<strong>语义相似度</strong>对检索结果进行重排序。</p>
+<h3 id="联合解码-Joint-Decoding"><a href="#联合解码-Joint-Decoding" class="headerlink" title="联合解码 (Joint Decoding)"></a>联合解码 (Joint Decoding)</h3><p>最后一步是如何融合“粗粒度”和“细粒度”的检索结果来生成最终答案。作者对比了两种策略：</p>
+<p>（1）<strong>实例级融合 (Instance-level Fusion &#x2F; Coarse+Fine)</strong>：</p>
+<ul>
+<li>将粗粒度和细粒度的所有检索结果（图像+文本）全部塞进一个超长的 Prompt 中，让模型一次性推理。</li>
+<li>实验证明，这种方法效果<strong>很差</strong>，甚至不如单独的粗粒度检索，因为它混淆了不同粒度的信息 。</li>
+</ul>
+<p>（2）<strong>概率级融合 (Probability-level Fusion &#x2F; Coarse &amp; Fine)</strong>：<strong>（本文最终采用的方法）</strong></p>
+<p><strong>分别</strong>进行两次推理：</p>
+<p>推理1：(输入图像 + 问题 + <strong>粗粒度结果</strong>) $\rightarrow$ 得到 $p^{coarse}$ 概率分布。</p>
+<p>推理2：(输入图像 + 问题 + <strong>细粒度结果</strong>) $\rightarrow$ 得到 $p^{fine}$ 概率分布 。</p>
+<p>最后，将两个概率分布进行线性加权融合 ：</p>
+<p>$$D^{coarse&amp;fine} &#x3D; \alpha p^{coarse} + (1-\alpha) p^{fine}$$</p>
+<p>超参数 $\alpha$ 用来控制两者的重要性（例如，在对象检测任务中 $\alpha&#x3D;0.8$，在属性任务中 $\alpha&#x3D;0.4$）。这种方式能更好地处理不同粒度的信息。</p>
 
                 
               </div>
