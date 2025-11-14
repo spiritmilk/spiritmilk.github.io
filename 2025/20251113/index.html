@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20251113/gicl_training_pipeline.svg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251113/main_plot.svg">
 <meta property="article:published_time" content="2025-11-13T08:38:35.000Z">
-<meta property="article:modified_time" content="2025-11-14T03:51:44.391Z">
+<meta property="article:modified_time" content="2025-11-14T03:57:33.338Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          603 字
+          828 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -381,8 +381,12 @@
 <p><strong>解决方法</strong>：</p>
 <p>（1）0填充。将 $d_{FM}$ 向量用 0 填充到 $d_{LLM}$ 维度。</p>
 <p>（2）Random Projection (随机投影)。 使用一个未经训练的、随机初始化的线性层将 $d_{FM}$ 映射到 $d_{LLM}$。</p>
-<p>（3）</p>
-
+<p>（3）最优传输对齐。直接使用随机投影矩阵可能导致大语言模型的嵌入与映射后的特征记忆表示之间出现分布不匹配。作为旨在对齐两个分布的数学框架，最优传输（OT）提供了一种可行的解决方案来解决这一不匹配问题。</p>
+<p>但实际上，作者在论文中的做法只是对齐均值和方差。然而这是相当于只有对角线有协方差的高斯分布的最优传输。还是比较简单的。</p>
+<p><strong>OT-Embed</strong>：将 FM 向量分布对齐到其原始文本（如 SMILES 字符串）在 LLM 中的嵌入分布 。</p>
+<p><strong>OT-PCA</strong>：将 FM 向量分布对齐到其“PCA 字符串”在 LLM 中的嵌入分布 。</p>
+<p>OT 对齐方法仅占用 1 个 token 的上下文空间，并且性能与 PCA 方法相当 。</p>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3>
                 
               </div>
             
