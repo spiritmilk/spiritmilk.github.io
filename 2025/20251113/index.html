@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20251113/gicl_training_pipeline.svg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251113/main_plot.svg">
 <meta property="article:published_time" content="2025-11-13T08:38:35.000Z">
-<meta property="article:modified_time" content="2025-11-14T03:57:33.338Z">
+<meta property="article:modified_time" content="2025-11-14T05:20:11.323Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          828 字
+          1k 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          7 分钟
+          9 分钟
         
       </span>
     
@@ -368,8 +368,8 @@
 <p>对于非文本数据模态，预训练可以更加灵活。我们将这种预训练定义为涉及通用的、非任务特定的目标，例如从其嵌入中重建一个数字（例如，□x 是 32768），执行基本代数运算（例如，□x + □y &#x3D; 16384），或从脑部 fMRI 嵌入中预测下一个词元。</p>
 <p><strong>实验结果</strong>：</p>
 <p><img src="/2025/20251113/main_plot.svg"></p>
-<p>在非文本领域，ICL 输入表示为数值序列（用于时间序列和脑 fMRI 数据）或文本描述（用于图边列表和结点特征）。</p>
-<p>作者还做了文本重构即， 能否从投影后的连续向量（即“方盒标记” $\Box$）中解码并恢复出原始的文本信息。</p>
+<p>在非文本领域，ICL输入表示为数值序列（用于时间序列和脑 fMRI 数据）或文本描述（用于图边列表和结点特征）。</p>
+<p>作者还做了文本重构，即能否从投影后的连续向量（即“方盒标记” $\Box$）中解码并恢复出原始的文本信息。</p>
 <h2 id="ICRL"><a href="#ICRL" class="headerlink" title="ICRL"></a>ICRL</h2><p><a target="_blank" rel="noopener" href="https://github.com/ztlmememe/LLMxFM_ICRL">代码</a></p>
 <p>主要关注<strong>分子</strong>数据。</p>
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>当遇到一个非文本数据（比如一个分子结构）时，首先将其输入到一个预训练好的、特定领域的基础模型（FM）中（例如一个专门的分子模型 Uni-Mol）</p>
@@ -386,7 +386,10 @@
 <p><strong>OT-Embed</strong>：将 FM 向量分布对齐到其原始文本（如 SMILES 字符串）在 LLM 中的嵌入分布 。</p>
 <p><strong>OT-PCA</strong>：将 FM 向量分布对齐到其“PCA 字符串”在 LLM 中的嵌入分布 。</p>
 <p>OT 对齐方法仅占用 1 个 token 的上下文空间，并且性能与 PCA 方法相当 。</p>
-<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3>
+<p>作者还做了理论证明，从数学上解释了为什么在设计免训练的“投影层”时，使用简单的线性层（即没有激活函数）是最好的选择，而使用非线性激活函数（如 ReLU）会破坏原始的几何结构，反而有害。</p>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><h3 id="影响ICRL的因子"><a href="#影响ICRL的因子" class="headerlink" title="影响ICRL的因子"></a>影响ICRL的因子</h3><p><strong>模型能力</strong>。 ICRL 的有效性与潜在预训练大模型的容量密切相关。</p>
+<p><strong>PCA维度</strong>。在没有文本输入的情况下，随着表示长度的增加，PAC 方法并未带来更好的性能。在大多数情况下，性能甚至有所下降，这表明更长的表示并不一定增强模型对其的理解能力。</p>
+
                 
               </div>
             
