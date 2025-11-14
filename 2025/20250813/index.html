@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20250813/3.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250813/4.jpg">
 <meta property="article:published_time" content="2025-08-13T08:16:22.000Z">
-<meta property="article:modified_time" content="2025-08-13T08:55:26.548Z">
+<meta property="article:modified_time" content="2025-11-14T02:36:22.130Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -359,12 +359,12 @@
 <span id="more"></span>
 
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>基于一个关键洞察：尽管越狱提示可以采取任意、自适应的形式，但有害查询在操纵上的灵活性显著较低。这一约束源于有害查询必须明确编码攻击者试图从 LLM 中诱发的特定恶意信息。</p>
-<p>于越狱提示要绕过 LLM 的安全防护，其 token 必须达到足够的“重要<br>性”（通过注意力得分衡量），这不可避免地会降低有害查询中 token 的重要性。利用这一独特模式，提出了RobustKV，一种新颖的越狱防御机制，它策略性地移除最低秩 token的 KVs，从而最小化有害查询在 LLM 的 KV 缓存中的存在。值得注意的是，RobustKV 并不完全阻止 LLM 对攻击者提示的响应（例如拒绝），而是阻碍其生成针对有害查询的信息性回复的能力。如图（使用 RobustKV）所示，RobustKV 有效地将有害查询的关键 token从 KV 缓存中驱逐，导致对有害查询的响应缺乏信息性。</p>
+<p>于越狱提示要绕过 LLM 的安全防护，其 token 必须达到足够的“重要性”（通过注意力得分衡量），这不可避免地会降低有害查询中 token 的重要性。利用这一独特模式，提出了RobustKV，一种新颖的越狱防御机制，它策略性地移除最低秩 token的 KVs，从而最小化有害查询在 LLM 的 KV 缓存中的存在。值得注意的是，RobustKV 并不完全阻止 LLM 对攻击者提示的响应（例如拒绝），而是阻碍其生成针对有害查询的信息性回复的能力。如图（使用 RobustKV）所示，RobustKV 有效地将有害查询的关键 token从 KV 缓存中驱逐，导致对有害查询的响应缺乏信息性。</p>
 <p><img src="/2025/20250813/1.jpg"></p>
 <p>本工作首次探索了将 KV最优化用作越狱防御。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="洞察"><a href="#洞察" class="headerlink" title="洞察"></a>洞察</h3><p>下图展示了在随机选择的案例<br>中，由 AutoDAN 在 Llama2 上结合 SnapKV 生成的恶意查询和越狱提示中 token 的整体重要性排名。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="洞察"><a href="#洞察" class="headerlink" title="洞察"></a>洞察</h3><p>下图展示了在随机选择的案例中，由 AutoDAN 在 Llama2 上结合 SnapKV 生成的恶意查询和越狱提示中 token 的整体重要性排名。</p>
 <p><img src="/2025/20250813/2.jpg"></p>
-<p>为了让越狱提示绕过 LLM 的安全防护，其 token 必须获得足够的重要性，这不可避免地<br>降低了隐藏的恶意查询中token 的重要性。</p>
+<p>为了让越狱提示绕过 LLM 的安全防护，其 token 必须获得足够的重要性，这不可避免地降低了隐藏的恶意查询中token 的重要性。</p>
 <h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p><img src="/2025/20250813/3.jpg"></p>
 <p>为了证明这样选取并不会删除掉有用的token，作者还证明了：</p>
 <p><img src="/2025/20250813/4.jpg"></p>

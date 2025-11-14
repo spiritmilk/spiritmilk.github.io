@@ -28,16 +28,16 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="《VECTOR-ICL: IN-CONTEXT LEARNING WITH CONTINUOUS VECTOR REPRESENTATIONS》（ICLR 2025） 《Can LLMs Reason Over Non-Text Modalities in a Training-Free Manner? A Case Study with In-Context Representation Lea">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190718/gicl_pipeline.svg">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190718/gicl_training_pipeline.svg">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190718/main_plot.svg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251113/gicl_pipeline.svg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251113/gicl_training_pipeline.svg">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251113/main_plot.svg">
 <meta property="article:published_time" content="2025-11-13T08:38:35.000Z">
-<meta property="article:modified_time" content="2025-11-13T10:43:29.652Z">
+<meta property="article:modified_time" content="2025-11-14T03:51:44.391Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190718/gicl_pipeline.svg">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251113/gicl_pipeline.svg">
   
   
   
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          60 字
+          603 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -360,13 +360,28 @@
 
 <h2 id="Vector-ICL"><a href="#Vector-ICL" class="headerlink" title="Vector-ICL"></a>Vector-ICL</h2><p><a target="_blank" rel="noopener" href="https://github.com/EvanZhuang/vector-icl">代码</a></p>
 <p>作者认为之前是离散的token，故它去探索是否能在连续向量上执行ICL。</p>
-<p>大致的一个方法：</p>
-<p><img src="/2019/20190718/gicl_pipeline.svg"></p>
-<p>训练过程：</p>
-<p><img src="/2019/20190718/gicl_training_pipeline.svg"></p>
-<p>实验结果：</p>
-<p><img src="/2019/20190718/main_plot.svg"></p>
+<p><strong>方法</strong>：</p>
+<p><img src="/2025/20251113/gicl_pipeline.svg"></p>
+<p><strong>训练过程</strong>：</p>
+<p><img src="/2025/20251113/gicl_training_pipeline.svg"></p>
+<p>对于每个文本片段，我们将其切成两部分，切割点从句尾随机采样。前半部分被编码并投影，后半部分保持不变。其余部分与任何预训练过程相同，语言模型在每个输入位置生成下一个词元分布，除了位于投影嵌入之前的词元，并在此基础上施加交叉熵损失。在编码器和语言模型冻结的情况下，梯度反向传播到投影器，更新其参数。</p>
+<p>对于非文本数据模态，预训练可以更加灵活。我们将这种预训练定义为涉及通用的、非任务特定的目标，例如从其嵌入中重建一个数字（例如，□x 是 32768），执行基本代数运算（例如，□x + □y &#x3D; 16384），或从脑部 fMRI 嵌入中预测下一个词元。</p>
+<p><strong>实验结果</strong>：</p>
+<p><img src="/2025/20251113/main_plot.svg"></p>
+<p>在非文本领域，ICL 输入表示为数值序列（用于时间序列和脑 fMRI 数据）或文本描述（用于图边列表和结点特征）。</p>
+<p>作者还做了文本重构即， 能否从投影后的连续向量（即“方盒标记” $\Box$）中解码并恢复出原始的文本信息。</p>
 <h2 id="ICRL"><a href="#ICRL" class="headerlink" title="ICRL"></a>ICRL</h2><p><a target="_blank" rel="noopener" href="https://github.com/ztlmememe/LLMxFM_ICRL">代码</a></p>
+<p>主要关注<strong>分子</strong>数据。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>当遇到一个非文本数据（比如一个分子结构）时，首先将其输入到一个预训练好的、特定领域的基础模型（FM）中（例如一个专门的分子模型 Uni-Mol）</p>
+<p>ICRL 不像标准 ICL 那样给 LLM 提供 <code>(文本, 标签)</code> 的例子，而是提供 <code>(表征, 标签)</code> 的例子 。</p>
+<p><strong>注入方式</strong>：</p>
+<p>1.<strong>文本级别注入</strong>。但是由于太长，作者选择使用PCA将高纬转为低维（如20维），转成字符串，再加入到prompt中。</p>
+<p>2.<strong>嵌入级别注入</strong>。更自然。</p>
+<p><strong>面临问题</strong>：FM 向量的维度（如 $d_{FM}$）和 LLM 嵌入的维度（如 $d_{LLM}$）不同，且它们的数值分布也不同。</p>
+<p><strong>解决方法</strong>：</p>
+<p>（1）0填充。将 $d_{FM}$ 向量用 0 填充到 $d_{LLM}$ 维度。</p>
+<p>（2）Random Projection (随机投影)。 使用一个未经训练的、随机初始化的线性层将 $d_{FM}$ 映射到 $d_{LLM}$。</p>
+<p>（3）</p>
 
                 
               </div>
