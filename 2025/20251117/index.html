@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（AAAI 2026）">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/117/1.png">
 <meta property="article:published_time" content="2025-11-17T14:29:38.000Z">
-<meta property="article:modified_time" content="2025-11-17T14:46:18.166Z">
+<meta property="article:modified_time" content="2025-11-17T15:00:02.366Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/117/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          480 字
+          929 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          5 分钟
+          8 分钟
         
       </span>
     
@@ -363,7 +365,16 @@
 <li><strong>兼容性</strong> (Compatibility)：一些主动防御（如基于 TEE 硬件或加密密钥的授权系统 ）需要额外的组件或专门的硬件支持，这在开放源码环境中是不现实的 。 </li>
 <li><strong>安全性与实用性</strong> (Security with Utility)：另一些兼容性方法（如发布“仿真器”模型）往往难以平衡安全性和模型性能。简化的仿真器会牺牲太多性能 ，而精确的仿真器又容易泄露模型权重，不够安全 。</li>
 </ol>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>核心思想： MergeBarrier 的基本思路是，成功的模型合并要求各个专家模型位于同一个低损失盆地内，从而形成一条线性路径，其中所有中间点（作为合并后的模型）均处于低损失盆地内并保持高性能。为阻止模型合并，我们对原始模型的权重进行变换，将<br>其移出原有的损失盆地，从而消除低损失线性路径，导致合并后模型性能下降。</p>
+<p>MergeBarrier 将核心思想应用于注意力权重的投影以及前馈网络（FFN）权重的重参数化，同时保持模型原有的性能。</p>
+<p><img src="/2021/1000/117/1.png"></p>
+<h3 id="注意力权重投影"><a href="#注意力权重投影" class="headerlink" title="注意力权重投影"></a>注意力权重投影</h3><p>若$PP^T&#x3D;I$，则<br>$$<br>\begin{align}<br>O&amp;&#x3D;softmax(\frac{XW_qPP^TW_k^TX^T}{\sqrt c})XW_v<br>\\<br>&amp;&#x3D;softmax(\frac{XW_qW_k^TX^T}{\sqrt c})XW_v<br>\end{align}<br>$$</p>
+<p>为了确保合并后的模型被推出原始的低损失盆地，我们旨在寻找一个正交矩阵 P ，使其与该盆地的距离最大化。</p>
+<p>即<br>$$<br>max_P \frac{1}{16}||(W_qP+W_q)(W_kP+W_k)^T-(W_q+W_q)(W_k+W_k)^T||_F^2<br>$$<br>有定理：</p>
+<p>Theorem 2. (a) 最大化式 (2) 足以最大化 $||W_q(P-I)||<em>F^2 + ||W_k(P-I)||<em>F^2$。<br>(b) 若 $\lambda_i &gt; 0$，则 $(U^\top PU)</em>{ii} &#x3D; -1$；若 $\lambda_i &lt; 0$，则 $(U^\top PU)</em>{ii} &#x3D; 1$。<br>(c) 若 $\lambda_i &#x3D; 0$，则 $(U^\top PU)_{ii}$ 可取任意值。</p>
+<p>理想情况下，最大扰动发生在 $P &#x3D; -I$ 时，此时所有方向均反转，距离达到最大，但这会暴露真实模型权重。</p>
+<p>为解决此问题，作者采用一种松弛方法：对前-k 个特征方向 (即具有最大 $\lambda$ 值的方向) 设置 $(U^\top PU)_{ii} &#x3D; -1$，其余方向设置 1。通过应用逆变换，得到满足所需条件的 $P$。</p>
+<h3 id="FFN权重重参数化"><a href="#FFN权重重参数化" class="headerlink" title="FFN权重重参数化"></a>FFN权重重参数化</h3>
                 
               </div>
             
