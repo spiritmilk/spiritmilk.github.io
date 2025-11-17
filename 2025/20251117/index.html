@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/117/1.png">
 <meta property="article:published_time" content="2025-11-17T14:29:38.000Z">
-<meta property="article:modified_time" content="2025-11-17T15:00:02.366Z">
+<meta property="article:modified_time" content="2025-11-17T15:08:34.343Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          929 字
+          1.4k 字
         
       </span>
     
@@ -310,7 +310,7 @@
         
         
         
-          8 分钟
+          12 分钟
         
       </span>
     
@@ -371,10 +371,18 @@
 <h3 id="注意力权重投影"><a href="#注意力权重投影" class="headerlink" title="注意力权重投影"></a>注意力权重投影</h3><p>若$PP^T&#x3D;I$，则<br>$$<br>\begin{align}<br>O&amp;&#x3D;softmax(\frac{XW_qPP^TW_k^TX^T}{\sqrt c})XW_v<br>\\<br>&amp;&#x3D;softmax(\frac{XW_qW_k^TX^T}{\sqrt c})XW_v<br>\end{align}<br>$$</p>
 <p>为了确保合并后的模型被推出原始的低损失盆地，我们旨在寻找一个正交矩阵 P ，使其与该盆地的距离最大化。</p>
 <p>即<br>$$<br>max_P \frac{1}{16}||(W_qP+W_q)(W_kP+W_k)^T-(W_q+W_q)(W_k+W_k)^T||_F^2<br>$$<br>有定理：</p>
-<p>Theorem 2. (a) 最大化式 (2) 足以最大化 $||W_q(P-I)||<em>F^2 + ||W_k(P-I)||<em>F^2$。<br>(b) 若 $\lambda_i &gt; 0$，则 $(U^\top PU)</em>{ii} &#x3D; -1$；若 $\lambda_i &lt; 0$，则 $(U^\top PU)</em>{ii} &#x3D; 1$。<br>(c) 若 $\lambda_i &#x3D; 0$，则 $(U^\top PU)_{ii}$ 可取任意值。</p>
+<p>Theorem 2. (a) 最大化式 (2) 足以最大化 $||W_q(P-I)||_F^2 + ||W_k(P-I)||_F^2$。<br>(b) 若 $\lambda_i &gt; 0$，则 $(U^\top PU) _ {ii} &#x3D; -1$；若 $\lambda_i &lt; 0$，则 $(U^\top PU) _ {ii} &#x3D; 1$。<br>(c) 若 $\lambda_i &#x3D; 0$，则 $(U^\top PU) _ {ii}$ 可取任意值。</p>
 <p>理想情况下，最大扰动发生在 $P &#x3D; -I$ 时，此时所有方向均反转，距离达到最大，但这会暴露真实模型权重。</p>
-<p>为解决此问题，作者采用一种松弛方法：对前-k 个特征方向 (即具有最大 $\lambda$ 值的方向) 设置 $(U^\top PU)_{ii} &#x3D; -1$，其余方向设置 1。通过应用逆变换，得到满足所需条件的 $P$。</p>
-<h3 id="FFN权重重参数化"><a href="#FFN权重重参数化" class="headerlink" title="FFN权重重参数化"></a>FFN权重重参数化</h3>
+<p>为解决此问题，作者采用一种松弛方法：对前-k 个特征方向 (即具有最大 $\lambda$ 值的方向) 设置 $(U^\top PU) _ {ii} &#x3D; -1$，其余方向设置 1。通过应用逆变换，得到满足所需条件的 $P$。</p>
+<h3 id="FFN权重重参数化"><a href="#FFN权重重参数化" class="headerlink" title="FFN权重重参数化"></a>FFN权重重参数化</h3><p>FFN 层的计算通常是 <code>Linear -&gt; Activation -&gt; Linear</code>。该方法针对的是第二个线性层及其前面的激活函数 。</p>
+<p>将这个激活函数在某个“展开点” $z_0$ 进行泰勒级数展开。</p>
+<p>对于一个 FFN块，令 W 和 c 分别表示第二层线性层的权重和偏置。</p>
+<p>该层的输出记为 $y$。我们使用泰勒级数对其进行重新参数化，如下所示：</p>
+<p>$$<br>\begin{align}<br>y - c &amp; \\<br>&amp; &#x3D; (y_1, \dots, y_n) - (c_1, \dots, c_n) \\<br>&amp; &#x3D; (W_1 \odot Act(z + b), W_2 \odot Act(z + b), \dots, W_n \odot Act(z + b)) \\<br>&amp; \approx (W_1 \odot \sum _ {n&#x3D;0}^{N} \frac{Act^{(n)}(z_0 + b)}{n!}, \dots, W_n \odot \sum _ {n&#x3D;0}^{N} \frac{Act^{(n)}(z_0 + b)}{n!}) \\<br>&amp; &#x3D; W \frac{Act^{(0)}(z_0 + b)}{0!} (z_0 - z)^0 + \dots + W \frac{Act^{(N)}(z_0 + b)}{N!} (z_0 - z)^N \\<br>&amp; &#x3D; \hat{W}^0 (z_0 - z)^0 + \dots + \hat{W}^N (z_0 - z)^N<br>\end{align}<br>$$</p>
+<p>此处，$W_i$ 为 $W$ 的第 $i$ 列。$z$ 为带有偏置 $b$ 的第一层线性层的输出。扩展点 $z_0$ 设置为集合 $Z$ 中 $z _ {max}$ 与 $z _ {min}$ 之间的中点，该集合由训练样本的特征表示 $z$ 构建而成。符号 $\odot$ 表示逐元素乘法。</p>
+<p>同时，该方法并不仅限于泰勒展开——也可采用其他基函数，如埃尔米特多项式。</p>
+<p>另外，泰勒展开（以及计算机的浮点数）总会存在一个极小的**“余项误差”** 。这个微小的、类似噪声的误差，反而成为了最强的安全保障 。如果攻击者试图通过解方程，从发布的多项式系数 $\hat{W}$ 反向破解出原始权重 $W$，这个<strong>求解问题会因为“余项误差”的存在，转变为一个“带误差学习”（Learning With Errors, LWE）问题</strong>。</p>
+
                 
               </div>
             
