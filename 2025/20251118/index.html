@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICLR 2026）分数：4 4 4 6">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/118/1.png">
 <meta property="article:published_time" content="2025-11-18T01:37:51.000Z">
-<meta property="article:modified_time" content="2025-11-18T10:13:21.029Z">
+<meta property="article:modified_time" content="2025-11-20T12:00:56.732Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/118/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.3k 字
         
       </span>
     
@@ -353,7 +355,10 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICLR 2026）分数：4 4 4 6</p>
 <span id="more"></span>
 
-<h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><h2 id="审稿人意见"><a href="#审稿人意见" class="headerlink" title="审稿人意见"></a>审稿人意见</h2><p>更新自2025年11月18日 10时</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2021/1000/118/1.png"></p>
+<h3 id="本质安全关键层扫描"><a href="#本质安全关键层扫描" class="headerlink" title="本质安全关键层扫描"></a>本质安全关键层扫描</h3><p>设计了一种可解释的安全敏感度得分（SS-Score）。</p>
+<p>具体而言，提取每一层最后一个token嵌入h，随后为每一层l训练一个轻量级线性探测器，定义SS-score为：<br>$$<br>A^{(l)}&#x3D;-\frac{1}{D_{val}}\sum_{(x_i,y_i)\in D_{val}}[y_ilog\phi_l(y_i\mid h_i^\ell)+(1-y_i)log(1-\phi_l(y_i\mid h_i^\ell))]<br>$$</p>
+<h2 id="审稿人意见"><a href="#审稿人意见" class="headerlink" title="审稿人意见"></a>审稿人意见</h2><p>更新自2025年11月18日 10时</p>
 <h3 id="pjvY（4分）"><a href="#pjvY（4分）" class="headerlink" title="pjvY（4分）"></a>pjvY（4分）</h3><p>1.遗漏了一些基线。更重要的是，这篇论文并未与简单的护栏+拒绝抽样基线进行比较，后者在实践中依然是标准且出人意料地有效。</p>
 <p>2.没有定量讨论通过专家复制和布线层添加多少参数。这至关重要，因为每层增加多名安全专家会大幅增加模型规模和内存占用，削弱轻量级部署的说法。</p>
 <p>3.缺失能力-安全权衡评估：安全专家培训仅使用有害且 STAR 无害的数据，不使用一般能力数据（如数学或推理任务）。这使得无法评估 MoE 升级是否减缓学习速度或损害效用，相较于密集的微调。STAR 的良性提示过于狭窄，这也解释了高的过度拒绝率——路由器学习了一个保守的界限，导致安全专家过度激活。</p>
