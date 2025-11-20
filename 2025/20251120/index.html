@@ -28,13 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="何恺明出品。arxiv 2025。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/120/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251120/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251120/2.png">
 <meta property="article:published_time" content="2025-11-20T08:00:36.000Z">
-<meta property="article:modified_time" content="2025-11-20T08:43:43.533Z">
+<meta property="article:modified_time" content="2025-11-20T10:35:21.105Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/120/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251120/1.png">
   
   
   
@@ -298,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          399 字
+          1.1k 字
         
       </span>
     
@@ -309,7 +310,7 @@
         
         
         
-          4 分钟
+          10 分钟
         
       </span>
     
@@ -355,14 +356,39 @@
 <span id="more"></span>
 
 <h2 id="ARC任务"><a href="#ARC任务" class="headerlink" title="ARC任务"></a>ARC任务</h2><p>ARC-AGI（Abstraction and Reasoning Corpus，抽象与推理语料库） 是一个专门用于衡量 AI 系统泛化能力和解决新颖任务能力的基准测试，它与传统的基准测试不同，更注重考察 AI 的抽象推理能力，而不是单纯的记忆或模式匹配能力。</p>
-<p>ARC-AGI 任务不需要专门的世界知识（例如历史事实）或语言来解决。唯一需要的先验知识是一些核心知识——诸如物体性、基本拓扑、初等整数算术等概念。而这些人类的核心知识已由 Spelke 等人<br>研究并指出这些知识 Prior 在儿童早期（通常在四岁之前）就已获得。</p>
+<p>ARC-AGI 任务不需要专门的世界知识（例如历史事实）或语言来解决。唯一需要的先验知识是一些核心知识——诸如物体性、基本拓扑、初等整数算术等概念。而这些人类的核心知识已由 Spelke 等人研究并指出这些知识 Prior 在儿童早期（通常在四岁之前）就已获得。</p>
 <p>ARC-AGI 任务的另一个重要特征是它们对 AI 系统来说很难，但对人类来说却很容易。</p>
 <p>一个示例：</p>
-<p><img src="/2021/1000/120/1.png"></p>
+<p><img src="/2025/20251120/1.png"></p>
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p><strong>抽象推理语料库 (Abstraction and Reasoning Corpus, ARC)</strong> 挑战虽然常被视为一个语言或符号推理问题，但其本质是<strong>视觉的</strong>，因此应该从<strong>计算机视觉</strong>的角度来解决 。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p> 将 ARC 任务（从输入 $x$ 到输出 $y$ 的映射）视为一个<strong>逐像素分类 (per-pixel classification)</strong> 问题，类似于语义分割。</p>
 <p><strong>模型目标：</strong> 学习一个神经网络 $f_{\theta}$，它以输入图像 $x_i$ 为输入，并以一个表示任务 $T$ 的可学习<strong>任务令牌</strong>为条件，输出一个网格，其中每个位置代表一个分类分布。</p>
 <p><strong>损失函数：</strong> 使用<strong>逐像素交叉熵损失 (per-pixel cross-entropy loss)</strong> 进行优化。</p>
+<p>为了引入 2D 空间局部性、平移不变性和尺度不变性等视觉先验，模型采用了以下设计：</p>
+<ul>
+<li><strong>画布</strong>：</li>
+</ul>
+<p>画布具有预定义且足够大的大小。原始输入经过变换后被放置在该画布上。这种设定自然地容纳了平移和尺度增强，这些是视觉领域中引入平移和尺度不变性的常见策略，将画布的背景设置为额外的背景颜色，即第 (C+1) 种颜色。</p>
+<p>当应用 ViT 模型时，如果将每个原始像素天真地视为一个 token，那么只会存在 C个不同的 token。相比之下，画布支持更大数量的局部、块级配置。例如，当块大小为 2×2时，单个块可以包含多种颜色（如下面的VIT结构图所示），并且在理论上具有指数级大的基数，O(C2×2)。这种公式对于提升泛化性能至关重要。</p>
+<ul>
+<li>翻译与尺度不变性（Translation and scale invariance）</li>
+</ul>
+<p><strong>缩放增强</strong>：给定一个原始输入，随机将其按整数缩放比例 s 重新调整大小，将每个原始像素复制为 s×s 个。类似于自然图像中的最近邻插值。</p>
+<p>当然，因为ARC 中的“颜色”并不对应真实世界中的颜色，因此进行其他插值（如双线性插值）是没有意义的。</p>
+<p><strong>翻译增强</strong>： 给定缩放后的网格，将其随机放置在固定大小的画布上。我们确保所有像素都可见。</p>
+<ul>
+<li>VIT。默认情况下使用VIT。</li>
+</ul>
+<p>从概念上讲，块化可以被视为一种特殊的卷积形式。与卷积一样，它在视觉任务中引入了几个关键的归纳偏置：最显著的是局部性（即对邻近像素进行分组）和平移不变性（即在不同位置间共享权重）。</p>
+<ul>
+<li>二维位置嵌入。</li>
+</ul>
+<p>在这里作者使用可分离的2D位置嵌入，对于具有对于具有 D 通道的位置嵌入，使用前半部分通道来嵌入水平坐标，后半部分通道用于嵌入垂直坐标。这既可用于加性位置嵌入以编码绝对位置，也可用于相对位置的编码。</p>
+<p><img src="/2025/20251120/2.png"></p>
+<p>另外，作者也使用了一些更经典的基于视觉的架构，比如CNN。具体而言，作者使用的是U-Net。</p>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>作者采用两阶段训练范式来学习神经网络的参数。</p>
+<p><strong>离线训练</strong>。在整个训练集上训练。所有任务共享相同的模型参数，但每个任务有自己独立的<strong>可学习的任务条件令牌 (task-conditional token)</strong> 。</p>
+<p><strong>测试时训练</strong>。</p>
 
                 
               </div>

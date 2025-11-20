@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（AAAI 2026） 创新性很强，理论性很强的一篇论文。是不是可以拿个Oral。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/117/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251117/1.png">
 <meta property="article:published_time" content="2025-11-17T14:29:38.000Z">
 <meta property="article:modified_time" content="2025-11-17T15:14:35.906Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/117/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251117/1.png">
   
   
   
@@ -368,7 +368,7 @@
 </ol>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>核心思想： MergeBarrier 的基本思路是，成功的模型合并要求各个专家模型位于同一个低损失盆地内，从而形成一条线性路径，其中所有中间点（作为合并后的模型）均处于低损失盆地内并保持高性能。为阻止模型合并，我们对原始模型的权重进行变换，将<br>其移出原有的损失盆地，从而消除低损失线性路径，导致合并后模型性能下降。</p>
 <p>MergeBarrier 将核心思想应用于注意力权重的投影以及前馈网络（FFN）权重的重参数化，同时保持模型原有的性能。</p>
-<p><img src="/2021/1000/117/1.png"></p>
+<p><img src="/2025/20251117/1.png"></p>
 <h3 id="注意力权重投影"><a href="#注意力权重投影" class="headerlink" title="注意力权重投影"></a>注意力权重投影</h3><p>若$PP^T&#x3D;I$，则<br>$$<br>\begin{align}<br>O&amp;&#x3D;softmax(\frac{XW_qPP^TW_k^TX^T}{\sqrt c})XW_v<br>\\<br>&amp;&#x3D;softmax(\frac{XW_qW_k^TX^T}{\sqrt c})XW_v<br>\end{align}<br>$$</p>
 <p>为了确保合并后的模型被推出原始的低损失盆地，我们旨在寻找一个正交矩阵 P ，使其与该盆地的距离最大化。</p>
 <p>即<br>$$<br>max_P \frac{1}{16}||(W_qP+W_q)(W_kP+W_k)^T-(W_q+W_q)(W_k+W_k)^T||_F^2<br>$$<br>有定理：</p>
