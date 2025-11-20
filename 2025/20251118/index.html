@@ -30,8 +30,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/118/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/118/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/118/3.png">
 <meta property="article:published_time" content="2025-11-18T01:37:51.000Z">
-<meta property="article:modified_time" content="2025-11-20T13:09:03.457Z">
+<meta property="article:modified_time" content="2025-11-20T15:01:30.371Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -300,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          2.2k 字
         
       </span>
     
@@ -311,7 +312,7 @@
         
         
         
-          17 分钟
+          19 分钟
         
       </span>
     
@@ -379,7 +380,13 @@
 <p>形式上，给定softmax路由分布$S&#x3D;Softmax(hW_r)$，定义<br>$$<br>\mathcal{L}<em>{SG}&#x3D;\sum</em>{(x,y)\in D}[ylogp_{safety}+(1-y)logp_{general}]<br>$$<br>其中，$p_{general}&#x3D;S_0,p_{safety}&#x3D;\sum_{i&#x3D;1}^{N-1}S_i$。</p>
 <p>最后损失为$\mathcal{L} _ {NTP}+\lambda_2 \mathcal{L} _ {SG}$。</p>
 <p>事实上还是有$\mathcal{L}_{NTP}$。</p>
-<h3 id="推理：安全温度"><a href="#推理：安全温度" class="headerlink" title="推理：安全温度"></a>推理：安全温度</h3><h2 id="审稿人意见"><a href="#审稿人意见" class="headerlink" title="审稿人意见"></a>审稿人意见</h2><p>更新自2025年11月18日 10时</p>
+<h3 id="推理：安全温度"><a href="#推理：安全温度" class="headerlink" title="推理：安全温度"></a>推理：安全温度</h3><p>具体而言，<br>$$<br>\Delta_i &#x3D; \begin{cases}<br>(0.5 - \tau) \cdot C, &amp; \text{for general expert } E_0 \\<br>(\tau - 0.5) \cdot \hat{C}, &amp; \text{for safety experts } E_1, …, E_{N-1}<br>\end{cases}<br>$$</p>
+<p>其中 $C$ 为常数缩放因子， $\hat{C} &#x3D; \frac{C}{N-1}$。修改后的专家得分 $\hat{S}$ 由下式给出：</p>
+<p>$$<br>\hat{S}_i &#x3D; \text{Softmax}\left( \frac{R_i + \Delta_i}{1.5^{(1-|2\tau-1|)} - 1 + \delta} \right)<br>$$</p>
+<p>其中 $\delta$ 是一个很小的常数，用于保证数值稳定性。分母表示一个温度缩放因子，用于平滑概率。</p>
+<p>安全温度 $\tau$的值根据用户的意图动态选择，用于控制通用专家与安全专家之间的平衡，如图所示。随着$\tau$ 从 0 增加到 1，模型的安全性能逐渐提升。</p>
+<p><img src="/2021/1000/118/3.png"></p>
+<h2 id="审稿人意见"><a href="#审稿人意见" class="headerlink" title="审稿人意见"></a>审稿人意见</h2><p>更新自2025年11月18日 10时</p>
 <h3 id="pjvY（4分）"><a href="#pjvY（4分）" class="headerlink" title="pjvY（4分）"></a>pjvY（4分）</h3><p>1.遗漏了一些基线。更重要的是，这篇论文并未与简单的护栏+拒绝抽样基线进行比较，后者在实践中依然是标准且出人意料地有效。</p>
 <p>2.没有定量讨论通过专家复制和布线层添加多少参数。这至关重要，因为每层增加多名安全专家会大幅增加模型规模和内存占用，削弱轻量级部署的说法。</p>
 <p>3.缺失能力-安全权衡评估：安全专家培训仅使用有害且 STAR 无害的数据，不使用一般能力数据（如数学或推理任务）。这使得无法评估 MoE 升级是否减缓学习速度或损害效用，相较于密集的微调。STAR 的良性提示过于狭窄，这也解释了高的过度拒绝率——路由器学习了一个保守的界限，导致安全专家过度激活。</p>
