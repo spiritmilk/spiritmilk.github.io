@@ -28,12 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICLR 2025）《LLaVA-MoD: Making LLaVA Tiny via MoE Knowledge Distillation》  （TMM 2025）《MoE-LLaVA: Mixture of Experts for Large Vision-Language Models》">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/2.png">
 <meta property="article:published_time" content="2025-11-24T05:56:40.000Z">
-<meta property="article:modified_time" content="2025-11-25T04:39:29.771Z">
+<meta property="article:modified_time" content="2025-11-25T04:52:23.061Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/124/1.png">
   
   
   
@@ -297,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          216 字
+          297 字
         
       </span>
     
@@ -308,7 +311,7 @@
         
         
         
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -359,6 +362,10 @@
 <p>如何能把大模型的复杂能力迁移到小模型上？</p>
 <p><strong>模仿蒸馏</strong>。此阶段分为两个步骤，即稠密到稠密（D2D）和稠密到稀疏（D2S）。</p>
 <p><strong>偏好蒸馏</strong>。l-MLLM 提供关于“好”与“坏”样本的知识，为学生模型建立基础参考。s-MLLM 利用这一知识调整其概率分布，确保好样本的概率高于来自 l-MLLM 的样本，而坏样本则被赋予较低的概率。</p>
+<p><img src="/2021/1000/124/1.png"></p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="稀疏化"><a href="#稀疏化" class="headerlink" title="稀疏化"></a>稀疏化</h4><p>复制 N 个前馈网络（FFNs）作为专家模块。</p>
+<p><img src="/2021/1000/124/2.png"></p>
+<h4 id="逐步蒸馏"><a href="#逐步蒸馏" class="headerlink" title="逐步蒸馏"></a>逐步蒸馏</h4><p><strong>初始化</strong>。首先通过一个可学习的适配器将视觉编码器与 LLM 对齐，旨在<br>获得一个良好初始化的稠密版本。训练目标是最小化生成 token 的交叉熵。</p>
 <h2 id="MoE-LLaVA"><a href="#MoE-LLaVA" class="headerlink" title="MoE-LLaVA"></a>MoE-LLaVA</h2>
                 
               </div>
