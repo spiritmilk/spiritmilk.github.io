@@ -30,8 +30,13 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/124/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/124/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/4.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/7.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/6.png">
 <meta property="article:published_time" content="2025-11-24T05:56:40.000Z">
-<meta property="article:modified_time" content="2025-11-25T06:01:01.759Z">
+<meta property="article:modified_time" content="2025-11-25T06:29:19.885Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -300,7 +305,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          430 字
+          829 字
         
       </span>
     
@@ -311,7 +316,7 @@
         
         
         
-          4 分钟
+          7 分钟
         
       </span>
     
@@ -369,8 +374,30 @@
 <p><strong>初始化</strong>。首先通过一个可学习的适配器将视觉编码器与 LLM 对齐，旨在获得一个良好初始化的稠密版本$\pi_s$。训练目标是最小化生成token 的交叉熵。<br>$$<br>\mathcal{L} _ {\text{Init}}(\pi_S)<br>&#x3D; -\mathbb{E} _ {(y_k \mid y _ {&lt;k}, x)\sim \pi_S}\left[\log \pi_S(y_k \mid y _ {&lt;k}, x)\right]<br>$$<br><strong>模仿蒸馏</strong>。</p>
 <p><strong>a)稠密到稠密。</strong> 使用KL散度。</p>
 <p><strong>b)稠密到稀疏。</strong> KL散度+next token训练目标（交叉熵）。</p>
-<p><strong>偏好蒸馏</strong>。</p>
-<h2 id="MoE-LLaVA"><a href="#MoE-LLaVA" class="headerlink" title="MoE-LLaVA"></a>MoE-LLaVA</h2>
+<p><strong>偏好蒸馏</strong>。DPO。训练目标是优化 s-MLLM，使其与 l-MLLM 相比，对正面响应的概率分配更高，对负面响应的概率分配更低。</p>
+<h2 id="MoE-LLaVA"><a href="#MoE-LLaVA" class="headerlink" title="MoE-LLaVA"></a>MoE-LLaVA</h2><p><img src="/2021/1000/124/3.png"></p>
+<p>使用大约 3B个稀疏激活参数，在视觉理解基准上实现了与最先进 7B 模型相当的性能。</p>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><p><img src="/2021/1000/124/4.png"></p>
+<p><strong>第一阶段（Stage I）：适应性训练</strong></p>
+<ul>
+<li><strong>操作</strong>：仅训练 MLP（投影层）。</li>
+<li><strong>目的</strong>：让 LLM 适应视觉 token，将其视为伪文本 token，使 LLM 能理解图像中的实例 。此阶段不涉及 MoE 层。</li>
+</ul>
+<p><strong>第二阶段（Stage II）：多模态能力预热（关键步骤）</strong></p>
+<ul>
+<li><strong>操作</strong>：训练整个 LLM 参数（此时仍为稠密模型，Dense Model）。</li>
+<li><strong>目的</strong>：通过多模态指令数据微调，赋予模型通用的多模态理解能力。论文发现，先将 LLM 转化为具有多模态能力的 LVLM 是后续稀疏化成功的关键 。</li>
+</ul>
+<p><strong>第三阶段（Stage III）：稀疏化微调</strong></p>
+<ul>
+<li><strong>初始化技巧</strong>：将第二阶段训练好的 FFN 权重复制多次，作为 MoE 层中各个专家的初始化权重 。</li>
+<li><strong>操作</strong>：仅训练 MoE 层（专家和路由）。</li>
+<li><strong>目的</strong>：模型从初始化的通用 LVLM 逐渐过渡到稀疏的专家混合模型 。</li>
+</ul>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2021/1000/124/5.png"></p>
+<p><img src="/2021/1000/124/7.png"><br>文本和图像的路由分布高度相似。MoE-LLaVA 处理的文本和图像的比例是相似的。MoE-LLaVA 中的每个专家都能同时处理文本词元和图像词元，这表明 MoE-LLaVA 在任何模态上都没有明显的偏好。这证明了其在多模态学习中的强大交互能力。</p>
+<p><img src="/2021/1000/124/6.png"></p>
+
                 
               </div>
             
