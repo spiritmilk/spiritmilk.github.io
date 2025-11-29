@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/129/1.png">
 <meta property="article:published_time" content="2025-11-29T13:05:20.000Z">
-<meta property="article:modified_time" content="2025-11-29T13:57:17.877Z">
+<meta property="article:modified_time" content="2025-11-29T13:58:32.362Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          750 字
+          758 字
         
       </span>
     
@@ -374,10 +374,11 @@
 <h3 id="动态调整机制"><a href="#动态调整机制" class="headerlink" title="动态调整机制"></a>动态调整机制</h3><p>最终的生成概率分布不仅依赖原始 logits，还加上了动态加权的 CD 分数：</p>
 <p>$$y \sim \text{Softmax}(\text{logit} _ {\theta} + \alpha \cdot I \cdot \mathcal{L} _ {CD})$$</p>
 <p>其中 $\alpha$ 是缩放因子，$I$ 是动态调节系数，$I &#x3D; \text{Min}{I _ {sim}, I _ {con}}$ 。</p>
-<h4 id="3-2-调节系数-I-sim-相似度指标"><a href="#3-2-调节系数-I-sim-相似度指标" class="headerlink" title="3.2 调节系数 $I _ {sim}$ (相似度指标)"></a>3.2 调节系数 $I _ {sim}$ (相似度指标)</h4><p>用于衡量两个模型预测分布的差异。使用 Jensen-Shannon 散度 (JSD) 计算：</p>
+<p>当然也有自适应合理性约束。</p>
+<h4 id="调节系数-I-sim-相似度指标"><a href="#调节系数-I-sim-相似度指标" class="headerlink" title="调节系数 $I _ {sim}$ (相似度指标)"></a>调节系数 $I _ {sim}$ (相似度指标)</h4><p>用于衡量两个模型预测分布的差异。使用 Jensen-Shannon 散度 (JSD) 计算：</p>
 <p>$$I _ {sim} &#x3D; \text{JSD}(p _ {\theta} || p _ {\hat{\theta}})$$</p>
 <p>当两者预测很像时，$I _ {sim}$ 变小，减少对比解码的影响 。</p>
-<h4 id="3-3-调节系数-I-con-内容词指标"><a href="#3-3-调节系数-I-con-内容词指标" class="headerlink" title="3.3 调节系数 $I _ {con}$ (内容词指标)"></a>3.3 调节系数 $I _ {con}$ (内容词指标)</h4><p>用于衡量当前 token 是否为“实词”（Content Word）。</p>
+<h4 id="调节系数-I-con-内容词指标"><a href="#调节系数-I-con-内容词指标" class="headerlink" title="调节系数 $I _ {con}$ (内容词指标)"></a>调节系数 $I _ {con}$ (内容词指标)</h4><p>用于衡量当前 token 是否为“实词”（Content Word）。</p>
 <ul>
 <li><strong>早退策略 (Early Exit)：</strong> 作者利用了一个现象：模型预测<strong>虚词</strong>时，通常在中间层（如第24层）就已经确定并保持不变；而预测<strong>实词</strong>时，直到最后一层预测结果还在变化 。</li>
 </ul>
