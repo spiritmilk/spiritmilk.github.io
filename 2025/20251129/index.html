@@ -21,19 +21,23 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="20251129">
+    <meta name="description" content="（CVPRW 2025） 也是对比解码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IBD：通过图像有偏解码减轻大型视觉-语言模型中的幻觉">
 <meta property="og:url" content="https://lijianxiong.space/2025/20251129/index.html">
 <meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="（CVPRW 2025） 也是对比解码。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-29T13:05:20.000Z">
-<meta property="article:modified_time" content="2025-11-29T13:05:20.745Z">
+<meta property="article:modified_time" content="2025-11-29T13:48:09.664Z">
 <meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>20251129 - 小熊的小站</title>
+  <title>IBD：通过图像有偏解码减轻大型视觉-语言模型中的幻觉 - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -270,7 +274,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">20251129</span>
+            <span id="subtitle">IBD：通过图像有偏解码减轻大型视觉-语言模型中的幻觉</span>
           
         </div>
 
@@ -293,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          210 字
         
       </span>
     
@@ -304,7 +308,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -341,12 +345,25 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">20251129</h1>
+            <h1 id="seo-header">IBD：通过图像有偏解码减轻大型视觉-语言模型中的幻觉</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css">
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（CVPRW 2025）</p>
+<p>也是对比解码。</p>
+<span id="more"></span>
+
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><strong>原始模型 ($\theta$)：</strong> 标准的 LVLM，可能存在文本依赖偏差。</p>
+<p><strong>图像偏置模型 ($\hat{\theta}$)：</strong> 一个经过修改的模型，更侧重于图像信息 。</p>
+<p>故我们可以通过对比解码来抑制语言先验。</p>
+<h3 id="构建图像偏置模型-hat-theta"><a href="#构建图像偏置模型-hat-theta" class="headerlink" title="构建图像偏置模型 ($\hat{\theta}$)"></a>构建图像偏置模型 ($\hat{\theta}$)</h3><p>作者没有重新训练一个大模型，而是采用了一种轻量级的方法来构建 $\hat{\theta}$：</p>
+<ul>
+<li><strong>调整注意力权重：</strong> 直接修改原始模型中注意力机制的权重矩阵。</li>
+<li><strong>放大图像关注：</strong> 在计算注意力时，如果 Key 对应的是图像 token，则对其添加一个放大系数 $\epsilon$（hyper-parameter）。</li>
+<li><strong>效果：</strong> 这种操作迫使模型在生成文本时更多地关注视觉信息，减少对文本上下文的依赖 。</li>
+</ul>
+
                 
               </div>
             
@@ -354,6 +371,15 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+    </div>
   
 </div>
 
@@ -363,7 +389,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>20251129</div>
+      <div>IBD：通过图像有偏解码减轻大型视觉-语言模型中的幻觉</div>
       <div>https://lijianxiong.space/2025/20251129/</div>
     </div>
     <div class="license-meta">
@@ -939,7 +965,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":129},{"name":"人工智能","value":44},{"name":"大模型","value":37},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
+                            data: [{"name":"深度学习","value":130},{"name":"人工智能","value":44},{"name":"大模型","value":38},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":16},{"name":"阅读","value":13}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -953,7 +979,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":129},{"name":"人工智能","value":44},{"name":"大模型","value":37},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":130},{"name":"人工智能","value":44},{"name":"大模型","value":38},{"name":"笔记","value":34},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":16},{"name":"阅读","value":13}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });
