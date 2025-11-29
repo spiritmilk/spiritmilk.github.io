@@ -29,8 +29,9 @@
 <meta property="og:description" content="（CVPR 2025） 作者来自武汉大学，中大网安。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/128/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/128/2.png">
 <meta property="article:published_time" content="2025-11-28T13:01:11.000Z">
-<meta property="article:modified_time" content="2025-11-29T04:54:57.186Z">
+<meta property="article:modified_time" content="2025-11-29T05:34:10.258Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          143 字
+          221 字
         
       </span>
     
@@ -360,7 +361,10 @@
 <p>现有的偏见利用方法通常需要昂贵的模型微调，并且仅限于由特定输入触发的显性偏见  （例如，黑色皮肤和剃光头），这些偏见容易被检测到。更为隐性的偏见形式，如情感、文化刻板印象和宗教倾向。</p>
 <h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>作者说最相近的是Backdooring Bias（《Injecting bias in text-to-image models via composite-trigger backdoor》）。</p>
 <p>虽然也是隐性偏见（Implicit Bias），但是方法完全不一样，Backdooring Bias完全走的是对抗的路线。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2>
+<p>但我认为和VTI那些差不多。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2021/1000/128/2.png"></p>
+<p>计算差值<br>$$<br>v^{diff}&#x3D;\frac{1}{N}\sum_{i&#x3D;1}^N (v_i^{bias}-v_i^{neu})<br>$$<br>结构类似于SENet。<br>$$<br>\begin{align}<br>\tilde v^{diff}&#x3D;MLP_\theta(Avg)\odot v^{diff}\\<br>\tilde v^{bias}&#x3D;v^{user}+ \tilde v^{diff}\\<br>\end{align}<br>$$<br>损失函数是：<br>$$<br>Loss&#x3D;\frac{1}{N}\sum_{i&#x3D;1}^N ||v_i^{diff}-MLP_\theta(Avg)\odot v^{diff}||^2<br>$$</p>
+
                 
               </div>
             
