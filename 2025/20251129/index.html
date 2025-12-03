@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（CVPRW 2025） 也是对比解码。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/129/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251129/1.png">
 <meta property="article:published_time" content="2025-11-29T13:05:20.000Z">
 <meta property="article:modified_time" content="2025-11-29T13:58:32.362Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/129/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251129/1.png">
   
   
   
@@ -382,7 +382,7 @@
 <ul>
 <li><strong>早退策略 (Early Exit)：</strong> 作者利用了一个现象：模型预测<strong>虚词</strong>时，通常在中间层（如第24层）就已经确定并保持不变；而预测<strong>实词</strong>时，直到最后一层预测结果还在变化 。</li>
 </ul>
-<p><img src="/2021/1000/129/1.png"></p>
+<p><img src="/2025/20251129/1.png"></p>
 <p>计算方法： 计算模型中间层预测 $\tilde{p} _ {\theta}$ 与最终层预测 $p _ {\theta}$ 之间的距离：</p>
 <p>$$I _ {con} &#x3D; \text{JSD}(p _ {\theta} || \tilde{p} _ {\theta})$$</p>
 <p>如果距离大，说明是实词，适合使用对比解码；如果距离小，说明是虚词，应回退到原始解码。这种方法避免了使用外部 POS 标注工具带来的分词歧义问题。</p>

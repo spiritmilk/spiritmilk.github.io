@@ -28,20 +28,20 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICLR 2025）《LLaVA-MoD: Making LLaVA Tiny via MoE Knowledge Distillation》  （TMM 2025）《MoE-LLaVA: Mixture of Experts for Large Vision-Language Models》">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/2.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/3.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/4.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/5.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/7.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/124/6.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251124/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251124/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251124/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251124/4.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251124/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251124/7.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251124/6.png">
 <meta property="article:published_time" content="2025-11-24T05:56:40.000Z">
 <meta property="article:modified_time" content="2025-11-26T10:35:35.342Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/124/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251124/1.png">
   
   
   
@@ -367,17 +367,17 @@
 <p>如何能把大模型的复杂能力迁移到小模型上？</p>
 <p><strong>模仿蒸馏</strong>。此阶段分为两个步骤，即稠密到稠密（D2D）和稠密到稀疏（D2S）。</p>
 <p><strong>偏好蒸馏</strong>。l-MLLM 提供关于“好”与“坏”样本的知识，为学生模型建立基础参考。s-MLLM 利用这一知识调整其概率分布，确保好样本的概率高于来自 l-MLLM 的样本，而坏样本则被赋予较低的概率。</p>
-<p><img src="/2021/1000/124/1.png"></p>
+<p><img src="/2025/20251124/1.png"></p>
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="稀疏化"><a href="#稀疏化" class="headerlink" title="稀疏化"></a>稀疏化</h4><p>复制 N 个前馈网络（FFNs）作为专家模块。</p>
-<p><img src="/2021/1000/124/2.png"></p>
+<p><img src="/2025/20251124/2.png"></p>
 <h4 id="逐步蒸馏"><a href="#逐步蒸馏" class="headerlink" title="逐步蒸馏"></a>逐步蒸馏</h4><p>s-MLLM$\pi_S$从 l-MLLM$\pi_T$ 中模仿通用和特定知识。在偏好蒸馏阶段，$\pi_S$获得 $\pi_T$的偏好知识，以进一步优化其输出并减少幻觉。$\pi_S$和$\pi_T$均来自同一 LLM 家族。这确保了词表空间的一致性，</p>
 <p><strong>初始化</strong>。首先通过一个可学习的适配器将视觉编码器与 LLM 对齐，旨在获得一个良好初始化的稠密版本$\pi_s$。训练目标是最小化生成token 的交叉熵。<br>$$<br>\mathcal{L} _ {\text{Init}}(\pi_S)<br>&#x3D; -\mathbb{E} _ {(y_k \mid y _ {&lt;k}, x)\sim \pi_S}\left[\log \pi_S(y_k \mid y _ {&lt;k}, x)\right]<br>$$<br><strong>模仿蒸馏</strong>。</p>
 <p><strong>a)稠密到稠密。</strong> 使用KL散度。</p>
 <p><strong>b)稠密到稀疏。</strong> KL散度+next token训练目标（交叉熵）。</p>
 <p><strong>偏好蒸馏</strong>。DPO。训练目标是优化 s-MLLM，使其与 l-MLLM 相比，对正面响应的概率分配更高，对负面响应的概率分配更低。</p>
-<h2 id="MoE-LLaVA"><a href="#MoE-LLaVA" class="headerlink" title="MoE-LLaVA"></a>MoE-LLaVA</h2><p><img src="/2021/1000/124/3.png"></p>
+<h2 id="MoE-LLaVA"><a href="#MoE-LLaVA" class="headerlink" title="MoE-LLaVA"></a>MoE-LLaVA</h2><p><img src="/2025/20251124/3.png"></p>
 <p>使用大约 3B个稀疏激活参数，在视觉理解基准上实现了与最先进 7B 模型相当的性能。</p>
-<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><p><img src="/2021/1000/124/4.png"></p>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><p><img src="/2025/20251124/4.png"></p>
 <p><strong>第一阶段（Stage I）：适应性训练</strong></p>
 <ul>
 <li><strong>操作</strong>：仅训练 MLP（投影层）。</li>
@@ -394,9 +394,9 @@
 <li><strong>操作</strong>：仅训练 MoE 层（专家和路由）。</li>
 <li><strong>目的</strong>：模型从初始化的通用 LVLM 逐渐过渡到稀疏的专家混合模型 。</li>
 </ul>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2021/1000/124/5.png"></p>
-<p><img src="/2021/1000/124/7.png"><br>文本和图像的路由分布高度相似。MoE-LLaVA 处理的文本和图像的比例是相似的。MoE-LLaVA 中的每个专家都能同时处理文本词元和图像词元，这表明 MoE-LLaVA 在任何模态上都没有明显的偏好。这证明了其在多模态学习中的强大交互能力。</p>
-<p><img src="/2021/1000/124/6.png"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2025/20251124/5.png"></p>
+<p><img src="/2025/20251124/7.png"><br>文本和图像的路由分布高度相似。MoE-LLaVA 处理的文本和图像的比例是相似的。MoE-LLaVA 中的每个专家都能同时处理文本词元和图像词元，这表明 MoE-LLaVA 在任何模态上都没有明显的偏好。这证明了其在多模态学习中的强大交互能力。</p>
+<p><img src="/2025/20251124/6.png"></p>
 
                 
               </div>
