@@ -29,7 +29,7 @@
 <meta property="og:description" content="这次竞赛的任务是预测一条评论是否违反了特定的社区规则。难点在于测试集中包含了训练集中没有出现的新规则（Unseen Rules），要求模型具备极强的零样本（Zero-shot）或少样本（Few-shot）泛化能力。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-03T07:51:26.000Z">
-<meta property="article:modified_time" content="2025-12-03T10:37:25.536Z">
+<meta property="article:modified_time" content="2025-12-03T10:43:17.629Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="kaggle">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          321 字
+          852 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          3 分钟
+          8 分钟
         
       </span>
     
@@ -363,6 +363,22 @@
 
 <p><strong>上采样</strong>:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 首先将所有数据合并</span><br>dataframe = pd.concat(flatten, axis=<span class="hljs-number">0</span>, ignore_index=<span class="hljs-literal">True</span>)<br><span class="hljs-comment"># ...</span><br><span class="hljs-comment"># 再次筛选出刚才挖掘到的 test_examples</span><br>test_rows = dataframe[dataframe[<span class="hljs-string">&quot;source&quot;</span>] == <span class="hljs-string">&quot;test_examples&quot;</span>]<br><span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> test_rows.empty:<br>    <span class="hljs-comment"># 将它们再次追加到数据集末尾！</span><br>    dataframe = pd.concat([dataframe, test_rows], axis=<span class="hljs-number">0</span>, ignore_index=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="模型加载与-LoRA-微调（Unsloth）"><a href="#模型加载与-LoRA-微调（Unsloth）" class="headerlink" title="模型加载与 LoRA 微调（Unsloth）"></a>模型加载与 LoRA 微调（Unsloth）</h2><p><strong>lora微调</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">model = FastLanguageModel.get_peft_model(<br>    model,<br>    r=<span class="hljs-number">16</span>, <span class="hljs-comment"># LoRA 秩</span><br>    target_modules=[<span class="hljs-string">&quot;q_proj&quot;</span>, <span class="hljs-string">&quot;k_proj&quot;</span>, <span class="hljs-string">&quot;v_proj&quot;</span>, <span class="hljs-string">&quot;o_proj&quot;</span>, ...], <span class="hljs-comment"># 覆盖所有线性层</span><br>    <span class="hljs-comment"># ...</span><br>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="训练循环优化"><a href="#训练循环优化" class="headerlink" title="训练循环优化"></a>训练循环优化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">trainer = train_on_responses_only(<br>    trainer,<br>    instruction_part = <span class="hljs-string">&quot;&lt;|im_start|&gt;user&quot;</span>,<br>    response_part = <span class="hljs-string">&quot;&lt;think&gt;\n\n&lt;/think&gt;\n\n&quot;</span>, <span class="hljs-comment"># 针对特定模型的回复分隔符</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p><code>train_on_responses_only</code> 确保模型<strong>只计算回答部分的 Loss</strong>（即 “Yes&#x2F;No”），而忽略 Prompt 部分的 Loss。这让模型专注于分类决策，而不是学习如何复述问题，显著提升了分类任务的收敛速度。</p>
+<h2 id="推理逻辑"><a href="#推理逻辑" class="headerlink" title="推理逻辑"></a>推理逻辑</h2><p><strong>构建多变体 Token ID</strong>: LLM 的分词器（Tokenizer）对词首的单词（如 “Yes”）和句中的单词（如 “ Yes”）通常会分配不同的 ID。作者穷举了 “Yes” 的大小写变体以及带空格的版本，确保无论模型想输出哪种形式的“是”，其概率都能被捕获。</p>
+<p>这些变体是通过<strong>本地实验</strong>获得的，实验输出出现频率最高的 <strong>topK</strong> 个预测标记。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">POSITIVE_VARIANTS = [<span class="hljs-string">&quot;Yes&quot;</span>, <span class="hljs-string">&quot;YES&quot;</span>, <span class="hljs-string">&quot;Y&quot;</span>, <span class="hljs-string">&quot;yes&quot;</span>, <span class="hljs-string">&quot;True&quot;</span>]<br><span class="hljs-comment"># ...</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_first_token_ids</span>(<span class="hljs-params">tok, txt_or_texts</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>    <span class="hljs-comment"># ...</span><br>    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> texts:<br>        <span class="hljs-comment"># 这里的 t2 循环非常关键</span><br>        <span class="hljs-keyword">for</span> t2 <span class="hljs-keyword">in</span> (t, <span class="hljs-string">&quot; &quot;</span> + t):  <span class="hljs-comment"># 同时编码 &quot;Yes&quot; 和 &quot; Yes&quot; (带空格)</span><br>            ids = tok.encode(t2, add_special_tokens=<span class="hljs-literal">False</span>)<br>            <span class="hljs-keyword">if</span> ids:<br>                s.add(ids[<span class="hljs-number">0</span>]) <span class="hljs-comment"># 只取第一个 Token ID</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sorted</span>(s)<br></code></pre></td></tr></table></figure>
+
+<p><strong>单次前向传播与概率聚合</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 运行一次模型，拿到 logits</span><br>out = model(**enc, use_cache=<span class="hljs-literal">True</span>)<br>step_scores = out.logits[:, -<span class="hljs-number">1</span>, :] <span class="hljs-comment"># 取最后一个 Token 的输出</span><br><br><span class="hljs-comment"># 提取所有目标 ID (Yes/No 变体) 的 Logits</span><br>sel = step_scores[:, tgt_ids]<br>logp = torch.log_softmax(sel.to(torch.float32), dim=-<span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># 聚合所有代表 &quot;Yes&quot; 的变体的概率 (LogSumExp)</span><br>y_logp = (torch.logsumexp(logp[:, yes_idx], dim=-<span class="hljs-number">1</span>) <span class="hljs-keyword">if</span> yes_idx <span class="hljs-keyword">else</span> ...)<br><br><span class="hljs-comment"># 聚合所有代表 &quot;No&quot; 的变体的概率</span><br>n_logp = (torch.logsumexp(logp[:,  no_idx], dim=-<span class="hljs-number">1</span>) <span class="hljs-keyword">if</span> no_idx  <span class="hljs-keyword">else</span> ...)<br><br><span class="hljs-comment"># 计算最终 Yes 的概率： P(Yes) / (P(Yes) + P(No))</span><br>p_yes  = torch.softmax(torch.stack([y_logp, n_logp], dim=-<span class="hljs-number">1</span>), dim=-<span class="hljs-number">1</span>)[:, <span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<h2 id="后处理"><a href="#后处理" class="headerlink" title="后处理"></a>后处理</h2><p><strong>秩归一化</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">grp   = df_scores.groupby(<span class="hljs-string">&quot;rule&quot;</span>)<br><span class="hljs-comment"># 对每条规则内部的预测概率进行排名 (Rank)</span><br>rank  = grp[<span class="hljs-string">&quot;prob&quot;</span>].rank(method=<span class="hljs-string">&quot;average&quot;</span>, ascending=<span class="hljs-literal">True</span>)<br>n     = grp[<span class="hljs-string">&quot;prob&quot;</span>].transform(<span class="hljs-string">&quot;size&quot;</span>)<br><span class="hljs-comment"># 将排名归一化到 [0, 1] 区间</span><br>score = (rank - <span class="hljs-number">1.0</span>) / np.maximum(n - <span class="hljs-number">1.0</span>, <span class="hljs-number">1.0</span>)<br></code></pre></td></tr></table></figure>
 
 
                 
