@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICML 2024）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-02T07:28:27.000Z">
-<meta property="article:modified_time" content="2025-12-05T07:28:59.256Z">
+<meta property="article:modified_time" content="2025-12-05T07:36:48.290Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1 字
+          424 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -352,6 +352,41 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICML 2024）</p>
 <span id="more"></span>
+
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>DoRA 的核心思想是将预训练权重分解为“幅度”和“方向”分别进行微调。</p>
+<p>DoRA 将权重矩阵 $W$ 分解为：</p>
+<p>$$W &#x3D; m \frac{V}{||V||_c}$$</p>
+<p>其中：</p>
+<ul>
+<li><p>$m \in \mathbb{R}^{1 \times k}$ 是幅度向量（Magnitude vector）。</p>
+</li>
+<li><p>$V \in \mathbb{R}^{d \times k}$ 是方向矩阵（Directional matrix）。</p>
+</li>
+<li><p>$||\cdot||_c$ 表示沿列计算的向量范数。</p>
+</li>
+</ul>
+<p> <strong>初始化</strong>：</p>
+<ul>
+<li><p>$m$ 初始化为预训练权重的列范数 $||W_0||_c$。</p>
+</li>
+<li><p>$V$ 初始化为预训练权重 $W_0$。</p>
+</li>
+</ul>
+<p><strong>微调过程</strong>：</p>
+<ul>
+<li><p><strong>幅度 ($m$)</strong>：作为一个可训练的向量直接进行微调。</p>
+</li>
+<li><p><strong>方向 ($V$)</strong>：保持 $V$ 冻结，通过 LoRA（即低秩矩阵 $B$ 和 $A$）来学习方向的增量更新 $\Delta V &#x3D; BA$ 10101010。</p>
+</li>
+</ul>
+<p><strong>最终权重公式</strong>：</p>
+<p>   $$W’ &#x3D; m \frac{W_0 + BA}{||W_0 + BA||_c}$$</p>
+<p>   这里 $m$ 是训练后的幅度向量，$W_0 + BA$ 是更新后的方向分量 。</p>
+<h2 id="梯度分析"><a href="#梯度分析" class="headerlink" title="梯度分析"></a>梯度分析</h2><h2 id="降低训练时的显存消耗"><a href="#降低训练时的显存消耗" class="headerlink" title="降低训练时的显存消耗"></a>降低训练时的显存消耗</h2><p>DoRA 通过一种简单的<strong>梯度截断</strong>策略，显著降低了训练时的显存消耗。具体来说，它将权重分解公式分母中的范数项视为常数，从而将其从梯度计算图中分离出去。</p>
+<p>更新后的权重 $W’$ 计算如下：</p>
+<p>$$W’ &#x3D; m \frac{V + \Delta V}{||V + \Delta V||_c}$$</p>
+<p>在反向传播过程中，由于分母 $||V + \Delta V||_c$ 包含可训练参数 $\Delta V$，计算 $\Delta V$ 的梯度时通常需要对这个范数项也进行求导。这种对分母的求导会导致梯度图变得复杂，从而增加了额外的显存开销。</p>
+<p>为了解决这个问题，作者提出了一种优化方案是反向传播时，将分母中的范数项 $||V + \Delta V||_c$ <strong>视为常数</strong>。</p>
 
                 
               </div>
