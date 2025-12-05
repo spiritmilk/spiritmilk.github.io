@@ -29,7 +29,7 @@
 <meta property="og:description" content="《Soft Instruction De-Escalation Defense》（软指令降级防御）。主要作者来自 CISPA Helmholtz Center 和 Google DeepMind 。 ICLR 2026在投，6666。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-04T06:39:26.000Z">
-<meta property="article:modified_time" content="2025-12-05T06:49:34.297Z">
+<meta property="article:modified_time" content="2025-12-05T06:53:28.729Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          140 字
+          480 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -355,7 +355,30 @@
 <span id="more"></span>
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>提示注入的目前的防御方法通常依赖于<strong>检测</strong>或<strong>过滤</strong>。然而，这些方法要么过于严格（导致误报率高，拒绝正常请求），要么容易被攻击者通过“对抗性重写”（Adversarial Rephrasing）绕过 。</p>
-<h2 id="方法：SIC-Soft-Instruction-Control"><a href="#方法：SIC-Soft-Instruction-Control" class="headerlink" title="方法：SIC (Soft Instruction Control)"></a>方法：SIC (Soft Instruction Control)</h2><h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>方法简单有效，但局限性有效，且还会带来性能的损失。感觉达不到ICLR的标准，使用吴恩达的审稿网站也只得到弱拒。</p>
+<h2 id="方法：SIC-Soft-Instruction-Control"><a href="#方法：SIC-Soft-Instruction-Control" class="headerlink" title="方法：SIC (Soft Instruction Control)"></a>方法：SIC (Soft Instruction Control)</h2><p>SIC 是一个在数据进入智能体之前的预处理层，具体步骤如下 ：</p>
+<p>1.<strong>注入虚拟指令</strong>（Inject Dummy Instructions）： 在不可信的输入数据中插入已知的“虚拟指令”（Canaries&#x2F;Traps）。如果这些指令在后续步骤中未被修改，说明清洗过程可能失效或被攻击者锁定 。</p>
+<p>2.<strong>重写&#x2F;清洗</strong>（Rewrite&#x2F;Mask）： 使用 LLM 将输入中的所有指令性内容进行处理。处理策略包括：</p>
+<ul>
+<li><p>Masking（掩码）： 将指令替换为占位符（如 <code>[PLACEHOLDER]</code>）。</p>
+</li>
+<li><p>Rephrasing（重述）： 将命令改写为纯信息陈述 。</p>
+</li>
+<li><p>Removal（移除）： 直接删除指令 。</p>
+</li>
+<li><p>注意：这是一个无状态的、多次迭代的过程 。</p>
+</li>
+</ul>
+<p>3.<strong>检测与验证</strong>（Detection &amp; Check）：</p>
+<p>检查虚拟指令是否被成功移除或重写 。</p>
+<p>使用分类器检查文本中是否仍包含任何指令 。</p>
+<ul>
+<li>分块检测（Chunking）： 为了防止攻击者通过长文本掩盖指令，系统会将文本切分成小块（Chunks）分别进行检测 。</li>
+</ul>
+<p>4.<strong>循环或终止</strong>：</p>
+<p>如果检测到仍有指令残留，则重复上述步骤，直到达到最大迭代次数。</p>
+<p>如果最终仍不干净，系统触发 <code>&lt;HALT&gt;</code>停止执行，以确保安全 。</p>
+<p>如果干净，则移除占位符并将清洗后的数据传给智能体 。</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>方法简单有效，但局限性有效，且还会带来性能的损失。感觉达不到ICLR的标准，使用吴恩达的审稿网站也只得到弱拒。</p>
 
                 
               </div>
