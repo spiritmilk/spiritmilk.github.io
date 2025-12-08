@@ -28,12 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="受@Avi Chawla启发。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/205/1.jpg">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/205/2.png">
 <meta property="article:published_time" content="2025-12-05T06:39:12.000Z">
-<meta property="article:modified_time" content="2025-12-05T07:29:48.739Z">
+<meta property="article:modified_time" content="2025-12-08T08:17:02.341Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/205/1.jpg">
   
   
   
@@ -297,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4 字
+          238 字
         
       </span>
     
@@ -308,7 +311,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -352,6 +355,17 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>受@<a target="_blank" rel="noopener" href="https://x.com/_avichawla/status/1996467023334039646">Avi Chawla</a>启发。</p>
 <span id="more"></span>
+
+<p><img src="/2021/1000/205/1.jpg"></p>
+<h2 id="Lora"><a href="#Lora" class="headerlink" title="Lora"></a>Lora</h2><p>W&#x3D;W+BA，其实B初始化为0，A使用高斯分布初始化。</p>
+<h2 id="LoRA-FA"><a href="#LoRA-FA" class="headerlink" title="LoRA-FA"></a>LoRA-FA</h2><p>LoRA with Frozen-A</p>
+<p>冻结A只训练B。</p>
+<h2 id="VeRA"><a href="#VeRA" class="headerlink" title="VeRA"></a>VeRA</h2><p>与 LoRA 直接训练矩阵 A 和 B 不同，LoRA+ 将这些矩阵初始化为共享的随机权重（即所有层中的矩阵 A 和 B 具有相同的权重值），并引入了两个新的可训练向量 d 和 b 。在训练过程，LoRA+ 仅优化向量 d 和 b 的参数值。</p>
+<h2 id="Delta-LoRA"><a href="#Delta-LoRA" class="headerlink" title="Delta -LoRA"></a>Delta -LoRA</h2><p>ICLR 2024拒</p>
+<p><img src="/2021/1000/205/2.png"></p>
+<p>(i) 它同时更新完整的权重矩阵 (W ) 以及两个低秩适应矩阵 (A 和 B )，利用增量更新产生的 $\Delta(A(t+1)B(t+1) − A(t)B(t))$ 来优化预训练权重 (W)</p>
+<p>(ii) 原本集成在传统 LoRA 模块中的Dropout层，在 Delta-LoRA 中被省略。这种省略源于认识到其存在违反了所需的假设$\frac{\partial \mathcal{L}}{\partial W}&#x3D;\frac{\partial \mathcal{L}}{\partial AB}$。</p>
+<h2 id="LoRA"><a href="#LoRA" class="headerlink" title="LoRA+"></a>LoRA+</h2><p>为矩阵 A 和矩阵 B 引入了不同的学习率。</p>
 
                 
               </div>
