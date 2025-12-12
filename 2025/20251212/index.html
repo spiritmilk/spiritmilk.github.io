@@ -29,8 +29,9 @@
 <meta property="og:description" content="（ICLR 2025） 同级的sgy之作。（标题看上去有一些梁晓丹老师的味道）。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/212/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/212/2.png">
 <meta property="article:published_time" content="2025-12-12T09:07:03.000Z">
-<meta property="article:modified_time" content="2025-12-12T13:51:48.201Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:26.118Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="peer">
@@ -300,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          670 字
+          751 字
         
       </span>
     
@@ -311,7 +312,7 @@
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -394,6 +395,10 @@
 <li><strong>输出形式：</strong> 生成目标的分割掩码 (<strong>[Mask]</strong>)，提供极高精度的视觉证据 。</li>
 </ul>
 <h3 id="证据链"><a href="#证据链" class="headerlink" title="证据链"></a>证据链</h3><p> (Chain of Evidence) 证据链类似于大型语言模型中的思维链。但在FaST 中，作者将其定义为基于正确证据的越来越深入的思考步骤。证据链的完成需要许多视觉智能体协作完成。</p>
+<p><img src="/2021/1000/212/2.png"></p>
+<p>系统将原始图像、问题以及上述所有生成的“证据”（线索、边界框、掩码）汇总。</p>
+<p><strong>Visual Sampler (视觉重采样器)：</strong> 为了处理过长的证据链，系统使用交叉注意力机制将图像 Token 数量从 256 压缩到 32。</p>
+<p>最终再次通过 MLLM 生成准确的答案 。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>8 张 NVIDIA A100-80GB GPU</p>
 <p>复现整个微调（fine-tuning）过程大约需要 15 个  A100 GPU days。</p>
 
