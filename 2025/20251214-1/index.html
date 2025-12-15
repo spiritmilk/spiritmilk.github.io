@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="腾讯云黑客松-智能渗透挑战赛第 4 名核心代码。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/1/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251214-1/1.png">
 <meta property="article:published_time" content="2025-12-14T12:28:49.000Z">
 <meta property="article:modified_time" content="2025-12-14T15:38:36.551Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="大模型">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/1/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251214-1/1.png">
   
   
   
@@ -359,7 +359,7 @@
 <p>在腾讯云黑客松中获得了 Top 4，且成本极低，约1500 RMB token（作者所言）。</p>
 <hr>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>大概流程如下：</p>
-<p><img src="/2019/20190430/1/1.png"></p>
+<p><img src="/2025/20251214-1/1.png"></p>
 <h3 id="主程序"><a href="#主程序" class="headerlink" title="主程序"></a>主程序</h3><p>主程序是tinyctfer.py。一共100行。</p>
 <p>其中有一个<code>Ctfer</code>类。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, vnc_port, workspace</span>):<br>    <span class="hljs-variable language_">self</span>.image = <span class="hljs-string">&quot;l3yx/sandbox:latest&quot;</span>  <span class="hljs-comment"># 预装了 Claude Code、安全工具和 Python 执行器的镜像</span><br>    <span class="hljs-variable language_">self</span>.volumes = [<br>        <span class="hljs-comment"># 将宿主机的 claude 配置只读挂载进去，复用配置</span><br>        <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;SCRIPT_DIR/<span class="hljs-string">&#x27;claude_code&#x27;</span>&#125;</span>:/opt/claude_code:ro&quot;</span>, <br>        <span class="hljs-comment"># 将宿主机的 workspace 挂载进去，用于 AI 保存文件和代码</span><br>        <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;workspace&#125;</span>:/home/ubuntu/Workspace&quot;</span> <br>    ]<br>    <span class="hljs-comment"># 注入 Anthropic 的 API Key，无需在镜像内硬编码</span><br>    <span class="hljs-variable language_">self</span>.environment = &#123; ... &#125;<br>    <span class="hljs-comment"># 端口映射：将容器内的 5901 (VNC) 映射到宿主机，允许人类“监工”</span><br>    <span class="hljs-variable language_">self</span>.ports = &#123;<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;vnc_port&#125;</span>&quot;</span>:<span class="hljs-string">&quot;5901&quot;</span>&#125; <br>    <br>    <span class="hljs-comment"># 启动容器</span><br>    <span class="hljs-variable language_">self</span>.container = <span class="hljs-variable language_">self</span>.docker_client.containers.run(..., detach=<span class="hljs-literal">True</span>, remove=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
