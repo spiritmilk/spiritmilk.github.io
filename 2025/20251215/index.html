@@ -21,19 +21,21 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="（ACL 2025)">
+    <meta name="description" content="（ACL 2025) 厦门大学、微信出品。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小熊的小站">
 <meta property="og:url" content="https://lijianxiong.space/2025/20251215/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="（ACL 2025)">
+<meta property="og:description" content="（ACL 2025) 厦门大学、微信出品。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2025-12-15T02:53:49.000Z">
-<meta property="article:modified_time" content="2025-12-15T02:58:27.283Z">
+<meta property="article:modified_time" content="2025-12-15T03:01:30.875Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          421 字
+          431 字
         
       </span>
     
@@ -351,6 +353,7 @@
               <div class="markdown-body">
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ACL 2025)</p>
+<p>厦门大学、微信出品。</p>
 <span id="more"></span>
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>现有的主流 LMM（如 LLaVA-NeXT）为了处理高分辨率图像，通常将图像切割成多个局部块（patches）进行编码。这导致产生的 <strong>视觉 Token（Visual Tokens）数量激增</strong>。例如，一张 $672\times672$ 的图片可能会产生 2880 个 Token，导致推理成本随 Token 数量二次方增长，计算效率低下。</p>
@@ -372,6 +375,7 @@
 </blockquote>
 <p>作者认为，并非所有问题都需要极高分辨率的视觉信息。人类在回答简单问题（如“球衣是什么颜色？”）时只需要粗略一瞥（粗粒度），而在回答复杂问题（如“球衣上的数字是多少？”）时才需要仔细观察（细粒度）。</p>
 <p>故作者设计了一种机制，让模型像人类一样，根据具体任务动态决定“看”得多细致，从而去除冗余信息。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190430/1.png"></p>
 
                 
               </div>
