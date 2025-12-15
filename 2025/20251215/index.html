@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251215/1.png">
 <meta property="article:published_time" content="2025-12-15T02:53:49.000Z">
-<meta property="article:modified_time" content="2025-12-15T03:09:25.506Z">
+<meta property="article:modified_time" content="2025-12-15T08:26:25.350Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -403,6 +403,8 @@
 <li><strong>排序损失 (Ranking Loss)：</strong> 对于给定的图像和问题，让 LMM 使用所有不同粒度的特征分别预测答案，并计算生成正确答案的<strong>对数概率 (Log Probability)</strong>。根据这个概率对粒度进行优劣排序，强制路由器给“效果好”的粒度打高分，给“效果差”的打低分。</li>
 <li><strong>辅助损失：</strong> 同时结合交叉熵损失 ($\mathcal{L}_{ce}$)，让路由器直接学习预测 LMM 认为最好的那个粒度。</li>
 </ul>
+<h2 id="实验配置"><a href="#实验配置" class="headerlink" title="实验配置"></a>实验配置</h2><p>训练时使用8张 H800 GPU。</p>
+<p>测试时使用8 张 V100 GPU，batch size&#x3D;1。</p>
 
                 
               </div>
