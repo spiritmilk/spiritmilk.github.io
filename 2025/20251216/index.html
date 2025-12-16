@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICLR 2024） 提出了一种新的 LLM-KG 整合范式”$LLM\otimes KG$”，将 LLM 视为代理，交互式探索 KG（知识图谱） 上的相关实体和关系，并基于检索到的知识进行推理。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
 <meta property="article:published_time" content="2025-12-16T10:27:22.000Z">
-<meta property="article:modified_time" content="2025-12-16T10:42:34.205Z">
+<meta property="article:modified_time" content="2025-12-16T10:53:32.197Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          99 字
+          461 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -356,8 +358,29 @@
 
 <hr>
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>LLM面临幻觉或者推理能力受限的问题。因此有些方法接入外部知识 (KG or 数据库) 来作为 LLM 的一个补充。</p>
-<p>然而目前</p>
-
+<p>然而目前现有的结合方法通常是 比较简单的模式（作者称为$LLM\oplus KG$，例如用 LLM 生成 SPARQL 查询语句），这种“松耦合”模式中，LLM 仅作为翻译器，不直接参与推理过程。如果生成的查询语句有误或 KG 缺失特定关系，推理就会失败 。</p>
+<p><img src="/2019/20190323/1.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>LLM 被视为一个<strong>智能体（Agent）</strong>，它利用**波束搜索（Beam Search）**算法在知识图谱上一步步地“行走”和“思考”，动态地探索推理路径 。</p>
+<p><strong>ToG 的推理流程</strong>（三个阶段） ：</p>
+<ol>
+<li><strong>初始化（Initialization）：</strong></li>
+</ol>
+<p>给定一个问题，LLM 首先识别并提取问题中的“主题实体”（Topic Entities），作为图搜索的起点 。</p>
+<ol start="2">
+<li><strong>探索（Exploration）：</strong></li>
+</ol>
+<p>这是基于波束搜索的迭代过程。在每一跳（Hop）中，包含两个步骤：</p>
+<ul>
+<li><p><strong>关系探索（Relation Exploration）：</strong> 搜索与当前实体相连的关系，LLM 对这些关系与问题的相关性进行打分（Prune），保留 Top-N 个最相关的关系 。</p>
+</li>
+<li><p><strong>实体探索（Entity Exploration）：</strong> 根据保留的关系查找对应的尾实体，LLM 再次根据问题对这些实体进行打分和剪枝，保留最有希望的路径 。</p>
+</li>
+</ul>
+<ol start="3">
+<li><strong>推理（Reasoning）：</strong></li>
+</ol>
+<p>在每次迭代后，LLM 会评估当前收集到的路径信息是否足以回答问题。如果足够，则生成答案；如果不足，则继续下一轮深度的探索，直到达到最大搜索深度 。</p>
+<h3 id="变体"><a href="#变体" class="headerlink" title="变体"></a>变体</h3>
                 
               </div>
             
