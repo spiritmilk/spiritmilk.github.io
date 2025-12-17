@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2025/20251217/1.png">
 <meta property="article:published_time" content="2025-12-17T10:50:07.000Z">
-<meta property="article:modified_time" content="2025-12-17T11:03:39.527Z">
+<meta property="article:modified_time" content="2025-12-17T11:16:09.095Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          493 字
+          671 字
         
       </span>
     
@@ -310,7 +310,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -357,7 +357,7 @@
 <span id="more"></span>
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>目前检测 LLM 幻觉的方法通常依赖于简单的启发式规则或仅利用单一的信号（例如仅查看某些层的激活值或注意力图），缺乏对模型内部计算过程的统一和整体性建模 。</p>
-<p>作者认为 LLM 的生成过程本质上是一个信息流动的过程。Token 之间的注意力机制天然形成了一个图结构。因此，可以将**注意力（Attention）<strong>和</strong>激活值（Activations）<strong>统一到一个图结构中，通过</strong>图机器学习（Graph Learning）**的方法来自动学习如何识别幻觉 。</p>
+<p>作者认为 LLM 的生成过程本质上是一个信息流动的过程。Token 之间的注意力机制天然形成了一个图结构。因此，可以将<strong>注意力</strong>（Attention）和<strong>激活值</strong>（Activations）统一到一个图结构中，通过<strong>图机器学习</strong>（Graph Learning）的方法来自动学习如何识别幻觉 。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>CHARM 将 LLM 处理 Prompt 和生成 Response 的过程构建为一个<strong>有向属性图</strong> $G&#x3D;(V, E, X_V, X_E)$ ：</p>
 <ul>
 <li><strong>节点 (Nodes, $V$)：</strong> 序列中的每一个 Token 就是一个节点。</li>
@@ -376,8 +376,11 @@
 <li>如果是<strong>Token 级检测</strong>，则不做聚合。</li>
 <li>如果是<strong>句子&#x2F;回答级检测</strong>，则将所有 Token 的表示聚合（如求平均）。</li>
 </ul>
-<p><strong>$f_{pred}$ (预测头)：</strong> 一个多层感知机（MLP），输出幻觉的预测分数 14。</p>
+<p><strong>$f_{pred}$ (预测头)：</strong> 一个多层感知机（MLP），输出幻觉的预测分数 。</p>
 <p><img src="/2025/20251217/1.png"></p>
+<h3 id="统一"><a href="#统一" class="headerlink" title="统一"></a>统一</h3><p>作者从数学上证明了 CHARM <strong>可以统一</strong> 了目前最先进的两种基于注意力的启发式检测方法 ：</p>
+<p><strong>Lookback Lens：</strong> 一种基于 Token 级注意力比率的检测方法。论文证明 CHARM 可以在单层消息传递中逼近 Lookback Lens 的计算逻辑 。</p>
+<p>每个toekn $i&#x3D;n_p,…,n_r+n_p-1$，为了简便忽略了头H和层数$l$符号：<br>$$<br>\begin{align}<br>P&#x3D;\frac{1}{n_p}\sum \alpha \\<br>R_i&#x3D;\frac{1}{i-n_p}\sum \alpha \\<br>\ell_i&#x3D;\frac{P_i}{P_i+R_i}<br>\end{align}<br>$$<br> <strong>LLM-Check：</strong> 一种基于注意力矩阵对数行列式的句子级检测方法。论文证明 CHARM 同样可以逼近这种全局统计量的计算 。<br>$$<br>c&#x3D;\frac{1}{H}\sum\sum log(\alpha)<br>$$</p>
 
                 
               </div>
