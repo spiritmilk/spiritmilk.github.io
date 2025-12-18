@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/218-1/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/218-1/4.png">
 <meta property="article:published_time" content="2025-12-18T12:31:52.000Z">
-<meta property="article:modified_time" content="2025-12-18T16:34:19.916Z">
+<meta property="article:modified_time" content="2025-12-18T16:44:47.812Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          376 字
+          621 字
         
       </span>
     
@@ -313,7 +313,7 @@
         
         
         
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -362,7 +362,7 @@
 <p><img src="/2021/1000/218-1/2.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>依旧是$h&#x3D;h+\lambda v$。但是不同于VTI等方法的v是真实-幻觉差分矩阵的SVD的v向量。</p>
 <p>TSV采用了更复杂的方法，位置也不同。</p>
-<p>TSV通过MLE来实现幻觉和真实空间的有效分离。<br>$$<br>argmax_v\Pi^{\mathcal{D}<em>E}</em>{i&#x3D;1} p(c_i\mid \Phi_{final}(h_i^{(l)}+\lambda v))<br>$$<br>对于MLE，需要显式建模概率分布 $p(c_i\mid \Phi_{final}(h_i^{(l)}+\lambda v))$。具体而言，使用具有单位范数的超球面分布来建模最终层的最后一个 token 嵌入，其中真实数据和幻觉数据各自形成不同的簇。</p>
+<h3 id="第一阶段：基于MLE的有标签"><a href="#第一阶段：基于MLE的有标签" class="headerlink" title="第一阶段：基于MLE的有标签"></a>第一阶段：基于MLE的有标签</h3><p>TSV通过MLE来实现幻觉和真实空间的有效分离。<br>$$<br>argmax_v\Pi^{\mathcal{D}<em>E}</em>{i&#x3D;1} p(c_i\mid \Phi_{final}(h_i^{(l)}+\lambda v))<br>$$<br>对于MLE，需要显式建模概率分布 $p(c_i\mid \Phi_{final}(h_i^{(l)}+\lambda v))$。具体而言，使用具有单位范数的超球面分布来建模最终层的最后一个 token 嵌入，其中真实数据和幻觉数据各自形成不同的簇。</p>
 <blockquote>
 <p>作者还扯到什么RMSNorm和Von Mises-Fisher 分布。</p>
 <p>很ICML的风格。</p>
@@ -372,7 +372,16 @@
 <blockquote>
 <p>隔这在重温机器学习的内容呢</p>
 </blockquote>
-<p>原型向量$\mu_c$可以通过指数移动平均更新。<br>$$<br>\mu_c&#x3D;no<br>$$</p>
+<p>原型向量$\mu_c$可以通过指数移动平均更新。<br>$$<br>\mu_c \leftarrow norm[\alpha \mu_c+(1-\alpha)r^v]<br>$$<br>其中$r^v&#x3D;\sum \frac{q(c\mid r_i^v)r_i^v}{\sum_j q(c\mid r_j^v)}$为类别c的规范化的嵌入的均值。</p>
+<h3 id="第二阶段：基于MLE的有标签"><a href="#第二阶段：基于MLE的有标签" class="headerlink" title="第二阶段：基于MLE的有标签"></a>第二阶段：基于MLE的有标签</h3><p>少量标注样本可能无法完全捕捉真实数据与幻觉数据分布中固有的多样性。为解决这一局限性，作者提出进一步引入未标记的训练数据以增强学习过程。</p>
+<p>这部分使用的是最佳传输（OT）。</p>
+<p>目标是找一个分配矩阵$Q\in R^{M\times 2}$，（M是无标注样本数），将M个样本分别给2个类别（真实&#x2F;幻觉），同时最小化传输代价。</p>
+<p>优化目标：</p>
+<p>$$\min_{Q} - \sum_{m&#x3D;1}^{M} \sum_{c \in \mathcal{C}} Q_{m,c} \log P_{m,c} - \epsilon H(Q)$$</p>
+<ul>
+<li>$P_{m,c}$：模型当前预测的概率（Cost Matrix 的反面）。</li>
+<li>$H(Q)$：熵正则项，用于平滑分配并允许使用快速的 Sinkhorn 算法求解。</li>
+</ul>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2021/1000/218-1/1.png"></p>
 <p><img src="/2021/1000/218-1/3.png"></p>
 <p>与 PEFT 方法的性能对比:</p>
