@@ -29,7 +29,7 @@
 <meta property="og:description" content="arxiv 2025） 本论文关注一种有趣的空间注意力偏差：当输入为左右拼接的双图时，模型在生成描述顺序上显著倾向于先描述左侧内容。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-24T17:18:27.000Z">
-<meta property="article:modified_time" content="2025-12-24T17:26:42.092Z">
+<meta property="article:modified_time" content="2025-12-24T17:27:28.398Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          355 字
+          410 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -361,6 +361,8 @@
 <p><strong>重要性：</strong> 这种偏差可能会影响模型在用户界面（UI）、机器人技术和决策支持系统中的可靠性，特别是在需要公平和平衡视觉解释的场景中 。</p>
 <h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="数据集构建"><a href="#数据集构建" class="headerlink" title="数据集构建"></a>数据集构建</h3><p><strong>Caltech-101 控制对：</strong> 选取50对物体图像，生成“左-右”和水平翻转后的“右-左”版本，共100张测试图。这确保了偏差不是由某张图片内容更有趣引起的，而是纯粹的位置效应 。</p>
 <p><strong>桌面 UI 数据集 (Desktop UI)：</strong> 包含10张信息密集的数字界面截图（如 LinkedIn, Gmail 等），用于测试在高密度文本环境下模型的表现 。生成了所有无序成对组合（10 选 2 &#x3D; 45 个唯一组合）。</p>
+<h3 id="提示词"><a href="#提示词" class="headerlink" title="提示词"></a>提示词</h3><p><strong>中性提示：</strong> “描述这张图片”，不给方向指示 。</p>
+<p><strong>方向性提示：</strong> 明确要求“从左到右描述”或“从右到左描述”，包括简单指令和结构化的 JSON 指令 。</p>
 
                 
               </div>
