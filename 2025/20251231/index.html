@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2025） 将不同领域（翻译、摘要、QA、Agent、多模态）中的幻觉统一定义为**“不准确的（内部）世界建模”**。  写得比openai的《Why language models hallucinate》更实用一些。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-12-31T06:30:50.000Z">
-<meta property="article:modified_time" content="2025-12-31T06:34:46.361Z">
+<meta property="article:modified_time" content="2025-12-31T06:46:43.070Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          45 字
+          409 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -358,6 +358,23 @@
 <span id="more"></span>
 
 <hr>
+<h4 id="参考世界模型-Reference-World-Model-W"><a href="#参考世界模型-Reference-World-Model-W" class="headerlink" title="参考世界模型 (Reference World Model, $W$)"></a><strong>参考世界模型 (Reference World Model, $W$)</strong></h4><p>定义为一个元组：</p>
+<p>$$W &#x3D; (S, H, R)$$</p>
+<p>其中</p>
+<ul>
+<li><strong>$S$ (States):</strong> 可能的世界状态集合（例如：棋盘局面、数据库条目、真实世界事实）。</li>
+<li><strong>$H$ (History):</strong> 交互历史（例如：指令、对话记录、日志）。</li>
+<li><strong>$R$ (Rules):</strong> 约束状态合法性的规则（例如：国际象棋规则、物理定律）</li>
+</ul>
+<h4 id="视图函数-View-Function-V"><a href="#视图函数-View-Function-V" class="headerlink" title="视图函数 (View Function, $V$)"></a><strong>视图函数 (View Function, $V$)</strong></h4><p>模型并不总是能看到完整的世界 $W$。$V(W, x)$ 定义了对于输入 $x$，模型<strong>可见</strong>的世界部分（例如：RAG 中检索到的 Top-k 文档、Agent 看到的当前屏幕截图）。</p>
+<h4 id="冲突策略-Conflict-Policy-P-与-真值函数-T"><a href="#冲突策略-Conflict-Policy-P-与-真值函数-T" class="headerlink" title="冲突策略 (Conflict Policy, $P$) 与 真值函数 ($T$)"></a><strong>冲突策略 (Conflict Policy, $P$) 与 真值函数 ($T$)</strong></h4><p>这是最关键的部分。当不同来源的信息（如模型内部记忆 vs. 检索到的文档）发生冲突时，谁是真理？</p>
+<ul>
+<li><strong>冲突策略 $P$:</strong> 规定了优先极。例如，“检索文档优先于内部记忆”或“用户指令优先于现实常识” 。</li>
+<li><strong>真值函数 $T_{W,P}(x, c)$:</strong> 给定世界 $W$ 和策略 $P$，判断原子主张（Atomic Claim）$c$ 是 <code>true</code>、<code>false</code> 还是 <code>unknown</code> 。</li>
+</ul>
+<h4 id="幻觉的统一定义"><a href="#幻觉的统一定义" class="headerlink" title="幻觉的统一定义"></a><strong>幻觉的统一定义</strong></h4><p>给定输入 $x$ 和模型输出 $y$，若输出中包含的任意一个原子主张 $c$ 满足以下条件，则称 $y$ 包含幻觉：</p>
+<p>$$\exists c \in C(y), \text{ such that } T_{W,P}(x, c) &#x3D; \text{false}$$</p>
+<p>即：<strong>幻觉是模型输出所隐含的世界状态与参考世界模型 $W$（在给定策略 $P$ 下）相矛盾</strong> 。</p>
 
                 
               </div>
