@@ -28,16 +28,16 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2025） 清华大学、伊利诺伊大学厄巴纳-香槟分校和上海人工智能实验室出品。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/228/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/228/2.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/228/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251228/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251228/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251228/3.png">
 <meta property="article:published_time" content="2025-12-28T13:07:40.000Z">
 <meta property="article:modified_time" content="2025-12-28T13:25:50.555Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/228/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251228/1.png">
   
   
   
@@ -371,14 +371,14 @@
 <p>唯一使用的技术是<strong>clip higher</strong>。这是一种在长时域强化学习训练中提高稳定性的成熟做法。</p>
 <p>在标准的 PPO（近端策略优化）或 GRPO 算法中，为了防止策略更新过快导致崩溃，通常会对新旧策略的比率 $r_t(\theta)$ 进行对称裁剪，范围通常是 $[1-\epsilon, 1+\epsilon]$（例如 $[0.8, 1.2]$）。</p>
 <p>而 <strong>“clip higher”</strong> 指的是<strong>调高裁剪范围的上界</strong>。在 JustRL 中，其 <strong>Clip Ratio Range 为 [0.8, 1.28]</strong> 。</p>
-<p><img src="/2021/1000/228/1.png"></p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="/2021/1000/228/2.png"></p>
+<p><img src="/2025/20251228/1.png"></p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="/2025/20251228/2.png"></p>
 <p>应用于两个主流基座：<strong>DeepSeek-R1-Distill-Qwen-1.5B</strong> 和 <strong>OpenMath-Nemotron-1.5B</strong> 。</p>
 <p> JustRL-DeepSeek 在 9 个数学基准测试上的平均准确率为 <strong>54.87%</strong>，超过了采用九阶段训练的 ProRL-V2（53.08%） 。 JustRL-Nemotron 达到了 <strong>64.32%</strong> 的平均准确率，略高于采用复杂课程学习的 QuestA（63.81%），成为目前该规模下的最优性能 。JustRL 的计算开销比那些复杂的方案低得多。例如，在达到相同或更好性能的前提下，其算力使用量比 ProRL-V2 少 <strong>2 倍</strong>，比 BroRL 少 <strong>4.9 倍</strong> 。</p>
 <h2 id="训练动态分析：为什么它有效？"><a href="#训练动态分析：为什么它有效？" class="headerlink" title="训练动态分析：为什么它有效？"></a>训练动态分析：为什么它有效？</h2><p><strong>熵（Entropy）稳定：</strong> 策略熵自然振荡，没有出现探索崩溃或过早收敛，证明“简单即稳健” 。</p>
 <p><strong>奖励平滑提升：</strong> 奖励曲线单调上升，没有出现多阶段训练中常见的平台期或突然下跌 。</p>
 <p><strong>自然的长度收敛：</strong> 模型最初较啰嗦（约 8,000 token），但在没有任何惩罚的情况下，会自然压缩到 4,000-5,000 token 的高效范围。这种“有机压缩”比强制惩罚更具鲁棒性 。</p>
-<p><img src="/2021/1000/228/3.png"></p>
+<p><img src="/2025/20251228/3.png"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>添加“改进”措施反而会降低性能。这暗示，复杂性有时可能解决的是其他设计选择所引发的症状，而非根本的强化学习挑战。</p>
 <p>尽管作者展示了简单的强化学习方法效果良好，但无法确定其原因。是超参数？训练数据？验证器设计？还是三者之间的相互作用？作者结果仅限于 1.5B 规模下数学推理中的两种主干模型。推广到其他领域、模型大小和任务仍是一个开放问题。</p>
 <p><strong>简单性并非一定有效</strong>。在极端计算资源约束下，遇到未曾面对的特定失败模式，或在突破当前性能极限时，又或在奖励信号更嘈杂的领域中，额外的技术可能具有价值。</p>

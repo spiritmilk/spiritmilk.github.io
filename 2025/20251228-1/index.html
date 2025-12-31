@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2025）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/228-1/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/228-1/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251228-1/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251228-1/2.png">
 <meta property="article:published_time" content="2025-12-28T13:45:11.000Z">
 <meta property="article:modified_time" content="2025-12-28T15:00:02.894Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/228-1/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251228-1/1.png">
   
   
   
@@ -364,8 +364,8 @@
 <li><strong>结论 1：注意力在层间动态移动。</strong> 模型在处理图像时，不同层关注的区域是不同的。正确且锐利的注意力分布通常出现在<strong>中间层</strong>（约 12-26 层） 。</li>
 <li><strong>结论 2：增加计算量能提升感知。</strong> 如果在某一特定层对高注意力的视觉标记进行复制或增加计算资源，模型对该区域的感知和认知表现会显著增强 。</li>
 </ul>
-<p><img src="/2021/1000/228-1/1.png"></p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2021/1000/228-1/2.png"></p>
+<p><img src="/2025/20251228-1/1.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2025/20251228-1/2.png"></p>
 <h3 id="显著性引导扫描-Saliency-Guided-Scanning-SGS"><a href="#显著性引导扫描-Saliency-Guided-Scanning-SGS" class="headerlink" title="显著性引导扫描 (Saliency-Guided Scanning, SGS)"></a>显著性引导扫描 (Saliency-Guided Scanning, SGS)</h3><p>模型利用文本查询（Query）与图像标记（Key）之间的注意力图来计算每个区域的“显著性分数” 。使用最后一个文本 token 来计算每个视觉 token的显著性。</p>
 <p>将图像划分为 $p \times p$ 个区域，计算每个格子的聚合显著性，识别出当前层最重要的区域。</p>
 <p><strong>显著性比例 ($\rho$)</strong> 用于衡量注意力的聚焦程度。比例越高，表示关注越集中；比例越低，表示关注越分散。</p>

@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2025）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/227/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2025/20251227/1.png">
 <meta property="article:published_time" content="2025-12-27T14:02:15.000Z">
-<meta property="article:modified_time" content="2025-12-27T15:41:03.044Z">
+<meta property="article:modified_time" content="2025-12-28T13:45:18.801Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/227/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2025/20251227/1.png">
   
   
   
@@ -358,7 +358,7 @@
 
 <h2 id="两个关键发现"><a href="#两个关键发现" class="headerlink" title="两个关键发现"></a>两个关键发现</h2><p><strong>时间注意力崩溃（Temporal Attention Collapse, TAC）</strong>：研究发现，当模型产生幻觉时，其注意力往往会过度集中在单个视频帧或语义贫乏的片段上，从而忽略了视频的其他关键部分 。</p>
 <p><strong>视觉注意力消失（Visual Attention Vanishing, VAV）</strong>：在生成过程中，模型对视觉信息的注意力会在<strong>某个点</strong>之后突然大幅下降。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2021/1000/227/1.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2025/20251227/1.png"></p>
 <p>针对一个提问，模型并行生成 $N$ 个候选答案。</p>
 <p><strong>幻觉评估（TAC Score）</strong>：利用模型自身的注意力分布计算“时间注意力崩溃得分”。该得分结合了<strong>帧级崩溃</strong>（注意力是否集中在单帧）和<strong>片段级崩溃</strong>（模型盯着一段几乎没有动作或物体变化的视频发呆，然后根据这种无意义的视觉输入胡乱推理） 。</p>
 <ul>
