@@ -29,7 +29,7 @@
 <meta property="og:description" content="CVPR 2025 研讨会上举办的 第六届热成像超分辨率（TISR）挑战赛（PBVS 2025） 的结果、数据集以及获奖团队所采用的技术方案。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-06T06:54:49.000Z">
-<meta property="article:modified_time" content="2026-01-06T08:23:36.332Z">
+<meta property="article:modified_time" content="2026-01-06T08:24:53.650Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          633 字
+          689 字
         
       </span>
     
@@ -390,15 +390,17 @@
 <h3 id="AiMF-SR-团队"><a href="#AiMF-SR-团队" class="headerlink" title="AiMF-SR 团队"></a>AiMF-SR 团队</h3><p><strong>架构</strong>：基于 <strong>HMANet</strong> (Hybrid Multi-Axis Aggregation Network)，特别是使用了 HMA-Medium 变体 。</p>
 <p><strong>核心组件</strong>：利用残差混合 Transformer 块 (RHTBs) 来增强全局特征表示 。</p>
 <p><strong>训练策略</strong>：先在 ImageNet 上预训练 (x4)，然后在 DF2K 和 Urban100 数据集上微调，最后使用比赛数据进行 x8 训练 。</p>
-<p><strong>损失函数</strong>：结合了 <strong>L1 Loss、FFT Loss（频域损失）和 SSIM Loss</strong>，权重分别为 1.0, 0.05, 0.05 。</p>
+<p><strong>损失函数</strong>：结合了 <strong>L1 Loss、FFT Loss（频域损失）和 SSIM Loss</strong>，权重分别为 1.0, 0.05, 0.05 。实验在配备 80 GB 显存的 NVIDIA A100 GPU 上进行，训练历时约三天，批大小为 16。</p>
 <h3 id="InVilab-Uantwerp-团队"><a href="#InVilab-Uantwerp-团队" class="headerlink" title="InVilab Uantwerp 团队"></a>InVilab Uantwerp 团队</h3><p><strong>架构</strong>：结合了 <strong>SR-Former</strong> 和 <strong>HAT</strong> (Hybrid Attention Transformer)，并提出了一种新颖的 <strong>热梯度空间注意力 (TGSA)</strong> 模块 。</p>
 <p><strong>创新点 (TGSA)</strong>：使用 Sobel 滤波器计算局部热梯度，生成空间注意力图，引导模型关注热图像中的边缘和热点区域 。</p>
 <p><strong>数据增强</strong>：使用了非常广泛的数据增强，包括通过 RGB-to-IR 转换生成的<strong>合成红外图像</strong> 。</p>
 <p><strong>后处理</strong>：使用了自集成技术（对旋转后的图像预测结果取平均）。</p>
+<p>训练使用了四块 NVIDIA A100 GPU，模型采用 PyTorch 语言编写，并结合了 BasicSR 和 xFormers。</p>
 <h3 id="TongJi-SR-团队-Track-1-冠军"><a href="#TongJi-SR-团队-Track-1-冠军" class="headerlink" title="TongJi-SR 团队 (Track 1 冠军)"></a>TongJi-SR 团队 (Track 1 冠军)</h3><p>基于 <strong>DRCT</strong> (Dense Residual Connected Transformer) 架构，利用 Swin Transformer 进行全局空间建模 。</p>
 <p><strong>策略</strong>：使用了<strong>多尺度监督 (Multi-scale supervision)</strong> 和基于组合的数据增强 。</p>
 <p><strong>损失函数</strong>：MSE Loss (权重 1.0) + SSIM Loss (权重 0.02) 。</p>
 <p><strong>验证</strong>：使用了 5折交叉验证 (5-fold cross validation) 来选择最佳模型 。</p>
+<p>训练在 NVIDIA 4090 GPU 上使用 PyTorch 进行。</p>
 
                 
               </div>
