@@ -29,7 +29,7 @@
 <meta property="og:description" content="CVPR 2025 研讨会上举办的 第六届热成像超分辨率（TISR）挑战赛（PBVS 2025） 的结果、数据集以及获奖团队所采用的技术方案。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-06T06:54:49.000Z">
-<meta property="article:modified_time" content="2026-01-06T07:24:32.747Z">
+<meta property="article:modified_time" content="2026-01-06T08:23:36.332Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          297 字
+          633 字
         
       </span>
     
@@ -307,7 +307,7 @@
         
         
         
-          3 分钟
+          6 分钟
         
       </span>
     
@@ -363,6 +363,42 @@
 <p>700对用于训练，200对用于验证，100对用于测试 。</p>
 <p>要依据 PSNR（峰值信噪比） 和 SSIM（结构相似性） 来决定排名 。</p>
 <h2 id="Tracks1"><a href="#Tracks1" class="headerlink" title="Tracks1"></a>Tracks1</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>仅利用低分辨率的热成像输入，将其分辨率放大 <strong>8倍 (x8)</strong> 。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>PSNR</th>
+<th>SSIM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AiMF-SR [70.02M]</td>
+<td>28.09</td>
+<td>0.8421</td>
+</tr>
+<tr>
+<td>InVilab[21.6M]</td>
+<td>28.49</td>
+<td>0.8437</td>
+</tr>
+<tr>
+<td>TongJi-SR[27.73]</td>
+<td>28.52</td>
+<td>0.8466</td>
+</tr>
+</tbody></table>
+<h3 id="AiMF-SR-团队"><a href="#AiMF-SR-团队" class="headerlink" title="AiMF-SR 团队"></a>AiMF-SR 团队</h3><p><strong>架构</strong>：基于 <strong>HMANet</strong> (Hybrid Multi-Axis Aggregation Network)，特别是使用了 HMA-Medium 变体 。</p>
+<p><strong>核心组件</strong>：利用残差混合 Transformer 块 (RHTBs) 来增强全局特征表示 。</p>
+<p><strong>训练策略</strong>：先在 ImageNet 上预训练 (x4)，然后在 DF2K 和 Urban100 数据集上微调，最后使用比赛数据进行 x8 训练 。</p>
+<p><strong>损失函数</strong>：结合了 <strong>L1 Loss、FFT Loss（频域损失）和 SSIM Loss</strong>，权重分别为 1.0, 0.05, 0.05 。</p>
+<h3 id="InVilab-Uantwerp-团队"><a href="#InVilab-Uantwerp-团队" class="headerlink" title="InVilab Uantwerp 团队"></a>InVilab Uantwerp 团队</h3><p><strong>架构</strong>：结合了 <strong>SR-Former</strong> 和 <strong>HAT</strong> (Hybrid Attention Transformer)，并提出了一种新颖的 <strong>热梯度空间注意力 (TGSA)</strong> 模块 。</p>
+<p><strong>创新点 (TGSA)</strong>：使用 Sobel 滤波器计算局部热梯度，生成空间注意力图，引导模型关注热图像中的边缘和热点区域 。</p>
+<p><strong>数据增强</strong>：使用了非常广泛的数据增强，包括通过 RGB-to-IR 转换生成的<strong>合成红外图像</strong> 。</p>
+<p><strong>后处理</strong>：使用了自集成技术（对旋转后的图像预测结果取平均）。</p>
+<h3 id="TongJi-SR-团队-Track-1-冠军"><a href="#TongJi-SR-团队-Track-1-冠军" class="headerlink" title="TongJi-SR 团队 (Track 1 冠军)"></a>TongJi-SR 团队 (Track 1 冠军)</h3><p>基于 <strong>DRCT</strong> (Dense Residual Connected Transformer) 架构，利用 Swin Transformer 进行全局空间建模 。</p>
+<p><strong>策略</strong>：使用了<strong>多尺度监督 (Multi-scale supervision)</strong> 和基于组合的数据增强 。</p>
+<p><strong>损失函数</strong>：MSE Loss (权重 1.0) + SSIM Loss (权重 0.02) 。</p>
+<p><strong>验证</strong>：使用了 5折交叉验证 (5-fold cross validation) 来选择最佳模型 。</p>
 
                 
               </div>
