@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/exp1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/exp2.png">
 <meta property="article:published_time" content="2026-01-10T04:29:41.000Z">
-<meta property="article:modified_time" content="2026-01-10T08:05:04.427Z">
+<meta property="article:modified_time" content="2026-01-10T10:29:05.803Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3 字
+          512 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          1 分钟
+          5 分钟
         
       </span>
     
@@ -357,7 +357,28 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICML 2025）</p>
 <span id="more"></span>
 
+
+
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p><strong>工作流程</strong>：</p>
+<ol>
+<li>接收一段自然语言的任务描述（Task Description）。</li>
+<li>使用文本编码器（如 <code>gte-large</code> 或 LLM 自身）将描述转换为向量 。</li>
+<li>T2L 超网络根据这个向量，通过一次前向传播（Single Forward Pass），直接输出适配该任务的 LoRA 矩阵（A 和 B）。</li>
+<li>将生成的 LoRA 权重加载到冻结的基础 LLM 上，模型即刻具备该任务的能力。</li>
+</ol>
 <p><img src="/2019/20190430/1.png"></p>
+<p><strong>模型架构</strong>：</p>
+<p><strong>T2L-L (Large)：</strong> 直接输出完整的 $A$ 和 $B$ 矩阵。参数量最大（~55M）。</p>
+<p><strong>T2L-M (Medium)：</strong> $A$ 和 $B$ 共享输出头，通过 Learned Embedding 来区分生成 $A$ 还是 $B$。参数量中等（~34M）。</p>
+<p><strong>T2L-S (Small)：</strong> 极度压缩，每次只输出矩阵的一行&#x2F;列（Rank），参数量最小（~5M）。</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>作者尝试了两种训练策略。</p>
+<h3 id="策略一：基于重构的训练-Reconstruction-Distillation"><a href="#策略一：基于重构的训练-Reconstruction-Distillation" class="headerlink" title="策略一：基于重构的训练 (Reconstruction &#x2F; Distillation)"></a>策略一：基于重构的训练 (Reconstruction &#x2F; Distillation)</h3><p>先训练好几百个特定任务的 LoRA（作为 Oracle&#x2F;老师），然后训练 T2L 去“模仿”这些 LoRA 的参数权重 。</p>
+<p> T2L 能够很好地压缩和重建<strong>已见过</strong>的任务，性能甚至能略微超过原始 LoRA（起到正则化作用）。</p>
+<p>但在这种方法的泛化性可能不强。<strong>无法泛化到未见过的任务（Zero-shot 失败）。</strong></p>
+<p>功能相似的任务（如两个不同的数学任务），其训练出来的 LoRA 权重在参数空间中可能相距甚远（处于不同的局部极小值）。因此，T2L 无法学习到参数空间与任务语义的平滑映射关系 。</p>
+<h3 id="策略二：监督微调-Supervised-Fine-Tuning-SFT-——-推荐方案"><a href="#策略二：监督微调-Supervised-Fine-Tuning-SFT-——-推荐方案" class="headerlink" title="策略二：监督微调 (Supervised Fine-Tuning, SFT) —— 推荐方案"></a>策略二：监督微调 (Supervised Fine-Tuning, SFT) —— <strong>推荐方案</strong></h3><p>不预先训练 LoRA。直接让 T2L 连接到冻结的 LLM 上，使用多任务数据集（Super Natural Instructions, SNI），通过端到端的 Loss（预测 Token 的准确率）来更新 T2L 的参数 。</p>
+<p> T2L 能够学习将“任务描述语义”映射到“有效的 LoRA 参数”。</p>
+<p> <strong>具备强大的零样本（Zero-shot）泛化能力。</strong> 即使是训练集中没见过的任务，只要给一段描述，T2L 就能生成有效的适配器 。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2019/20190430/exp1.png"></p>
 <p><img src="/2019/20190430/exp2.png"></p>
 
