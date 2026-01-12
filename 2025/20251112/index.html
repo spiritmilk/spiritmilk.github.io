@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/halc.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/vnm.png">
 <meta property="article:published_time" content="2025-11-12T05:27:37.000Z">
-<meta property="article:modified_time" content="2026-01-12T14:20:39.213Z">
+<meta property="article:modified_time" content="2026-01-12T14:24:01.157Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -514,7 +514,7 @@
 <h4 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h4><p>《Alleviating Hallucination in Large Vision-Language Models with Active Retrieval Augmentation》按需检索，使用基于互信息（Mutual Information）的“Query-aware”难度度量。</p>
 <p><strong>粗粒度检索</strong>：使用 CLIP 对整张输入图片进行编码，从知识库（如COCO数据集）中检索相似的“图片-文本对” 。这提供了全局上下文信息。<strong>细粒度检索</strong>： 针对导致幻觉的具体物体。利用 LLaMA2 提取查询中的关键实体。使用 Grounding DINO 在原图中定位并裁剪出这些物体 。对裁剪出的物体区域进行检索（使用 Visual Genome 数据集）。这能捕捉到容易被忽略的细节属性。</p>
 <p>最后是重排。让 LVLM 为输入图片生成详细描述，然后计算该描述与检索到的文本之间的语义相似度，以此过滤掉不可靠的检索结果 。</p>
-<p>解码：$D &#x3D; \alpha \cdot p^{coarse} + (1-\alpha) \cdot p^{fine}$</p>
+<p>解码：$D &#x3D; \alpha \cdot p^{coarse} + (1-\alpha) \cdot p^{fine}$。</p>
 <h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><p>RITUAL 利用随机图像变换来补充原始图像并增强模型的鲁棒性。其关键思想是在解码过程中让模型接触到不同的视觉 变换，例如方向、尺度和颜色的变化。</p>
 <p>《Interpreting and mitigating hallucination in mllms through multi-agent debate》从模型集成风格的解决方案入手解决幻觉问题。具体来说，它通过实例化多个 MLLM 作为智能体来开展多轮辩论，采用多智能体辩论策略。</p>
 <p>《Look, Compare, Decide: Alleviating Hallucination in Large Vision-Language Models via Multi-View Multi-Path Reasoning》提出了一种多视图多路径策略。它涉及一种多视图信息搜索策略，从不同维度（“自顶向下”、“自下而上”和“常规”）穷尽地感知图像。此外，在答案解码阶段，它通过显式量化潜在答案的置信度得分，并聚合多条路径的整体置信度，进一步为每个信息视图引入了多路径推理。</p>
