@@ -42,8 +42,9 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/valid.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/octo.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/marine.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/halc.png">
 <meta property="article:published_time" content="2025-11-12T05:27:37.000Z">
-<meta property="article:modified_time" content="2026-01-12T13:11:22.944Z">
+<meta property="article:modified_time" content="2026-01-12T14:02:37.924Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -313,7 +314,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.7k 字
+          8.6k 字
         
       </span>
     
@@ -324,7 +325,7 @@
         
         
         
-          65 分钟
+          72 分钟
         
       </span>
     
@@ -494,8 +495,19 @@
 <p>CMVED在构建对比分布时，通过对自注意力层中与高跨模态注意权重相关的值向量进行选择性<br>屏蔽来进行失真</p>
 <h5 id="引导解码"><a href="#引导解码" class="headerlink" title="引导解码"></a>引导解码</h5><p>MARINE（ICML 2025）用一个额外的视觉编码器进行对象定位，并利用定位的对象引导解码过程。</p>
 <p><img src="/2019/20190430/marine.png"></p>
-<p>《eeing is Believing: Mitigating Hallucination in Large Vision-Language Models via CLIP-Guided Decoding》提出了一个 CLIP 引导的解码（GCD）方法。它首先通过在不同模型和数据集上的研究验证了 CLIPScore [135] 能够有效区分幻觉句子和非幻觉句子。基于这一结论，它进一步重新校准了 MLLMs 的解码过程。</p>
-<h5 id="视觉增强"><a href="#视觉增强" class="headerlink" title="视觉增强"></a>视觉增强</h5><h5 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h5><h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4><p>53</p>
+<p>《Seeing is Believing: Mitigating Hallucination in Large Vision-Language Models via CLIP-Guided Decoding》提出了一个 CLIP 引导的解码（GCD）方法。它首先通过在不同模型和数据集上的研究验证了 CLIPScore [135] 能够有效区分幻觉句子和非幻觉句子。基于这一结论，它进一步重新校准了 MLLMs 的解码过程。</p>
+<p>HALC（ICML 2024）设计了机制来定位细粒度的视觉信息，以纠正每个可能产生幻觉的生成词元。这本质上是一种基于视觉内容引导的解码策略。除了词元级别的修正，HALC 还结合了一种基于匹配的束搜索 (matching-based beam search)，利用视觉匹配得分来引导最终输出的生成，平衡了对象幻觉缓解和文本生成质量。</p>
+<p><img src="/2019/20190430/halc.png"></p>
+<p>DeCo（ICLR 2025） 动态选择前置层，并利用其先验知识作为指导来纠正最终的输出 Logit。</p>
+<p>SumGD（NAACL 2025 Findings）通过摘要减少文本上下文，自然地引导模型更多地关注图像信息，同时仅控制与图像相关的词性标记以保持文本质量。为了尽量减少不必要的干预以保持文本质量，在预测需要特定图像细节的图像相关 POS 标记时才参考摘要。</p>
+<h5 id="视觉增强"><a href="#视觉增强" class="headerlink" title="视觉增强"></a>视觉增强</h5><p>空着</p>
+<h5 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h5><p>OPERA（CVPR 2024）解决attention sink。</p>
+<p>《Skip \𝑛: A simple method to reduce hallucination in Large Vision-Language Models》发现的幻觉似乎很容易被段落换行 ‘\n\n’ 触发。故作者过设计提示词来指导模型在一个段落内输出响应，避使用 <code>\n</code>。此外，作者尝试在生成过程中手动降低生成 <code>\n</code> 的概率。</p>
+<p>ProjectAway（ICLR 2025）的工作探索了一种直接编辑潜在图像表示的新策略。通过分析和实验，他们发现所探索的策略可以以高去除率擦除真实和幻觉物体。因此，此工具被用于检测幻觉并减少视觉语言模型（VLM）内部表示中的幻觉。图像嵌入k 与目标文本嵌入t 的点积 p。若p&gt;0，$\vec{k}’ &#x3D; \vec{k} - \alpha \cdot \frac{p}{||\vec{t}||_{2}^{2}} \cdot \vec{t}$。</p>
+<p>Nullu（CVPR 2025）通过把模型权重投影到幻觉子空间上。</p>
+<p>CausalMM  (ICLR 2025)将结构因果建模应用于 MLLMs，将模态先验视为注意力机制和输出之间的混杂因子。（其实就是扰动注意力矩阵的VCD）</p>
+<p>《Thinking Before Looking: Improving Multimodal LLM Reasoning via Mitigating Visual Hallucination 》分为三步：（1）VIC 生成 (VIC Generation) —— “盲”推理：只给模型输入文本问题（Question）和特定的提示词（Prompt），不给看图片。（2）VIC 理据提取 (VIC Rationale Extraction)：将第一步生成的“推理步骤”和“原始图片”输入给多模态模型。模型充当执行者，按照步骤一步步去观察图片，并提取出事实依据。（3）答案推理：将“原始问题”、“图片”、“提取出的理据（Rationale）”以及一个“反思提示词（Reflection Prompt）”一起输入模型。</p>
+<h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4><p>LURE 使用了一种幻觉修订者，旨在将潜在的幻觉性描述转换为准确的描述。为了训练这样的修订者模型，构建了一个数据集。该数据集中的每个示例都包含一张图像及其对应的幻觉性描述，并以正确的描述作为目标输出。这些幻觉性描述是通过使用 GPT-3.5 修改准确描述生成的。这些调整由与对象幻觉相关的因素指导，包括共现、对象不确定性和对象位置。之后，作者使用该数据集微调了一个 MLLM作为修订者，在生成过程中作为额外步骤用于修正 MLLM 的输出。</p>
 
                 
               </div>
