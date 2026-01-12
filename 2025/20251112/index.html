@@ -43,8 +43,9 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/octo.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/marine.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/halc.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/vnm.png">
 <meta property="article:published_time" content="2025-11-12T05:27:37.000Z">
-<meta property="article:modified_time" content="2026-01-12T14:04:18.076Z">
+<meta property="article:modified_time" content="2026-01-12T14:20:39.213Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -314,7 +315,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.6k 字
+          9.5k 字
         
       </span>
     
@@ -325,7 +326,7 @@
         
         
         
-          72 分钟
+          79 分钟
         
       </span>
     
@@ -507,8 +508,21 @@
 <p>Nullu（CVPR 2025）通过把模型权重投影到幻觉子空间上。</p>
 <p>CausalMM  (ICLR 2025)将结构因果建模应用于 MLLMs，将模态先验视为注意力机制和输出之间的混杂因子。（其实就是扰动注意力矩阵的VCD）</p>
 <p>《Thinking Before Looking: Improving Multimodal LLM Reasoning via Mitigating Visual Hallucination 》分为三步：（1）VIC 生成 (VIC Generation) —— “盲”推理：只给模型输入文本问题（Question）和特定的提示词（Prompt），不给看图片。（2）VIC 理据提取 (VIC Rationale Extraction)：将第一步生成的“推理步骤”和“原始图片”输入给多模态模型。模型充当执行者，按照步骤一步步去观察图片，并提取出事实依据。（3）答案推理：将“原始问题”、“图片”、“提取出的理据（Rationale）”以及一个“反思提示词（Reflection Prompt）”一起输入模型。</p>
-<h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4><p>LURE 使用了一种幻觉修订者，旨在将潜在的幻觉性描述转换为准确的描述。为了训练这样的修订者模型，构建了一个数据集。该数据集中的每个示例都包含一张图像及其对应的幻觉性描述，并以正确的描述作为目标输出。这些幻觉性描述是通过使用 GPT-3.5 修改准确描述生成的。这些调整由与对象幻觉相关的因素指导，包括共现、对象不确定性和对象位置。之后，作者使用该数据集微调了一个 MLLM作为修订者，在生成过程中作为额外步骤用于修正 MLLM 的输出。</p>
+<h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><p>幻觉的一个显著原因是视觉注意力薄弱或减弱，因此缓解该问题的一种直观方法是显式突出兴趣对象。</p>
+<p>《Visual Noise for Mitigating Object Hallucinations in LVM》有针对性地对视觉输入进行扰动，可以将LVMs 的决策过程从参数偏差中转移，而不会改变原始模型的架构或机制。它制定了一个对抗性策略，以使 MLLM 响应与视觉内容对齐，同时减少参数知识偏差的影响。</p>
+<p><img src="/2019/20190430/vnm.png"></p>
+<h4 id="RAG"><a href="#RAG" class="headerlink" title="RAG"></a>RAG</h4><p>《Alleviating Hallucination in Large Vision-Language Models with Active Retrieval Augmentation》按需检索，使用基于互信息（Mutual Information）的“Query-aware”难度度量。</p>
+<p><strong>粗粒度检索</strong>：使用 CLIP 对整张输入图片进行编码，从知识库（如COCO数据集）中检索相似的“图片-文本对” 。这提供了全局上下文信息。<strong>细粒度检索</strong>： 针对导致幻觉的具体物体。利用 LLaMA2 提取查询中的关键实体。使用 Grounding DINO 在原图中定位并裁剪出这些物体 。对裁剪出的物体区域进行检索（使用 Visual Genome 数据集）。这能捕捉到容易被忽略的细节属性。</p>
+<p>最后是重排。让 LVLM 为输入图片生成详细描述，然后计算该描述与检索到的文本之间的语义相似度，以此过滤掉不可靠的检索结果 。</p>
+<p>解码：$D &#x3D; \alpha \cdot p^{coarse} + (1-\alpha) \cdot p^{fine}$</p>
+<h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><p>RITUAL 利用随机图像变换来补充原始图像并增强模型的鲁棒性。其关键思想是在解码过程中让模型接触到不同的视觉 变换，例如方向、尺度和颜色的变化。</p>
+<p>《Interpreting and mitigating hallucination in mllms through multi-agent debate》从模型集成风格的解决方案入手解决幻觉问题。具体来说，它通过实例化多个 MLLM 作为智能体来开展多轮辩论，采用多智能体辩论策略。</p>
+<p>《Look, Compare, Decide: Alleviating Hallucination in Large Vision-Language Models via Multi-View Multi-Path Reasoning》提出了一种多视图多路径策略。它涉及一种多视图信息搜索策略，从不同维度（“自顶向下”、“自下而上”和“常规”）穷尽地感知图像。此外，在答案解码阶段，它通过显式量化潜在答案的置信度得分，并聚合多条路径的整体置信度，进一步为每个信息视图引入了多路径推理。</p>
+<p>《A Unified Hallucination Mitigation Framework for Large Vision-Language Models 》（TMLR 2024）首先对查询进行分类，然后根据分类结果执行不同的幻觉缓解流程。</p>
+<h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4><p>LURE 使用了一种幻觉修订者，旨在将潜在的幻觉性描述转换为准确的描述。为了训练这样的修订者模型，构建了一个数据集。该数据集中的每个示例都包含一张图像及其对应的幻觉性描述，并以正确的描述作为目标输出。这些幻觉性描述是通过使用 GPT-3.5 修改准确描述生成的。这些调整由与对象幻觉相关的因素指导，包括共现、对象不确定性和对象位置。之后，作者使用该数据集微调了一个 MLLM作为修订者，在生成过程中作为额外步骤用于修正 MLLM 的输出。</p>
 <p>Volcano(NAACL 2024)引入了一个自我修正机制以减少幻觉。它由四个阶段组成：1）生成初始响应；2）为初始响应生成反馈；3）利用此反馈修订响应；4）比较修订前后的响应，决定哪个更好。第 2 到 4 阶段迭代重复。</p>
+<p>LogicCheckGPT (ACL 2024)深入探究 MLLMs 回复的逻辑一致性。具体而言，该方法可以分为两个阶段：第一阶段涉及询问对象的属性，接着根据属 性询问对象。它们的回复是否能形成逻辑闭合环是对象幻觉的一个指标。如果闭合环 的比例超过某个阈值，则通过提示 MLLM 来修正幻觉对象。</p>
+<p>VFC（CVPR 2024）采用智能体风格的工作流生成准确、详细的描述。通过以下步骤实现：1) 提案阶段，图像到文本描述模型提出多个初始描述；2) 验证阶段，大型语言模型 （LLM）利用目标检测和 VQA 模型等工具对提出的描述进行事实核查；3) 描述生成阶段， LLM 通过对描述提案和事实核查验证结果的总结生成最终描述。验证步骤可以有效减轻幻觉现象。</p>
 
                 
               </div>
