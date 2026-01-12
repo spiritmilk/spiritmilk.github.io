@@ -30,8 +30,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/hallucidoctor.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/vcoder.svg">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/patch.png">
 <meta property="article:published_time" content="2025-11-12T05:27:37.000Z">
-<meta property="article:modified_time" content="2026-01-12T06:44:23.085Z">
+<meta property="article:modified_time" content="2026-01-12T07:08:49.258Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -301,7 +303,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          5.2k 字
         
       </span>
     
@@ -312,7 +314,7 @@
         
         
         
-          38 分钟
+          44 分钟
         
       </span>
     
@@ -430,7 +432,19 @@
 <p>结合上述两个因子计算分数 $S_i&#x3D;E_i\cdot I_i$</p>
 <p>系统选择分数高的场景作为目标，将容易产生幻觉的物体（如“车”）通过图像修复技术（Inpainting&#x2F;Synthesis）添加到这些原本没有该物体的图像中 。同时更新文本指令，添加如“图像中还有一个[物体]”的描述。这样生成的增强数据集被称为 LLaVA++，它强迫模型通过视觉确认物体的存在，而不是依赖背景推测 。<br><img src="/2019/20190430/hallucidoctor.png"></p>
 <p>PerturboLLaVA（CVPR 2025)引入了精心设计的扰动。这些扰动与通用知识一致但与视觉内容冲突，有意误导模型基于其语言先验。这种扰动训练迫使模型在预测每个词元时仔细检查图像内容，而不是从文本提示中幻化出内容。</p>
-<h4 id="推理数据"><a href="#推理数据" class="headerlink" title="推理数据"></a>推理数据</h4><h4 id="清洁数据"><a href="#清洁数据" class="headerlink" title="清洁数据"></a>清洁数据</h4><h3 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h3><h4 id="放大分辨率"><a href="#放大分辨率" class="headerlink" title="放大分辨率"></a>放大分辨率</h4><h4 id="多功能视觉编码器"><a href="#多功能视觉编码器" class="headerlink" title="多功能视觉编码器"></a>多功能视觉编码器</h4><h4 id="专用模块"><a href="#专用模块" class="headerlink" title="专用模块"></a>专用模块</h4><h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><h4 id="辅助监督"><a href="#辅助监督" class="headerlink" title="辅助监督"></a>辅助监督</h4><h5 id="视觉监督"><a href="#视觉监督" class="headerlink" title="视觉监督"></a>视觉监督</h5><h5 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h5><h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><h4 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h4><h5 id="基于自动度量的最优化"><a href="#基于自动度量的最优化" class="headerlink" title="基于自动度量的最优化"></a>基于自动度量的最优化</h5><h5 id="人工智能反馈的强化学习（RLAIF）"><a href="#人工智能反馈的强化学习（RLAIF）" class="headerlink" title="人工智能反馈的强化学习（RLAIF）"></a>人工智能反馈的强化学习（RLAIF）</h5><h5 id="从人类反馈的强化学习-RLHF"><a href="#从人类反馈的强化学习-RLHF" class="headerlink" title="从人类反馈的强化学习 (RLHF)"></a>从人类反馈的强化学习 (RLHF)</h5><h5 id="视觉生成反馈"><a href="#视觉生成反馈" class="headerlink" title="视觉生成反馈"></a>视觉生成反馈</h5><h4 id="unlearning"><a href="#unlearning" class="headerlink" title="unlearning"></a>unlearning</h4><h3 id="推理-1"><a href="#推理-1" class="headerlink" title="推理"></a>推理</h3><h4 id="生成干预"><a href="#生成干预" class="headerlink" title="生成干预"></a>生成干预</h4><h5 id="对比解码"><a href="#对比解码" class="headerlink" title="对比解码"></a>对比解码</h5><h5 id="引导解码"><a href="#引导解码" class="headerlink" title="引导解码"></a>引导解码</h5><h5 id="视觉增强"><a href="#视觉增强" class="headerlink" title="视觉增强"></a>视觉增强</h5><h5 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h5><h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4>
+<h4 id="推理数据"><a href="#推理数据" class="headerlink" title="推理数据"></a>推理数据</h4><p>REVERIE （ECCV2024）则提出了反思性指令微调，将理由学习整合到视觉指令微调中。与之前仅从响应中学习的方法不同，这种方法要求模型预测解释为什么响应是正确或错误的理由。这种指令微调得到了专门策划的数据集 REVERIE 的支持。每个指令都配有一对精心标注的正确和混淆响应，以及详尽的理由，阐明每个响应正确或错误的原因。</p>
+<h4 id="清洁数据"><a href="#清洁数据" class="headerlink" title="清洁数据"></a>清洁数据</h4><p>《Mitigating Fine-Grained Hallucination by Fine-Tuning Large Vision-Language Models with Caption Rewrites》（MMM 2024）重写数据集中现有图像-文本对的文本描述。该框架包含两个步骤：1）关键词提取，从描述中提取动词、名词和形容词；2）描述生成，使用大型语言模型（LLM）根据提取的关键词生成句子。最终，该框架生成一组高质量的图像-描述对。实验结果表明，使用重写描述数据集训练的模型在某些基准上具有更高的准确率。</p>
+<p>《Less is More: Mitigating Multimodal Hallucination from an EOS Decision Perspective》（ ACL 2024）认为模型不能及时停止，数据抑制了EOS的产生，所以作者设计了一种数据过滤策略，以消除可能损害模型结束序列能力的有害训练数据。</p>
+<h3 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h3><h4 id="放大分辨率"><a href="#放大分辨率" class="headerlink" title="放大分辨率"></a>放大分辨率</h4><p>LLaVA  升级到 LLaVA-1.5 的一个重要更新是将 CLIP ViT 视觉编码器从 CLIP-ViT-L-224 扩展到 CLIP-ViT-L-336，从而带来了显著的性能提升。</p>
+<h4 id="多功能视觉编码器"><a href="#多功能视觉编码器" class="headerlink" title="多功能视觉编码器"></a>多功能视觉编码器</h4><p>比如VCoder（CVPR 2024 ）利用额外的感知格式（如分割掩码和深度图）来增强 MLLM 的目标识别能力。</p>
+<p><img src="/2019/20190430/vcoder.svg"></p>
+<p>EAGLE（ICLR 2026在投 4222评分）用具有增强视觉接地能力的视觉编码器重新训练模型。</p>
+<h4 id="专用模块"><a href="#专用模块" class="headerlink" title="专用模块"></a>专用模块</h4><p>PATCH（ACMMM 2025）引入可训练的虚拟 Token (Virtual Tokens) 和 物体检测信息。在 Prompt 中显式加入物体检测信息（类别 + 边界框）。格式为 <code>category&#123;&lt;x1&gt;&lt;x2&gt;&lt;x3&gt;&lt;x4&gt;&#125;</code> 。在图像特征和检测信息之间插入一组可学习的虚拟 Token T&#x3D;[t1,t2,…,tn] 。生成公式：$p(Y)&#x3D;\prod_{t&#x3D;1}^{T}p_{\delta,\theta}(y_{t}|I,[t_{1},t_{2},…,t_{n}],D,Q,y_{&lt;t})$。其中 I 是图像，D 是检测信息，Q 是问题，δ 是虚拟 Token 的参数 。在微调过程中，冻结 LVLM 的所有参数（包括视觉编码器和 LLM），仅更新虚拟 Token 的参数 。在推理阶段，这些训练好的 Token 可以动态地添加到词表中。如果用户提供了物体信息，就使用 PATCH；如果没有，模型可回退到原始状态 。</p>
+<ul>
+<li>+1</li>
+</ul>
+<p><img src="/2019/20190430/patch.png"></p>
+<h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><h4 id="辅助监督"><a href="#辅助监督" class="headerlink" title="辅助监督"></a>辅助监督</h4><h5 id="视觉监督"><a href="#视觉监督" class="headerlink" title="视觉监督"></a>视觉监督</h5><h5 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h5><h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><h4 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h4><h5 id="基于自动度量的最优化"><a href="#基于自动度量的最优化" class="headerlink" title="基于自动度量的最优化"></a>基于自动度量的最优化</h5><h5 id="人工智能反馈的强化学习（RLAIF）"><a href="#人工智能反馈的强化学习（RLAIF）" class="headerlink" title="人工智能反馈的强化学习（RLAIF）"></a>人工智能反馈的强化学习（RLAIF）</h5><h5 id="从人类反馈的强化学习-RLHF"><a href="#从人类反馈的强化学习-RLHF" class="headerlink" title="从人类反馈的强化学习 (RLHF)"></a>从人类反馈的强化学习 (RLHF)</h5><h5 id="视觉生成反馈"><a href="#视觉生成反馈" class="headerlink" title="视觉生成反馈"></a>视觉生成反馈</h5><h4 id="unlearning"><a href="#unlearning" class="headerlink" title="unlearning"></a>unlearning</h4><h3 id="推理-1"><a href="#推理-1" class="headerlink" title="推理"></a>推理</h3><h4 id="生成干预"><a href="#生成干预" class="headerlink" title="生成干预"></a>生成干预</h4><h5 id="对比解码"><a href="#对比解码" class="headerlink" title="对比解码"></a>对比解码</h5><h5 id="引导解码"><a href="#引导解码" class="headerlink" title="引导解码"></a>引导解码</h5><h5 id="视觉增强"><a href="#视觉增强" class="headerlink" title="视觉增强"></a>视觉增强</h5><h5 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h5><h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4>
                 
               </div>
             
