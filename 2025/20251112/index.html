@@ -29,8 +29,9 @@
 <meta property="og:description" content="基于综述《多模态大型语言模型的幻觉》2404.18930。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/hallucidoctor.png">
 <meta property="article:published_time" content="2025-11-12T05:27:37.000Z">
-<meta property="article:modified_time" content="2026-01-12T04:18:11.157Z">
+<meta property="article:modified_time" content="2026-01-12T06:44:23.085Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -300,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          4.5k 字
         
       </span>
     
@@ -311,7 +312,7 @@
         
         
         
-          31 分钟
+          38 分钟
         
       </span>
     
@@ -393,7 +394,43 @@
 <p><strong>VHTest</strong> 将图像中物体的视觉属性分为 1）个体属性，如存在性、形状、颜色、方向和 OCR；以及 2）群体属性，这些属性通过多个物体之间的比较产生，如相对大小、相对位置和计数。基于这种分类，作者进一步定义了 8 种视觉幻觉模式，为MLLMs 中的幻觉提供了非常详细的评估。此外，收集的 1200 个评估实例被分为两个版本：“开放性问题”（OEQ）和“是非问题”（YNQ）。这样的设计使该基准能够评估生成任务和判别任务。</p>
 <p> <strong>THRONE</strong> 将幻觉分类为生成任务和判别任务中的类型 I 和类型 II 幻觉。它认为大多数现有的基准专注于类型 II，其结果不能转化为类型 I。对于评估类型 I，现有工作的主要缺点是对闭源 GPT 模型的依赖。因此，本文提出了一种基于 MSCOCO数据集的评估框架，该框架 1) 评估自由格式输出中的对象幻觉；2) 利用开源大语言模型而不是闭源模型。</p>
 <p><strong>BEAF</strong> 创建了一个新的评估数据集，称为“BEfore-AFter 幻觉数据集”(BEAF)，并引入了新的指标：True Understanding(TU)，IGnorance (IG)，StuBbornness (SB)和 InDecision (ID)。与专注于构建问题和答案的先前工作不同，该基准的关键思想是通过图像编辑模型操纵视觉场景信息，并基于场景变化设计指标。这使得可以通过观察对变化的感知能力来清晰地评估 VLM 是否正确理解给定场景。</p>
-<h2 id="幻觉缓解"><a href="#幻觉缓解" class="headerlink" title="幻觉缓解"></a>幻觉缓解</h2><h3 id="数据-1"><a href="#数据-1" class="headerlink" title="数据"></a>数据</h3><h4 id="负面数据"><a href="#负面数据" class="headerlink" title="负面数据"></a>负面数据</h4><h4 id="反事实数据"><a href="#反事实数据" class="headerlink" title="反事实数据"></a>反事实数据</h4><h4 id="推理数据"><a href="#推理数据" class="headerlink" title="推理数据"></a>推理数据</h4><h4 id="清洁数据"><a href="#清洁数据" class="headerlink" title="清洁数据"></a>清洁数据</h4><h3 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h3><h4 id="放大分辨率"><a href="#放大分辨率" class="headerlink" title="放大分辨率"></a>放大分辨率</h4><h4 id="多功能视觉编码器"><a href="#多功能视觉编码器" class="headerlink" title="多功能视觉编码器"></a>多功能视觉编码器</h4><h4 id="专用模块"><a href="#专用模块" class="headerlink" title="专用模块"></a>专用模块</h4><h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><h4 id="辅助监督"><a href="#辅助监督" class="headerlink" title="辅助监督"></a>辅助监督</h4><h5 id="视觉监督"><a href="#视觉监督" class="headerlink" title="视觉监督"></a>视觉监督</h5><h5 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h5><h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><h4 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h4><h5 id="基于自动度量的最优化"><a href="#基于自动度量的最优化" class="headerlink" title="基于自动度量的最优化"></a>基于自动度量的最优化</h5><h5 id="人工智能反馈的强化学习（RLAIF）"><a href="#人工智能反馈的强化学习（RLAIF）" class="headerlink" title="人工智能反馈的强化学习（RLAIF）"></a>人工智能反馈的强化学习（RLAIF）</h5><h5 id="从人类反馈的强化学习-RLHF"><a href="#从人类反馈的强化学习-RLHF" class="headerlink" title="从人类反馈的强化学习 (RLHF)"></a>从人类反馈的强化学习 (RLHF)</h5><h5 id="视觉生成反馈"><a href="#视觉生成反馈" class="headerlink" title="视觉生成反馈"></a>视觉生成反馈</h5><h4 id="unlearning"><a href="#unlearning" class="headerlink" title="unlearning"></a>unlearning</h4><h3 id="推理-1"><a href="#推理-1" class="headerlink" title="推理"></a>推理</h3><h4 id="生成干预"><a href="#生成干预" class="headerlink" title="生成干预"></a>生成干预</h4><h5 id="对比解码"><a href="#对比解码" class="headerlink" title="对比解码"></a>对比解码</h5><h5 id="引导解码"><a href="#引导解码" class="headerlink" title="引导解码"></a>引导解码</h5><h5 id="视觉增强"><a href="#视觉增强" class="headerlink" title="视觉增强"></a>视觉增强</h5><h5 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h5><h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4>
+<h2 id="幻觉缓解"><a href="#幻觉缓解" class="headerlink" title="幻觉缓解"></a>幻觉缓解</h2><h3 id="数据-1"><a href="#数据-1" class="headerlink" title="数据"></a>数据</h3><h4 id="负面数据"><a href="#负面数据" class="headerlink" title="负面数据"></a>负面数据</h4><p>LRV-Instruction（ICLR 2024）发现模型倾向于始终回答“是”。LRV-Instruction 设计为包含正面和负面指令，以实现更强大的视觉指令微调，其中负面指令包括：1) ’ 不存在的对象操作’：引入不存在的对象、活动、属性和交互；2) ’ 存在对象的操作’：操纵具有不一致属性的存在对象；3) ’ 知识操作’：操纵指令中的知识。</p>
+<h4 id="反事实数据"><a href="#反事实数据" class="headerlink" title="反事实数据"></a>反事实数据</h4><p> HalluciDoctor（CVPR 2024)对数据集进行操作，首先是修复然后是增强。</p>
+<p><strong>修复阶段</strong>：</p>
+<ol>
+<li><strong>以描述为导向的答案块提取 (Description-Oriented Answer Chunks Extraction)</strong></li>
+</ol>
+<p>由于由于整段描述太长，直接检测很困难。系统首先使用文本场景图解析器（textual scene graph parsing），从原始的指令回复（GPT-4生成的描述）中提取出关键的语义单元，称为“答案块”。</p>
+<p>这些块包括：<strong>对象</strong>（objects）、<strong>属性</strong>（attributes）和<strong>关系</strong>（relations） 。</p>
+<p>例子： 从描述中提取出 <code>&lt;people, sit around, dining table&gt;</code> 或 <code>&lt;clock, place in, background&gt;</code> 。</p>
+<ol start="2">
+<li><strong>基于答案的问题生成 (Answer-based Question Generation)</strong></li>
+</ol>
+<p>利用 ChatGPT 将提取出的每一个“答案块”转化为具体的问题 。例子：针对 <code>&lt;clock, place in, background&gt;</code> 生成问题：“What is placed in the background of the image?”（背景里放了什么？） 。</p>
+<ol start="3">
+<li><strong>一致性交叉检查 (Consistency Cross-Checking)</strong></li>
+</ol>
+<p>核心步骤。将生成的具体问题输入给多个 <strong>MLLM 专家模型</strong>（如 BLIP2, InstructBLIP, MiniGPT-4），让它们看图回答，得到“以图像为导向的候选答案” 。将“原始描述的答案”与“专家模型看图得到的答案”进行比对。使用 BERT-based metric (BEM) 计算一致性分数（ConScore）。如果分数低于阈值（0.5），则判定该内容为幻觉 。</p>
+<ol start="4">
+<li><strong>幻觉消除 (Hallucination Elimination)</strong></li>
+</ol>
+<p>定位到具体的幻觉片段后，利用 ChatGPT 根据上下文自动重写句子，移除幻觉部分，同时保持语句通顺 。经过这一步清洗的数据集被称为 <strong>LLaVA+</strong> 。</p>
+<p>最后是** 基于跷跷板策略的视觉指令扩展** (Seesaw-based Visual Instruction Expansion)。</p>
+<ul>
+<li>增强因子 (Enhancement Factor, E)</li>
+</ul>
+<p>对于一个容易产生幻觉的物体 o（比如“车”），增加它与罕见共现物体的组合权重。打破“车只出现在路上”的固有印象 。</p>
+<ul>
+<li>抑制因子 (Inhibiting Factor, I)</li>
+</ul>
+<p>目的：虽然要打破常规，但不能生成不合逻辑的场景（比如“车在云端”）。抑制因子用于确保生成的组合在语境上是合理的 。</p>
+<ul>
+<li>跷跷板评分 (Seesaw-Score) 与合成</li>
+</ul>
+<p>结合上述两个因子计算分数 $S_i&#x3D;E_i\cdot I_i$</p>
+<p>系统选择分数高的场景作为目标，将容易产生幻觉的物体（如“车”）通过图像修复技术（Inpainting&#x2F;Synthesis）添加到这些原本没有该物体的图像中 。同时更新文本指令，添加如“图像中还有一个[物体]”的描述。这样生成的增强数据集被称为 LLaVA++，它强迫模型通过视觉确认物体的存在，而不是依赖背景推测 。<br><img src="/2019/20190430/hallucidoctor.png"></p>
+<p>PerturboLLaVA（CVPR 2025)引入了精心设计的扰动。这些扰动与通用知识一致但与视觉内容冲突，有意误导模型基于其语言先验。这种扰动训练迫使模型在预测每个词元时仔细检查图像内容，而不是从文本提示中幻化出内容。</p>
+<h4 id="推理数据"><a href="#推理数据" class="headerlink" title="推理数据"></a>推理数据</h4><h4 id="清洁数据"><a href="#清洁数据" class="headerlink" title="清洁数据"></a>清洁数据</h4><h3 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h3><h4 id="放大分辨率"><a href="#放大分辨率" class="headerlink" title="放大分辨率"></a>放大分辨率</h4><h4 id="多功能视觉编码器"><a href="#多功能视觉编码器" class="headerlink" title="多功能视觉编码器"></a>多功能视觉编码器</h4><h4 id="专用模块"><a href="#专用模块" class="headerlink" title="专用模块"></a>专用模块</h4><h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><h4 id="辅助监督"><a href="#辅助监督" class="headerlink" title="辅助监督"></a>辅助监督</h4><h5 id="视觉监督"><a href="#视觉监督" class="headerlink" title="视觉监督"></a>视觉监督</h5><h5 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h5><h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><h4 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h4><h5 id="基于自动度量的最优化"><a href="#基于自动度量的最优化" class="headerlink" title="基于自动度量的最优化"></a>基于自动度量的最优化</h5><h5 id="人工智能反馈的强化学习（RLAIF）"><a href="#人工智能反馈的强化学习（RLAIF）" class="headerlink" title="人工智能反馈的强化学习（RLAIF）"></a>人工智能反馈的强化学习（RLAIF）</h5><h5 id="从人类反馈的强化学习-RLHF"><a href="#从人类反馈的强化学习-RLHF" class="headerlink" title="从人类反馈的强化学习 (RLHF)"></a>从人类反馈的强化学习 (RLHF)</h5><h5 id="视觉生成反馈"><a href="#视觉生成反馈" class="headerlink" title="视觉生成反馈"></a>视觉生成反馈</h5><h4 id="unlearning"><a href="#unlearning" class="headerlink" title="unlearning"></a>unlearning</h4><h3 id="推理-1"><a href="#推理-1" class="headerlink" title="推理"></a>推理</h3><h4 id="生成干预"><a href="#生成干预" class="headerlink" title="生成干预"></a>生成干预</h4><h5 id="对比解码"><a href="#对比解码" class="headerlink" title="对比解码"></a>对比解码</h5><h5 id="引导解码"><a href="#引导解码" class="headerlink" title="引导解码"></a>引导解码</h5><h5 id="视觉增强"><a href="#视觉增强" class="headerlink" title="视觉增强"></a>视觉增强</h5><h5 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h5><h4 id="视觉提示"><a href="#视觉提示" class="headerlink" title="视觉提示"></a>视觉提示</h4><h4 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h4><h4 id="事后修正"><a href="#事后修正" class="headerlink" title="事后修正"></a>事后修正</h4>
                 
               </div>
             
