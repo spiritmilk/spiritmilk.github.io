@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2026-01-14T04:07:16.000Z">
-<meta property="article:modified_time" content="2026-01-14T12:55:56.425Z">
+<meta property="article:modified_time" content="2026-01-14T14:47:23.518Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          150 字
+          358 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -362,6 +362,9 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">ResidualConnection</span>(<span class="hljs-params">h, fun</span>):<br>    h_ = h + fun(h)<br>    <span class="hljs-keyword">return</span> h_<br><br>mlp = nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">256</span>)<br>h = torch.randn(<span class="hljs-number">1</span>,<span class="hljs-number">256</span>)<br>h_ = ResidualConnection(h, mlp)<br></code></pre></td></tr></table></figure>
 
 <p>进一步地，可以扩展为$h_{l+1}&#x3D;T(h_l)+F_l(h_l) $。</p>
+<h2 id="超连接-Hyper-Connections-HC"><a href="#超连接-Hyper-Connections-HC" class="headerlink" title="超连接 (Hyper-Connections, HC)"></a>超连接 (Hyper-Connections, HC)</h2><p>$$x_{l+1}&#x3D;\mathcal{H}<em>{l}^{res}x</em>{l}+\mathcal{H}<em>{l}^{post~\top}\mathcal{F}(\mathcal{H}</em>{l}^{pre}x_{l},\mathcal{W}_{l})$$</p>
+<p>其中：<br>$$<br>\begin{aligned}<br>\tilde{x}<em>{l} &amp;&#x3D; \text{RMSNorm}(x</em>{l}) \\<br>\mathcal{H}<em>{l}^{pre} &amp;&#x3D; \alpha</em>{l}^{pre} \cdot \tanh(\theta_{l}^{pre}\tilde{x}<em>{l}^{\top}) + b</em>{l}^{pre} \\<br>\mathcal{H}<em>{l}^{post} &amp;&#x3D; \alpha</em>{l}^{post} \cdot \tanh(\theta_{l}^{post}\tilde{x}<em>{l}^{\top}) + b</em>{l}^{post} \\<br>\mathcal{H}<em>{l}^{res} &amp;&#x3D; \alpha</em>{l}^{res} \cdot \tanh(\theta_{l}^{res}\tilde{x}<em>{l}^{\top}) + b</em>{l}^{res}<br>\end{aligned}<br>$$</p>
+<h2 id="mhc"><a href="#mhc" class="headerlink" title="mhc"></a>mhc</h2><p>类似地，<br>$$<br>\begin{equation}     \begin{cases}         \vec{\mathbf{x}}’_l &#x3D; \text{RMSNorm}(\vec{\mathbf{x}}_l) \   \      \tilde{\mathcal{H}}_l^\text{pre} &#x3D; \alpha_l^\mathrm{pre} \cdot (\vec{\mathbf{x}}’_l\phi^\mathrm{pre}_l) + \mathbf{b}_l^\mathrm{pre} \\         \tilde{\mathcal{H}}_l^\text{post} &#x3D; \alpha_l^\mathrm{post} \cdot (\vec{\mathbf{x}}’_l\phi^\mathrm{post}_l) + \mathbf{b}_l^\mathrm{post} \ \        \tilde{\mathcal{H}}_l^\text{res} &#x3D; \alpha_l^\mathrm{res} \cdot \text{mat}(\vec{\mathbf{x}}’_l\phi^\mathrm{res}_l) + \mathbf{b}_l^\mathrm{res} \\     \end{cases} \end{equation} \<br>$$</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1990683672337223894">【手撕 mHC】详解DeepSeek残差链接mHC进化之路（超长文、附代码） - 知乎</a></p>
 
                 
