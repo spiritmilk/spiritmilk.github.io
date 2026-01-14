@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2026-01-14T04:07:16.000Z">
-<meta property="article:modified_time" content="2026-01-14T15:21:36.925Z">
+<meta property="article:modified_time" content="2026-01-14T15:25:29.611Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -364,7 +364,7 @@
 <p>进一步地，可以扩展为$h _ {l+1}&#x3D;T(h_l)+F_l(h_l) $。</p>
 <h2 id="超连接-Hyper-Connections-HC"><a href="#超连接-Hyper-Connections-HC" class="headerlink" title="超连接 (Hyper-Connections, HC)"></a>超连接 (Hyper-Connections, HC)</h2><p>$$<br>x _ {l+1}&#x3D;\mathcal{H} _ {l} ^ {res}x _ {l}+\mathcal{H} _ {l} ^ {post~\top}\mathcal{F}(\mathcal{H} _ {l} ^ {pre}x _ {l},\mathcal{W} _ {l})<br>$$</p>
 <p>其中：<br>$$<br>\begin{align}<br>\tilde{x} _ {l} &amp;&#x3D; \text{RMSNorm}(x _ {l}) \\<br>\mathcal{H} _ {l} ^ {pre} &amp;&#x3D; \alpha _ {l} ^ {pre} \cdot \tanh(\theta _ {l} ^ {pre}\tilde{x} _ {l} ^ {\top}) + b _ {l} ^ {pre} \\<br>\mathcal{H} _ {l} ^ {post} &amp;&#x3D; \alpha _ {l} ^ {post} \cdot \tanh(\theta _ {l} ^ {post}\tilde{x} _ {l} ^ {\top}) + b _ {l} ^ {post} \\<br>\mathcal{H} _ {l} ^ {res} &amp;&#x3D; \alpha _ {l} ^ {res} \cdot \tanh(\theta _ {l} ^ {res}\tilde{x} _ {l} ^ {\top}) + b _ {l} ^ {res}<br>\end{align}<br>$$</p>
-<h2 id="mhc"><a href="#mhc" class="headerlink" title="mhc"></a>mhc</h2><p>mHC 强制要求 Hlres 必须位于 <strong>Birkhoff 多胞体（Birkhoff polytope）</strong> 内，即满足以下定义的双随机矩阵 ：<br>$$<br>\mathcal{P} _ {\mathcal{M} ^ {res}}(\mathcal{H} _ {l} ^ {res}) :&#x3D; { H \in \mathbb{R} ^ {n \times n} \mid H \mathbf{1}_n &#x3D; \mathbf{1}_n, \mathbf{1}_n^\top H &#x3D; \mathbf{1}_n^\top, H \ge 0 }<br>$$<br>这意味着矩阵的所有元素非负，且每一行和每一列的和都严格等于 1。这种约束带来了三个关键的理论优势：</p>
+<h2 id="mhc"><a href="#mhc" class="headerlink" title="mhc"></a>mhc</h2><p>mHC 强制要求 Hlres 必须位于 <strong>Birkhoff 多胞体（Birkhoff polytope）</strong> 内，即满足以下定义的双随机矩阵 ：<br>$$<br>\mathcal{P} _ {\mathcal{M} ^ {res}}(\mathcal{H} _ {l} ^ {res}) :&#x3D; \{ H \in \mathbb{R} ^ {n \times n} \mid H \mathbf{1}_n &#x3D; \mathbf{1}_n, \mathbf{1}_n^\top H &#x3D; \mathbf{1}_n^\top, H \ge 0 \}<br>$$<br>这意味着矩阵的所有元素非负，且每一行和每一列的和都严格等于 1。这种约束带来了三个关键的理论优势：</p>
 <p><strong>范数保持 (Norm Preservation)</strong>：双随机矩阵的谱范数（Spectral Norm）不超过 1（$||\mathcal{H} _ {l} ^ {res}|| _ {2} \le 1$）。这保证了信号在传播过程中是“非扩张”的，有效防止了梯度爆炸。</p>
 <p><strong>组合封闭性 (Compositional Closure)</strong>：双随机矩阵的乘积仍然是双随机矩阵。这意味着无论网络有多深，复合映射 $\prod \mathcal{H} ^ {res}$ 依然保持稳定，不会发生性质漂移。</p>
 <p><strong>几何解释 (Geometric Interpretation)</strong>：这使得残差映射在几何上表现为特征的凸组合（Convex Combination）。它确保了不同流之间的信息混合是平滑且受控的。</p>
