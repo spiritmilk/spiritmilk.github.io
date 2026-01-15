@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2025）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-15T05:33:15.000Z">
-<meta property="article:modified_time" content="2026-01-15T06:03:34.320Z">
+<meta property="article:modified_time" content="2026-01-15T06:11:02.448Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          911 字
+          915 字
         
       </span>
     
@@ -363,10 +363,9 @@
 <p>大模型生成的内容被拼接到上下文中， $\mathcal{M}_{S}$接收这些“专家指导”，并继续后续的推理。</p>
 <h2 id="如何训练"><a href="#如何训练" class="headerlink" title="如何训练"></a>如何训练</h2><h3 id="SFT冷启动"><a href="#SFT冷启动" class="headerlink" title="SFT冷启动"></a>SFT冷启动</h3><p>若直接使用RL，则可能无法自然生成<code>&lt;call&gt;n&lt;/call&gt;</code>，故需要采用SFT来冷启动。作者构建了一个合成数据集$\mathcal{D}_{warm}$，用于教会模型调用命令，同时避免引入分布偏移。</p>
 <p>为防止小模型 $\mathcal{M}<em>{S}$的分布偏移，作者首先通过直接从原始 $\mathcal{M}</em>{S}$采样生成基础序列 y，而非依赖外部语料库。这确保了训练上下文与小模型自身的分布完全一致。在这些自采样序列中，我们在随机的索引位置 t 处以 token 级别插入命令 token。通过避免对句子或段落边界的严格限制，使模型能够在推理时精确地在出现推理缺口的瞬间触发辅助行为。</p>
-<h3 id="RLVR-with-GRPO"><a href="#RLVR-with-GRPO" class="headerlink" title="RLVR with GRPO"></a>RLVR with GRPO</h3><h4 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h4><p>目标函数：<br>$$<br>\mathcal{J}<em>{GRPO}(\theta)&#x3D;\mathbb{E}</em>{q\sim\mathcal{D}}[\frac{1}{G}\sum_{i&#x3D;1}^{G}(\hat{A}<em>{i}-\beta\mathbb{D}</em>{KL})]<br>$$</p>
-<h4 id="数据过滤"><a href="#数据过滤" class="headerlink" title="数据过滤"></a>数据过滤</h4><p>如果大模型在解决某个查询时始终失败，在训练过程中调用它不会带来任何正向收益。</p>
-<p>因此，作者对数据集进行预处理，以过滤掉对大模型而言过于困难的样本。对每个查询采样 10 个响应，并仅保留通过率不低于 ≥ 50% 的样本。这一步骤确保了训练数据处于大模型的能力边界内，且生成的响应能够有效贡献。</p>
-<h3 id="基于问题难度的奖励机制"><a href="#基于问题难度的奖励机制" class="headerlink" title="基于问题难度的奖励机制"></a>基于问题难度的奖励机制</h3><p>为了指导模型在“独立解决”和“寻求帮助”之间取得平衡，论文设计了基于问题难度的奖励机制：</p>
+<h3 id="RLVR-with-GRPO"><a href="#RLVR-with-GRPO" class="headerlink" title="RLVR with GRPO"></a>RLVR with GRPO</h3><h4 id="数据过滤"><a href="#数据过滤" class="headerlink" title="数据过滤"></a>数据过滤</h4><p>如果大模型在解决某个查询时始终失败，在训练过程中调用它不会带来任何正向收益。</p>
+<p>因此，作者对数据集进行预处理，以过滤掉对大模型而言过于困难的样本。对每个查询采样10 个响应，并仅保留通过率不低于≥50%的样本。这一步骤确保了训练数据处于大模型的能力边界内，且生成的响应能够有效贡献。</p>
+<h4 id="基于问题难度的奖励机制"><a href="#基于问题难度的奖励机制" class="headerlink" title="基于问题难度的奖励机制"></a>基于问题难度的奖励机制</h4><p>为了指导模型在“独立解决”和“寻求帮助”之间取得平衡，论文设计了基于问题难度的奖励机制：</p>
 <ol>
 <li><strong>学生可解决 (Student-Solvable) → 鼓励独立：</strong></li>
 </ol>
@@ -375,12 +374,13 @@
 <li><strong>依赖老师 (Teacher-Dependent) → 惩罚固执：</strong></li>
 </ol>
 <p>如果只有在大模型介入时才能答对，而小模型自己答错，则对<strong>不呼叫</strong>的行为进行惩罚（$r&#x3D;-1.0$）。</p>
-<p>目的：惩罚盲目猜测，强制模型在必要时求助 24。</p>
+<p>目的：惩罚盲目猜测，强制模型在必要时求助。</p>
 <ol start="3">
 <li><strong>老师无法解决 (Teacher-Unsolvable) → 激励探索：</strong></li>
 </ol>
 <p>如果大模型介入了也答不对，与其给零分，不如给一个小的探索奖励（$r&#x3D;\rho(y)$）。</p>
-<p>目的：鼓励在极度不确定（极难）的情况下尝试求助，而不是直接放弃 25。</p>
+<p>目的：鼓励在极度不确定（极难）的情况下尝试求助，而不是直接放弃。</p>
+<h4 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h4><p>使用GRPO。最终的目标函数：<br>$$<br>\mathcal{J}<em>{GRPO}(\theta)&#x3D;\mathbb{E}</em>{q\sim\mathcal{D}}[\frac{1}{G}\sum_{i&#x3D;1}^{G}(\hat{A}<em>{i}-\beta\mathbb{D}</em>{KL})]<br>$$</p>
 
                 
               </div>

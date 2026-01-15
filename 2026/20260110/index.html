@@ -28,16 +28,16 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICML 2025）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/exp1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/exp2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260110/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260110/exp1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260110/exp2.png">
 <meta property="article:published_time" content="2026-01-10T04:29:41.000Z">
 <meta property="article:modified_time" content="2026-01-10T10:32:46.991Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260110/1.png">
   
   
   
@@ -366,7 +366,7 @@
 <li>T2L 超网络根据这个向量，通过一次前向传播（Single Forward Pass），直接输出适配该任务的 LoRA 矩阵（A 和 B）。</li>
 <li>将生成的 LoRA 权重加载到冻结的基础 LLM 上，模型即刻具备该任务的能力。</li>
 </ol>
-<p><img src="/2019/20190430/1.png"></p>
+<p><img src="/2026/20260110/1.png"></p>
 <p><strong>模型架构</strong>：</p>
 <p><strong>T2L-L (Large)：</strong> 直接输出完整的 $A$ 和 $B$ 矩阵。参数量最大（~55M）。</p>
 <p><strong>T2L-M (Medium)：</strong> $A$ 和 $B$ 共享输出头，通过 Learned Embedding 来区分生成 $A$ 还是 $B$。参数量中等（~34M）。</p>
@@ -381,8 +381,8 @@
 <p> <strong>具备强大的零样本（Zero-shot）泛化能力。</strong> 即使是训练集中没见过的任务，只要给一段描述，T2L 就能生成有效的适配器 。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>单张H100GPU上。</p>
 <p>重构 9 个基准特定 LoRA 的训练大约耗时 10 分钟，而重构 479 个 SNI LoRA 适配器的训练则需约 10 小时。</p>
-<p><img src="/2019/20190430/exp1.png"></p>
-<p><img src="/2019/20190430/exp2.png"></p>
+<p><img src="/2026/20260110/exp1.png"></p>
+<p><img src="/2026/20260110/exp2.png"></p>
 
                 
               </div>
