@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2025）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-15T05:33:15.000Z">
-<meta property="article:modified_time" content="2026-01-15T06:11:02.448Z">
+<meta property="article:modified_time" content="2026-01-15T06:32:22.689Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          915 字
+          921 字
         
       </span>
     
@@ -357,12 +357,12 @@
 <h2 id="一句话概括"><a href="#一句话概括" class="headerlink" title="一句话概括"></a>一句话概括</h2><p>训练小模型作为“主控者”，仅在推理遇到困难的关键时刻主动生成特殊指令（<code>&lt;call&gt;</code>）将生成过程短暂“接力”给大模型。</p>
 <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>目前的主流协作方案（如路由或级联）通常是粗粒度（Coarse granularity）的 。路由器会判断一个问题很难，然后将整个生成任务交给大模型 。</p>
 <p>小模型实际上有能力处理推理过程中的大部分步骤，只需要专家在特定的关键节点进行干预 。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>$\mathcal{M}_{S}$（小模型）正常生成文本。</p>
-<p> 当$\mathcal{M}_{S}$遇到困难时，它会生成一个特殊的命令令牌 <code>&lt;call&gt;n&lt;/call&gt;</code>，其中 n 代表需要大模型生成的令牌数量 。</p>
-<p>当遇到困难时，生成暂停，当前的上下文（去掉命令令牌）被发送给 ML（大模型）。$\mathcal{M}_{L}$生成接下来的 n 个令牌（或遇到 EOS 停止）。</p>
-<p>大模型生成的内容被拼接到上下文中， $\mathcal{M}_{S}$接收这些“专家指导”，并继续后续的推理。</p>
-<h2 id="如何训练"><a href="#如何训练" class="headerlink" title="如何训练"></a>如何训练</h2><h3 id="SFT冷启动"><a href="#SFT冷启动" class="headerlink" title="SFT冷启动"></a>SFT冷启动</h3><p>若直接使用RL，则可能无法自然生成<code>&lt;call&gt;n&lt;/call&gt;</code>，故需要采用SFT来冷启动。作者构建了一个合成数据集$\mathcal{D}_{warm}$，用于教会模型调用命令，同时避免引入分布偏移。</p>
-<p>为防止小模型 $\mathcal{M}<em>{S}$的分布偏移，作者首先通过直接从原始 $\mathcal{M}</em>{S}$采样生成基础序列 y，而非依赖外部语料库。这确保了训练上下文与小模型自身的分布完全一致。在这些自采样序列中，我们在随机的索引位置 t 处以 token 级别插入命令 token。通过避免对句子或段落边界的严格限制，使模型能够在推理时精确地在出现推理缺口的瞬间触发辅助行为。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>$\mathcal{M} _ {S}$（小模型）正常生成文本。</p>
+<p> 当$\mathcal{M} _ {S}$遇到困难时，它会生成一个特殊的命令令牌 <code>&lt;call&gt;n&lt;/call&gt;</code>，其中 n 代表需要大模型生成的令牌数量 。</p>
+<p>当遇到困难时，生成暂停，当前的上下文（去掉命令令牌）被发送给 ML（大模型）。$\mathcal{M} _ {L}$生成接下来的 n 个令牌（或遇到 EOS 停止）。</p>
+<p>大模型生成的内容被拼接到上下文中， $\mathcal{M} _ {S}$接收这些“专家指导”，并继续后续的推理。</p>
+<h2 id="如何训练"><a href="#如何训练" class="headerlink" title="如何训练"></a>如何训练</h2><h3 id="SFT冷启动"><a href="#SFT冷启动" class="headerlink" title="SFT冷启动"></a>SFT冷启动</h3><p>若直接使用RL，则可能无法自然生成<code>&lt;call&gt;n&lt;/call&gt;</code>，故需要采用SFT来冷启动。作者构建了一个合成数据集$\mathcal{D} _ {warm}$，用于教会模型调用命令，同时避免引入分布偏移。</p>
+<p>为防止小模型 $\mathcal{M} _ {S}$的分布偏移，作者首先通过直接从原始 $\mathcal{M} _ {S}$采样生成基础序列 y，而非依赖外部语料库。这确保了训练上下文与小模型自身的分布完全一致。在这些自采样序列中，我们在随机的索引位置 t 处以 token 级别插入命令 token。通过避免对句子或段落边界的严格限制，使模型能够在推理时精确地在出现推理缺口的瞬间触发辅助行为。</p>
 <h3 id="RLVR-with-GRPO"><a href="#RLVR-with-GRPO" class="headerlink" title="RLVR with GRPO"></a>RLVR with GRPO</h3><h4 id="数据过滤"><a href="#数据过滤" class="headerlink" title="数据过滤"></a>数据过滤</h4><p>如果大模型在解决某个查询时始终失败，在训练过程中调用它不会带来任何正向收益。</p>
 <p>因此，作者对数据集进行预处理，以过滤掉对大模型而言过于困难的样本。对每个查询采样10 个响应，并仅保留通过率不低于≥50%的样本。这一步骤确保了训练数据处于大模型的能力边界内，且生成的响应能够有效贡献。</p>
 <h4 id="基于问题难度的奖励机制"><a href="#基于问题难度的奖励机制" class="headerlink" title="基于问题难度的奖励机制"></a>基于问题难度的奖励机制</h4><p>为了指导模型在“独立解决”和“寻求帮助”之间取得平衡，论文设计了基于问题难度的奖励机制：</p>
@@ -380,7 +380,7 @@
 </ol>
 <p>如果大模型介入了也答不对，与其给零分，不如给一个小的探索奖励（$r&#x3D;\rho(y)$）。</p>
 <p>目的：鼓励在极度不确定（极难）的情况下尝试求助，而不是直接放弃。</p>
-<h4 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h4><p>使用GRPO。最终的目标函数：<br>$$<br>\mathcal{J}<em>{GRPO}(\theta)&#x3D;\mathbb{E}</em>{q\sim\mathcal{D}}[\frac{1}{G}\sum_{i&#x3D;1}^{G}(\hat{A}<em>{i}-\beta\mathbb{D}</em>{KL})]<br>$$</p>
+<h4 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h4><p>使用GRPO。最终的目标函数：<br>$$<br>\mathcal{J} _ {GRPO}(\theta)&#x3D;\mathbb{E} _ {q\sim\mathcal{D}}[\frac{1}{G}\sum _ {i&#x3D;1}^{G}(\hat{A} _ {i}-\beta\mathbb{D} _ {KL})]<br>$$</p>
 
                 
               </div>
