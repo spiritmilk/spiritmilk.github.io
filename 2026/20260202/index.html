@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-02T14:06:42.000Z">
-<meta property="article:modified_time" content="2026-02-02T14:23:15.607Z">
+<meta property="article:modified_time" content="2026-02-02T15:18:12.607Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          690 字
+          693 字
         
       </span>
     
@@ -369,10 +369,10 @@
 <p><strong>对比目标：</strong> 促进模型生成正向标签（如详细准确的描述），抑制负向标签（如包含幻觉的描述） 。</p>
 <p><strong>生成锚点正则化：</strong></p>
 <p>为了防止仅用单样本优化导致模型跑偏或过拟合，引入了“生成锚点”作为软约束 。</p>
-<p><strong>生成方式：</strong> 将模型产生的幻觉文本输入到一个文生图（T2I）模型中，重构出图像，提取其视觉嵌入作为锚点 $E_{GA}$ 。</p>
+<p><strong>生成方式：</strong> 将模型产生的幻觉文本输入到一个文生图（T2I）模型中，重构出图像，提取其视觉嵌入作为锚点 $E _ {GA}$ 。</p>
 <p><strong>作用：</strong> 将学习到的向量约束在一个语义上有意义的范围内，保持优化的稳定性 。</p>
-<p><strong>损失函数：</strong> 结合了对比损失（Cross-entropy loss）和与生成锚点的距离约束 。<br>$$<br>\mathcal{L} &#x3D; \mathcal{L}<em>{contrastive} + \gamma \cdot Dis(v, E</em>{GA})<br>$$<br>其中促进正向：<br>$$<br>\mathcal{L}<em>+ (x, y^+; v) &#x3D; -\sum</em>{k&#x3D;0}^{m-1} \log P_{model}(y_{k+1}^+ | y_k^+, …, y_1^+, x; v)<br>$$<br>和抑制负向：<br>$$<br>\mathcal{L}<em>- (x, y^-; v) &#x3D; -\sum</em>{k&#x3D;0}^{m-1} \log (1 - P_{model}(y_{k+1}^- | y_k^-, …, y_1^+, x; v))<br>$$<br>且$\gamma &#x3D; \frac{\mathcal{L}<em>{cross-entropy}}{Dis(v, E</em>{GA}) + \epsilon}$。</p>
-<h3 id="推理阶段"><a href="#推理阶段" class="headerlink" title="推理阶段"></a>推理阶段</h3><p>优化完成后，得到的控制向量 $v$ 是固定的。在推理时，将该向量乘以一个系数 $\alpha$，直接加到 VLM 解码器特定层（Layer $l$）的隐藏状态中 。<br>$$<br>\tilde{h}<em>{k, l} \leftarrow h</em>{k, l} + \alpha v, \quad k \in \mathcal{H}_{img}<br>$$<br><strong>优势：</strong> 不需要修改模型参数，也不需要像以前的方法那样为每个新输入单独计算向量，因此推理零额外延迟。</p>
+<p><strong>损失函数：</strong> 结合了对比损失（Cross-entropy loss）和与生成锚点的距离约束 。<br>$$<br>\mathcal{L} &#x3D; \mathcal{L} _ {contrastive} + \gamma \cdot Dis(v, E _ {GA})<br>$$<br>其中促进正向：<br>$$<br>\mathcal{L}<em>+ (x, y^+; v) &#x3D; -\sum _ {k&#x3D;0} ^ {m-1} \log P _ {model}(y _ {k+1}^+ | y_k^+, …, y_1^+, x; v)<br>$$<br>和抑制负向：<br>$$<br>\mathcal{L}</em>- (x, y^-; v) &#x3D; -\sum _ {k&#x3D;0} ^ {m-1} \log (1 - P _ {model}(y _ {k+1}^- | y_k^-, …, y_1^+, x; v))<br>$$<br>且$\gamma &#x3D; \frac{\mathcal{L} _ {cross-entropy}}{Dis(v, E _ {GA}) + \epsilon}$。</p>
+<h3 id="推理阶段"><a href="#推理阶段" class="headerlink" title="推理阶段"></a>推理阶段</h3><p>优化完成后，得到的控制向量 $v$ 是固定的。在推理时，将该向量乘以一个系数 $\alpha$，直接加到 VLM 解码器特定层（Layer $l$）的隐藏状态中 。<br>$$<br>\tilde{h} _ {k, l} \leftarrow h _ {k, l} + \alpha v, \quad k \in \mathcal{H} _ {img}<br>$$<br><strong>优势：</strong> 不需要修改模型参数，也不需要像以前的方法那样为每个新输入单独计算向量，因此推理零额外延迟。</p>
 
                 
               </div>
