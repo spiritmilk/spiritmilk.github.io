@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/203/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/203/2.png">
 <meta property="article:published_time" content="2026-02-03T11:02:20.000Z">
-<meta property="article:modified_time" content="2026-02-03T13:04:15.699Z">
+<meta property="article:modified_time" content="2026-02-03T13:09:49.553Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -300,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          456 字
+          719 字
         
       </span>
     
@@ -311,7 +311,7 @@
         
         
         
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -368,7 +368,21 @@
 <p><img src="/2021/1000/203/2.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>该框架包含两个核心模块：随机退火重掩码，用于解决Intra-step的有害偏差，以及 块级审计与修复，用于纠正Inter-step的错误。</p>
 <h3 id="随机退火重掩码-Stochastic-Annealing-Remasking"><a href="#随机退火重掩码-Stochastic-Annealing-Remasking" class="headerlink" title="随机退火重掩码 (Stochastic Annealing Remasking)"></a>随机退火重掩码 (Stochastic Annealing Remasking)</h3><p>引入随机项$R_i \sim U(0,1)$：<br>$$<br>\mathcal{I} &#x3D; \text{arg top-k} \left[ (1-\alpha_n) \cdot \text{Prob}(\hat{\tau}_i^n) + \alpha_n \cdot R_i \right]<br>$$<br>由于早期步骤对路径依赖影响最大，因此随机性应“前高后低”。$\alpha_n$ 随步骤 $n$ 线性衰减 ：$\alpha_n &#x3D; \alpha_0 \left( 1 - \frac{n-1}{N-1} \right)$。</p>
-<h3 id="块级审计与修复-Block-level-Audit-and-Repair"><a href="#块级审计与修复-Block-level-Audit-and-Repair" class="headerlink" title="块级审计与修复 (Block-level Audit and Repair)"></a>块级审计与修复 (Block-level Audit and Repair)</h3>
+<h3 id="块级审计与修复-Block-level-Audit-and-Repair"><a href="#块级审计与修复-Block-level-Audit-and-Repair" class="headerlink" title="块级审计与修复 (Block-level Audit and Repair)"></a>块级审计与修复 (Block-level Audit and Repair)</h3><p><strong>步骤 1：审计（Audit）- 计算安全散度 (Safety Divergence)</strong></p>
+<p>利用模型内部表征来检测潜在的越狱行为。假设攻击提示词 $p_0$ 由恶意核心 $p_{origin}$ 和攻击模板 $p_{template}$ 组成。</p>
+<ul>
+<li>$h_{origin}$：模型对纯恶意核心意图的响应（通常是拒绝的）。</li>
+<li>$h_{p_0}$：模型对当前攻击提示词的响应（可能被带偏）。</li>
+</ul>
+<p>通过余弦距离计算两者的 <strong>安全散度 (SD)</strong> ：<br>$$<br>\text{SD}(p_0, p_{origin}) &#x3D; 1 - \frac{h_{origin} \cdot h_{p_0}}{|h_{origin}| \cdot |h_{p_0}|}<br>$$<br>如果 $\text{SD}$ 超过阈值 $\lambda$，则触发修复机制 。</p>
+<p><strong>步骤 2：修复（Repair）- 引导式再生</strong></p>
+<p>如果检测到风险，对当前生成的块进行修复：</p>
+<ol>
+<li><strong>重置：</strong> 将块中一定比例的 token 重新设为 <code>[MASK]</code>。</li>
+<li><strong>引导再生：</strong> 强制抑制原有害 token 的生成概率。设 $\tau_i^N$ 为原本生成的有害 token，在重新采样时，将其 Logits 设为负无穷 ：</li>
+</ol>
+<p>$$<br>\text{Logits}’(\tau) &#x3D; \begin{cases} -\infty, &amp; \text{if } \tau &#x3D; \tau_i^N \text{ and } i \in \mathcal{I}_{remask} \ \text{Logits}(\tau), &amp; \text{otherwise} \end{cases}<br>$$</p>
+
                 
               </div>
             
