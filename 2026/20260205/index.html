@@ -29,7 +29,7 @@
 <meta property="og:description" content="（KDD 2016） Mercor比赛中第二名用到了这篇论文。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-05T03:02:59.000Z">
-<meta property="article:modified_time" content="2026-02-05T03:31:36.831Z">
+<meta property="article:modified_time" content="2026-02-05T03:48:12.350Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          262 字
+          365 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -363,6 +363,14 @@
 <p>$\mathcal{W}$：对象集合（如被关注的人或商品）。</p>
 <p>$G &#x3D; (\mathcal{U} \cup \mathcal{W}, \mathcal{E})$：二部图。</p>
 <p>$S \subseteq \mathcal{U} \cup \mathcal{W}$：被检测的节点子集。</p>
+<p>论文定义了一个通用的密度度量 $g(S)$，形式如下：</p>
+<p>$$g(S) &#x3D; \frac{f(S)}{|S|}$$</p>
+<p>其中，$f(S)$ 是总可疑度（Total Suspiciousness），由<strong>节点权重</strong>和<strong>边权重</strong>组成 ：</p>
+<p>$$f(S) &#x3D; \sum_{i \in S} a_i + \sum_{i,j \in S \wedge (i,j) \in \mathcal{E}} c_{ij}$$</p>
+<ul>
+<li>$a_i \ge 0$：节点 $i$ 的固有可疑度（如果没有先验知识，可设为0）。</li>
+<li>$c_{ij} &gt; 0$：边 $(i, j)$ 的可疑度权重 。</li>
+</ul>
 
                 
               </div>
