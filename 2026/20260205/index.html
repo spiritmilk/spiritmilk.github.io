@@ -29,7 +29,7 @@
 <meta property="og:description" content="（KDD 2016） Mercor比赛中第二名用到了这篇论文。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-05T03:02:59.000Z">
-<meta property="article:modified_time" content="2026-02-05T03:50:52.747Z">
+<meta property="article:modified_time" content="2026-02-05T04:04:29.030Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          573 字
+          1k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          5 分钟
+          9 分钟
         
       </span>
     
@@ -376,6 +376,27 @@
 <p>论文建议使用对数加权函数 $h(x)$ 来降低高度数对象的边的权重 ：</p>
 <p>$$c_{ij} &#x3D; \frac{1}{\log(d_j + c)}$$</p>
 <p>其中 $d_j$ 是对象 $j$ 的度，$c$ 是一个小常数（实验中设为5）。这使得连接到热门对象的边对密度的贡献变小，从而忽略伪装边，聚焦于欺诈核心。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>FRAUDAR 算法的目标是找到一个子集 $S$，使得 $g(S)$ 最大化。</p>
+<p>由于精确寻找最大密度子图通常是NP-hard问题，作者采用了一种高效的贪心策略 ：</p>
+<ol>
+<li><p><strong>初始化：</strong> 从包含所有节点的全图 $\mathcal{X}_0 &#x3D; \mathcal{U} \cup \mathcal{W}$ 开始。</p>
+</li>
+<li><p><strong>迭代删除：</strong> 在每一步 $t$，找到当前集合中如果被删除能使剩余集合 $g$ 值最大的那个节点 $i^*$（实际上是删除对当前密度贡献最小的节点）。</p>
+<p>$$i^* &#x3D; \arg \max_{i \in \mathcal{X}_t} g(\mathcal{X}_t \setminus {i})$$</p>
+</li>
+<li><p><strong>更新：</strong> 将 $i^*$ 从集合中移除，并更新其邻居的优先级。</p>
+</li>
+<li><p><strong>回溯：</strong> 算法运行 $m+n$ 步直到集合为空。最后，在生成的所有中间集合 $\mathcal{X}<em>0, \dots, \mathcal{X}</em>{m+n}$ 中，选择 $g(\mathcal{X}_t)$ 值最大的那个作为最终结果 。</p>
+</li>
+</ol>
+<p>为了实现近线性时间复杂度 $O(|\mathcal{E}| \log |\mathcal{V}|)$，算法使用了**优先级树（Priority Tree）**数据结构来快速查找和更新最优删除节点 。</p>
+<h2 id="理论保证"><a href="#理论保证" class="headerlink" title="理论保证"></a>理论保证</h2><h3 id="近似保证-Approximation-Bound"><a href="#近似保证-Approximation-Bound" class="headerlink" title="近似保证 (Approximation Bound)"></a><strong>近似保证 (Approximation Bound)</strong></h3><p> FRAUDAR 找到的子集的密度至少是最优解的一半 。</p>
+<p>$$g(\mathcal{A} \cup \mathcal{B}) \ge \frac{1}{2} g_{OPT}$$</p>
+<p><strong>证明</strong>：</p>
+<h3 id="抗伪装性-Camouflage-Resistance"><a href="#抗伪装性-Camouflage-Resistance" class="headerlink" title="抗伪装性 (Camouflage Resistance)"></a>抗伪装性 (Camouflage Resistance)</h3><p>只要使用<strong>列加权</strong>（权重仅依赖于对象节点的度），度量 $g$ 就是抗伪装的。这意味着欺诈者无法通过添加指向诚实对象的边来降低其所在的欺诈子集的密度值 。</p>
+<p>PS：行加权（Row-weighting）不具备此属性，因为欺诈者可以通过关注更多人来改变自己的度，从而稀释权重。</p>
+<p><strong>证明</strong>：</p>
+<h3 id="欺诈上限-Bounding-Fraud-："><a href="#欺诈上限-Bounding-Fraud-：" class="headerlink" title="欺诈上限 (Bounding Fraud)："></a>欺诈上限 (Bounding Fraud)：</h3><p> 论文给出了一个公式，计算在不被检测到的情况下，欺诈者最多能添加多少条边。<br>$$<br>Edges \le 2(m_0 + n_0) g_{log}(\hat{S}) \log(m_0&#x2F;\lambda + c)<br>$$<br><strong>证明</strong>：</p>
 
                 
               </div>
