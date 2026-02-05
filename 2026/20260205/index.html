@@ -29,7 +29,7 @@
 <meta property="og:description" content="（KDD 2016） Mercor比赛中第二名用到了这篇论文。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-05T03:02:59.000Z">
-<meta property="article:modified_time" content="2026-02-05T04:10:43.967Z">
+<meta property="article:modified_time" content="2026-02-05T04:12:22.361Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.6k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          11 分钟
+          14 分钟
         
       </span>
     
@@ -366,43 +366,49 @@
 <p>论文定义了一个通用的密度度量 $g(S)$，形式如下：</p>
 <p>$$g(S) &#x3D; \frac{f(S)}{|S|}$$</p>
 <p>其中，$f(S)$ 是总可疑度（Total Suspiciousness），由<strong>节点权重</strong>和<strong>边权重</strong>组成 ：</p>
-<p>$$f(S) &#x3D; \sum_{i \in S} a_i + \sum_{i,j \in S \wedge (i,j) \in \mathcal{E}} c_{ij}$$</p>
+<p>$$f(S) &#x3D; \sum _ {i \in S} a_i + \sum _ {i,j \in S \wedge (i,j) \in \mathcal{E}} c _ {ij}$$</p>
 <ul>
 <li>$a_i \ge 0$：节点 $i$ 的固有可疑度（如果没有先验知识，可设为0）。</li>
-<li>$c_{ij} &gt; 0$：边 $(i, j)$ 的可疑度权重 。</li>
+<li>$c _ {ij} &gt; 0$：边 $(i, j)$ 的可疑度权重 。</li>
 </ul>
 <p>为了对抗伪装，FRAUDAR 不将所有边一视同仁，而是采用了<strong>列加权（Column-weighting）</strong>。</p>
 <p>如果一个对象（如Lady Gaga）拥有极高的度（Degree，即由 $d_j$ 表示），那么一个用户关注她并不一定是可疑的，这很可能是伪装行为。相反，如果一个用户关注了一个不知名且只有少量关注者的账号，且该账号周围形成了一个密集块，这更可疑。</p>
 <p>论文建议使用对数加权函数 $h(x)$ 来降低高度数对象的边的权重 ：</p>
-<p>$$c_{ij} &#x3D; \frac{1}{\log(d_j + c)}$$</p>
+<p>$$c _ {ij} &#x3D; \frac{1}{\log(d_j + c)}$$</p>
 <p>其中 $d_j$ 是对象 $j$ 的度，$c$ 是一个小常数（实验中设为5）。这使得连接到热门对象的边对密度的贡献变小，从而忽略伪装边，聚焦于欺诈核心。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>FRAUDAR 算法的目标是找到一个子集 $S$，使得 $g(S)$ 最大化。</p>
 <p>由于精确寻找最大密度子图通常是NP-hard问题，作者采用了一种高效的贪心策略 ：</p>
 <ol>
 <li><p><strong>初始化：</strong> 从包含所有节点的全图 $\mathcal{X}_0 &#x3D; \mathcal{U} \cup \mathcal{W}$ 开始。</p>
 </li>
-<li><p><strong>迭代删除：</strong> 在每一步 $t$，找到当前集合中如果被删除能使剩余集合 $g$ 值最大的那个节点 $i^*$（实际上是删除对当前密度贡献最小的节点）。</p>
-<p>$$i^* &#x3D; \arg \max_{i \in \mathcal{X}_t} g(\mathcal{X}_t \setminus {i})$$</p>
+<li><p><strong>迭代删除：</strong> 在每一步 $t$，找到当前集合中如果被删除能使剩余集合 $g$ 值最大的那个节点 $i^\ast$（实际上是删除对当前密度贡献最小的节点）。</p>
+<p>$$i^\ast &#x3D; \arg \max _ {i \in \mathcal{X}_t} g(\mathcal{X}_t \setminus {i})$$</p>
 </li>
-<li><p><strong>更新：</strong> 将 $i^*$ 从集合中移除，并更新其邻居的优先级。</p>
+<li><p><strong>更新：</strong> 将 $i^\ast$ 从集合中移除，并更新其邻居的优先级。</p>
 </li>
-<li><p><strong>回溯：</strong> 算法运行 $m+n$ 步直到集合为空。最后，在生成的所有中间集合 $\mathcal{X}<em>0, \dots, \mathcal{X}</em>{m+n}$ 中，选择 $g(\mathcal{X}_t)$ 值最大的那个作为最终结果 。</p>
+<li><p><strong>回溯：</strong> 算法运行 $m+n$ 步直到集合为空。最后，在生成的所有中间集合 $\mathcal{X}_0, \dots, \mathcal{X} _ {m+n}$ 中，选择 $g(\mathcal{X}_t)$ 值最大的那个作为最终结果 。</p>
 </li>
 </ol>
 <p>为了实现近线性时间复杂度 $O(|\mathcal{E}| \log |\mathcal{V}|)$，算法使用了**优先级树（Priority Tree）**数据结构来快速查找和更新最优删除节点 。</p>
 <h2 id="理论保证"><a href="#理论保证" class="headerlink" title="理论保证"></a>理论保证</h2><h3 id="近似保证-Approximation-Bound"><a href="#近似保证-Approximation-Bound" class="headerlink" title="近似保证 (Approximation Bound)"></a><strong>近似保证 (Approximation Bound)</strong></h3><p> FRAUDAR 找到的子集的密度至少是最优解的一半 。</p>
-<p>令 $\mathcal{A}, \mathcal{B}$ 为 FRAUDAR 返回的用户和对象集合，令 $g_{OPT}$ 为图中可能存在的最大密度值。则：</p>
-<p>$$g(\mathcal{A} \cup \mathcal{B}) \ge \frac{1}{2} g_{OPT}$$</p>
+<p>令 $\mathcal{A}, \mathcal{B}$ 为 FRAUDAR 返回的用户和对象集合，令 $g _ {OPT}$ 为图中可能存在的最大密度值。则：</p>
+<p>$$g(\mathcal{A} \cup \mathcal{B}) \ge \frac{1}{2} g _ {OPT}$$</p>
 <p><strong>证明</strong>：</p>
+<p>对于当前节点集合 $\mathcal{S}$ 中的任意节点 $v_i$，定义其对总可疑度 $f(\mathcal{S})$ 的“贡献权重” $w_i(\mathcal{S})$ 为：</p>
+<p>$$w_i(\mathcal{S}) &#x3D; a_i + \sum _ {j \in \mathcal{S}, (i,j) \in \mathcal{E}} c _ {ij} + \sum _ {j \in \mathcal{S}, (j,i) \in \mathcal{E}} c _ {ji}$$</p>
+<p>简单来说，这就是当节点 $v_i$ 被移除时，$f(\mathcal{S})$ 减少的量。</p>
+<p>假设 $\mathcal{S}^\ast$ 是全局最优（密度最大）的子集，即 $g(\mathcal{S}^\ast) &#x3D; g _ {OPT}$。 对于 $\mathcal{S}^\ast$ 中的每一个节点 $v_i$，必然满足 $w_i(\mathcal{S}^\ast) \ge g(\mathcal{S}^\ast)$。</p>
+<p>如果有一个节点 $v_i$ 的贡献 $w_i(\mathcal{S}^\ast) &lt; g(\mathcal{S}^\ast)$，那么把它移除后，剩下的密度会变大：<br>$$<br>g(\mathcal{S}^\ast \setminus {v_i}) &#x3D; \frac{f(\mathcal{S}^\ast) - w_i(\mathcal{S}^\ast)}{|\mathcal{S}^\ast| - 1} &gt; \frac{f(\mathcal{S}^\ast) - g(\mathcal{S}^\ast)}{|\mathcal{S}^\ast| - 1} &#x3D; \frac{f(\mathcal{S}^\ast) - f(\mathcal{S}^\ast)&#x2F;|\mathcal{S}^\ast|}{|\mathcal{S}^\ast| - 1} &#x3D; g(\mathcal{S}^\ast)<br>$$</p>
+<p>这与 $\mathcal{S}^\ast$ 是最优解矛盾。所以所有节点的贡献都必须大于等于平均密度。</p>
 <h3 id="抗伪装性-Camouflage-Resistance"><a href="#抗伪装性-Camouflage-Resistance" class="headerlink" title="抗伪装性 (Camouflage Resistance)"></a>抗伪装性 (Camouflage Resistance)</h3><p>只要使用<strong>列加权</strong>（权重仅依赖于对象节点的度），度量 $g$ 就是抗伪装的。这意味着欺诈者无法通过添加指向诚实对象的边来降低其所在的欺诈子集的密度值 。</p>
 <p>PS：行加权（Row-weighting）不具备此属性，因为欺诈者可以通过关注更多人来改变自己的度，从而稀释权重。</p>
-<p>如果边权重 $c_{ij}$ 是基于列度（column-weighting）定义的（即 $c_{ij}$ 仅取决于对象 $j$ 的度数），那么度量 $g$ 是抗伪装的 。</p>
+<p>如果边权重 $c _ {ij}$ 是基于列度（column-weighting）定义的（即 $c _ {ij}$ 仅取决于对象 $j$ 的度数），那么度量 $g$ 是抗伪装的 。</p>
 <p><strong>证明</strong>：</p>
 <p>我们定义伪装是指欺诈用户集合 $\mathcal{A}$ 添加边指向诚实对象集合（即非欺诈目标）$\mathcal{W} \setminus \mathcal{B}$。</p>
 <p>我们关注的是欺诈块 $\mathcal{S} &#x3D; \mathcal{A} \cup \mathcal{B}$ 的密度 $g(\mathcal{A} \cup \mathcal{B})$。</p>
 <p>伪装操作增加的边是在 $\mathcal{A}$ 和 $\mathcal{W} \setminus \mathcal{B}$ 之间。这<strong>不会</strong>改变欺诈块 $\mathcal{A} \cup \mathcal{B}$ 内部的边数（即 $\mathcal{A}$ 和 $\mathcal{B}$ 之间的边）。</p>
 <p>而，分子 $f(\mathcal{A} \cup \mathcal{B})$ 不变，分母 $|\mathcal{A} \cup \mathcal{B}|$ 也不变。因此，$g(\mathcal{A} \cup \mathcal{B})$ 的值在伪装前后保持不变。这意味着欺诈者无法通过伪装来“稀释”自己的可疑度。</p>
-<h3 id="欺诈上限-Bounding-Fraud-："><a href="#欺诈上限-Bounding-Fraud-：" class="headerlink" title="欺诈上限 (Bounding Fraud)："></a>欺诈上限 (Bounding Fraud)：</h3><p> 论文给出了一个公式，计算在不被检测到的情况下，欺诈者最多能添加多少条边。<br>$$<br>Edges \le 2(m_0 + n_0) g_{log}(\hat{S}) \log(m_0&#x2F;\lambda + c)<br>$$<br><strong>证明</strong>：</p>
+<h3 id="欺诈上限-Bounding-Fraud-："><a href="#欺诈上限-Bounding-Fraud-：" class="headerlink" title="欺诈上限 (Bounding Fraud)："></a>欺诈上限 (Bounding Fraud)：</h3><p> 论文给出了一个公式，计算在不被检测到的情况下，欺诈者最多能添加多少条边。<br>$$<br>Edges \le 2(m_0 + n_0) g _ {log}(\hat{S}) \log(m_0&#x2F;\lambda + c)<br>$$<br><strong>证明</strong>：</p>
 
                 
               </div>
