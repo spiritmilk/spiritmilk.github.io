@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ResponsibleFM @ NeurIPS 2025）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/203/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/203/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260203/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260203/2.png">
 <meta property="article:published_time" content="2026-02-03T11:02:20.000Z">
 <meta property="article:modified_time" content="2026-02-03T13:09:49.553Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/203/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260203/1.png">
   
   
   
@@ -361,11 +361,11 @@
 <p>攻击者诱导模型生成的高频有害词（如 “Sure”）往往具有极高的置信度。</p>
 <p>安全 token（如 “Sorry”）即使被模型预测出来，也会因为置信度稍低而在 Top-k 竞争中被“挤掉”。这种贪婪特性修剪了通往安全生成的路径 。</p>
 <p>作者尝试采用随机采样来代替贪婪策略，结果如下图所示。这种安全性的提升并非没有代价：随机性的增加也导致生成困惑度上升，从而降低了内容质量。</p>
-<p><img src="/2021/1000/203/1.png"></p>
+<p><img src="/2026/20260203/1.png"></p>
 <h3 id="Inter-step"><a href="#Inter-step" class="headerlink" title="Inter-step"></a>Inter-step</h3><p>作者强制解码过程的前几个 token 固定为 “Sure, here’s”（表示合规的不安全 token）。另外，还参考了更强的攻击方法，例如利用就地提示（In-place Prompting）机制的 DIJA和 PAD，作为基准。</p>
 <p>作为对照，我们使用越狱查询作为输入，并将第一个 token 固定为 “Sorry”（表示拒绝的安全 token）。</p>
 <p>结果如下图：生成轨迹的安全性受到初始 token 性质的强烈引导。即使是一个简单的 “Sure” token，也足以使模型的 ASR 提升 76.9%，而 “Sorry” token则有效将其降低 24.3%。</p>
-<p><img src="/2021/1000/203/2.png"></p>
+<p><img src="/2026/20260203/2.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>该框架包含两个核心模块：随机退火重掩码，用于解决Intra-step的有害偏差，以及 块级审计与修复，用于纠正Inter-step的错误。</p>
 <h3 id="随机退火重掩码-Stochastic-Annealing-Remasking"><a href="#随机退火重掩码-Stochastic-Annealing-Remasking" class="headerlink" title="随机退火重掩码 (Stochastic Annealing Remasking)"></a>随机退火重掩码 (Stochastic Annealing Remasking)</h3><p>引入随机项$R_i \sim U(0,1)$：<br>$$<br>\mathcal{I} &#x3D; \text{arg top-k} \left[ (1-\alpha_n) \cdot \text{Prob}(\hat{\tau}_i^n) + \alpha_n \cdot R_i \right]<br>$$<br>由于早期步骤对路径依赖影响最大，因此随机性应“前高后低”。$\alpha_n$ 随步骤 $n$ 线性衰减 ：$\alpha_n &#x3D; \alpha_0 \left( 1 - \frac{n-1}{N-1} \right)$。</p>
 <h3 id="块级审计与修复-Block-level-Audit-and-Repair"><a href="#块级审计与修复-Block-level-Audit-and-Repair" class="headerlink" title="块级审计与修复 (Block-level Audit and Repair)"></a>块级审计与修复 (Block-level Audit and Repair)</h3><p><strong>步骤 1：审计（Audit）- 计算安全散度 (Safety Divergence)</strong></p>
