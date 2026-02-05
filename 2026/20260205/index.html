@@ -29,7 +29,7 @@
 <meta property="og:description" content="（KDD 2016） Mercor比赛中第二名用到了这篇论文。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-05T03:02:59.000Z">
-<meta property="article:modified_time" content="2026-02-05T04:12:22.361Z">
+<meta property="article:modified_time" content="2026-02-05T04:19:06.026Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="图神经网络">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2.2k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          14 分钟
+          19 分钟
         
       </span>
     
@@ -398,8 +398,19 @@
 <p>$$w_i(\mathcal{S}) &#x3D; a_i + \sum _ {j \in \mathcal{S}, (i,j) \in \mathcal{E}} c _ {ij} + \sum _ {j \in \mathcal{S}, (j,i) \in \mathcal{E}} c _ {ji}$$</p>
 <p>简单来说，这就是当节点 $v_i$ 被移除时，$f(\mathcal{S})$ 减少的量。</p>
 <p>假设 $\mathcal{S}^\ast$ 是全局最优（密度最大）的子集，即 $g(\mathcal{S}^\ast) &#x3D; g _ {OPT}$。 对于 $\mathcal{S}^\ast$ 中的每一个节点 $v_i$，必然满足 $w_i(\mathcal{S}^\ast) \ge g(\mathcal{S}^\ast)$。</p>
-<p>如果有一个节点 $v_i$ 的贡献 $w_i(\mathcal{S}^\ast) &lt; g(\mathcal{S}^\ast)$，那么把它移除后，剩下的密度会变大：<br>$$<br>g(\mathcal{S}^\ast \setminus {v_i}) &#x3D; \frac{f(\mathcal{S}^\ast) - w_i(\mathcal{S}^\ast)}{|\mathcal{S}^\ast| - 1} &gt; \frac{f(\mathcal{S}^\ast) - g(\mathcal{S}^\ast)}{|\mathcal{S}^\ast| - 1} &#x3D; \frac{f(\mathcal{S}^\ast) - f(\mathcal{S}^\ast)&#x2F;|\mathcal{S}^\ast|}{|\mathcal{S}^\ast| - 1} &#x3D; g(\mathcal{S}^\ast)<br>$$</p>
+<ul>
+<li><strong>反证法</strong>： 如果有一个节点 $v_i$ 的贡献 $w_i(\mathcal{S}^\ast) &lt; g(\mathcal{S}^\ast)$，那么把它移除后，剩下的密度会变大：</li>
+</ul>
+<p>$$<br>g(\mathcal{S}^\ast \setminus {v_i}) &#x3D; \frac{f(\mathcal{S}^\ast) - w_i(\mathcal{S}^\ast)}{|\mathcal{S}^\ast| - 1} &gt; \frac{f(\mathcal{S}^\ast) - g(\mathcal{S}^\ast)}{|\mathcal{S}^\ast| - 1} &#x3D; \frac{f(\mathcal{S}^\ast) - f(\mathcal{S}^\ast)&#x2F;|\mathcal{S}^\ast|}{|\mathcal{S}^\ast| - 1} &#x3D; g(\mathcal{S}^\ast)<br>$$</p>
 <p>这与 $\mathcal{S}^\ast$ 是最优解矛盾。所以所有节点的贡献都必须大于等于平均密度。</p>
+<p>考虑 FRAUDAR 算法的执行过程。假设在算法运行中，$v_i$ 是 <strong>第一个</strong> 被删除的属于最优集 $\mathcal{S}^*$ 的节点。</p>
+<p>令 $\mathcal{S}’$ 为移除 $v_i$ 之前的集合。此时显然 $\mathcal{S}^* \subseteq \mathcal{S}’$。</p>
+<p>（1）由于 $\mathcal{S}^* \subseteq \mathcal{S}’$，节点 $v_i$ 在 $\mathcal{S}’$ 中的连边包含了它在 $\mathcal{S}^<em>$ 中的所有连边，所以权重贡献只增不减：$w_i(\mathcal{S}’) \ge w_i(\mathcal{S}^</em>) \ge g(\mathcal{S}^*)$。</p>
+<p>（2）因为算法是贪心地移除“贡献最小”的节点，而 $v_i$ 是被选中的（即 $v_i$ 是当前 $\mathcal{S}’$ 中贡献最小的），所以对于 $\mathcal{S}’$ 中留下的任何其他节点 $v_j$，都有 $w_j(\mathcal{S}’) \ge w_i(\mathcal{S}’)$。</p>
+<p>（3）对 $\mathcal{S}’$ 中所有节点的贡献求和：$\sum_{v_j \in \mathcal{S}’} w_j(\mathcal{S}’) &#x3D; 2 f(\mathcal{S}’)$（因为每条边被算了两次）。</p>
+<p>结合上面两点：$2 f(\mathcal{S}’) &#x3D; \sum w_j(\mathcal{S}’) \ge |\mathcal{S}’| w_i(\mathcal{S}’)$。</p>
+<p>整理得：$g(\mathcal{S}’) &#x3D; \frac{f(\mathcal{S}’)}{|\mathcal{S}’|} \ge \frac{w_i(\mathcal{S}’)}{2}$。</p>
+<p>综上，$g(\mathcal{A} \cup \mathcal{B}) \ge g(\mathcal{S}’) \ge \frac{w_i(\mathcal{S}’)}{2} \ge \frac{w_i(\mathcal{S}^<em>)}{2} \ge \frac{g(\mathcal{S}^</em>)}{2} &#x3D; \frac{1}{2} g_{OPT}$</p>
 <h3 id="抗伪装性-Camouflage-Resistance"><a href="#抗伪装性-Camouflage-Resistance" class="headerlink" title="抗伪装性 (Camouflage Resistance)"></a>抗伪装性 (Camouflage Resistance)</h3><p>只要使用<strong>列加权</strong>（权重仅依赖于对象节点的度），度量 $g$ 就是抗伪装的。这意味着欺诈者无法通过添加指向诚实对象的边来降低其所在的欺诈子集的密度值 。</p>
 <p>PS：行加权（Row-weighting）不具备此属性，因为欺诈者可以通过关注更多人来改变自己的度，从而稀释权重。</p>
 <p>如果边权重 $c _ {ij}$ 是基于列度（column-weighting）定义的（即 $c _ {ij}$ 仅取决于对象 $j$ 的度数），那么度量 $g$ 是抗伪装的 。</p>
@@ -408,7 +419,23 @@
 <p>我们关注的是欺诈块 $\mathcal{S} &#x3D; \mathcal{A} \cup \mathcal{B}$ 的密度 $g(\mathcal{A} \cup \mathcal{B})$。</p>
 <p>伪装操作增加的边是在 $\mathcal{A}$ 和 $\mathcal{W} \setminus \mathcal{B}$ 之间。这<strong>不会</strong>改变欺诈块 $\mathcal{A} \cup \mathcal{B}$ 内部的边数（即 $\mathcal{A}$ 和 $\mathcal{B}$ 之间的边）。</p>
 <p>而，分子 $f(\mathcal{A} \cup \mathcal{B})$ 不变，分母 $|\mathcal{A} \cup \mathcal{B}|$ 也不变。因此，$g(\mathcal{A} \cup \mathcal{B})$ 的值在伪装前后保持不变。这意味着欺诈者无法通过伪装来“稀释”自己的可疑度。</p>
-<h3 id="欺诈上限-Bounding-Fraud-："><a href="#欺诈上限-Bounding-Fraud-：" class="headerlink" title="欺诈上限 (Bounding Fraud)："></a>欺诈上限 (Bounding Fraud)：</h3><p> 论文给出了一个公式，计算在不被检测到的情况下，欺诈者最多能添加多少条边。<br>$$<br>Edges \le 2(m_0 + n_0) g _ {log}(\hat{S}) \log(m_0&#x2F;\lambda + c)<br>$$<br><strong>证明</strong>：</p>
+<h3 id="欺诈上限-Bounding-Fraud-："><a href="#欺诈上限-Bounding-Fraud-：" class="headerlink" title="欺诈上限 (Bounding Fraud)："></a>欺诈上限 (Bounding Fraud)：</h3><p> 论文还计算了在不被检测到的情况下，欺诈者最多能添加多少条边。</p>
+<p>一个大小为 $(m_0, n_0)$ 的欺诈块，如果不被检测到，其边数上限为 ：<br>$$<br>Edges \le 2(m_0 + n_0) g _ {log}(\hat{S}) \log(m_0&#x2F;\lambda + c)<br>$$<br><strong>证明</strong>：</p>
+<p>根据近似保证，算法找到的密度至少是最优的一半。反过来说，如果欺诈块未被检测到（假设它比算法找到的块密度低），或者即便它是最优块，其真实密度 $g(\mathcal{S}<em>{fraud})$ 最多也就大概是算法输出结果的 2 倍（这是一个保守的上界估计，即 $g</em>{OPT} \le 2 g_{returned}$）。</p>
+<p>所以，欺诈块的总可疑度 $f(\mathcal{S}_{fraud})$ 上限为：</p>
+<p>$$f(\mathcal{S}<em>{fraud}) \le (m_0 + n_0) \times 2 g</em>{log}(\hat{\mathcal{S}})$$</p>
+<p>我们再来计算<strong>单条边的最小权重</strong>。</p>
+<p>对于欺诈对象 $j$，其总度数 $d_j$ 中，来自欺诈者的边数为 $d_{fraud}$。</p>
+<p>根据假设，欺诈边占比至少为 $\lambda$，即 $d_{fraud} &#x2F; d_j \ge \lambda \implies d_j \le d_{fraud} &#x2F; \lambda$。显然欺诈边数 $d_{fraud}$ 最多为 $m_0$（所有欺诈用户都连它）。所以该对象的总度数 $d_j \le m_0 &#x2F; \lambda$。</p>
+<p>代入权重公式 $c_{ij} &#x3D; 1&#x2F;\log(d_j + c)$，可得单条边的权重下限：</p>
+<p>$$c_{ij} \ge \frac{1}{\log(m_0&#x2F;\lambda + c)}$$</p>
+<p>我们再来计算<strong>计算边数上限</strong>：</p>
+<p>总可疑度 $f$ 是所有边权重的和。如果共有 $E$ 条欺诈边，那么：</p>
+<p>$$f(\mathcal{S}<em>{fraud}) &#x3D; \sum</em>{edges} c_{ij} \ge E \times \frac{1}{\log(m_0&#x2F;\lambda + c)}$$</p>
+<p>结合第1步的上限：</p>
+<p>$$E \times \frac{1}{\log(m_0&#x2F;\lambda + c)} \le 2(m_0 + n_0) g_{log}(\hat{\mathcal{S}})$$</p>
+<p>移项即得：</p>
+<p>$$E \le 2(m_0 + n_0) g_{log}(\hat{\mathcal{S}}) \log(m_0&#x2F;\lambda + c)$$</p>
 
                 
               </div>
