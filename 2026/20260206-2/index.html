@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260206-2/3.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260206-2/4.png">
 <meta property="article:published_time" content="2026-02-06T13:00:04.000Z">
-<meta property="article:modified_time" content="2026-02-06T13:32:05.097Z">
+<meta property="article:modified_time" content="2026-02-06T13:40:39.198Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -410,7 +410,7 @@
 <p>$$\mathcal{L}_{pref} &#x3D; \gamma \cdot \sigma(\theta - (\mathcal{L}_n - \mathcal{L}_p))$$</p>
 <p>其中 $\sigma(\cdot)$ 是 ReLU 函数，$\theta$ 是目标边缘，$\gamma$ 是权重。这鼓励 $\mathcal{L}_n$ 显著大于 $\mathcal{L}_p$，从而提高 $PrefOdds$。</p>
 <p><strong>最终损失函数为</strong> ：</p>
-<p>$$\mathcal{L} &#x3D; \mathcal{L}<em>{util} + \mathcal{L}</em>{pref}$$</p>
+<p>$$\mathcal{L} &#x3D; \mathcal{L} _ {util} + \mathcal{L} _ {pref}$$</p>
 <p>通过联合优化这两个目标，SPLIT 方法能够在提升模型对目标概念（如特定情感、风格）的依从性的同时，防止模型因过度干预而输出崩坏，实现了更好的偏好-效用权衡 。</p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2026/20260206-2/4.png"></p>
 
