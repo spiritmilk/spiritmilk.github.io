@@ -28,17 +28,17 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2026） 将全量微调、LoRA、激活干预统一。 很好的文章！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/2.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/3.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/4.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260206-2/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260206-2/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260206-2/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260206-2/4.png">
 <meta property="article:published_time" content="2026-02-06T13:00:04.000Z">
-<meta property="article:modified_time" content="2026-02-06T13:29:45.591Z">
+<meta property="article:modified_time" content="2026-02-06T13:32:05.097Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/2/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260206-2/1.png">
   
   
   
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          826 字
+          1.1k 字
         
       </span>
     
@@ -313,7 +313,7 @@
         
         
         
-          7 分钟
+          10 分钟
         
       </span>
     
@@ -361,11 +361,11 @@
 <span id="more"></span>
 
 <hr>
-<h2 id="统一"><a href="#统一" class="headerlink" title="统一"></a>统一</h2><p><img src="/2019/20190323/2/1.png"></p>
+<h2 id="统一"><a href="#统一" class="headerlink" title="统一"></a>统一</h2><p><img src="/2026/20260206-2/1.png"></p>
 <p>文将所有这些干预方法统一表示为对线性层（Linear Layer）的仿射变换（Affine Transformation）的修改：</p>
 <p>$$h_{i+1} &#x3D; (W + m_1 \Delta W)h_i + (b + m_2 \Delta b)$$</p>
-<p><img src="/2019/20190323/2/2.png"></p>
-<h2 id="偏好与效用的权衡"><a href="#偏好与效用的权衡" class="headerlink" title="偏好与效用的权衡"></a>偏好与效用的权衡</h2><p>论文引入了两个核心指标来衡量控制效果 ：</p>
+<p><img src="/2026/20260206-2/2.png"></p>
+<h2 id="偏好与效用的权衡"><a href="#偏好与效用的权衡" class="headerlink" title="偏好与效用的权衡"></a>偏好与效用的权衡</h2><p>论文引入了两个核心指标来衡量控制效果。</p>
 <p>假设对于一个查询 $q$，存在一对极性相反的回答：符合目标概念的正向回答 $A_p$ 和负向回答 $A_n$。 论文将生成概率分解为<strong>效用概率</strong> $P(u|q)$（代表生成有效文本的能力）和<strong>偏好概率</strong> $P(p|q)$（代表倾向于某种概念的程度）：<br>$$<br>P(A_p|q) &#x3D; P(u|q)P(p_p|q)<br>$$<br>$$P(A_n|q) &#x3D; P(u|q)P(p_n|q)$$</p>
 <ul>
 <li><strong>偏好 (Preference)</strong>：模型生成内容符合目标概念（如“积极情感”）的倾向程度。</li>
@@ -382,7 +382,7 @@
 </ol>
 <p>这揭示了一个普遍的权衡：<strong>更强的控制通常以牺牲模型的通用能力（效用）为代价</strong> 。</p>
 <h2 id="机制分析"><a href="#机制分析" class="headerlink" title="机制分析"></a>机制分析</h2><p>论文提出了激活流形假设 (Activation Manifold Hypothesis)。</p>
-<p><img src="/2019/20190323/2/3.png"></p>
+<p><img src="/2026/20260206-2/3.png"></p>
 <p>模型的正常激活值位于一个低维流形 $\mathcal{M}_l$ 附近。当干预使激活值 $\tilde{h}(m)$ 远离该流形时，后续层解码的有效性（Validity）会下降 。</p>
 <p>论文引入了一个<strong>有效性衰减函数 (Validity Decay Function)</strong> $D(m)$ 来量化这种偏离，采用分段有理二次形式（Rational Quadratic Form）建模 ：</p>
 <p>$$D(m) &#x3D; \left( 1 + \frac{(m - m_{\pm})^2}{2 \alpha l^2} \right)^{-\alpha}$$</p>
@@ -402,7 +402,17 @@
 </li>
 </ul>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>基于上述分析，论文提出了一种名为 <strong>SPLIT (Steering with Preference-Utility Intervention)</strong> 的训练目标，旨在在增强偏好的同时，最大程度地保持效用（即延缓 $D(m)$ 的衰减）。</p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2019/20190323/2/4.png"></p>
+<p>论文提出了两种损失。</p>
+<p><strong>效用损失 (Utility Loss)</strong> $\mathcal{L}_{util}$： 为了将激活值保持在“流形”上（即保持生成有效文本的能力），模型需要在正向和负向样本上都最小化标准的语言建模损失 ：</p>
+<p>$$\mathcal{L}_{util} &#x3D; \lambda_p \mathcal{L}_p + \lambda_n \mathcal{L}_n$$</p>
+<p>其中 $\lambda_p, \lambda_n$ 是权重系数。这迫使模型无论输出何种极性的内容，都要保证其符合语言模型的概率分布。</p>
+<p><strong>偏好损失 (Preference Loss)</strong> $\mathcal{L}_{pref}$： 为了实现控制，模型需要最大化正负样本之间的对数几率差（即偏好对数几率）。论文使用了一个带边缘（margin）的铰链损失形式 ：</p>
+<p>$$\mathcal{L}_{pref} &#x3D; \gamma \cdot \sigma(\theta - (\mathcal{L}_n - \mathcal{L}_p))$$</p>
+<p>其中 $\sigma(\cdot)$ 是 ReLU 函数，$\theta$ 是目标边缘，$\gamma$ 是权重。这鼓励 $\mathcal{L}_n$ 显著大于 $\mathcal{L}_p$，从而提高 $PrefOdds$。</p>
+<p><strong>最终损失函数为</strong> ：</p>
+<p>$$\mathcal{L} &#x3D; \mathcal{L}<em>{util} + \mathcal{L}</em>{pref}$$</p>
+<p>通过联合优化这两个目标，SPLIT 方法能够在提升模型对目标概念（如特定情感、风格）的依从性的同时，防止模型因过度干预而输出崩坏，实现了更好的偏好-效用权衡 。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2026/20260206-2/4.png"></p>
 
                 
               </div>
@@ -1005,7 +1015,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":162},{"name":"大模型","value":67},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":28},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
+                            data: [{"name":"深度学习","value":162},{"name":"大模型","value":67},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":28},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -1019,7 +1029,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":162},{"name":"大模型","value":67},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":28},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":162},{"name":"大模型","value":67},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":28},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });
