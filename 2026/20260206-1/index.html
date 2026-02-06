@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="(arxiv 2026) Large Language Model Vector Alignment (LLM-VA)">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1/1.png">
 <meta property="article:published_time" content="2026-02-06T04:09:53.000Z">
-<meta property="article:modified_time" content="2026-02-06T04:19:21.055Z">
+<meta property="article:modified_time" content="2026-02-06T04:33:11.743Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5 字
+          225 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -354,7 +356,21 @@
 <p><strong>L</strong>arge <strong>L</strong>anguage <strong>M</strong>odel <strong>V</strong>ector <strong>A</strong>lignment (LLM-<br>VA)</p>
 <span id="more"></span>
 
-<h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2>
+<h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>作者发现，</p>
+<ul>
+<li><strong>回答决策 ($v_a$)</strong>：模型决定“回答还是拒绝”的方向。</li>
+<li><strong>安全判断 ($v_b$)</strong>：模型判断输入是“良性还是有毒”的方向。</li>
+</ul>
+<p>在模型的潜在空间中，<strong>这两个向量几乎是正交的（夹角约为 90°）</strong>。</p>
+<p><img src="/2019/20190323/1/1.png"></p>
+<p>这意味着，模型将“是否回答”和“输入是否安全”视为两个<strong>独立</strong>的过程 。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>既然“是否回答”和“输入是否安全”是两个<strong>独立</strong>的过程 。我可以通过将“回答向量”($v_a$) 与“良性向量”($v_b$) 进行<strong>对齐</strong>，强制模型建立因果关系：<strong>只有当通过安全评估（良性）时，才触发回答意愿</strong> 。</p>
+<p>作者使用SVM在每一层寻找两个超平面：</p>
+<ol>
+<li>区分良性&#x2F;有毒输入的超平面（法向量为 $v_b$）。</li>
+<li>区分回答&#x2F;拒绝行为的超平面（法向量为 $v_a$）。</li>
+</ol>
+
                 
               </div>
             
