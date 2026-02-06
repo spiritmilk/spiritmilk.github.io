@@ -29,8 +29,9 @@
 <meta property="og:description" content="（arxiv 2026） 将全量微调、LoRA、激活干预统一。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/2.png">
 <meta property="article:published_time" content="2026-02-06T13:00:04.000Z">
-<meta property="article:modified_time" content="2026-02-06T13:15:52.676Z">
+<meta property="article:modified_time" content="2026-02-06T13:23:19.502Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          24 字
+          454 字
         
       </span>
     
@@ -310,7 +311,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -357,8 +358,26 @@
 <span id="more"></span>
 
 <hr>
-<p><img src="/2019/20190323/2/1.png"></p>
+<h2 id="统一"><a href="#统一" class="headerlink" title="统一"></a>统一</h2><p><img src="/2019/20190323/2/1.png"></p>
+<p>文将所有这些干预方法统一表示为对线性层（Linear Layer）的仿射变换（Affine Transformation）的修改：</p>
 <p>$$h_{i+1} &#x3D; (W + m_1 \Delta W)h_i + (b + m_2 \Delta b)$$</p>
+<p><img src="/2019/20190323/2/2.png"></p>
+<h2 id="偏好与效用的权衡"><a href="#偏好与效用的权衡" class="headerlink" title="偏好与效用的权衡"></a>偏好与效用的权衡</h2><p>论文引入了两个核心指标来衡量控制效果 ：</p>
+<p>假设对于一个查询 $q$，存在一对极性相反的回答：符合目标概念的正向回答 $A_p$ 和负向回答 $A_n$。 论文将生成概率分解为<strong>效用概率</strong> $P(u|q)$（代表生成有效文本的能力）和<strong>偏好概率</strong> $P(p|q)$（代表倾向于某种概念的程度）：<br>$$<br>P(A_p|q) &#x3D; P(u|q)P(p_p|q)<br>$$<br>$$P(A_n|q) &#x3D; P(u|q)P(p_n|q)$$</p>
+<ul>
+<li><strong>偏好 (Preference)</strong>：模型生成内容符合目标概念（如“积极情感”）的倾向程度。</li>
+</ul>
+<p>$$<br>PrefOdds(q) &#x3D; \log \frac{P(p_p|q)}{P(p_n|q)} &#x3D; \mathcal{L}_n - \mathcal{L}_p<br>$$</p>
+<ul>
+<li><strong>效用 (Utility)</strong>：模型生成内容在任务上的连贯性、有效性和指令遵循能力（即如果不考虑风格，句子本身是否通顺合理）。</li>
+</ul>
+<p>$$UtilOdds(q) &#x3D; \log \frac{P(u|q)}{1 - P(u|q)} &#x3D; \log \frac{e^{-\mathcal{L}_p} + e^{-\mathcal{L}_n}}{1 - (e^{-\mathcal{L}_p} + e^{-\mathcal{L}_n})}$$</p>
+<p>观察到的规律 ： 无论使用哪种干预方法（LoRA, Vector, Local Weight），随着控制强度（Multiplier $m$）的变化，模型表现出惊人一致的动力学模式：</p>
+<ol>
+<li><strong>偏好 (Preference)</strong>：随着 $m$ 增加，偏好得分呈现 S 形曲线（或线性增长后饱和）。</li>
+<li><strong>效用 (Utility)</strong>：随着 $m$ 偏离 0（无论正向还是负向引导），效用得分都会呈现单调下降，形成一个倒“U”形或钟形曲线 。</li>
+</ol>
+<p>这揭示了一个普遍的权衡：<strong>更强的控制通常以牺牲模型的通用能力（效用）为代价</strong> 。</p>
 
                 
               </div>
