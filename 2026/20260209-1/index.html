@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-09T03:01:57.000Z">
-<meta property="article:modified_time" content="2026-02-09T03:44:36.517Z">
+<meta property="article:modified_time" content="2026-02-09T03:47:22.721Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          945 字
+          950 字
         
       </span>
     
@@ -356,21 +356,21 @@
 <hr>
 <p>与自回归模型（AR-LLMs）单次生成不同，D-LLMs 通过 $T$ 步迭代去噪生成文本。TraceDet 将此过程建模为 MDP ：</p>
 <ul>
-<li><strong>状态 ($s_t$)</strong>：由输入提示词 $p_0$ 和当前中间噪声文本 $r_{T-t}$ 组成。</li>
+<li><strong>状态 ($s_t$)</strong>：由输入提示词 $p_0$ 和当前中间噪声文本 $r _ {T-t}$ 组成。</li>
 <li><strong>动作 ($a_t$)</strong>：模型基于当前状态预测完整去噪文本的尝试。</li>
-<li><strong>轨迹 ($A$)</strong>：整个去噪过程形成了一个动作轨迹集合 $A &#x3D; {a_0, a_1, …, a_{T-1}}$，其中每个动作代表模型在某一步对最终答案的“猜测” 。</li>
+<li><strong>轨迹 ($A$)</strong>：整个去噪过程形成了一个动作轨迹集合 $A &#x3D; {a_0, a_1, …, a _ {T-1}}$，其中每个动作代表模型在某一步对最终答案的“猜测” 。</li>
 </ul>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>TraceDet 使用信息瓶颈原则来自动学习筛选关键步骤。</p>
-<p>目标是找到一个子轨迹 $A_{sub}$（即筛选后的去噪步骤），使其满足两个条件 ：</p>
+<p>目标是找到一个子轨迹 $A _ {sub}$（即筛选后的去噪步骤），使其满足两个条件 ：</p>
 <ol>
-<li><strong>最大化预测能力</strong>：$A_{sub}$ 包含足够的信息来预测最终结果是否为幻觉（标签 $Y$）。</li>
-<li><strong>最小化冗余信息</strong>：$A_{sub}$ 包含尽可能少的原始轨迹 $A$ 的信息（即去除无关的噪声步骤）。</li>
+<li><strong>最大化预测能力</strong>：$A _ {sub}$ 包含足够的信息来预测最终结果是否为幻觉（标签 $Y$）。</li>
+<li><strong>最小化冗余信息</strong>：$A _ {sub}$ 包含尽可能少的原始轨迹 $A$ 的信息（即去除无关的噪声步骤）。</li>
 </ol>
 <p>这通过优化以下拉格朗日目标函数实现：</p>
-<p>$$\min_{f, g} -I(Y; A_{sub}) + \beta I(A; A_{sub})$$</p>
+<p>$$\min _ {f, g} -I(Y; A _ {sub}) + \beta I(A; A _ {sub})$$</p>
 <p>其中：</p>
 <ul>
-<li>$A_{sub} &#x3D; g(A)$ 是提取的子轨迹。</li>
+<li>$A _ {sub} &#x3D; g(A)$ 是提取的子轨迹。</li>
 <li>$I(\cdot; \cdot)$ 表示互信息（Mutual Information）。</li>
 <li>$\beta$ 是控制权重的超参数。</li>
 </ul>
@@ -379,23 +379,23 @@
 <h3 id="子实例提取器-g-theta"><a href="#子实例提取器-g-theta" class="headerlink" title="子实例提取器 ($g_\theta$)"></a>子实例提取器 ($g_\theta$)</h3><p>该模块负责生成一个时间掩码（Mask），用于筛选关键步骤。</p>
 <p>将熵轨迹 $A$ 加上正弦时间嵌入，输入 Transformer 编码器得到上下文嵌入 $emb$ 。</p>
 <p>通过交叉注意力机制（Cross-Attention）和线性层，计算每一步被保留的概率 $\hat{M}$ ：</p>
-<p>$$\hat{m}_{t} &#x3D; \text{Linear}(\text{Attention}(emb, A))$$</p>
+<p>$$\hat{m} _ {t} &#x3D; \text{Linear}(\text{Attention}(emb, A))$$</p>
 <p>为了使离散的掩码选择过程可微（从而可以进行反向传播训练），使用 Gumbel-Softmax 技巧采样得到二值掩码 $M \in {0, 1}^{T}$ 。</p>
 <p>然后应用掩码：</p>
-<p>$$A_{sub} &#x3D; M \odot A$$</p>
+<p>$$A _ {sub} &#x3D; M \odot A$$</p>
 <p>这里 $\odot$ 表示逐元素相乘。未被选中的步骤被置零。</p>
 <h3 id="子实例预测器-f-phi"><a href="#子实例预测器-f-phi" class="headerlink" title="子实例预测器 ($f_\phi$)"></a>子实例预测器 ($f_\phi$)</h3><p>该模块根据筛选后的轨迹判断是否为幻觉。</p>
-<p>将 $A_{sub}$ 在时间维度上聚合（例如取平均）。</p>
+<p>将 $A _ {sub}$ 在时间维度上聚合（例如取平均）。</p>
 <p>通过一个多层感知机（MLP）输出最终的幻觉概率 ：</p>
-<p>$$P(\text{Hallucination}) &#x3D; \text{Sigmoid}(\text{MLP}(\text{Aggregate}(A_{sub})))$$</p>
+<p>$$P(\text{Hallucination}) &#x3D; \text{Sigmoid}(\text{MLP}(\text{Aggregate}(A _ {sub})))$$</p>
 <h3 id="损失"><a href="#损失" class="headerlink" title="损失"></a>损失</h3><p>为了通过神经网络优化上述信息瓶颈目标，TraceDet 将公式转化为两个可计算的损失项 ：</p>
-<p>$$\mathcal{L} &#x3D; \mathcal{L}<em>{cls} + \beta \mathcal{L}</em>{ext}$$</p>
-<p>分类损失 ($\mathcal{L}<em>{cls}$)对应于最大化互信息 $I(Y; A</em>{sub})$。这是一个标准的二元交叉熵损失（Binary Cross-Entropy Loss），用于训练模型准确预测幻觉标签 $Y$ 。</p>
-<p>正则化损失 ($\mathcal{L}<em>{ext}$)对应于最小化互信息 $I(A; A</em>{sub})$。为了限制模型选择的步骤数量，研究者将其推导为掩码分布与先验分布之间的 KL 散度（KL-Divergence）。</p>
-<p>假设先验分布 $Q(A_{sub})$ 是一个伯努利分布，其参数 $\tau$ 代表我们希望保留的步骤比例（例如只保留 20% 的步骤）。则正则化损失为：</p>
-<p>$$\mathcal{L}<em>{ext} &#x3D; \sum</em>{i} \left[ p_{a_i} \log \frac{p_{a_i}}{\tau} + (1 - p_{a_i}) \log \frac{1 - p_{a_i}}{1 - \tau} \right]$$</p>
-<p>其中 $p_{a_i}$ 是模型预测第 $i$ 步被选中的概率。</p>
-<p><strong>直观理解</strong>：这一项强迫模型生成的掩码概率 $p_{a_i}$ 接近预设的稀疏度 $\tau$，防止模型“作弊”全选所有步骤，迫使它只挑选最能表征幻觉的那几个关键帧。</p>
+<p>$$\mathcal{L} &#x3D; \mathcal{L} _ {cls} + \beta \mathcal{L} _ {ext}$$</p>
+<p>分类损失 ($\mathcal{L} _ {cls}$)对应于最大化互信息 $I(Y; A _ {sub})$。这是一个标准的二元交叉熵损失（Binary Cross-Entropy Loss），用于训练模型准确预测幻觉标签 $Y$ 。</p>
+<p>正则化损失 ($\mathcal{L} _ {ext}$)对应于最小化互信息 $I(A; A _ {sub})$。为了限制模型选择的步骤数量，研究者将其推导为掩码分布与先验分布之间的 KL 散度（KL-Divergence）。</p>
+<p>假设先验分布 $Q(A _ {sub})$ 是一个伯努利分布，其参数 $\tau$ 代表我们希望保留的步骤比例（例如只保留 20% 的步骤）。则正则化损失为：</p>
+<p>$$\mathcal{L} _ {ext} &#x3D; \sum _ {i} \left[ p _ {a_i} \log \frac{p _ {a_i}}{\tau} + (1 - p _ {a_i}) \log \frac{1 - p _ {a_i}}{1 - \tau} \right]$$</p>
+<p>其中 $p _ {a_i}$ 是模型预测第 $i$ 步被选中的概率。</p>
+<p><strong>直观理解</strong>：这一项强迫模型生成的掩码概率 $p _ {a_i}$ 接近预设的稀疏度 $\tau$，防止模型“作弊”全选所有步骤，迫使它只挑选最能表征幻觉的那几个关键帧。</p>
 
                 
               </div>
