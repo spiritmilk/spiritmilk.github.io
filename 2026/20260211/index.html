@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260211/1.png">
 <meta property="article:published_time" content="2026-02-11T02:15:47.000Z">
-<meta property="article:modified_time" content="2026-02-12T03:57:05.557Z">
+<meta property="article:modified_time" content="2026-02-12T04:09:09.592Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -393,7 +393,7 @@
 <p>$$\mathcal{E} &#x3D; {(t_i, r_i ^ {j^\ast}) | j^\ast &#x3D; \arg \max_j s_i^j}$$</p>
 <p><strong>最后一步</strong>是将上述结构化知识融合回文本中，引导 LLM 进行防御性推理。</p>
 <p>利用集合 $R$ 中的映射关系，将原始文本 $x$ 中的关键词用对应的战术标签包裹。定义转换函数 $f(w)$：</p>
-<p>$$f(w) &#x3D; \begin{cases} &lt;t&gt;w&lt;&#x2F;t&gt;, &amp; \text{if } w \in K_u \text{ where } (K_u, t) \in R \ w, &amp; \text{otherwise} \end{cases}$$</p>
+<p>$$f(w) &#x3D; \begin{cases} &lt;t&gt;w&lt;&#x2F;t&gt;, &amp; \text{if } w \in K_u \text{ where } (K_u, t) \in R \\ w, &amp; \text{otherwise} \end{cases}$$</p>
 <p>增强后的文本 $x’$ 由 $x’ &#x3D; {f(w_1), f(w_2), …, f(w_n)}$ 组成。例如，文本中的 “click now” 会被转换为 <code>&lt;Urgency Pressure&gt;click now&lt;/Urgency Pressure&gt;</code> 。</p>
 <p>将增强后的文本 $x’$ 和筛选出的证据 $\mathcal{E}$ 作为提示（Prompt）输入给 LLM。LLM 结合高亮的上下文和明确的诈骗理由，生成最终的防御性回复 $y$：</p>
 <p>$$y &#x3D; \arg \max M(y|x’, \mathcal{E})$$</p>
