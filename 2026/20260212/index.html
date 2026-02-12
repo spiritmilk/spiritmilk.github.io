@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/212/1.png">
 <meta property="article:published_time" content="2026-02-12T05:17:40.000Z">
-<meta property="article:modified_time" content="2026-02-12T05:54:52.103Z">
+<meta property="article:modified_time" content="2026-02-12T06:04:06.622Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/212/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          192 字
+          540 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -359,7 +361,23 @@
 <li><strong>训练后对齐（Post-training）：</strong> 如 RLHF（基于人类反馈的强化学习）和 DPO。这些方法效果好，但<strong>计算成本高昂</strong>，且需要针对每个模型单独微调，难以跨模型迁移 。</li>
 <li><strong>推理时干预（Inference-time）：</strong> 如 SafeDecoding。这些方法在生成时引入外部控制。虽然避免了重新训练，但通常需要预先计算复杂的安全向量，或者会<strong>严重损害模型的通用能力（Utility）</strong>（例如数学推理能力下降），并且往往对所有 Token 进行无差别的干预 。</li>
 </ul>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2>
+<h2 id="方法-Neuron-Guided-Safe-Decoding-NGSD"><a href="#方法-Neuron-Guided-Safe-Decoding-NGSD" class="headerlink" title="方法-Neuron-Guided Safe Decoding (NGSD)"></a>方法-Neuron-Guided Safe Decoding (NGSD)</h2><p><img src="/2021/1000/212/1.png"></p>
+<p>NGSD 需要两个模型 ：</p>
+<ul>
+<li><strong>基座模型 ($M_b$)</strong>：需要进行安全增强的目标大模型（如 Llama-2-13B）。</li>
+<li><strong>安全专家模型 ($M_e$)</strong>：同系列中参数量最小的模型（如 TinyLlama-1.1B）。该模型经过轻量级的安全数据微调。</li>
+</ul>
+<h3 id="提示词级自反思-Prompt-Level-Self-Reflection"><a href="#提示词级自反思-Prompt-Level-Self-Reflection" class="headerlink" title="提示词级自反思 (Prompt-Level Self-Reflection)"></a>提示词级自反思 (Prompt-Level Self-Reflection)</h3><p>在开始生成文本之前，系统首先确定全局的安全干预强度参数 $\alpha$。这是通过让基座模型“自反思”来完成的。</p>
+<h4 id="A-风险维度评估"><a href="#A-风险维度评估" class="headerlink" title="A. 风险维度评估"></a>A. 风险维度评估</h4><p>基座模型 $M_b$ 会根据四个维度对用户的 Prompt 进行评分（0-10分）：</p>
+<ol>
+<li><strong>严重性 ($S$)</strong>：核心话题的危险程度。</li>
+<li><strong>可操作性 ($A$)</strong>：是否包含具体的执行步骤。</li>
+<li><strong>规避性 ($E$)</strong>：是否试图绕过安全审查（如角色扮演）。</li>
+<li><strong>针对性 ($T$)</strong>：是否针对特定现实目标。</li>
+</ol>
+<p>为了计算综合风险分 $r$，算法首先对 ${A, E, T}$ 进行降序排列，取前两个最大值 $P_1, P_2$。聚合公式旨在突出严重性 $S$ 的主导地位 。<br>$$<br>r&#x3D;max(S,\frac{1}{2}S+\frac{1}{2}\cdot\frac{P_1+P_2}{2})<br>$$<br>根据计算出的风险分 $r$，确定整个解码过程的干预强度 $\alpha$ ：</p>
+<p>$$\alpha &#x3D;  \begin{cases}  0.9 &amp; \text{if } r &gt; 5 \text{ (高风险)} \ 0.1 &amp; \text{if } r \le 5 \text{ (低风险)} \end{cases}$$</p>
+<h3 id="神经元引导的门控机制-Neuron-Guided-Gating"><a href="#神经元引导的门控机制-Neuron-Guided-Gating" class="headerlink" title="神经元引导的门控机制 (Neuron-Guided Gating)"></a>神经元引导的门控机制 (Neuron-Guided Gating)</h3>
                 
               </div>
             
