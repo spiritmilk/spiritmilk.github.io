@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/212/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260212/1.png">
 <meta property="article:published_time" content="2026-02-12T05:17:40.000Z">
 <meta property="article:modified_time" content="2026-02-12T06:16:24.742Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/212/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260212/1.png">
   
   
   
@@ -361,7 +361,7 @@
 <li><strong>训练后对齐（Post-training）：</strong> 如 RLHF（基于人类反馈的强化学习）和 DPO。这些方法效果好，但<strong>计算成本高昂</strong>，且需要针对每个模型单独微调，难以跨模型迁移 。</li>
 <li><strong>推理时干预（Inference-time）：</strong> 如 SafeDecoding。这些方法在生成时引入外部控制。虽然避免了重新训练，但通常需要预先计算复杂的安全向量，或者会<strong>严重损害模型的通用能力（Utility）</strong>（例如数学推理能力下降），并且往往对所有 Token 进行无差别的干预 。</li>
 </ul>
-<h2 id="方法-Neuron-Guided-Safe-Decoding-NGSD"><a href="#方法-Neuron-Guided-Safe-Decoding-NGSD" class="headerlink" title="方法-Neuron-Guided Safe Decoding (NGSD)"></a>方法-Neuron-Guided Safe Decoding (NGSD)</h2><p><img src="/2021/1000/212/1.png"></p>
+<h2 id="方法-Neuron-Guided-Safe-Decoding-NGSD"><a href="#方法-Neuron-Guided-Safe-Decoding-NGSD" class="headerlink" title="方法-Neuron-Guided Safe Decoding (NGSD)"></a>方法-Neuron-Guided Safe Decoding (NGSD)</h2><p><img src="/2026/20260212/1.png"></p>
 <p>NGSD 需要两个模型 ：</p>
 <ul>
 <li><strong>基座模型 ($M_b$)</strong>：需要进行安全增强的目标大模型（如 Llama-2-13B）。</li>
