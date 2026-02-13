@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2026） 和VTI差不多。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-13T14:06:32.000Z">
-<meta property="article:modified_time" content="2026-02-13T14:21:05.367Z">
+<meta property="article:modified_time" content="2026-02-13T14:24:12.733Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          499 字
+          508 字
         
       </span>
     
@@ -355,28 +355,28 @@
 <span id="more"></span>
 
 <hr>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>定义原始视觉向量 ：$v_{raw}^{(l)} &#x3D; \mathbb{E}<em>{\mathcal{D}</em>{ext}}[h_{gt}^{(l)} - h_{\emptyset_hall}^{(l)}]$</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>定义原始视觉向量 ：$v _ {raw}^{(l)} &#x3D; \mathbb{E} _ {\mathcal{D} _ {ext}}[h _ {gt}^{(l)} - h _ {\emptyset_hall}^{(l)}]$</p>
 <ul>
-<li>$h_{gt}^{(l)}$：有图片输入，且回答正确（事实）时的隐藏状态。</li>
-<li>$h_{\emptyset_hall}^{(l)}$：<strong>无</strong>图片输入，但模型开始瞎编（幻觉）时的隐藏状态。</li>
+<li>$h _ {gt}^{(l)}$：有图片输入，且回答正确（事实）时的隐藏状态。</li>
+<li>$h _ {\emptyset_hall}^{(l)}$：<strong>无</strong>图片输入，但模型开始瞎编（幻觉）时的隐藏状态。</li>
 </ul>
-<p>定义语言先验向量：$v_{prior}^{(l)} &#x3D; \mathbb{E}<em>{\mathcal{D}</em>{ext}}[h_{\emptyset_hall}^{(l)} - h_{\emptyset_unk}^{(l)}]$</p>
-<p>$h_{\emptyset_unk}^{(l)}$：无图片输入，且模型诚实回答“我不知道”（拒绝回答）时的隐藏状态 。这个向量代表了模型脱离视觉约束、纯靠语言概率生成内容的“幻觉方向”。</p>
-<p>为了得到<strong>纯净的视觉信息</strong>，需要从 $v_{raw}^{(l)}$ 中剔除掉与 $v_{prior}^{(l)}$ 平行的成分。REVIS 使用格拉姆-施密特（Gram-Schmidt）正交化过程 ：<br>$$<br>\begin{align}<br>v_{vis}^{\perp(l)} &amp;&#x3D; v_{raw}^{(l)} - \text{proj}<em>{v</em>{prior}^{(l)}}(v_{raw}^{(l)})<br>\\<br>v_{vis}^{\perp(l)} &amp;&#x3D; v_{raw}^{(l)} - \frac{v_{raw}^{(l)} \cdot v_{prior}^{(l)}}{|v_{prior}^{(l)}|^2} v_{prior}^{(l)}<br>\end{align}<br>$$</p>
+<p>定义语言先验向量：$v _ {prior}^{(l)} &#x3D; \mathbb{E} _ {\mathcal{D} _ {ext}}[h _ {\emptyset_hall}^{(l)} - h _ {\emptyset_unk}^{(l)}]$</p>
+<p>$h _ {\emptyset_unk}^{(l)}$：无图片输入，且模型诚实回答“我不知道”（拒绝回答）时的隐藏状态 。这个向量代表了模型脱离视觉约束、纯靠语言概率生成内容的“幻觉方向”。</p>
+<p>为了得到<strong>纯净的视觉信息</strong>，需要从 $v _ {raw}^{(l)}$ 中剔除掉与 $v _ {prior}^{(l)}$ 平行的成分。REVIS 使用格拉姆-施密特（Gram-Schmidt）正交化过程 ：<br>$$<br>\begin{align}<br>v _ {vis}^{\perp(l)} &amp;&#x3D; v _ {raw}^{(l)} - \text{proj} _ {v _ {prior}^{(l)}}(v _ {raw}^{(l)})<br>\\<br>v _ {vis}^{\perp(l)} &amp;&#x3D; v _ {raw}^{(l)} - \frac{v _ {raw}^{(l)} \cdot v _ {prior}^{(l)}}{|v _ {prior}^{(l)}|^2} v _ {prior}^{(l)}<br>\end{align}<br>$$</p>
 <h3 id="层选择"><a href="#层选择" class="headerlink" title="层选择"></a>层选择</h3><p>REVIS 自动寻找<strong>区分度最高的最深层</strong> $L^*$ 。</p>
 <p>对于任意隐藏状态 $h$，定义其“幻觉风险”为它与纯净视觉向量的负余弦相似度（即：越不像视觉向量，风险越高）：</p>
-<p>$$R(h) &#x3D; -\text{CosSim}(h, v_{vis}^{\perp(l)})$$</p>
-<p>使用校准数据集 $\mathcal{D}<em>{cal}$（包含事实回答集合 $\mathcal{H}</em>{fact}$ 和幻觉回答集合 $\mathcal{H}_{hall}$），从最后一层向前搜索，找到第一个满足“可分离性”的层 ：</p>
-<p>$$L^* &#x3D; \max { l \mid R(\mathcal{H}<em>{hall}^{(l)}) - R(\mathcal{H}</em>{fact}^{(l)}) &gt; 0 }$$</p>
+<p>$$R(h) &#x3D; -\text{CosSim}(h, v _ {vis}^{\perp(l)})$$</p>
+<p>使用校准数据集 $\mathcal{D} _ {cal}$（包含事实回答集合 $\mathcal{H} _ {fact}$ 和幻觉回答集合 $\mathcal{H} _ {hall}$），从最后一层向前搜索，找到第一个满足“可分离性”的层 ：</p>
+<p>$$L^* &#x3D; \max { l \mid R(\mathcal{H} _ {hall}^{(l)}) - R(\mathcal{H} _ {fact}^{(l)}) &gt; 0 }$$</p>
 <p>为了避免误伤正常生成的逻辑，REVIS 基于事实样本的风险分布设定一个干预阈值 ：</p>
-<p>$$\tau &#x3D; \text{Percentile}({ R(h) \mid h \in \mathcal{H}_{fact}^{(L^*)} }, k)$$</p>
+<p>$$\tau &#x3D; \text{Percentile}({ R(h) \mid h \in \mathcal{H} _ {fact}^{(L^*)} }, k)$$</p>
 <p>对于每一个生成步 $t$：</p>
 <p><strong>计算当前风险</strong>：</p>
-<p>$$R_t &#x3D; R(h_t^{(L^<em>)}) &#x3D; -\text{CosSim}(h_t^{(L^</em>)}, v_{vis}^{\perp(L^*)})$$</p>
+<p>$$R_t &#x3D; R(h_t^{(L^<em>)}) &#x3D; -\text{CosSim}(h_t^{(L^</em>)}, v _ {vis}^{\perp(L^*)})$$</p>
 <p><strong>计算门控系数 ($\lambda_t$)</strong>：</p>
 <p>$$\lambda(t) &#x3D; \alpha \cdot \mathbb{I}(R_t &gt; \tau)$$</p>
 <p><strong>注入修正</strong>：</p>
-<p>$$\tilde{h}<em>t^{(L^<em>)} &#x3D; h_t^{(L^</em>)} + \lambda(t) \cdot v</em>{vis}^{\perp(L^*)}$$</p>
+<p>$$\tilde{h}_t^{(L^<em>)} &#x3D; h_t^{(L^</em>)} + \lambda(t) \cdot v _ {vis}^{\perp(L^*)}$$</p>
 
                 
               </div>
