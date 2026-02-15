@@ -29,7 +29,7 @@
 <meta property="og:description" content="（AAAI 2025）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-14T11:16:06.000Z">
-<meta property="article:modified_time" content="2026-02-15T11:37:34.381Z">
+<meta property="article:modified_time" content="2026-02-15T11:39:14.451Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -382,13 +382,13 @@
 <h2 id="编辑区域定位"><a href="#编辑区域定位" class="headerlink" title="编辑区域定位"></a>编辑区域定位</h2><p>目标是找到模型中具体哪一层的参数对幻觉负责。</p>
 <p>将正负样本对分别输入 VLM，获取每一层解码器（Decoder Layer）的隐藏状态（Hidden States）。计算正样本隐藏状态 $h_l^{(+)}$ 和负样本隐藏状态 $h_l^{(-)}$ 在每一层 $l$ 的欧几里得距离 。</p>
 <p>距离最大的层被认为是“幻觉易发层”（Hallucination-prone layer），因为该层在处理事实与幻觉时表现出最大的差异 。</p>
-<p>$$l_{hallu} &#x3D; \arg\max_{l \in {1,\dots,L}} | h_l^{(+)} - h_l^{(-)} |_2$$</p>
-<p>在定位到的第 $l_{hallu}$ 层中，作者具体锁定 <strong>MLP（多层感知机）模块的第二层权重矩阵</strong>作为编辑目标，因为该层通常负责知识的存储和传播 。</p>
+<p>$$l _ {hallu} &#x3D; \arg\max _ {l \in {1,\dots,L}} | h_l^{(+)} - h_l^{(-)} |_2$$</p>
+<p>在定位到的第 $l _ {hallu}$ 层中，作者具体锁定 <strong>MLP（多层感知机）模块的第二层权重矩阵</strong>作为编辑目标，因为该层通常负责知识的存储和传播 。</p>
 <h2 id="对抗性参数编辑"><a href="#对抗性参数编辑" class="headerlink" title="对抗性参数编辑"></a>对抗性参数编辑</h2><p>作者并没有简单地微调模型，而是设计了一个“对抗性”的训练目标：强迫模型即使在受到干扰（对抗性前缀）的情况下，也能生成正确的、基于视觉的回答 。</p>
 <h3 id="对抗性前缀微调-Adversarial-Prefix-Tuning"><a href="#对抗性前缀微调-Adversarial-Prefix-Tuning" class="headerlink" title="对抗性前缀微调 (Adversarial Prefix Tuning)"></a>对抗性前缀微调 (Adversarial Prefix Tuning)</h3><p>首先，需要自动生成一个最能诱导模型产生幻觉的“对抗性前缀”（而不是手动编写 Prompt）。</p>
 <p>冻结 VLM 的所有参数，只训练一个可学习的前缀矩阵 $E_x$ 。</p>
 <p>最大化生成“负样本（幻觉回答）” $y^-$ 的概率。这意味着这个前缀 $E_x$ 会极力诱导模型忽略视觉信息 。</p>
-<p>$$\min_{E_x} \mathcal{L}<em>q &#x3D; - \log P</em>{W_0}(y^- | [V, E_p, E_x])$$</p>
+<p>$$\min _ {E_x} \mathcal{L}_q &#x3D; - \log P _ {W_0}(y^- | [V, E_p, E_x])$$</p>
 <p>其中</p>
 <ul>
 <li>$W_0$：原始模型参数。</li>
@@ -396,17 +396,17 @@
 <li>$E_p$：良性提示词嵌入。</li>
 </ul>
 <h3 id="参数编辑与优化-Fine-tuning-with-Constraints"><a href="#参数编辑与优化-Fine-tuning-with-Constraints" class="headerlink" title="参数编辑与优化 (Fine-tuning with Constraints)"></a>参数编辑与优化 (Fine-tuning with Constraints)</h3><p>现在，使用训练好的对抗性前缀 $E_x$ 来“特训”模型中被定位到的参数 $W_t$。</p>
-<p>冻结除 $l_{hallu}$ 层 MLP 参数以外的所有参数 。</p>
+<p>冻结除 $l _ {hallu}$ 层 MLP 参数以外的所有参数 。</p>
 <p><strong>损失函数 1：对抗性编辑损失 ($\mathcal{L}_e$)</strong></p>
 <p>要求模型在输入<strong>对抗性前缀</strong>（旨在诱导幻觉）的情况下，依然生成<strong>正样本（正确回答）</strong> $y^+$ 。</p>
 <p><strong>公式</strong>：</p>
-<p>$$\min_{W_t} \mathcal{L}<em>e &#x3D; - \log P</em>{W_t}(y^+ | v, q, x)$$</p>
+<p>$$\min _ {W_t} \mathcal{L}_e &#x3D; - \log P _ {W_t}(y^+ | v, q, x)$$</p>
 <p>原理：如果模型能在有人故意误导（对抗前缀）时都答对，那么在正常情况下它会更关注视觉证据 。</p>
 <p><strong>损失函数 2：KL 散度约束 ($\mathcal{L}_c$)</strong></p>
 <p>为了防止编辑破坏模型的通用能力，要求编辑后的模型 $W_t$ 在面对正常输入时，输出分布应与原始模型 $W_0$ 保持一致 。</p>
-<p>$$\min_{W_t} \mathcal{L}<em>c &#x3D; KL(P</em>{W_t}(\cdot | [v, x]) || P_{W_0}(\cdot | [v, x]))$$</p>
+<p>$$\min _ {W_t} \mathcal{L}_c &#x3D; KL(P _ {W_t}(\cdot | [v, x]) || P _ {W_0}(\cdot | [v, x]))$$</p>
 <p><strong>总优化目标</strong>：</p>
-<p>$$\min_{W_t} \mathcal{L} &#x3D; \min_{W_t} (\lambda \mathcal{L}_e + \mathcal{L}_c)$$</p>
+<p>$$\min _ {W_t} \mathcal{L} &#x3D; \min _ {W_t} (\lambda \mathcal{L}_e + \mathcal{L}_c)$$</p>
 <p>其中 $\lambda$ 是平衡系数，实验中设为 0.1 。</p>
 
                 
