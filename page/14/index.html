@@ -409,7 +409,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/20250425/" target="_self">
         <div>
-          Target Encoding又名mean encoding。正如其名，实际上是把符合条件的y的均值作为这个条件的所有样本的新特征。 在kaggle的S5E2和这个月正在进行的S5E4等比赛都获得了耀眼的表现。 最简单的形式是 1df.groupby(&quot;xxx&quot;).mean()
+          Target Encoding又名mean encoding。正如其名，实际上是把符合条件的y的均值作为这个条件的所有样本的新特征。 在kaggle的S5E2和这个月正在进行的S5E4等比赛都获得了耀眼的表现。 最简单的形式是 python1df.groupby("xxx").mean()
         </div>
       </a>
 
@@ -599,9 +599,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
-            
               <a href="/tags/kaggle/">#kaggle</a>
+            
+              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
             
               <a href="/tags/%E5%A4%A7%E6%B0%94/">#大气</a>
             
@@ -1066,7 +1066,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
+                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -1080,7 +1080,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });

@@ -390,7 +390,7 @@
 <h2 id="Cox模型"><a href="#Cox模型" class="headerlink" title="Cox模型"></a>Cox模型</h2><p>$$h(t)&#x3D;h_0(t)\times exp(b_1x_1+b_2x_2+\ldots+b_px_p)$$</p>
 <p>x为具有预测效应的多个变量（协变量），h0(t) 是基准风险函数</p>
 <p>Cox需满足的前提：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">风险比(hazard ratio)  =&gt;  exp(协变量系数)<br>比例风险假定（PH 假定，proportional-hazards assumption） =&gt;  与h0(t)无关，风险比为固定值 =&gt;  协变量回归系数是固定的<br></code></pre></td></tr></table></figure>
+<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">text</li></ul></figcaption><div class="tabs-content"><figure class="highlight text" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">风险比(hazard ratio)  =&gt;  exp(协变量系数)</span><br><span class="line">比例风险假定（PH 假定，proportional-hazards assumption） =&gt;  与h0(t)无关，风险比为固定值 =&gt;  协变量回归系数是固定的</span><br></pre></td></tr></tbody></table></figure></div></figure>
 
 <p>我们也可以通过KM曲线来判断。<strong>若两条生存曲线最后交叉，这说明PH条件不成立。</strong> </p>
 <p><img src="/2024/20241226/cox2.jpg"></p>
@@ -1010,7 +1010,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
+                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -1024,7 +1024,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });

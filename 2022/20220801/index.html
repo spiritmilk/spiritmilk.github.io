@@ -316,7 +316,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          814 字
+          808 字
         
       </span>
     
@@ -394,7 +394,7 @@
 </ol>
 <p>不断迭代 E 步和 M 步，直到参数收敛（对数似然增益低于阈值或达到最大迭代次数）。</p>
 <p><img src="/2022/20220801/gaussian-mixture-models-em-method-math.gif"></p>
-<h2 id="EM-算法伪代码"><a href="#EM-算法伪代码" class="headerlink" title="EM 算法伪代码"></a>EM 算法伪代码</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs text">输入：数据 X=&#123;x₁,…,xₙ&#125;，组件数 K，收敛阈值 ε，最大迭代 T<br>初始化：随机或用 K-Means 给出 &#123;πₖ, μₖ, Σₖ&#125;<br><br>for t = 1 to T:<br>  — E 步 —<br>  对 i=1…N, k=1…K 计算责任度 γᵢₖ<br><br>  — M 步 —<br>  对 k=1…K 计算 Nₖ = ∑ᵢ γᵢₖ<br>  更新：<br>    πₖ ← Nₖ / N<br>    μₖ ← (1/Nₖ) ∑ᵢ γᵢₖ xᵢ<br>    Σₖ ← (1/Nₖ) ∑ᵢ γᵢₖ (xᵢ − μₖ)(xᵢ − μₖ)ᵀ<br><br>  计算对数似然 Lᵗ<br>  如果 |Lᵗ − Lᵗ⁻¹| &lt; ε: 退出<br><br>返回：&#123;πₖ, μₖ, Σₖ&#125;ₖ₌₁…K<br></code></pre></td></tr></table></figure>
+<h2 id="EM-算法伪代码"><a href="#EM-算法伪代码" class="headerlink" title="EM 算法伪代码"></a>EM 算法伪代码</h2><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">text</li></ul></figcaption><div class="tabs-content"><figure class="highlight text" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">输入：数据 X={x₁,…,xₙ}，组件数 K，收敛阈值 ε，最大迭代 T</span><br><span class="line">初始化：随机或用 K-Means 给出 {πₖ, μₖ, Σₖ}</span><br><span class="line"></span><br><span class="line">for t = 1 to T:</span><br><span class="line">  — E 步 —</span><br><span class="line">  对 i=1…N, k=1…K 计算责任度 γᵢₖ</span><br><span class="line"></span><br><span class="line">  — M 步 —</span><br><span class="line">  对 k=1…K 计算 Nₖ = ∑ᵢ γᵢₖ</span><br><span class="line">  更新：</span><br><span class="line">    πₖ ← Nₖ / N</span><br><span class="line">    μₖ ← (1/Nₖ) ∑ᵢ γᵢₖ xᵢ</span><br><span class="line">    Σₖ ← (1/Nₖ) ∑ᵢ γᵢₖ (xᵢ − μₖ)(xᵢ − μₖ)ᵀ</span><br><span class="line"></span><br><span class="line">  计算对数似然 Lᵗ</span><br><span class="line">  如果 |Lᵗ − Lᵗ⁻¹| &lt; ε: 退出</span><br><span class="line"></span><br><span class="line">返回：{πₖ, μₖ, Σₖ}ₖ₌₁…K</span><br></pre></td></tr></tbody></table></figure></div></figure>
 
 <h2 id="和kmeans关系"><a href="#和kmeans关系" class="headerlink" title="和kmeans关系"></a>和kmeans关系</h2><p>考虑一个GMM，$\epsilon$是被所有分量共享的方差参数。<br>$$<br>P(x|\mu_k,\Sigma_k)&#x3D;\frac{1}{(2\pi \epsilon)^{D&#x2F;2}}exp(-\frac{1}{2\epsilon}||x-\mu_K||)<br>$$<br>我们把$\epsilon$看作一个固定的常数，则责任度为：<br>$$<br>  \frac{\pi_k exp(-\frac{||x_n-\mu_k||^2}{2\epsilon})}<br>         {\sum_{j&#x3D;1}^K \pi_j exp(-\frac{||x_n-\mu_j||^2}{2\epsilon})}.<br>$$<br>当我们考虑$\epsilon \to0$，则项j责任度趋向于趋向于1，其他趋向于0。相当于对数据点聚类的硬分配。</p>
 <p>进一步的$\epsilon \to0$时，对数似然函数为：</p>
@@ -1009,7 +1009,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
+                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -1023,7 +1023,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"笔记","value":33},{"name":"机器学习","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":174},{"name":"大模型","value":79},{"name":"人工智能","value":46},{"name":"机器学习","value":33},{"name":"笔记","value":33},{"name":"多模态","value":29},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });
