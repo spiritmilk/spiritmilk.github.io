@@ -29,7 +29,7 @@
 <meta property="og:description" content="来源：https:&#x2F;&#x2F;minimal-agent.com&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-17T09:30:23.000Z">
-<meta property="article:modified_time" content="2026-02-17T13:42:52.105Z">
+<meta property="article:modified_time" content="2026-02-17T13:46:06.285Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.5k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          11 分钟
+          13 分钟
         
       </span>
     
@@ -401,6 +401,17 @@
 
 <h2 id="让我们让它更robust"><a href="#让我们让它更robust" class="headerlink" title="让我们让它更robust"></a>让我们让它更robust</h2><p>以下部分是为提升性能所做的调整。没有什么花哨的，只是确保代理不会卡壳，并且能够处理出错的问题。这一部分稍微进阶一些。我们鼓励大家不要在结尾展示完整代码，而是查看我们**<code>mini</code><strong>代理的</strong><a target="_blank" rel="noopener" href="https://github.com/SWE-agent/mini-swe-agent/">源代码 </a>**;它包含了所有这些功能，几乎没有附加内容（另请参见下一节开始阅读代码）。</p>
 <h3 id="处理控制流程中的例外"><a href="#处理控制流程中的例外" class="headerlink" title="处理控制流程中的例外"></a>处理控制流程中的例外</h3><p>这里的想法是：每当出现已知异常（超时、格式错误等），我们就告诉 LM，让它自己处理。这意味着要稍微调整我们的**<code> while</code> **循环：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-comment"># previous content</span><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        messages.append(&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-built_in">str</span>(e)&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>就是这样！</p>
+<p>例如，如果代理做了蠢事（比如调用 vim），触发了<code>TimeoutError</code>，这会导致错误消息附加到消息后面，LM 可以从中接手，希望能意识到自己哪里做错了。</p>
+<p>不过，我们可能只会将这种行为限制在一些已知问题上，或者在信息中添加更多信息。在这种情况下，我们可以更具体地说，比如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">OurTimeoutError</span>(<span class="hljs-title class_ inherited__">RuntimeError</span>): ...<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">execute_action</span>(<span class="hljs-params">action: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-comment"># as before</span><br>    <span class="hljs-keyword">except</span> TimeoutError <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">raise</span> OurTimeoutError(<span class="hljs-string">&quot;Your last command time out, you might want to ...&quot;</span>) <span class="hljs-keyword">from</span> e<br></code></pre></td></tr></table></figure>
+
+<p>就这样，我们为LM添加了更多信息。</p>
+<p>你也可以更具体地说明哪些例外是交给 LM 的，哪些只会导致程序崩溃。在这种情况下，定义一个自定义异常类，只在** <code>while</code> **循环中捕捉它可能是合理的：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">class</span> <span class="hljs-title class_">NonterminatingException</span>(RuntimeError): ...<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">OurTimeoutError</span>(NonterminatingException): ...<br><br><span class="hljs-keyword">while</span> True:<br>    <span class="hljs-keyword">try</span>: <br>        ...<br>    except NonterminatingException <span class="hljs-keyword">as</span> e:<br>        ...<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
