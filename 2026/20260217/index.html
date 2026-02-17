@@ -29,7 +29,7 @@
 <meta property="og:description" content="来源：https:&#x2F;&#x2F;minimal-agent.com&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-17T09:30:23.000Z">
-<meta property="article:modified_time" content="2026-02-17T13:29:34.220Z">
+<meta property="article:modified_time" content="2026-02-17T13:33:15.848Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          357 字
+          405 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -360,11 +360,17 @@
 
 <p>所以要让它正常工作，我们只需要实现三件事：</p>
 <ol>
-<li>Querying the LM API (this can get annoying if you want to support all LMs, or want detailed cost information, but is very simple if you already know which model you want)<br>查询 LM API（如果你想支持所有 LM，或者想要详细的成本信息，这可能会有点烦人，但如果你已经知道想要哪个型号，这会很简单）</li>
-<li>Parsing the action (<code>parse_action</code>). You don’t need this if you use the tool calling functionality of your LM if it supports it, but this is more provider-specific, so we wo’nt cover it in this guide for now (don’t worry, the performance should not be impacted by this).<br>解析动作（<code>parse_action</code>）。如果你使用 LM 支持的工具调用功能，那就不需要这个功能，但这更具体的是提供者，所以我们暂时不会在本指南中详细介绍（别担心，性能不会因此受到影响）。</li>
-<li>Executing the action (very simple, in our case we will simply execute any action of the LM as a bash-command in the terminal).<br>执行该动作（非常简单，在我们的情况下，只需在终端中以 bash 命令形式执行 LM 的任何动作）。</li>
+<li>查询 LM API（如果你想支持所有 LM，或者想要详细的成本信息，这可能会有点烦人，但如果你已经知道想要哪个型号，这会很简单）</li>
+<li>解析动作（<code>parse_action</code>）。如果你使用 LM 支持的工具调用功能，那就不需要这个功能，但这更具体的是提供者，所以我们暂时不会在本指南中详细介绍（别担心，性能不会因此受到影响）。</li>
+<li>执行该动作（非常简单，在我们的情况下，只需在终端中以 bash 命令形式执行 LM 的任何动作）。</li>
 </ol>
+<h3 id="查询LM"><a href="#查询LM" class="headerlink" title="查询LM"></a>查询LM</h3><p>通常我们使用openai。也可以选择Anthropic、OpenRouter、LiteLLM（<strong>支持大多数特定的 LM</strong>）、GLM。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pip install openai<br></code></pre></td></tr></table></figure>
 
+<p>以下是查询 API 的最小代码：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> openai import OpenAI<br><span class="hljs-built_in"></span><br><span class="hljs-built_in">client </span>= OpenAI(<br>    <span class="hljs-attribute">api_key</span>=<span class="hljs-string">&quot;your-api-key-here&quot;</span><br>)  # <span class="hljs-keyword">or</span> <span class="hljs-built_in">set</span> OPENAI_API_KEY env var<br><br>def query_lm(messages):<br>    response = client.responses.create(<br>        <span class="hljs-attribute">model</span>=<span class="hljs-string">&quot;gpt-5.1&quot;</span>,<br>        <span class="hljs-attribute">input</span>=messages<br>    )<br>    return response.output_text<br></code></pre></td></tr></table></figure>
+
+<h3 id="解析动作"><a href="#解析动作" class="headerlink" title="解析动作"></a>解析动作</h3>
                 
               </div>
             
