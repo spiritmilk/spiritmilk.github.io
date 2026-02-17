@@ -29,7 +29,7 @@
 <meta property="og:description" content="来源：https:&#x2F;&#x2F;minimal-agent.com&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-17T09:30:23.000Z">
-<meta property="article:modified_time" content="2026-02-17T13:36:36.759Z">
+<meta property="article:modified_time" content="2026-02-17T13:39:17.554Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          639 字
+          895 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          6 分钟
+          8 分钟
         
       </span>
     
@@ -383,6 +383,18 @@
 
 <p><strong>XML 风格</strong>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_action</span>(<span class="hljs-params">lm_output: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Take LM output, return action&quot;&quot;&quot;</span><br>    matches = re.findall(<br>        <span class="hljs-string">r&quot;&lt;bash_action&gt;(.*?)&lt;/bash_action&gt;&quot;</span>, <br>        lm_output, <br>        re.DOTALL<br>    )<br>    <span class="hljs-keyword">return</span> matches[<span class="hljs-number">0</span>].strip() <span class="hljs-keyword">if</span> matches <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="执行行动"><a href="#执行行动" class="headerlink" title="执行行动"></a>执行行动</h3><p>至于执行动作，其实很简单，我们可以直接用 Python 的<code>subprocess</code>模块（或者直接用 <code>os.system</code>，虽然一般不太推荐）。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs routeros">import subprocess<br>import os<br><br>def execute_action(command: str) -&gt; str:<br>    <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;Execute action, return output&quot;</span><span class="hljs-string">&quot;&quot;</span><br>    result = subprocess.<span class="hljs-built_in">run</span>(<br>        command,<br>        <span class="hljs-attribute">shell</span>=<span class="hljs-literal">True</span>,<br>        <span class="hljs-attribute">text</span>=<span class="hljs-literal">True</span>,<br>        <span class="hljs-attribute">env</span>=os.environ,<br>        <span class="hljs-attribute">encoding</span>=<span class="hljs-string">&quot;utf-8&quot;</span>,<br>        <span class="hljs-attribute">errors</span>=<span class="hljs-string">&quot;replace&quot;</span>,<br>        <span class="hljs-attribute">stdout</span>=subprocess.PIPE,<br>        <span class="hljs-attribute">stderr</span>=subprocess.STDOUT,<br>        <span class="hljs-attribute">timeout</span>=30,<br>    )<br>    return result.stdout<br></code></pre></td></tr></table></figure>
+
+<p>这有几个限制：</p>
+<ol>
+<li>代理<code>无法切换到</code>不同的环境</li>
+<li>代理无法轻易持久化环境变量</li>
+</ol>
+<p>然而，实际上我们发现这些限制并不算限制性。事实上，减少隐藏状态并强制智能体使用绝对路径，在许多情况下对语言模型很有帮助。<code>ClaudeCode</code> 也类似（虽然它可以更改目录，但无法持久化环境变量，因为它同样使用<strong>subshells</strong> 执行命令）。</p>
+<h3 id="添加系统提示"><a href="#添加系统提示" class="headerlink" title="添加系统提示"></a>添加系统提示</h3><p>我们还需要告诉 LM 更多关于该如何行为的事：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ceylon">messages = [&#123;<br>    <span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>, <br>    <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;You are a helpful assistant. When you want to run a command, wrap it in ``<span class="hljs-subst">`bash-action\n&lt;command&gt;\n</span>```. To finish, run the exit command.&quot;</span><br>&#125;<br>]<br></code></pre></td></tr></table></figure>
 
 
                 
