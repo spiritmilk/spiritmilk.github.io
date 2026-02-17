@@ -29,8 +29,8 @@
 <meta property="article:published_time" content="2021-09-19T08:18:50.000Z">
 <meta property="article:modified_time" content="2022-03-16T08:47:17.465Z">
 <meta property="article:author" content="LJX">
-<meta property="article:tag" content="笔记">
 <meta property="article:tag" content="社会">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -145,7 +145,24 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>
+    figure.codeblock {
+       margin: 0;
+    }
+    figure figcaption .tabs {
+      display: flex;
+      margin: 0;
+    }
+    figure figcaption .tabs .tab {
+      cursor: pointer;
+      list-style: none;
+      padding: 5px 15px;
+    }
+    figure figcaption .tabs .tab.active {
+      background: #2d2d2d;
+      color: white;
+    }
+  </style></head>
 
 
 <body>
@@ -397,9 +414,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
-      
         <a href="/tags/%E7%A4%BE%E4%BC%9A/" class="print-no-link">#社会</a>
+      
+        <a href="/tags/%E7%AC%94%E8%AE%B0/" class="print-no-link">#笔记</a>
       
     </div>
   
@@ -1130,5 +1147,20 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    </body>
+    <script>
+  $(document).ready(function() {
+    $('figure.codeblock').find('.tab').click(function() {
+        var $codeblock = $(this).parent().parent().parent();
+        var $tab = $(this);
+        // remove "active" css class on all tabs
+        $tab.siblings().removeClass('active');
+        // add "active" css class on the clicked tab
+        $tab.addClass('active');
+        // hide all tab contents
+        $codeblock.find('.highlight').hide();
+        // show only the right one
+        $codeblock.find('.highlight.' + $tab.text()).show();
+    });
+  });
+  </script></body>
 </html>

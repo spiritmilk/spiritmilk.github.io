@@ -139,7 +139,24 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>
+    figure.codeblock {
+       margin: 0;
+    }
+    figure figcaption .tabs {
+      display: flex;
+      margin: 0;
+    }
+    figure figcaption .tabs .tab {
+      cursor: pointer;
+      list-style: none;
+      padding: 5px 15px;
+    }
+    figure figcaption .tabs .tab.active {
+      background: #2d2d2d;
+      color: white;
+    }
+  </style></head>
 
 
 <body>
@@ -299,7 +316,7 @@
 
 
 
-<p><strong>联系方式：</strong> <a href="mailto:&#108;&#x69;&#x2e;&#106;&#x69;&#97;&#x6e;&#46;&#x78;&#x69;&#x6f;&#110;&#103;&#64;&#113;&#113;&#x2e;&#x63;&#111;&#109;">li.jian.xiong@qq.com</a></p>
+<p><strong>联系方式：</strong> <a href="mailto:&#x6c;&#x69;&#x2e;&#x6a;&#x69;&#x61;&#110;&#46;&#120;&#x69;&#111;&#110;&#x67;&#64;&#113;&#113;&#x2e;&#99;&#111;&#109;">li.jian.xiong@qq.com</a></p>
 <hr>
 <h5 id="关于我："><a href="#关于我：" class="headerlink" title="关于我："></a>关于我：</h5><p>（以下大都于2020年所写，<strong>请以现实中的本人为准</strong>）</p>
 <p>INFJ</p>
@@ -1075,5 +1092,20 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    </body>
+    <script>
+  $(document).ready(function() {
+    $('figure.codeblock').find('.tab').click(function() {
+        var $codeblock = $(this).parent().parent().parent();
+        var $tab = $(this);
+        // remove "active" css class on all tabs
+        $tab.siblings().removeClass('active');
+        // add "active" css class on the clicked tab
+        $tab.addClass('active');
+        // hide all tab contents
+        $codeblock.find('.highlight').hide();
+        // show only the right one
+        $codeblock.find('.highlight.' + $tab.text()).show();
+    });
+  });
+  </script></body>
 </html>
