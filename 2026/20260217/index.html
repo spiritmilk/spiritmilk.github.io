@@ -29,7 +29,7 @@
 <meta property="og:description" content="来源：https:&#x2F;&#x2F;minimal-agent.com&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-02-17T09:30:23.000Z">
-<meta property="article:modified_time" content="2026-02-17T13:33:15.848Z">
+<meta property="article:modified_time" content="2026-02-17T13:36:36.759Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          405 字
+          639 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -370,7 +370,21 @@
 <p>以下是查询 API 的最小代码：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> openai import OpenAI<br><span class="hljs-built_in"></span><br><span class="hljs-built_in">client </span>= OpenAI(<br>    <span class="hljs-attribute">api_key</span>=<span class="hljs-string">&quot;your-api-key-here&quot;</span><br>)  # <span class="hljs-keyword">or</span> <span class="hljs-built_in">set</span> OPENAI_API_KEY env var<br><br>def query_lm(messages):<br>    response = client.responses.create(<br>        <span class="hljs-attribute">model</span>=<span class="hljs-string">&quot;gpt-5.1&quot;</span>,<br>        <span class="hljs-attribute">input</span>=messages<br>    )<br>    return response.output_text<br></code></pre></td></tr></table></figure>
 
-<h3 id="解析动作"><a href="#解析动作" class="headerlink" title="解析动作"></a>解析动作</h3>
+<h3 id="解析动作"><a href="#解析动作" class="headerlink" title="解析动作"></a>解析动作</h3><p>让我们来分析一下动作。LM 有两种简单的方式可以“编码”作（同样，如果你用工具调用，这个方法就不需要，但本教程我们会简化）：</p>
+<p><strong>Triple-backticks 三回溯跳</strong>：</p>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs julia"><span class="hljs-built_in">Some</span> thoughts of the LM explaining the action and the action below<br><br><span class="hljs-string">``</span><span class="hljs-string">`bash-action</span><br><span class="hljs-string">cd /path/to/project &amp;&amp; ls</span><br><span class="hljs-string">`</span><span class="hljs-string">``</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>XML 风格</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">Some thoughts of the LM explaining the action and the action below<br><br>&lt;bash_action&gt;<span class="hljs-built_in">cd</span> /path/to/project &amp;&amp; <span class="hljs-built_in">ls</span>&lt;/bash_action&gt;<br></code></pre></td></tr></table></figure>
+
+<p>对于大多数模型，两种方式都很好，我们建议使用三重反向跳动。不过，有些模型（尤其是小型或开源模型）稍微不那么通用，你可以试试任一。这里有一个快速的正则表达式来解析该动作：</p>
+<p><strong>Triple-backticks 三回溯跳</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_action</span>(<span class="hljs-params">lm_output: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Take LM output, return action&quot;&quot;&quot;</span><br>    matches = re.findall(<br>        <span class="hljs-string">r&quot;```bash-action\s*\n(.*?)\n```&quot;</span>, <br>        lm_output, <br>        re.DOTALL<br>    )<br>    <span class="hljs-keyword">return</span> matches[<span class="hljs-number">0</span>].strip() <span class="hljs-keyword">if</span> matches <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>XML 风格</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_action</span>(<span class="hljs-params">lm_output: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Take LM output, return action&quot;&quot;&quot;</span><br>    matches = re.findall(<br>        <span class="hljs-string">r&quot;&lt;bash_action&gt;(.*?)&lt;/bash_action&gt;&quot;</span>, <br>        lm_output, <br>        re.DOTALL<br>    )<br>    <span class="hljs-keyword">return</span> matches[<span class="hljs-number">0</span>].strip() <span class="hljs-keyword">if</span> matches <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
