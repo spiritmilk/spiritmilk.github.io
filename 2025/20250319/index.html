@@ -149,24 +149,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -316,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          559 字
+          563 字
         
       </span>
     
@@ -381,7 +364,7 @@
 <p>$$\mathrm{AUC}&#x3D;\frac{\sum R_{pos} -\frac{n_{pos}*(n_{pos}+1)}{2}}{n_{pos}n_{neg}}$$</p>
 <p>其中$R_{pos}$是正样本的排名。</p>
 <p>故我们可以不断提交笔记本获得公榜来获取某个样本的排名，并可得知该样本前后的样本数，正负样本数可以通过排行榜的差值来获取。即</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Before: m pos  || rank i  || n pos</span><br><span class="line">After: m pos   ||   n pos   ||   rank i</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">Before: m pos  || rank i  || n pos<br>After: m pos   ||   n pos   ||   rank i<br></code></pre></td></tr></table></figure>
 
 <p>类似于我们可以大幅降低复杂度，比如在正负样本3:1的情况下150次提交可以把$\binom{N}{\frac{3}{4}N}$降为$\binom{\frac{1}{150}N}{\frac{1}{150}\frac{3}{4}N}^{150}$。</p>
 <p>但是这种方法还是太暴力和粗糙。</p>
@@ -389,7 +372,7 @@
 <p><strong>更快的方法：</strong></p>
 <p>根据AUC的后一个定义，我们发现其是线性的。实际上这是一个混合整数规划（Mixed Integer Programming, MIP）。</p>
 <p>我们可以使用ortools来求解，比如：</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">N=<span class="number">146</span></span><br><span class="line">p=<span class="number">113</span></span><br><span class="line">n=<span class="number">33</span></span><br><span class="line"><span class="keyword">from</span> ortools.sat.python <span class="keyword">import</span> cp_model</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SolutionCallback</span>(cp_model.CpSolverSolutionCallback):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="variable language_">self</span>.solutions = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_solution_callback</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.solutions.append([<span class="variable language_">self</span>.Value(x[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N)])</span><br><span class="line"></span><br><span class="line">model = cp_model.CpModel()</span><br><span class="line">x = [model.NewIntVar(<span class="number">0</span>, <span class="number">1</span>, <span class="string">F'x[<span class="subst">{i}</span>]'</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N)]</span><br><span class="line"></span><br><span class="line">model.Add(<span class="built_in">sum</span>(x)==p)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    y_pred = preds[m]</span><br><span class="line">    r = pd.Series(y_pred).rank().values</span><br><span class="line">    model.Add(<span class="built_in">sum</span>(x[i]*<span class="built_in">int</span>(np.around(r[i]*<span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N))==<span class="built_in">int</span>(np.around(scores[m]*n*p*<span class="number">2</span>))+p*(p+<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">solver = cp_model.CpSolver()</span><br><span class="line">s = SolutionCallback()</span><br><span class="line">solver.SearchForAllSolutions(model, s)</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python">N=<span class="hljs-number">146</span><br>p=<span class="hljs-number">113</span><br>n=<span class="hljs-number">33</span><br><span class="hljs-keyword">from</span> ortools.sat.python <span class="hljs-keyword">import</span> cp_model<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SolutionCallback</span>(cp_model.CpSolverSolutionCallback):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.solutions = []<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on_solution_callback</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.solutions.append([<span class="hljs-variable language_">self</span>.Value(x[i]) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N)])<br><br>model = cp_model.CpModel()<br>x = [model.NewIntVar(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-string">F&#x27;x[<span class="hljs-subst">&#123;i&#125;</span>]&#x27;</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N)]<br><br>model.Add(<span class="hljs-built_in">sum</span>(x)==p)<br><br><span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):<br>    y_pred = preds[m]<br>    r = pd.Series(y_pred).rank().values<br>    model.Add(<span class="hljs-built_in">sum</span>(x[i]*<span class="hljs-built_in">int</span>(np.around(r[i]*<span class="hljs-number">2</span>)) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N))==<span class="hljs-built_in">int</span>(np.around(scores[m]*n*p*<span class="hljs-number">2</span>))+p*(p+<span class="hljs-number">1</span>))<br><br>solver = cp_model.CpSolver()<br>s = SolutionCallback()<br>solver.SearchForAllSolutions(model, s)<br></code></pre></td></tr></table></figure>
 
 <p><strong>另一个更重要的问题是，我们大概需要多少个提交呢？</strong></p>
 <p>我们可以使用信息论粗糙地估计一下。</p>
@@ -1148,20 +1131,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

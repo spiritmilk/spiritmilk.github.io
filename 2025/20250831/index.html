@@ -159,24 +159,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -408,7 +391,7 @@
 <p>随机掩码一些输入patches提供给学生，但不提供给教师。</p>
 <p>加入了 Koleo 正则化项（《Spreading vectors for similarity search》）。</p>
 <p>使用了Swav的Sinkhorn-Knopp centering 。</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sinkhorn</span>(<span class="params">scores, eps=<span class="number">0.05</span>, niters=<span class="number">3</span></span>):</span><br><span class="line">	Q = exp(scores / eps).T</span><br><span class="line">	Q /= <span class="built_in">sum</span>(Q)</span><br><span class="line">	K, B = Q.shape</span><br><span class="line">	u, r, c = zeros(K), ones(K) / K, ones(B) / B</span><br><span class="line">	<span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(niters):</span><br><span class="line">		u = <span class="built_in">sum</span>(Q, dim=<span class="number">1</span>)</span><br><span class="line">		Q *= (r / u).unsqueeze(<span class="number">1</span>)</span><br><span class="line">		Q *= (c / <span class="built_in">sum</span>(Q, dim=<span class="number">0</span>)).unsqueeze(<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> (Q / <span class="built_in">sum</span>(Q, dim=<span class="number">0</span>, keepdim=<span class="literal">True</span>)).T</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">sinkhorn</span>(<span class="hljs-params">scores, eps=<span class="hljs-number">0.05</span>, niters=<span class="hljs-number">3</span></span>):<br>	Q = exp(scores / eps).T<br>	Q /= <span class="hljs-built_in">sum</span>(Q)<br>	K, B = Q.shape<br>	u, r, c = zeros(K), ones(K) / K, ones(B) / B<br>	<span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(niters):<br>		u = <span class="hljs-built_in">sum</span>(Q, dim=<span class="hljs-number">1</span>)<br>		Q *= (r / u).unsqueeze(<span class="hljs-number">1</span>)<br>		Q *= (c / <span class="hljs-built_in">sum</span>(Q, dim=<span class="hljs-number">0</span>)).unsqueeze(<span class="hljs-number">0</span>)<br>	<span class="hljs-keyword">return</span> (Q / <span class="hljs-built_in">sum</span>(Q, dim=<span class="hljs-number">0</span>, keepdim=<span class="hljs-literal">True</span>)).T<br></code></pre></td></tr></table></figure>
 
 <p><strong>增加图像分辨率</strong>。增加图像分辨率对于分割或检测等像素级下游任务至关重要，因为在低分辨率下小物体可能会消失。然而，在高分辨率下训练既耗时又占用大量内存，因此在预训练的最后阶段短暂地将图像分辨率提高到 518 × 518。</p>
 <h1 id="DINO-V3"><a href="#DINO-V3" class="headerlink" title="DINO V3"></a>DINO V3</h1><p>将自监督学习（SSL）扩展到大型前沿模型。</p>
@@ -1184,20 +1167,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

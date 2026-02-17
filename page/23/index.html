@@ -135,24 +135,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -549,9 +532,9 @@
             
               <a href="/tags/%E7%AC%94%E8%AE%B0/">#笔记</a>
             
-              <a href="/tags/%E8%80%83%E7%A0%94/">#考研</a>
-            
               <a href="/tags/%E5%AD%A6%E4%B9%A0/">#学习</a>
+            
+              <a href="/tags/%E8%80%83%E7%A0%94/">#考研</a>
             
           </div>
         
@@ -1193,20 +1176,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

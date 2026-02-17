@@ -148,24 +148,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -376,7 +359,7 @@
 <p>ResNet 引入残差链接方式，解决深层神经网络中的梯度消失&#x2F;爆炸和网络退化问题。博客也介绍过resnet的一些改进，比如何恺明自己的resnet v2。不过这些改进都算是小打小闹。</p>
 <h2 id="残差链接"><a href="#残差链接" class="headerlink" title="残差链接"></a>残差链接</h2><p>标准的残差为$h _ {l+1}&#x3D;h_l+F_l(h_l) $。</p>
 <p>如</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">ResidualConnection</span>(<span class="params">h, fun</span>):</span><br><span class="line">    h_ = h + fun(h)</span><br><span class="line">    <span class="keyword">return</span> h_</span><br><span class="line"></span><br><span class="line">mlp = nn.Linear(<span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line">h = torch.randn(<span class="number">1</span>,<span class="number">256</span>)</span><br><span class="line">h_ = ResidualConnection(h, mlp)</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">ResidualConnection</span>(<span class="hljs-params">h, fun</span>):<br>    h_ = h + fun(h)<br>    <span class="hljs-keyword">return</span> h_<br><br>mlp = nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">256</span>)<br>h = torch.randn(<span class="hljs-number">1</span>,<span class="hljs-number">256</span>)<br>h_ = ResidualConnection(h, mlp)<br></code></pre></td></tr></table></figure>
 
 <p>进一步地，可以扩展为$h _ {l+1}&#x3D;T(h_l)+F_l(h_l) $。</p>
 <h2 id="超连接-Hyper-Connections-HC"><a href="#超连接-Hyper-Connections-HC" class="headerlink" title="超连接 (Hyper-Connections, HC)"></a>超连接 (Hyper-Connections, HC)</h2><p>$$<br>x _ {l+1}&#x3D;\mathcal{H} _ {l} ^ {res}x _ {l}+\mathcal{H} _ {l} ^ {post~\top}\mathcal{F}(\mathcal{H} _ {l} ^ {pre}x _ {l},\mathcal{W} _ {l})<br>$$</p>
@@ -1152,20 +1135,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

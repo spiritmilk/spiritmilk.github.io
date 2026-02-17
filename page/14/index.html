@@ -135,24 +135,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -409,7 +392,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/20250425/" target="_self">
         <div>
-          Target Encoding又名mean encoding。正如其名，实际上是把符合条件的y的均值作为这个条件的所有样本的新特征。 在kaggle的S5E2和这个月正在进行的S5E4等比赛都获得了耀眼的表现。 最简单的形式是 python1df.groupby("xxx").mean()
+          Target Encoding又名mean encoding。正如其名，实际上是把符合条件的y的均值作为这个条件的所有样本的新特征。 在kaggle的S5E2和这个月正在进行的S5E4等比赛都获得了耀眼的表现。 最简单的形式是 1df.groupby(&quot;xxx&quot;).mean()
         </div>
       </a>
 
@@ -1203,20 +1186,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

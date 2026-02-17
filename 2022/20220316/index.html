@@ -150,24 +150,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -507,7 +490,7 @@
 <li><strong>real,double precision</strong>：浮点数与双精度浮点数，精度与机器相关。</li>
 <li><strong>float(n)</strong>：精度至少为n位的浮点数。</li>
 </ul>
-<h5 id="3-1-2-基本模式定义"><a href="#3-1-2-基本模式定义" class="headerlink" title="3.1.2 基本模式定义"></a>3.1.2 基本模式定义</h5><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">sql</li></ul></figcaption><div class="tabs-content"><figure class="highlight sql" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> r</span><br><span class="line">	(A1 D1,</span><br><span class="line">     A2 D2,</span><br><span class="line">     ...,</span><br><span class="line">     An Dn,</span><br><span class="line">     <span class="operator">&lt;</span>完整性约束<span class="number">1</span><span class="operator">&gt;</span>,</span><br><span class="line">     ...,</span><br><span class="line">     <span class="operator">&lt;</span>完整性约束k<span class="operator">&gt;</span>);</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<h5 id="3-1-2-基本模式定义"><a href="#3-1-2-基本模式定义" class="headerlink" title="3.1.2 基本模式定义"></a>3.1.2 基本模式定义</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">create table</span> r<br>	(A1 D1,<br>     A2 D2,<br>     ...,<br>     An Dn,<br>     <span class="hljs-operator">&lt;</span>完整性约束<span class="hljs-number">1</span><span class="hljs-operator">&gt;</span>,<br>     ...,<br>     <span class="hljs-operator">&lt;</span>完整性约束k<span class="hljs-operator">&gt;</span>);<br>	<br></code></pre></td></tr></table></figure>
 
 <p>SQL支持许多不同的完整性约束。</p>
 <ul>
@@ -1702,20 +1685,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

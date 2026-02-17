@@ -150,24 +150,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -317,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          517 字
+          521 字
         
       </span>
     
@@ -387,7 +370,7 @@
 </blockquote>
 <p>由sim(v,t)&#x2F;2来选择mask比例。</p>
 <p>代码中还使用了加权平均和伽马矫正：</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> scipy.ndimage <span class="keyword">import</span> filters</span><br><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> transform <span class="keyword">as</span> skimage_transform</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getAttMap</span>(<span class="params">img, attMap, blur=<span class="literal">True</span>, overlap=<span class="literal">True</span></span>):</span><br><span class="line">    attMap -= attMap.<span class="built_in">min</span>()</span><br><span class="line">    <span class="keyword">if</span> attMap.<span class="built_in">max</span>() &gt; <span class="number">0</span>:</span><br><span class="line">        attMap /= attMap.<span class="built_in">max</span>()</span><br><span class="line">    attMap = skimage_transform.resize(attMap, (img.shape[:<span class="number">2</span>]), order=<span class="number">3</span>, mode=<span class="string">"constant"</span>)</span><br><span class="line">    <span class="keyword">if</span> blur:</span><br><span class="line">        attMap = filters.gaussian_filter(attMap, <span class="number">0.02</span> * <span class="built_in">max</span>(img.shape[:<span class="number">2</span>]))</span><br><span class="line">        attMap -= attMap.<span class="built_in">min</span>()</span><br><span class="line">        attMap /= attMap.<span class="built_in">max</span>()</span><br><span class="line">    cmap = plt.get_cmap(<span class="string">"jet"</span>)</span><br><span class="line">    attMapV = cmap(attMap)</span><br><span class="line">    attMapV = np.delete(attMapV, <span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">if</span> overlap:</span><br><span class="line">        attMap = (</span><br><span class="line">            <span class="number">1</span> * (<span class="number">1</span> - attMap**<span class="number">0.7</span>).reshape(attMap.shape + (<span class="number">1</span>,)) * img</span><br><span class="line">            + (attMap**<span class="number">0.7</span>).reshape(attMap.shape + (<span class="number">1</span>,)) * attMapV</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">return</span> attMap</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> scipy.ndimage <span class="hljs-keyword">import</span> filters<br><span class="hljs-keyword">from</span> skimage <span class="hljs-keyword">import</span> transform <span class="hljs-keyword">as</span> skimage_transform<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getAttMap</span>(<span class="hljs-params">img, attMap, blur=<span class="hljs-literal">True</span>, overlap=<span class="hljs-literal">True</span></span>):<br>    attMap -= attMap.<span class="hljs-built_in">min</span>()<br>    <span class="hljs-keyword">if</span> attMap.<span class="hljs-built_in">max</span>() &gt; <span class="hljs-number">0</span>:<br>        attMap /= attMap.<span class="hljs-built_in">max</span>()<br>    attMap = skimage_transform.resize(attMap, (img.shape[:<span class="hljs-number">2</span>]), order=<span class="hljs-number">3</span>, mode=<span class="hljs-string">&quot;constant&quot;</span>)<br>    <span class="hljs-keyword">if</span> blur:<br>        attMap = filters.gaussian_filter(attMap, <span class="hljs-number">0.02</span> * <span class="hljs-built_in">max</span>(img.shape[:<span class="hljs-number">2</span>]))<br>        attMap -= attMap.<span class="hljs-built_in">min</span>()<br>        attMap /= attMap.<span class="hljs-built_in">max</span>()<br>    cmap = plt.get_cmap(<span class="hljs-string">&quot;jet&quot;</span>)<br>    attMapV = cmap(attMap)<br>    attMapV = np.delete(attMapV, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">if</span> overlap:<br>        attMap = (<br>            <span class="hljs-number">1</span> * (<span class="hljs-number">1</span> - attMap**<span class="hljs-number">0.7</span>).reshape(attMap.shape + (<span class="hljs-number">1</span>,)) * img<br>            + (attMap**<span class="hljs-number">0.7</span>).reshape(attMap.shape + (<span class="hljs-number">1</span>,)) * attMapV<br>        )<br>    <span class="hljs-keyword">return</span> attMap<br></code></pre></td></tr></table></figure>
 
 <p> IPM 模块根据这些分数，生成一个“增强视图” (augmented view) 。它会<strong>遮蔽 (mask out) 所有与提示无关的背景和干扰物体</strong>，只保留（高亮）与提示最相关的图像区域。</p>
 <p>也使用了对比解码，即$logit_{原始}+\alpha logit_{增强}$。</p>
@@ -1137,20 +1120,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

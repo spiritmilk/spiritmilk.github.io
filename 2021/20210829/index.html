@@ -146,24 +146,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -313,7 +296,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          807 字
+          815 字
         
       </span>
     
@@ -404,35 +387,35 @@
 </tr>
 </tbody></table>
 <p><strong>np.unravel_index:</strong><br>例子：考虑一个 (6,7,8) 形状的数组，其第100个元素的索引(x,y,z)是什么?</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(np.unravel_index(<span class="number">100</span>,(<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)))</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(np.unravel_index(<span class="hljs-number">100</span>,(<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>)))<br></code></pre></td></tr></table></figure>
 
 <p> <strong>np.tile：</strong><br>将原矩阵横向、纵向地复制。<br>例子：用tile函数去创建一个 8x8的棋盘样式矩阵</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Z = np.tile( np.array([[<span class="number">0</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>]]), (<span class="number">4</span>,<span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(Z)</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">Z = np.tile( np.array([[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">0</span>]]), (<span class="hljs-number">4</span>,<span class="hljs-number">4</span>))<br><span class="hljs-built_in">print</span>(Z)<br></code></pre></td></tr></table></figure>
 
 <p><strong>np.dtype:</strong><br>查询属性。<br>此外，还有定义类型。<br>例 ：创建一个将颜色描述为(RGBA)四个无符号字节的自定义dtype？</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">color = np.dtype([(<span class="string">"r"</span>, np.ubyte, <span class="number">1</span>),</span><br><span class="line">                  (<span class="string">"g"</span>, np.ubyte, <span class="number">1</span>),</span><br><span class="line">                  (<span class="string">"b"</span>, np.ubyte, <span class="number">1</span>),</span><br><span class="line">                  (<span class="string">"a"</span>, np.ubyte, <span class="number">1</span>)])</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">color = np.dtype([(<span class="hljs-string">&quot;r&quot;</span>, np.ubyte, <span class="hljs-number">1</span>),<br>                  (<span class="hljs-string">&quot;g&quot;</span>, np.ubyte, <span class="hljs-number">1</span>),<br>                  (<span class="hljs-string">&quot;b&quot;</span>, np.ubyte, <span class="hljs-number">1</span>),<br>                  (<span class="hljs-string">&quot;a&quot;</span>, np.ubyte, <span class="hljs-number">1</span>)])<br></code></pre></td></tr></table></figure>
 
 <p><strong>np.copysign:</strong></p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numpy.copysign(array1,array2)       将第二个数组中值得符号复制给第一个数组中值</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">numpy.copysign(array1,array2)       将第二个数组中值得符号复制给第一个数组中值<br></code></pre></td></tr></table></figure>
 
 <p><strong>np.intersect1d：</strong><br>找到两个数组的交集。</p>
 <p><strong>时间操作功能：</strong><br>np.datetime64, np.timedelta64。<br>例：today &#x3D; np.datetime64(‘today’, ‘D’)  查询今日日期<br>timedelta64数据类型用以补充datetime64。timedelta64的参数是一个数字，代表单位数，一个日期&#x2F;时间单位，例如（D）ay，（M）onth，（Y）ear，（h）ours，（m）inutes或（s）其次。timedelta64数据类型还接受字符串“ NAT”代替“ Not A Time”值的数字。</p>
 <p><strong>取整：</strong></p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> (np.floor(Z))</span><br><span class="line"><span class="built_in">print</span> (np.cell(Z)-<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span> (Z.astype(<span class="built_in">int</span>))</span><br><span class="line"><span class="built_in">print</span> (np.trunc(Z))</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span> (np.floor(Z))<br><span class="hljs-built_in">print</span> (np.cell(Z)-<span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span> (Z.astype(<span class="hljs-built_in">int</span>))<br><span class="hljs-built_in">print</span> (np.trunc(Z))<br></code></pre></td></tr></table></figure>
 
 <p><strong>np.ufunc.reduce:</strong><br>Reduces array’s dimension by one, by applying ufunc along one axis.<br>add.reduce()&#x3D;sum(),且在小数组求和中前者更快。</p>
 <p><strong>np.allclose, np.array_equal：</strong><br>前者判断相近（相等），后者判断相等。</p>
 <p><strong>flags.writeable</strong>：<br>把数组变为只读。</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Z = np.zeros(<span class="number">5</span>)</span><br><span class="line">Z.flags.writeable = <span class="literal">False</span> <span class="comment">#把数组变为只读。</span></span><br><span class="line">Z[<span class="number">0</span>] = <span class="number">1</span> <span class="comment">#报错</span></span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">Z = np.zeros(<span class="hljs-number">5</span>)<br>Z.flags.writeable = <span class="hljs-literal">False</span> <span class="hljs-comment">#把数组变为只读。</span><br>Z[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span> <span class="hljs-comment">#报错</span><br></code></pre></td></tr></table></figure>
 
 <p><strong>打印数组中所有的值：</strong></p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.set_printoptions(threshold=np.nan)</span><br><span class="line">Z = np.zeros((<span class="number">16</span>,<span class="number">16</span>))</span><br><span class="line"><span class="built_in">print</span>(Z)</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">np.set_printoptions(threshold=np.nan)<br>Z = np.zeros((<span class="hljs-number">16</span>,<span class="hljs-number">16</span>))<br><span class="hljs-built_in">print</span>(Z)<br></code></pre></td></tr></table></figure>
 
 <p><strong>np.meshgrid()：</strong><br>生成网格点坐标矩阵。</p>
 <p><strong>np.genfromtxt：</strong><br>读取txt。</p>
 <p><strong>数组索引：</strong><br>np.ndenumerate：返回一个迭代器，生成数组坐标和值对。<br>np.ndindex:索引数组的N维迭代器对象。</p>
 <p><strong>np.bincount:</strong><br>计数非负整数数组中每个值的出现次数。</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.bincount(np.array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">7</span>]))</span><br><span class="line">array([<span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">np.bincount(np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">7</span>]))<br>array([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure>
 
 <p><strong>np.unique:</strong><br>去除数组中的重复数字,并进行排序之后输出。</p>
 <p><strong>np.diag:</strong><br>当 np.diag(array) 中<br>array是一个1维数组时，结果形成一个以一维数组为对角线元素的矩阵。<br>array是一个二维矩阵时，结果输出矩阵的对角线元素。</p>
@@ -441,7 +424,7 @@
 <p><strong>np.cumsum:</strong><br>numpy.cumsum(a, axis&#x3D;None, dtype&#x3D;None, out&#x3D;None)<br>返回沿着给定轴的元素的累积和。<br>axis&#x3D;0，按照行累加。<br>axis&#x3D;1，按照列累加。<br>axis不给定具体值，就把numpy数组当成一个一维数组。</p>
 <p>**注意：**cumsum(b)[-1] 可能不等于 sum(b)</p>
 <p>因为sum直接将每个数字单独加到结果上。</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;	b = np.array([<span class="number">1</span>, <span class="number">2e-9</span>, <span class="number">3e-9</span>] * <span class="number">1000000</span>)</span><br><span class="line">&gt;&gt;&gt;	b.cumsum()[-<span class="number">1</span>]</span><br><span class="line"><span class="number">1000000.0050045159</span></span><br><span class="line">&gt;&gt;&gt;	b.<span class="built_in">sum</span>()                    </span><br><span class="line"><span class="number">1000000.0050000029</span></span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">&gt;&gt;&gt;	b = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2e-9</span>, <span class="hljs-number">3e-9</span>] * <span class="hljs-number">1000000</span>)<br>&gt;&gt;&gt;	b.cumsum()[-<span class="hljs-number">1</span>]<br><span class="hljs-number">1000000.0050045159</span><br>&gt;&gt;&gt;	b.<span class="hljs-built_in">sum</span>()                    <br><span class="hljs-number">1000000.0050000029</span><br></code></pre></td></tr></table></figure>
 
 
                 
@@ -1186,20 +1169,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

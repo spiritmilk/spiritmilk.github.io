@@ -164,24 +164,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -423,7 +406,7 @@
 <p>作者有点符号混用。</p>
 </blockquote>
 <p>由于视觉编码器并非因果建模，在前向传播过程中对所有层的潜在状态在所有 token 位置进行了位移调整：<br>$$<br>h_{l,t}^v:&#x3D;h_{l,t}^v+\alpha\cdot d_{l,t}^{vision}<br>$$<br>对于文本，我们通过文本方向来调整文本解码器的潜在状态：<br>$$<br>h_{l,t}^{x,v}:&#x3D;h_{l,t}^{x,v}+\beta\cdot d_{l,t&#x3D;last token}^{text}<br>$$</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">VTILayer</span>(nn.Module):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, vti_direction, lam</span>):</span><br><span class="line">        <span class="built_in">super</span>(VTILayer, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="variable language_">self</span>.vti_direction = vti_direction</span><br><span class="line">        <span class="variable language_">self</span>.lam = lam</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.vti_direction <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            norm = torch.norm(x.<span class="built_in">float</span>(),dim=-<span class="number">1</span>).unsqueeze(-<span class="number">1</span>)            </span><br><span class="line">            y = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(<span class="variable language_">self</span>.vti_direction)):</span><br><span class="line">                <span class="keyword">if</span> x.size(<span class="number">1</span>) &lt; <span class="number">2</span>:</span><br><span class="line">                    lambda_sim = <span class="number">1.0</span> <span class="comment">#+ torch.max(torch.tensor([0.]).to(x.device), F.cosine_similarity(x.float(), -self.vti_direction[i][None,None,:], dim=-1)).unsqueeze(-1)</span></span><br><span class="line">                    y += <span class="variable language_">self</span>.lam[i] * lambda_sim * F.normalize(<span class="variable language_">self</span>.vti_direction[i], dim=-<span class="number">1</span>).repeat(<span class="number">1</span>,x.shape[<span class="number">1</span>],<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    lambda_sim = <span class="number">1.0</span></span><br><span class="line">                    y += <span class="variable language_">self</span>.lam[i] * lambda_sim * F.normalize(<span class="variable language_">self</span>.vti_direction[i], dim=-<span class="number">1</span>)</span><br><span class="line">            y = y/<span class="built_in">len</span>(<span class="variable language_">self</span>.vti_direction)</span><br><span class="line">            x = F.normalize(F.normalize(x.<span class="built_in">float</span>(),dim=-<span class="number">1</span>) +  <span class="number">0.1</span> * y, dim=-<span class="number">1</span>) * norm</span><br><span class="line">                </span><br><span class="line">            <span class="keyword">return</span> x.half()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> x</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">VTILayer</span>(nn.Module):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, vti_direction, lam</span>):<br>        <span class="hljs-built_in">super</span>(VTILayer, <span class="hljs-variable language_">self</span>).__init__()<br>        <span class="hljs-variable language_">self</span>.vti_direction = vti_direction<br>        <span class="hljs-variable language_">self</span>.lam = lam<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.vti_direction <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            norm = torch.norm(x.<span class="hljs-built_in">float</span>(),dim=-<span class="hljs-number">1</span>).unsqueeze(-<span class="hljs-number">1</span>)            <br>            y = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.vti_direction)):<br>                <span class="hljs-keyword">if</span> x.size(<span class="hljs-number">1</span>) &lt; <span class="hljs-number">2</span>:<br>                    lambda_sim = <span class="hljs-number">1.0</span> <span class="hljs-comment">#+ torch.max(torch.tensor([0.]).to(x.device), F.cosine_similarity(x.float(), -self.vti_direction[i][None,None,:], dim=-1)).unsqueeze(-1)</span><br>                    y += <span class="hljs-variable language_">self</span>.lam[i] * lambda_sim * F.normalize(<span class="hljs-variable language_">self</span>.vti_direction[i], dim=-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>,x.shape[<span class="hljs-number">1</span>],<span class="hljs-number">1</span>)<br>                <span class="hljs-keyword">else</span>:<br>                    lambda_sim = <span class="hljs-number">1.0</span><br>                    y += <span class="hljs-variable language_">self</span>.lam[i] * lambda_sim * F.normalize(<span class="hljs-variable language_">self</span>.vti_direction[i], dim=-<span class="hljs-number">1</span>)<br>            y = y/<span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.vti_direction)<br>            x = F.normalize(F.normalize(x.<span class="hljs-built_in">float</span>(),dim=-<span class="hljs-number">1</span>) +  <span class="hljs-number">0.1</span> * y, dim=-<span class="hljs-number">1</span>) * norm<br>                <br>            <span class="hljs-keyword">return</span> x.half()<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> x<br></code></pre></td></tr></table></figure>
 
 
 
@@ -1253,20 +1236,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

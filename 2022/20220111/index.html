@@ -149,24 +149,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -316,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          921 字
+          939 字
         
       </span>
     
@@ -391,7 +374,7 @@
 <p>故有<br>$$<br>\begin{align}<br>k(x,y) &amp;&#x3D; k(x-y)<br>\\ &amp;&#x3D; \int p(w) \exp(i w^T (x-y)) dw<br>\\ &amp;&#x3D; \mathbb{E}_ {w}[\exp(i w^T (x-y))]<br>\\ &amp;\approx \frac{1}{R} \sum_ {r&#x3D;1}^{R} \exp(i w_r^T (x-y)) \\ &amp;&#x3D;<br>\begin{bmatrix}<br>\frac{1}{\sqrt{R}} \exp(i w_{1}^T x) \\ \frac{1}{\sqrt{R}} \exp(i w_{2}^T x) \\ \vdots \\ \frac{1}{\sqrt{R}} \exp(i w_{R}^T x)<br>\end{bmatrix}^T<br>\begin{bmatrix}<br>\frac{1}{\sqrt{R}} \exp(-i w_{1}^T y) \\ \frac{1}{\sqrt{R}} \exp(-i w_{2}^T y) \\ \vdots \\ \frac{1}{\sqrt{R}} \exp(-i w_{R}^T y)<br>\end{bmatrix}<br>\\ &amp;&#x3D; \mathbf{h}(x) \mathbf{h}(y)^{*} \end{align}<br>$$<br>为了避免虚数，我们定义：<br>$$<br>\begin{align}<br>w&amp;\sim p(w)<br>\\<br>b&amp;\sim Uniform(0,2\pi)<br>\\<br>z_w(x)&amp;&#x3D;\sqrt{2}cos(w^Tx+b)<br>\end{align}<br>$$</p>
 <p>则<br>$$<br>\begin{align}<br>E_w(z_w(x)z_w(y))&amp;&#x3D;E_w[\sqrt{2}cos(w^Tx+b)\sqrt{2}cos(w^Ty+b)]<br>\\&amp;&#x3D;<br>E_w[cos(w^Tx+b)+2b]+E_w[cos(w^T(x-y))]<br>\\&amp;&#x3D;<br>0+E_w[cos(w^T(x-y))]<br>\end{align}<br>$$<br>故可定义:<br>$$<br>z(x) &#x3D;<br>\left[\begin{matrix} \frac{1}{\sqrt{R}} z_{w_1}(x) \\ \frac{1}{\sqrt{R}} z_{w_2}(x) \\ \vdots \\ \frac{1}{\sqrt{R}} z_{w_R}(x) \end{matrix}\right]<br>$$</p>
 <p>因此<br>$$<br>\begin{align}<br>z(x)^Tz(y)&amp;&#x3D;\frac{1}{R}\sum_{r&#x3D;1}^R z_{w_r}(x)z_{w_r}(y)<br>\\<br>&amp;&#x3D;\frac{1}{R}\sum_{r&#x3D;1}^R 2cos(w_r^Tx+b_r)cos(w_r^Ty+b_r)<br>\\<br>&amp;&#x3D;\frac{1}{R}\sum_{r&#x3D;1}^R cos(w_r^T(x-y))<br>\\<br>&amp;\approx E_w[cos(w_r^T(x-y))]<br>\\<br>&amp;&#x3D;k(x,y)<br>\end{align}<br>$$</p>
-<h2 id="应用——高斯核近似"><a href="#应用——高斯核近似" class="headerlink" title="应用——高斯核近似"></a>应用——高斯核近似</h2><figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span>   sklearn.metrics.pairwise <span class="keyword">import</span> rbf_kernel</span><br><span class="line"><span class="keyword">from</span>   sklearn.datasets <span class="keyword">import</span> make_s_curve</span><br><span class="line"></span><br><span class="line">fig, axes = plt.subplots(<span class="number">1</span>, <span class="number">5</span>)</span><br><span class="line">fig.set_size_inches(<span class="number">15</span>, <span class="number">4</span>)</span><br><span class="line">font = {<span class="string">'fontname'</span>: <span class="string">'arial'</span>, <span class="string">'fontsize'</span>: <span class="number">18</span>}</span><br><span class="line"></span><br><span class="line">N    = <span class="number">1000</span></span><br><span class="line">D    = <span class="number">3</span></span><br><span class="line">X, t = make_s_curve(N, noise=<span class="number">0.1</span>)</span><br><span class="line">X    = X[t.argsort()]</span><br><span class="line"><span class="comment"># The RBF kernel is the Gaussian kernel if we let \gamma = 1 / (2 \sigma^2).</span></span><br><span class="line">K    = rbf_kernel(X, gamma=<span class="number">1</span>/<span class="number">2.</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].imshow(K, cmap=plt.cm.Blues)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">'Exact RBF kernel'</span>, **font)</span><br><span class="line">axes[<span class="number">0</span>].set_xticks([])</span><br><span class="line">axes[<span class="number">0</span>].set_yticks([])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> R, ax <span class="keyword">in</span> <span class="built_in">zip</span>([<span class="number">1</span>, <span class="number">10</span>, <span class="number">100</span>, <span class="number">1000</span>], axes[<span class="number">1</span>:]):</span><br><span class="line">    W    = np.random.normal(loc=<span class="number">0</span>, scale=<span class="number">1</span>, size=(R, D))</span><br><span class="line">    b    = np.random.uniform(<span class="number">0</span>, <span class="number">2</span>*np.pi, size=R)</span><br><span class="line">    B    = np.repeat(b[:, np.newaxis], N, axis=<span class="number">1</span>)</span><br><span class="line">    norm = <span class="number">1.</span>/ np.sqrt(R)</span><br><span class="line">    Z    = norm * np.sqrt(<span class="number">2</span>) * np.cos(W @ X.T + B)</span><br><span class="line">    ZZ   = Z.T@Z</span><br><span class="line"></span><br><span class="line">    ax.imshow(ZZ, cmap=plt.cm.Blues)</span><br><span class="line">    ax.set_title(<span class="string">r'$\mathbf{Z} \mathbf{Z}^{\top}$, $R=%s$'</span> % R, **font)</span><br><span class="line">    ax.set_xticks([])</span><br><span class="line">    ax.set_yticks([])</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<h2 id="应用——高斯核近似"><a href="#应用——高斯核近似" class="headerlink" title="应用——高斯核近似"></a>应用——高斯核近似</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span>   sklearn.metrics.pairwise <span class="hljs-keyword">import</span> rbf_kernel<br><span class="hljs-keyword">from</span>   sklearn.datasets <span class="hljs-keyword">import</span> make_s_curve<br><br>fig, axes = plt.subplots(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>)<br>fig.set_size_inches(<span class="hljs-number">15</span>, <span class="hljs-number">4</span>)<br>font = &#123;<span class="hljs-string">&#x27;fontname&#x27;</span>: <span class="hljs-string">&#x27;arial&#x27;</span>, <span class="hljs-string">&#x27;fontsize&#x27;</span>: <span class="hljs-number">18</span>&#125;<br><br>N    = <span class="hljs-number">1000</span><br>D    = <span class="hljs-number">3</span><br>X, t = make_s_curve(N, noise=<span class="hljs-number">0.1</span>)<br>X    = X[t.argsort()]<br><span class="hljs-comment"># The RBF kernel is the Gaussian kernel if we let \gamma = 1 / (2 \sigma^2).</span><br>K    = rbf_kernel(X, gamma=<span class="hljs-number">1</span>/<span class="hljs-number">2.</span>)<br><br>axes[<span class="hljs-number">0</span>].imshow(K, cmap=plt.cm.Blues)<br>axes[<span class="hljs-number">0</span>].set_title(<span class="hljs-string">&#x27;Exact RBF kernel&#x27;</span>, **font)<br>axes[<span class="hljs-number">0</span>].set_xticks([])<br>axes[<span class="hljs-number">0</span>].set_yticks([])<br><br><span class="hljs-keyword">for</span> R, ax <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>([<span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1000</span>], axes[<span class="hljs-number">1</span>:]):<br>    W    = np.random.normal(loc=<span class="hljs-number">0</span>, scale=<span class="hljs-number">1</span>, size=(R, D))<br>    b    = np.random.uniform(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>*np.pi, size=R)<br>    B    = np.repeat(b[:, np.newaxis], N, axis=<span class="hljs-number">1</span>)<br>    norm = <span class="hljs-number">1.</span>/ np.sqrt(R)<br>    Z    = norm * np.sqrt(<span class="hljs-number">2</span>) * np.cos(W @ X.T + B)<br>    ZZ   = Z.T@Z<br><br>    ax.imshow(ZZ, cmap=plt.cm.Blues)<br>    ax.set_title(<span class="hljs-string">r&#x27;$\mathbf&#123;Z&#125; \mathbf&#123;Z&#125;^&#123;\top&#125;$, $R=%s$&#x27;</span> % R, **font)<br>    ax.set_xticks([])<br>    ax.set_yticks([])<br><br>plt.tight_layout()<br>plt.show()<br></code></pre></td></tr></table></figure>
 
 <p><img src="/2022/20220111/rbf.png"></p>
 
@@ -1139,20 +1122,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>

@@ -151,24 +151,7 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"><style>
-    figure.codeblock {
-       margin: 0;
-    }
-    figure figcaption .tabs {
-      display: flex;
-      margin: 0;
-    }
-    figure figcaption .tabs .tab {
-      cursor: pointer;
-      list-style: none;
-      padding: 5px 15px;
-    }
-    figure figcaption .tabs .tab.active {
-      background: #2d2d2d;
-      color: white;
-    }
-  </style></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -389,7 +372,7 @@
 <h3 id="视觉识别任务需要因果标记混合模式吗"><a href="#视觉识别任务需要因果标记混合模式吗" class="headerlink" title="视觉识别任务需要因果标记混合模式吗"></a>视觉识别任务需要因果标记混合模式吗</h3><p>作者指出，完全可见的令牌混合模式允许不受限制的混合范围，而因果模式则限制当前令牌只能访问先前令牌的信息。视觉识别被归类为理解任务，其中模型可以立即看到整个图像，从而消除了对令牌混合的限制。对令牌混合施加额外的限制可能会降低模型性能。</p>
 <h2 id="实验验证"><a href="#实验验证" class="headerlink" title="实验验证"></a>实验验证</h2><p><img src="/2024/20240516/x6.png"></p>
 <p>Gated CNN 块的算法的PyTorch 代码:</p>
-<figure class="codeblock codeblock--tabbed"><figcaption><ul class="tabs"><li class="tab active">python</li></ul></figcaption><div class="tabs-content"><figure class="highlight python" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GatedCNNBlock</span>(nn.Module):</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dim, expension_ratio=<span class="number">8</span>/<span class="number">3</span>, kernel_size=<span class="number">7</span>, conv_ratio=<span class="number">1.0</span>,</span></span><br><span class="line"><span class="params">norm_layer=partial(<span class="params">nn.LayerNorm,eps=<span class="number">1e-6</span></span>),</span></span><br><span class="line"><span class="params">act_layer=nn.GELU,</span></span><br><span class="line"><span class="params">drop_path=<span class="number">0.</span></span>):</span><br><span class="line"><span class="built_in">super</span>().__init__()</span><br><span class="line"><span class="variable language_">self</span>.norm = norm_layer(dim)</span><br><span class="line">hidden = <span class="built_in">int</span>(expension_ratio * dim)</span><br><span class="line"><span class="variable language_">self</span>.fc1 = nn.Linear(dim, hidden * <span class="number">2</span>)</span><br><span class="line"><span class="variable language_">self</span>.act = act_layer()</span><br><span class="line">conv_channels = <span class="built_in">int</span>(conv_ratio * dim)</span><br><span class="line"><span class="variable language_">self</span>.split_indices = (hidden, hidden - conv_channels, conv_channels)</span><br><span class="line"><span class="variable language_">self</span>.conv = nn.Conv2d(conv_channels, conv_channels, kernel_size=kernel_size, padding=kernel_size//<span class="number">2</span>, groups=conv_channels)</span><br><span class="line"><span class="variable language_">self</span>.fc2 = nn.Linear(hidden, dim)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">shortcut = x <span class="comment"># [B, H, W, C] = x.shape</span></span><br><span class="line">x = <span class="variable language_">self</span>.norm(x)</span><br><span class="line">g, i, c = torch.split(<span class="variable language_">self</span>.fc1(x), <span class="variable language_">self</span>.split_indices, dim=-<span class="number">1</span>)</span><br><span class="line">c = c.permute(<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>) <span class="comment"># [B, H, W, C] -&gt; [B, C, H, W]</span></span><br><span class="line">c = <span class="variable language_">self</span>.conv(c)</span><br><span class="line">c = c.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>) <span class="comment"># [B, C, H, W] -&gt; [B, H, W, C]</span></span><br><span class="line">x = <span class="variable language_">self</span>.fc2(<span class="variable language_">self</span>.act(g) * torch.cat((i, c), dim=-<span class="number">1</span>))</span><br><span class="line"><span class="keyword">return</span> x + shortcut</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GatedCNNBlock</span>(nn.Module):<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, dim, expension_ratio=<span class="hljs-number">8</span>/<span class="hljs-number">3</span>, kernel_size=<span class="hljs-number">7</span>, conv_ratio=<span class="hljs-number">1.0</span>,</span><br><span class="hljs-params">norm_layer=partial(<span class="hljs-params">nn.LayerNorm,eps=<span class="hljs-number">1e-6</span></span>),</span><br><span class="hljs-params">act_layer=nn.GELU,</span><br><span class="hljs-params">drop_path=<span class="hljs-number">0.</span></span>):<br><span class="hljs-built_in">super</span>().__init__()<br><span class="hljs-variable language_">self</span>.norm = norm_layer(dim)<br>hidden = <span class="hljs-built_in">int</span>(expension_ratio * dim)<br><span class="hljs-variable language_">self</span>.fc1 = nn.Linear(dim, hidden * <span class="hljs-number">2</span>)<br><span class="hljs-variable language_">self</span>.act = act_layer()<br>conv_channels = <span class="hljs-built_in">int</span>(conv_ratio * dim)<br><span class="hljs-variable language_">self</span>.split_indices = (hidden, hidden - conv_channels, conv_channels)<br><span class="hljs-variable language_">self</span>.conv = nn.Conv2d(conv_channels, conv_channels, kernel_size=kernel_size, padding=kernel_size//<span class="hljs-number">2</span>, groups=conv_channels)<br><span class="hljs-variable language_">self</span>.fc2 = nn.Linear(hidden, dim)<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>shortcut = x <span class="hljs-comment"># [B, H, W, C] = x.shape</span><br>x = <span class="hljs-variable language_">self</span>.norm(x)<br>g, i, c = torch.split(<span class="hljs-variable language_">self</span>.fc1(x), <span class="hljs-variable language_">self</span>.split_indices, dim=-<span class="hljs-number">1</span>)<br>c = c.permute(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment"># [B, H, W, C] -&gt; [B, C, H, W]</span><br>c = <span class="hljs-variable language_">self</span>.conv(c)<br>c = c.permute(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>) <span class="hljs-comment"># [B, C, H, W] -&gt; [B, H, W, C]</span><br>x = <span class="hljs-variable language_">self</span>.fc2(<span class="hljs-variable language_">self</span>.act(g) * torch.cat((i, c), dim=-<span class="hljs-number">1</span>))<br><span class="hljs-keyword">return</span> x + shortcut<br></code></pre></td></tr></table></figure>
 
 <h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>下表显示了224*224分辨率下模型在ImageNet上的性能。我们的MambaOut模型采用gate CNN块[60]。Mamba区块源自Gated CNN区块，包含了一个额外的SSM(状态空间模型)。很明显，视觉mamba模型不如MambaOut的性能，更不用说超越最先进的卷积或卷积注意力混合模型了。注意，vmamba9将mamba块的元架构修改为MetaFormer，不同于其他可视化mamba模型和MambaOut</p>
 <p><img src="/2024/20240516/imagenet.jpg"></p>
@@ -1130,20 +1113,5 @@ if (document.readyState === 'loading') {
             });
         </script>
     
-    <script>
-  $(document).ready(function() {
-    $('figure.codeblock').find('.tab').click(function() {
-        var $codeblock = $(this).parent().parent().parent();
-        var $tab = $(this);
-        // remove "active" css class on all tabs
-        $tab.siblings().removeClass('active');
-        // add "active" css class on the clicked tab
-        $tab.addClass('active');
-        // hide all tab contents
-        $codeblock.find('.highlight').hide();
-        // show only the right one
-        $codeblock.find('.highlight.' + $tab.text()).show();
-    });
-  });
-  </script></body>
+    </body>
 </html>
