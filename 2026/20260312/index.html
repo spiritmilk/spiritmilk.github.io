@@ -28,15 +28,17 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICCV 2025）">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190430/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2026-03-12T04:21:58.000Z">
-<meta property="article:modified_time" content="2026-03-12T05:06:35.213Z">
+<meta property="article:modified_time" content="2026-03-12T05:10:47.757Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/3.png">
   
   
   
@@ -300,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          425 字
+          541 字
         
       </span>
     
@@ -311,7 +313,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -359,11 +361,20 @@
 <p>这篇论文探讨了大型视觉语言模型（LVLMs）领域一个广为人知但缺乏深入解释的现象：<strong>为什么模型在生成较长的回复时，更容易产生“幻觉”</strong>（即生成了图片中根本不存在的物体或细节） 。</p>
 <p>过去的研究通常认为，长文本中的幻觉增多是因为“长度”本身造成的，即随着自回归生成的文本越来越长，误差不断累积，不确定性也随之增加 。</p>
 <p><strong>作者质疑：</strong> 幻觉的增加仅仅是因为长度导致的累积误差吗？还是有更深层的机制在起作用？</p>
+<p>作者设计了两种上下文修改策略，并分析幻觉位置的变化，以探究上下文的影响：</p>
+<ul>
+<li>将图像输入裁剪为居中的方阵，保留原始面积的大约三分之一，并相应地重新标注。</li>
+<li>丰富文本输入，添加两句描述图像的内容，然后提示描述其他细节。</li>
+</ul>
+<p>作者发现这些操作都可以提前幻觉现象的出现。</p>
+<p><img src="/2019/20190430/3.png"></p>
 <h2 id="关键因子"><a href="#关键因子" class="headerlink" title="关键因子"></a>关键因子</h2><p><strong>上下文连贯性 (Contextual Coherence) 与注意力分散：</strong> 模型在生成长文本时，试图保持与前面输出内容的连贯性，同时<strong>极力避免重复</strong>提及已经说过的物体 。</p>
 <ul>
 <li>为了找到“新”内容，模型不得不将注意力从图片中明显的真实物体上移开 。</li>
 <li>当找不到新的真实物体时，模型的注意力就会变得分散和混乱，从而产生幻觉 。研究发现，同一段回复中的幻觉物体之间，其注意力分布图具有高度的相似性 。</li>
 </ul>
+<p>作者</p>
+<p><img src="/2019/20190430/2.png"></p>
 <p><strong>上下文完整性 (Contextual Completeness) 与外部推断：</strong> 模型被要求给出一个信息全面且语法、逻辑结构完整的回答 。</p>
 <ul>
 <li>当图片中真实可识别的物体不足以填补完整的句子结构时，模型就会采取“上下文推断&#x2F;外推”的补偿策略，强行“想象”出一些符合语境的物体来凑数，导致幻觉 。</li>
