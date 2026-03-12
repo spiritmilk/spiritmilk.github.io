@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2026-03-12T04:21:58.000Z">
-<meta property="article:modified_time" content="2026-03-12T05:16:59.193Z">
+<meta property="article:modified_time" content="2026-03-12T05:18:34.120Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -303,7 +303,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          996 字
+          1.1k 字
         
       </span>
     
@@ -377,6 +377,10 @@
 <p>作者分析了单个注意力与成对注意力的比。</p>
 <p>定性分析（右侧面板）表明，当模型成功识别真实物体时，其注意力集中在相关区域。相反，若模型未能识别出新物体，其注意力会分散，并受到干扰信息的影响，导致幻觉现象。</p>
 <p>定量结果（左侧面板）显示 SH 与 SN 的分布存在明显差异。具体而言，幻觉物体表现出更高的注意力相似度，而真实物体则呈现较低的数值。这进一步说明，幻觉物体通常表现为弥散、噪声较多的注意力模式。</p>
+<blockquote>
+<p><strong>$S_{\mathcal{H}}$</strong> 收集的是：在同一段话里，<strong>所有幻觉物体两两之间</strong>的注意力相似度得分 。</p>
+<p><strong>$S_{\mathcal{N}}$</strong> 收集的是：在同一段话里，<strong>所有真实物体两两之间</strong>的注意力相似度得分 。</p>
+</blockquote>
 <p><img src="/2019/20190430/2.png"></p>
 <p><strong>上下文完整性 (Contextual Completeness) 与外部推断：</strong> 模型被要求给出一个信息全面且语法、逻辑结构完整的回答 。</p>
 <ul>
