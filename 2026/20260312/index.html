@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2026-03-12T04:21:58.000Z">
-<meta property="article:modified_time" content="2026-03-12T05:18:34.120Z">
+<meta property="article:modified_time" content="2026-03-12T06:51:39.909Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -303,7 +303,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.8k 字
         
       </span>
     
@@ -314,7 +314,7 @@
         
         
         
-          9 分钟
+          16 分钟
         
       </span>
     
@@ -391,6 +391,21 @@
 <p>结果显示，随着更多丰富句子的引入，上下文变得更加全面，幻觉现象出现在更早的位置。这是因为生成时可用的内容逐渐减少，使得视觉语言模型越来越难以准确识别细节以生成完整且连贯的回答。</p>
 <p>下图的比例表明，所有模型在幻觉物体上的重复性程度都很高，仅在单一回答中出现的物体平均仅占 30%。考虑到问题和先前回答的变化，这些重复出现的幻觉物体往往与图像内容密切相关。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190430/1.png"></p>
+<h3 id="诱导与检测"><a href="#诱导与检测" class="headerlink" title="诱导与检测"></a>诱导与检测</h3><h4 id="内部视觉对齐-Internal-Grounding-IG"><a href="#内部视觉对齐-Internal-Grounding-IG" class="headerlink" title="内部视觉对齐 (Internal Grounding, IG)"></a>内部视觉对齐 (Internal Grounding, IG)</h4><p>研究发现，当模型生成真实的物体时，注意力会集中在图片对应的区域 。但当它瞎编（产生幻觉）时，因为图片里根本没有这个东西，它的注意力会变得分散且混乱 。更重要的是，<strong>同一段回复中，不同幻觉物体之间的注意力分布图高度相似</strong> 。</p>
+<p>在模型给出初步的回答后，人为地在文本末尾强行加入一个引导词汇“There is also a”（这里还有一个…），迫使模型继续生成一个极大概率是幻觉的物体，将其作为“参考锚点”，记为 $o_{s}^{ref}$ 。</p>
+<p>计算初步回答中生成的各个物体 $o_{s,i}$ 的注意力图 $A_{s,i}$ 与参考物体注意力图 $A_{s}^{ref}$ 的余弦相似度，得到 IGScore 。如果得分高于设定的阈值 $\theta_{IG}$，说明该物体大概率也是个幻觉，将其纳入 IG 幻觉候选集 $S_{IG}$ 中 。</p>
+<p>$$IGScore &#x3D; sim(A_{s}^{ref}, A_{s,i})$$</p>
+<p>$$S_{IG}&#x3D;{o_{s,i}|IGScore_{s,i}&gt;\theta_{IG}}$$</p>
+<h4 id="外部空间扩展-External-Expansion-EE"><a href="#外部空间扩展-External-Expansion-EE" class="headerlink" title="外部空间扩展 (External Expansion, EE)"></a>外部空间扩展 (External Expansion, EE)</h4><p>当图片里的真实信息不足以支撑模型编造一个完整的句子时，它会基于图片的整体语境去“脑补”画面外可能存在的东西（外部推断）。而且，面对同一张图片，模型脑补出来的幻觉物体往往是高度重复的 。</p>
+<p>向模型输入一个“先推理后想象 (reason-then-imagine)”的提示词 。让模型想象画面之外（比如上下左右等方向 $d \in \mathcal{D}$）可能存在的物体，构成“想象集合” $S_{I,d}$ 。同时要求它列出画面内真实存在的物体作为推理依据，构成“推理集合” $S_{R,d}$，以此来过滤掉画面内真的有的东西 。</p>
+<p>如果一个物体出现在了想象集合中，它是幻觉的概率就加一；如果它出现在了真实的推理集合中，它是幻觉的概率就减一 。计算出的综合得分 EEScore 大于阈值 $\theta_{EE}$ 的词，被纳入 EE 幻觉候选集 $S_{EE}$ 中 。</p>
+<p>$$EEScore_{s,i}&#x3D;\sum_{d\in\mathcal{D}}[1(o_{s,i}\in S_{I,d})-1(o_{s,i}\in S_{R,d})]$$</p>
+<p>$$S_{EE} &#x3D; {o_{s,i} | [cite_start]EEScore_{s,i} &gt; \theta_{EE}}$$</p>
+<p>最后，将这两种方法抓取到的潜在幻觉词汇合并为一个总的诱导集合：</p>
+<p>$$S_{induction} &#x3D; S_{IG} \cup S_{EE}$$</p>
+<h3 id="缓解"><a href="#缓解" class="headerlink" title="缓解"></a>缓解</h3><p>抓到潜在的幻觉词后，系统需要在最终生成文本时“封杀”它们。作者提出了一种名为<strong>对比上下文解码 (Contrastive Contextual Decoding, CCD)</strong> 的方法 。</p>
+<p>HalTrapper 将第一阶段收集到的潜在幻觉词集合 $S_{induction}$ 转化为具体的文本 Token，称为<strong>对比上下文 Token (CCT)</strong>，记为 $x_{cct}$ 。</p>
+<p>$$p_{ccd}(y_{i}|v,x_{cct},x,y_{&lt;i}) &#x3D; softmax[(1+\alpha)logit_{\theta}(y_{i}|v,x,y_{&lt;i}) - \alpha logit_{\theta}(y_{i}|v,x,x_{cct},y_{&lt;i})]$$</p>
 
                 
               </div>
