@@ -21,19 +21,23 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="（arxiv 2026）anthropic 出品。">
+    <meta name="description" content="（arxiv 2026） anthropic 出品。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Assistant Axis： Situating and Stabilizing the Default Persona of Language Model">
 <meta property="og:url" content="https://lijianxiong.space/2026/20260313/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="（arxiv 2026）anthropic 出品。">
+<meta property="og:description" content="（arxiv 2026） anthropic 出品。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/313/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/313/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/313/3.png">
 <meta property="article:published_time" content="2026-03-13T04:31:53.000Z">
-<meta property="article:modified_time" content="2026-03-13T05:03:43.108Z">
+<meta property="article:modified_time" content="2026-03-13T05:11:04.880Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/313/1.png">
   
   
   
@@ -297,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          289 字
+          439 字
         
       </span>
     
@@ -308,7 +312,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -350,13 +354,19 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（arxiv 2026）anthropic 出品。</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（arxiv 2026）</p>
+<p>anthropic 出品。</p>
 <span id="more"></span>
 
 <hr>
 <h2 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h2><p>角色漂移 (Persona Drift)：虽然模型经过了对齐训练（Post-training），但这种训练只是将模型“松散地”拴在助手角色上 。在某些特定对话中，模型会不自觉地沿着“助手轴”滑向另一端，脱离助手人格 。</p>
-<p>在Gemma 2 27B、Qwen 3 32B、Llama 3.3 70B上，研究人员在前沿模型（Claude Sonnet 4）上产生五个系统提示，生成了一份包含 240 个抽取问题的列表，让模型扮演 275 种不同的角色（如小丑、幽灵、顾问等），以激发每个期望的角色。并提取其内部激活状态，使用PCA构建了一个低维度的“角色空间” 。</p>
+<p>在Gemma 2 27B、Qwen 3 32B、Llama 3.3 70B上，研究人员在前沿模型（Claude Sonnet 4）上产生五个系统提示，生成了一份包含 240 个抽取问题的列表，让模型扮演 275 种不同的角色（如小丑、幽灵、顾问等），以激发每个期望的角色。</p>
 <p>基于一个大语言模型裁判（gpt-4.1-mini）来判断给定角色的表达程度。角色表达被分为以下三种标签之一：完全扮演角色（模型未提及自己是人工智能，并完全承担起该角色）、部分扮演角色（模型仍表明自己是人工智能，但<br>表现出一些角色特征）、未扮演角色（模型拒绝或未完全承担该角色）。</p>
+<p>提取其内部激活状态，使用PCA构建了一个低维度的“角色空间” 。</p>
+<p><img src="/2021/1000/313/1.png"></p>
+<p>由于 Gemma 2 27B 同时提供基础模型和指令微调模型，作者从指令微调模型中获取了角色扮演的输出，并重复了收集活性值、构建人格向量以及执行 PCA 降维的过程，发现所得主成分几乎与指令微调模型的结果一致。前 3 个主成分的余弦相似度分别为 0.93、0.87和 0.83。特别地，PC1 似乎独特地衡量了一个类助手的方向，其中默认的助手向量投影到该方向的一端。这说明了PCA的有效性。</p>
+<p><img src="/2021/1000/313/2.png"></p>
+<p><img src="/2021/1000/313/3.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2>
                 
               </div>
