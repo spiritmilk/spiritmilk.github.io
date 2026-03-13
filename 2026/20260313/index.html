@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260313/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260313/3.png">
 <meta property="article:published_time" content="2026-03-13T04:31:53.000Z">
-<meta property="article:modified_time" content="2026-03-13T07:51:36.790Z">
+<meta property="article:modified_time" content="2026-03-13T10:52:15.343Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          438 字
+          789 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          4 分钟
+          7 分钟
         
       </span>
     
@@ -367,7 +367,24 @@
 <p>由于 Gemma 2 27B 同时提供基础模型和指令微调模型，作者从指令微调模型中获取了角色扮演的输出，并重复了收集活性值、构建人格向量以及执行 PCA 降维的过程，发现所得主成分几乎与指令微调模型的结果一致。前 3 个主成分的余弦相似度分别为 0.93、0.87和 0.83。特别地，PC1 似乎独特地衡量了一个助手的方向，其中默认的助手向量投影到该方向的一端。这说明了PCA的有效性。</p>
 <p><img src="/2026/20260313/2.png"></p>
 <p><img src="/2026/20260313/3.png"></p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>假设 $h_{default}$ 是模型作为默认助手时的平均激活向量，$h_{i}$ 是模型扮演第 $i$ 个角色时的激活向量（共有 $N$ 个角色），那么“助手轴”向量 $v$ 定义为：</p>
+<p>$$v &#x3D; h_{default} - \frac{1}{N}\sum_{i&#x3D;1}^{N}h_{i}$$</p>
+<p>将模型在生成当前 token 时的激活向量 $h$，投影到助手轴 $v$ 上。通过计算内积（点积）$\langle h, v \rangle$，得到一个标量值：</p>
+<ul>
+<li><strong>投影值高</strong>：说明 $h$ 的方向与 $v$ 一致，模型当前处于“助手”状态。</li>
+<li><strong>投影值低（甚至为负）</strong>：说明模型正在偏离助手轴，向其他角色（如陷入情感纠葛或危险人格）漂移。</li>
+</ul>
+<p>研究人员采用了一种激活机制来处理角色漂移：</p>
+<p>$$h \leftarrow h - v \cdot \min(\langle h, v \rangle - \tau, 0)$$</p>
+<p>参数解析 ：</p>
+<ul>
+<li>$h$：模型当前的原始激活向量。</li>
+<li>$v$：上文计算出的“助手轴”向量。</li>
+<li>$\langle h, v \rangle$：当前激活在助手轴上的投影值。</li>
+<li>$\tau$：预设的安全底线（阈值）。研究中发现，将 $\tau$ 设定为正常助手激活分布的<strong>第 25 个百分位数</strong>效果最好，能兼顾安全性和模型能力 。</li>
+</ul>
+<p>在模型的<strong>中后段连续几层同时应用</strong>这个激活封顶策略效果最佳 。例如，对于 Qwen 3 32B 模型，在第 46 到 53 层应用；对于 Llama 3.3 70B，在第 56 到 71 层应用 。</p>
+
                 
               </div>
             
