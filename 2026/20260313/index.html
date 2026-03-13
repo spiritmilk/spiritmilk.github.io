@@ -31,8 +31,9 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260313/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260313/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260313/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/313/4.png">
 <meta property="article:published_time" content="2026-03-13T04:31:53.000Z">
-<meta property="article:modified_time" content="2026-03-13T10:52:15.343Z">
+<meta property="article:modified_time" content="2026-03-13T11:14:25.679Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          789 字
+          791 字
         
       </span>
     
@@ -367,6 +368,8 @@
 <p>由于 Gemma 2 27B 同时提供基础模型和指令微调模型，作者从指令微调模型中获取了角色扮演的输出，并重复了收集活性值、构建人格向量以及执行 PCA 降维的过程，发现所得主成分几乎与指令微调模型的结果一致。前 3 个主成分的余弦相似度分别为 0.93、0.87和 0.83。特别地，PC1 似乎独特地衡量了一个助手的方向，其中默认的助手向量投影到该方向的一端。这说明了PCA的有效性。</p>
 <p><img src="/2026/20260313/2.png"></p>
 <p><img src="/2026/20260313/3.png"></p>
+<p>多轮：</p>
+<p><img src="/2021/1000/313/4.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>假设 $h_{default}$ 是模型作为默认助手时的平均激活向量，$h_{i}$ 是模型扮演第 $i$ 个角色时的激活向量（共有 $N$ 个角色），那么“助手轴”向量 $v$ 定义为：</p>
 <p>$$v &#x3D; h_{default} - \frac{1}{N}\sum_{i&#x3D;1}^{N}h_{i}$$</p>
 <p>将模型在生成当前 token 时的激活向量 $h$，投影到助手轴 $v$ 上。通过计算内积（点积）$\langle h, v \rangle$，得到一个标量值：</p>
