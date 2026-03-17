@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/317/1.png">
 <meta property="article:published_time" content="2026-03-17T02:08:29.000Z">
-<meta property="article:modified_time" content="2026-03-17T02:38:34.286Z">
+<meta property="article:modified_time" content="2026-03-17T02:54:27.463Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          674 字
+          680 字
         
       </span>
     
@@ -360,13 +360,13 @@
 <h2 id="生成反事实数据集-OHC-25K"><a href="#生成反事实数据集-OHC-25K" class="headerlink" title="生成反事实数据集 (OHC-25K)"></a>生成反事实数据集 (OHC-25K)</h2><p>首先，需要一组“真实图像”和对应的“被篡改图像”。 给定一张真实图像 $I_i$ 和它正确的文本描述 $\mathcal{C}_i$。利用 GPT 生成一个包含错误物体的假描述 $\tilde{\mathcal{C}}_i$ 。接着，使用稳定扩散模型（Stable Diffusion, SDM）生成篡改图像：</p>
 <p>将原图通过 VAE 编码器 $\mathcal{E}$ 转换成潜变量 $z_0$ ：$z_0 &#x3D; \mathcal{E}(I_i)$</p>
 <p><strong>正向扩散（加噪）：</strong> </p>
-<p>向 $z_0$ 中加入 $t_h$ 步的高斯噪声（$\epsilon \sim \mathcal{N}(0,I)$）：$\overline{z}<em>{t_h} &#x3D; \sqrt{\overline{\alpha}</em>{t_h}}z_0 + \sqrt{1-\overline{\alpha}_{t_h}}\epsilon$</p>
+<p>向 $z_0$ 中加入 $t_h$ 步的高斯噪声（$\epsilon \sim \mathcal{N}(0,I)$）：$$\overline{z} _ {t_h} &#x3D; \sqrt{\overline{\alpha} _ {t_h}}z_0 + \sqrt{1-\overline{\alpha} _ {t_h}}\epsilon$$</p>
 <p><strong>反向扩散（以假描述为条件去噪）：</strong> </p>
 <p>使用假描述 $\tilde{\mathcal{C}}_i$ 作为条件，引导模型去噪 ：</p>
-<p>$\tilde{z}<em>{t-1} &#x3D; f</em>\theta(\tilde{z}_t, t, \tilde{\mathcal{C}}_i), \quad t &#x3D; t_h, \dots, 1$</p>
-<p>将去噪后的潜变量通过解码器 $\mathcal{D}$ 还原为反事实图像 $\tilde{I}<em>{i,j}$ ：$\tilde{I}</em>{i,j} &#x3D; \mathcal{D}(\tilde{z}_0)$</p>
+<p>$$\tilde{z} _ {t-1} &#x3D; f_\theta(\tilde{z}_t, t, \tilde{\mathcal{C}}_i), \quad t &#x3D; t_h, \dots, 1$$</p>
+<p>将去噪后的潜变量通过解码器 $\mathcal{D}$ 还原为反事实图像 $\tilde{I} _ {i,j}$ ：$\tilde{I} _ {i,j} &#x3D; \mathcal{D}(\tilde{z}_0)$</p>
 <p>由于扩散过程有随机性，针对每一张原图，作者生成了 $B$ 张（论文中 $B&#x3D;5$）变体图像 。</p>
-<h2 id="缓解幻觉"><a href="#缓解幻觉" class="headerlink" title="缓解幻觉"></a>缓解幻觉</h2><p>把“真图+真描述” $(I_i, \mathcal{C}<em>i)$ 和“假图+真描述” $(\tilde{I}</em>{i,j}, \mathcal{C}_i)$ 分别输入到被测试的 LVLM（例如 LLaVA）中 。 故意用真描述配假图，是为了在模型内部激发出一种“认知冲突”（即视觉上看到了假物体，但文本没提）。</p>
+<h2 id="缓解幻觉"><a href="#缓解幻觉" class="headerlink" title="缓解幻觉"></a>缓解幻觉</h2><p>把“真图+真描述” $(I_i, \mathcal{C}_i)$ 和“假图+真描述” $(\tilde{I} _ {i,j}, \mathcal{C}_i)$ 分别输入到被测试的 LVLM（例如 LLaVA）中 。 故意用真描述配假图，是为了在模型内部激发出一种“认知冲突”（即视觉上看到了假物体，但文本没提）。</p>
 <p>对于 LVLM 的第 $l$ 层，提取所有文本 token 的隐藏状态，并Mean-pool：真图的平均特征$h_l^{(i)}$ 、假图的平均特征（对 $B$ 个变体再次求平均）$\tilde{h}_l^{(i)}$ </p>
 <p>计算两者的差值，这个差值向量就代表了<strong>从真实语义向幻觉语义偏移的方向</strong> ：</p>
 <p>$\delta_l^{(i)} &#x3D; \tilde{h}_l^{(i)} - h_l^{(i)}$</p>
@@ -374,11 +374,11 @@
 <p>$$\Delta_l &#x3D; [\delta_l^{(1)}; \delta_l^{(2)}; \dots; [cite_start]\delta_l^{(M)}]$$</p>
 <p>由于这些偏差中可能夹杂了噪音，作者使用奇异值分解（SVD）来提取最主要的“幻觉成分” ：</p>
 <p>$$\Delta_l &#x3D; U_l \Sigma_l V_l^\top$$</p>
-<p>提取右奇异矩阵 $V_l$ 中对应奇异值最大的前 $r$ 个向量（$V_{l,r} &#x3D; [v_{l,1}, \dots, v_{l,r}]$），这就构成了第 $l$ 层的<strong>幻觉基底库（Hallucination Basis Bank）</strong> 。</p>
+<p>提取右奇异矩阵 $V_l$ 中对应奇异值最大的前 $r$ 个向量（$V _ {l,r} &#x3D; [v _ {l,1}, \dots, v _ {l,r}]$），这就构成了第 $l$ 层的<strong>幻觉基底库（Hallucination Basis Bank）</strong> 。</p>
 <p>构建一个投影矩阵 $P_l$：</p>
-<p>$$P_l &#x3D; I - V_{l,r}V_{l,r}^\top$$</p>
-<p>然后，将模型原始的隐藏状态 $h_{l,k}^{test}$ 乘上这个投影矩阵，得到净化后的特征向量：</p>
-<p>$h_{l,k}^{clean} &#x3D; P_l h_{l,k}^{test}$</p>
+<p>$$P_l &#x3D; I - V _ {l,r}V _ {l,r}^\top$$</p>
+<p>然后，将模型原始的隐藏状态 $h _ {l,k}^{test}$ 乘上这个投影矩阵，得到净化后的特征向量：</p>
+<p>$h _ {l,k}^{clean} &#x3D; P_l h _ {l,k}^{test}$</p>
 
                 
               </div>
