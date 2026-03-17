@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2026 Trustworthy AI）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-16T03:04:29.000Z">
-<meta property="article:modified_time" content="2026-03-17T06:48:44.937Z">
+<meta property="article:modified_time" content="2026-03-17T06:50:54.322Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -389,7 +389,7 @@
 <p>最终在模型推理时，应用于目标层的变换即为 $T^{(l)}(x) &#x3D; A _ {full}x + b _ {full}$ 。</p>
 <h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p><strong>Fisher线性判别分析</strong>（Linear Discriminant Analysis, LDA）是机器学习和统计学中极其经典且优雅的算法，主要用于降维和分类。<br>$$<br>w^\ast&#x3D;argmax_w\frac{w^TS_Bw}{w^TS_ww}<br>$$<br>其中$S_B&#x3D;(\mu_\mathcal{H}-\mu_\mathcal{S})(\mu_\mathcal{H}-\mu_\mathcal{S})^T$为类间散度矩阵，$S_w&#x3D;\Sigma_\mathcal{H}+\Sigma _ {\mathcal{S}}$为合并的类内散度矩阵。</p>
 <p>采用前面的均值中心化的PCA方法自然地能体现出这种判别结构。定义合并均值 $\boldsymbol{\mu} _ {pool} &#x3D; \frac{n_H\boldsymbol{\mu}_H + n_S\boldsymbol{\mu}_S}{n_H+n_S}$ 以及中心化后的合并数据矩阵：</p>
-<p>$$<br>\mathbf{Z} &#x3D; \begin{bmatrix} \mathbf{X}_H - \boldsymbol{\mu} _ {pool} \\ \mathbf{X}_S - \boldsymbol{\mu} _ {pool} \end{bmatrix} \in \mathbb{R}^{(n_H + n_S) \times d}. \tag{8}<br>$$</p>
+<p>$$<br>\mathbf{Z} &#x3D; \begin{bmatrix} \mathbf{X}_H - \boldsymbol{\mu} _ {pool} \\ \mathbf{X}_S - \boldsymbol{\mu} _ {pool} \end{bmatrix} \in \mathbb{R}^{(n_H + n_S) \times d}<br>$$</p>
 <p>$\mathbf{Z}$ 的经验协方差分解为：</p>
 <p>$$<br>\begin{aligned}<br>\frac{1}{n_H + n_S} \mathbf{Z}^\top \mathbf{Z} &amp;&#x3D; \frac{n_h}{n_H + n_S} (\boldsymbol{\Sigma}_H + (\boldsymbol{\mu}_H - \boldsymbol{\mu} _ {pool})(\boldsymbol{\mu}_H - \boldsymbol{\mu} _ {pool})^\top) \\<br>&amp;\quad + \frac{n_s}{n_H + n_S} (\boldsymbol{\Sigma}_S + (\boldsymbol{\mu}_S - \boldsymbol{\mu} _ {pool})(\boldsymbol{\mu}_S - \boldsymbol{\mu} _ {pool})^\top) \\<br>&amp;&#x3D; \text{(within-class variance)} + \text{(between-class variance)}.<br>\end{aligned}<br>$$</p>
 
