@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（CVPR 2026）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/317/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260317/1.png">
 <meta property="article:published_time" content="2026-03-17T02:08:29.000Z">
 <meta property="article:modified_time" content="2026-03-17T02:54:27.463Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/317/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260317/1.png">
   
   
   
@@ -356,7 +356,7 @@
 <span id="more"></span>
 
 <p>一句话概述：作者构建了OHC-25K（物体幻觉反事实数据集，25,000 个样本）。在此基础上使用投影来缓解幻觉（类似Nullu）。</p>
-<p><img src="/2021/1000/317/1.png"></p>
+<p><img src="/2026/20260317/1.png"></p>
 <h2 id="生成反事实数据集-OHC-25K"><a href="#生成反事实数据集-OHC-25K" class="headerlink" title="生成反事实数据集 (OHC-25K)"></a>生成反事实数据集 (OHC-25K)</h2><p>首先，需要一组“真实图像”和对应的“被篡改图像”。 给定一张真实图像 $I_i$ 和它正确的文本描述 $\mathcal{C}_i$。利用 GPT 生成一个包含错误物体的假描述 $\tilde{\mathcal{C}}_i$ 。接着，使用稳定扩散模型（Stable Diffusion, SDM）生成篡改图像：</p>
 <p>将原图通过 VAE 编码器 $\mathcal{E}$ 转换成潜变量 $z_0$ ：$z_0 &#x3D; \mathcal{E}(I_i)$</p>
 <p><strong>正向扩散（加噪）：</strong> </p>
