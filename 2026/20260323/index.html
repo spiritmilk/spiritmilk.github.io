@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2026） 美团 LongCat Interaction 出品">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/323/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260323/1.png">
 <meta property="article:published_time" content="2026-03-23T01:48:30.000Z">
-<meta property="article:modified_time" content="2026-03-23T02:04:05.050Z">
+<meta property="article:modified_time" content="2026-03-23T02:31:15.062Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta property="article:tag" content="agent">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/323/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260323/1.png">
   
   
   
@@ -300,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6 字
+          689 字
         
       </span>
     
@@ -311,7 +311,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -357,7 +357,10 @@
 <p>美团 LongCat Interaction 出品</p>
 <span id="more"></span>
 
-<p><img src="/2021/1000/323/1.png"></p>
+<p>传统的 MoA （Mixture-of-Agents）框架通常只是简单地将不同模型的输出拼接在一起，缺乏深度的语义交流 。这种方式无法促使代理主动纠正彼此的逻辑错误 。同时，随着协作网络层数的加深，还会导致信息退化和计算资源的巨大浪费 。</p>
+<p><img src="/2026/20260323/1.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">Attention_MoA</span>(<span class="hljs-params">query_x, max_layers_L, agents_col, agent_sum, agent_res</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Attention-MoA 核心执行流程</span><br><span class="hljs-string">    query_x:      用户的初始提问</span><br><span class="hljs-string">    max_layers_L: 系统允许的最大推理层数 (深度)</span><br><span class="hljs-string">    agents_col:   用于生成和互相纠错的异构代理集合 (例如各种开源大模型)</span><br><span class="hljs-string">    agent_sum:    负责将层内大家的意见总结起来的代理 (例如 Claude-4.5)</span><br><span class="hljs-string">    agent_res:    负责结合历史记录进行最终拍板并决定是否早停的残差代理</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    <span class="hljs-comment"># 初始化历史上下文堆栈，用于保存每一层的结果，防止模型“健忘” </span><br>    history_H = [] <br><br>    <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, max_layers_L + <span class="hljs-number">1</span>):<br>        <br>        <span class="hljs-comment"># ==========================================</span><br>        <span class="hljs-comment"># 模块一：层内交互 (Intra-layer) -&gt; 跨代理语义注意力</span><br>        <span class="hljs-comment"># ==========================================</span><br><br>        <span class="hljs-comment"># 1. 确定本层的输入 u_l</span><br>        <span class="hljs-keyword">if</span> l == <span class="hljs-number">1</span>:<br>            u_l = query_x                 <span class="hljs-comment"># 第一层只看原始问题 </span><br>        <span class="hljs-keyword">else</span>:<br>            u_l = (query_x, final_output) <span class="hljs-comment"># 后续层需要参考上一层得出的结论</span><br><br>        <span class="hljs-comment"># 2. 异构代理响应采样：每个代理独立思考，给出第一版答案 </span><br>        initial_responses = []<br>        <span class="hljs-keyword">for</span> agent_i <span class="hljs-keyword">in</span> agents_col:<br>            r_i = generate_response(u_l, agent_i) <br>            initial_responses.append(r_i)<br><br>        <span class="hljs-comment"># 3. 计算语义注意力：大家互相“挑错”和“提建议” (同行评审阶段)</span><br>        refined_responses = []<br>        <span class="hljs-keyword">for</span> agent_j, r_j <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(agents_col, initial_responses):<br>            attention_instructions_for_j = []<br><br>            <span class="hljs-comment"># agent_j 收集来自所有 agent_i（包括自己）的具体修改意见</span><br>            <span class="hljs-keyword">for</span> agent_i, r_i <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(agents_col, initial_responses):<br>                <span class="hljs-comment"># agent_i 根据自己的答案 r_i，对 agent_j 的答案 r_j 提出自然语言修改建议</span><br>                suggestion = F_generate_suggestion(query_x, r_i, r_j, agent_i) <br>                attention_instructions_for_j.append(suggestion)<br><br>            <span class="hljs-comment"># 4. 语义注意力聚合：agent_j 听取了大家的建议后，修改并完善自己的答案</span><br>            r_j_prime = G_update_response(query_x, r_j, attention_instructions_for_j, agent_j)<br>            refined_responses.append(r_j_prime)<br><br>        <span class="hljs-comment"># 5. 层内总结：总结代理出马，把大家修改后的高质量答案融合成一个共识版本</span><br>        y_tilde_l = H_summarize(query_x, refined_responses, agent_sum)<br><br><br>        <span class="hljs-comment"># ==========================================</span><br>        <span class="hljs-comment"># 模块二：层间传递 (Inter-layer) -&gt; 残差模块与自适应早停</span><br>        <span class="hljs-comment"># ==========================================</span><br>        <br>        <span class="hljs-keyword">if</span> l == <span class="hljs-number">1</span>:<br>            <span class="hljs-comment"># 第一层没有历史包袱，直接把层内总结作为输出</span><br>            final_output = y_tilde_l <br>            history_H.append(final_output)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-comment"># 1. 历史响应积累：把本层的新鲜共识加入历史记忆库 </span><br>            history_H.append(y_tilde_l)<br><br>            <span class="hljs-comment"># 2. 残差合成与评估：残差代理结合所有的历史信息，生成本层最终答案</span><br>            <span class="hljs-comment"># 同时，它会评估这个答案是不是已经足够完美了，给出停止信号 (stop_signal)</span><br>            final_output, stop_signal_s_l = R_synthesize_and_evaluate(query_x, history_H, agent_res) <br><br>            <span class="hljs-comment"># 3. 自适应早停机制控制流 </span><br>            <span class="hljs-keyword">if</span> stop_signal_s_l == <span class="hljs-number">1</span>: <br>                <span class="hljs-comment"># 代理认为答案已经很棒了，没必要继续浪费算力，直接跳出循环 (Terminate)</span><br>                <span class="hljs-keyword">break</span><br>            <span class="hljs-keyword">else</span>:                    <br>                <span class="hljs-comment"># 代理认为逻辑还不稳固，进入下一层循环继续打磨 (Continue)</span><br>                <span class="hljs-keyword">continue</span><br><br>    <span class="hljs-keyword">return</span> final_output<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>

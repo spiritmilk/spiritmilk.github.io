@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2025/20250515/model.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2025/20250515/detail.jpg">
 <meta property="article:published_time" content="2025-05-15T08:49:10.000Z">
-<meta property="article:modified_time" content="2025-09-15T02:54:01.079Z">
+<meta property="article:modified_time" content="2026-03-23T02:32:58.983Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="人工智能">
@@ -312,7 +312,7 @@
         
         
         
-          41 分钟
+          40 分钟
         
       </span>
     
@@ -373,25 +373,24 @@
 <p>$$<br>L_{cohesion-var}&#x3D;\frac{1}{n}\sum _ {ij}w_{ij}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>$$</p>
 <p><em>is an instance of I-Con in the special case $w_{ij}&#x3D;p(j|i)$ and $q_{\phi}$ is Gaussian as with a large width as $\sigma\rightarrow\infty$</em> </p>
 <blockquote>
-<p>证明：By using AM-GM inequality， we have [cite: 269]</p>
+<p>证明：By using AM-GM inequality， we have</p>
 <p>$\frac{1}{n}\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge(\Pi_{k&#x3D;1}^{n}e^{-z_{k}})^{\frac{1}{n}}\Rightarrow\frac{1}{n}\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge(e^{-\sum _ {k&#x3D;1}^{n}z_{k}})^{\frac{1}{n}}$</p>
 <p>which implies that </p>
 <p>$log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}-logn\ge log(e^{-\sum _ {k&#x3D;1}^{n}z_{k}})^{\frac{1}{n}}\Rightarrow log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+log(n)$</p>
 <p>Alternatively， this can be written as </p>
 <p>$-log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\le\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}-log(n)$</p>
-<p>Now assume that we have a Gaussian Kernel $q_{\phi}$ [cite: 269]</p>
+<p>Now assume that we have a Gaussian Kernel $q_{\phi}$</p>
 <p>$q_{\phi}(j|i)&#x3D;\frac{exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}&#x2F;\sigma^{2})}{\sum _ {k\ne i}exp(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}&#x2F;\sigma^{2})}$</p>
-<p>Therefore， given the inequality of exp-sum that we showed above， we have [cite: 269]</p>
+<p>Therefore， given the inequality of exp-sum that we showed above， we have</p>
 <p>$logq_{\phi}(j|i)&#x3D;-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}}{\sigma^{2}}-log\sum _ {k\ne i}exp(-\frac{||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}}{\sigma^{2}})$<br>$\le-\frac{1}{\sigma^{2}}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n\sigma^{2}}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2}-log(n)$<br>$&#x3D;-\frac{1}{\sigma^{2}}(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n)$</p>
-<p>Therefore， the cross entropy $H(p_{\theta}，q_{\phi})$ is bounded by [cite: 269]</p>
+<p>Therefore， the cross entropy $H(p_{\theta}，q_{\phi})$ is bounded by</p>
 <p>$H(p_{\theta}，q_{\phi})&#x3D;-\frac{1}{n}\sum _ {i}\sum _ {j}p(j|i)logq_{\phi}(j|i)$</p>
 <p>$\le\frac{1}{n}\sum _ {i}\sum _ {j}p(j|i)(\frac{1}{\sigma^{2}}(-||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}+\frac{1}{n}\sum _ {k\ne i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n))$<br>$&#x3D;\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-\frac{1}{n^{2}}\sum _ {ijk}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {k})||^{2})-log(n)$<br>$&#x3D;\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X))+log(n)$<br>$&#x3D;\frac{1}{\sigma^{2}}(\frac{1}{n}\sum _ {ij}p(j|i)||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X))+log(n)$<br>$&#x3D;\frac{1}{\sigma^{2}}\mathcal{L} _ {cohesion-var}+log(n)$</p>
-<p>On the other hand， the L.H.S. can be upper bounded by using second order bound $e^{-z}\le1-z+z^{2}&#x2F;2$， which implies that [cite: 270]</p>
-<p>$-log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge log(1-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}^{2})-log(n)$ [cite: 270]</p>
-<p>— PAGE 19 —</p>
-<p>On the other hand， $log(1+u)\ge u-u^{2}&#x2F;2$， therefore， [cite: 271]</p>
+<p>On the other hand， the L.H.S. can be upper bounded by using second order bound $e^{-z}\le1-z+z^{2}&#x2F;2$， which implies that</p>
+<p>$-log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge log(1-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}^{2})-log(n)$ </p>
+<p>On the other hand， $log(1+u)\ge u-u^{2}&#x2F;2$， therefore，</p>
 <p>$-log\sum _ {k&#x3D;1}^{n}e^{-z_{k}}\ge(1-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}^{2})-\frac{1}{2}(1-\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}+\frac{1}{n}\sum _ {k&#x3D;1}^{n}z_{k}^{2})^{2}-log(n)$</p>
-<p>Therefore， in the limit $\sigma\rightarrow\infty$ the bounds become tighter and the I-Con loss approaches the cohesion variance loss. [cite: 271] $\Pi$ [cite: 272]</p>
+<p>Therefore， in the limit $\sigma\rightarrow\infty$ the bounds become tighter and the I-Con loss approaches the cohesion variance loss.  </p>
 </blockquote>
 <p>根据引理1， 当 $p_{j|i}&#x3D;1[i&#x3D;j]$ 我们有</p>
 <p>$$<br>\begin{align}<br>\mathcal{L}&amp;&#x3D;\frac{1}{n}\sum _ {ij}p_{j|i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {j})||^{2}-2Var(X)<br>\\<br>&amp;&#x3D;\frac{1}{n}\sum _ {i}||f _ {\phi}(x _ {i})-f _ {\phi}(x _ {i})||^{2}-2Var(X)<br>\\<br>&amp;&#x3D;-2Var(X)<br>\end{align}<br>$$</p>
