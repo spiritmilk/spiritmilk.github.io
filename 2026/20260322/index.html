@@ -29,7 +29,7 @@
 <meta property="og:description" content="（CVPR 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-22T15:41:50.000Z">
-<meta property="article:modified_time" content="2026-03-25T15:48:17.096Z">
+<meta property="article:modified_time" content="2026-03-25T15:50:08.236Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          124 字
+          983 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          2 分钟
+          9 分钟
         
       </span>
     
@@ -358,7 +358,35 @@
 <blockquote>
 <p>事实上每个层不是均匀的，因为差分矩阵是对所有层计算，而不是只用一套，肯定会有差异。只能说参数是相同的→均匀的。</p>
 </blockquote>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>cmd</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="构建双粒度数据集"><a href="#构建双粒度数据集" class="headerlink" title="构建双粒度数据集"></a>构建双粒度数据集</h3><p>为了能够准确定位幻觉发生的位置，作者首先构建了一个包含两种粒度级别的幻觉数据集 ：</p>
+<ul>
+<li><strong>词元级 (Token-level)</strong>：针对简短回答（如判断题）中出现的单个错误词汇 。</li>
+<li><strong>句子级 (Sentence-level)</strong>：针对较长回答中，模型因为上下文“脑补”而产生的整句事实性错误 。</li>
+</ul>
+<p>将这两种粒度结合，可以更全面地覆盖大模型在不同生成场景下的幻觉表现 。</p>
+<h3 id="基于因果干预的层定位"><a href="#基于因果干预的层定位" class="headerlink" title="基于因果干预的层定位"></a>基于因果干预的层定位</h3><p>这是该方法的核心部分。作者使用了一种基于<strong>因果干预 (Causal Intervention)</strong> 的归因方法，来量化模型中每一层对生成幻觉内容的“贡献度” 。</p>
+<p><strong>1. 词元级归因分数 ($s _ {tok}^l$)</strong> 假设在模型解码时，第 $l$ 层的多头注意力(MHA)输出为 $a_l$，前一层的特征为 $h _ {l-1}$，模型最终生成某个词元 $y$ 的概率为 $P _ {\theta _ {\ge l}}(y|h _ {l-1}, a_l)$ 。</p>
+<p>为了测试第 $l$ 层对幻觉词元 $y$ 的影响，作者采取的干预手段是：<strong>将该层某个注意力头的输出掩蔽（置零），观察生成该幻觉词元的概率会下降多少。</strong></p>
+<p>第 $l$ 层的词元级归因分数定义为 ：</p>
+<p>$$s _ {tok}^l &#x3D; \sum _ {h&#x3D;1}^H \log\left(\frac{P _ {\theta _ {\ge l}}(y|h _ {l-1}, a_l)}{P _ {\theta _ {\ge l}}(y|h _ {l-1}, a_l \odot M^h)}\right)$$</p>
+<ul>
+<li>$H$ 是注意力头的总数 。</li>
+<li>$M^h$ 是一个掩码，作用是将第 $h$ 个注意力头的输出设为零 。</li>
+<li><strong>原理解释</strong>：如果掩蔽掉这一层后，生成幻觉词元的概率大幅下降（即分子比分母大很多，对数值为正且较大），说明这一层正是导致幻觉产生的关键层 。</li>
+</ul>
+<p><strong>2. 句子级归因分数 ($s _ {sent}^l$)</strong> 对于整句幻觉，归因分数是句子中所有词元归因分数的加权和 ：</p>
+<p>$$s _ {sent}^l &#x3D; \sum _ {y_t \in T _ {sent}} w(y_t|T _ {sent}) \cdot s _ {tok}^l$$</p>
+<p>由于句子中不同词元对幻觉的引发作用不同，作者设计了三个指标来分配权重 $w(y_t|T _ {sent})$ ：</p>
+<ul>
+<li><strong>提示词指标</strong>：如果是句号或总结性词汇（容易触发幻觉），权重增加 。</li>
+<li><strong>位置指标</strong>：在句子中越靠后的词元，越容易产生幻觉，权重增加 。</li>
+<li><strong>幻觉指标</strong>：如果该词元本身就被标记为包含事实错误，权重显著增加 。</li>
+</ul>
+<h3 id="逐层特征引导"><a href="#逐层特征引导" class="headerlink" title="逐层特征引导"></a>逐层特征引导</h3><p>在计算出每一层与幻觉的相关性（归因分数 $s^l$）之后，LTS-FS 采用了一种结合了<strong>硬稀疏化 (Hard Sparsification)</strong> 和 <strong>软权重 (Soft Weighting)</strong> 的策略来调整特征 。</p>
+<ul>
+<li><strong>硬稀疏化（决定“改不改”）</strong>： 设定一个阈值 $\tau$（由超参数 $r_s$ 控制）。如果某层的归因分数 $s^l &lt; \tau$，说明该层与幻觉基本无关。系统会生成一个掩码 $m_l &#x3D; 0$，<strong>完全不对该层进行干预</strong>，从而保护模型原本的通用能力 。</li>
+<li><strong>软权重（决定“改多少”）</strong>： 对于归因分数大于阈值的层（即 $m_l &#x3D; 1$），系统会计算一个归一化的相对分数 $\tilde{s}^l$ 。最终施加在这层的特征引导强度 $\lambda_l$ 会根据这个分数进行缩放 。<strong>得分越高的层，受到的引导强度越大</strong>，从而实现对幻觉“病灶”的精准打击 。</li>
+</ul>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2>
                 
               </div>
