@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260327/1.png">
 <meta property="article:published_time" content="2026-03-27T02:09:02.000Z">
 <meta property="article:modified_time" content="2026-03-27T11:43:56.370Z">
 <meta property="article:author" content="LJX">
@@ -36,7 +36,7 @@
 <meta property="article:tag" content="大模型">
 <meta property="article:tag" content="扩散模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260327/1.png">
   
   
   
@@ -367,7 +367,7 @@
 <p>$$s_{t,i} &#x3D; -\sum_{v\in\mathcal{V}} \pi_i^{(t)}(v) \log \pi_i^{(t)}(v)$$</p>
 <p>在整个去噪过程结束后，会得到一个完整的原始不确定性轨迹 $\mathcal{T} &#x3D; (\mathcal{S}<em>T, \mathcal{S}</em>{T-1}, …, \mathcal{S}_0)$ 。</p>
 <h3 id="语义感知证据构建"><a href="#语义感知证据构建" class="headerlink" title="语义感知证据构建"></a>语义感知证据构建</h3><p>D-LLMs 生成的是固定长度的序列，其中充斥着大量无意义的填充符和结构性 token 。直接使用原始轨迹 $\mathcal{T}$ 会引入极大噪音。</p>
-<p><img src="/2019/20190323/1.png"></p>
+<p><img src="/2026/20260327/1.png"></p>
 <h4 id="1-语义感知-Token-过滤"><a href="#1-语义感知-Token-过滤" class="headerlink" title="1. 语义感知 Token 过滤"></a>1. 语义感知 Token 过滤</h4><p>模型首先定义了一个忽略集合 $\mathcal{I}_{ignore}$（包含标点、控制标记、停用词等）。在第 $t$ 步，过滤后保留的有效语义 token 索引集合记为 $K_t$ ：</p>
 <p>$$K_t &#x3D; {i \mid 1 \le i \le l, x_i^{(t)} \notin \mathcal{I}_{ignore}}$$</p>
 <h4 id="2-统计证据构建"><a href="#2-统计证据构建" class="headerlink" title="2. 统计证据构建"></a>2. 统计证据构建</h4><p>为了防止简单的求均值操作掩盖了局部的强烈幻觉信号，DynHD 计算了三个统计量来将集合 $K_t$ 中的熵压缩为一个三维证据向量 $a_t \in \mathbb{R}^3$ ：</p>
