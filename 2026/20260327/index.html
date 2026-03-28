@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260327/1.png">
 <meta property="article:published_time" content="2026-03-27T02:09:02.000Z">
-<meta property="article:modified_time" content="2026-03-27T11:43:56.370Z">
+<meta property="article:modified_time" content="2026-03-28T12:15:57.523Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -311,7 +311,7 @@
         
         
         
-          12 分钟
+          13 分钟
         
       </span>
     
@@ -364,44 +364,44 @@
 </ul>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="前置概念"><a href="#前置概念" class="headerlink" title="前置概念"></a>前置概念</h3><p>扩散语言模型（D-LLMs）的去噪过程是从完全掩码状态（第 $T$ 步）逐步推断到最终输出（第 $0$ 步）。在每一步 $t$，模型会为位置 $i$ 上的 token 预测一个概率分布 $\pi_i^{(t)}$ 。</p>
 <p>DynHD 使用<strong>信息熵 (Entropy)</strong> 来量化每个 token 的预测不确定性 ：</p>
-<p>$$s_{t,i} &#x3D; -\sum_{v\in\mathcal{V}} \pi_i^{(t)}(v) \log \pi_i^{(t)}(v)$$</p>
-<p>在整个去噪过程结束后，会得到一个完整的原始不确定性轨迹 $\mathcal{T} &#x3D; (\mathcal{S}<em>T, \mathcal{S}</em>{T-1}, …, \mathcal{S}_0)$ 。</p>
+<p>$$s _ {t,i} &#x3D; -\sum _ {v\in\mathcal{V}} \pi_i^{(t)}(v) \log \pi_i^{(t)}(v)$$</p>
+<p>在整个去噪过程结束后，会得到一个完整的原始不确定性轨迹 $\mathcal{T} &#x3D; (\mathcal{S}_T, \mathcal{S} _ {T-1}, …, \mathcal{S}_0)$ 。</p>
 <h3 id="语义感知证据构建"><a href="#语义感知证据构建" class="headerlink" title="语义感知证据构建"></a>语义感知证据构建</h3><p>D-LLMs 生成的是固定长度的序列，其中充斥着大量无意义的填充符和结构性 token 。直接使用原始轨迹 $\mathcal{T}$ 会引入极大噪音。</p>
 <p><img src="/2026/20260327/1.png"></p>
-<h4 id="1-语义感知-Token-过滤"><a href="#1-语义感知-Token-过滤" class="headerlink" title="1. 语义感知 Token 过滤"></a>1. 语义感知 Token 过滤</h4><p>模型首先定义了一个忽略集合 $\mathcal{I}_{ignore}$（包含标点、控制标记、停用词等）。在第 $t$ 步，过滤后保留的有效语义 token 索引集合记为 $K_t$ ：</p>
-<p>$$K_t &#x3D; {i \mid 1 \le i \le l, x_i^{(t)} \notin \mathcal{I}_{ignore}}$$</p>
+<h4 id="1-语义感知-Token-过滤"><a href="#1-语义感知-Token-过滤" class="headerlink" title="1. 语义感知 Token 过滤"></a>1. 语义感知 Token 过滤</h4><p>模型首先定义了一个忽略集合 $\mathcal{I} _ {ignore}$（包含标点、控制标记、停用词等）。在第 $t$ 步，过滤后保留的有效语义 token 索引集合记为 $K_t$ ：</p>
+<p>$$K_t &#x3D; {i \mid 1 \le i \le l, x_i^{(t)} \notin \mathcal{I} _ {ignore}}$$</p>
 <h4 id="2-统计证据构建"><a href="#2-统计证据构建" class="headerlink" title="2. 统计证据构建"></a>2. 统计证据构建</h4><p>为了防止简单的求均值操作掩盖了局部的强烈幻觉信号，DynHD 计算了三个统计量来将集合 $K_t$ 中的熵压缩为一个三维证据向量 $a_t \in \mathbb{R}^3$ ：</p>
-<p>$$a_t &#x3D; [\mu_{avg}^{(t)}, s_{max}^{(t)}, \mu_{top-k}^{(t)}]$$</p>
+<p>$$a_t &#x3D; [\mu _ {avg}^{(t)}, s _ {max}^{(t)}, \mu _ {top-k}^{(t)}]$$</p>
 <ul>
-<li>$\mu_{avg}^{(t)}$: <strong>全局不确定性</strong>（均值），反映宏观的收敛状态 。</li>
-<li>$s_{max}^{(t)}$: <strong>峰值不确定性</strong>（最大值），捕捉微观的事实错误（如生成了错误的实体名称） 。</li>
-<li>$\mu_{top-k}^{(t)}$: <strong>区域不确定性</strong>（Top-k 均值），反映短语级别的局部不确定性 。</li>
+<li>$\mu _ {avg}^{(t)}$: <strong>全局不确定性</strong>（均值），反映宏观的收敛状态 。</li>
+<li>$s _ {max}^{(t)}$: <strong>峰值不确定性</strong>（最大值），捕捉微观的事实错误（如生成了错误的实体名称） 。</li>
+<li>$\mu _ {top-k}^{(t)}$: <strong>区域不确定性</strong>（Top-k 均值），反映短语级别的局部不确定性 。</li>
 </ul>
-<p>通过将每一步的 $a_t$ 堆叠起来，原始的庞大轨迹被压缩为紧凑的语义证据轨迹 $\mathcal{E} &#x3D; (a_T, a_{T-1}, …, a_0)$ 。</p>
+<p>通过将每一步的 $a_t$ 堆叠起来，原始的庞大轨迹被压缩为紧凑的语义证据轨迹 $\mathcal{E} &#x3D; (a_T, a _ {T-1}, …, a_0)$ 。</p>
 <h3 id="动态偏差学习"><a href="#动态偏差学习" class="headerlink" title="动态偏差学习"></a>动态偏差学习</h3><p>得到证据轨迹 $\mathcal{E}$ 后，模型并不直接用它进行分类，而是通过学习正常去噪过程的“预期动态”，然后通过对比<strong>偏差</strong>来识别幻觉 。</p>
 <h4 id="1-参考证据动态生成器-Reference-Evidence-Dynamics-Generator"><a href="#1-参考证据动态生成器-Reference-Evidence-Dynamics-Generator" class="headerlink" title="1. 参考证据动态生成器 (Reference Evidence Dynamics Generator)"></a>1. 参考证据动态生成器 (Reference Evidence Dynamics Generator)</h4><p>对于不同的提问，正常的熵演变曲线是不同的。模型引入了一个生成器 $g_\theta$，以问题特征 $q$ 和时间步 $e_t$ 为条件，预测该问题下的“理想”去噪轨迹 $\hat{a}_t$ ：</p>
 <p>$$\hat{a}<em>t &#x3D; g</em>\theta(q, e_t)$$</p>
 <p>该生成器<strong>仅使用真实无幻觉的样本 ($y&#x3D;0$)</strong> 进行预训练 ，其损失函数为：</p>
-<p>$$\mathcal{L}<em>{ref} &#x3D; \mathbb{E}</em>{y&#x3D;0}\left[\frac{1}{T}\sum_{t&#x3D;0}^T \text{SmoothL1}(a_t, \hat{a}_t)\right]$$</p>
+<p>$$\mathcal{L} _ {ref} &#x3D; \mathbb{E} _ {y&#x3D;0}\left[\frac{1}{T}\sum _ {t&#x3D;0}^T \text{SmoothL1}(a_t, \hat{a}_t)\right]$$</p>
 <p>这使得 $\hat{a}_t$ 始终代表该问题下“正常的、事实正确的”基准线 。</p>
-<h4 id="2-基于偏差的幻觉检测器-Deviation-based-Hallucination-Detector"><a href="#2-基于偏差的幻觉检测器-Deviation-based-Hallucination-Detector" class="headerlink" title="2. 基于偏差的幻觉检测器 (Deviation-based Hallucination Detector)"></a>2. 基于偏差的幻觉检测器 (Deviation-based Hallucination Detector)</h4><p>检测器通过测量实际轨迹 $a_t$ 和参考轨迹 $\hat{a}<em>t$ 之间的差异进行预测。 首先，在每个时间步构建一个复合特征向量 $x_t$，不仅包含状态，还包含向下一步演变的<strong>速度 (Velocity)</strong> $\Delta a_t &#x3D; a</em>{t-1} - a_t$ ：</p>
+<h4 id="2-基于偏差的幻觉检测器-Deviation-based-Hallucination-Detector"><a href="#2-基于偏差的幻觉检测器-Deviation-based-Hallucination-Detector" class="headerlink" title="2. 基于偏差的幻觉检测器 (Deviation-based Hallucination Detector)"></a>2. 基于偏差的幻觉检测器 (Deviation-based Hallucination Detector)</h4><p>检测器通过测量实际轨迹 $a_t$ 和参考轨迹 $\hat{a}_t$ 之间的差异进行预测。 首先，在每个时间步构建一个复合特征向量 $x_t$，不仅包含状态，还包含向下一步演变的<strong>速度 (Velocity)</strong> $\Delta a_t &#x3D; a _ {t-1} - a_t$ ：</p>
 <p>$$x_t &#x3D; [a_t; \hat{a}_t; \Delta a_t]$$</p>
 <p>使用 MLP $f_\phi$ 将其映射为隐藏表示 $z_t$ 后，由于不同时间步对检测幻觉的重要性不同（通常后期的权重更大），模型引入了时间注意力权重 $\omega_t$ ：</p>
 <p>$$u_t &#x3D; w^\top \tanh(Uz_t + b_u)$$</p>
-<p>最终的幻觉预测 $\tilde{y}$ 是所有时间步加权求和后的结果：$\tilde{y} &#x3D; \text{MLP}(\sum_{t&#x3D;0}^T \omega_t z_t)$ 。</p>
+<p>最终的幻觉预测 $\tilde{y}$ 是所有时间步加权求和后的结果：$\tilde{y} &#x3D; \text{MLP}(\sum _ {t&#x3D;0}^T \omega_t z_t)$ 。</p>
 <h4 id="3-正则化损失-Regularization-Losses"><a href="#3-正则化损失-Regularization-Losses" class="headerlink" title="3. 正则化损失 (Regularization Losses)"></a>3. 正则化损失 (Regularization Losses)</h4><p>为了让模型对幻觉的两大典型特征（<strong>演变停滞</strong>和<strong>不确定性反弹</strong>）更加敏感，作者设计了两个动态惩罚项 ：</p>
 <ol>
 <li><p><strong>路径偏差得分 (Path-deviation Score)</strong>：量化累计的整体偏离程度（对应停滞）。</p>
-<p>$$s_{path} &#x3D; \sum_{t&#x3D;0}^T \omega_t \sum_{d&#x3D;1}^D |a_{t,d} - \hat{a}_{t,d}|$$</p>
+<p>$$s _ {path} &#x3D; \sum _ {t&#x3D;0}^T \omega_t \sum _ {d&#x3D;1}^D |a _ {t,d} - \hat{a} _ {t,d}|$$</p>
 </li>
 <li><p><strong>反弹得分 (Rebound Score)</strong>：捕捉在去噪降维过程（$T \rightarrow 0$）中，本该下降的熵却突然升高的异常现象 。</p>
-<p>$$s_{reb} &#x3D; \sum_{t&#x3D;1}^T \omega_t \sum_{d&#x3D;1}^D (\max(0, a_{t-1,d} - a_{t,d}))^2$$</p>
+<p>$$s _ {reb} &#x3D; \sum _ {t&#x3D;1}^T \omega_t \sum _ {d&#x3D;1}^D (\max(0, a _ {t-1,d} - a _ {t,d}))^2$$</p>
 </li>
 </ol>
 <p>利用滑动平均（EMA）在真实样本中计算出合理的边界（Margin）$\hat{m}$ 后，使用 Hinge Loss 来强制事实样本低于这个边界，同时将幻觉样本推离出边界 ：</p>
-<p>$$\mathcal{L}_{hinge}(s; \hat{m}) &#x3D; (1-y)\cdot s + y\cdot \max(0, \hat{m}-s)$$</p>
-<p>最终，检测器的整体优化目标是基础分类损失 $\mathcal{L}_{cls}$ 与这两项正则化损失的组合 ：</p>
-<p>$$\mathcal{L} &#x3D; \mathcal{L}<em>{cls} + \lambda_1\mathcal{L}</em>{path} + \lambda_2\mathcal{L}_{reb}$$</p>
+<p>$$\mathcal{L} _ {hinge}(s; \hat{m}) &#x3D; (1-y)\cdot s + y\cdot \max(0, \hat{m}-s)$$</p>
+<p>最终，检测器的整体优化目标是基础分类损失 $\mathcal{L} _ {cls}$ 与这两项正则化损失的组合 ：</p>
+<p>$$\mathcal{L} &#x3D; \mathcal{L} _ {cls} + \lambda_1\mathcal{L} _ {path} + \lambda_2\mathcal{L} _ {reb}$$</p>
 
                 
               </div>
