@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-28T13:24:24.000Z">
-<meta property="article:modified_time" content="2026-03-29T13:25:21.709Z">
+<meta property="article:modified_time" content="2026-03-29T13:25:52.175Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -400,7 +400,7 @@
 <li><strong>ConjMask (共轭掩蔽)</strong>：在训练时，对于预测错误或置信度低的触发样本，模型会计算每个像素通道的归一化交互得分 $|\tilde{x}<em>{c,j}\tilde{p}</em>{c,j}|$ 。得分越高的像素（即对高耦合贡献最大的像素），会被加上软掩膜（Soft mask），用高斯噪声进行替换 。这在不使用对抗训练（AT）的情况下，大幅提升了模型抵御 PGD 和 APGD-CE 攻击的能力 。</li>
 <li><strong>LogitReg (逻辑侧正则化)</strong>：为了弥补 ConjMask 在特定损失（如 DLR 损失）上的防御盲区，作者叠加了输出端的逻辑正则化，全面提升了客观鲁棒性 。</li>
 </ul>
-<p>2.语言领域的干预：预填充风险评分与 Prompt 选择 大模型幻觉很难在生成后纠正，但由于 $c_{prompt}$ 可以在生成任何 Token <strong>之前</strong>计算出来，它成了一个完美的“零解码（Decoding-free）”过滤器 。</p>
+<p>2.语言领域的干预：预填充风险评分与 Prompt 选择 大模型幻觉很难在生成后纠正，但由于 $c_{prompt}$ 可以在生成任何 Token<strong>之前</strong>计算出来，它成了一个完美的“零解码（Decoding-free）”过滤器 。</p>
 <ul>
 <li><p><strong>风险评分 (Risk-Cos)</strong>：定义风险分数为 $-c_{prompt}$ 。</p>
 </li>
