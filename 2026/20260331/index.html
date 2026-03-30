@@ -29,7 +29,7 @@
 <meta property="og:description" content="共20篇。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T05:14:52.226Z">
+<meta property="article:modified_time" content="2026-03-30T05:16:57.109Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -395,9 +395,9 @@
 <p><strong>密集视觉汇聚头 (Dense Vision Sink Head)</strong>：对于某个特定的注意力头 $(i, j)$，计算它内部满足上述“视觉汇聚”条件的列所占的比例，记为 $\alpha^{i,j}$ 。计算公式为：</p>
 <p>$$\alpha^{i,j} &#x3D; \frac{Num(vision_sink)}{576}$$</p>
 <p>如果这个比例超过了预设的阈值 $\gamma$，即 $\alpha^{i,j} \ge \gamma$，那么这个注意力头 $(i, j)$ 就被归类为“密集视觉汇聚头” 。</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>在特定的浅层（比如第 1 层或第 2 层）中，遍历所有的注意力头（通常是 32 个） 。计算每个头包含的“视觉汇聚”数量 $C_{i,j}$ 。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>在特定的浅层（比如第 1 层或第 2 层）中，遍历所有的注意力头（通常是 32 个） 。计算每个头包含的“视觉汇聚”数量 $C _ {i,j}$ 。</p>
 <p>找出包含视觉汇聚数量<strong>最多</strong>的那个头的索引，记为 $n$ ：</p>
-<p>$$n &#x3D; \arg\max_{(C_{i,j},j) \in H} C_{i,j}$$</p>
+<p>$$n &#x3D; \arg\max _ {(C _ {i,j},j) \in H} C _ {i,j}$$</p>
 <p>提取这个具有最密集视觉汇聚的注意力头 $n$ 的注意力矩阵，并将其<strong>复制并覆盖</strong>给同一层的所有其他注意力头 ：</p>
 <p>$$A[i][j] &#x3D; A[i][n]$$</p>
 <h2 id="4-Calibrating-Verbal-Uncertainty-as-a-Linear-Feature-to-Reduce-Hallucinations"><a href="#4-Calibrating-Verbal-Uncertainty-as-a-Linear-Feature-to-Reduce-Hallucinations" class="headerlink" title="(4)Calibrating Verbal Uncertainty as a Linear Feature to Reduce Hallucinations"></a>(4)Calibrating Verbal Uncertainty as a Linear Feature to Reduce Hallucinations</h2><p>论文区分并对齐了模型内部的两种“不确定性”：</p>
@@ -406,19 +406,19 @@
 <p>作者使用语义熵来定义语义不确定性。</p>
 <p>研究发现，这种表现出来的语气不确定性是由一个单一的线性方向控制的 。</p>
 <p>为了提取这个方向，作者使用了<strong>均值差技术 (Difference-in-means)</strong> 。</p>
-<p>首先，收集两组问答数据。一组是模型回答时带有<strong>高口头不确定性</strong>的问题集合，记为 $\mathcal{D}<em>{uncertain}$；另一组是回答时带有<strong>低口头不确定性</strong>（即语气很肯定）的问题集合，记为 $\mathcal{D}</em>{certain}$ 。</p>
+<p>首先，收集两组问答数据。一组是模型回答时带有<strong>高口头不确定性</strong>的问题集合，记为 $\mathcal{D} _ {uncertain}$；另一组是回答时带有<strong>低口头不确定性</strong>（即语气很肯定）的问题集合，记为 $\mathcal{D} _ {certain}$ 。</p>
 <p>对于模型的第 $l$ 层，提取模型在处理这两组问题时，最后一个 token 的残差流激活值（隐藏状态） $h^{(l)}(x)$，并分别求均值，然后计算两者的差值 ：</p>
-<p>$$\hat{r}<em>{VU}^{(l)} &#x3D; \frac{1}{|\mathcal{D}</em>{uncertain}|} \sum_{x \in \mathcal{D}<em>{uncertain}} h^{(l)}(x) - \frac{1}{|\mathcal{D}</em>{certain}|} \sum_{x \in \mathcal{D}_{certain}} h^{(l)}(x)$$</p>
-<p>为了得到一个纯粹的方向向量，需要将计算出的差值向量进行 L2 标准化，得到最终的<strong>口头不确定性特征 (VUF)</strong> $r_{VU}^{(l)}$ ：</p>
-<p>$$r_{VU}^{(l)} &#x3D; \frac{\hat{r}<em>{VU}^{(l)}}{||\hat{r}</em>{VU}^{(l)}||}$$</p>
+<p>$$\hat{r} _ {VU}^{(l)} &#x3D; \frac{1}{|\mathcal{D} _ {uncertain}|} \sum _ {x \in \mathcal{D} _ {uncertain}} h^{(l)}(x) - \frac{1}{|\mathcal{D} _ {certain}|} \sum _ {x \in \mathcal{D} _ {certain}} h^{(l)}(x)$$</p>
+<p>为了得到一个纯粹的方向向量，需要将计算出的差值向量进行 L2 标准化，得到最终的<strong>口头不确定性特征 (VUF)</strong> $r _ {VU}^{(l)}$ ：</p>
+<p>$$r _ {VU}^{(l)} &#x3D; \frac{\hat{r} _ {VU}^{(l)}}{||\hat{r} _ {VU}^{(l)}||}$$</p>
 <p>传统的幻觉检测往往只关注“语义不确定性 (Semantic Uncertainty, SU)”，即模型内心到底懂不懂 。但这篇论文提出，<strong>高语义不确定性</strong>（内心没底）加上<strong>低口头不确定性</strong>（嘴上很硬）的组合，才是导致严重幻觉的元凶 。</p>
 <p>为了高效计算，作者没有每次都通过大量采样来评估不确定性，而是训练了线性模型（Uncertainty Probes） 。这些探测器读取模型问题最后一个 token 的隐藏状态，直接预测出数值化的“口头不确定性 (VU)”和“语义不确定性 (SU)” 。</p>
 <p>在测试时，将这两个预测出的不确定性数值输入到一个简单的逻辑回归模型中，以此来判断当前生成的答案是否存在幻觉 。实验证明，加入 VU 后，检测的准确率 (AUROC) 得到了显著提升 。</p>
 <p>既然找到了控制口头不确定性的方向向量 (VUF)，并且能够检测到幻觉风险，我们就可以在<strong>模型推理（生成回答）的过程中直接进行干预</strong>，强行把模型的语气“扳”向不确定 。</p>
-<p>干预不能是盲目的。我们需要计算需要“补充”多少不确定性。干预强度 $\alpha_{su}(x)$ 被定义为经过归一化的语义不确定性 $su(x)_{norm}$ 与现有的口头不确定性 $vu(x)$ 之间的差值 ：</p>
-<p>$$\alpha_{su}(x) &#x3D; clip(su(x)<em>{norm} - vu(x), 0, max</em>{\alpha})$$</p>
+<p>干预不能是盲目的。我们需要计算需要“补充”多少不确定性。干预强度 $\alpha _ {su}(x)$ 被定义为经过归一化的语义不确定性 $su(x) _ {norm}$ 与现有的口头不确定性 $vu(x)$ 之间的差值 ：</p>
+<p>$$\alpha _ {su}(x) &#x3D; clip(su(x) _ {norm} - vu(x), 0, max _ {\alpha})$$</p>
 <p>在确定了干预强度后，对于检测出可能产生幻觉的响应，在模型的第 $l$ 层，将其隐藏状态 $h^{(l)}(x)$ 沿着 VUF 的方向移动相应的步长 ：</p>
-<p>$$h^{(l)}(x) \leftarrow h^{(l)}(x) + \alpha_{su}(x) * r_{VU}^{(l)}$$</p>
+<p>$$h^{(l)}(x) \leftarrow h^{(l)}(x) + \alpha _ {su}(x) * r _ {VU}^{(l)}$$</p>
 <h2 id="5"><a href="#5" class="headerlink" title="(5)"></a>(5)</h2><h2 id="6"><a href="#6" class="headerlink" title="(6)"></a>(6)</h2><h2 id="7"><a href="#7" class="headerlink" title="(7)"></a>(7)</h2><h2 id="8"><a href="#8" class="headerlink" title="(8)"></a>(8)</h2><h2 id="9"><a href="#9" class="headerlink" title="(9)"></a>(9)</h2><h2 id="10"><a href="#10" class="headerlink" title="(10)"></a>(10)</h2><h2 id="11"><a href="#11" class="headerlink" title="(11)"></a>(11)</h2><h2 id="12"><a href="#12" class="headerlink" title="(12)"></a>(12)</h2><h2 id="13"><a href="#13" class="headerlink" title="(13)"></a>(13)</h2><h2 id="14"><a href="#14" class="headerlink" title="(14)"></a>(14)</h2><h2 id="15"><a href="#15" class="headerlink" title="(15)"></a>(15)</h2><h2 id="16"><a href="#16" class="headerlink" title="(16)"></a>(16)</h2><h2 id="17"><a href="#17" class="headerlink" title="(17)"></a>(17)</h2><h2 id="18"><a href="#18" class="headerlink" title="(18)"></a>(18)</h2><h2 id="19"><a href="#19" class="headerlink" title="(19)"></a>(19)</h2><h2 id="20"><a href="#20" class="headerlink" title="(20)"></a>(20)</h2>
                 
               </div>
