@@ -29,9 +29,9 @@
 <meta property="og:description" content="共20篇。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/331/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260331/2.png">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T12:55:44.917Z">
+<meta property="article:modified_time" content="2026-03-30T13:05:46.179Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -311,7 +311,7 @@
         
         
         
-          91 分钟
+          92 分钟
         
       </span>
     
@@ -522,7 +522,7 @@
 <p>$$h _ {steered, t}^{l^{\ast}} &#x3D; h _ {t}^{l^{\ast}} + \alpha \cdot \vec{v} _ {adaptive}^{l^{\ast}}$$</p>
 <p>其中，$\alpha$ 是控制整体干预强度的缩放因子 。注入后，模型使用修改后的 $h _ {steered, t}^{l^{}}$ 继续后续层的计算 。</p>
 <h2 id="9-Mitigating-Hallucinations-in-LM-Based-TTS-Models-via-Distribution-Alignment-Using-GFlowNets"><a href="#9-Mitigating-Hallucinations-in-LM-Based-TTS-Models-via-Distribution-Alignment-Using-GFlowNets" class="headerlink" title="(9)Mitigating Hallucinations in LM-Based TTS Models via Distribution Alignment Using GFlowNets"></a>(9)Mitigating Hallucinations in LM-Based TTS Models via Distribution Alignment Using GFlowNets</h2><p>pass</p>
-<h2 id="10-Mitigating-Hallucinations-in-Large-Vision-Language-Models-via-Entity-Centric-Multimodal-Preference-Optimization"><a href="#10-Mitigating-Hallucinations-in-Large-Vision-Language-Models-via-Entity-Centric-Multimodal-Preference-Optimization" class="headerlink" title="(10)Mitigating Hallucinations in Large Vision-Language Models via Entity-Centric Multimodal Preference Optimization"></a>(10)Mitigating Hallucinations in Large Vision-Language Models via Entity-Centric Multimodal Preference Optimization</h2><p><img src="/2021/1000/331/2.png"></p>
+<h2 id="10-Mitigating-Hallucinations-in-Large-Vision-Language-Models-via-Entity-Centric-Multimodal-Preference-Optimization"><a href="#10-Mitigating-Hallucinations-in-Large-Vision-Language-Models-via-Entity-Centric-Multimodal-Preference-Optimization" class="headerlink" title="(10)Mitigating Hallucinations in Large Vision-Language Models via Entity-Centric Multimodal Preference Optimization"></a>(10)Mitigating Hallucinations in Large Vision-Language Models via Entity-Centric Multimodal Preference Optimization</h2><p><img src="/2026/20260331/2.png"></p>
 <p>对三个模态都进行了“负样本（Rejected）”构造：</p>
 <p><strong>拒绝图像 ($v_l$)</strong>：利用目标检测和 Stable-Diffusion-2 模型，把原图中的核心实体<strong>删除</strong>或<strong>替换</strong>成高频错误实体。这能强迫模型真正去看图，而不是靠猜 。</p>
 <p><strong>拒绝指令 ($q_l$)</strong>：用 GPT 修改指令中的实体、属性或关系（例如把“狗在哪里”改成“猫在哪里”），保持句法结构一致但语义不同，生成困难负样本 。</p>
@@ -638,7 +638,10 @@
 <p>这样，当模型倾向于产生幻觉时，惩罚力度会自动加大；当模型非常确信时，干扰则会降到最低 。</p>
 <h2 id="16-How-Much-Do-LLMs-Hallucinate-across-Languages-On-Realistic-Multilingual-Estimation-of-LLM-Hallucination"><a href="#16-How-Much-Do-LLMs-Hallucinate-across-Languages-On-Realistic-Multilingual-Estimation-of-LLM-Hallucination" class="headerlink" title="(16)How Much Do LLMs Hallucinate across Languages? On Realistic Multilingual Estimation of LLM Hallucination"></a>(16)How Much Do LLMs Hallucinate across Languages? On Realistic Multilingual Estimation of LLM Hallucination</h2><p>pass</p>
 <h2 id="17-Logit-Space-Constrained-Fine-Tuning-for-Mitigating-Hallucinations-in-LLM-Based-Recommender-Systems"><a href="#17-Logit-Space-Constrained-Fine-Tuning-for-Mitigating-Hallucinations-in-LLM-Based-Recommender-Systems" class="headerlink" title="(17)Logit Space Constrained Fine-Tuning for Mitigating Hallucinations in LLM-Based Recommender Systems"></a>(17)Logit Space Constrained Fine-Tuning for Mitigating Hallucinations in LLM-Based Recommender Systems</h2><p>pass</p>
-<h2 id="18-Detecting-LLM-Hallucination-Through-Layer-wise-Information-Deficiency-Analysis-of-Ambiguous-Prompts-and-Unanswerable-Questions"><a href="#18-Detecting-LLM-Hallucination-Through-Layer-wise-Information-Deficiency-Analysis-of-Ambiguous-Prompts-and-Unanswerable-Questions" class="headerlink" title="(18)Detecting LLM Hallucination Through Layer-wise Information Deficiency: Analysis of Ambiguous Prompts and Unanswerable Questions"></a>(18)Detecting LLM Hallucination Through Layer-wise Information Deficiency: Analysis of Ambiguous Prompts and Unanswerable Questions</h2><h2 id="19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs"><a href="#19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs" class="headerlink" title="(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs"></a>(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs</h2><h3 id="motivation-4"><a href="#motivation-4" class="headerlink" title="motivation"></a>motivation</h3><p>文章指出，目前许多看似先进的幻觉检测方法，其优异表现很大程度上是建立在有缺陷的评估指标（如ROUGE）之上的，这给学术界和工程界制造了一种“进步的幻觉” 。</p>
+<h2 id="18-Detecting-LLM-Hallucination-Through-Layer-wise-Information-Deficiency-Analysis-of-Ambiguous-Prompts-and-Unanswerable-Questions"><a href="#18-Detecting-LLM-Hallucination-Through-Layer-wise-Information-Deficiency-Analysis-of-Ambiguous-Prompts-and-Unanswerable-Questions" class="headerlink" title="(18)Detecting LLM Hallucination Through Layer-wise Information Deficiency: Analysis of Ambiguous Prompts and Unanswerable Questions"></a>(18)Detecting LLM Hallucination Through Layer-wise Information Deficiency: Analysis of Ambiguous Prompts and Unanswerable Questions</h2><h3 id="motivation-4"><a href="#motivation-4" class="headerlink" title="motivation"></a>motivation</h3><p>论文特别关注<strong>上下文幻觉（Contextual Hallucinations）</strong>，即当输入由于上下文模糊或信息不足而变为“不可回答的问题”时，模型仍会强行回答 。</p>
+<p><strong>现有方法的局限性</strong>：传统方法通常只分析模型的**最终层（Last Layer）**输出或预测熵来评估模型置信度 。但作者发现，在神经网络中，信息的流动并不是单调增加或减少的 。只看最后一层会丢失模型内部不确定性的关键信号 。</p>
+<p><strong>核心假设</strong>：当模型缺乏处理其计算功能所需的信息时，就会在层间传输中表现为<strong>可用信息的缺乏（Information Deficiency）</strong>，进而导致幻觉。</p>
+<h3 id="方法-7"><a href="#方法-7" class="headerlink" title="方法"></a>方法</h3><h2 id="19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs"><a href="#19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs" class="headerlink" title="(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs"></a>(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs</h2><h3 id="motivation-5"><a href="#motivation-5" class="headerlink" title="motivation"></a>motivation</h3><p>文章指出，目前许多看似先进的幻觉检测方法，其优异表现很大程度上是建立在有缺陷的评估指标（如ROUGE）之上的，这给学术界和工程界制造了一种“进步的幻觉” 。</p>
 <p><strong>为什么 ROUGE 会带来“幻觉”？</strong></p>
 <p><strong>过度依赖词汇重叠</strong>：ROUGE 指标最初是为文本摘要设计的，主要依赖生成的答案与标准答案之间的词汇重叠度来判断事实的一致性 。</p>
 <p><strong>高召回率，极低精确率</strong>：通过大规模的人类标注研究发现，ROUGE 虽然能抓取到大部分错误，但常常将使用了同义词或提供了更多有效背景信息的<strong>正确答案</strong>误判为幻觉，导致其精确率极低 。</p>
@@ -648,9 +651,9 @@
 <p><strong>广泛的基准测试</strong>：研究在 NQ-Open、TriviaQA 和 SQuAD 三个问答数据集上，测试了 Llama3.1-8B-Instruct 和 Mistral-7B-Instruct-v0.3 模型 。</p>
 <p><strong>重新评估现有方法</strong>：作者评估了当前主流的无监督幻觉检测方法，包括基于多次生成计算不确定性的方法（Perplexity, LN-Entropy, Semantic Entropy）和基于内部状态的检测方法（Eigenscore, LogDet） 。</p>
 <p><strong>引入有效秩 (eRank) 公式</strong>：论文还基于模型的隐藏状态引入并计算了 <code>eRank</code>，将其作为模型表示空间是否坍缩（从而引发幻觉）的衡量标准 。其核心数学定义如下 ：</p>
-<p>$$eRank &#x3D; \exp(-\sum_{k&#x3D;1}^{m} p_k \log p_k)$$</p>
+<p>$$eRank &#x3D; \exp(-\sum _ {k&#x3D;1}^{m} p_k \log p_k)$$</p>
 <p>其中，特征值的归一化概率分布计算为 ：</p>
-<p>$$p_k &#x3D; \frac{\lambda_k}{\sum_{j&#x3D;1}^{m} \lambda_j}$$</p>
+<p>$$p_k &#x3D; \frac{\lambda_k}{\sum _ {j&#x3D;1}^{m} \lambda_j}$$</p>
 <p>这里的 $\lambda_k$ 是通过模型最终层或中间层的隐藏状态矩阵 $Z$ 计算出的协方差矩阵 $\Sigma &#x3D; Z^T Z$ 的特征值。</p>
 <h3 id="关键发现一：幻觉检测的“性能暴跌”"><a href="#关键发现一：幻觉检测的“性能暴跌”" class="headerlink" title="关键发现一：幻觉检测的“性能暴跌”"></a>关键发现一：幻觉检测的“性能暴跌”</h3><p>当把评估指标从基于词汇的 ROUGE 切换为真正关注事实的 LLM-as-Judge 时，那些原本宣称表现优异的幻觉检测方法经历了灾难性的性能下滑 ：</p>
 <ul>
