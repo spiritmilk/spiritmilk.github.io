@@ -29,7 +29,7 @@
 <meta property="og:description" content="共20篇。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T05:05:56.769Z">
+<meta property="article:modified_time" content="2026-03-30T05:08:53.536Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -378,10 +378,10 @@
 <p>$$\mathcal{L} _ {BC} &#x3D; -\sum_t \log \pi_\phi(a_t|s_t)$$</p>
 <p>这一步为后续的 Q 学习提供了一个极佳的初始化，并用于限制策略不要偏离真实数据分布太远 。</p>
 <p><strong>第二阶段：Q 学习 (Q-learning)</strong> 训练一个 Critic 网络 $Q_\theta$ 来预测状态-动作对的累积奖励期望 。为了防止模型在未见过的状态下盲目自信（外推误差），BCQ 施加了一个概率阈值 $\tau$ 。模型只能在行为克隆策略认为概率大于 $\tau$ 的“允许动作集合”中进行选择 ：</p>
-<p>$$\mathcal{A}<em>\phi(s _ {t+1}) &#x3D; \{a | \pi</em>\phi(a|s _ {t+1}) &gt; \tau\}$$</p>
+<p>$$\mathcal{A} _ \phi(s _ {t+1}) &#x3D; \{a | \pi _ \phi(a|s _ {t+1}) &gt; \tau\}$$</p>
 <p>Critic 网络的参数 $\theta$ 通过最小化时序差分（TD）误差进行更新 。</p>
 <p>在实际生成文本时，策略网络会在每生成一个词前，评估当前状态 $s_t$ 。它首先找出符合阈值条件的允许动作集合 $\mathcal{A}_\phi(s_t)$，然后选择其中 Q 值（预期回报）最高的动作 ：</p>
-<p>$$\pi_\theta &#x3D; \arg\max _ {a \in \mathcal{A}<em>\phi(s_t)} Q</em>\theta(s_t, a)$$</p>
+<p>$$\pi _ \theta &#x3D; \arg\max _ {a \in \mathcal{A} _ \phi(s_t)} Q _ \theta(s_t, a)$$</p>
 <p>由此动态决定是否调用层对比机制。</p>
 <h2 id="3-Shallow-Focus-Deep-Fixes-Enhancing-Shallow-Layers-Vision-Attention-Sinks-to-Alleviate-Hallucination-in-LVLMs"><a href="#3-Shallow-Focus-Deep-Fixes-Enhancing-Shallow-Layers-Vision-Attention-Sinks-to-Alleviate-Hallucination-in-LVLMs" class="headerlink" title="(3)Shallow Focus, Deep Fixes: Enhancing Shallow Layers Vision Attention Sinks to Alleviate Hallucination in LVLMs"></a>(3)Shallow Focus, Deep Fixes: Enhancing Shallow Layers Vision Attention Sinks to Alleviate Hallucination in LVLMs</h2><p>作者提出了一种名为 <strong>EVAS (Enhancing Vision Attention Sinks)</strong> 的免训练、即插即用的方法 。</p>
 <p>在模型的浅层（特别是第1和第2层），图像 token 的注意力汇聚呈现“密集（dense）”状态；而在深层，则变得“稀疏（sparse）” 。</p>
@@ -400,7 +400,7 @@
 <p>$$n &#x3D; \arg\max_{(C_{i,j},j) \in H} C_{i,j}$$</p>
 <p>提取这个具有最密集视觉汇聚的注意力头 $n$ 的注意力矩阵，并将其<strong>复制并覆盖</strong>给同一层的所有其他注意力头 ：</p>
 <p>$$A[i][j] &#x3D; A[i][n]$$</p>
-<h2 id="4"><a href="#4" class="headerlink" title="(4)"></a>(4)</h2><h2 id="5"><a href="#5" class="headerlink" title="(5)"></a>(5)</h2><h2 id="6"><a href="#6" class="headerlink" title="(6)"></a>(6)</h2><h2 id="7"><a href="#7" class="headerlink" title="(7)"></a>(7)</h2><h2 id="8"><a href="#8" class="headerlink" title="(8)"></a>(8)</h2><h2 id="9"><a href="#9" class="headerlink" title="(9)"></a>(9)</h2><h2 id="10"><a href="#10" class="headerlink" title="(10)"></a>(10)</h2><h2 id="11"><a href="#11" class="headerlink" title="(11)"></a>(11)</h2><h2 id="12"><a href="#12" class="headerlink" title="(12)"></a>(12)</h2><h2 id="13"><a href="#13" class="headerlink" title="(13)"></a>(13)</h2><h2 id="14"><a href="#14" class="headerlink" title="(14)"></a>(14)</h2><h2 id="15"><a href="#15" class="headerlink" title="(15)"></a>(15)</h2><h2 id="16"><a href="#16" class="headerlink" title="(16)"></a>(16)</h2><h2 id="17"><a href="#17" class="headerlink" title="(17)"></a>(17)</h2><h2 id="18"><a href="#18" class="headerlink" title="(18)"></a>(18)</h2><h2 id="19"><a href="#19" class="headerlink" title="(19)"></a>(19)</h2><h2 id="20"><a href="#20" class="headerlink" title="(20)"></a>(20)</h2>
+<h2 id="4-Calibrating-Verbal-Uncertainty-as-a-Linear-Feature-to-Reduce-Hallucinations"><a href="#4-Calibrating-Verbal-Uncertainty-as-a-Linear-Feature-to-Reduce-Hallucinations" class="headerlink" title="(4)Calibrating Verbal Uncertainty as a Linear Feature to Reduce Hallucinations"></a>(4)Calibrating Verbal Uncertainty as a Linear Feature to Reduce Hallucinations</h2><h2 id="5"><a href="#5" class="headerlink" title="(5)"></a>(5)</h2><h2 id="6"><a href="#6" class="headerlink" title="(6)"></a>(6)</h2><h2 id="7"><a href="#7" class="headerlink" title="(7)"></a>(7)</h2><h2 id="8"><a href="#8" class="headerlink" title="(8)"></a>(8)</h2><h2 id="9"><a href="#9" class="headerlink" title="(9)"></a>(9)</h2><h2 id="10"><a href="#10" class="headerlink" title="(10)"></a>(10)</h2><h2 id="11"><a href="#11" class="headerlink" title="(11)"></a>(11)</h2><h2 id="12"><a href="#12" class="headerlink" title="(12)"></a>(12)</h2><h2 id="13"><a href="#13" class="headerlink" title="(13)"></a>(13)</h2><h2 id="14"><a href="#14" class="headerlink" title="(14)"></a>(14)</h2><h2 id="15"><a href="#15" class="headerlink" title="(15)"></a>(15)</h2><h2 id="16"><a href="#16" class="headerlink" title="(16)"></a>(16)</h2><h2 id="17"><a href="#17" class="headerlink" title="(17)"></a>(17)</h2><h2 id="18"><a href="#18" class="headerlink" title="(18)"></a>(18)</h2><h2 id="19"><a href="#19" class="headerlink" title="(19)"></a>(19)</h2><h2 id="20"><a href="#20" class="headerlink" title="(20)"></a>(20)</h2>
                 
               </div>
             
