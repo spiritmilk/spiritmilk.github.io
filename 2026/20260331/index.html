@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/1.png">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T07:48:54.220Z">
+<meta property="article:modified_time" content="2026-03-30T07:52:26.489Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          5.3k 字
         
       </span>
     
@@ -310,7 +310,7 @@
         
         
         
-          34 分钟
+          44 分钟
         
       </span>
     
@@ -467,7 +467,7 @@
 <p><strong>第二步：生成动态掩码 $m_i$</strong> 接下来，SPIN 会计算每个头对视觉 Token 的累积注意力 $\sum_{j&#x3D;1}^{N_v} A_v[j]$ 。如果某个注意力头 $i$ 的视觉关注度排在所有头的前 $k$ 名（即表现良好），则保留它；否则，将其输出乘上一个惩罚因子 $\alpha$ 。</p>
 <p>$$m_i &#x3D; \begin{cases} 1 &amp; \text{if } i \in \text{top-k}\left(\sum_{j&#x3D;1}^{N_v} A_v[j]\right) \ \alpha &amp; \text{otherwise} \end{cases}$$</p>
 <p><strong>第三步：应用掩码</strong> 最终的 SPIN 多头注意力计算会将这个掩码 $m_i$ 直接应用到每个头的输出上 ：</p>
-<p>$$\text{MHA}<em>{Q,K,V,m} &#x3D; \left(\text{concat}</em>{i&#x3D;1}^H (m_i h_i)\right)W_o$$</p>
+<p>$$\text{MHA} _ {Q,K,V,m} &#x3D; \left(\text{concat} _ {i&#x3D;1}^H (m_i h_i)\right)W_o$$</p>
 <h2 id="7-The-Impact-of-Negated-Text-on-Hallucination-with-Large-Language-Models"><a href="#7-The-Impact-of-Negated-Text-on-Hallucination-with-Large-Language-Models" class="headerlink" title="(7)The Impact of Negated Text on Hallucination with Large Language Models"></a>(7)The Impact of Negated Text on Hallucination with Large Language Models</h2><p>深入探讨了一个在自然语言处理中常被忽视但非常关键的问题：<strong>大语言模型（LLMs）在处理包含否定词（如“不”、“从未”）的文本时，其检测和识别幻觉的能力会受到怎样的影响</strong> 。</p>
 <p>作者提出了三个核心研究问题（RQs） ：</p>
 <ol>
@@ -475,6 +475,35 @@
 <li><strong>RQ2</strong>：在检测幻觉时，大模型的内部状态能否识别出由否定词引起的语义变化？ </li>
 <li><strong>RQ3</strong>：现有的干预策略（如提示词工程、知识编辑）能否改善大模型在否定文本中的幻觉检测表现？</li>
 </ol>
+<h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h3><p>作者采用了一套系统性的方法，核心在于构建了专门的数据集 <strong>NegHalu</strong>，并结合内部状态观测（Logit Lens）和多种缓解策略进行实验 。</p>
+<p>作者并没有从零开始收集数据，而是选取了三个现有的、针对肯定文本的权威幻觉检测数据集（HaluEval、BamBoo、SelfCheckGPT-WikiBio），并通过“后置否定（Post Negation）”将其重构为包含否定表达的新数据集 <strong>NegHalu</strong> 。</p>
+<p><strong>标签翻转（Label Flip）机制</strong>： 作者通过要求 GPT-4 模型在原句中<strong>仅插入一次“not”</strong>（避免双重否定），来强行反转句子的逻辑事实，从而改变其幻觉标签 。</p>
+<ul>
+<li><em>逻辑翻转示例 1（真理变幻觉）</em>： 原始文本（True）：拜仁慕尼黑是一支踢足球的球队。 否定后文本（Hallucinated）：拜仁慕尼黑是一支<strong>不</strong>踢足球的球队。 </li>
+<li><em>逻辑翻转示例 2（幻觉变真理）</em>： 原始文本（Hallucinated）：The Messenger 这部电影由 Michael Sheen 主演（事实上并非如此）。 否定后文本（True）：The Messenger 这部电影<strong>不是</strong>由 Michael Sheen 主演的。</li>
+</ul>
+<p><strong>严格的双轮验证（Two-Round Verification）</strong>： 为了保证生成的否定句符合现实常识且语法正确，作者设计了双轮过滤机制。第一轮用 GPT-4 生成 ；第二轮使用 3 个不同温度系数的 GPT-4 模型进行独立验证 。只有当 3 个模型都一致判定“逻辑否定有效”且“新标签正确（Pass, Pass）”时，该样本才会被保留 。最终保留了 1,950 个高质量样本，并经过了人类作者的二次人工复核 。</p>
+<p>为了探究大模型为何在否定句上栽跟头，作者使用了 <strong>Logit Lens</strong>（逻辑透镜）技术来追踪模型在处理否定文本时的内部状态 。</p>
+<p>通常，模型只有在最后一层（Final Layer）才会将隐藏状态映射为词汇表中的具体概率。Logit Lens 方法则是在模型的<strong>每一个中间层</strong>提取隐藏状态（Hidden States），并提前将其映射到词汇表空间（Vocabulary Space），从而观察模型在不同深度的网络中，对于预测下一个 token 的置信度变化 。</p>
+<p>作者重点追踪了模型处理输入序列最后一个 token 和生成第一个判定 token 时的概率变化轨迹 。</p>
+<p>作者测试了三种主流方法，试图修复大模型在否定文本上的缺陷：</p>
+<ul>
+<li><p><strong>上下文学习（In-Context Learning, ICL）</strong>：测试 0-shot、2-shot、4-shot 设置，看提供正反面例子能否教会模型正确处理 。</p>
+</li>
+<li><p><strong>思维链（Chain-of-Thought, CoT）</strong>：要求模型在给出“是&#x2F;否”幻觉的判断前，先一步步写出推理过程（Reasoning Step） 。</p>
+</li>
+<li><p><strong>知识编辑（Knowledge Editing - AlphaEdit）</strong>：作者使用了 AlphaEdit 技术来直接修改模型的参数。其核心数学思想是<strong>零空间约束（Null-Space Constraint）</strong> 。 在更新模型权重矩阵以纠正否定知识时，为了不破坏模型原有的肯定性事实知识，AlphaEdit 会将参数的更新量投影到保留知识的零空间中 。 如果将保留知识的协方差矩阵近似表示为 $C$，参数的更新量表示为 $\Delta W$，则优化目标受到如下约束：</p>
+<p>$$\Delta W \cdot C \approx 0$$</p>
+<p>这意味着更新方向与原有知识特征正交，从而实现在不遗忘旧知识的前提下，注入新的否定规则 。</p>
+</li>
+</ul>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><strong>全面退化与“幻觉偏见”（回答 RQ1）</strong>： </p>
+<p>当文本从“肯定”变为“否定”时，几乎所有模型检测幻觉的准确率都出现了显著下降 。更严重的是，模型展现出了一种强烈的偏见：<strong>只要看到否定词，它们就倾向于盲目判定这句话是“幻觉”</strong> 。例如在 BamBoo 数据集上，否定文本被预测为幻觉的比例激增了 206.2% 。</p>
+<p><strong>模型内部对“否定”极度迟钝（回答 RQ2）</strong>：</p>
+<p> 通过 Logit Lens 观察发现，即使否定词已经完全反转了句子的意思，模型在中间层和深层的概率转移曲线与没有否定词时<strong>几乎一模一样</strong>（只有极其微小的差别） 。这证明大模型在底层表示中，仅仅把“not”当成了一个普通的词汇 token，而未能将其理解为一个“逻辑取反运算符” 。</p>
+<p><strong>现有缓解策略效果有限（回答 RQ3）</strong>：</p>
+<p><strong>In-Context Learning 和 CoT</strong>：效果极不稳定。有些模型反而因为加了提示词表现更差，证明这并不能触及模型对否定词理解缺失的根本痛点 。</p>
+<p><strong>知识编辑</strong>：虽然 AlphaEdit 在一定程度上减少了错误，但依然无法彻底解决系统性的“否定偏见” 。</p>
 <h2 id="8"><a href="#8" class="headerlink" title="(8)"></a>(8)</h2><h2 id="9"><a href="#9" class="headerlink" title="(9)"></a>(9)</h2><h2 id="10"><a href="#10" class="headerlink" title="(10)"></a>(10)</h2><h2 id="11"><a href="#11" class="headerlink" title="(11)"></a>(11)</h2><h2 id="12"><a href="#12" class="headerlink" title="(12)"></a>(12)</h2><h2 id="13"><a href="#13" class="headerlink" title="(13)"></a>(13)</h2><h2 id="14"><a href="#14" class="headerlink" title="(14)"></a>(14)</h2><h2 id="15"><a href="#15" class="headerlink" title="(15)"></a>(15)</h2><h2 id="16"><a href="#16" class="headerlink" title="(16)"></a>(16)</h2><h2 id="17"><a href="#17" class="headerlink" title="(17)"></a>(17)</h2><h2 id="18"><a href="#18" class="headerlink" title="(18)"></a>(18)</h2><h2 id="19"><a href="#19" class="headerlink" title="(19)"></a>(19)</h2><h2 id="20"><a href="#20" class="headerlink" title="(20)"></a>(20)</h2>
                 
               </div>
