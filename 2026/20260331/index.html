@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/331/2.png">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T12:28:27.939Z">
+<meta property="article:modified_time" content="2026-03-30T12:29:29.540Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -588,7 +588,7 @@
 <h3 id="方法-5"><a href="#方法-5" class="headerlink" title="方法"></a>方法</h3><p>首先提取注意力矩阵。假设大模型有 $L$ 个 Transformer 层，每层有 $H$ 个注意力头。设生成的总 Token 数为 $T$。 对于任意第 $l$ 层和第 $h$ 个注意力头，其注意力矩阵记为 $A^{(l,h)} \in \mathbb{R}^{T \times T}$ 。</p>
 <ul>
 <li>由于 Softmax 归一化，这是一个<strong>行随机矩阵</strong>（每行之和为 1） 。</li>
-<li>由于自回归模型的因果掩码（Causal Mask），它是一个<strong>下三角矩阵</strong>（当前 Token 只能关注自己和之前的 Token，$j &gt; i$ 时 $a_{ij} &#x3D; 0$） 。</li>
+<li>由于自回归模型的因果掩码（Causal Mask），它是一个<strong>下三角矩阵</strong>（当前 Token 只能关注自己和之前的 Token，$j &gt; i$ 时 $a _ {ij} &#x3D; 0$） 。</li>
 </ul>
 <p>在标准图论中，拉普拉斯矩阵定义为度矩阵（Degree Matrix）减去邻接矩阵。这里，邻接矩阵就是注意力矩阵 $A^{(l,h)}$ 。</p>
 <p>$$L^{(l,h)} &#x3D; D^{(l,h)} - A^{(l,h)}$$</p>
@@ -597,16 +597,16 @@
 <li><strong>入度</strong>：由于 Softmax 机制，每个 Token 接收到的总注意力总是 1，没有区分度 。</li>
 <li><strong>出度</strong>：衡量一个 Token 被<strong>后续</strong>多少个 Token 所关注。为了消除序列长度 $T$ 带来的影响，作者对出度矩阵 $D^{(l,h)}$ 进行了归一化，除以后续 Token 的数量（即出边的数量） ：</li>
 </ul>
-<p>$$d_{ii}^{(l,h)} &#x3D; \frac{\sum_{u} a_{ui}^{(l,h)}}{T - i}$$</p>
+<p>$$d _ {ii}^{(l,h)} &#x3D; \frac{\sum _ {u} a _ {ui}^{(l,h)}}{T - i}$$</p>
 <p>其中 $i$ 是当前 Token 索引，$u$ 是后续 Token 索引 。这个 $D^{(l,h)}$ 是一个对角矩阵。</p>
 <p>图的谱特征（特征值）能够总结图中的信息流动状态 。 非常巧妙的是，因为 $D^{(l,h)}$ 是对角矩阵，$A^{(l,h)}$ 是下三角矩阵，所以<strong>拉普拉斯矩阵 $L^{(l,h)}$ 也是一个下三角矩阵</strong>。</p>
 <p>根据线性代数的基础知识，<strong>下三角矩阵的特征值就是它的对角线元素</strong> 。这极大地降低了计算复杂度！其特征值 $\lambda_i$ 的计算公式为：</p>
-<p>$$\lambda_i &#x3D; L_{ii}^{(l,h)} &#x3D; d_{ii}^{(l,h)} - a_{ii}^{(l,h)}$$</p>
+<p>$$\lambda_i &#x3D; L _ {ii}^{(l,h)} &#x3D; d _ {ii}^{(l,h)} - a _ {ii}^{(l,h)}$$</p>
 <p>直观来看，这个特征值代表了：<strong>该 Token 被后续 Token 关注的平均程度，减去它对自己的关注度</strong> 。</p>
 <p>然后，作者将这些特征值进行降序排序：</p>
 <p>$$\tilde{z}^{(l,h)} &#x3D; \text{sort}(\text{diag}(L^{(l,h)}))$$</p>
 <p>为了综合全局信息，作者提取每个层和每个头中<strong>最大的 $k$ 个特征值</strong>（Top-$k$） ：</p>
-<p>$$z^{(l,h)} &#x3D; [\tilde{z}<em>{T-1}^{(l,h)}, \dots, \tilde{z}</em>{T-k}^{(l,h)}]$$</p>
+<p>$$z^{(l,h)} &#x3D; [\tilde{z} _ {T-1}^{(l,h)}, \dots, \tilde{z} _ {T-k}^{(l,h)}]$$</p>
 <p>随后，将所有层 $L$ 和所有头 $H$ 的 Top-$k$ 特征值拼接成一个极长的一维特征向量 $z \in \mathbb{R}^{L \cdot H \cdot k}$ 。 为了防止维度灾难并去除相关性，使用 <strong>PCA（主成分分析）</strong> 将其降维到 512 维 。最后，将降维后的特征输入到一个带有平衡类权重的**逻辑回归分类器（Logistic Regression）**中，用于预测该文本是否为幻觉 。</p>
 <h2 id="14-EGOILLUSION-Benchmarking-Hallucinations-in-Egocentric-Video-Understanding"><a href="#14-EGOILLUSION-Benchmarking-Hallucinations-in-Egocentric-Video-Understanding" class="headerlink" title="(14)EGOILLUSION: Benchmarking Hallucinations in Egocentric Video Understanding"></a>(14)EGOILLUSION: Benchmarking Hallucinations in Egocentric Video Understanding</h2><p>pass</p>
 <h2 id="15-Multi-Frequency-Contrastive-Decoding-Alleviating-Hallucinations-for-Large-Vision-Language-Models"><a href="#15-Multi-Frequency-Contrastive-Decoding-Alleviating-Hallucinations-for-Large-Vision-Language-Models" class="headerlink" title="(15)Multi-Frequency Contrastive Decoding: Alleviating Hallucinations for Large Vision-Language Models"></a>(15)Multi-Frequency Contrastive Decoding: Alleviating Hallucinations for Large Vision-Language Models</h2><h3 id="motivation-3"><a href="#motivation-3" class="headerlink" title="motivation"></a>motivation</h3><p><strong>作者发现图像中频率信息的缺失（即忽略高频或低频信息）会放大这些语言先验，从而显著增加模型产生幻觉的概率</strong> 。</p>
@@ -615,11 +615,11 @@
 <li><strong>低频信息</strong>：通常代表颜色变化平缓的地方，构成了物体的基本形状和整体轮廓。</li>
 </ul>
 <h3 id="方法-6"><a href="#方法-6" class="headerlink" title="方法"></a>方法</h3><p>基于上述发现，作者提出了 MFCD 方法。它的核心逻辑是：既然缺失高频或低频信息的图像会诱导模型产生“幻觉分布”，那么我们在生成文本时，只要把原始图像的输出分布，减去这些“幻觉分布”，不就能得到更真实的输出了吗？</p>
-<p>首先，通过快速傅里叶变换（FFT）将原始输入图像 $V$ 转换到频域 ： $F_{i}(u,v)&#x3D;FFT(f_{i}(u,v))$ </p>
+<p>首先，通过快速傅里叶变换（FFT）将原始输入图像 $V$ 转换到频域 ： $F _ {i}(u,v)&#x3D;FFT(f _ {i}(u,v))$ </p>
 <p>然后，分别应用高通滤波器（保留高频，去除低频）和低通滤波器（保留低频，去除高频）：</p>
-<p>$$\begin{cases}F_{i}^{h}(u,v)&#x3D;F_i(u,v)\cdot H_{i}^{h}(u,v)\\ F_{i}^{l}(u,v)&#x3D;F_i(u,v)\cdot H_{i}^{l}(u,v)\end{cases}$$</p>
+<p>$$\begin{cases}F _ {i}^{h}(u,v)&#x3D;F_i(u,v)\cdot H _ {i}^{h}(u,v)\\ F _ {i}^{l}(u,v)&#x3D;F_i(u,v)\cdot H _ {i}^{l}(u,v)\end{cases}$$</p>
 <p>最后，通过逆傅里叶变换（$FFT^{-1}$）将频域信号转回图像，得到移除低频信息的图像 $V_H$ 和移除高频信息的图像 $V_L$ ：</p>
-<p>$$\begin{cases}f_{i}^{l}(u,v)&#x3D;FFT^{-1}(F_{i}^{l}(u,v))\\ f_{i}^{h}(u,v)&#x3D;FFT^{-1}(F_{i}^{h}(u,v))\end{cases}$$</p>
+<p>$$\begin{cases}f _ {i}^{l}(u,v)&#x3D;FFT^{-1}(F _ {i}^{l}(u,v))\\ f _ {i}^{h}(u,v)&#x3D;FFT^{-1}(F _ {i}^{h}(u,v))\end{cases}$$</p>
 <p>MFCD 则动态地对比三个分布 ：</p>
 <ol>
 <li>原始图像 $V$ 的输出分布（包含真实信号+轻微幻觉）。</li>
@@ -627,14 +627,14 @@
 <li>图像 $V_L$（缺高频）的输出分布（放大了另一种幻觉）。</li>
 </ol>
 <p>MFCD 的解码概率修改为以下形式 ：</p>
-<p>$$Y_{t}\sim softmax[(1+\alpha_{H}+\alpha_{L})logit(Y_{t}|V,X,Y_{&lt;t};M) - \alpha_{H}logit(Y_{t}|V_{H},X,Y_{&lt;t};M) - \alpha_{L}logit(Y_{t}|V_{L},X,Y_{&lt;t};M)]$$</p>
+<p>$$Y _ {t}\sim softmax[(1+\alpha _ {H}+\alpha _ {L})logit(Y _ {t}|V,X,Y _ {&lt;t};M) - \alpha _ {H}logit(Y _ {t}|V _ {H},X,Y _ {&lt;t};M) - \alpha _ {L}logit(Y _ {t}|V _ {L},X,Y _ {&lt;t};M)]$$</p>
 <p><em>说明</em>：这里的 $\alpha_H$ 和 $\alpha_L$ 是超参数，控制惩罚两种幻觉分布的力度 。通过从原始 logit 中减去 $V_H$ 和 $V_L$ 对应的 logit，模型主动抑制了由频率信息缺失引发的语言先验偏差 。</p>
-<p>直接相减可能会带来一个副作用：错误地惩罚了原本合理的词汇，或者奖励了极度不合理的词汇 。为了解决这个问题，作者引入了截断机制，构建了一个“合理词汇集” $\mathcal{V}_{head}^{(t)}$ ：</p>
-<p>$$\mathcal{V}<em>{head}^{(t)}&#x3D;{Y</em>{t}\in\mathcal{V} : P(Y_{t}|V_{L},X,Y_{&lt;t};M) \ge \beta \max_{\omega}P(\omega|V_{L},X,Y_{&lt;t};M)}$$</p>
+<p>直接相减可能会带来一个副作用：错误地惩罚了原本合理的词汇，或者奖励了极度不合理的词汇 。为了解决这个问题，作者引入了截断机制，构建了一个“合理词汇集” $\mathcal{V} _ {head}^{(t)}$ ：</p>
+<p>$$\mathcal{V} _ {head}^{(t)}&#x3D;{Y _ {t}\in\mathcal{V} : P(Y _ {t}|V _ {L},X,Y _ {&lt;t};M) \ge \beta \max _ {\omega}P(\omega|V _ {L},X,Y _ {&lt;t};M)}$$</p>
 <p>在实际生成时，只有属于这个候选集里的 token 才会被保留计算，否则其概率直接置为 0，从而保证了生成的语句依然通顺且符合逻辑 。</p>
 <p>在生成长句时，模型在不同时刻产生幻觉的倾向是不同的，固定参数不够灵活 。因此作者进一步提出了 <strong>MFCD-Plus</strong>，利用** Jensen-Shannon 散度 (JSD)** 动态计算原始分布与幻觉分布的相似度，并利用<strong>条件熵</strong>来衡量模型的不确定性 ：</p>
-<p>$$\alpha_{H}^{(t)}&#x3D;\alpha_{H}&#x2F;JSD(softmax(logit(V)), softmax(logit(V_{H})))$$</p>
-<p>$$\beta^{(t)}&#x3D;\beta\times(1-e^{-H_{LVLM}(Y_{t}|V,X,Y_{&lt;t};M)})$$</p>
+<p>$$\alpha _ {H}^{(t)}&#x3D;\alpha _ {H}&#x2F;JSD(softmax(logit(V)), softmax(logit(V _ {H})))$$</p>
+<p>$$\beta^{(t)}&#x3D;\beta\times(1-e^{-H _ {LVLM}(Y _ {t}|V,X,Y _ {&lt;t};M)})$$</p>
 <p>这样，当模型倾向于产生幻觉时，惩罚力度会自动加大；当模型非常确信时，干扰则会降到最低 。</p>
 <h2 id="16-How-Much-Do-LLMs-Hallucinate-across-Languages-On-Realistic-Multilingual-Estimation-of-LLM-Hallucination"><a href="#16-How-Much-Do-LLMs-Hallucinate-across-Languages-On-Realistic-Multilingual-Estimation-of-LLM-Hallucination" class="headerlink" title="(16)How Much Do LLMs Hallucinate across Languages? On Realistic Multilingual Estimation of LLM Hallucination"></a>(16)How Much Do LLMs Hallucinate across Languages? On Realistic Multilingual Estimation of LLM Hallucination</h2><p>pass</p>
 <h2 id="17-Logit-Space-Constrained-Fine-Tuning-for-Mitigating-Hallucinations-in-LLM-Based-Recommender-Systems"><a href="#17-Logit-Space-Constrained-Fine-Tuning-for-Mitigating-Hallucinations-in-LLM-Based-Recommender-Systems" class="headerlink" title="(17)Logit Space Constrained Fine-Tuning for Mitigating Hallucinations in LLM-Based Recommender Systems"></a>(17)Logit Space Constrained Fine-Tuning for Mitigating Hallucinations in LLM-Based Recommender Systems</h2><p>pass</p>
