@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/2.png">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T13:26:36.309Z">
+<meta property="article:modified_time" content="2026-03-30T15:21:29.987Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -311,7 +311,7 @@
         
         
         
-          97 分钟
+          104 分钟
         
       </span>
     
@@ -687,7 +687,37 @@
 <li><strong>啰嗦本身就会诱发幻觉</strong>：如果在 Prompt 中强制要求模型生成更长、更详细的答案（即使初始事实是正确的），模型产生事实偏移和引入错误信息（即幻觉）的概率会显著增加 。</li>
 <li><strong>模糊的输入是最大的推手</strong>：相比于在问题中强行塞入误导性的上下文（Distractor Context），如果把问题改写得更加含糊不清（Ambiguous Input），会导致模型的回答长度激增，并引发更严重的准确率崩塌 。</li>
 </ul>
-<h2 id="20-A-Head-to-Predict-and-a-Head-to-Question-Pre-trained-Uncertainty-Quantification-Heads-for-Hallucination-Detection-in-LLM-Outputs"><a href="#20-A-Head-to-Predict-and-a-Head-to-Question-Pre-trained-Uncertainty-Quantification-Heads-for-Hallucination-Detection-in-LLM-Outputs" class="headerlink" title="(20)A Head to Predict and a Head to Question: Pre-trained Uncertainty Quantification Heads for Hallucination Detection in LLM Outputs"></a>(20)A Head to Predict and a Head to Question: Pre-trained Uncertainty Quantification Heads for Hallucination Detection in LLM Outputs</h2><p>作者提出在冻结的 LLM 外部附加一个基于 Transformer 架构的轻量级“插件”（即 UHead），专门用来量化模型在生成特定声明（claim）时的不确定性，从而精准捕捉幻觉 。</p>
+<h2 id="20-A-Head-to-Predict-and-a-Head-to-Question-Pre-trained-Uncertainty-Quantification-Heads-for-Hallucination-Detection-in-LLM-Outputs"><a href="#20-A-Head-to-Predict-and-a-Head-to-Question-Pre-trained-Uncertainty-Quantification-Heads-for-Hallucination-Detection-in-LLM-Outputs" class="headerlink" title="(20)A Head to Predict and a Head to Question: Pre-trained Uncertainty Quantification Heads for Hallucination Detection in LLM Outputs"></a>(20)A Head to Predict and a Head to Question: Pre-trained Uncertainty Quantification Heads for Hallucination Detection in LLM Outputs</h2><p>作者提出在冻结的LLM外部附加一个基于Transformer架构的轻量级“插件”（即 UHead），专门用来量化模型在生成特定声明（claim）时的不确定性，从而精准捕捉幻觉。</p>
+<h3 id="核心特征提取"><a href="#核心特征提取" class="headerlink" title="核心特征提取"></a>核心特征提取</h3><p>UHead 会从 LLM 的每一层（$L$）和每一个注意力头（$Q$）中，提取当前 token $t_i$ 对前 $k$ 个token的注意力权重，并将其展平为一个向量 ：</p>
+<p>$$F_{att}(t_i) &#x3D; {\alpha_{i, i-j}^{ql}}_{j,q,l}^{k,Q,L}$$</p>
+<p>其中 $\alpha$ 是注意力权重 。</p>
+<p>作者发现，仅需回顾非常少的前置 token（$1 \le k \le 5$）就能获得最佳效果，避免了特征空间的爆炸 。</p>
+<p>模型生成词汇时的概率分布直接反映了它的条件置信度 。UHead 会提取当前步预测中，概率最高的 $m$ 个 token 的对数概率 ：</p>
+<p>$$F_{prob}(t_i) &#x3D; {\log P(t|x, t_{&lt;i}) \mid t \in top_m(P(\cdot|x, t_{&lt;i}))}$$</p>
+<p>最终，每个 token $t_i$ 的特征由上述两部分拼接而成 ：</p>
+<p>$$F(t) &#x3D; F_{att}(t) \circ F_{prob}(t)$$</p>
+<h3 id="UHead-的网络架构与计算流程"><a href="#UHead-的网络架构与计算流程" class="headerlink" title="UHead 的网络架构与计算流程"></a><strong>UHead 的网络架构与计算流程</strong></h3><p>提取出特征后，UHead 会通过一个基于 Transformer 的小型网络来计算特定声明是幻觉的概率 。假设提示词为 $x$，生成的文本中包含一个原子声明 $c$。</p>
+<p><strong>步骤 1：Token 级别特征投影 (Token-level feature extraction)</strong> 首先，将拼接好的特征向量通过一个全连接层（FC）进行降维，使其维度与 UHead 内部的 Transformer 编码器维度一致 ：</p>
+<p>$$\tilde{f}<em>t &#x3D; FC</em>{proj}(F(t))$$</p>
+<p><strong>步骤 2：特定声明的上下文标记 (Claim-specific contextualization)</strong> 为了让模型将注意力集中在特定的声明 $c$ 上，作者引入了一个可训练的“声明标记嵌入”（Claim-marking embedding）$E$ 。如果某个 token 属于该声明，就把 $E$ 加到它的特征上 ：</p>
+<p>$$\tilde{f}_{t,c} &#x3D; \tilde{f}_t + E \cdot \mathbb{1}(t \in c)$$</p>
+<p>（注：$\mathbb{1}(\cdot)$ 是指示函数，属于声明 $c$ 时为 1，否则为 0 ）</p>
+<p><strong>步骤 3：Transformer 编码 (Transformer encoding)</strong> 将带有标记的特征序列输入到一个多层 Transformer 编码器中，得到融合了上下文信息的隐藏状态序列 $H_c$ ：</p>
+<p>$$H_c &#x3D; \text{Transformer}(\tilde{F}_c)$$</p>
+<p><strong>步骤 4：池化与表示 (Pooling and representation)</strong> 为了得到整个声明的单一表示向量，对声明 $c$ 包含的所有 token 的隐藏状态进行掩码平均池化（Masked average pooling）：</p>
+<p>$$h_c &#x3D; \frac{1}{|c|} \sum_{t \in c} h_{t,c}$$</p>
+<p><strong>步骤 5：分类输出 (Classification)</strong> 最后，将声明的表示向量 $h_c$ 输入到一个带有 Dropout 正则化的两层多层感知机（MLP）中，并通过 Sigmoid 函数输出该声明是幻觉的不确定性得分$u_c$：</p>
+<p>$$u_c &#x3D; \sigma(MLP_{classifier}(h_c))$$</p>
+<p>$u_c$ 的值越接近 1，说明该声明是幻觉的可能性越大 。</p>
+<h3 id="模型的训练-Training"><a href="#模型的训练-Training" class="headerlink" title="模型的训练 (Training)"></a><strong>模型的训练 (Training)</strong></h3><p>在训练 UHead 时，<strong>基础 LLM 的参数是完全冻结的</strong>，以保证其生成行为不发生改变 。UHead 使用标准的二元交叉熵损失函数（Binary Cross-Entropy Loss）进行训练 ：</p>
+<p>$$\mathcal{L} &#x3D; -\mathbb{E}_{(x,y,c,v)\sim\mathcal{D}}[v \log u_c + (1-v) \log(1-u_c)]$$</p>
+<p>这里$v$是真实标签（如果是幻觉则$v&#x3D;1$，真实事实则$v&#x3D;0$）。</p>
+<p>为了低成本、大规模地获取训练数据，作者设计了一个<strong>自动数据生成流水线</strong> ：</p>
+<ol>
+<li>让一个小体积的开源 LLM（如 Mistral）生成关于名人传记等领域的回答 。</li>
+<li>使用更强大的模型（如 GPT-4o）将回答拆解成一个个独立的原子声明（Atomic Claims）。</li>
+<li>再次使用 GPT-4o 对这些声明进行真实性标注（支持、不支持或未知）。</li>
+</ol>
 
                 
               </div>
