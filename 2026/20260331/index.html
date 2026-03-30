@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/1.png">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T08:24:57.213Z">
+<meta property="article:modified_time" content="2026-03-30T08:27:14.386Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -310,7 +310,7 @@
         
         
         
-          49 分钟
+          50 分钟
         
       </span>
     
@@ -507,18 +507,18 @@
 <h2 id="8-SHARP-Steering-Hallucination-in-LVLMs-via-Representation-Engineering"><a href="#8-SHARP-Steering-Hallucination-in-LVLMs-via-Representation-Engineering" class="headerlink" title="(8)SHARP: Steering Hallucination in LVLMs via Representation Engineering"></a>(8)SHARP: Steering Hallucination in LVLMs via Representation Engineering</h2><p>为了触发模型内部与幻觉相关的特征，作者构建了专门针对上述两种幻觉原因的数据集 $\mathcal{D}$ 。</p>
 <p>将数据分为文本先验子集 $\mathcal{D}^{T}$ 和视觉-文本冲突子集 $\mathcal{D}^{C}$ 。给定图像 $v_i$ 和问题 $x_i$，让多模态模型生成答案 $\hat{y}_i$ 。随后，使用 GPT-4o-mini 对生成的答案与真实答案进行事实性打分（Correct&#x2F;Incorrect） 。基于打分结果，将每个原因的子集进一步划分为“真实的（faithful&#x2F;truth）”和“幻觉的（hallucinated）”两部分 。例如，对于原因 $m \in {T, C}$，我们得到了包含正确回答的数据集 $\mathcal{D} _ {faithful}^{(m)}$ 和包含幻觉回答的数据集 $\mathcal{D} _ {hallucinated}^{(m)}$ 。</p>
 <p>在获得分类后的数据后，SHARP 利用对比分析来提取特征空间中的“指导向量”（Steering Vectors） 。</p>
-<p>设 $h^{l^{<em>}}(v_i, x_i)$ 为模型在处理图像和问题时，在目标 Transformer 层 $l^{</em>}$ 处最后一个输入 token 的隐藏状态 。</p>
-<p>对于每种幻觉原因 $m$，计算真实响应和幻觉响应的平均隐藏状态之间的差异 。提取向量 $\vec{v} _ {m}^{l^{*}}$ 的数学公式如下 ：</p>
-<p>$$\vec{v} _ {m}^{l^{<em>}} &#x3D; \frac{\sum _ {(v _ {i},x _ {i}) \in \mathcal{D} _ {faithful}^{(m)}} h^{l^{</em>}}(v _ {i}, x _ {i})}{|\mathcal{D} _ {faithful}^{(m)}|} - \frac{\sum _ {(v _ {j},x _ {j}) \in \mathcal{D} _ {hallucinated}^{(m)}} h^{l^{*}}(v _ {j}, x _ {j})}{|\mathcal{D} _ {hallucinated}^{(m)}|}$$</p>
+<p>设 $h^{l^{\ast}}(v_i, x_i)$ 为模型在处理图像和问题时，在目标 Transformer 层 $l^{\ast}$ 处最后一个输入 token 的隐藏状态 。</p>
+<p>对于每种幻觉原因 $m$，计算真实响应和幻觉响应的平均隐藏状态之间的差异 。提取向量 $\vec{v} _ {m}^{l^{\ast}}$ 的数学公式如下 ：</p>
+<p>$$\vec{v} _ {m}^{l^{\ast}} &#x3D; \frac{\sum _ {(v _ {i},x _ {i}) \in \mathcal{D} _ {faithful}^{(m)}} h^{l^{\ast}}(v _ {i}, x _ {i})}{|\mathcal{D} _ {faithful}^{(m)}|} - \frac{\sum _ {(v _ {j},x _ {j}) \in \mathcal{D} _ {hallucinated}^{(m)}} h^{l^{\ast}}(v _ {j}, x _ {j})}{|\mathcal{D} _ {hallucinated}^{(m)}|}$$</p>
 <ul>
-<li>这个向量 $\vec{v} _ {m}^{l^{*}}$ 代表了在表示空间中，区分“基于该原因产生的真实回答”与“幻觉回答”的平均判别方向 。</li>
+<li>这个向量 $\vec{v} _ {m}^{l^{\ast}}$ 代表了在表示空间中，区分“基于该原因产生的真实回答”与“幻觉回答”的平均判别方向 。</li>
 </ul>
 <p>在实际推理过程中，SHARP 直接修改模型在生成每个 token 时的内部表示，以抑制幻觉 。</p>
 <p>将针对文本先验（$T$）和视觉冲突（$C$）提取的两个指导向量进行线性组合 ：</p>
-<p>$$\vec{v} _ {adaptive}^{l^{<em>}} &#x3D; \beta \cdot \vec{v} _ {T}^{l^{</em>}} + (1 - \beta) \cdot \vec{v} _ {C}^{l^{*}}$$</p>
+<p>$$\vec{v} _ {adaptive}^{l^{\ast}} &#x3D; \beta \cdot \vec{v} _ {T}^{l^{\ast}} + (1 - \beta) \cdot \vec{v} _ {C}^{l^{\ast}}$$</p>
 <p>其中，$\beta$ 是一个控制两种幻觉原因权重的超参数 。</p>
-<p>在自回归生成期间（针对所有位置 $t \ge |x_i|$ 的生成 token），在目标层 $l^{<em>}$ 将自适应向量注入到原始隐藏状态 $h _ {t}^{l^{</em>}}$ 中 ：</p>
-<p>$$h _ {steered, t}^{l^{<em>}} &#x3D; h _ {t}^{l^{</em>}} + \alpha \cdot \vec{v} _ {adaptive}^{l^{*}}$$</p>
+<p>在自回归生成期间（针对所有位置 $t \ge |x_i|$ 的生成 token），在目标层 $l^{\ast}$ 将自适应向量注入到原始隐藏状态 $h _ {t}^{l^{\ast}}$ 中 ：</p>
+<p>$$h _ {steered, t}^{l^{\ast}} &#x3D; h _ {t}^{l^{\ast}} + \alpha \cdot \vec{v} _ {adaptive}^{l^{\ast}}$$</p>
 <p>其中，$\alpha$ 是控制整体干预强度的缩放因子 。注入后，模型使用修改后的 $h _ {steered, t}^{l^{}}$ 继续后续层的计算 。</p>
 <h2 id="9-Mitigating-Hallucinations-in-LM-Based-TTS-Models-via-Distribution-Alignment-Using-GFlowNets"><a href="#9-Mitigating-Hallucinations-in-LM-Based-TTS-Models-via-Distribution-Alignment-Using-GFlowNets" class="headerlink" title="(9)Mitigating Hallucinations in LM-Based TTS Models via Distribution Alignment Using GFlowNets"></a>(9)Mitigating Hallucinations in LM-Based TTS Models via Distribution Alignment Using GFlowNets</h2><p>pass</p>
 <h2 id="10"><a href="#10" class="headerlink" title="(10)"></a>(10)</h2><h2 id="11"><a href="#11" class="headerlink" title="(11)"></a>(11)</h2><h2 id="12"><a href="#12" class="headerlink" title="(12)"></a>(12)</h2><h2 id="13"><a href="#13" class="headerlink" title="(13)"></a>(13)</h2><h2 id="14"><a href="#14" class="headerlink" title="(14)"></a>(14)</h2><h2 id="15"><a href="#15" class="headerlink" title="(15)"></a>(15)</h2><h2 id="16"><a href="#16" class="headerlink" title="(16)"></a>(16)</h2><h2 id="17"><a href="#17" class="headerlink" title="(17)"></a>(17)</h2><h2 id="18"><a href="#18" class="headerlink" title="(18)"></a>(18)</h2><h2 id="19"><a href="#19" class="headerlink" title="(19)"></a>(19)</h2><h2 id="20"><a href="#20" class="headerlink" title="(20)"></a>(20)</h2>
