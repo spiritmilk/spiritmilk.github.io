@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/331/2.png">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T09:05:49.883Z">
+<meta property="article:modified_time" content="2026-03-30T09:07:50.275Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -567,7 +567,7 @@
 <p>这个值被归一化处理，$\tilde{y}_i &#x3D; 1$ 代表模型极度确信陈述 $s_i$ 是正确的（非幻觉），而接近 0 则代表极度不确定或确信是错误的（幻觉）。</p>
 <p>论文对比了基于概率熵（Entropy-based）和直接让模型用文字输出概率（Verbalized confidence）两种方式，发现直接让模型输出以数字表示的置信度，其校准效果更好，分布更合理 。</p>
 <p>然后是训练轻量级分类器。因为“伪标签” $\tilde{y}_i$ 是 LLM 自己给自己打的分，必然包含大量的噪声（比如模型“盲目自信”或“过度怀疑”）。为了防止分类器对这些噪声标签过拟合，IRIS 引入了两个数学技巧来训练一个轻量级的多层感知机（MLP）。</p>
-<h3 id="技巧-A：软自举-Soft-Bootstrapping"><a href="#技巧-A：软自举-Soft-Bootstrapping" class="headerlink" title="技巧 A：软自举 (Soft Bootstrapping)"></a>技巧 A：软自举 (Soft Bootstrapping)</h3><p>为了动态修正可能有偏差的伪标签，IRIS 在每个训练的 Mini-batch 中，不直接使用原始伪标签 $\tilde{y}_i$，而是结合分类器<strong>当前的预测值</strong> $\hat{y}_i$，生成一个新的动态目标 $t_i$ 。</p>
+<h4 id="技巧-A：软自举-Soft-Bootstrapping"><a href="#技巧-A：软自举-Soft-Bootstrapping" class="headerlink" title="技巧 A：软自举 (Soft Bootstrapping)"></a>技巧 A：软自举 (Soft Bootstrapping)</h4><p>为了动态修正可能有偏差的伪标签，IRIS 在每个训练的 Mini-batch 中，不直接使用原始伪标签 $\tilde{y}_i$，而是结合分类器<strong>当前的预测值</strong> $\hat{y}_i$，生成一个新的动态目标 $t_i$ 。</p>
 <p>$$t_i &#x3D; \beta\tilde{y}_i + (1-\beta)\hat{y}_i$$</p>
 <ul>
 <li>$\tilde{y}_i$ 是 LLM 给出的原始软伪标签。</li>
@@ -575,7 +575,7 @@
 <li>$\beta \in (0,1)$ 是一个权重系数 。这个公式的作用是让最终的训练目标在“模型的初始直觉”和“分类器学到的规律”之间寻找一个平衡，从而平滑噪声。</li>
 </ul>
 <h4 id="技巧-B：对称交叉熵损失-Symmetric-Cross-Entropy-Loss"><a href="#技巧-B：对称交叉熵损失-Symmetric-Cross-Entropy-Loss" class="headerlink" title="技巧 B：对称交叉熵损失 (Symmetric Cross Entropy Loss)"></a>技巧 B：对称交叉熵损失 (Symmetric Cross Entropy Loss)</h4><p>在计算损失时，仅仅让预测值靠近目标值是不够的。IRIS 采用了对称交叉熵损失函数作为整体优化目标 ：</p>
-<p>$$l_i &#x3D; l_{ce} + l_{rce} &#x3D; H(\hat{y}_i, t_i) + \phi H(t_i, \hat{y}_i)$$</p>
+<p>$$l_i &#x3D; l _ {ce} + l _ {rce} &#x3D; H(\hat{y}_i, t_i) + \phi H(t_i, \hat{y}_i)$$</p>
 <p>这个公式由两部分组成 ：</p>
 <p><strong>标准交叉熵损失 $H(\hat{y}_i, t_i)$：</strong></p>
 <p>$$H(\hat{y}_i, t_i) &#x3D; t_i \log \hat{y}_i + (1-t_i) \log(1-\hat{y}_i)$$</p>
