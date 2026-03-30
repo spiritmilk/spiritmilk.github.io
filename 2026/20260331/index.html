@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260331/2.png">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T13:05:46.179Z">
+<meta property="article:modified_time" content="2026-03-30T13:12:29.133Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -311,7 +311,7 @@
         
         
         
-          92 分钟
+          93 分钟
         
       </span>
     
@@ -639,9 +639,10 @@
 <h2 id="16-How-Much-Do-LLMs-Hallucinate-across-Languages-On-Realistic-Multilingual-Estimation-of-LLM-Hallucination"><a href="#16-How-Much-Do-LLMs-Hallucinate-across-Languages-On-Realistic-Multilingual-Estimation-of-LLM-Hallucination" class="headerlink" title="(16)How Much Do LLMs Hallucinate across Languages? On Realistic Multilingual Estimation of LLM Hallucination"></a>(16)How Much Do LLMs Hallucinate across Languages? On Realistic Multilingual Estimation of LLM Hallucination</h2><p>pass</p>
 <h2 id="17-Logit-Space-Constrained-Fine-Tuning-for-Mitigating-Hallucinations-in-LLM-Based-Recommender-Systems"><a href="#17-Logit-Space-Constrained-Fine-Tuning-for-Mitigating-Hallucinations-in-LLM-Based-Recommender-Systems" class="headerlink" title="(17)Logit Space Constrained Fine-Tuning for Mitigating Hallucinations in LLM-Based Recommender Systems"></a>(17)Logit Space Constrained Fine-Tuning for Mitigating Hallucinations in LLM-Based Recommender Systems</h2><p>pass</p>
 <h2 id="18-Detecting-LLM-Hallucination-Through-Layer-wise-Information-Deficiency-Analysis-of-Ambiguous-Prompts-and-Unanswerable-Questions"><a href="#18-Detecting-LLM-Hallucination-Through-Layer-wise-Information-Deficiency-Analysis-of-Ambiguous-Prompts-and-Unanswerable-Questions" class="headerlink" title="(18)Detecting LLM Hallucination Through Layer-wise Information Deficiency: Analysis of Ambiguous Prompts and Unanswerable Questions"></a>(18)Detecting LLM Hallucination Through Layer-wise Information Deficiency: Analysis of Ambiguous Prompts and Unanswerable Questions</h2><h3 id="motivation-4"><a href="#motivation-4" class="headerlink" title="motivation"></a>motivation</h3><p>论文特别关注<strong>上下文幻觉（Contextual Hallucinations）</strong>，即当输入由于上下文模糊或信息不足而变为“不可回答的问题”时，模型仍会强行回答 。</p>
-<p><strong>现有方法的局限性</strong>：传统方法通常只分析模型的**最终层（Last Layer）**输出或预测熵来评估模型置信度 。但作者发现，在神经网络中，信息的流动并不是单调增加或减少的 。只看最后一层会丢失模型内部不确定性的关键信号 。</p>
+<p><strong>现有方法的局限性</strong>：传统方法通常只分析模型的<strong>最终层</strong>输出或预测熵来评估模型置信度 。但作者发现，在神经网络中，信息的流动并不是单调增加或减少的 。只看最后一层会丢失模型内部不确定性的关键信号 。</p>
 <p><strong>核心假设</strong>：当模型缺乏处理其计算功能所需的信息时，就会在层间传输中表现为<strong>可用信息的缺乏（Information Deficiency）</strong>，进而导致幻觉。</p>
-<h3 id="方法-7"><a href="#方法-7" class="headerlink" title="方法"></a>方法</h3><h2 id="19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs"><a href="#19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs" class="headerlink" title="(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs"></a>(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs</h2><h3 id="motivation-5"><a href="#motivation-5" class="headerlink" title="motivation"></a>motivation</h3><p>文章指出，目前许多看似先进的幻觉检测方法，其优异表现很大程度上是建立在有缺陷的评估指标（如ROUGE）之上的，这给学术界和工程界制造了一种“进步的幻觉” 。</p>
+<h3 id="方法-7"><a href="#方法-7" class="headerlink" title="方法"></a>方法</h3><p>为了捕捉跨层的信息动态，作者提出了一种称为**逐层可用信息（$\mathcal{L}I$）**的指标 。</p>
+<h2 id="19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs"><a href="#19-The-Illusion-of-Progress-Re-evaluating-Hallucination-Detection-in-LLMs" class="headerlink" title="(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs"></a>(19)The Illusion of Progress: Re-evaluating Hallucination Detection in LLMs</h2><h3 id="motivation-5"><a href="#motivation-5" class="headerlink" title="motivation"></a>motivation</h3><p>文章指出，目前许多看似先进的幻觉检测方法，其优异表现很大程度上是建立在有缺陷的评估指标（如ROUGE）之上的，这给学术界和工程界制造了一种“进步的幻觉” 。</p>
 <p><strong>为什么 ROUGE 会带来“幻觉”？</strong></p>
 <p><strong>过度依赖词汇重叠</strong>：ROUGE 指标最初是为文本摘要设计的，主要依赖生成的答案与标准答案之间的词汇重叠度来判断事实的一致性 。</p>
 <p><strong>高召回率，极低精确率</strong>：通过大规模的人类标注研究发现，ROUGE 虽然能抓取到大部分错误，但常常将使用了同义词或提供了更多有效背景信息的<strong>正确答案</strong>误判为幻觉，导致其精确率极低 。</p>
