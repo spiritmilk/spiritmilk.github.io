@@ -29,7 +29,7 @@
 <meta property="og:description" content="共20篇。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T04:53:14.098Z">
+<meta property="article:modified_time" content="2026-03-30T04:58:55.391Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.5k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          12 分钟
+          13 分钟
         
       </span>
     
@@ -355,33 +355,33 @@
 
 <h2 id="1-MedHallu-A-Comprehensive-Benchmark-for-Detecting-Medical-Hallucinations-in-Large-Language-Models"><a href="#1-MedHallu-A-Comprehensive-Benchmark-for-Detecting-Medical-Hallucinations-in-Large-Language-Models" class="headerlink" title="(1)MedHallu: A Comprehensive Benchmark for Detecting Medical Hallucinations in Large Language Models"></a>(1)MedHallu: A Comprehensive Benchmark for Detecting Medical Hallucinations in Large Language Models</h2><p>pass</p>
 <h2 id="2-Active-Layer-Contrastive-Decoding-Reduces-Hallucination-in-Large-Language-Model-Generation"><a href="#2-Active-Layer-Contrastive-Decoding-Reduces-Hallucination-in-Large-Language-Model-Generation" class="headerlink" title="(2)Active Layer-Contrastive Decoding Reduces Hallucination in Large Language Model Generation"></a>(2)Active Layer-Contrastive Decoding Reduces Hallucination in Large Language Model Generation</h2><p>在标准的层对比解码（如 DoLa）中，模型通过对比浅层（包含更多句法和表面模式）和深层（包含更多事实和语义知识）的输出来预测下一个词 。 设 $q_N$ 为浅层的对数概率（logits），$q_M$ 为深层的对数概率 。传统的层对比解码公式如下 ：</p>
-<p>$$p(x_t|x_{&lt;t}) &#x3D; \text{softmax}(\mathcal{F}(q_N(x_t), q_M(x_t)))$$</p>
+<p>$$p(x_t|x _ {&lt;t}) &#x3D; \text{softmax}(\mathcal{F}(q_N(x_t), q_M(x_t)))$$</p>
 <p>其中，$\mathcal{F}(\cdot, \cdot)$ 是一个对比操作符，用于放大深层中高置信度的预测，同时抑制浅层中可能具有误导性的模式 。</p>
 <p>ActLCD引入了一个二元动作变量 $a_t \in {0, 1}$，用于决定当前步是否激活层对比 。改进后的解码概率分布公式为 ：</p>
-<p>$$p(x_t|x_{&lt;t}) &#x3D; \text{softmax}(a_t \cdot \mathcal{F}(q_N(x_t), q_M(x_t)) + (1 - a_t) \cdot q_M(x_t))$$</p>
+<p>$$p(x_t|x _ {&lt;t}) &#x3D; \text{softmax}(a_t \cdot \mathcal{F}(q_N(x_t), q_M(x_t)) + (1 - a_t) \cdot q_M(x_t))$$</p>
 <ul>
 <li>当 $a_t &#x3D; 1$ 时，模型执行层对比解码（重点关注事实性）。</li>
 <li>当 $a_t &#x3D; 0$ 时，模型退回到标准的贪婪解码 $q_M(x_t)$（正常生成，不额外消耗对比计算）。</li>
 </ul>
 <p>为了学习到最优的动作变量 $a_t$，研究者将解码过程转化为一个马尔可夫决策过程（MDP），表示为 $\mathcal{M} &#x3D; (\mathcal{S}, \mathcal{A}, P_a, R)$ ：</p>
-<p><strong>状态 (State) $s_t$</strong>：由当前已生成上下文 $x_{&lt;t}$ 导出的模型内部特征（如中间层的 embeddings 和 logits）构成 。</p>
+<p><strong>状态 (State) $s_t$</strong>：由当前已生成上下文 $x _ {&lt;t}$ 导出的模型内部特征（如中间层的 embeddings 和 logits）构成 。</p>
 <p><strong>动作 (Action) $a_t$</strong>：动作空间为 ${0, 1}$，即是否激活层对比 。</p>
 <p><strong>奖励 (Reward) $R(s_t, a_t)$</strong>：这是一个序列级别的奖励，通过与真实的 token 级别标注（该 token 是否真的需要被纠正）进行对比来计算 。</p>
 <ul>
-<li><strong>真阳性 (True Positive)</strong>：正确地激活了层对比，奖励 $r_{tp} &#x3D; 1.0$ 。</li>
-<li><strong>真阴性 (True Negative)</strong>：正确地保持了不激活，奖励 $r_{tn} &#x3D; 2.0$（鼓励模型在不需要时保持高效）。</li>
-<li><strong>假阳性 (False Positive)</strong>：不必要的激活，惩罚 $r_{fp} &#x3D; -1.0$ 。</li>
-<li><strong>假阴性 (False Negative)</strong>：漏掉了必要的激活（可能导致严重幻觉），受到重罚 $r_{fn} &#x3D; -5.0$ 。</li>
+<li><strong>真阳性 (True Positive)</strong>：正确地激活了层对比，奖励 $r _ {tp} &#x3D; 1.0$ 。</li>
+<li><strong>真阴性 (True Negative)</strong>：正确地保持了不激活，奖励 $r _ {tn} &#x3D; 2.0$（鼓励模型在不需要时保持高效）。</li>
+<li><strong>假阳性 (False Positive)</strong>：不必要的激活，惩罚 $r _ {fp} &#x3D; -1.0$ 。</li>
+<li><strong>假阴性 (False Negative)</strong>：漏掉了必要的激活（可能导致严重幻觉），受到重罚 $r _ {fn} &#x3D; -5.0$ 。</li>
 </ul>
 <p>为了训练这个策略网络 $\pi_\theta(a_t|s_t)$，作者采用了离线强化学习框架 BCQ（Batch-Constrained deep Q-learning），分为两个阶段 ：</p>
 <p><strong>第一阶段：行为克隆 (Behavior Cloning, BC)</strong> 首先训练一个神经网络 $\pi_\phi$ 来模仿离线标注数据中的真实激活行为 。通过最小化交叉熵损失来优化：</p>
-<p>$$\mathcal{L}<em>{BC} &#x3D; -\sum_t \log \pi</em>\phi(a_t|s_t)$$</p>
+<p>$$\mathcal{L} _ {BC} &#x3D; -\sum_t \log \pi_\phi(a_t|s_t)$$</p>
 <p>这一步为后续的 Q 学习提供了一个极佳的初始化，并用于限制策略不要偏离真实数据分布太远 。</p>
 <p><strong>第二阶段：Q 学习 (Q-learning)</strong> 训练一个 Critic 网络 $Q_\theta$ 来预测状态-动作对的累积奖励期望 。为了防止模型在未见过的状态下盲目自信（外推误差），BCQ 施加了一个概率阈值 $\tau$ 。模型只能在行为克隆策略认为概率大于 $\tau$ 的“允许动作集合”中进行选择 ：</p>
-<p>$$\mathcal{A}<em>\phi(s</em>{t+1}) &#x3D; {a | [cite_start]\pi_\phi(a|s_{t+1}) &gt; \tau}$$</p>
+<p>$$\mathcal{A}<em>\phi(s _ {t+1}) &#x3D; {a | [cite_start]\pi</em>\phi(a|s _ {t+1}) &gt; \tau}$$</p>
 <p>Critic 网络的参数 $\theta$ 通过最小化时序差分（TD）误差进行更新 。</p>
 <p>在实际生成文本时，策略网络会在每生成一个词前，评估当前状态 $s_t$ 。它首先找出符合阈值条件的允许动作集合 $\mathcal{A}_\phi(s_t)$，然后选择其中 Q 值（预期回报）最高的动作 ：</p>
-<p>$$\pi_\theta &#x3D; \arg\max_{a \in \mathcal{A}<em>\phi(s_t)} Q</em>\theta(s_t, a)$$</p>
+<p>$$\pi_\theta &#x3D; \arg\max _ {a \in \mathcal{A}<em>\phi(s_t)} Q</em>\theta(s_t, a)$$</p>
 <p>由此动态决定是否调用层对比机制。</p>
 <h2 id="3-Shallow-Focus-Deep-Fixes-Enhancing-Shallow-Layers-Vision-Attention-Sinks-to-Alleviate-Hallucination-in-LVLMs"><a href="#3-Shallow-Focus-Deep-Fixes-Enhancing-Shallow-Layers-Vision-Attention-Sinks-to-Alleviate-Hallucination-in-LVLMs" class="headerlink" title="(3)Shallow Focus, Deep Fixes: Enhancing Shallow Layers Vision Attention Sinks to Alleviate Hallucination in LVLMs"></a>(3)Shallow Focus, Deep Fixes: Enhancing Shallow Layers Vision Attention Sinks to Alleviate Hallucination in LVLMs</h2><p>作者提出了一种名为 <strong>EVAS (Enhancing Vision Attention Sinks)</strong> 的免训练、即插即用的方法 。</p>
 <p>在模型的浅层（特别是第1和第2层），图像 token 的注意力汇聚呈现“密集（dense）”状态；而在深层，则变得“稀疏（sparse）” 。</p>
@@ -390,11 +390,16 @@
 <h3 id="前置定义"><a href="#前置定义" class="headerlink" title="前置定义"></a>前置定义</h3><p><strong>掩码矩阵 (Mask Matrix)</strong>：为了在计算注意力时忽略对角线元素（自身对自身的注意力），定义了一个掩码矩阵 $M$ ：</p>
 <p>$$M \leftarrow eye(r,c) - diag(1)$$</p>
 <p>这里 $eye(r,c)$ 是单位矩阵，把对角线元素设为 0 。</p>
-<p><strong>视觉汇聚 (Vision Sink)</strong>：假设 $h_{i,j}$ 是第 $i$ 层、第 $j$ 个注意力头（Head）的注意力图（Attention map） 。对于其中的某一列 $y$，如果它在图像 token 的范围内（例如索引 $k \in [36, 611]$），且其平均注意力得分大于某个阈值 $\beta$，则定义该列为一个“视觉汇聚” 。判断公式为：</p>
-<p>$$\frac{\sum_{x&#x3D;k}^{r} h_{i,j}[x][y] \cdot M}{r-k} &gt; \beta$$</p>
+<p><strong>视觉汇聚 (Vision Sink)</strong>：假设 $h _ {i,j}$ 是第 $i$ 层、第 $j$ 个注意力头（Head）的注意力图（Attention map） 。对于其中的某一列 $y$，如果它在图像 token 的范围内（例如索引 $k \in [36, 611]$），且其平均注意力得分大于某个阈值 $\beta$，则定义该列为一个“视觉汇聚” 。判断公式为：</p>
+<p>$$\frac{\sum _ {x&#x3D;k}^{r} h _ {i,j}[x][y] \cdot M}{r-k} &gt; \beta$$</p>
 <p><strong>密集视觉汇聚头 (Dense Vision Sink Head)</strong>：对于某个特定的注意力头 $(i, j)$，计算它内部满足上述“视觉汇聚”条件的列所占的比例，记为 $\alpha^{i,j}$ 。计算公式为：</p>
 <p>$$\alpha^{i,j} &#x3D; \frac{Num(vision_sink)}{576}$$</p>
 <p>如果这个比例超过了预设的阈值 $\gamma$，即 $\alpha^{i,j} \ge \gamma$，那么这个注意力头 $(i, j)$ 就被归类为“密集视觉汇聚头” 。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>在特定的浅层（比如第 1 层或第 2 层）中，遍历所有的注意力头（通常是 32 个） 。计算每个头包含的“视觉汇聚”数量 $C_{i,j}$ 。</p>
+<p>找出包含视觉汇聚数量<strong>最多</strong>的那个头的索引，记为 $n$ ：</p>
+<p>$$n &#x3D; \arg\max_{(C_{i,j},j) \in H} C_{i,j}$$</p>
+<p>提取这个具有最密集视觉汇聚的注意力头 $n$ 的注意力矩阵，并将其<strong>复制并覆盖</strong>给同一层的所有其他注意力头 ：</p>
+<p>$$A[i][j] &#x3D; A[i][n]$$</p>
 <h2 id="4"><a href="#4" class="headerlink" title="(4)"></a>(4)</h2><h2 id="5"><a href="#5" class="headerlink" title="(5)"></a>(5)</h2><h2 id="6"><a href="#6" class="headerlink" title="(6)"></a>(6)</h2><h2 id="7"><a href="#7" class="headerlink" title="(7)"></a>(7)</h2><h2 id="8"><a href="#8" class="headerlink" title="(8)"></a>(8)</h2><h2 id="9"><a href="#9" class="headerlink" title="(9)"></a>(9)</h2><h2 id="10"><a href="#10" class="headerlink" title="(10)"></a>(10)</h2><h2 id="11"><a href="#11" class="headerlink" title="(11)"></a>(11)</h2><h2 id="12"><a href="#12" class="headerlink" title="(12)"></a>(12)</h2><h2 id="13"><a href="#13" class="headerlink" title="(13)"></a>(13)</h2><h2 id="14"><a href="#14" class="headerlink" title="(14)"></a>(14)</h2><h2 id="15"><a href="#15" class="headerlink" title="(15)"></a>(15)</h2><h2 id="16"><a href="#16" class="headerlink" title="(16)"></a>(16)</h2><h2 id="17"><a href="#17" class="headerlink" title="(17)"></a>(17)</h2><h2 id="18"><a href="#18" class="headerlink" title="(18)"></a>(18)</h2><h2 id="19"><a href="#19" class="headerlink" title="(19)"></a>(19)</h2><h2 id="20"><a href="#20" class="headerlink" title="(20)"></a>(20)</h2>
                 
               </div>
