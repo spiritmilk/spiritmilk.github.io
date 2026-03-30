@@ -29,7 +29,7 @@
 <meta property="og:description" content="共20篇。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-31T04:23:31.000Z">
-<meta property="article:modified_time" content="2026-03-30T04:58:55.391Z">
+<meta property="article:modified_time" content="2026-03-30T05:05:56.769Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -378,7 +378,7 @@
 <p>$$\mathcal{L} _ {BC} &#x3D; -\sum_t \log \pi_\phi(a_t|s_t)$$</p>
 <p>这一步为后续的 Q 学习提供了一个极佳的初始化，并用于限制策略不要偏离真实数据分布太远 。</p>
 <p><strong>第二阶段：Q 学习 (Q-learning)</strong> 训练一个 Critic 网络 $Q_\theta$ 来预测状态-动作对的累积奖励期望 。为了防止模型在未见过的状态下盲目自信（外推误差），BCQ 施加了一个概率阈值 $\tau$ 。模型只能在行为克隆策略认为概率大于 $\tau$ 的“允许动作集合”中进行选择 ：</p>
-<p>$$\mathcal{A}<em>\phi(s _ {t+1}) &#x3D; {a | [cite_start]\pi</em>\phi(a|s _ {t+1}) &gt; \tau}$$</p>
+<p>$$\mathcal{A}<em>\phi(s _ {t+1}) &#x3D; \{a | \pi</em>\phi(a|s _ {t+1}) &gt; \tau\}$$</p>
 <p>Critic 网络的参数 $\theta$ 通过最小化时序差分（TD）误差进行更新 。</p>
 <p>在实际生成文本时，策略网络会在每生成一个词前，评估当前状态 $s_t$ 。它首先找出符合阈值条件的允许动作集合 $\mathcal{A}_\phi(s_t)$，然后选择其中 Q 值（预期回报）最高的动作 ：</p>
 <p>$$\pi_\theta &#x3D; \arg\max _ {a \in \mathcal{A}<em>\phi(s_t)} Q</em>\theta(s_t, a)$$</p>
