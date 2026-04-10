@@ -29,7 +29,7 @@
 <meta property="og:description" content="（CVPR 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-10T03:06:09.000Z">
-<meta property="article:modified_time" content="2026-04-10T04:25:46.633Z">
+<meta property="article:modified_time" content="2026-04-10T04:32:18.337Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -360,26 +360,26 @@
 <h3 id="指标一：注意力分散度得分-Attention-Dispersion-Score-ADS"><a href="#指标一：注意力分散度得分-Attention-Dispersion-Score-ADS" class="headerlink" title="指标一：注意力分散度得分 (Attention Dispersion Score, ADS)"></a><strong>指标一：注意力分散度得分 (Attention Dispersion Score, ADS)</strong></h3><p><strong>物理直觉：</strong> 真实词的注意力分布是紧凑且高度集中的（聚焦在物体上）；而幻觉词的注意力则如同一盘散沙，在无关区域漫无目的地发散 。</p>
 <p><strong>计算方法与公式：</strong></p>
 <p><strong>注意力均值图：</strong> 首先，计算生成词 $t$ 在第 $n$ 层所有注意力头（$H$ 个）上的平均注意力响应图 ：</p>
-<p>$$\overline{A}<em>{t}^{(n)}&#x3D;\frac{1}{H}\sum</em>{h&#x3D;1}^{H}A_{t}^{(n,h)}$$</p>
-<p><strong>前景与背景分离：</strong> 提取响应值最高的前 $x$% 的图像块作为“前景”（$\mathcal{F}<em>{t}^{(n)}$），其余为“背景”（$\mathcal{B}</em>{t}^{(n)}$）。</p>
-<p><strong>滤除噪点：</strong> 将前景图像块组合成 8-连通组件，并剔除面积过小的组件（过滤掉注意力陷阱），得到有效的组件集合 $\mathcal{C}_{t}^{(n)*}$ 。</p>
-<p><strong>计算前景块权重总和 ($m_{t}^{(n)}$)：</strong> 衡量有效组件捕获了多少注意力 ：</p>
-<p>$$m_{t}^{(n)}&#x3D;\sum_{C\in\mathcal{C}<em>{t}^{(n)*}}\sum</em>{p\in C}\overline{A}_{t}^{(n)}(p)$$</p>
-<p><strong>计算背景空间熵 ($\hat{H}_{t}^{(n)}$)：</strong> 对背景残余注意力进行归一化（得到 $E_{t}^{(n)}$）后，计算其香农熵以量化注意力的杂乱程度 ：</p>
-<p>$$\hat{H}<em>{t}^{(n)}&#x3D;\frac{-\sum</em>{p\in\mathcal{B}<em>{t}^{(n)}}E</em>{t}^{(n)}(p)log~E_{t}^{(n)}(p)}{log|\mathcal{P}|}$$</p>
+<p>$$\overline{A} _ {t}^{(n)}&#x3D;\frac{1}{H}\sum _ {h&#x3D;1}^{H}A _ {t}^{(n,h)}$$</p>
+<p><strong>前景与背景分离：</strong> 提取响应值最高的前 $x$% 的图像块作为“前景”（$\mathcal{F} _ {t}^{(n)}$），其余为“背景”（$\mathcal{B} _ {t}^{(n)}$）。</p>
+<p><strong>滤除噪点：</strong> 将前景图像块组合成 8-连通组件，并剔除面积过小的组件（过滤掉注意力陷阱），得到有效的组件集合 $\mathcal{C} _ {t}^{(n)*}$ 。</p>
+<p><strong>计算前景块权重总和 ($m _ {t}^{(n)}$)：</strong> 衡量有效组件捕获了多少注意力 ：</p>
+<p>$$m _ {t}^{(n)}&#x3D;\sum _ {C\in\mathcal{C} _ {t}^{(n)*}}\sum _ {p\in C}\overline{A} _ {t}^{(n)}(p)$$</p>
+<p><strong>计算背景空间熵 ($\hat{H} _ {t}^{(n)}$)：</strong> 对背景残余注意力进行归一化（得到 $E _ {t}^{(n)}$）后，计算其香农熵以量化注意力的杂乱程度 ：</p>
+<p>$$\hat{H} _ {t}^{(n)}&#x3D;\frac{-\sum _ {p\in\mathcal{B} _ {t}^{(n)}}E _ {t}^{(n)}(p)log~E _ {t}^{(n)}(p)}{log|\mathcal{P}|}$$</p>
 <p><strong>最终得分 (ADS)：</strong> 结合前景缺失程度和背景混乱程度 ：</p>
-<p>$$ADS_{t}^{(n)}&#x3D;(1-m_{t}^{(n)})\cdot\hat{H}_{t}^{(n)}$$</p>
+<p>$$ADS _ {t}^{(n)}&#x3D;(1-m _ {t}^{(n)})\cdot\hat{H} _ {t}^{(n)}$$</p>
 <p>(ADS 得分越高，说明注意力越分散，该词是幻觉的概率越大 。)</p>
 <h3 id="指标二：跨模态基础一致性-Cross-modal-Grounding-Consistency-CGC"><a href="#指标二：跨模态基础一致性-Cross-modal-Grounding-Consistency-CGC" class="headerlink" title="指标二：跨模态基础一致性 (Cross-modal Grounding Consistency, CGC)"></a><strong>指标二：跨模态基础一致性 (Cross-modal Grounding Consistency, CGC)</strong></h3><p><strong>物理直觉：</strong> 真实的词应该与图像中某些特定的区域在语义特征上高度一致；如果一个词跟图像里所有的局部区域都不怎么相似，那它大概率是语言模型自己“脑补”出来的先验偏见 。</p>
 <p><strong>计算方法与公式：</strong></p>
-<p><strong>特征余弦相似度：</strong> 在第 $n$ 层，计算 Token 的嵌入向量 $h_{t}^{(n)}$ 与每一个视觉图像块的嵌入向量 $v_{p}^{(n)}$ 之间的余弦相似度 ：</p>
-<p>$$S_{t,p}^{(n)}&#x3D;\frac{\langle h_{t}^{(n)},v_{p}^{(n)}\rangle}{||h_{t}^{(n)}||<em>{2}||v</em>{p}^{(n)}||_{2}}$$</p>
-<p><strong>提取局部对齐得分 ($C_{t}^{(n)}$)：</strong> 为了强调局部证据，提取相似度最高的 Top-$k$ 个图像块组成集合 $\mathcal{T}_{t}^{(n)}$，计算其平均相似度 ：</p>
-<p>$$C_{t}^{(n)}&#x3D;\frac{1}{k}\sum_{p\in\mathcal{T}<em>{t}^{(n)}}S</em>{t,p}^{(n)}$$</p>
+<p><strong>特征余弦相似度：</strong> 在第 $n$ 层，计算 Token 的嵌入向量 $h _ {t}^{(n)}$ 与每一个视觉图像块的嵌入向量 $v _ {p}^{(n)}$ 之间的余弦相似度 ：</p>
+<p>$$S _ {t,p}^{(n)}&#x3D;\frac{\langle h _ {t}^{(n)},v _ {p}^{(n)}\rangle}{||h _ {t}^{(n)}|| _ {2}||v _ {p}^{(n)}|| _ {2}}$$</p>
+<p><strong>提取局部对齐得分 ($C _ {t}^{(n)}$)：</strong> 为了强调局部证据，提取相似度最高的 Top-$k$ 个图像块组成集合 $\mathcal{T} _ {t}^{(n)}$，计算其平均相似度 ：</p>
+<p>$$C _ {t}^{(n)}&#x3D;\frac{1}{k}\sum _ {p\in\mathcal{T} _ {t}^{(n)}}S _ {t,p}^{(n)}$$</p>
 <p>(CGC 得分越低，说明视觉与语言的语义对齐越弱，越有可能是幻觉 。)</p>
 <h3 id="构建轻量级检测器"><a href="#构建轻量级检测器" class="headerlink" title="构建轻量级检测器"></a><strong>构建轻量级检测器</strong></h3><p>有了这两个强大的指标后，作者构建了一个非常简单且可解释性强的检测器 ：</p>
 <p>将某一个 Token 在模型所有 $L$ 层的 ADS 得分和 CGC 得分提取出来，拼接成一个长度为 $2L$ 的特征向量 ：</p>
-<p>$$f_{t}&#x3D;[ADS_{t}||C_{t}]\in\mathbb{R}^{2L}$$</p>
+<p>$$f _ {t}&#x3D;[ADS _ {t}||C _ {t}]\in\mathbb{R}^{2L}$$</p>
 <p>将这个特征向量输入到轻量级的机器学习分类器（如 XGBoost、随机森林或多层感知机 MLP）中，训练其预测该 Token 是否为幻觉。</p>
 
                 
