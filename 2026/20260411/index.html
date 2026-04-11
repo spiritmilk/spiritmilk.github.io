@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/411/1.png">
 <meta property="article:published_time" content="2026-04-10T16:02:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T08:24:17.400Z">
+<meta property="article:modified_time" content="2026-04-11T08:53:51.625Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -415,16 +415,16 @@
 <p>根据<strong>假设 2</strong>，除了 $t^*$（也就是上一次出现“哈利”的位置）之外，其他位置的期望值都是 0 。所以对上面公式求期望，可以极大地简化为只剩下一项：</p>
 <p>$$\mathbb{E}[\Delta l_n[w]] &#x3D; \lambda_{lr} \cdot \mathbb{E}[(e_w^\top v_{t^<em>}) \cdot (z_{t^</em>}^\top z_n)]$$</p>
 <p>接下来，我们将分别代入两种不同的目标（Target）$v_{t^*}$ 来观察结果。</p>
-<h4 id="情境-A：使用传统的“重建目标”（Reconstruction-Target）"><a href="#情境-A：使用传统的“重建目标”（Reconstruction-Target）" class="headerlink" title="情境 A：使用传统的“重建目标”（Reconstruction Target）"></a>情境 A：使用传统的“重建目标”（Reconstruction Target）</h4><p>传统的 TTT 试图记住当前 Token，所以目标值被设定为当前 Token 的词嵌入：$v_{t^<em>} &#x3D; e_{x_{t^</em>}} &#x3D; e_{k^*}$（目标是“哈利”）。</p>
+<h5 id="情境-A：使用传统的“重建目标”（Reconstruction-Target）"><a href="#情境-A：使用传统的“重建目标”（Reconstruction-Target）" class="headerlink" title="情境 A：使用传统的“重建目标”（Reconstruction Target）"></a>情境 A：使用传统的“重建目标”（Reconstruction Target）</h5><p>传统的 TTT 试图记住当前 Token，所以目标值被设定为当前 Token 的词嵌入：$v_{t^<em>} &#x3D; e_{x_{t^</em>}} &#x3D; e_{k^*}$（目标是“哈利”）。</p>
 <p>我们来看看这对预测正确答案 $v^*$（波特）的逻辑值有什么影响 ：</p>
 <p>$$\mathbb{E}[\Delta l_n[v^<em>]] &#x3D; \lambda_{lr} \cdot \mathbb{E}[(e_{v^</em>}^\top e_{k^<em>}) \cdot (z_{t^</em>}^\top z_n)]$$</p>
 <p>由于 $k^<em>$（哈利）和 $v^</em>$（波特）是两个不同的词，根据<strong>假设 1</strong>（不同词的内积极小，$\le \epsilon$），我们可以得出结论 ：</p>
 <p>$$|\mathbb{E}[\Delta l_n[v^*]]| \le \lambda_{lr} \cdot \epsilon \cdot c_{align}$$</p>
 <p><strong>结论 A：</strong> 传统目标对提升正确答案的概率<strong>毫无帮助</strong>（变化量极小，受制于 $\epsilon$）。它只是让模型记住了上下文里有个词，但没有建立上下文之间的因果预测关系。</p>
-<h4 id="情境-B：使用“语言模型对齐目标”（LM-Aligned-Target）"><a href="#情境-B：使用“语言模型对齐目标”（LM-Aligned-Target）" class="headerlink" title="情境 B：使用“语言模型对齐目标”（LM-Aligned Target）"></a>情境 B：使用“语言模型对齐目标”（LM-Aligned Target）</h4><p>作者提出的新方法，将目标值设定为下一个 Token 的词嵌入：$v_{t^<em>} &#x3D; e_{x_{t^</em>+1}} &#x3D; e_{v^*}$（目标是“波特”）。</p>
+<h5 id="情境-B：使用“语言模型对齐目标”（LM-Aligned-Target）"><a href="#情境-B：使用“语言模型对齐目标”（LM-Aligned-Target）" class="headerlink" title="情境 B：使用“语言模型对齐目标”（LM-Aligned Target）"></a>情境 B：使用“语言模型对齐目标”（LM-Aligned Target）</h5><p>作者提出的新方法，将目标值设定为下一个 Token 的词嵌入：$v_{t^<em>} &#x3D; e_{x_{t^</em>+1}} &#x3D; e_{v^*}$（目标是“波特”）。</p>
 <p>同样计算对正确答案 $v^*$ 的逻辑值影响：</p>
 <p>$$\mathbb{E}[\Delta l_n[v^<em>]] &#x3D; \lambda_{lr} \cdot \mathbb{E}[(e_{v^</em>}^\top e_{v^<em>}) \cdot (z_{t^</em>}^\top z_n)]$$</p>
-<p>此时出现了 $e_{v^<em>}^\top e_{v^</em>}$，也就是同一个词的内积！根据<strong>假设 1</strong>，它的值 $\ge c_{norm}^2$ ：</p>
+<p>此时出现了 $e_{v^<em>}^\top e_{v^</em>}$，也就是同一个词的内积。根据<strong>假设 1</strong>，它的值 $\ge c_{norm}^2$ ：</p>
 <p>$$\mathbb{E}[\Delta l_n[v^*]] \ge \lambda_{lr} \cdot c_{norm}^2 \cdot c_{align}$$</p>
 <p>并且，对于任何错误的答案 $w \ne v^<em>$，因为 $w$ 和 $v^</em>$ 不同，其逻辑值变化仍然被压制在微小的 $\epsilon$ 级别 ：</p>
 <p>$$|\mathbb{E}[\Delta l_n[w]]| \le \lambda_{lr} \cdot \epsilon \cdot c_{align}$$</p>
