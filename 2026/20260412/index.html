@@ -29,7 +29,7 @@
 <meta property="og:description" content="为什么异构模型难以融合？传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战： 拓扑结构不匹配 (Topology Mismatch)： 不同家族的模型在层数、隐藏层维度、注意力机制参数化和 MLP 结构上存在差异，直接进行参数算术">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-12T11:13:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T13:13:12.092Z">
+<meta property="article:modified_time" content="2026-04-11T14:59:35.154Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -367,8 +367,8 @@
 <p>这种设计保证了无论引入多少异构知识，它们都只能在目标模型原有的“基底”上进行线性组合，从而在数学上保证了迁移的稳定性。扰动上限可由下式证明 ：</p>
 <p>$$||\Delta W _ {t}^{g\prime}-\Delta W _ {t}^{g}|| _ {F}&#x3D;||\alpha _ {g}\Delta B _ {g}A _ {t}^{g}|| _ {F}\le|\alpha _ {g}||\Delta B _ {g}|| _ {F}||A _ {t}^{g}|| _ {2}$$</p>
 <p>这说明一旦 $A _ {t}^{g}$ 固定，干预的幅度就被 $\alpha _ {g}$ 和 $\Delta B _ {g}$ 明确控制了 。</p>
-<h3 id="拓扑对齐"><a href="#拓扑对齐" class="headerlink" title="拓扑对齐"></a>拓扑对齐</h3><p>这一步解决的是**“维度不同、架构不同怎么对应”**的问题。</p>
-<p><strong>构建上下文与特征提取：</strong> 模型首先通过尾部对齐（Tail-align）等策略，在功能上匹配目标模型和源模型的层和模块 。为了消除不同架构绝对维度的影响，模型提取权重矩阵的**行视图（Row View）**和**列视图（Column View）**，它们能保留矩阵的局部结构统计信息，且对维度变化具有鲁棒性 。</p>
+<h3 id="拓扑对齐"><a href="#拓扑对齐" class="headerlink" title="拓扑对齐"></a>拓扑对齐</h3><p>这一步解决的是“<strong>维度不同、架构不同怎么对应</strong>”的问题。</p>
+<p><strong>构建上下文与特征提取：</strong> 模型首先通过尾部对齐（Tail-align）等策略，在功能上匹配目标模型和源模型的层和模块 。为了消除不同架构绝对维度的影响，模型提取权重矩阵的行视图（Row View）和列视图（Column View），它们能保留矩阵的局部结构统计信息，且对维度变化具有鲁棒性 。</p>
 <p><strong>跨注意力超网络 (Cross-Attention HyperNet)：</strong> 提取出的特征在经过降噪（见下文）后，分别变为目标嵌入 $z _ {t}^{g}$ 和源嵌入 $Z _ {s}^{g}$ 。随后，它们进入一个多头跨注意力网络进行信息融合 。在这里，目标嵌入作为 Query，拼接后的多源嵌入作为 Key 和 Value ：</p>
 <p>$$H^{g}&#x3D;MHA(z _ {t}^{g}+E _ {pos},Z _ {s}^{g}+E _ {pos},Z _ {s}^{g}+E _ {pos})$$</p>
 <p>解码器基于融合后的特征 $H^{g}$ 输出块级变化量，并截取其中对应 $B$ 矩阵的部分作为最终的 $\Delta B _ {g}$ ：</p>
