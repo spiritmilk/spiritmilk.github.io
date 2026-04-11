@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/411/1.png">
 <meta property="article:published_time" content="2026-04-10T16:02:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T08:03:02.141Z">
+<meta property="article:modified_time" content="2026-04-11T08:24:17.400Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2.5k 字
         
       </span>
     
@@ -310,7 +310,7 @@
         
         
         
-          16 分钟
+          21 分钟
         
       </span>
     
@@ -398,16 +398,37 @@
 <h3 id="理论分析"><a href="#理论分析" class="headerlink" title="理论分析"></a>理论分析</h3><p>想象模型正在阅读一段文本，在之前的上下文中，出现过一个键值对（Key-Value pair）：$(x _ {t^\ast}, x _ {t^\ast+1}) &#x3D; (k^\ast, v^\ast)$，比如”哈利”($k^\ast$) 后面跟着”波特”($v^\ast$) 。</p>
 <p>现在，模型读到了当前位置 $n$（$n &gt; t^\ast$），当前的查询 Token $x_n &#x3D; k^\ast$（模型再次读到了“哈利”）。为了完成感应任务，模型必须正确预测下一个 Token 是 $x _ {n+1} &#x3D; v^\ast$（即预测出“波特”）。</p>
 <h4 id="核心假设"><a href="#核心假设" class="headerlink" title="核心假设"></a>核心假设</h4><p>作者首先提出了两个假设：</p>
-<p><strong>词嵌入的近似正交性 (Approximate Orthogonality of Embeddings)</strong> </p>
+<p><strong>假设1：词嵌入的近似正交性 (Approximate Orthogonality of Embeddings)</strong> </p>
 <ul>
 <li>不同的 Token 之间，它们的词嵌入向量（Embedding）几乎是正交的，即内积极小：$|e _ {w_i}^\top e _ {w_j}| \le \epsilon$。</li>
 <li>同一个 Token 自身的词嵌入向量有足够大的模长：$||e _ {w_i}||^2 \ge c _ {norm}^2 &gt; 0$。</li>
 </ul>
-<p><strong>键-查询对齐 (Key-Query Alignment)</strong> </p>
+<p><strong>假设2：键-查询对齐 (Key-Query Alignment)</strong> </p>
 <ul>
 <li>在当前查询位置 $n$（哈利）和过去出现的键位置 $t^\ast$（哈利），由于它们是同一个词，它们的中间激活值是高度对齐的：$\mathbb{E}[z _ {t^\ast}^\top z_n] &#x3D; c _ {align} &gt; 0$。</li>
 <li>对于上下文中其他无关的 Token 位置 $t$，它们与当前查询的期望相关性为 0：$\mathbb{E}[(V_t Z_t^\top)Z_n] &#x3D; 0$。</li>
 </ul>
+<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p>快权重 $W_{down}$ 在吸收了历史上下文后，发生了更新量 $\Delta W_{down}$ 。 这个更新量会直接改变当前位置预测任意词汇 $w$ 的逻辑值（Logit，即输出概率前的得分），记为 $\Delta l_n[w]$ 。</p>
+<p>根据 TTT 的更新规则，逻辑值的变化量可以展开为 ：</p>
+<p>$$\Delta l_n[w] &#x3D; \lambda_{lr} \sum_{t \in prior} (e_w^\top v_t) (z_t^\top z_n)$$</p>
+<p><em>(其中 $\lambda_{lr}$ 是学习率，$v_t$ 是我们设定的目标值，$z_t$ 和 $z_n$ 分别是历史和当前的激活值)</em></p>
+<p>根据<strong>假设 2</strong>，除了 $t^*$（也就是上一次出现“哈利”的位置）之外，其他位置的期望值都是 0 。所以对上面公式求期望，可以极大地简化为只剩下一项：</p>
+<p>$$\mathbb{E}[\Delta l_n[w]] &#x3D; \lambda_{lr} \cdot \mathbb{E}[(e_w^\top v_{t^<em>}) \cdot (z_{t^</em>}^\top z_n)]$$</p>
+<p>接下来，我们将分别代入两种不同的目标（Target）$v_{t^*}$ 来观察结果。</p>
+<h4 id="情境-A：使用传统的“重建目标”（Reconstruction-Target）"><a href="#情境-A：使用传统的“重建目标”（Reconstruction-Target）" class="headerlink" title="情境 A：使用传统的“重建目标”（Reconstruction Target）"></a>情境 A：使用传统的“重建目标”（Reconstruction Target）</h4><p>传统的 TTT 试图记住当前 Token，所以目标值被设定为当前 Token 的词嵌入：$v_{t^<em>} &#x3D; e_{x_{t^</em>}} &#x3D; e_{k^*}$（目标是“哈利”）。</p>
+<p>我们来看看这对预测正确答案 $v^*$（波特）的逻辑值有什么影响 ：</p>
+<p>$$\mathbb{E}[\Delta l_n[v^<em>]] &#x3D; \lambda_{lr} \cdot \mathbb{E}[(e_{v^</em>}^\top e_{k^<em>}) \cdot (z_{t^</em>}^\top z_n)]$$</p>
+<p>由于 $k^<em>$（哈利）和 $v^</em>$（波特）是两个不同的词，根据<strong>假设 1</strong>（不同词的内积极小，$\le \epsilon$），我们可以得出结论 ：</p>
+<p>$$|\mathbb{E}[\Delta l_n[v^*]]| \le \lambda_{lr} \cdot \epsilon \cdot c_{align}$$</p>
+<p><strong>结论 A：</strong> 传统目标对提升正确答案的概率<strong>毫无帮助</strong>（变化量极小，受制于 $\epsilon$）。它只是让模型记住了上下文里有个词，但没有建立上下文之间的因果预测关系。</p>
+<h4 id="情境-B：使用“语言模型对齐目标”（LM-Aligned-Target）"><a href="#情境-B：使用“语言模型对齐目标”（LM-Aligned-Target）" class="headerlink" title="情境 B：使用“语言模型对齐目标”（LM-Aligned Target）"></a>情境 B：使用“语言模型对齐目标”（LM-Aligned Target）</h4><p>作者提出的新方法，将目标值设定为下一个 Token 的词嵌入：$v_{t^<em>} &#x3D; e_{x_{t^</em>+1}} &#x3D; e_{v^*}$（目标是“波特”）。</p>
+<p>同样计算对正确答案 $v^*$ 的逻辑值影响：</p>
+<p>$$\mathbb{E}[\Delta l_n[v^<em>]] &#x3D; \lambda_{lr} \cdot \mathbb{E}[(e_{v^</em>}^\top e_{v^<em>}) \cdot (z_{t^</em>}^\top z_n)]$$</p>
+<p>此时出现了 $e_{v^<em>}^\top e_{v^</em>}$，也就是同一个词的内积！根据<strong>假设 1</strong>，它的值 $\ge c_{norm}^2$ ：</p>
+<p>$$\mathbb{E}[\Delta l_n[v^*]] \ge \lambda_{lr} \cdot c_{norm}^2 \cdot c_{align}$$</p>
+<p>并且，对于任何错误的答案 $w \ne v^<em>$，因为 $w$ 和 $v^</em>$ 不同，其逻辑值变化仍然被压制在微小的 $\epsilon$ 级别 ：</p>
+<p>$$|\mathbb{E}[\Delta l_n[w]]| \le \lambda_{lr} \cdot \epsilon \cdot c_{align}$$</p>
+<p><strong>结论 B：</strong> 论文提出的目标能够在数学期望上<strong>绝对保证</strong>提升正确下一个 Token 的逻辑值，同时保持其他错误 Token 的逻辑值基本不变 。</p>
 <h3 id="工程实现"><a href="#工程实现" class="headerlink" title="工程实现"></a>工程实现</h3><p>因为最终的权重更新规则非常简单（就是一系列外积的累加）：</p>
 <p>$$W _ {down}^ {(i)} &#x3D; W _ {down}^ {(0)} + \eta \sum _ {j&#x3D;1}^ {i} \hat{V} _ {[j]}^ \top Z _ {[j]}$$</p>
 <p>这种<strong>结合律（Associative）特性</strong>使得它极其适合现代 GPU&#x2F;TPU 上的“上下文并行” 。在实现时，可以通过极高效率的并行前缀和（Parallel Prefix Sum）算法，一次性计算出所有块的更新量 $\Delta S_i$ ：</p>
