@@ -29,7 +29,7 @@
 <meta property="og:description" content="为什么异构模型难以融合？传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战： 拓扑结构不匹配 (Topology Mismatch)： 不同家族的模型在层数、隐藏层维度、注意力机制参数化和 MLP 结构上存在差异，直接进行参数算术">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-12T11:13:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T13:06:56.495Z">
+<meta property="article:modified_time" content="2026-04-11T13:07:30.317Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.3k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -381,6 +381,8 @@
 <p><strong>修正分布匹配 (Rectified Distribution Matching, RDM)：</strong> 由于源模型结构差异大，融合时潜在空间的分布容易碎片化（导致无法有效算注意力） 。作者引入了 RDM 损失函数，强制这些隐藏层特征 $z$ 匹配到一个标准的高斯先验分布 $y\sim\mathcal{N}(\mu_{target},\sigma_{target}^{2})$ 。这使用了基于切片 Wasserstein 距离的替代方案 ：</p>
 <p>$$\mathcal{L}_{rdm}(z)&#x3D;MSE(sort(P\cdot ReLU(z)),sort(P\cdot ReLU(y)))$$</p>
 <p>其中 $P$ 是随机投影矩阵 。这保证了特征流形足够平滑和稳定 。</p>
+<h3 id="动态补丁与优化"><a href="#动态补丁与优化" class="headerlink" title="动态补丁与优化"></a>动态补丁与优化</h3><p>为了不破坏目标模型原本的适配器参数，训练过程采用了**动态补丁（Dynamic Patching）**机制。</p>
+<p>在每次前向传播时，模型利用少量的混合回放数据（Mixed replay data），临时将目标 $B$ 矩阵替换为 $B_{t}^{g}+\alpha_{g}\Delta B_{g}$ 来计算语言建模损失（Language Modeling Loss），并在反向传播后立刻恢复原权重 。</p>
 
                 
               </div>
