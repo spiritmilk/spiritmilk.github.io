@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2026 Oral） 字节SEED团队。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-10T16:02:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T04:14:57.687Z">
+<meta property="article:modified_time" content="2026-04-11T04:16:56.093Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          690 字
+          775 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -368,9 +368,13 @@
 <li><strong>高效的块状（Chunk-Wise）更新机制</strong>：该方法放弃了低效的逐 Token 更新，转而采用可扩展的块状更新规则 。因为这种设计是对注意力机制的补充而非替代，所以可以使用更大的文本块，从而在现代加速器上实现极高的计算吞吐量，且完美兼容上下文并行（Context Parallelism）技术 。</li>
 <li><strong>对齐语言模型的优化目标（LM-Aligned Objective）</strong>：团队引入了一个具有理论支撑的新目标，明确与“下一个 Token 预测（NTP）”任务对齐 。通过使用一维卷积（Conv1D）和投影矩阵将未来 Token 的信息融入目标值（$V &#x3D; Conv1D(X_0)W _ {target}$），该目标会鼓励快权重存储对预测未来文本真正有用的上下文信息，这比简单的重建目标要高效得多 。</li>
 </ul>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>在现代 Transformer 架构中，最常见的 MLP 变体是门控 MLP（Gated MLP）。给定隐藏层表示 $H$，其标准的前向传播公式为 ：</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="原地自适应：重用-MLP-模块-In-Place-Adaptation"><a href="#原地自适应：重用-MLP-模块-In-Place-Adaptation" class="headerlink" title="原地自适应：重用 MLP 模块 (In-Place Adaptation)"></a>原地自适应：重用 MLP 模块 (In-Place Adaptation)</h3><p>在现代 Transformer 架构中，最常见的 MLP 变体是门控 MLP（Gated MLP）。给定隐藏层表示 $H$，其标准的前向传播公式为 ：</p>
 <p>$$O &#x3D; (\phi(HW _ {gate}^\top) \odot (HW _ {up}^\top))W _ {down}^\top$$</p>
-
+<ul>
+<li>H为隐藏表示</li>
+</ul>
+<p>In-Place TTT 框架将 $W_{up}$ 和 $W_{gate}$ 视为在预训练阶段冻结的“慢权重（Slow Weights）”，而将最后的投影矩阵 $W_{down}$ 视作可以在推理时动态更新的“快权重（Fast Weights）” 。这样就不需要修改原本的模型结构。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
                 
               </div>
             
