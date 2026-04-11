@@ -21,15 +21,15 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="为什么异构模型难以融合？传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战： 拓扑结构不匹配 (Topology Mismatch)： 不同家族的模型在层数、隐藏层维度、注意力机制参数化和 MLP 结构上存在差异，直接进行参数算术">
+    <meta name="description" content="（arxiv 2026）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CAN HETEROGENEOUS LANGUAGE MODELS BE FUSED?">
 <meta property="og:url" content="https://lijianxiong.space/2026/20260412/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="为什么异构模型难以融合？传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战： 拓扑结构不匹配 (Topology Mismatch)： 不同家族的模型在层数、隐藏层维度、注意力机制参数化和 MLP 结构上存在差异，直接进行参数算术">
+<meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-12T11:13:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T15:45:35.048Z">
+<meta property="article:modified_time" content="2026-04-11T15:46:34.557Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -350,7 +350,10 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><h2 id="为什么异构模型难以融合？"><a href="#为什么异构模型难以融合？" class="headerlink" title="为什么异构模型难以融合？"></a>为什么异构模型难以融合？</h2><p>传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战：</p>
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（arxiv 2026）</p>
+<span id="more"></span>
+
+<h2 id="为什么异构模型难以融合？"><a href="#为什么异构模型难以融合？" class="headerlink" title="为什么异构模型难以融合？"></a>为什么异构模型难以融合？</h2><p>传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战：</p>
 <p><strong>拓扑结构不匹配 (Topology Mismatch)：</strong> 不同家族的模型在层数、隐藏层维度、注意力机制参数化和 MLP 结构上存在差异，直接进行参数算术运算毫无意义 。</p>
 <p><strong>潜在基底未对齐 (Latent Basis Misalignment)：</strong> 即使是功能相似的模块，它们的低秩适配器（LoRA）也可能在不同的坐标系中表示，导致直接迁移不稳定 。</p>
 <p><strong>跨源冲突放大 (Cross-source Conflict Amplification)：</strong> 当融合多个异构专家时，特定架构的特征和噪声信号会叠加而非抵消，从而淹没有用的信号 。</p>
