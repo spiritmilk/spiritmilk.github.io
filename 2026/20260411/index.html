@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2026 Oral） 字节SEED团队。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-10T16:02:36.000Z">
-<meta property="article:modified_time" content="2026-04-10T16:02:28.343Z">
+<meta property="article:modified_time" content="2026-04-11T04:14:57.687Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6 字
+          690 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -354,6 +354,22 @@
 <p>字节SEED团队。</p>
 <hr>
 <span id="more"></span>
+
+<h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p><strong>“先训练后部署”的瓶颈</strong>：当前的大语言模型普遍采用静态的范式，这意味着模型一旦部署，其权重就固定了，无法根据现实世界中源源不断的新信息进行动态调整 。</p>
+<p><strong>传统 TTT 方法的障碍</strong>：测试时训练（Test-Time Training, 简称 TTT）机制允许模型在推理时更新一小部分参数（即“快权重”），但在 LLM 生态中落地时面临三大障碍 ：</p>
+<ul>
+<li><strong>架构不兼容</strong>：现有方法通常引入全新的特殊层来取代注意力机制，这要求极其昂贵的“从头预训练”过程，难以直接应用于现有的百亿参数模型 。</li>
+<li><strong>计算效率低下</strong>：传统的 TTT 更新是逐 Token（per-token）进行的，这种串行操作极大地限制了现代硬件（如 GPU&#x2F;TPU）的大规模并行计算能力 。</li>
+<li><strong>优化目标不匹配</strong>：过去 TTT 多采用通用的“重建（reconstruction）”目标，但这并没有专门针对自回归语言模型的“下一个 Token 预测（Next-Token Prediction）”任务进行优化 。</li>
+</ul>
+<p>为了克服上述障碍，研究团队提出了 In-Place TTT 框架，包含三大核心设计：</p>
+<ul>
+<li><strong>原地（In-Place）自适应改造</strong>：该框架没有引入新的网络层，而是巧妙地将 Transformer 中无处不在的多层感知机（MLP）模块的最终投影矩阵（$W _ {down}$）重新用作可适应的“快权重” 。这种“即插即用”的设计不需要修改模型架构，保留了预训练权重的完整性，避免了从头重训的巨大成本 。</li>
+<li><strong>高效的块状（Chunk-Wise）更新机制</strong>：该方法放弃了低效的逐 Token 更新，转而采用可扩展的块状更新规则 。因为这种设计是对注意力机制的补充而非替代，所以可以使用更大的文本块，从而在现代加速器上实现极高的计算吞吐量，且完美兼容上下文并行（Context Parallelism）技术 。</li>
+<li><strong>对齐语言模型的优化目标（LM-Aligned Objective）</strong>：团队引入了一个具有理论支撑的新目标，明确与“下一个 Token 预测（NTP）”任务对齐 。通过使用一维卷积（Conv1D）和投影矩阵将未来 Token 的信息融入目标值（$V &#x3D; Conv1D(X_0)W _ {target}$），该目标会鼓励快权重存储对预测未来文本真正有用的上下文信息，这比简单的重建目标要高效得多 。</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>在现代 Transformer 架构中，最常见的 MLP 变体是门控 MLP（Gated MLP）。给定隐藏层表示 $H$，其标准的前向传播公式为 ：</p>
+<p>$$O &#x3D; (\phi(HW _ {gate}^\top) \odot (HW _ {up}^\top))W _ {down}^\top$$</p>
 
                 
               </div>
