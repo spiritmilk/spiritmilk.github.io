@@ -29,7 +29,7 @@
 <meta property="og:description" content="为什么异构模型难以融合？传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战： 拓扑结构不匹配 (Topology Mismatch)： 不同家族的模型在层数、隐藏层维度、注意力机制参数化和 MLP 结构上存在差异，直接进行参数算术">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-12T11:13:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T14:59:35.154Z">
+<meta property="article:modified_time" content="2026-04-11T15:23:56.507Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.5k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          13 分钟
+          22 分钟
         
       </span>
     
@@ -381,7 +381,53 @@
 <p><strong>修正分布匹配 (Rectified Distribution Matching, RDM)：</strong> 由于源模型结构差异大，融合时潜在空间的分布容易碎片化（导致无法有效算注意力） 。作者引入了 RDM 损失函数，强制这些隐藏层特征 $z$ 匹配到一个标准的高斯先验分布 $y\sim\mathcal{N}(\mu _ {target},\sigma _ {target}^{2})$ 。这使用了基于切片 Wasserstein 距离的替代方案 ：</p>
 <p>$$\mathcal{L} _ {rdm}(z)&#x3D;MSE(sort(P\cdot ReLU(z)),sort(P\cdot ReLU(y)))$$</p>
 <p>其中 $P$ 是随机投影矩阵 。这保证了特征流形足够平滑和稳定 。</p>
-<h3 id="动态补丁与优化"><a href="#动态补丁与优化" class="headerlink" title="动态补丁与优化"></a>动态补丁与优化</h3><p>为了不破坏目标模型原本的适配器参数，训练过程采用了**动态补丁（Dynamic Patching）**机制。</p>
+<blockquote>
+<p>一维空间中计算两个经验分布的 Wasserstein-2 距离有一个极简的闭式解（Closed-form solution）：只需要将两组一维数据点分别从小到大排序 (sort)，然后计算对应位置元素之间的均方误差 (MSE) 即可 。</p>
+<p>证明：</p>
+<p>假设我们有两个一维经验分布，它们分别由 $n$ 个数据点组成：</p>
+<ul>
+<li>集合 $X &#x3D; {x_1, x_2, \dots, x_n}$</li>
+<li>集合 $Y &#x3D; {y_1, y_2, \dots, y_n}$</li>
+</ul>
+<p>由于它们是离散的经验分布，每个数据点的权重相等（均为 $\frac{1}{n}$）。Wasserstein 距离（即最优传输问题）的核心目的，是寻找一种<strong>映射关系（配对方式）</strong>，使得将集合 $X$ 搬运到集合 $Y$ 的总代价最小。</p>
+<p>在数学上，因为两组点数量相等，这种配对可以表示为一个对索引 ${1, 2, \dots, n}$ 的<strong>排列 (Permutation)</strong>，记作 $\sigma$。也就是说，我们将 $x_i$ 搬运到 $y_{\sigma(i)}$。</p>
+<p>Wasserstein-2 距离的平方（即最优传输代价）定义为所有可能排列中，欧式距离平方和的最小值：</p>
+<p>$$W_2^2(X, Y) &#x3D; \min_{\sigma} \frac{1}{n} \sum_{i&#x3D;1}^n (x_i - y_{\sigma(i)})^2$$</p>
+<p>我们将求和公式内部的平方项展开：</p>
+<p>$$(x_i - y_{\sigma(i)})^2 &#x3D; x_i^2 - 2x_i y_{\sigma(i)} + y_{\sigma(i)}^2$$</p>
+<p>把求和符号放进去，代价函数可以写成：</p>
+<p>$$\sum_{i&#x3D;1}^n (x_i - y_{\sigma(i)})^2 &#x3D; \sum_{i&#x3D;1}^n x_i^2 - 2 \sum_{i&#x3D;1}^n x_i y_{\sigma(i)} + \sum_{i&#x3D;1}^n y_{\sigma(i)}^2$$</p>
+<p>观察这个展开式：</p>
+<ol>
+<li>第一项 $\sum_{i&#x3D;1}^n x_i^2$ 是集合 $X$ 中所有元素的平方和，这是一个<strong>常数</strong>，与排列 $\sigma$ 无关。</li>
+<li>第三项 $\sum_{i&#x3D;1}^n y_{\sigma(i)}^2$ 无论你怎么打乱顺序，它终究只是把集合 $Y$ 中所有元素的平方加了一遍，它也等于 $\sum_{i&#x3D;1}^n y_i^2$，同样是一个<strong>常数</strong>。</li>
+</ol>
+<p>因此，要使得总代价 $\sum_{i&#x3D;1}^n (x_i - y_{\sigma(i)})^2$ <strong>最小</strong>，我们只需要让中间那个被减去的交叉项 $\sum_{i&#x3D;1}^n x_i y_{\sigma(i)}$ <strong>最大</strong>。</p>
+<p>这就把最优传输问题转化为了一个最大化点积的问题：</p>
+<p>$$\text{目标：寻找排列 } \sigma \text{，使得 } \sum_{i&#x3D;1}^n x_i y_{\sigma(i)} \text{ 最大化。}$$</p>
+<h3 id="3-引入排序不等式-Rearrangement-Inequality"><a href="#3-引入排序不等式-Rearrangement-Inequality" class="headerlink" title="3. 引入排序不等式 (Rearrangement Inequality)"></a>3. 引入排序不等式 (Rearrangement Inequality)</h3><p>这是数学证明中最关键的一步。高中数学竞赛中常见的<strong>排序不等式</strong>告诉我们这样一个真理：</p>
+<p>对于两组实数，如果我们将它们分别从小到大排序，使得：</p>
+<p>$$x_{(1)} \le x_{(2)} \le \dots \le x_{(n)}$$</p>
+<p>$$y_{(1)} \le y_{(2)} \le \dots \le y_{(n)}$$</p>
+<p>（注：带括号的下标 $(i)$ 表示排序后的第 $i$ 个元素）</p>
+<p>那么，两组数两两相乘的求和，存在以下规律：</p>
+<ul>
+<li><strong>反序和最小：</strong> 大配小，小配大。</li>
+<li><strong>乱序和居中：</strong> 随机配对。</li>
+<li><strong>同序和最大：</strong> 大配大，小配小。即 $\sum_{i&#x3D;1}^n x_{(i)} y_{(i)}$ 是所有可能排列中最大的。</li>
+</ul>
+<h3 id="4-得出结论"><a href="#4-得出结论" class="headerlink" title="4. 得出结论"></a>4. 得出结论</h3><p>回到我们的第 2 步，为了最小化 Wasserstein-2 距离，我们需要最大化 $\sum_{i&#x3D;1}^n x_i y_{\sigma(i)}$。</p>
+<p>根据排序不等式，要使这个乘积之和最大，最优的映射策略 $\sigma^<em>$ 就是</em>*“同序配对”**：</p>
+<p>让 $X$ 中最小的元素去匹配 $Y$ 中最小的元素，次小的匹配次小的，最大的匹配最大的。</p>
+<p>因此，最优传输代价（即 $W_2^2$ 距离）就是：</p>
+<p>$$W_2^2(X, Y) &#x3D; \frac{1}{n} \sum_{i&#x3D;1}^n (x_{(i)} - y_{(i)})^2$$</p>
+<p><strong>补充</strong>：更高维度的普适视角（逆 CDF 公式）</p>
+<p>从概率论的角度来看，一维空间中两个连续概率分布 $\mu$ 和 $\nu$ 的 Wasserstein-p 距离有一个普适的解析解：</p>
+<p>$$W_p^p(\mu, \nu) &#x3D; \int_0^1 |F_\mu^{-1}(t) - F_\nu^{-1}(t)|^p dt$$</p>
+<p>其中 $F^{-1}(t)$ 是分布的累积分布函数 (CDF) 的逆函数（即分位数函数 Quantile Function）。</p>
+<p>对于由 $n$ 个离散点组成的经验分布，其 CDF 是一个阶梯函数。当你计算它们的逆 CDF 的积分时，积分区间被等分为 $n$ 份，每一份刚好对应排序后的一个数据点。积分的离散化结果，精确等同于对排序后的数组求均方误差 (MSE)。</p>
+</blockquote>
+<h3 id="动态补丁与优化"><a href="#动态补丁与优化" class="headerlink" title="动态补丁与优化"></a>动态补丁与优化</h3><p>为了不破坏目标模型原本的适配器参数，训练过程采用了<strong>动态补丁</strong>（Dynamic Patching）机制。</p>
 <p>在每次前向传播时，模型利用少量的混合回放数据（Mixed replay data），临时将目标 $B$ 矩阵替换为 $B _ {t}^{g}+\alpha _ {g}\Delta B _ {g}$ 来计算语言建模损失（Language Modeling Loss），并在反向传播后立刻恢复原权重 。</p>
 <p>最终优化的总损失函数结合了语言建模损失 $\mathcal{L} _ {lm}$ 和双向的特征正则化损失 $\mathcal{L} _ {rdm}$ ：</p>
 <p>$$min _ {\{\alpha _ {g},\phi\}}\mathcal{L} _ {lm}(\mathcal{D})+\lambda _ {reg}\frac{1}{G}\sum _ {g&#x3D;1}^{G}(\mathcal{L} _ {rdm}(z _ {t}^{g})+\mathcal{L} _ {rdm}(Z _ {s}^{g}))$$</p>
