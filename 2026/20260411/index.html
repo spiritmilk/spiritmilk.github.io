@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2026 Oral） 字节SEED团队。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-10T16:02:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T04:16:56.093Z">
+<meta property="article:modified_time" content="2026-04-11T04:28:06.820Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          775 字
+          1.5k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          7 分钟
+          13 分钟
         
       </span>
     
@@ -374,7 +374,30 @@
 <li>H为隐藏表示</li>
 </ul>
 <p>In-Place TTT 框架将 $W_{up}$ 和 $W_{gate}$ 视为在预训练阶段冻结的“慢权重（Slow Weights）”，而将最后的投影矩阵 $W_{down}$ 视作可以在推理时动态更新的“快权重（Fast Weights）” 。这样就不需要修改原本的模型结构。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+<h3 id="高效的块状更新机制-Chunk-Wise-Updates"><a href="#高效的块状更新机制-Chunk-Wise-Updates" class="headerlink" title="高效的块状更新机制 (Chunk-Wise Updates)"></a>高效的块状更新机制 (Chunk-Wise Updates)</h3><p>为了解决逐个 Token 更新带来的低效问题，该框架将输入序列划分为多个块（Chunks）进行处理 。</p>
+<p>设中间激活值为 $Z &#x3D; \phi(HW_{gate}^\top) \odot (HW_{up}^\top)$。我们将激活值 $Z$、目标值 $V$ 和输出 $O$ 划分为 $k$ 个大小为 $C$ 的非重叠块。对于第 $i$ 个块，记为 $Z_{[i]}, V_{[i]}, O_{[i]}$ 。</p>
+<p>初始快权重设为 $W_{down}^{(0)} &#x3D; W_{down}$。对于序列中的每一个块 $i$，交替执行以下两步 ：</p>
+<p><strong>步骤一：应用 (Apply Operation)</strong></p>
+<p>使用当前的快权重处理当前块的特征，得到输出：</p>
+<p>$$O_{[i]} &#x3D; Z_{[i]} (W_{down}^{(i)})^\top$$</p>
+<p><strong>步骤二：更新 (Update Operation)</strong></p>
+<p>使用梯度下降法更新快权重，使其能够记住当前块的信息（其中 $\eta$ 为学习率，$\mathcal{L}$ 为损失函数）：</p>
+<p>$$W_{down}^{(i+1)} &#x3D; W_{down}^{(i)} - \eta \nabla_{W} \mathcal{L}(Z_{[i]}(W_{down}^{(i)})^\top, V_{[i]})$$</p>
+<h3 id="对齐语言模型的目标函数-LM-Aligned-Objective"><a href="#对齐语言模型的目标函数-LM-Aligned-Objective" class="headerlink" title="对齐语言模型的目标函数 (LM-Aligned Objective)"></a>对齐语言模型的目标函数 (LM-Aligned Objective)</h3><p>这是论文中最核心的理论贡献。传统的 TTT 方法通常使用简单的“重建”目标，即让模型记住当前的 Token（目标值设为当前 Token 的嵌入）。但这并不符合语言模型的核心任务——<strong>下一个 Token 预测（Next-Token Prediction, NTP）</strong> 。</p>
+<p>为了让快权重能够压缩并存储对<strong>预测未来</strong>有用的信息，论文设计了一个包含未来 Token 信息的目标值 $\hat{V}$ ：</p>
+<p>$$\hat{V} &#x3D; Conv1D(X_0)W_{target}$$</p>
+<p>其中，$X_0$ 是原始 Token 的嵌入，$Conv1D(\cdot)$ 是一维卷积操作（用于捕捉局部的未来上下文），$W_{target}$ 是一个可训练的投影矩阵 。</p>
+<p>为了简化计算，损失函数 $\mathcal{L}$ 被定义为负的内积相似度（即促使激活值与目标值尽可能对齐）：</p>
+<p>$$\mathcal{L}(\cdot, \cdot) &#x3D; - \langle \cdot, \cdot \rangle_F$$</p>
+<p>将这个简单的损失函数代入前面的“块状更新”梯度公式中，得到了一个极为优雅且易于计算的更新规则 ：</p>
+<p>$$W_{down}^{(i)} &#x3D; W_{down}^{(i-1)} + \eta \hat{V}<em>{[i]}^\top Z</em>{[i]}$$</p>
+<p>这个公式表明：每次更新，实际上就是把当前块的中间激活 $Z_{[i]}$ 和包含未来信息的 $\hat{V}_{[i]}$ 做外积，然后累加到原有的投影矩阵中。</p>
+<h3 id="工程实现"><a href="#工程实现" class="headerlink" title="工程实现"></a>工程实现</h3><p>因为最终的权重更新规则非常简单（就是一系列外积的累加）：</p>
+<p>$$W_{down}^{(i)} &#x3D; W_{down}^{(0)} + \eta \sum_{j&#x3D;1}^{i} \hat{V}<em>{[j]}^\top Z</em>{[j]}$$</p>
+<p>这种<strong>结合律（Associative）特性</strong>使得它极其适合现代 GPU&#x2F;TPU 上的“上下文并行” 。在实现时，可以通过极高效率的并行前缀和（Parallel Prefix Sum）算法，一次性计算出所有块的更新量 $\Delta S_i$ ：</p>
+<p>$$\Delta S_i &#x3D; \sum_{j&#x3D;1}^{i-1} \Delta W_j$$</p>
+<p>然后再将这些更新量应用到各个块的特征计算中 。这既保证了严格的因果时序（不会泄露未来信息），又彻底释放了硬件的并行计算能力 。</p>
+
                 
               </div>
             
