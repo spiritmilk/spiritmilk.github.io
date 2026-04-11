@@ -29,7 +29,7 @@
 <meta property="og:description" content="为什么异构模型难以融合？传统的模型融合技术（Model Merging）在同构模型（基于相同预训练基座、具有相同架构）上取得了巨大成功，但在开放的模型生态中，往往需要结合不同家族的优秀模型 。直接在权重空间对异构模型进行融合会面临三个根本性挑战： 拓扑结构不匹配 (Topology Mismatch)： 不同家族的模型在层数、隐藏层维度、注意力机制参数化和 MLP 结构上存在差异，直接进行参数算术">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-12T11:13:36.000Z">
-<meta property="article:modified_time" content="2026-04-11T13:10:56.624Z">
+<meta property="article:modified_time" content="2026-04-11T13:11:40.851Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -384,7 +384,7 @@
 <h3 id="动态补丁与优化"><a href="#动态补丁与优化" class="headerlink" title="动态补丁与优化"></a>动态补丁与优化</h3><p>为了不破坏目标模型原本的适配器参数，训练过程采用了**动态补丁（Dynamic Patching）**机制。</p>
 <p>在每次前向传播时，模型利用少量的混合回放数据（Mixed replay data），临时将目标 $B$ 矩阵替换为 $B _ {t}^{g}+\alpha _ {g}\Delta B _ {g}$ 来计算语言建模损失（Language Modeling Loss），并在反向传播后立刻恢复原权重 。</p>
 <p>最终优化的总损失函数结合了语言建模损失 $\mathcal{L} _ {lm}$ 和双向的特征正则化损失 $\mathcal{L} _ {rdm}$ ：</p>
-<p>$$+\lambda _ {reg}\frac{1}{G}\sum _ {g&#x3D;1}^{G}(\mathcal{L} _ {rdm}(z _ {t}^{g})+\mathcal{L} _ {rdm}(Z _ {s}^{g}))$$</p>
+<p>$$min _ {\{\alpha _ {g},\phi\}}\mathcal{L} _ {lm}(\mathcal{D})+\lambda _ {reg}\frac{1}{G}\sum _ {g&#x3D;1}^{G}(\mathcal{L} _ {rdm}(z _ {t}^{g})+\mathcal{L} _ {rdm}(Z _ {s}^{g}))$$</p>
 <p>其中，$\phi$ 代表迁移网络的所有参数，$G$ 是激活的模块组数量 。训练完成后，只需再跑一次网络输出 $\Delta B _ {g}$，即可永久注入模型，生成最终的融合权重 。</p>
 
                 
