@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-12T03:59:58.000Z">
-<meta property="article:modified_time" content="2026-04-12T04:45:55.020Z">
+<meta property="article:modified_time" content="2026-04-12T04:55:06.986Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -297,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.3k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
         
-          10 分钟
+          11 分钟
         
       </span>
     
@@ -364,6 +364,10 @@
 <p><strong>生成查询：</strong> 模型在推理时，系统会插入一段“思维劫持（thought-hijacking）”提示词，强制模型用一句话总结它当前遇到的瓶颈，生成检索查询 $\tilde{q}$。</p>
 <p><strong>检索：</strong> 使用密集检索器，根据 $\tilde{q}$ 找到知识库中余弦相似度最高的 $k$ 个子问题及其对应的子程序，记为 ${(\hat{q}<em>{j}, \hat{s}</em>{j})}_{j&#x3D;1}^{k}$。</p>
 <p><strong>知识注入：</strong> 对于每一个检索到的知识点，系统会以特定的格式（<code>[hint] ... [end of hint]</code>）将其直接插入模型正在生成的思维流中 。随后，模型以这部分过程知识作为“隐式先验（implicit procedural prior）”继续往下推理。</p>
+<p>为了防止模型“跑偏”，作者在插入 <code>[end of hint]</code> 之后，紧接着人为地<strong>替模型写了一个词：“Okay,”（好的，）</strong> 。 大模型本质上是“接龙机器”（自回归生成）。当模型看到它最近的上下文是：</p>
+<blockquote>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">[<span class="hljs-keyword">hint</span>] 这是一段解题提示：应该先用海伦公式... [end of <span class="hljs-keyword">hint</span>] Okay,<br></code></pre></td></tr></table></figure></blockquote>
+<p>它在预测下一个 Token 时，逻辑会被顺理成章地引导为：“好的，既然我看到了这个提示，那我就顺着这个提示继续算吧。” 于是，模型就会自然而然地基于检索到的过程先验知识继续进行推理 。</p>
 <h2 id="多次采样与过滤"><a href="#多次采样与过滤" class="headerlink" title="多次采样与过滤"></a>多次采样与过滤</h2><p>给定一定的计算预算（允许模型生成 $m$ 个答案），我们该如何分配这些预算，并从中挑出最正确的答案？</p>
 <h3 id="步骤-1：预算分配与采样"><a href="#步骤-1：预算分配与采样" class="headerlink" title="步骤 1：预算分配与采样"></a>步骤 1：预算分配与采样</h3><p>假设总采样预算为 $m$，检索到了 $k$ 个子程序 ${(\hat{q}<em>{j}, \hat{s}</em>{j})}<em>{j&#x3D;1}^{k}$ 。 系统为每个检索到的子程序平均分配采样次数，即每个子程序被探索 $\lfloor m&#x2F;k \rfloor$ 次 。 由此产生了一个候选轨迹池 ${\pi</em>{j,l}}$，其中：</p>
 <ul>
