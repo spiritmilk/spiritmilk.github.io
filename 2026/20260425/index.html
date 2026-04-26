@@ -29,7 +29,7 @@
 <meta property="og:description" content="NeurIPS 2023 (spotlight)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-25T13:04:47.000Z">
-<meta property="article:modified_time" content="2026-04-25T14:06:38.416Z">
+<meta property="article:modified_time" content="2026-04-25T15:27:28.624Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -353,7 +353,6 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>NeurIPS 2023 (spotlight)</p>
 <span id="more"></span>
 
-<hr>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="问题建模-Problem-Formulation"><a href="#问题建模-Problem-Formulation" class="headerlink" title="问题建模 (Problem Formulation)"></a>问题建模 (Problem Formulation)</h3><p>在交互式环境（如 ScienceWorld）中，智能体在初始时刻 $t&#x3D;0$ 会获得任务描述 $D$ 和初始环境状态 。在每个时间步 $t$，智能体需要生成一个动作 $A_t$ 。随后，环境会返回四个维度的反馈：</p>
 <ul>
 <li><strong>观察 ($O_t$)</strong>：动作对环境产生的直接影响或查询到的信息 。</li>
@@ -373,8 +372,8 @@
 <p>为了防止序列到序列（seq2seq）学习中的数据不平衡偏差，研究者对训练数据中的特定任务和动作进行了下采样（Down-sampling）。</p>
 </li>
 </ul>
-<h3 id="3-SAGE-模块：基于-LLM-提示的深思熟虑"><a href="#3-SAGE-模块：基于-LLM-提示的深思熟虑" class="headerlink" title="3. SAGE 模块：基于 LLM 提示的深思熟虑"></a>3. SAGE 模块：基于 LLM 提示的深思熟虑</h3><p>SAGE 模块代表 System 2，专门处理需要泛化规划、子目标追踪和异常处理的复杂情况 。该模块使用如 GPT-4 这样的大语言模型（LLM），并被设计为两个连续的提示（Prompting）阶段 ：</p>
-<h4 id="A-规划阶段-Planning-Stage"><a href="#A-规划阶段-Planning-Stage" class="headerlink" title="A. 规划阶段 (Planning Stage)"></a>A. 规划阶段 (Planning Stage)</h4><p>系统将任务描述、动作历史（$A_{&lt;t}$ 和 $O_{&lt;t}$）以及当前环境 $E_{t-1}$ 压缩后输入给 LLM ，并要求其在一次输出中回答五个关键问题：</p>
+<h3 id="SAGE-模块：基于-LLM-提示的深思熟虑"><a href="#SAGE-模块：基于-LLM-提示的深思熟虑" class="headerlink" title="SAGE 模块：基于 LLM 提示的深思熟虑"></a>SAGE 模块：基于 LLM 提示的深思熟虑</h3><p>SAGE 模块代表 System 2，专门处理需要泛化规划、子目标追踪和异常处理的复杂情况 。该模块使用如 GPT-4 这样的大语言模型（LLM），并被设计为两个连续的提示（Prompting）阶段 ：</p>
+<h4 id="规划阶段-Planning-Stage"><a href="#规划阶段-Planning-Stage" class="headerlink" title="规划阶段 (Planning Stage)"></a>规划阶段 (Planning Stage)</h4><p>系统将任务描述、动作历史（$A_{&lt;t}$ 和 $O_{&lt;t}$）以及当前环境 $E_{t-1}$ 压缩后输入给 LLM ，并要求其在一次输出中回答五个关键问题：</p>
 <ul>
 <li><strong>Q1 (定位物品)</strong>：需要收集哪些物品及其可能的位置？ </li>
 <li><strong>Q2 (追踪物品)</strong>：还有哪些物品尚未收集？ </li>
@@ -382,12 +381,12 @@
 <li><strong>Q4 (追踪进度)</strong>：目前已经完成了哪些子目标，现在应该专注于哪一个？ </li>
 <li><strong>Q5 (处理异常)</strong>：是否犯了阻碍下一步的错误？如果有，该如何修复？</li>
 </ul>
-<h4 id="B-落地阶段-Grounding-Stage"><a href="#B-落地阶段-Grounding-Stage" class="headerlink" title="B. 落地阶段 (Grounding Stage)"></a>B. 落地阶段 (Grounding Stage)</h4><p>由于 LLM 生成的宏观计划无法直接在环境中执行，这一阶段负责将计划转化为具体动作 。</p>
+<h4 id="落地阶段-Grounding-Stage"><a href="#落地阶段-Grounding-Stage" class="headerlink" title="落地阶段 (Grounding Stage)"></a>落地阶段 (Grounding Stage)</h4><p>由于 LLM 生成的宏观计划无法直接在环境中执行，这一阶段负责将计划转化为具体动作 。</p>
 <ul>
 <li><strong>动作模板约束</strong>：向 LLM 展示环境中支持的动作类型及其规范格式（例如 <code>POUR (X, Y): pour object X into container Y</code>）。</li>
 <li><strong>生成动作缓冲区</strong>：结合过去 10 步的历史记录以及规划阶段输出的 Q1-Q5 答案 ，提示 LLM 将下一个子目标转化为一个<strong>动作序列</strong>，而不是单一动作 。这个由 LLM 生成的动作缓冲区在数学上表示为 $B &#x3D; {\hat{A}<em>t, \hat{A}</em>{t+1}, \dots}$ 。</li>
 </ul>
-<h3 id="4-模块整合与切换算法-Integration-Algorithm"><a href="#4-模块整合与切换算法-Integration-Algorithm" class="headerlink" title="4. 模块整合与切换算法 (Integration Algorithm)"></a>4. 模块整合与切换算法 (Integration Algorithm)</h3><p>SWIFTSAGE 使用一种启发式算法来动态控制两个模块的激活状态 。系统在初始阶段默认使用高效的 SWIFT 模块 ，但当满足以下<strong>任意一个</strong>触发条件时，将立刻切换到 SAGE 模式：</p>
+<h3 id="模块整合与切换算法-Integration-Algorithm"><a href="#模块整合与切换算法-Integration-Algorithm" class="headerlink" title="模块整合与切换算法 (Integration Algorithm)"></a>模块整合与切换算法 (Integration Algorithm)</h3><p>SWIFTSAGE 使用一种启发式算法来动态控制两个模块的激活状态 。系统在初始阶段默认使用高效的 SWIFT 模块 ，但当满足以下<strong>任意一个</strong>触发条件时，将立刻切换到 SAGE 模式：</p>
 <ol>
 <li><p><strong>陷入停滞 (Stuck)</strong>：过去连续 $K&#x3D;5$ 个时间步的累积奖励为 0，即：</p>
 <p>$$\sum_{i&#x3D;t-5}^{t-1} R_i &#x3D; 0$$</p>
@@ -399,7 +398,7 @@
 <li><p><strong>遭遇异常 (Unexpected)</strong>：对 $A’_t$ 的观察结果表明环境中出现了意外或异常（如设备损坏）。</p>
 </li>
 </ol>
-<p>一旦切换至 SAGE 模块，系统会生成动作缓冲区 $B$ 并按顺序尝试执行其中的动作 。当缓冲区被清空（即 $B &#x3D; \emptyset$）或缓冲区内动作导致连续失败时，智能体会再次切换回快速的 SWIFT 模块 。</p>
+<p>一旦切换至 SAGE 模块，系统会生成动作缓冲区 $B$ 并按顺序尝试执行其中的动作 。当缓冲区被清空（即 $B &#x3D; \emptyset$）或缓冲区内动作导致连续失败时，智能体会再次切换回快速的 SWIFT 模块。</p>
 
                 
               </div>

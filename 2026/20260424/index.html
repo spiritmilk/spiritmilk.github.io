@@ -21,15 +21,15 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta name="description" content="进了决赛，可惜折戟决赛，未能获得名次。 由于手头GPU不如其他人多，故采用了一些方法去减轻GPU的沉重负担，比如GBDT蒸馏LLM，比如小模型打草稿大模型来润色的思路。 也不知道决赛会不会因为使用了树模型和非完整end to end生成式训练而被“一票否决”。">
+    <meta name="description" content="进了决赛，可惜折戟决赛，未能获得名次。 由于手头GPU不足，故采用了一些方法去减轻GPU的沉重负担，比如GBDT蒸馏LLM，比如小模型打草稿大模型来润色的思路。 也不知道决赛会不会因为使用了树模型和非完整end to end生成式训练而被“一票否决”。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2026年-腾讯游戏-第十一届游戏安全技术竞赛-比赛笔记">
 <meta property="og:url" content="https://lijianxiong.space/2026/20260424/index.html">
 <meta property="og:site_name" content="小熊的小站">
-<meta property="og:description" content="进了决赛，可惜折戟决赛，未能获得名次。 由于手头GPU不如其他人多，故采用了一些方法去减轻GPU的沉重负担，比如GBDT蒸馏LLM，比如小模型打草稿大模型来润色的思路。 也不知道决赛会不会因为使用了树模型和非完整end to end生成式训练而被“一票否决”。">
+<meta property="og:description" content="进了决赛，可惜折戟决赛，未能获得名次。 由于手头GPU不足，故采用了一些方法去减轻GPU的沉重负担，比如GBDT蒸馏LLM，比如小模型打草稿大模型来润色的思路。 也不知道决赛会不会因为使用了树模型和非完整end to end生成式训练而被“一票否决”。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-24T12:47:49.000Z">
-<meta property="article:modified_time" content="2026-04-24T12:54:42.193Z">
+<meta property="article:modified_time" content="2026-04-26T11:53:24.306Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="深度学习">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          103 字
+          4k 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          1 分钟
+          34 分钟
         
       </span>
     
@@ -352,11 +352,549 @@
               <div class="markdown-body">
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>进了决赛，可惜折戟决赛，未能获得名次。</p>
-<p>由于手头GPU不如其他人多，故采用了一些方法去减轻GPU的沉重负担，比如GBDT蒸馏LLM，比如小模型打草稿大模型来润色的思路。</p>
+<p>由于手头GPU不足，故采用了一些方法去减轻GPU的沉重负担，比如GBDT蒸馏LLM，比如小模型打草稿大模型来润色的思路。</p>
 <p>也不知道决赛会不会因为使用了树模型和非完整end to end生成式训练而被“一票否决”。</p>
 <span id="more"></span>
 
-<h2 id="初赛"><a href="#初赛" class="headerlink" title="初赛"></a>初赛</h2><h2 id="决赛"><a href="#决赛" class="headerlink" title="决赛"></a>决赛</h2>
+<h2 id="初赛"><a href="#初赛" class="headerlink" title="初赛"></a>初赛</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p><strong>任务定义</strong>：构建一个生成式模型，输入20秒游戏片段的所有玩家信息，预测接下来 5s 的：   </p>
+<p>（1）主玩家决策（选择交战&#x2F;避战）  </p>
+<p>（2）行为变化（离散行为：救援队友、避战后撤、开火、丢雷、靠近远离等等） </p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>我的解决方案分为4层：</p>
+<ol>
+<li><strong>日志解析与摘要压缩</strong><br>把原始 20 秒日志整理成尽量保留关键信息的摘要文本。</li>
+<li><strong>善于利用结构化信息的teacher(GBDT，在代码中我们使用的是Catboost）</strong><br>先训练一个传统分类器，输出 6 类动作概率分布。</li>
+<li><strong>生成式 student（Qwen3-8B QLoRA）</strong><br>用生成式模型学习日志到行为的映射。</li>
+<li><strong>蒸馏</strong><br>先分别训练teacher模型和student模型。再让 student 在 6 类候选分数上拟合 teacher 分布进行蒸馏训练。</li>
+</ol>
+<p>我们会固定 6 个候选答案，并计算它们的预测概率，再选最高者。（类似于qwen3guard-stream的处理）。</p>
+<h4 id="数据处理与摘要策略"><a href="#数据处理与摘要策略" class="headerlink" title="数据处理与摘要策略"></a>数据处理与摘要策略</h4><p>训练集中的原始日志包含“决策”行。代码会先找到第一条带决策含义的行，并把：</p>
+<ul>
+<li><strong>决策行之前的日志</strong>作为输入</li>
+<li><strong>决策对应的动作</strong>作为标签</li>
+</ul>
+<p>测试集没有决策行，因此直接把完整 20 秒日志读入，再做摘要：</p>
+<p>摘要构造不是简单截断，而是有结构地保留关键信息。<code>summarize_lines</code> 的主要策略是：</p>
+<ol>
+<li><strong>保留开局玩家信息</strong></li>
+<li><strong>保留非基础事件</strong></li>
+<li><strong>对“玩家基础信息”按关键时间点抽样</strong><ul>
+<li>默认关键时刻：<code>0, 5, 10, 15, 18, 19, 20</code></li>
+</ul>
+</li>
+<li><strong>如果事件过多，对中间做省略</strong></li>
+<li><strong>如果整体字符数过长，再做头尾保留的中间裁剪</strong></li>
+</ol>
+<p>最终摘要会尽量保住：</p>
+<ul>
+<li>开局阵容</li>
+<li>关键事件</li>
+<li>关键时间点的状态变化</li>
+<li>后段临近决策时刻的局势</li>
+</ul>
+<p>这种处理方式的目的，是让长日志尽量转成对行为预测有判别力的文本。</p>
+<h4 id="生成式模型的基本预测方式"><a href="#生成式模型的基本预测方式" class="headerlink" title="生成式模型的基本预测方式"></a>生成式模型的基本预测方式</h4><p>我们一开始是打算采取让模型直接生成预测。但是这样出现两个问题：</p>
+<ol>
+<li>输出格式不稳定。这样会导致我们对答案的正确读取的难度也会加深。</li>
+<li>生成出不在 6 类里的动作表达。</li>
+</ol>
+<p>所以当前方法把输出空间收缩成 6 个固定候选JSON。</p>
+<p>每个动作都对应一个固定 JSON：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;意图决策&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;交战/避战&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;动作行为&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;具体动作&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+<p>对每条输入摘要，模型不会只生成一个答案，而是对 6 个候选答案分别计算：</p>
+<ul>
+<li>条件对数概率</li>
+<li>再按目标 token 数做平均</li>
+</ul>
+<p>最后取平均分最高的动作作为预测结果。</p>
+<p>这一步的好处：</p>
+<ul>
+<li>输出严格受控</li>
+<li>任务从“自由生成”变成“受控的生成式分类生成”</li>
+<li>能直接得到6类分数，便于后续蒸馏、校准和分析</li>
+</ul>
+<h4 id="蒸馏方案的详细介绍"><a href="#蒸馏方案的详细介绍" class="headerlink" title="蒸馏方案的详细介绍"></a>蒸馏方案的详细介绍</h4><p>为了快速训练和引入善于利用结构化数据的模型，我们选用GBDT作为我们的teacher模型。</p>
+<p>当前蒸馏使用的是：</p>
+<ul>
+<li><strong>teacher</strong>：GBDT 输出的 6 类动作概率分布</li>
+<li><strong>student</strong>：Qwen3-8B 量化基座 + LoRA adapter</li>
+</ul>
+<p>二者之间不是通过中间文本传信息，而是通过6类分数分布对齐。</p>
+<p>GBDT模型使用了以下特征进行初始训练。<br>(1). 文本特征<br>    对 summary 做：</p>
+<ul>
+<li>HashingVectorizer<ul>
+<li>analyzer&#x3D;’char’</li>
+<li>ngram_range&#x3D;(2,4)</li>
+<li>n_features&#x3D;16000</li>
+<li>alternate_sign&#x3D;False</li>
+<li>norm&#x3D;None</li>
+</ul>
+</li>
+<li>再接 TfidfTransformer(sublinear_tf&#x3D;True)</li>
+<li>再接 TruncatedSVD<ul>
+<li>n_components&#x3D;160</li>
+<li>n_iter&#x3D;8</li>
+</ul>
+</li>
+</ul>
+<p>(2). 数值统计特征<br>    也是从 summary 里直接算的，不用原始结构化状态表。</p>
+<p>  具体包括：</p>
+<ul>
+<li>summary_char_len</li>
+<li>summary_line_count</li>
+</ul>
+<p>  10 个短语计数：</p>
+<ul>
+<li>玩家造成伤害</li>
+<li>技能生效</li>
+<li>换弹</li>
+<li>标点</li>
+<li>濒死掉血（第1次倒地）</li>
+<li>濒死掉血（第2次倒地）</li>
+<li>濒死掉血抑制</li>
+<li>快速救援</li>
+<li>救援中的标记</li>
+<li>救援后的标记</li>
+</ul>
+<p>  3 个比例特征：</p>
+<ul>
+<li>ratio::combat<ul>
+<li>(玩家造成伤害 + 技能生效 + 换弹) &#x2F; line_count</li>
+</ul>
+</li>
+<li>ratio::avoid<ul>
+<li>(3个倒地相关 + 3个救援相关) &#x2F; line_count</li>
+</ul>
+</li>
+<li>ratio::marker<ul>
+<li>标点 &#x2F; line_count</li>
+</ul>
+</li>
+</ul>
+<p>  所以数值特征总数是：</p>
+<ul>
+<li>2 + 10 + 3 &#x3D; 15 维</li>
+</ul>
+<p>最终给 GBDT 的输入是160 维文本 SVD特征 + 15 维数值特征 &#x3D; 175 维</p>
+<p>另外，模型结构不是单个6分类，而是两阶段：</p>
+<ul>
+<li>intent_model：交战 &#x2F; 避战</li>
+<li>combat_model：交战内4分类</li>
+<li>avoid_model：避战内2分类</li>
+</ul>
+<p>最终 6 类分数是： log P(intent) + log P(action | intent)</p>
+<p>为了模型具有很好的生成能力和判别能力，我们并不直接进行蒸馏。</p>
+<p>而是先使用QLORA从头训练一个大模型作为初始LoRA权重，再继续训练LoRA参数做蒸馏。</p>
+<p>对每个样本，student会输出6个候选动作分数。teacher则给出6类概率分布。</p>
+<p>训练目标分成两部分：</p>
+<ol>
+<li><p><strong>监督分类损失</strong></p>
+<ul>
+<li><code>CE(student_scores, gold_action)</code></li>
+<li>让 student 对真实标签有区分能力</li>
+</ul>
+</li>
+<li><p><strong>teacher 蒸馏损失</strong></p>
+<ul>
+<li><code>KL(student_dist, teacher_probs_6)</code></li>
+<li>让 student 的分布尽量接近 teacher。</li>
+</ul>
+</li>
+</ol>
+<p>总损失定义为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">loss = 0.3 * CE + 0.7 * KL<br></code></pre></td></tr></table></figure>
+
+<h4 id="为什么不直接把GBDT的输出拼接到提示词上"><a href="#为什么不直接把GBDT的输出拼接到提示词上" class="headerlink" title="为什么不直接把GBDT的输出拼接到提示词上"></a>为什么不直接把GBDT的输出拼接到提示词上</h4><p>之前也做过“把 GBDT top3 候选和意图写进 prompt”的方案，比纯大模型要好，但是提升较小。原因可能是：</p>
+<ul>
+<li>模型仍然可能忽略提示，继续沿用旧边界</li>
+<li>文字先验和最终评测目标之间还有一层间接映射</li>
+</ul>
+<p>当前蒸馏是直接在6类候选分数上对齐，更直接，也更符合最终预测机制。</p>
+<p>不过由于比赛匆忙，并没有来得及计算的GBDT蒸馏大模型的评估分数。</p>
+<h2 id="决赛"><a href="#决赛" class="headerlink" title="决赛"></a>决赛</h2><h3 id="任务-1"><a href="#任务-1" class="headerlink" title="任务"></a>任务</h3><p><strong>任务定义</strong>：构根据前 20 秒游戏日志，续写主玩家接下来 5 秒的行为文本。</p>
+<p>最终不是输出分类标签，而是输出自然语言续写。因此整个方案不能只做动作分类，还必须解决两个问题：</p>
+<ol>
+<li>结构正确：主决策、核心动作、后 5 秒阶段行为不能跑偏。</li>
+<li>文本可读：最终续写要尽量自然，且接近标注文本的表达。</li>
+</ol>
+<p>同时，面临任务的加重，初赛所使用的直接微调qwen会产生训练成本过重的问题。</p>
+<p>围绕比赛目标和实际手头上的资源，最终形成了三层结构：</p>
+<ol>
+<li><code>GBDT</code>：提供稳定的结构先验。</li>
+<li><code>mT5-large / mT5-xl</code>：把结构先验写成三行结构化续写。</li>
+<li><code>Qwen-editor</code>：在不重新理解全量长日志的前提下，对 <code>mT5</code> 草稿做双草稿融合与润色。</li>
+</ol>
+<blockquote>
+<p>本来还花了一天来训练了一个byT5，可惜没来得及。</p>
+</blockquote>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h3><h4 id="整体方案演化"><a href="#整体方案演化" class="headerlink" title="整体方案演化"></a>整体方案演化</h4><h5 id="最初"><a href="#最初" class="headerlink" title="最初"></a>最初</h5><p>最早的决赛赛主线是想类似初赛的解题方案，直接用 <code>Qwen3-8B</code> 做结构化续写，输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">主决策：...<br>核心动作：...<br>续写：主玩家先……，随后……，最后……。<br></code></pre></td></tr></table></figure>
+
+<p>这条线在结果上是可用的，但有两个硬问题：</p>
+<ol>
+<li><code>decoder-only</code> 模型的输入和输出共用长度预算。</li>
+<li>决赛 prompt 太长，<code>response-only</code> 训练下会导致样本被删。</li>
+</ol>
+<p>后续对缩短版 Qwen prompt 做了全训练集长度审计，结果是：</p>
+<ul>
+<li>训练集总数：<code>88516</code></li>
+<li><code>2048</code> 下可保留样本：<code>44292</code></li>
+<li><code>kept_ratio = 0.5004</code></li>
+</ul>
+<p>也就是说，即便已经把 prompt 改成 short 版，<code>2048</code> 下仍然会损失约一半训练样本。</p>
+<p>这说明：<strong>初赛所使用的Qwen适合做短编辑任务，不适合继续扛长上下文主生成任务。</strong></p>
+<p>对应的基础提示词形态是：</p>
+<p>系统提示词：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">你是游戏安全竞赛的行为续写模型。根据给定的20秒游戏日志摘要，续写主玩家接下来5秒的行为。<br>你必须严格输出三行：主决策、核心动作、续写。<br>主决策只能是交战或避战。<br>核心动作只能从六类中选择：开火、开镜、放技能、丢雷、搜物资、救援队友。<br>续写必须使用“主玩家先……，随后……，最后……。”的格式。<br>不要输出额外解释。<br></code></pre></td></tr></table></figure>
+
+<p>用户提示词模板：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">请根据下面的前20秒游戏日志，续写主玩家接下来5秒的行为。<br>主玩家：玩家xxxx<br>核心动作只能从以下六类中选择：开火、开镜、放技能、丢雷、搜物资、救援队友。<br>请严格输出三行：<br>主决策：&lt;交战或避战&gt;<br>核心动作：&lt;六类动作之一&gt;<br>续写：主玩家先……，随后……，最后……。<br><br>日志摘要：<br>...<br></code></pre></td></tr></table></figure>
+
+<h5 id="转向-GBDT-mT5"><a href="#转向-GBDT-mT5" class="headerlink" title="转向 GBDT + mT5"></a>转向 <code>GBDT + mT5</code></h5><p>为了把“结构预测”和“自然语言生成”拆开，方案转成两阶段：</p>
+<ol>
+<li><code>GBDT</code> 先做结构预测</li>
+<li><code>mT5</code> 再做结构化生成</li>
+</ol>
+<p>这样做的核心收益是：</p>
+<ul>
+<li><code>GBDT</code> 提供动作与阶段子句先验，结构稳定</li>
+<li><code>mT5</code> 是 <code>encoder-decoder</code>，输入输出长度分开，不会像 <code>Qwen</code> 一样因为 prompt 过长把答案挤掉</li>
+</ul>
+<p>在 <code>GBDT + mT5</code> 基础上，继续观察到：</p>
+<ul>
+<li><code>GBDT</code> 文本很像模板，ROUGE 高，但不够自然</li>
+<li><code>mT5</code> 自然度更高，但仍会出现阶段偏差、表达僵硬或者 draft 间不一致</li>
+</ul>
+<p>因此最终把 <code>Qwen</code> 改为 <strong>编辑器</strong>，而不是主生成器：</p>
+<ul>
+<li>输入：<code>V1 先验 + mT5-large 草稿 + mT5-xl 草稿 + 主玩家近 2 秒焦点</code></li>
+<li>输出：一行最终续写</li>
+</ul>
+<p>这样做有两个决定性好处：</p>
+<ol>
+<li>prompt 很短，<code>2048</code> 够用</li>
+<li><code>Qwen</code> 被用在它更擅长的部分：中文融合、润色、句子组织</li>
+</ol>
+<h4 id="GBDT-结构先验层"><a href="#GBDT-结构先验层" class="headerlink" title="GBDT 结构先验层"></a>GBDT 结构先验层</h4><p><code>GBDT</code> 不直接生成最终文本，而是预测：</p>
+<ul>
+<li><code>pred_action</code></li>
+<li><code>pred_intent</code></li>
+<li><code>pred_clause1</code></li>
+<li><code>pred_clause2</code></li>
+<li><code>pred_clause3</code></li>
+</ul>
+<p>其中：</p>
+<ul>
+<li><code>pred_action</code> 为 6 分类：<ul>
+<li>开火 &#x2F; 开镜 &#x2F; 放技能 &#x2F; 丢雷 &#x2F; 搜物资 &#x2F; 救援队友</li>
+</ul>
+</li>
+<li><code>pred_intent</code> 由动作映射：<ul>
+<li>开火 &#x2F; 开镜 &#x2F; 放技能 &#x2F; 丢雷 -&gt; 交战</li>
+<li>搜物资 &#x2F; 救援队友 -&gt; 避战</li>
+</ul>
+</li>
+</ul>
+<p>最终模板化输出为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">主决策：&#123;intent&#125;<br>核心动作：&#123;action&#125;<br>续写：主玩家先&#123;clause1&#125;，随后&#123;clause2&#125;，最后&#123;clause3&#125;。<br></code></pre></td></tr></table></figure>
+
+<p>训练样本来源于决赛训练集，按决策行切分：</p>
+<ul>
+<li><code>summary</code>：前 20 秒摘要</li>
+<li><code>focus_text</code>：主玩家近 2 秒相关事件和状态</li>
+<li><code>target_text</code>：根据未来 5 秒规则生成的三行结构化目标</li>
+</ul>
+<p>同时还会从 <code>target_text</code> 中拆出三段子句标签：</p>
+<ul>
+<li><code>clause1_label</code></li>
+<li><code>clause2_label</code></li>
+<li><code>clause3_label</code></li>
+</ul>
+<p><code>GBDT</code> 用的是文本特征 + 数值特征混合方案。</p>
+<p>文本特征：</p>
+<ul>
+<li><code>summary</code>：<ul>
+<li>char 2-4 gram</li>
+<li><code>HashingVectorizer + TF-IDF + SVD(160)</code></li>
+</ul>
+</li>
+<li><code>focus_text</code>：<ul>
+<li>char 2-4 gram</li>
+<li><code>HashingVectorizer + TF-IDF + SVD(64)</code></li>
+</ul>
+</li>
+</ul>
+<p>数值特征包括：</p>
+<ul>
+<li><code>summary_char_len</code></li>
+<li><code>focus_char_len</code></li>
+<li><code>summary_line_count</code></li>
+<li><code>focus_line_count</code></li>
+<li>事件计数：<ul>
+<li>玩家造成伤害</li>
+<li>技能生效</li>
+<li>换弹</li>
+<li>标点</li>
+<li>倒地 &#x2F; 救援相关事件</li>
+</ul>
+</li>
+<li><code>focus_text</code> 中主玩家动作&#x2F;伤害&#x2F;技能计数</li>
+<li>scope 开镜&#x2F;关镜计数</li>
+<li>主玩家状态位移量</li>
+<li>最后一帧是否处于开镜状态</li>
+</ul>
+<p>框架：<code>CatBoostClassifier</code></p>
+<p>固定配置：</p>
+<ul>
+<li><code>task_type = GPU</code></li>
+<li><code>devices = 0:1</code>（在 <code>CUDA_VISIBLE_DEVICES=1,2</code> 下对应双卡）</li>
+<li><code>iterations = 1200</code></li>
+<li><code>learning_rate = 0.05</code></li>
+<li><code>depth = 8</code></li>
+<li><code>l2_leaf_reg = 10</code></li>
+<li><code>early_stopping_rounds = 100</code></li>
+</ul>
+<p><code>action_model</code> 先训练；随后把 <code>action probs</code> 拼到特征后面，再分别训练：</p>
+<ul>
+<li><code>clause1_label_model</code></li>
+<li><code>clause2_label_model</code></li>
+<li><code>clause3_label_model</code></li>
+</ul>
+<p><strong>结果</strong></p>
+<p>训练耗时：</p>
+<ul>
+<li><code>runtime_seconds = 1531.64</code></li>
+<li>约 <code>25.5</code> 分钟</li>
+</ul>
+<p>验证结果：</p>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th align="right">action</th>
+<th align="right">intent</th>
+<th align="right">rouge_l</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>val_natural</code></td>
+<td align="right"><code>0.8650</code></td>
+<td align="right"><code>0.9755</code></td>
+<td align="right"><code>0.8001</code></td>
+</tr>
+<tr>
+<td><code>val_balanced</code></td>
+<td align="right"><code>0.7733</code></td>
+<td align="right"><code>0.9783</code></td>
+<td align="right"><code>0.7758</code></td>
+</tr>
+<tr>
+<td><code>ratio_val</code></td>
+<td align="right"><code>0.8583</code></td>
+<td align="right"><code>0.9700</code></td>
+<td align="right"><code>0.8051</code></td>
+</tr>
+</tbody></table>
+<p>结论：</p>
+<ul>
+<li>V1 的动作准确率不一定最好</li>
+<li>但 <code>ROUGE-L</code> 最强</li>
+<li>说明结构模板非常稳定，是后续所有生成模型的可靠先验</li>
+</ul>
+<h4 id="V3：mT5-large-mT5-xl-结构化生成层"><a href="#V3：mT5-large-mT5-xl-结构化生成层" class="headerlink" title="V3：mT5-large &#x2F; mT5-xl 结构化生成层"></a>V3：mT5-large &#x2F; mT5-xl 结构化生成层</h4><p>V3 不是直接看原始长日志，而是看：</p>
+<ul>
+<li><code>V1主决策先验</code></li>
+<li><code>V1核心动作 top3</code></li>
+<li><code>V1阶段1/2/3先验</code></li>
+<li><code>focus_text</code></li>
+<li>压缩后的 <code>summary</code></li>
+</ul>
+<p>输入模板如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs text">任务: 根据前20秒日志信息，生成主玩家后5秒结构化续写。<br><br>主玩家: 玩家xxxx<br>V1主决策先验: 交战/避战<br>V1核心动作候选1: ...<br>V1核心动作候选2: ...<br>V1核心动作候选3: ...<br>V1阶段1先验: ...<br>V1阶段2先验: ...<br>V1阶段3先验: ...<br><br>主玩家近2秒:<br>...<br><br>短摘要:<br>...<br><br>输出格式:<br>主决策：&lt;交战或避战&gt;<br>核心动作：&lt;六类动作之一&gt;<br>续写：主玩家先……，随后……，最后……。<br></code></pre></td></tr></table></figure>
+
+<p>目标文本固定是三行结构化文本。</p>
+<p><strong>训练配置</strong>：</p>
+<ul>
+<li><code>max_source_length = 1024</code></li>
+<li><code>max_target_length = 128</code></li>
+<li><code>num_train_epochs = 1</code></li>
+<li><code>per_device_train_batch_size = 2</code></li>
+<li><code>per_device_eval_batch_size = 2</code></li>
+<li><code>gradient_accumulation_steps = 8</code></li>
+<li><code>learning_rate = 1e-4</code></li>
+<li><code>weight_decay = 0.01</code></li>
+<li><code>bf16 = True</code></li>
+<li><code>gradient_checkpointing = True</code></li>
+</ul>
+<p>LoRA：</p>
+<ul>
+<li><code>r = 16</code></li>
+<li><code>alpha = 32</code></li>
+<li><code>dropout = 0.05</code></li>
+<li><code>target_modules = [&quot;q&quot;, &quot;v&quot;]</code></li>
+</ul>
+<p>训练结果：</p>
+<ul>
+<li><code>train_runtime = 15518.79s</code></li>
+<li>约 <code>4.31h</code></li>
+<li><code>train_loss = 15.2807</code></li>
+</ul>
+<p>相比 <code>mT5-large</code>，<code>mT5-xl </code>参数更多，配置更保守：</p>
+<ul>
+<li><code>per_device_train_batch_size = 1</code></li>
+<li><code>gradient_accumulation_steps = 16</code></li>
+<li>其它配置尽量与 <code>large</code> 保持一致</li>
+</ul>
+<p>从已保存 <code>checkpoint-2500</code> 看，训练稳定进行到：</p>
+<ul>
+<li><code>global_step = 2500</code></li>
+<li><code>epoch ≈ 0.904</code></li>
+</ul>
+<h4 id="Qwen-Editor：双草稿融合层"><a href="#Qwen-Editor：双草稿融合层" class="headerlink" title="Qwen-Editor：双草稿融合层"></a>Qwen-Editor：双草稿融合层</h4><p>系统提示词：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">你是游戏行为续写编辑器。你会基于结构先验和两条候选续写，输出唯一一行最终续写。不要输出主决策、核心动作、解释或多余文本。<br></code></pre></td></tr></table></figure>
+
+<p>用户提示词模板：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs text">主玩家：玩家xxxx<br>V1主决策先验：交战/避战<br>V1核心动作候选1：...<br>V1核心动作候选2：...<br>V1核心动作候选3：...<br>V1阶段1先验：...<br>V1阶段2先验：...<br>V1阶段3先验：...<br><br>主玩家近2秒焦点：<br>...<br><br>mT5-large草稿：<br>...<br><br>mT5-xl草稿：<br>...<br><br>任务：综合两条草稿，输出一行更自然且更贴合先验的后5秒续写。<br>要求：<br>1. 只输出一行最终续写。<br>2. 必须保持“主玩家先……，随后……，最后……。”格式。<br>3. 不要输出主决策、核心动作、解释或多余文本。<br>4. 不要偏离V1先验的核心语义。<br></code></pre></td></tr></table></figure>
+
+<p>对 dual-draft editor prompt 做过长度检查。结论是：</p>
+<ul>
+<li><code>2048</code> 基本够用</li>
+<li>少量样本会超预算</li>
+</ul>
+<p>因此实际推理时采用：</p>
+<ul>
+<li><code>max_seq_length = 2048</code></li>
+<li><code>max_new_tokens = 128</code></li>
+<li>只对 <code>focus_text</code> 做裁剪</li>
+<li>不裁：<ul>
+<li><code>V1 priors</code></li>
+<li><code>mT5-large/xl</code> 草稿</li>
+</ul>
+</li>
+</ul>
+<p>最终 non-ICL dual-draft 结果里：</p>
+<ul>
+<li><code>prompt_over_budget_before_fit_count = 3</code></li>
+<li><code>prompt_over_budget_after_fit_count = 0</code></li>
+</ul>
+<h4 id="做过的失败尝试与挫折"><a href="#做过的失败尝试与挫折" class="headerlink" title="做过的失败尝试与挫折"></a>做过的失败尝试与挫折</h4><h5 id="失败一：把-Qwen-当主生成器"><a href="#失败一：把-Qwen-当主生成器" class="headerlink" title="失败一：把 Qwen 当主生成器"></a>失败一：把 Qwen 当主生成器</h5><p>问题：</p>
+<ul>
+<li><code>decoder-only</code></li>
+<li><code>response-only</code></li>
+<li>决赛 prompt 太长</li>
+</ul>
+<p>结果：</p>
+<ul>
+<li><code>2048</code> 下训练集保留率只有 <code>50.04%</code></li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>不再让 Qwen 直接扛“长上下文理解 + 主生成”</li>
+<li>转成 editor</li>
+</ul>
+<h5 id="失败二：Qwen-editor-做-1-shot-retrieval-ICL"><a href="#失败二：Qwen-editor-做-1-shot-retrieval-ICL" class="headerlink" title="失败二：Qwen-editor 做 1-shot retrieval ICL"></a>失败二：Qwen-editor 做 1-shot retrieval ICL</h5><p>实现方式：</p>
+<ul>
+<li>用 <code>val_balanced</code> 做支持样本</li>
+<li>按 <code>V1 action / clause / draft 相似度</code> 检索 1 条示例</li>
+<li>在 prompt 里加入 one-shot ICL</li>
+</ul>
+<p>结果：</p>
+<ul>
+<li>non-ICL dual-draft：<code>0.8045</code></li>
+<li>1-shot ICL dual-draft：<code>0.7792</code></li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li>ICL 仍优于 <code>mt5-large/xl</code> 基线</li>
+<li>但明显差于 non-ICL</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>当前这题上，Qwen-editor 更适合短而硬的约束 prompt</li>
+<li>不适合在 <code>2048</code> 下继续加示例</li>
+</ul>
+<h5 id="失败三：尝试训练版-Qwen-editor"><a href="#失败三：尝试训练版-Qwen-editor" class="headerlink" title="失败三：尝试训练版 Qwen-editor"></a>失败三：尝试训练版 Qwen-editor</h5><p>训练版 Qwen-editor 的思路是：</p>
+<ol>
+<li>先对 <code>train</code> 全量生成 <code>mT5-large/xl</code> teacher 草稿</li>
+<li>再训练 Qwen-editor 去学习融合这两条草稿</li>
+</ol>
+<p>但这条线在工程上遇到了明显瓶颈：</p>
+<ul>
+<li><code>train = 88516</code></li>
+<li>teacher drafts 需要逐条生成</li>
+<li><code>mT5-large</code> 和 <code>mT5-xl</code> 都要跑</li>
+</ul>
+<p>估算进入 Qwen 正式训练前，teacher 生成就要数十小时到数天。</p>
+<p>因此这条线最终没有跑成正式主线，只完成了：</p>
+<ul>
+<li>teacher draft smoke</li>
+<li>editor 数据集 smoke</li>
+<li>Qwen-editor 训练 smoke</li>
+</ul>
+<p>结论：</p>
+<ul>
+<li>在时间有限的条件下，不值得为 train 全量草稿付出这种代价</li>
+<li>inference-only dual-draft editor 性价比更高</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><table>
+<thead>
+<tr>
+<th>模型</th>
+<th align="right">rouge_l_on_xuxie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mT5-large</code></td>
+<td align="right"><code>0.7648</code></td>
+</tr>
+<tr>
+<td><code>mT5-xl</code></td>
+<td align="right"><code>0.7647</code></td>
+</tr>
+<tr>
+<td><code>Qwen-editor(non-ICL, dual-draft)</code></td>
+<td align="right"><strong><code>0.8045</code></strong></td>
+</tr>
+<tr>
+<td><code>Qwen-editor(ICL, dual-draft)</code></td>
+<td align="right"><code>0.7792</code></td>
+</tr>
+</tbody></table>
+<p>结论：</p>
+<ul>
+<li>当前最优不是单个 <code>mT5</code></li>
+<li>而是：<strong><code>V1 GBDT</code> 约束 + <code>mT5-large/xl</code> 双草稿 + non-ICL Qwen-editor&#96;</strong></li>
+</ul>
+<pre><code class=" mermaid">graph TD
+
+classDef largeModel fill:#e8f0fe,stroke:#448aff,stroke-width:2px,rx:10,ry:10,font-family:Arial, sans-serif;
+classDef xlModel fill:#fff8e1,stroke:#f57c00,stroke-width:2px,rx:10,ry:10,font-family:Arial, sans-serif;
+classDef rewardModel fill:#e0d6fa,stroke:#7c4dff,stroke-width:2px,rx:10,ry:10,font-family:Arial, sans-serif;
+classDef ensembleModel fill:#e0f2f1,stroke:#009688,stroke-width:2px,rx:10,ry:10,font-family:Arial, sans-serif;
+
+
+Large[&quot;&lt;div style=&#x27;color:black; text-align:center;&#x27;&gt;1x ByT5-Large&lt;br/&gt;0.7648&lt;/div&gt;&quot;]:::largeModel
+XL[&quot;&lt;div style=&#x27;color:black; text-align:center;&#x27;&gt;1x ByT5-XL&lt;br/&gt;0.7647&lt;/div&gt;&quot;]:::xlModel
+Reward[&quot;&lt;div style=&#x27;color:black; text-align:center;&#x27;&gt;&lt;b&gt;Pairwise Reward Model&lt;/b&gt;&lt;br/&gt;&lt;span style=&#x27;color:grey&#x27;&gt;Qwen3-8B&lt;/span&gt;&quot;]:::rewardModel
+Ensemble[&quot;&lt;div style=&#x27;color:#009688; text-align:center;&#x27;&gt;&lt;b&gt;ENSEMBLE&lt;/b&gt;&lt;br/&gt;0.8045&lt;/div&gt;&quot;]:::ensembleModel
+
+
+subgraph Top
+Large ~~~ XL
+end
+style Top fill:none,stroke:none; 
+
+
+Large --&gt; Reward
+XL --&gt; Reward
+Reward --&gt; Ensemble
+
+
+linkStyle default stroke:#999,stroke-width:2px;
+</code></pre>
+
+
                 
               </div>
             
