@@ -28,15 +28,15 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICML 2026）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260506/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260506/2.png">
 <meta property="article:published_time" content="2026-05-06T02:57:43.000Z">
 <meta property="article:modified_time" content="2026-05-06T06:24:25.070Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260506/1.png">
   
   
   
@@ -357,7 +357,7 @@
 <span id="more"></span>
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>幻觉检测常常使用attention mass或者熵，然而这些方法缺乏细粒度。如下图是熵相同的。</p>
-<p><img src="/2019/20190323/1.png"></p>
+<p><img src="/2026/20260506/1.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>作者提出，当模型生成“有依据的（Grounded）”词元时，它的注意力分布通常是平滑且连贯的（类似于低频信号）；而当模型开始“胡说八道（Hallucinate）”时，它无法在上下文中找到明确的对应信息，导致注意力在不同的上下文词元之间快速跳跃、震荡，表现出<strong>碎片化和不稳定的行为</strong>。</p>
 <p>将注意力权重序列视为一个一维离散时间信号。使用高通滤波器（High-pass filters）提取出该信号中的高频成分（代表快速的局部波动）。分为<strong>指向上下文的注意力</strong>、<strong>已生成词元的注意力</strong>。</p>
 <p>为了量化它的“剧烈程度”，作者使用了 $l_2$ 范数（在信号处理中对应于信号的“能量”）来汇总高频波动的幅度。（L2范数的平方是能量，且具有帕塞瓦尔定理：在时域中计算的能量等于频域中的能量）</p>
@@ -366,7 +366,7 @@
 <p>只输入能量，不输入高频信号。</p>
 </blockquote>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>包括 LLaMA-7B-Chat、LLaMA-13B-Chat 和 Mistral-7B-Instruct，数据集RAGTruth和HalluRAG。</p>
-<p><img src="/2019/20190323/2.png"></p>
+<p><img src="/2026/20260506/2.png"></p>
 <h2 id="数学证明"><a href="#数学证明" class="headerlink" title="数学证明"></a>数学证明</h2><p>作者想要证明，注意力权重在相邻词元之间的波动程度（即相邻差值的平方和 $\mathbb{E}[R_t]&#x3D;\sum(\alpha_{t,j+1}-\alpha_{t,j})$，代表高频能量）存在一个下界，且这个下界随着潜在语义话题数 $K$ 的增大而<strong>单调递增</strong>。</p>
 <p>作者分为了三步走逻辑。</p>
 <h3 id="第一步：话题切换的概率与-K-的关系"><a href="#第一步：话题切换的概率与-K-的关系" class="headerlink" title="第一步：话题切换的概率与 $K$ 的关系"></a>第一步：话题切换的概率与 $K$ 的关系</h3><p>假设输入上下文中的每一个词元（Token），都是模型从 $K$ 个潜在的“语义话题”（可以理解为高斯混合模型 GMM 中的 $K$ 个聚类中心）中随机抽取出来的。  </p>
