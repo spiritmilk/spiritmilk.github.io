@@ -21,14 +21,18 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="（arxiv 2026）  motivation正确的推理过程会在一个局部连贯的稳定流形（Manifold）中移动 。当模型产生第一个推理错误（幻觉）时，在隐藏状态空间中会表现为一种局部且明显的传输成本偏移（Transport Excursion），即轨迹偏离了正确的流形 。  方法为了捕捉这种几何偏移，作者设计了一个两阶段架构：一个非部署的“教师模型”（用于探索理论上限）和一个可实际部署的“学生">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Where Does Reasoning Break? Step-Level Hallucination Detection via Hidden-State Transport Geometry">
 <meta property="og:url" content="https://lijianxiong.space/2026/20260520/index.html">
 <meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="（arxiv 2026）  motivation正确的推理过程会在一个局部连贯的稳定流形（Manifold）中移动 。当模型产生第一个推理错误（幻觉）时，在隐藏状态空间中会表现为一种局部且明显的传输成本偏移（Transport Excursion），即轨迹偏离了正确的流形 。  方法为了捕捉这种几何偏移，作者设计了一个两阶段架构：一个非部署的“教师模型”（用于探索理论上限）和一个可实际部署的“学生">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-20T05:52:45.000Z">
-<meta property="article:modified_time" content="2026-05-21T05:53:07.694Z">
+<meta property="article:modified_time" content="2026-05-21T06:46:55.903Z">
 <meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -293,7 +297,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.4k 字
         
       </span>
     
@@ -304,7 +308,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -346,7 +350,62 @@
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css">
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（arxiv 2026）</p>
+<hr>
+<h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p><strong>正确的推理过程会在一个局部连贯的稳定流形（Manifold）中移动</strong> 。当模型产生第一个推理错误（幻觉）时，在隐藏状态空间中会表现为一种局部且明显的<strong>传输成本偏移（Transport Excursion）</strong>，即轨迹偏离了正确的流形 。 </p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>为了捕捉这种几何偏移，作者设计了一个两阶段架构：一个非部署的“教师模型”（用于探索理论上限）和一个可实际部署的“学生模型” 。</p>
+<h3 id="第一阶段：步骤的隐状态提取-Step-Representations"><a href="#第一阶段：步骤的隐状态提取-Step-Representations" class="headerlink" title="第一阶段：步骤的隐状态提取 (Step Representations)"></a>第一阶段：步骤的隐状态提取 (Step Representations)</h3><p>首先，要将大语言模型生成的长篇文本转化为数学向量。</p>
+<p>假设模型生成了一个包含 $m$ 个步骤的推理轨迹 $T &#x3D; (s_1, …, s_m)$ 。在特定的 Transformer 层（通常是最后一层），对于第 $t$ 个步骤，提取其内部所有 Token 的隐藏状态并进行<strong>均值池化（Mean Pooling）</strong>，得到代表该步骤的单一向量 $h_t \in \mathbb{R}^d$ ：  </p>
+<p>$$h_t &#x3D; \frac{1}{|I_t|} \sum_{j \in I_t} a_j^{(l)}$$</p>
+<p>其中，$I_t$ 是第 $t$ 个步骤的 Token 索引集合，$a_j^{(l)}$ 是第 $j$ 个 Token 在第 $l$ 层的隐藏状态。  </p>
+<h3 id="第二阶段：局部坐标系与归一化-Local-Normalization"><a href="#第二阶段：局部坐标系与归一化-Local-Normalization" class="headerlink" title="第二阶段：局部坐标系与归一化 (Local Normalization)"></a>第二阶段：局部坐标系与归一化 (Local Normalization)</h3><p>这一步是为了消除与“推理正确性”无关的全局语义噪声。</p>
+<p>假设我们在训练阶段，已知一条轨迹中正确的步骤集合为 $\mathcal{C} &#x3D; {t : y_t &#x3D; 0}$ 。计算这些正确步骤的中心点（均值） $\overline{h}_0$ 和离散度（方差的标量表示） $\sigma_0^2$ ：  </p>
+<p>$$\overline{h}<em>0 &#x3D; \frac{1}{|\mathcal{C}|} \sum</em>{t \in \mathcal{C}} h_t$$</p>
+<p>$$\sigma_0^2 &#x3D; \frac{1}{d|\mathcal{C}|} \sum_{t \in \mathcal{C}} ||h_t - \overline{h}_0||_2^2$$</p>
+<p>然后，使用这个局部基准对整条轨迹的所有步骤（包括后面的错误步骤）进行标准化 ：  </p>
+<p>$$\tilde{h}_t &#x3D; \frac{h_t - \overline{h}_0}{\sigma_0 + \epsilon}$$</p>
+<h3 id="第三阶段：对比几何投影-cPCA-Projection"><a href="#第三阶段：对比几何投影-cPCA-Projection" class="headerlink" title="第三阶段：对比几何投影 (cPCA Projection)"></a>第三阶段：对比几何投影 (cPCA Projection)</h3><p>为了放大“首个错误”与“正确步骤”之间的差异，作者构建了对比主成分分析（cPCA）。</p>
+<ul>
+<li><p><strong>标准 PCA</strong>：寻找数据变化最剧烈的方向（最大化协方差矩阵 $C$ 的特征值）。如果数据受到强烈噪声（如系统误差、无关背景特征）的影响，PCA 往往会把这些噪声方向作为主成分提取出来。</p>
+</li>
+<li><p><strong>对比 PCA (cPCA)</strong>：引入了一个**目标数据集（Target）**和一个**背景数据集（Background）**。它致力于寻找在目标数据中变化很大，但在背景数据中变化很小的方向。</p>
+</li>
+</ul>
+<p>设 $\hat{\mu}_0, \hat{C}_0$ 是归一化后正确状态的均值和协方差；$\hat{\mu}_1, \hat{C}_1$ 是第一个错误状态的均值和协方差 。核心的<strong>对比传输矩阵 $\hat{M}_\alpha$</strong> 定义为 ：  </p>
+<p>$$\hat{M}_\alpha &#x3D; (\hat{\mu}_1 - \hat{\mu}_0)(\hat{\mu}_1 - \hat{\mu}_0)^\top + \hat{C}_1 - \alpha \hat{C}_0$$</p>
+<ul>
+<li><p>$(\hat{\mu}_1 - \hat{\mu}_0)(\hat{\mu}_1 - \hat{\mu}_0)^\top$：均值漂移项，捕捉均值层面的偏离。</p>
+</li>
+<li></li>
+</ul>
+<p>  $\hat{C}_1 - \alpha \hat{C}_0$：对比协方差项，$\alpha \ge 0$ 是背景惩罚权重，用于抑制正确步骤中本身就很活跃（方差大）的方向 。  </p>
+<p>提取 $\hat{M}_\alpha$ 的前 $k$ 个特征向量组成投影矩阵 $U \in \mathbb{R}^{d \times k}$，将归一化后的高维向量投影到低维的敏感空间中 ：  </p>
+<p>$$z_t &#x3D; U^\top \tilde{h}_t \in \mathbb{R}^k$$</p>
+<h3 id="第四阶段：几何动力学特征提取-Transition-Features"><a href="#第四阶段：几何动力学特征提取-Transition-Features" class="headerlink" title="第四阶段：几何动力学特征提取 (Transition Features)"></a>第四阶段：几何动力学特征提取 (Transition Features)</h3><p>投影到 $z_t$ 后，文章不再看静态分布，而是计算“轨迹的导数”，提取出代表状态转移的 7 个特征向量块 ：  </p>
+<p>首先计算一阶差分（步长&#x2F;速度）和二阶差分（加速度） ：  </p>
+<p>$$\Delta z_t &#x3D; z_t - z_{t-1}$$</p>
+<p>$$\Delta^2 z_t &#x3D; z_t - 2z_{t-1} + z_{t-2}$$</p>
+<p>接着计算以下标量特征 ：  </p>
+<ol>
+<li><strong>绝对位置 ($r_t$)</strong>: $r_t &#x3D; ||z_t||_2$</li>
+<li><strong>相对位置 ($\overline{\overline{r}}_t$)</strong>: $\overline{\overline{r}}<em>t &#x3D; \frac{r_t - \text{median}</em>{u \in \mathcal{C}}(r_u)}{\text{MAD}_{u \in \mathcal{C}}(r_u) + \epsilon}$ (相对于正确步骤的绝对中位差，用于测量异常程度)</li>
+<li><strong>速度 ($v_t$)</strong>: $v_t &#x3D; ||\Delta z_t||_2$</li>
+<li><strong>加速度 ($a_t$)</strong>: $a_t &#x3D; ||\Delta^2 z_t||_2$</li>
+<li><strong>滚动平滑能量 ($e_t$)</strong>: $e_t &#x3D; \frac{1}{w} \sum_{j&#x3D;t-w+1}^t (v_j^2 + a_j^2)$ (消除单步的瞬态噪声)</li>
+<li><strong>方向持续性 ($d_t$)</strong>: $d_t &#x3D; \frac{\langle \Delta z_t, \Delta z_{t-1} \rangle}{(||\Delta z_t||<em>2 + \epsilon)(||\Delta z</em>{t-1}||_2 + \epsilon)}$ (通过余弦相似度区分是连贯推进还是方向突变)</li>
+</ol>
+<p>将这些标量拼成一个向量 $x_t$，输入到轻量级的 MLP（教师模型）中，输出幻觉概率 $p_t^T$ 。  </p>
+<h3 id="第五阶段：知识蒸馏落地-Deployable-Student-Model"><a href="#第五阶段：知识蒸馏落地-Deployable-Student-Model" class="headerlink" title="第五阶段：知识蒸馏落地 (Deployable Student Model)"></a>第五阶段：知识蒸馏落地 (Deployable Student Model)</h3><p>前面所有的计算都需要知道 $\mathcal{C}$（哪些步骤是正确的），所以<strong>教师模型无法在现实推理中使用</strong> 。为了落地，必须训练一个不需要标签的<strong>学生模型</strong>。  </p>
+<p>学生模型是一个双向 LSTM (BiLSTM)，它直接吃入原始的未归一化的隐藏状态 $h_{1:m}$，并在没有任何标签的情况下预测概率 ：  </p>
+<p>$$c_{1:m} &#x3D; \text{BiLSTM}<em>\psi(h</em>{1:m})$$</p>
+<p>$$p_t^S &#x3D; \sigma(g_\psi(c_t))$$</p>
+<p><strong>蒸馏损失函数 (Loss Function)</strong> ： 学生模型的训练目标 $\mathcal{L}_S(\psi)$ 是两部分的混合：  </p>
+<ol>
+<li>真实标签的二元交叉熵损失 (BCE)。</li>
+<li>拟合教师模型软标签的 KL 散度 (KL Divergence)，带有温度缩放 $\tau_d$：</li>
+</ol>
+<p>$$\mathcal{L}<em>S(\psi) &#x3D; \lambda \sum</em>{i,t} \text{BCE}(y_{it}, p_{it}^S) + (1-\lambda)\tau_d^2 \sum_{i,t} \text{KL}(\text{Bern}(q_{it}^T) || \text{Bern}(q_{it}^S))$$</p>
+
                 
               </div>
             
@@ -354,6 +413,15 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+    </div>
   
 </div>
 
@@ -960,7 +1028,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":203},{"name":"大模型","value":106},{"name":"人工智能","value":47},{"name":"多模态","value":39},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
+                            data: [{"name":"深度学习","value":204},{"name":"大模型","value":107},{"name":"人工智能","value":47},{"name":"多模态","value":39},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -974,7 +1042,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":203},{"name":"大模型","value":106},{"name":"人工智能","value":47},{"name":"多模态","value":39},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":204},{"name":"大模型","value":107},{"name":"人工智能","value":47},{"name":"多模态","value":39},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });
