@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260527/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260527/3.png">
 <meta property="article:published_time" content="2026-05-27T05:47:34.000Z">
-<meta property="article:modified_time" content="2026-05-27T07:13:52.941Z">
+<meta property="article:modified_time" content="2026-05-27T07:15:15.046Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -402,7 +402,7 @@
 </ul>
 <h4 id="阶段三：训练数据构建与多层过滤-Training-Data-Construction"><a href="#阶段三：训练数据构建与多层过滤-Training-Data-Construction" class="headerlink" title="阶段三：训练数据构建与多层过滤 (Training Data Construction)"></a>阶段三：训练数据构建与多层过滤 (Training Data Construction)</h4><p>为了确保合成的交互轨迹可以用于监督微调（SFT），研究人员采用了多层验证（Multi-layer Validation）策略来进行拒绝采样。</p>
 <p>每一条生成的完整轨迹 $\tau &#x3D; {(s_1, a_1), (s_2, a_2), \dots, (s_n, a_n)}$，只有在满足以下数学逻辑条件时，才会被纳入最终的训练集：</p>
-<p>$$\mathcal{T} _ {train} &#x3D; \left\{ \tau \mid \mathbb{I}(\text{Flag}(\tau) &#x3D; y^\ast) \cdot \text{Format}(\tau) \cdot \text{Realism}(\tau) \cdot \text{Align}(\tau, w) &#x3D; 1 \right\}$$</p>
+<p>$$\mathcal{T} _ {train} &#x3D; \{ \tau \mid \mathbb{I}(\text{Flag}(\tau) &#x3D; y^\ast) \cdot \text{Format}(\tau) \cdot \text{Realism}(\tau) \cdot \text{Align}(\tau, w) &#x3D; 1 \}$$</p>
 <ul>
 <li>$\mathbb{I}(\text{Flag}(\tau) &#x3D; y^\ast)$：<strong>准确性验证</strong>。必须以完全匹配（Exact-match）的方式在轨迹末尾捕获正确的 Flag。</li>
 <li>$\text{Format}(\tau)$：<strong>格式校验</strong>。玩家的 Markdown 结构必须正确，且一轮只能发出一条指令。</li>
