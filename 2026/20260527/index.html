@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/527/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/527/3.png">
 <meta property="article:published_time" content="2026-05-27T05:47:34.000Z">
-<meta property="article:modified_time" content="2026-05-27T06:35:34.219Z">
+<meta property="article:modified_time" content="2026-05-27T06:59:44.149Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -301,7 +301,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          217 字
+          1.2k 字
         
       </span>
     
@@ -312,7 +312,7 @@
         
         
         
-          2 分钟
+          11 分钟
         
       </span>
     
@@ -362,7 +362,55 @@
 <p><img src="/2021/1000/527/2.png"></p>
 <p>2）构建了一个大规模的合成网络安全轨迹集合，涵盖多种 CTF 类别。</p>
 <p>3）在多个 CTF 基准上进行了全面分析，结果表明，基于合成轨迹训练的模型达到了业界领先水平，缩小了开源模型与专有模型之间的差距。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2021/1000/527/1.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h4 id="阶段一：源数据收集与预处理-Source-Data-Collection"><a href="#阶段一：源数据收集与预处理-Source-Data-Collection" class="headerlink" title="阶段一：源数据收集与预处理 (Source Data Collection)"></a>阶段一：源数据收集与预处理 (Source Data Collection)</h4><p>研究人员从公共平台（如 CTFtime 和 CTF Archives）抓取了数千篇人类安全专家的解题报告（Writeups）。这些报告详细记录了从信息收集、命令尝试到最终获取 Flag 的步骤。</p>
+<p>由于抓取的数据极度非结构化，作者进行了如下处理：</p>
+<ol>
+<li><p><strong>清洗</strong>：使用 <code>markdownify</code> 将 HTML 转化为干净的 Markdown 格式。</p>
+</li>
+<li><p><strong>过滤</strong>：剔除字符数少于 1000 的无效报告，以及完全依赖外部无效链接的报告。</p>
+</li>
+<li><p><strong>补全元数据</strong>：利用 DeepSeek-V3 强大的阅读理解能力，从杂乱的报告中提取出任务描述、提供的文件列表和真实的 Flag。只有能严格验证 Flag 的报告才会被保留。</p>
+<p>经过清洗，最终得到了包含 <strong>6,188 篇高质量 CTF Writeups</strong> 的数据集，涵盖密码学、逆向工程、Web渗透等 6 大分类。</p>
+</li>
+</ol>
+<h4 id="阶段二：即时无验证的轨迹生成-Verification-Free-Trajectory-Generation"><a href="#阶段二：即时无验证的轨迹生成-Verification-Free-Trajectory-Generation" class="headerlink" title="阶段二：即时无验证的轨迹生成 (Verification-Free Trajectory Generation)"></a>阶段二：即时无验证的轨迹生成 (Verification-Free Trajectory Generation)</h4><p>这一步是论文的<strong>核心创新</strong>。既然没有真实的 Linux 靶机给模型执行命令，如何生成带有“命令-输出”且包含试错过程的多轮交互轨迹呢？</p>
+<p>作者提出了一种 <strong>“角色扮演双模型”（Persona-driven Dual-LLM）</strong> 框架。</p>
+<p>将这种交互建模为一个没有真实环境转移的马尔可夫决策过程（MDP）。令 $\mathcal{M}<em>{player}$ 代表玩家模型，$\mathcal{M}</em>{terminal}$ 代表终端模型。</p>
+<ul>
+<li><p><strong>Persona 1：CTF 玩家（Player Model）</strong></p>
+<ul>
+<li><p><strong>设定</strong>：模拟一位经验丰富的安全工程师。</p>
+</li>
+<li><p><strong>信息隔离</strong>：玩家模型<strong>只能看到</strong>题目的初始描述和文件，<strong>不能看到</strong> Writeup 的解法和最终的 Flag。这强制要求玩家必须基于第一性原理进行推理。</p>
+</li>
+<li><p><strong>策略生成</strong>：玩家模型在执行动作前，被要求输出思维链（Chain-of-Thought）进行逻辑推理，其每一步的动作 $a_t$ 可表示为：</p>
+<p>$$a_t \sim \mathcal{M}_{player}(\cdot \mid s_1, a_1, \dots, s_t)$$</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Persona 2：Bash 终端模拟器（Terminal Model）</strong></p>
+<ul>
+<li><p><strong>设定</strong>：模拟具有各种网络安全工具的 Linux 终端。负责对玩家的指令进行反馈（例如输出报错、返回反编译代码等）。</p>
+</li>
+<li><p><strong>弱预言机（Weak Oracle）权限</strong>：终端模型<strong>拥有</strong>真实的 Writeup ($w$) 和参考 Flag ($y^*$)。它负责结合这些上帝视角的信息，模拟出极为逼真的系统响应 $s_{t+1}$：</p>
+<p>$$s_{t+1} \sim \mathcal{M}_{terminal}(\cdot \mid s_t, a_t, w, y^*)$$</p>
+</li>
+<li><p><strong>选择性干预机制（Hint Mechanism）</strong>：因为没有真实环境，如果玩家模型完全偏离轨道，合成轨迹就会失败。为此，当玩家陷入死循环或犯下重复错误时，终端模型会注入带有 <code>[HINT]...[/HINT]</code> 标签的微小提示语，将玩家拉回正轨，而不是直接剧透。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="阶段三：训练数据构建与多层过滤-Training-Data-Construction"><a href="#阶段三：训练数据构建与多层过滤-Training-Data-Construction" class="headerlink" title="阶段三：训练数据构建与多层过滤 (Training Data Construction)"></a>阶段三：训练数据构建与多层过滤 (Training Data Construction)</h4><p>为了确保合成的交互轨迹可以用于监督微调（SFT），研究人员采用了多层验证（Multi-layer Validation）策略来进行拒绝采样。</p>
+<p>每一条生成的完整轨迹 $\tau &#x3D; {(s_1, a_1), (s_2, a_2), \dots, (s_n, a_n)}$，只有在满足以下数学逻辑条件时，才会被纳入最终的训练集：</p>
+<p>$$\mathcal{T}_{train} &#x3D; \left{ \tau \mid \mathbb{I}(\text{Flag}(\tau) &#x3D; y^*) \cdot \text{Format}(\tau) \cdot \text{Realism}(\tau) \cdot \text{Align}(\tau, w) &#x3D; 1 \right}$$</p>
+<ul>
+<li>$\mathbb{I}(\text{Flag}(\tau) &#x3D; y^*)$：<strong>准确性验证</strong>。必须以完全匹配（Exact-match）的方式在轨迹末尾捕获正确的 Flag。</li>
+<li>$\text{Format}(\tau)$：<strong>格式校验</strong>。玩家的 Markdown 结构必须正确，且一轮只能发出一条指令。</li>
+<li>$\text{Realism}(\tau)$：<strong>真实性校验</strong>。终端的输出必须具备逼真的报错系统和文件头 metadata。</li>
+<li>$\text{Align}(\tau, w)$：<strong>语义对齐</strong>。使用 LLM 作为二分类过滤器，判断合成的解题思路 $\tau$ 是否与人类专家的原始 Writeup $w$ 的真实意图一致。</li>
+</ul>
+<p>通过上述方法，每个 Writeup 采样 3 次，作者生成了 9,464 条带有丰富交互（包括探索、试错、报错、修复）的训练数据。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2021/1000/527/1.png"></p>
 <p><img src="/2021/1000/527/3.png"></p>
 
                 
