@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260527/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260527/3.png">
 <meta property="article:published_time" content="2026-05-27T05:47:34.000Z">
-<meta property="article:modified_time" content="2026-05-27T06:59:44.149Z">
+<meta property="article:modified_time" content="2026-05-27T07:01:58.132Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -375,7 +375,7 @@
 </ol>
 <h4 id="阶段二：即时无验证的轨迹生成-Verification-Free-Trajectory-Generation"><a href="#阶段二：即时无验证的轨迹生成-Verification-Free-Trajectory-Generation" class="headerlink" title="阶段二：即时无验证的轨迹生成 (Verification-Free Trajectory Generation)"></a>阶段二：即时无验证的轨迹生成 (Verification-Free Trajectory Generation)</h4><p>这一步是论文的<strong>核心创新</strong>。既然没有真实的 Linux 靶机给模型执行命令，如何生成带有“命令-输出”且包含试错过程的多轮交互轨迹呢？</p>
 <p>作者提出了一种 <strong>“角色扮演双模型”（Persona-driven Dual-LLM）</strong> 框架。</p>
-<p>将这种交互建模为一个没有真实环境转移的马尔可夫决策过程（MDP）。令 $\mathcal{M}<em>{player}$ 代表玩家模型，$\mathcal{M}</em>{terminal}$ 代表终端模型。</p>
+<p>将这种交互建模为一个没有真实环境转移的马尔可夫决策过程（MDP）。令 $\mathcal{M} _ {player}$ 代表玩家模型，$\mathcal{M} _ {terminal}$ 代表终端模型。</p>
 <ul>
 <li><p><strong>Persona 1：CTF 玩家（Player Model）</strong></p>
 <ul>
@@ -384,7 +384,7 @@
 <li><p><strong>信息隔离</strong>：玩家模型<strong>只能看到</strong>题目的初始描述和文件，<strong>不能看到</strong> Writeup 的解法和最终的 Flag。这强制要求玩家必须基于第一性原理进行推理。</p>
 </li>
 <li><p><strong>策略生成</strong>：玩家模型在执行动作前，被要求输出思维链（Chain-of-Thought）进行逻辑推理，其每一步的动作 $a_t$ 可表示为：</p>
-<p>$$a_t \sim \mathcal{M}_{player}(\cdot \mid s_1, a_1, \dots, s_t)$$</p>
+<p>$$a_t \sim \mathcal{M} _ {player}(\cdot \mid s_1, a_1, \dots, s_t)$$</p>
 </li>
 </ul>
 </li>
@@ -392,8 +392,8 @@
 <ul>
 <li><p><strong>设定</strong>：模拟具有各种网络安全工具的 Linux 终端。负责对玩家的指令进行反馈（例如输出报错、返回反编译代码等）。</p>
 </li>
-<li><p><strong>弱预言机（Weak Oracle）权限</strong>：终端模型<strong>拥有</strong>真实的 Writeup ($w$) 和参考 Flag ($y^*$)。它负责结合这些上帝视角的信息，模拟出极为逼真的系统响应 $s_{t+1}$：</p>
-<p>$$s_{t+1} \sim \mathcal{M}_{terminal}(\cdot \mid s_t, a_t, w, y^*)$$</p>
+<li><p><strong>弱预言机（Weak Oracle）权限</strong>：终端模型<strong>拥有</strong>真实的 Writeup ($w$) 和参考 Flag ($y^*$)。它负责结合这些上帝视角的信息，模拟出极为逼真的系统响应 $s _ {t+1}$：</p>
+<p>$$s _ {t+1} \sim \mathcal{M} _ {terminal}(\cdot \mid s_t, a_t, w, y^*)$$</p>
 </li>
 <li><p><strong>选择性干预机制（Hint Mechanism）</strong>：因为没有真实环境，如果玩家模型完全偏离轨道，合成轨迹就会失败。为此，当玩家陷入死循环或犯下重复错误时，终端模型会注入带有 <code>[HINT]...[/HINT]</code> 标签的微小提示语，将玩家拉回正轨，而不是直接剧透。</p>
 </li>
@@ -402,7 +402,7 @@
 </ul>
 <h4 id="阶段三：训练数据构建与多层过滤-Training-Data-Construction"><a href="#阶段三：训练数据构建与多层过滤-Training-Data-Construction" class="headerlink" title="阶段三：训练数据构建与多层过滤 (Training Data Construction)"></a>阶段三：训练数据构建与多层过滤 (Training Data Construction)</h4><p>为了确保合成的交互轨迹可以用于监督微调（SFT），研究人员采用了多层验证（Multi-layer Validation）策略来进行拒绝采样。</p>
 <p>每一条生成的完整轨迹 $\tau &#x3D; {(s_1, a_1), (s_2, a_2), \dots, (s_n, a_n)}$，只有在满足以下数学逻辑条件时，才会被纳入最终的训练集：</p>
-<p>$$\mathcal{T}_{train} &#x3D; \left{ \tau \mid \mathbb{I}(\text{Flag}(\tau) &#x3D; y^*) \cdot \text{Format}(\tau) \cdot \text{Realism}(\tau) \cdot \text{Align}(\tau, w) &#x3D; 1 \right}$$</p>
+<p>$$\mathcal{T} _ {train} &#x3D; \left{ \tau \mid \mathbb{I}(\text{Flag}(\tau) &#x3D; y^*) \cdot \text{Format}(\tau) \cdot \text{Realism}(\tau) \cdot \text{Align}(\tau, w) &#x3D; 1 \right}$$</p>
 <ul>
 <li>$\mathbb{I}(\text{Flag}(\tau) &#x3D; y^*)$：<strong>准确性验证</strong>。必须以完全匹配（Exact-match）的方式在轨迹末尾捕获正确的 Flag。</li>
 <li>$\text{Format}(\tau)$：<strong>格式校验</strong>。玩家的 Markdown 结构必须正确，且一轮只能发出一条指令。</li>
