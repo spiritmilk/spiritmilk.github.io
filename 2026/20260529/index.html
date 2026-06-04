@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICML 2026）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260529/1.png">
 <meta property="article:published_time" content="2026-05-29T04:25:11.000Z">
 <meta property="article:modified_time" content="2026-06-04T07:45:03.929Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260529/1.png">
   
   
   
@@ -357,7 +357,7 @@
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p><strong>视觉证据的“遗忘”：</strong> 模型在生成长文本的过程中，往往会由于对正确的视觉证据关注不足而产生幻觉，并且随着生成步数的增加，模型会逐渐“遗忘”这些视觉证据 。  </p>
 <p><strong>层间视觉注意力差异 (ILVAD)：</strong> 研究发现，模型在大多数网络层中会过度关注与当前问题无关的背景区域（被称为“视觉注意力汇聚点”或 visual attention sinks），但它们仅仅在<strong>特定的层</strong>中才会对正确的“视觉证据”表现出敏感性 。这种层与层之间对视觉信息注意力的巨大差异，成为了精准定位有效视觉信息的关键 。  </p>
-<p><img src="/1.png"></p>
+<p><img src="/2026/20260529/1.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>ILVAD 方法分为两个主要阶段：提取视觉证据显著性图，以及基于证据引导的视觉与文本注意力增强。  </p>
 <h3 id="第一阶段：获取视觉证据显著性图-Visual-Evidence-Saliency-Map"><a href="#第一阶段：获取视觉证据显著性图-Visual-Evidence-Saliency-Map" class="headerlink" title="第一阶段：获取视觉证据显著性图 (Visual Evidence Saliency Map)"></a>第一阶段：获取视觉证据显著性图 (Visual Evidence Saliency Map)</h3><p>此阶段的目标是利用早期生成的 token 跨层注意力的差异，精准定位视觉证据，并剔除注意力陷阱 。  </p>
 <p><strong>1. 提取视觉敏感头的平均注意力</strong> 由于不同注意力头对视觉信息的敏感度不同，首先在第 $l$ 层筛选出视觉注意力总和排名前 <strong>50%</strong> 的头部集合 $H_v^l$ 。然后，利用前 $T$ 个生成的文本 token ($X_{t \le T}$) 对每个视觉 token ($X_v$) 计算平均注意力权重：  </p>
