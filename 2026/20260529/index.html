@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260529/1.png">
 <meta property="article:published_time" content="2026-05-29T04:25:11.000Z">
-<meta property="article:modified_time" content="2026-06-04T07:45:03.929Z">
+<meta property="article:modified_time" content="2026-06-04T08:12:41.373Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -360,27 +360,27 @@
 <p><img src="/2026/20260529/1.png"></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>ILVAD 方法分为两个主要阶段：提取视觉证据显著性图，以及基于证据引导的视觉与文本注意力增强。  </p>
 <h3 id="第一阶段：获取视觉证据显著性图-Visual-Evidence-Saliency-Map"><a href="#第一阶段：获取视觉证据显著性图-Visual-Evidence-Saliency-Map" class="headerlink" title="第一阶段：获取视觉证据显著性图 (Visual Evidence Saliency Map)"></a>第一阶段：获取视觉证据显著性图 (Visual Evidence Saliency Map)</h3><p>此阶段的目标是利用早期生成的 token 跨层注意力的差异，精准定位视觉证据，并剔除注意力陷阱 。  </p>
-<p><strong>1. 提取视觉敏感头的平均注意力</strong> 由于不同注意力头对视觉信息的敏感度不同，首先在第 $l$ 层筛选出视觉注意力总和排名前 <strong>50%</strong> 的头部集合 $H_v^l$ 。然后，利用前 $T$ 个生成的文本 token ($X_{t \le T}$) 对每个视觉 token ($X_v$) 计算平均注意力权重：  </p>
-<p>$$\bar{A}<em>j^l &#x3D; \frac{1}{T \cdot |H_v^l|} \sum</em>{h \in H_v^l} \sum_{i \in X_{t \le T}} A_{i,j}^{l,h}, \quad j \in X_v$$</p>
+<p><strong>1. 提取视觉敏感头的平均注意力</strong> 由于不同注意力头对视觉信息的敏感度不同，首先在第 $l$ 层筛选出视觉注意力总和排名前 <strong>50%</strong> 的头部集合 $H_v^l$ 。然后，利用前 $T$ 个生成的文本 token ($X _ {t \le T}$) 对每个视觉 token ($X_v$) 计算平均注意力权重：  </p>
+<p>$$\bar{A}_j^l &#x3D; \frac{1}{T \cdot |H_v^l|} \sum _ {h \in H_v^l} \sum _ {i \in X _ {t \le T}} A _ {i,j}^{l,h}, \quad j \in X_v$$</p>
 <p><strong>2. 阈值二值化 (过滤非证据区域)</strong></p>
 <p>为了滤除模型不关注的背景区域，设定一个阈值倍数 $\tau$。如果某个视觉 token 的注意力值超过了该层所有视觉 token 平均注意力的 $\tau$ 倍，则将其激活为显著 token：</p>
 <p>$$\tilde{A}_j^l &#x3D; \begin{cases} 1, &amp; \text{if } \bar{A}_j^l &gt; \tau \cdot \text{mean}(\bar{A}^l), \ 0, &amp; \text{otherwise} \end{cases}$$</p>
 <p>(注：为表述严谨，此处使用 $\tilde{A}_j^l$ 表示二值化后的状态，对应原论文伪代码中的逻辑 。)  </p>
 <p><strong>3. 利用层间差异剔除注意力陷阱</strong> “视觉注意力陷阱”通常在几乎所有层都会被错误地赋予高注意力 。为了区分真正的视觉证据，方法规定：<strong>只有当一个视觉 token 在当前层新被识别为显著，而在前一层不是时，才被视为“激活”</strong> 。通过跨层相减并累加，得到累积激活图 $S$：  </p>
-<p>$$S &#x3D; \sum_{l&#x3D;1}^{L-1} \max(\tilde{A}^{l+1} - \tilde{A}^l, 0)$$</p>
+<p>$$S &#x3D; \sum _ {l&#x3D;1}^{L-1} \max(\tilde{A}^{l+1} - \tilde{A}^l, 0)$$</p>
 <p>最后，将 $S$ 归一化到 $[0,1]$ 区间，得到最终的视觉证据显著性图 $\hat{S}$ 。  </p>
 <h3 id="第二阶段：证据引导的视觉与文本增强"><a href="#第二阶段：证据引导的视觉与文本增强" class="headerlink" title="第二阶段：证据引导的视觉与文本增强"></a>第二阶段：证据引导的视觉与文本增强</h3><p>在获得显著性图 $\hat{S}$ 后，在后续自回归生成的每一步中，对内部注意力矩阵进行动态干预，以防止视觉遗忘并抑制语言先验 。  </p>
 <p><strong>1. 增强视觉证据注意力</strong></p>
 <p>首先，衡量第 $l$ 层每个注意力头 $h$ 对视觉证据的敏感度 $e_i^{l,h}$：</p>
-<p>$$e_i^{l,h} &#x3D; \frac{\sum_{j \in X_v} \hat{S}<em>j \cdot A</em>{i,j}^{l,h}}{\sum_{j \in X_v} A_{i,j}^{l,h}}, \quad i \in X_t$$</p>
+<p>$$e_i^{l,h} &#x3D; \frac{\sum _ {j \in X_v} \hat{S}_j \cdot A _ {i,j}^{l,h}}{\sum _ {j \in X_v} A _ {i,j}^{l,h}}, \quad i \in X_t$$</p>
 <p>选取敏感度排名前 50% 的头部集合 $H_e^l$ 。利用显著性图 $\hat{S}$ 和超参数 $\alpha$（控制增强强度），直接在这些头上指数级放大对视觉证据的注意力：  </p>
-<p>$$\hat{A}<em>{i,j}^{l,h} &#x3D; A</em>{i,j}^{l,h} \cdot \exp(\alpha \hat{S}_j), \quad h \in H_e^l, i \in X_t, j \in X_v$$</p>
+<p>$$\hat{A} _ {i,j}^{l,h} &#x3D; A _ {i,j}^{l,h} \cdot \exp(\alpha \hat{S}_j), \quad h \in H_e^l, i \in X_t, j \in X_v$$</p>
 <p><strong>2. 视觉证据引导的文本增强</strong></p>
 <p>为了让模型生成的文本紧紧锚定在视觉证据上，计算当前生成的文本 token 依赖于视觉证据的程度（证据加权分数 $w_i$）：</p>
-<p>$$w_i &#x3D; \frac{1}{L \cdot |H_t^l|} \sum_{h \in H_t^l} \sum_{j \in X_v} \sum_{l&#x3D;1}^L \hat{S}<em>j \cdot A</em>{i,j}^{l,h}, \quad i \in X_t$$</p>
+<p>$$w_i &#x3D; \frac{1}{L \cdot |H_t^l|} \sum _ {h \in H_t^l} \sum _ {j \in X_v} \sum _ {l&#x3D;1}^L \hat{S}_j \cdot A _ {i,j}^{l,h}, \quad i \in X_t$$</p>
 <p>将 $w_i$ 归一化为 $\hat{w}_i \in [0,1]$ 。在文本敏感头集合 $H_t^l$ 上，引入控制参数 $\beta$ 来增强那些具有强视觉基础的先前文本 token 的注意力，从而抑制模型单纯依赖语言惯性“胡编乱造”：  </p>
-<p>$$\hat{A}<em>{i,j}^{l,h} &#x3D; A</em>{i,j}^{l,h} \cdot (\hat{w}<em>i + \beta), \quad h \in H_t^l, i \in X_t, j \in X</em>{&lt;t}$$</p>
-<p>最后，对经过上述两步干预后的注意力权重重新进行 Softmax 归一化（$\hat{A}<em>{i,j}^{l,h} &#x3D; \hat{A}</em>{i,j}^{l,h} &#x2F; \sum_j \hat{A}_{i,j}^{l,h}$），再继续前向传播 。  </p>
+<p>$$\hat{A} _ {i,j}^{l,h} &#x3D; A _ {i,j}^{l,h} \cdot (\hat{w}_i + \beta), \quad h \in H_t^l, i \in X_t, j \in X _ {&lt;t}$$</p>
+<p>最后，对经过上述两步干预后的注意力权重重新进行 Softmax 归一化（$\hat{A} _ {i,j}^{l,h} &#x3D; \hat{A} _ {i,j}^{l,h} &#x2F; \sum_j \hat{A} _ {i,j}^{l,h}$），再继续前向传播 。  </p>
 
                 
               </div>
