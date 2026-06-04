@@ -21,19 +21,24 @@
   <meta name="author" content="LJX">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="20260601">
+    <meta name="description" content="（arxiv 2026）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hallucination as Exploit： Evidence-Carrying Multimodal Agents">
 <meta property="og:url" content="https://lijianxiong.space/2026/20260601/index.html">
 <meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-01T07:20:38.000Z">
-<meta property="article:modified_time" content="2026-06-01T07:20:38.338Z">
+<meta property="article:modified_time" content="2026-06-04T08:10:03.960Z">
 <meta property="article:author" content="LJX">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="多模态">
+<meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>20260601 - 小熊的小站</title>
+  <title>Hallucination as Exploit： Evidence-Carrying Multimodal Agents - 小熊的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -270,7 +275,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">20260601</span>
+            <span id="subtitle">Hallucination as Exploit： Evidence-Carrying Multimodal Agents</span>
           
         </div>
 
@@ -293,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.4k 字
         
       </span>
     
@@ -304,7 +309,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -341,12 +346,45 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">20260601</h1>
+            <h1 id="seo-header">Hallucination as Exploit： Evidence-Carrying Multimodal Agents</h1>
             
             
               <div class="markdown-body">
                 
-                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css">
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（arxiv 2026）</p>
+<span id="more"></span>
+
+<h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p><strong>问题的本质</strong>：在传统的问答场景中，模型产生视觉幻觉（例如看错了一张图的说明）仅仅是“回答质量错误”。然而，当多模态智能体开始通过读取屏幕截图、文档或网页来调用工具时，一个错误的视觉判断（例如伪造的按钮位置或发票字段）就可以触发工具调用，从而演变成严重的“授权失败”。  </p>
+<p><strong>概念定义</strong>：作者将这种失效模式正式定义为“幻觉到动作的转化”（Hallucination-to-Action Conversion, H2AC）。即一个缺乏依据的主张（unsupported claim）成为了执行特权动作的前提条件。  </p>
+<p><strong>现有防御的盲区</strong>：目前的提示词注入防御主要关注“指令流”（模型是否遵循了恶意指令），而忽略了“信念流”。如果模型自身产生了虚假前提的幻觉（或者被模糊内容误导），即使没有明显的恶意指令，依然会导致不安全动作的执行。 </p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="理论建模：如何定义动作与幻觉"><a href="#理论建模：如何定义动作与幻觉" class="headerlink" title="理论建模：如何定义动作与幻觉"></a>理论建模：如何定义动作与幻觉</h3><p>在 ECA 的设定中，一个智能体面对一个观察结果 $o \in \mathcal{O}$（如屏幕截图、网页 DOM 或文档），并可能执行一个动作 $a \in \mathcal{A}$（如点击、打字、发送邮件）。  </p>
+<p>任何一个安全性敏感的动作 $a$ 都有其必须满足的<strong>前提谓词集合（Preconditions）</strong>，记为$\Phi_{a}$ 。  </p>
+<ul>
+<li>幻觉到动作的转化（H2AC）发生于：存在某个关键谓词 $p \in \Phi_{a}$，它实际上是虚假的或仅来源于不可信内容，但模型（MLLM）却将其视为“真”并以此为依据去执行动作 。</li>
+</ul>
+<h3 id="ECA-架构的三大核心组件"><a href="#ECA-架构的三大核心组件" class="headerlink" title="ECA 架构的三大核心组件"></a>ECA 架构的三大核心组件</h3><p>为了阻断上述的转化，ECA 引入了以下机制：</p>
+<h4 id="A-动作模式-Action-Schema"><a href="#A-动作模式-Action-Schema" class="headerlink" title="A. 动作模式 (Action Schema)"></a>A. 动作模式 (Action Schema)</h4><p>每个工具动作都必须声明一个对应的动作模式 $G_{a}$，显式地将该动作所需的参数映射到必须被验证的关键谓词上 。 例如，对于“点击网页上某个坐标”的动作，其模式需要三个谓词：  </p>
+<p>$$G_{\text{click}}(x, y, l) &#x3D; {\text{ui_element}(l, x, y), \text{task_match}(l), \text{safe_source}(l)}$$</p>
+<p>这意味着，如果智能体想点击坐标 $(x,y)$ 上的标签 $l$，系统必须确认：(1) 这里真的存在一个 UI 元素，(2) 它符合当前任务，(3) 它的来源是安全的。  </p>
+<h4 id="B-证据证书-Evidence-Certificates"><a href="#B-证据证书-Evidence-Certificates" class="headerlink" title="B. 证据证书 (Evidence Certificates)"></a>B. 证据证书 (Evidence Certificates)</h4><p>模型自己生成的文本不能作为证据 。证据必须由独立的受限验证器（如 OCR 引擎、DOM 解析器、目标检测器）从原始观察 $o$ 中提取，并生成结构化的<strong>证书 $\mathcal{E}$</strong> 。 每个证书 $e$ 是一个包含 8 个属性的类型化记录：  </p>
+<p>$$e &#x3D; (\tau, v, r, s, \nu, \kappa, t, \lambda)$$</p>
+<p>其中分别代表：类型（如 ocr_text）、值、区域坐标、来源、验证器名称、置信度 $\kappa$、时间戳、以及最重要的<strong>信任标签 $\lambda$</strong> 。  </p>
+<h4 id="C-策略网关-Policy-Gate"><a href="#C-策略网关-Policy-Gate" class="headerlink" title="C. 策略网关 (Policy Gate)"></a>C. 策略网关 (Policy Gate)</h4><p>这是最终把关的确定性逻辑门。记作 $\Pi(a, \mathcal{E})$，其输出只能是 {ALLOW, ASK, BLOCK} 中的一个 。 如果用 $Accept_{p}(\mathcal{E}) &#x3D; 1$ 表示证书集合 $\mathcal{E}$ 中包含了能证明谓词 $p$ 为真的合格证书，那么网关放行（ALLOW）的严格条件是：  </p>
+<p>$$\forall p \in \Phi_{a}, Accept_{p}(\mathcal{E}) &#x3D; 1$$</p>
+<p>即：<strong>所有要求的谓词，都必须有对应的证书支持，缺一不可</strong>。  </p>
+<h3 id="数学证明：ECA-的安全性上限-Soundness"><a href="#数学证明：ECA-的安全性上限-Soundness" class="headerlink" title="数学证明：ECA 的安全性上限 (Soundness)"></a>数学证明：ECA 的安全性上限 (Soundness)</h3><p>论文的精髓在于通过概率边界证明了这种设计的安全性（Proposition 1） 。作者没有宣称验证器是完美无缺的，而是定义了三种残余误差：  </p>
+<ol>
+<li><strong>验证器假阳性率 ($\epsilon_p$)</strong>：某验证器针对谓词 $p$ 发出错误证书的概率 。  </li>
+<li><strong>模式遗漏率 ($\delta_{schema}(a)$)</strong>：动作模式 $G_a$ 漏掉了某个本该检查的关键谓词的概率 。  </li>
+<li><strong>实现绕过率 ($\delta_{impl}(a)$)</strong>：系统代码存在 Bug 被黑客绕过网关的概率 。</li>
+</ol>
+<p>令 $U(a)$ 为动作 $a$ 涉及的那些“缺乏依据但被模型当真”的谓词集合 。根据联合界（Union Bound），一个由幻觉引起的未授权动作成功欺骗系统并执行（H2AAllow）的最高概率为：  </p>
+<p>$$Pr[\text{H2AAllow}(a)] \le \delta_{schema}(a) + \delta_{impl}(a) + \sum_{p \in U(a)} \epsilon_p$$</p>
+<p><strong>公式的含义极其深刻</strong>： 如果架构设计得当（$\delta_{schema} \approx 0$ 且 $\delta_{impl} \approx 0$），那么智能体因幻觉导致危险操作的概率，<strong>被严格限定在了底层验证器自身的识别错误率 ($\epsilon_p$) 的总和之内</strong> 。ECA 成功将大模型内部“不可解释、不可审计”的幻觉风险，转移成了工程上“可测量、可加固”的验证器错误风险 。  </p>
+<h3 id="跨模态佐证机制-Cross-modal-Corroboration"><a href="#跨模态佐证机制-Cross-modal-Corroboration" class="headerlink" title="跨模态佐证机制 (Cross-modal Corroboration)"></a>跨模态佐证机制 (Cross-modal Corroboration)</h3><p>为了进一步压低上述公式中的 $\epsilon_p$，ECA 引入了多模态相互印证（Proposition 2） 。 如果针对同一个谓词 $p$（例如：页面上确实存在“转账”字样），我们同时要求 DOM 树解析器和屏幕截图 OCR 识别器来共同作证，令验证器集合为 $\mathcal{V}$。在假设验证器失效相互独立的情况下，联合假阳性率呈乘积级下降：  </p>
+<p>$$\epsilon_p^{\text{AND}} \le \prod_{v_i \in \mathcal{V}} \epsilon_p^{(v_i)}$$</p>
+<p>只要攻击者无法同时攻破并伪造 DOM 底层数据和前端视觉像素，这套机制就能在数学上将攻击成功率无限推近于 0（这也就是为什么论文在 1700 次红队测试中实现了 0% 绕过的理论基石） 。</p>
+
                 
               </div>
             
@@ -354,6 +392,17 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="print-no-link">#深度学习</a>
+      
+        <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/" class="print-no-link">#多模态</a>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+    </div>
   
 </div>
 
@@ -363,7 +412,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>20260601</div>
+      <div>Hallucination as Exploit： Evidence-Carrying Multimodal Agents</div>
       <div>https://lijianxiong.space/2026/20260601/</div>
     </div>
     <div class="license-meta">
@@ -954,7 +1003,7 @@ if (document.readyState === 'loading') {
                         series: [{
                             type: 'pie',
                             radius: '60%',
-                            data: [{"name":"深度学习","value":207},{"name":"大模型","value":110},{"name":"人工智能","value":47},{"name":"多模态","value":39},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
+                            data: [{"name":"深度学习","value":208},{"name":"大模型","value":111},{"name":"人工智能","value":47},{"name":"多模态","value":40},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}],
                             label: {
                                 position: 'outside',
                                 formatter: '{b} {c} ({d}%)',
@@ -968,7 +1017,7 @@ if (document.readyState === 'loading') {
                         legend: {
                             bottom: '0',
                             left: 'center',
-                            data: [{"name":"深度学习","value":207},{"name":"大模型","value":110},{"name":"人工智能","value":47},{"name":"多模态","value":39},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
+                            data: [{"name":"深度学习","value":208},{"name":"大模型","value":111},{"name":"人工智能","value":47},{"name":"多模态","value":40},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":25},{"name":"图神经网络","value":17}].map(tag => tag.name),
                             textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
                         }
                     });
