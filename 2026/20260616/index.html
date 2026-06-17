@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ ICML 2026） 从图结构的视角深入剖析了decoder-only Transformer架构的大型语言模型产生推理幻觉的内部机制。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-16T12:17:03.000Z">
-<meta property="article:modified_time" content="2026-06-17T08:59:36.830Z">
+<meta property="article:modified_time" content="2026-06-17T14:58:39.437Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -376,10 +376,10 @@
 <li><strong>根本原因</strong>：这种压缩现象是因为模型学习到的多跳序列共现性（co-occurrence）压倒了图中严格的单步拓扑相邻性约束，从而导致模型预测出一条本不存在的边。  </li>
 <li><strong>架构局限</strong>：单纯增加模型的层数（加深网络结构）并不能帮助模型从这种路径压缩中恢复。</li>
 </ul>
-<h4 id="构建数据集"><a href="#构建数据集" class="headerlink" title="构建数据集"></a>构建数据集</h4><p><strong>子图的最大数量（内在推理数据集）</strong>：对于包含 $|V|$ 个节点和 $|E|$ 条边的图，其能够生成的子图数量上限为 $#\mathcal{G}<em>I(G)&#x3D;\sum</em>{U\subset V} 2^{|E[U]|}$ 。由于这个数量呈指数级爆炸，作者得以拥有极其庞大的样本库来控制模型的“可见数据比例”（例如只给模型看 0.1% 的数据来观察欠拟合）。  </p>
+<h4 id="构建数据集"><a href="#构建数据集" class="headerlink" title="构建数据集"></a>构建数据集</h4><p><strong>子图的最大数量（内在推理数据集）</strong>：对于包含 $|V|$ 个节点和 $|E|$ 条边的图，其能够生成的子图数量上限为 $\#\mathcal{G}<em>I(G)&#x3D;\sum</em>{U\subset V} 2^{|E[U]|}$ 。由于这个数量呈指数级爆炸，作者得以拥有极其庞大的样本库来控制模型的“可见数据比例”（例如只给模型看 0.1% 的数据来观察欠拟合）。  </p>
 <p><strong>最短路径的最大组合（外在推理数据集）</strong>：作者利用层级间边缘密度 $\rho_i$ 和每一层的节点数，将实现最短路径的数量上限设定为 $\prod_{i&#x3D;0}^{d-1}\sqrt{\rho_i|V_{i+1}|}$ 。  </p>
 <p><strong>防泄露隔离</strong>：在划分 90% 训练集和 10% 测试集时，作者进行了严格的过滤，如果测试集中的某条最短路径的节点序列是训练集路径的“子序列”，则将其剔除，以绝对防止信息泄露 。  </p>
-<h3 id="研究“路径重用”的方法：监控三大准确率分离"><a href="#研究“路径重用”的方法：监控三大准确率分离" class="headerlink" title="研究“路径重用”的方法：监控三大准确率分离"></a>研究“路径重用”的方法：监控三大准确率分离</h3><p>为了捕捉模型无视上下文的“路径重用”幻觉，作者在一个具有 10 个节点、连接概率为 0.4 的 Erdős-Rényi (ER) 随机图上进行了 Transformer 从头训练 。  </p>
+<h3 id="研究“路径重用”的方法：监控三大准确率分离"><a href="#研究“路径重用”的方法：监控三大准确率分离" class="headerlink" title="研究“路径重用”的方法：监控三大准确率分离"></a>研究“路径重用”的方法：监控三大准确率分离</h3><p>为了捕捉模型无视上下文的“路径重用”幻觉，作者在一个具有 10 个节点、连接概率为0.4的Erdős-Rényi (ER) 随机图上进行了 Transformer 从头训练 。  </p>
 <blockquote>
 <p>ER 图（Erdős-Rényi Graph）是图论和网络科学中极其经典的一种<strong>随机图模型</strong>。</p>
 <ul>
@@ -390,8 +390,8 @@
 </blockquote>
 <p>作者定义了三个层层递进的数学指标（指示函数），并在训练全程监控它们的曲线走势：</p>
 <ul>
-<li><strong>存在准确率 ($Acc_{Exist}$)</strong>：只看模型预测的路径在底层全局图 $G$ 中是否合法，不管它是否遵守了子图上下文 。  </li>
-<li><strong>局部准确率 ($Acc_{Local}$)</strong>：最严格的指标。模型不仅要走合法的边，还必须严格遵守给定的子图上下文约束 $\mathcal{C}$ 。  </li>
+<li><strong>存在准确率 ($Acc_{Exist}$)</strong>：只看模型预测的路径在底层全局图 $G$ 中是否合法，不管它是否遵守了子图上下文。  </li>
+<li><strong>局部准确率 ($Acc_{Local}$)</strong>：最严格的指标。模型不仅要走合法的边，还必须严格遵守给定的子图上下文约束$\mathcal{C}$。  </li>
 <li><strong>全局准确率 ($Acc_{Global}$)</strong>：评估对所有可达节点对的泛化能力 。</li>
 </ul>
 <p><strong>判断标准</strong>：如果随着训练步数增加，$Acc_{Exist}$ 极高，而 $Acc_{Local}$ 极低，这就在数学上实锤了模型正在发生“路径重用”幻觉——它脑子里记住了底层的边，但根本不理会你给定的上下文限制 。  </p>
@@ -402,7 +402,7 @@
 <li><strong>错误跳数分析（Hop-distance Error Analysis）</strong>：作者追踪了模型预测错误的节点，发现最大的错误来源不是胡言乱语，而是模型直接预测了目标路径上 <strong>$3$-hop（3跳）或 $k$-hop</strong> 之外的邻居节点，直接跨过了中间的 $1$-hop 节点 。  </li>
 <li><strong>出度统计验证（Out-Degree Ratio）</strong>：作者对底层图所有节点的出度进行了 Z-score 标准化 。统计结果显示，被模型直接“跳过去”的中间节点通常是低出度的，而模型“降落”的错误节点往往是高出度节点 。</li>
 </ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整篇论文略为抽象。一开始以为是训练好的transformer进行分析（类似SAE），没想到是从头训练一个transf</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>整篇论文略为抽象。一开始以为是训练好的transformer进行分析（类似SAE），没想到是从头训练一个transformer。</p>
 
                 
               </div>
