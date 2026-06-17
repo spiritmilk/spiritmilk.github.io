@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/0.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/1.png">
 <meta property="article:published_time" content="2026-06-16T12:17:03.000Z">
-<meta property="article:modified_time" content="2026-06-17T15:15:20.314Z">
+<meta property="article:modified_time" content="2026-06-17T15:27:26.814Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -412,30 +412,30 @@
 <h3 id="第一步：定义真实的“单步转移矩阵”-T"><a href="#第一步：定义真实的“单步转移矩阵”-T" class="headerlink" title="第一步：定义真实的“单步转移矩阵” $T$"></a>第一步：定义真实的“单步转移矩阵” $T$</h3><p>假设在一个图里，我们要从节点走下一步，最自然的方式是<strong>随机游走（Random Walk）</strong>。  </p>
 <p>定义 $T$ 为真实的 1 步随机游走转移矩阵 ：  </p>
 <ul>
-<li>如果节点 $x$ 到节点 $y$ <strong>有一条真实的边</strong>，那么走过去的概率均分给 $x$ 的所有出边：$(T)_{xy} &#x3D; \frac{1}{outdeg(x)}$ 。  </li>
-<li>如果节点 $x$ 到节点 $y$ <strong>没有边</strong>，那么概率为 0：$(T)_{xy} &#x3D; 0$ 。</li>
+<li>如果节点 $x$ 到节点 $y$ <strong>有一条真实的边</strong>，那么走过去的概率均分给 $x$ 的所有出边：$(T) _ {xy} &#x3D; \frac{1}{outdeg(x)}$ 。  </li>
+<li>如果节点 $x$ 到节点 $y$ <strong>没有边</strong>，那么概率为 0：$(T) _ {xy} &#x3D; 0$ 。</li>
 </ul>
 <p>在这个设定下，如果你想知道从 $x$ 走 2 步到达 $y$ 的概率，就是矩阵相乘 $T^2$；走 $i$ 步到达的概率就是 $T^i$ 。  </p>
 <h3 id="第二步：建立-Transformer-的“认知模型”（假设-B-2）"><a href="#第二步：建立-Transformer-的“认知模型”（假设-B-2）" class="headerlink" title="第二步：建立 Transformer 的“认知模型”（假设 B.2）"></a>第二步：建立 Transformer 的“认知模型”（假设 B.2）</h3><p>这是最关键的一步。传统的随机游走只看眼前的一步，但 Transformer 拥有一个长度为 $K$ 的上下文窗口（Context Window），它能看到多跳之外的共现（co-occurrence）关系 。  </p>
 <p>因此，论文假设 Transformer 学习到的转移概率 $P_\theta(y|x)$，并不是严格的 1 步矩阵 $T$，而是 <strong>$1$ 到 $K$ 步转移矩阵的加权混合（凸组合）</strong> ：  </p>
-<p>$$P_\theta(y|x) &#x3D; \sum_{i&#x3D;1}^K \lambda_i (T^i)_{xy}$$</p>
+<p>$$P_\theta(y|x) &#x3D; \sum _ {i&#x3D;1}^K \lambda_i (T^i) _ {xy}$$</p>
 <p><strong>$\lambda_i$ 是什么？</strong> 这是模型在训练中自动学到的权重 。它代表了模型有多看重“相隔 $i$ 跳的邻居” 。在训练后期（过拟合阶段），因为远距离的实体经常在同一个句子里共现，$\lambda_2, \lambda_3$ 甚至 $\lambda_k$ 的权重会变得异常大。  </p>
 <h3 id="第三步：推导“产生捷径幻觉”的数学条件（命题-B-3，以-2-跳为例）"><a href="#第三步：推导“产生捷径幻觉”的数学条件（命题-B-3，以-2-跳为例）" class="headerlink" title="第三步：推导“产生捷径幻觉”的数学条件（命题 B.3，以 2 跳为例）"></a>第三步：推导“产生捷径幻觉”的数学条件（命题 B.3，以 2 跳为例）</h3><p>现在，假设图里有一条真实的 2 跳路径：起点 $v \rightarrow$ 中间节点 $m \rightarrow$ 终点 $u$ 。 注意前提：<strong>$v$ 和 $u$ 之间没有直接的边相连</strong>（即真实的 1 跳中，应该走不到 $u$） 。  </p>
 <p>此时，我们站在起点 $v$，要求模型预测下一个 Token：</p>
 <p><strong>1. 模型预测正确的 1 跳邻居 $m$ 的概率是多少？</strong> 根据公式，展开 $K&#x3D;2$ 的情况 ：  </p>
-<p>$$P_\theta(m|v) &#x3D; \lambda_1 (T)<em>{vm} + \lambda_2 (T^2)</em>{vm}$$</p>
-<p>假设图中没有其他从 $v$ 绕 2 步回到 $m$ 的环，那么 $(T^2)_{vm} &#x3D; 0$ 。所以：  </p>
-<p>$$P_\theta(m|v) &#x3D; \lambda_1 (T)_{vm} &#x3D; \frac{\lambda_1}{outdeg(v)}$$</p>
-<p><strong>2. 模型产生幻觉，直接预测 2 跳目标 $u$ 的概率是多少？</strong> 因为 $v$ 和 $u$ 没有直接的边，所以真实的 $(T)_{vu} &#x3D; 0$ 。代入公式：  </p>
-<p>$$P_\theta(u|v) &#x3D; \lambda_1 (T)<em>{vu} + \lambda_2 (T^2)</em>{vu} &#x3D; \lambda_2 (T^2)_{vu}$$</p>
-<p>那么 $(T^2)_{vu}$ 是多少呢？它是所有从 $v$ 到 $u$ 的 2 步路径概率之和（假设中间节点集合为 $\mathcal{M}$） ：  </p>
-<p>$$(T^2)<em>{vu} &#x3D; \sum</em>{m’ \in \mathcal{M}} T_{vm’} T_{m’u} &#x3D; \sum_{m’ \in \mathcal{M}} \left(\frac{1}{outdeg(v)} \cdot \frac{1}{outdeg(m’)}\right)$$</p>
+<p>$$P_\theta(m|v) &#x3D; \lambda_1 (T) _ {vm} + \lambda_2 (T^2) _ {vm}$$</p>
+<p>假设图中没有其他从 $v$ 绕 2 步回到 $m$ 的环，那么 $(T^2) _ {vm} &#x3D; 0$ 。所以：  </p>
+<p>$$P_\theta(m|v) &#x3D; \lambda_1 (T) _ {vm} &#x3D; \frac{\lambda_1}{outdeg(v)}$$</p>
+<p><strong>2. 模型产生幻觉，直接预测 2 跳目标 $u$ 的概率是多少？</strong> 因为 $v$ 和 $u$ 没有直接的边，所以真实的 $(T) _ {vu} &#x3D; 0$ 。代入公式：  </p>
+<p>$$P_\theta(u|v) &#x3D; \lambda_1 (T) _ {vu} + \lambda_2 (T^2) _ {vu} &#x3D; \lambda_2 (T^2) _ {vu}$$</p>
+<p>那么 $(T^2) _ {vu}$ 是多少呢？它是所有从 $v$ 到 $u$ 的 2 步路径概率之和（假设中间节点集合为 $\mathcal{M}$） ：  </p>
+<p>$$(T^2) _ {vu} &#x3D; \sum _ {m’ \in \mathcal{M}} T _ {vm’} T _ {m’u} &#x3D; \sum _ {m’ \in \mathcal{M}} \left(\frac{1}{outdeg(v)} \cdot \frac{1}{outdeg(m’)}\right)$$</p>
 <p>把上面的式子代回预测概率中 ：  </p>
-<p>$$P_\theta(u|v) &#x3D; \frac{\lambda_2}{outdeg(v)} \sum_{m’ \in \mathcal{M}} \frac{1}{outdeg(m’)}$$</p>
+<p>$$P_\theta(u|v) &#x3D; \frac{\lambda_2}{outdeg(v)} \sum _ {m’ \in \mathcal{M}} \frac{1}{outdeg(m’)}$$</p>
 <p><strong>3. 幻觉发生的数学判定</strong> 产生幻觉（路径压缩）意味着，模型觉得直接跳到 $u$ 的概率，比老老实实走到 $m$ 的概率还要大 ，即：  </p>
 <p>$$P_\theta(u|v) &gt; P_\theta(m|v)$$</p>
 <p>将上面求出的两个式子代入不等式，两边消去 $\frac{1}{outdeg(v)}$，就得到了<strong>捷径幻觉发生的终极条件</strong> ：  </p>
-<p>$$\frac{\lambda_2}{\lambda_1} &gt; \frac{1}{\sum_{m’ \in \mathcal{M}} \frac{1}{outdeg(m’)}}$$</p>
+<p>$$\frac{\lambda_2}{\lambda_1} &gt; \frac{1}{\sum _ {m’ \in \mathcal{M}} \frac{1}{outdeg(m’)}}$$</p>
 <h3 id="第四步：将数学翻译成“大白话”结论"><a href="#第四步：将数学翻译成“大白话”结论" class="headerlink" title="第四步：将数学翻译成“大白话”结论"></a>第四步：将数学翻译成“大白话”结论</h3><p>看着上面这个最终的不等式，我们可以得出两个极其深刻的关于大模型行为的结论：</p>
 <ol>
 <li><strong>左边 $\frac{\lambda_2}{\lambda_1}$ 代表模型的“心智状态”（过拟合程度）</strong>：<ul>
@@ -443,7 +443,7 @@
 <li>但在训练后期，模型在上下文中看到了太多次 $v$ 和 $u$ 隔着几个词一起出现（统计共现），导致多跳权重 $\lambda_2$ 急剧膨胀。当 $\frac{\lambda_2}{\lambda_1}$ 大过临界值时，幻觉就不可避免地发生了 。</li>
 </ul>
 </li>
-<li><strong>右边 $\frac{1}{\sum_{m’ \in \mathcal{M}} \frac{1}{outdeg(m’)}}$ 代表图的“地理形态”（社区瓶颈效应）</strong>：<ul>
+<li><strong>右边 $\frac{1}{\sum _ {m’ \in \mathcal{M}} \frac{1}{outdeg(m’)}}$ 代表图的“地理形态”（社区瓶颈效应）</strong>：<ul>
 <li>注意看分母里有个 $\frac{1}{outdeg(m’)}$ 。如果中间节点 $m’$ 的出度（outdeg）非常小，说明它是一个冷门节点（或者跨社区的唯一“桥梁”）。  </li>
 <li>当出度小的时候，$\frac{1}{outdeg(m’)}$ 就很大，导致整个右边的不等式阈值变得<strong>非常小</strong>。</li>
 <li><strong>结论：</strong> <strong>中间节点越冷门（出度越低），模型越容易跳过它！</strong> 模型会觉得：“与其通过这个我不熟悉的冷门桥梁去推导，不如根据我的共现记忆，直接把起点和终点连起来。”这就完美解释了论文前面观察到的现象：错误跳跃通常发生在跨越低出度桥接节点的时候 。</li>
