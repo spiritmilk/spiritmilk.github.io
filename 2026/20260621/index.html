@@ -29,7 +29,7 @@
 <meta property="og:description" content="（arxiv 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-21T06:30:33.000Z">
-<meta property="article:modified_time" content="2026-06-22T07:48:11.398Z">
+<meta property="article:modified_time" content="2026-06-22T08:07:48.076Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1 字
+          1.1k 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          1 分钟
+          9 分钟
         
       </span>
     
@@ -352,6 +352,40 @@
               <div class="markdown-body">
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（arxiv 2026）                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <span id="more"></span></p>
+<h3 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h3><p>VLM³ 的核心理念是抛弃复杂的特定任务架构和回归损失函数，回归最基础的视觉语言模型设计 。为了实现这一点，该方法主要围绕三个关键技术点展开：  </p>
+<h4 id="1-焦距统一-Focal-Length-Unification"><a href="#1-焦距统一-Focal-Length-Unification" class="headerlink" title="1. 焦距统一 (Focal Length Unification)"></a>1. 焦距统一 (Focal Length Unification)</h4><p>在 3D 理解中，最棘手的问题之一是“相机模糊性”（如果没有相机内参，模型很难判断图像中物体的真实物理距离和大小）。</p>
+<ul>
+<li><strong>统一缩放</strong>：VLM³ 接收到输入图像后，首先会对其进行缩放，使得图像的焦距统一变为 1000 像素 。这样模型在训练和推理时就拥有了一致的尺度基准。  </li>
+<li><strong>未知内参处理</strong>：如果输入的图像来自网络，没有包含相机内参信息，VLM³ 会调用预训练的单图像标定模型来估算内参，从而依然能够完成焦距的统一化操作 。</li>
+</ul>
+<h4 id="2-纯文本像素与区域参考-Text-based-Pixel-Region-Reference"><a href="#2-纯文本像素与区域参考-Text-based-Pixel-Region-Reference" class="headerlink" title="2. 纯文本像素与区域参考 (Text-based Pixel&#x2F;Region Reference)"></a>2. 纯文本像素与区域参考 (Text-based Pixel&#x2F;Region Reference)</h4><p>以往的视觉模型（如 DepthLM）需要在图像上渲染视觉标记（比如画个箭头或打个红点）来让模型知道当前查询的是哪个像素 。VLM³ 彻底摒弃了这种做法，转而使用纯文本。  </p>
+<ul>
+<li><strong>空间归一化</strong>：为了让模型能理解纯文本的坐标，VLM³ 将图像的水平坐标（$X$ 轴）和垂直坐标（$Y$ 轴）像素空间统一归一化到了 $[0, 2000)$ 的区间内 。  </li>
+<li><strong>应用方式</strong>：<ul>
+<li><strong>像素级参考</strong>：直接在提示词中输入归一化后的坐标。例如提示词为：“How far is the pixel at (x, y) from the camera? Both x and y are normalized to between [0, 2000).” 。  </li>
+<li><strong>物体级参考</strong>：对于一块区域，直接使用边界框的坐标文本，即 $(x_{min}, y_{min}, x_{max}, y_{max})$ 来指代目标物体 。</li>
+</ul>
+</li>
+</ul>
+<p>这种方法不仅省去了重复渲染图片的计算开销，还能在一个训练样本中打包放入针对同一张图的多个坐标问答，极大地提升了训练效率，并让方法具备了极强的扩展性 。  </p>
+<h4 id="3-数据混合与扩展-Data-Mixture-and-Scaling"><a href="#3-数据混合与扩展-Data-Mixture-and-Scaling" class="headerlink" title="3. 数据混合与扩展 (Data Mixture and Scaling)"></a>3. 数据混合与扩展 (Data Mixture and Scaling)</h4><p>在扫清了相机内参和坐标指代这两个障碍后，VLM³ 发现不需要再去设计复杂的数据增强手段，真正的关键在于混合并扩大数据规模 。  </p>
+<ul>
+<li><strong>权重分配至关重要</strong>：当混合规模差异极大的多样化数据集时，如果单纯盲目地增加数据量而不合理分配权重，往往会导致模型性能饱和甚至下降 。  </li>
+<li><strong>防过拟合策略</strong>：因为参数量达数十亿的 VLM 很容易对规模较小或较为简单的数据集产生过拟合，因此需要根据数据集的大小来调整比例，给小数据集分配较小的训练权重 。</li>
+</ul>
+<h3 id="任务转化：将-3D-回归问题变成纯文本问答"><a href="#任务转化：将-3D-回归问题变成纯文本问答" class="headerlink" title="任务转化：将 3D 回归问题变成纯文本问答"></a>任务转化：将 3D 回归问题变成纯文本问答</h3><p>基于上述基础，VLM³ 将四大硬核 3D 任务全部转化为了标准格式的文本预测（即下一个 Token 预测）：  </p>
+<ul>
+<li><strong>绝对深度估计</strong>：将预测像素到相机的距离转化为问答。训练时，VLM³ 会把同一张图的 10 个像素打包成 10 个问答放在一个样本中进行微调 。  </li>
+<li><strong>物体级 3D 理解</strong>：利用边界框定位，让模型以文本形式回答物体间的空间关系（如“谁在谁前面”）或具体的物理宽度和高度 。  </li>
+<li><strong>像素对应估计（多视图匹配）</strong>：给模型看两张图，直接通过提示词询问：“第一张图的 $(x_1, y_1)$，在第二张图中对应的像素坐标是什么？”，模型输出 $(x_2, y_2)$ 。  </li>
+<li><strong>相机姿态估计</strong>：这是传统模型最依赖复杂回归网络的任务 。VLM³ 直接让模型输出文本描述：  <ul>
+<li><strong>平移距离</strong>：输出 $x$ meters 。  </li>
+<li><strong>平移方向</strong>：输出局部坐标系下的单位三维向量 $(x, y, z)$ 。  </li>
+<li><strong>旋转方向</strong>：以偏航（Yaw）、俯仰（Pitch）、翻滚（Roll）的顺序，直接输出三个角度数值 。</li>
+</ul>
+</li>
+</ul>
+<p>VLM³ 用最原始的文本监督学习，证明了哪怕是 3D 空间中极为复杂的连续变量预测，也不需要回归公式的束缚。  </p>
 
                 
               </div>
