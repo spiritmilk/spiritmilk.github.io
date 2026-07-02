@@ -29,8 +29,11 @@
 <meta property="og:description" content="（CVPR 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190718/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190718/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190718/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190718/4.png">
 <meta property="article:published_time" content="2026-07-02T13:12:33.000Z">
-<meta property="article:modified_time" content="2026-07-02T14:42:59.984Z">
+<meta property="article:modified_time" content="2026-07-02T15:17:20.143Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          870 字
+          1.5k 字
         
       </span>
     
@@ -310,7 +313,7 @@
         
         
         
-          8 分钟
+          13 分钟
         
       </span>
     
@@ -362,15 +365,30 @@
 <p><strong>TTT的潜力与挑战</strong>：近期出现的测试时训练（TTT）将整个注意力操作重新表述为一个在线学习（online learning）过程。在测试时，它利用键值对（key-value pairs）作为“微型数据集”来训练或构建一个紧凑的内部模型。这种方法虽然具有线性复杂度且设计空间广阔，但关于如何设计强大的视觉TTT模型，目前仍缺乏系统性的理解和实践指导。  </p>
 <p><img src="/2019/20190718/1.png"></p>
 <h2 id="六大实践洞察"><a href="#六大实践洞察" class="headerlink" title="六大实践洞察"></a>六大实践洞察</h2><p>为了填补这一空白，作者对视觉序列建模中的TTT设计空间进行了系统的实证研究，涵盖了内部训练（损失函数、学习率、批大小、训练轮数）和内部模型设计（架构和大小）两个基本方面，并总结出了六个核心洞察：  </p>
+<h3 id="洞察-1（损失函数）："><a href="#洞察-1（损失函数）：" class="headerlink" title="洞察 1（损失函数）："></a><strong>洞察 1（损失函数）</strong>：</h3><p>如果损失函数的混合二阶导数 $\frac{\partial^{2}\mathcal{L}}{\partial\hat{V}\partial V}$ 为零或消失（例如MAE&#x2F;L1损失或Smooth L1损失），则不适合用于TTT，因为这会切断外部循环的梯度信号。点积损失、MSE和RMSE则表现良好。  </p>
+<h3 id="洞察-2（批大小与轮数）："><a href="#洞察-2（批大小与轮数）：" class="headerlink" title="洞察 2（批大小与轮数）："></a>洞察 2（批大小与轮数）：</h3><p>在视觉任务中，将所有 $N$ 个键值对作为一个完整批次（Batch size $B &#x3D; N$）进行单轮（1 Epoch）内部训练，效果最佳。  </p>
+<p><strong>解释</strong>：</p>
 <ul>
-<li><strong>洞察 1（损失函数）</strong>：如果损失函数的混合二阶导数 $\frac{\partial^{2}\mathcal{L}}{\partial\hat{V}\partial V}$ 为零或消失（例如MAE&#x2F;L1损失或Smooth L1损失），则不适合用于TTT，因为这会切断外部循环的梯度信号。点积损失、MSE和RMSE则表现良好。  </li>
-<li><strong>洞察 2（批大小与轮数）</strong>：对于视觉任务，单轮（single epoch）的全批次（full-batch）梯度下降在内部训练中表现良好。不同于语言建模中偏好的小批量（mini-batch）序列训练，全批次更适合视觉这种非因果（non-causal）的数据模态。  </li>
-<li><strong>洞察 3（学习率）</strong>：使用相对较大的内部学习率（论文中设定为1.0）是非常有效的。较小的学习率会导致内部权重更新不足，而过大的学习率会引起训练不稳定。  </li>
-<li><strong>洞察 4（模型容量）</strong>：增加内部模型的容量（如增加MLP的隐藏维度）可以持续提升模型性能。这是TTT优于传统线性注意力的一大关键优势，因为它允许使用更复杂的非线性模块。  </li>
-<li><strong>洞察 5（模型深度）</strong>：在当前的TTT设置下，较深的内部模型（如三层MLP）会遭遇优化困难，导致训练损失变高、测试准确率下降（欠拟合）。相反，单层或受约束的特殊双层架构表现更好。  </li>
-<li><strong>洞察 6（卷积架构）</strong>：卷积架构非常适合作为视觉任务的内部模型。例如，使用 $3\times3$ 卷积或深度可分离卷积（Depthwise Convolution）可以通过卷积感受野将局部信息与TTT更新的全局信息优雅地结合起来，从而带来显著的性能提升。</li>
+<li><strong>因果偏差（Causal Bias）的错位</strong>：在之前的语言建模 TTT 研究中，小批量（Mini-batch）序贯训练效果很好，因为语言具有强烈的因果顺序，前面批次的参数更新可以顺理成章地影响后面批次，或者被后面批次覆盖。然而，图像数据本质上是非因果的（全局平等的像素）。在视觉中强行引入这种序贯小批量更新，会产生不必要的因果偏差，导致性能下降。  </li>
+<li><strong>轮数影响</strong>：虽然多轮（多 Epoch）全批次训练能微小提升准确率，但会显著降低模型的吞吐量（FPS），并可能引入训练不稳定性，因此单轮更新是效率和精度的最佳平衡。</li>
 </ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>基于上述六大洞察，作者提出了<strong>视觉测试时训练模型（Vision Test-Time Training, $ViT^3$）</strong></p>
+<h3 id="洞察-3（学习率）："><a href="#洞察-3（学习率）：" class="headerlink" title="洞察 3（学习率）："></a><strong>洞察 3（学习率）</strong>：</h3><p>使用相对较大的内部学习率（论文中设定为1.0）是非常有效的。较小的学习率会导致内部权重更新不足，而过大的学习率会引起训练不稳定。  </p>
+<p>论文指出，在某些特定情况（如内部模型是纯线性层，且使用 MSE 损失）下，内部学习率 $\eta$ 在数学上等价于对输入 $K$ 和 $V$ 的缩放。 梯度更新项可以写为： $$ \eta \cdot \frac{\partial \mathcal{L}(V, \hat{V})}{\partial W} &#x3D; \eta \cdot K^\top(KW - V) &#x3D; \tilde{K}^\top(\tilde{K}W - \tilde{V}) $$ 其中 $\tilde{K} &#x3D; \sqrt{\eta}K$，$\tilde{V} &#x3D; \sqrt{\eta}V$。 虽然数学上可以通过缩放 $K$ 和 $V$ 吸收掉 $\eta$，但在实际深度学习架构中，让模型自动学习到这种完美的缩放比例极其困难，且可能与网络的初始化规模或归一化层发生冲突。因此，显式地将 $\eta$ 设置为一个较大的超参数（1.0）是非常必要的。 </p>
+<h3 id="洞察-4（模型容量）："><a href="#洞察-4（模型容量）：" class="headerlink" title="洞察 4（模型容量）："></a><strong>洞察 4（模型容量）</strong>：</h3><p>增加内部模型的容量（如增加MLP的隐藏维度）可以持续提升模型性能。这是TTT优于传统线性注意力的一大关键优势，因为它允许使用更复杂的非线性模块。  传统线性注意力受限于数学形式，只能等效于一个 $d \times d$ 的固定线性矩阵。而 TTT 允许内部模型是更宽的非线性模块，从而拥有更强大的信息压缩和表达能力。</p>
+<h3 id="洞察-5（模型深度）："><a href="#洞察-5（模型深度）：" class="headerlink" title="洞察 5（模型深度）："></a><strong>洞察 5（模型深度）</strong>：</h3><p>在当前的TTT设置下，较深的内部模型（如三层MLP）会遭遇优化困难，导致训练损失变高、测试准确率下降（欠拟合）。相反，单层或受约束的特殊双层架构表现更好。  </p>
+<p>因为深度带来的优化困难导致了“欠拟合”。 为了证明这一点：  </p>
+<ol>
+<li><p><strong>损失曲线观察</strong>：实验表明，内部模型越深，其训练损失反而越高，说明深层网络未能有效拟合这些微型数据集。  </p>
+<p><img src="/2019/20190718/2.png"></p>
+</li>
+<li><p><strong>受限结构验证</strong>：作者设计了一个“受限的双层 MLP” $\mathcal{F}_W(x) &#x3D; \text{SiLU}(\text{FC}(x))$，这相当于把两层 MLP 的第二层强行固定为恒等映射（Identity）。结果发现，这种受限的退化网络准确率反而从 78.9% 提升到了 79.4%。 这充分证明了深层模型在 TTT 的内外部嵌套优化中容易出现外层初始化难（初始权重 $W_0$ 难以端到端学习）和内层梯度消失&#x2F;爆炸的问题。</p>
+</li>
+</ol>
+<h3 id="洞察-6（卷积架构）："><a href="#洞察-6（卷积架构）：" class="headerlink" title="洞察 6（卷积架构）："></a><strong>洞察 6（卷积架构）</strong>：</h3><p>卷积架构非常适合作为视觉任务的内部模型。例如，使用 $3\times3$ 卷积或深度可分离卷积（Depthwise Convolution）可以通过卷积感受野将局部信息与TTT更新的全局信息优雅地结合起来，从而带来显著的性能提升。 </p>
+<p><img src="/2019/20190718/3.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>基于上述六大洞察，作者提出了<strong>视觉测试时训练模型（Vision Test-Time Training, $ViT^3$）</strong></p>
+<p><img src="/2019/20190718/4.png"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1GL7q6zExr">CVPR 2026] [Best Paper Finalist] ViT³: Unlocking Test-Time Training in Vision_哔哩哔哩_bilibili</a></p>
 
                 
               </div>
