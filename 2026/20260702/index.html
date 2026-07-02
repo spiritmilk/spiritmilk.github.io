@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（CVPR 2026）">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190718/1.png">
 <meta property="article:published_time" content="2026-07-02T13:12:33.000Z">
-<meta property="article:modified_time" content="2026-07-02T14:37:50.578Z">
+<meta property="article:modified_time" content="2026-07-02T14:42:59.984Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190718/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          303 字
+          870 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          3 分钟
+          8 分钟
         
       </span>
     
@@ -354,8 +356,21 @@
 <span id="more"></span>
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p><strong>传统机制的局限性</strong>：视觉Transformer（ViT）在现代计算机视觉任务中占据了核心地位，但其使用的Softmax注意力机制具有关于序列长度的二次方计算复杂度 $\mathcal{O}(N^2)$。这一瓶颈使得处理长视觉序列的计算成本极其高昂。  </p>
-<p><strong>线性注意力的不足</strong>：为了打破二次方复杂度的障碍，研究人员探索了线性复杂度 $\mathcal{O}(N)$ 的替代方案，如线性注意力（Linear Attention）。然而，线性注意力受限于有限的线性状态和简单的压缩方式，往往会导致表达能力不足，在实践中性能较差。  </p>
+<p><strong>线性注意力的不足</strong>：为了打破二次方复杂度的障碍，研究人员探索了线性复杂度 $\mathcal{O}(N)$ 的替代方案，如线性注意力（Linear Attention）。</p>
+<p>将$(QK^T)V$到$Q(K^TV)$。</p>
+<p>然而，线性注意力受限于有限的线性状态和简单的压缩方式，往往会导致表达能力不足，在实践中性能较差。  </p>
 <p><strong>TTT的潜力与挑战</strong>：近期出现的测试时训练（TTT）将整个注意力操作重新表述为一个在线学习（online learning）过程。在测试时，它利用键值对（key-value pairs）作为“微型数据集”来训练或构建一个紧凑的内部模型。这种方法虽然具有线性复杂度且设计空间广阔，但关于如何设计强大的视觉TTT模型，目前仍缺乏系统性的理解和实践指导。  </p>
+<p><img src="/2019/20190718/1.png"></p>
+<h2 id="六大实践洞察"><a href="#六大实践洞察" class="headerlink" title="六大实践洞察"></a>六大实践洞察</h2><p>为了填补这一空白，作者对视觉序列建模中的TTT设计空间进行了系统的实证研究，涵盖了内部训练（损失函数、学习率、批大小、训练轮数）和内部模型设计（架构和大小）两个基本方面，并总结出了六个核心洞察：  </p>
+<ul>
+<li><strong>洞察 1（损失函数）</strong>：如果损失函数的混合二阶导数 $\frac{\partial^{2}\mathcal{L}}{\partial\hat{V}\partial V}$ 为零或消失（例如MAE&#x2F;L1损失或Smooth L1损失），则不适合用于TTT，因为这会切断外部循环的梯度信号。点积损失、MSE和RMSE则表现良好。  </li>
+<li><strong>洞察 2（批大小与轮数）</strong>：对于视觉任务，单轮（single epoch）的全批次（full-batch）梯度下降在内部训练中表现良好。不同于语言建模中偏好的小批量（mini-batch）序列训练，全批次更适合视觉这种非因果（non-causal）的数据模态。  </li>
+<li><strong>洞察 3（学习率）</strong>：使用相对较大的内部学习率（论文中设定为1.0）是非常有效的。较小的学习率会导致内部权重更新不足，而过大的学习率会引起训练不稳定。  </li>
+<li><strong>洞察 4（模型容量）</strong>：增加内部模型的容量（如增加MLP的隐藏维度）可以持续提升模型性能。这是TTT优于传统线性注意力的一大关键优势，因为它允许使用更复杂的非线性模块。  </li>
+<li><strong>洞察 5（模型深度）</strong>：在当前的TTT设置下，较深的内部模型（如三层MLP）会遭遇优化困难，导致训练损失变高、测试准确率下降（欠拟合）。相反，单层或受约束的特殊双层架构表现更好。  </li>
+<li><strong>洞察 6（卷积架构）</strong>：卷积架构非常适合作为视觉任务的内部模型。例如，使用 $3\times3$ 卷积或深度可分离卷积（Depthwise Convolution）可以通过卷积感受野将局部信息与TTT更新的全局信息优雅地结合起来，从而带来显著的性能提升。</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>基于上述六大洞察，作者提出了<strong>视觉测试时训练模型（Vision Test-Time Training, $ViT^3$）</strong></p>
 
                 
               </div>
