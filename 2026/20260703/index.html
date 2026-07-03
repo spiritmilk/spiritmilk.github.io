@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
 <meta property="article:published_time" content="2026-07-03T03:06:33.000Z">
-<meta property="article:modified_time" content="2026-07-03T12:54:34.829Z">
+<meta property="article:modified_time" content="2026-07-03T14:06:32.821Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习 大模型">
 <meta name="twitter:card" content="summary_large_image">
@@ -298,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.9k 字
         
       </span>
     
@@ -309,7 +309,7 @@
         
         
         
-          12 分钟
+          16 分钟
         
       </span>
     
@@ -362,6 +362,23 @@
 <p><strong>拼接与堆叠</strong>：将所有注意力头（Heads）的表征拼接起来，得到层级的向量： $q _ {d,i}^{l} &#x3D; \text{Concat}_h q _ {d,i}^{l,h} \in \mathbb{R}^{1 \times d}$ 随后，把所有提示词和所有领域的向量堆叠成宏观的 ICL 基矩阵（ICL bases）： $\tilde{Q}^{l}, \tilde{K}^{l} \in \mathbb{R}^{N \times d}$<br><strong>主成分分析 (PCA)</strong>：这是最关键的一步。对上述两个矩阵进行 PCA 降维，提取出前 $r$ 个主成分方向，得到我们要的<strong>主 ICL 方向 (PIDs)</strong>： $U _ {q}^{l}, U _ {k}^{l} \in \mathbb{R}^{d \times r}$ 这里的 $r$ 通常很小（论文中消融实验最优选了 8），这些矩阵作为可复用的路由方向被保存下来。</p>
 <blockquote>
 <h5 id="PIDs如何捕获通用ICL模式（理论证明）"><a href="#PIDs如何捕获通用ICL模式（理论证明）" class="headerlink" title="PIDs如何捕获通用ICL模式（理论证明）:"></a>PIDs如何捕获通用ICL模式（理论证明）:</h5><p>作者利用<strong>混合尖峰协方差模型</strong>进行了数学证明：</p>
+<p>根据尖峰协方差模型，这个矩阵可以被分解为三个独立的部分：  </p>
+<p>$$ \Sigma_{Q,d} &#x3D; S_q \Lambda_q S_q^\top + \sigma^2 I + B_{q,d} \Gamma_{q,d} B_{q,d}^\top $$</p>
+<ul>
+<li><strong>共享部分 ($S_q \Lambda_q S_q^\top$)</strong>：这代表了跨领域共享的低维注意力结构，也就是所有任务在进行 ICL 时都需要的通用能力（例如将注意力分配给正确格式的上下文）。  </li>
+<li><strong>各向同性噪声 ($\sigma^2 I$)</strong>：代表模型内部署基础的、均匀的白噪声。  </li>
+<li><strong>领域特异性部分 ($B_{q,d} \Gamma_{q,d} B_{q,d}^\top$)</strong>：这代表了领域 $d$ 特有的变化（例如特定任务的词汇或格式）。</li>
+</ul>
+<h3 id="2-多领域数据的混合与池化-Pooling"><a href="#2-多领域数据的混合与池化-Pooling" class="headerlink" title="2. 多领域数据的混合与池化 (Pooling)"></a>2. 多领域数据的混合与池化 (Pooling)</h3><p>为了提取通用的 ICL 模式，作者并没有只看一个领域，而是将所有 $D$ 个不同领域的 ICL 提示词放在一起，计算总的“池化协方差矩阵” $\hat{\Sigma}_Q$。  </p>
+<p>当计算这个多领域混合协方差矩阵的期望值时，可以将其展开为：  </p>
+<p>$$ \mathbb{E}[\hat{\Sigma}*Q] &#x3D; S_q \Lambda_q S_q^\top + \sigma^2 I + \frac{1}{N} \sum_{d&#x3D;1}^D |\mathcal{D}<em>d| B</em>{q,d} \Gamma_{q,d} B_{q,d}^\top $$</p>
+<p>在这个公式中，我们可以看到不同成分在混合后的表现：</p>
+<ul>
+<li><strong>第一项 (共享结构)</strong>：因为它是所有领域共有的，所以在加总过程中，这一部分会不断累积并被强化。  </li>
+<li><strong>第三项 (领域特异性干扰)</strong>：这是 $D$ 个不同领域的特有特征的加权和。</li>
+</ul>
+<p>如果选择的 $D$ 个领域<strong>足够多样化且缺乏一致的对齐</strong>（例如，既有新闻分类，又有常识问答和情感分析），那么这些领域特异性子空间 $B_{q,d}$ 的方向是杂乱无章的。  </p>
+<p>在求和的过程中，这些不一致的领域特异性方向会<strong>相互抵消（averages out）</strong>，最终退化为增加背景方差的各向同性噪声，而不是形成主导的特征方向。</p>
 </blockquote>
 <h3 id="阶段二：查询条件路由器-Query-conditioned-Router"><a href="#阶段二：查询条件路由器-Query-conditioned-Router" class="headerlink" title="阶段二：查询条件路由器 (Query-conditioned Router)"></a><strong>阶段二：查询条件路由器 (Query-conditioned Router)</strong></h3><p>得到了通用的 ICL 方向后，由于每个具体的输入问题（Query）不同，模型需要“因地制宜”地决定在推理时具体使用哪些方向。为此，论文引入了一个极轻量级的路由器。  </p>
 <p>对于一个新的零样本（Zero-shot）输入文本 $x$，先用一个较小且冻结的文本编码器（如 MiniLM）将其转换为语义特征向量 $E(x)$。  </p>
