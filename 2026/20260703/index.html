@@ -28,11 +28,13 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICML 2026）">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
 <meta property="article:published_time" content="2026-07-03T03:06:33.000Z">
-<meta property="article:modified_time" content="2026-07-03T12:47:26.028Z">
+<meta property="article:modified_time" content="2026-07-03T12:54:34.829Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习 大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
   
   
   
@@ -296,7 +298,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.4k 字
         
       </span>
     
@@ -307,7 +309,7 @@
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -358,6 +360,9 @@
 <p><strong>数据收集</strong>：假设有多个领域（Domains），对于每个领域，构建包含示例和查询的 ICL 提示词（Prompts）。  </p>
 <p><strong>提取特征</strong>：将这些提示词输入到冻结的大语言模型（LLM）中，专门提取<strong>最后一个 token</strong>（即整合了所有上下文信息的那个词）在第 $l$ 层、第 $h$ 个注意力头的 Query (查询) 和 Key (键) 表征： $q _ {d,i}^{l,h}, k _ {d,i}^{l,h} \in \mathbb{R}^{1 \times d_k}$  </p>
 <p><strong>拼接与堆叠</strong>：将所有注意力头（Heads）的表征拼接起来，得到层级的向量： $q _ {d,i}^{l} &#x3D; \text{Concat}_h q _ {d,i}^{l,h} \in \mathbb{R}^{1 \times d}$ 随后，把所有提示词和所有领域的向量堆叠成宏观的 ICL 基矩阵（ICL bases）： $\tilde{Q}^{l}, \tilde{K}^{l} \in \mathbb{R}^{N \times d}$<br><strong>主成分分析 (PCA)</strong>：这是最关键的一步。对上述两个矩阵进行 PCA 降维，提取出前 $r$ 个主成分方向，得到我们要的<strong>主 ICL 方向 (PIDs)</strong>： $U _ {q}^{l}, U _ {k}^{l} \in \mathbb{R}^{d \times r}$ 这里的 $r$ 通常很小（论文中消融实验最优选了 8），这些矩阵作为可复用的路由方向被保存下来。</p>
+<blockquote>
+<h5 id="PIDs如何捕获通用ICL模式（理论证明）"><a href="#PIDs如何捕获通用ICL模式（理论证明）" class="headerlink" title="PIDs如何捕获通用ICL模式（理论证明）:"></a>PIDs如何捕获通用ICL模式（理论证明）:</h5><p>作者利用<strong>混合尖峰协方差模型</strong>进行了数学证明：</p>
+</blockquote>
 <h3 id="阶段二：查询条件路由器-Query-conditioned-Router"><a href="#阶段二：查询条件路由器-Query-conditioned-Router" class="headerlink" title="阶段二：查询条件路由器 (Query-conditioned Router)"></a><strong>阶段二：查询条件路由器 (Query-conditioned Router)</strong></h3><p>得到了通用的 ICL 方向后，由于每个具体的输入问题（Query）不同，模型需要“因地制宜”地决定在推理时具体使用哪些方向。为此，论文引入了一个极轻量级的路由器。  </p>
 <p>对于一个新的零样本（Zero-shot）输入文本 $x$，先用一个较小且冻结的文本编码器（如 MiniLM）将其转换为语义特征向量 $E(x)$。  </p>
 <p>将 $E(x)$ 并行输入到两个多层感知机（MLP）分支中，生成两组动态参数：  </p>
@@ -371,6 +376,9 @@
 <li>$(Q _ {zs}^{l} U _ {q}^{l})$ 和 $(K _ {zs}^{l} U _ {k}^{l})^{\top}$ 是将当前的 Q 和 K 投影到之前提取的通用 PID 空间中。  </li>
 <li>$\text{diag}(\alpha^{l}(x))$ 则是根据当前输入，对这些通用方向进行个性化的加权。</li>
 </ul>
+<blockquote>
+<p>看上去有点像线性注意力的式子。</p>
+</blockquote>
 <h3 id="阶段三：多目标训练-Multi-objective-Training"><a href="#阶段三：多目标训练-Multi-objective-Training" class="headerlink" title="阶段三：多目标训练 (Multi-objective Training)"></a><strong>阶段三：多目标训练 (Multi-objective Training)</strong></h3><p>了让这个路由器既能听懂指令，又不会过度干预 LLM 原本的能力，作者设计了一个复合的损失函数。在训练时，<strong>LLM 的参数是完全冻结的，只更新路由器的参数</strong>。  </p>
 <p>总体损失函数由三个部分组成： $$ \mathcal{L} &#x3D; \mathcal{L}\times{CE} + \lambda\times{conf}\mathcal{L}\times{conf} + \lambda\times{spar}\mathcal{L}\times{spar} + \lambda\times{gate}\mathcal{L} _ {gate} $$  </p>
 <ul>
@@ -378,6 +386,7 @@
 <li><strong>置信度对齐损失 ($\mathcal{L} _ {conf}$)</strong>：为了防止路由器为了降低损失而采取“输出模棱两可结果”的捷径，引入了基于熵（Entropy）的惩罚，确保干预后的预测置信度<strong>不低于</strong>零样本时的置信度。  </li>
 <li><strong>稀疏性正则化 ($\mathcal{L} _ {spar}$ 和 $\mathcal{L} _ {gate}$)</strong>：引入 $L_1$ 正则化，鼓励路由向量 $\alpha$ 和门控 $\gamma$ 尽可能稀疏。特别地，论文设计了一个随层数线性增加的权重 $w^l$，因为越靠后的层越接近最终预测，干预应当越谨慎、越聚焦于少数几个决定性的方向。</li>
 </ul>
+<p><img src="/2019/20190323/1.png"></p>
 
                 
               </div>
