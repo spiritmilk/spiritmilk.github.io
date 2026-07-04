@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/3/1.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/3/2.png">
 <meta property="article:published_time" content="2026-07-04T15:15:50.000Z">
-<meta property="article:modified_time" content="2026-07-04T15:36:25.953Z">
+<meta property="article:modified_time" content="2026-07-04T15:45:04.157Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -403,15 +403,15 @@
 <ul>
 <li><p><strong>视觉偏好路径 (Visual-favored Path)</strong>：放大图像特征，压制文本先验，迫使模型基于图像进行推理。</p>
 <p>增强视觉注意力（针对 $j \in \mathcal{V}$）：</p>
-<p>$$ \tilde{A}<em>{i,j}^{(l)} &#x3D; A</em>{i,j}^{(l)} + \tilde{\alpha}^{(l)} \cdot |A _ {i,j}^{(l)}| $$</p>
+<p>$$ \tilde{A}\ast{i,j}^{(l)} &#x3D; A\ast{i,j}^{(l)} + \tilde{\alpha}^{(l)} \cdot |A _ {i,j}^{(l)}| $$</p>
 <p>衰减文本注意力（针对 $k \in \mathcal{T}$）：</p>
-<p>$$ \tilde{A}<em>{i,k}^{(l)} &#x3D; A</em>{i,k}^{(l)} - \tilde{\beta}^{(l)} \cdot |A _ {i,k}^{(l)}| $$</p>
+<p>$$ \tilde{A}\ast{i,k}^{(l)} &#x3D; A\ast{i,k}^{(l)} - \tilde{\beta}^{(l)} \cdot |A _ {i,k}^{(l)}| $$</p>
 </li>
 <li><p><strong>文本偏好路径 (Text-favored Path)</strong>：刻意削弱视觉基础，激发模型的“文本惯性”，以此来模拟并暴露幻觉。</p>
 <p>衰减视觉注意力（针对 $j \in \mathcal{V}$）：</p>
-<p>$$ \tilde{A}<em>{i,j}^{(l)} &#x3D; A</em>{i,j}^{(l)} - \tilde{\alpha}^{(l)} \cdot |A _ {i,j}^{(l)}| $$</p>
+<p>$$ \tilde{A}\ast{i,j}^{(l)} &#x3D; A\ast{i,j}^{(l)} - \tilde{\alpha}^{(l)} \cdot |A _ {i,j}^{(l)}| $$</p>
 <p>增强文本注意力（针对 $k \in \mathcal{T}$）：</p>
-<p>$$ \tilde{A}<em>{i,k}^{(l)} &#x3D; A</em>{i,k}^{(l)} + \tilde{\beta}^{(l)} \cdot |A _ {i,k}^{(l)}| $$</p>
+<p>$$ \tilde{A}\ast{i,k}^{(l)} &#x3D; A\ast{i,k}^{(l)} + \tilde{\beta}^{(l)} \cdot |A _ {i,k}^{(l)}| $$</p>
 </li>
 <li><p><strong>对比融合解码 (Contrastive Decoding Fusion)</strong>：最终，模型在预测概率阶段利用这两条路径的 Logits 分布进行对比计算。通过减去文本偏好路径的概率，惩罚容易产生幻觉的 Token，奖励基于真实视觉生成的 Token：</p>
 <p>$$ P _ {DCD}(Y|X_V, X_T) &#x3D; \text{Softmax} \Big( (1+\lambda) \cdot \log p _ {\theta}(y|X _ {V\uparrow}, X _ {T\downarrow}) - \lambda \cdot \log p _ {\theta}(y|X _ {V\downarrow}, X _ {T\uparrow}) \Big) $$</p>
