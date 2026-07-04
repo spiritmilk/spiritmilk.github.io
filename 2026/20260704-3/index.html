@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/3/1.jpg">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/3/2.png">
 <meta property="article:published_time" content="2026-07-04T15:15:50.000Z">
-<meta property="article:modified_time" content="2026-07-04T15:32:39.892Z">
+<meta property="article:modified_time" content="2026-07-04T15:36:25.953Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -374,11 +374,11 @@
 <h3 id="测量指标：视觉至文本注意力贡献比-VTACR"><a href="#测量指标：视觉至文本注意力贡献比-VTACR" class="headerlink" title="测量指标：视觉至文本注意力贡献比 (VTACR)"></a>测量指标：视觉至文本注意力贡献比 (VTACR)</h3><p>为了在解码过程中实时衡量这两种注意力的失衡程度，论文提出了一项新指标 <strong>VTACR (Visual-to-Textual Attention Contribution Ratio)</strong>。在生成当前 Token 时，第 $l$ 层的指标计算如下：</p>
 <ul>
 <li><p><strong>视觉 Token 注意力贡献 ($\nu^{(l)}$)</strong>：</p>
-<p>$$ \nu^{(l)} &#x3D; \frac{1}{N|\mathcal{V}|} \sum_{j \in \mathcal{V}} \sum_{i&#x3D;1}^{N} A_{i,j}^{(l)} $$</p>
-<p>其中 $N$ 是注意力头数，$\mathcal{V}$ 是视觉 Token 的索引集合，$A_{i,j}^{(l)}$ 是第 $l$ 层第 $i$ 个注意力头的视觉注意力权重。</p>
+<p>$$ \nu^{(l)} &#x3D; \frac{1}{N|\mathcal{V}|} \sum _ {j \in \mathcal{V}} \sum _ {i&#x3D;1}^{N} A _ {i,j}^{(l)} $$</p>
+<p>其中 $N$ 是注意力头数，$\mathcal{V}$ 是视觉 Token 的索引集合，$A _ {i,j}^{(l)}$ 是第 $l$ 层第 $i$ 个注意力头的视觉注意力权重。</p>
 </li>
 <li><p><strong>文本 Token 注意力贡献 ($\tau^{(l)}$)</strong>：</p>
-<p>$$ \tau^{(l)} &#x3D; \frac{1}{N|\mathcal{T}|} \sum_{k \in \mathcal{T}} \sum_{i&#x3D;1}^{N} A_{i,k}^{(l)} $$</p>
+<p>$$ \tau^{(l)} &#x3D; \frac{1}{N|\mathcal{T}|} \sum _ {k \in \mathcal{T}} \sum _ {i&#x3D;1}^{N} A _ {i,k}^{(l)} $$</p>
 <p>其中 $\mathcal{T}$ 是文本 Token（包含查询语句和历史生成记录）的索引集合。</p>
 </li>
 <li><p><strong>层级 VTACR</strong>：</p>
@@ -403,19 +403,19 @@
 <ul>
 <li><p><strong>视觉偏好路径 (Visual-favored Path)</strong>：放大图像特征，压制文本先验，迫使模型基于图像进行推理。</p>
 <p>增强视觉注意力（针对 $j \in \mathcal{V}$）：</p>
-<p>$$ \tilde{A}<em>{i,j}^{(l)} &#x3D; A</em>{i,j}^{(l)} + \tilde{\alpha}^{(l)} \cdot |A_{i,j}^{(l)}| $$</p>
+<p>$$ \tilde{A}<em>{i,j}^{(l)} &#x3D; A</em>{i,j}^{(l)} + \tilde{\alpha}^{(l)} \cdot |A _ {i,j}^{(l)}| $$</p>
 <p>衰减文本注意力（针对 $k \in \mathcal{T}$）：</p>
-<p>$$ \tilde{A}<em>{i,k}^{(l)} &#x3D; A</em>{i,k}^{(l)} - \tilde{\beta}^{(l)} \cdot |A_{i,k}^{(l)}| $$</p>
+<p>$$ \tilde{A}<em>{i,k}^{(l)} &#x3D; A</em>{i,k}^{(l)} - \tilde{\beta}^{(l)} \cdot |A _ {i,k}^{(l)}| $$</p>
 </li>
 <li><p><strong>文本偏好路径 (Text-favored Path)</strong>：刻意削弱视觉基础，激发模型的“文本惯性”，以此来模拟并暴露幻觉。</p>
 <p>衰减视觉注意力（针对 $j \in \mathcal{V}$）：</p>
-<p>$$ \tilde{A}<em>{i,j}^{(l)} &#x3D; A</em>{i,j}^{(l)} - \tilde{\alpha}^{(l)} \cdot |A_{i,j}^{(l)}| $$</p>
+<p>$$ \tilde{A}<em>{i,j}^{(l)} &#x3D; A</em>{i,j}^{(l)} - \tilde{\alpha}^{(l)} \cdot |A _ {i,j}^{(l)}| $$</p>
 <p>增强文本注意力（针对 $k \in \mathcal{T}$）：</p>
-<p>$$ \tilde{A}<em>{i,k}^{(l)} &#x3D; A</em>{i,k}^{(l)} + \tilde{\beta}^{(l)} \cdot |A_{i,k}^{(l)}| $$</p>
+<p>$$ \tilde{A}<em>{i,k}^{(l)} &#x3D; A</em>{i,k}^{(l)} + \tilde{\beta}^{(l)} \cdot |A _ {i,k}^{(l)}| $$</p>
 </li>
 <li><p><strong>对比融合解码 (Contrastive Decoding Fusion)</strong>：最终，模型在预测概率阶段利用这两条路径的 Logits 分布进行对比计算。通过减去文本偏好路径的概率，惩罚容易产生幻觉的 Token，奖励基于真实视觉生成的 Token：</p>
-<p>$$ P_{DCD}(Y|X_V, X_T) &#x3D; \text{Softmax} \Big( (1+\lambda) \cdot \log p_{\theta}(y|X_{V\uparrow}, X_{T\downarrow}) - \lambda \cdot \log p_{\theta}(y|X_{V\downarrow}, X_{T\uparrow}) \Big) $$</p>
-<p>其中，$(X_{V\uparrow}, X_{T\downarrow})$ 代表视觉偏好路径的输出分布，$(X_{V\downarrow}, X_{T\uparrow})$ 代表文本偏好（幻觉易发）路径的输出分布，$\lambda$ 是可调节的对比惩罚强度参数。</p>
+<p>$$ P _ {DCD}(Y|X_V, X_T) &#x3D; \text{Softmax} \Big( (1+\lambda) \cdot \log p _ {\theta}(y|X _ {V\uparrow}, X _ {T\downarrow}) - \lambda \cdot \log p _ {\theta}(y|X _ {V\downarrow}, X _ {T\uparrow}) \Big) $$</p>
+<p>其中，$(X _ {V\uparrow}, X _ {T\downarrow})$ 代表视觉偏好路径的输出分布，$(X _ {V\downarrow}, X _ {T\uparrow})$ 代表文本偏好（幻觉易发）路径的输出分布，$\lambda$ 是可调节的对比惩罚强度参数。</p>
 </li>
 </ul>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2019/20190323/3/2.png"></p>
