@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/1.png">
 <meta property="article:published_time" content="2026-07-04T13:40:04.000Z">
-<meta property="article:modified_time" content="2026-07-04T14:54:11.402Z">
+<meta property="article:modified_time" content="2026-07-04T14:55:22.633Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -362,9 +362,9 @@
 <h3 id="跨模态价值增强解码-CMVED"><a href="#跨模态价值增强解码-CMVED" class="headerlink" title="跨模态价值增强解码 (CMVED)"></a>跨模态价值增强解码 (CMVED)</h3><p>现有方法通常通过直接给视觉或文本输入加噪来构建“失真分布”，这不仅破坏了单模态内部的信息交流，还抹除了跨模态的相关性。CMVED 的思路是：<strong>有选择地屏蔽高权重的跨模态注意力对应的 Value 向量</strong>，从而放大“虚假的跨模态相关性”，然后通过对比解码（Contrastive Decoding）来惩罚并削弱这些幻觉。  </p>
 <p><strong>步骤解析：</strong></p>
 <ul>
-<li><p><strong>提取与生成掩码</strong>：首先，从注意力 logits $A^l$ 中单独截取出“图像 Token 到文本 Token”的跨模态片段 $A^l_{cross}$。然后，计算该片段中低于其均值的注意力权重，生成一个二值掩码（Mask）$M_{cross}$：  </p>
-<p>$$M_{cross} &#x3D; \mathbb{I}(A^l_{cross} &lt; \mu(A^l_{cross}))$$</p>
-<p>其中 $\mu(\cdot)$ 表示求均值操作，$\mathbb{I}$ 为指示函数。随后将 $M_{cross}$ 用零填充至全局维度，得到全局掩码 $M$。  </p>
+<li><p><strong>提取与生成掩码</strong>：首先，从注意力 logits $A^l$ 中单独截取出“图像 Token 到文本 Token”的跨模态片段 $A^l _ {cross}$。然后，计算该片段中低于其均值的注意力权重，生成一个二值掩码（Mask）$M _ {cross}$：  </p>
+<p>$$M _ {cross} &#x3D; \mathbb{I}(A^l _ {cross} &lt; \mu(A^l _ {cross}))$$</p>
+<p>其中 $\mu(\cdot)$ 表示求均值操作，$\mathbb{I}$ 为指示函数。随后将 $M _ {cross}$ 用零填充至全局维度，得到全局掩码 $M$。  </p>
 </li>
 <li><p><strong>特征失真操作</strong>：利用掩码 $M$，CMVED 将被赋予高注意力权重的 Value 向量替换为其自身的维度均值 $\mu(V)$，而保留低权重的部分。失真后的注意力输出 $\tilde{O}$ 的计算公式变为：  </p>
 <p>$$\tilde{O} &#x3D; (M \cdot A)\mu(V) + ((1-M) \cdot A)V$$</p>
@@ -379,10 +379,10 @@
 <p><strong>步骤解析：</strong></p>
 <ul>
 <li><p><strong>重置位置索引</strong>：在第一层注意力层中，假设系统提示词的长度为 $m_b$，图像 Token 数量为 $n$。CDAR 将所有图像 Token 的位置索引强制统一归一化为同一个常量（$m_b+1$），构建了全新的修正位置索引 $P^c$：</p>
-<p>$$P^c &#x3D; [{i}<em>{i&#x3D;1}^{m_b}, {m_b+1}</em>{i&#x3D;1}^n, {i+1}_{i&#x3D;m_b+1}^m]$$</p>
+<p>$$P^c &#x3D; [{i} _ {i&#x3D;1}^{m_b}, {m_b+1} _ {i&#x3D;1}^n, {i+1} _ {i&#x3D;m_b+1}^m]$$</p>
 </li>
 <li><p><strong>注意力融合</strong>：利用修正后的位置索引 $P^c$ 应用旋转位置编码 (RoPE)，计算得到消除了图像内部位置差异的注意力 logits $A^c$。接着，引入超参数 $\gamma$ 将其与原始的 logits $A^l$ 在跨模态片段上进行融合：  </p>
-<p>$$\tilde{A}^l_{i,j} &#x3D; \gamma A^c_{i,j} + (1-\gamma) A^l_{i,j}$$</p>
+<p>$$\tilde{A}^l _ {i,j} &#x3D; \gamma A^c _ {i,j} + (1-\gamma) A^l _ {i,j}$$</p>
 <p>（注：此融合仅在跨模态注意力部分，即图像对文本的注意力范围内生效）</p>
 </li>
 </ul>
