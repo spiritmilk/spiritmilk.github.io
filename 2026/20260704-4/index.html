@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/4/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/4/2.png">
 <meta property="article:published_time" content="2026-07-04T15:37:43.000Z">
-<meta property="article:modified_time" content="2026-07-04T15:45:58.368Z">
+<meta property="article:modified_time" content="2026-07-05T02:44:26.485Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          2.4k 字
         
       </span>
     
@@ -313,7 +313,7 @@
         
         
         
-          12 分钟
+          21 分钟
         
       </span>
     
@@ -360,49 +360,101 @@
 <span id="more"></span>
 
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190323/4/0.png"></p>
-<h3 id="双层特征提取架构-Layer-Architecture-and-Feature-Extraction"><a href="#双层特征提取架构-Layer-Architecture-and-Feature-Extraction" class="headerlink" title="双层特征提取架构 (Layer Architecture and Feature Extraction)"></a>双层特征提取架构 (Layer Architecture and Feature Extraction)</h3><p>研究表明，大模型的中间层包含了最丰富的物体证据，而深层则容易受到语言先验的干扰。  </p>
+<h3 id="双层特征提取架构"><a href="#双层特征提取架构" class="headerlink" title="双层特征提取架构"></a>双层特征提取架构</h3><p>研究表明，大模型的中间层包含了最丰富的物体证据，而深层则容易受到语言先验的干扰。  </p>
 <ul>
 <li><strong>锚点层（Anchor Layer, $l_a$）</strong>：模型在处理图像时，会从中间的锚点层（例如 LLaVA 的第 26 层）提取一次视觉特征矩阵 $V \in \mathbb{R}^{n_v \times d}$（$n_v$ 为视觉词元数，$d$ 为隐藏层维度），并在整个解码过程中缓存该矩阵。  </li>
 <li><strong>文本缓存（Text Cache, $T$）</strong>：模型在解码时，使用滑动窗口策略动态维护一个文本缓存 $T \in \mathbb{R}^{n_t \times d}$，用于聚合之前解码步骤中产生的非视觉隐藏状态，以捕获可能与视觉证据冲突的语言模式。  </li>
 <li><strong>编辑层（Edit Layer, $l_e$）</strong>：干预操作发生在最后一个 Transformer 层，针对该层输出的当前隐藏状态 $h$ 进行编辑。</li>
 </ul>
-<h3 id="2-正交子空间构建-Orthogonal-Subspace-Construction"><a href="#2-正交子空间构建-Orthogonal-Subspace-Construction" class="headerlink" title="2. 正交子空间构建 (Orthogonal Subspace Construction)"></a>2. 正交子空间构建 (Orthogonal Subspace Construction)</h3><p>这是 HulluEdit 的核心数学基础，目的是将隐藏空间彻底解耦为三个相互正交的部分。</p>
+<h3 id="正交子空间构建"><a href="#正交子空间构建" class="headerlink" title="正交子空间构建"></a>正交子空间构建</h3><p>这是 HulluEdit 的核心数学基础，目的是将隐藏空间彻底解耦为三个相互正交的部分。</p>
 <p><strong>① 上下文感知的视觉证据子空间 $U$</strong></p>
 <p>在不同的生成步骤中，关注的视觉内容是动态变化的。因此，模型根据当前隐藏状态 $h$，通过归一化的余弦相似度为每个视觉词元分配权重：</p>
 <p>$$w_i &#x3D; \text{softmax} \left( \frac{\text{cos}(h, V_i)}{\tau} \right)$$</p>
 <p>随后，利用加权奇异值分解（Weighted SVD）提取最重要的前 $r$ 个视觉主成分，构成正交基 $U \in \mathbb{R}^{d \times r}$（满足 $U^\top U &#x3D; I_r$）：</p>
 <p>$$U, \Sigma, V^\top &#x3D; \text{SVD}(W^{1&#x2F;2}V), \quad U &#x3D; U_{[:, 1:r]}$$</p>
-<p><strong>② 冲突感知的反先验子空间 $P$</strong> 为了在抑制文本先验时<strong>绝对不破坏视觉证据</strong>，该方法强制反先验子空间必须在视觉子空间的正交补集（Orthogonal complement）中构建。 首先将文本缓存 $T$ 投影到视觉特征的补集中：  </p>
+<blockquote>
+<p>注意SVD里面的V代表视觉特征矩阵。外面的V则是SVD的V。</p>
+</blockquote>
+<p>  <strong>② 冲突感知的反先验子空间 $P$</strong> 为了在抑制文本先验时<strong>绝对不破坏视觉证据</strong>，该方法强制反先验子空间必须在视觉子空间的正交补集（Orthogonal complement）中构建。 首先将文本缓存 $T$ 投影到视觉特征的补集中：  </p>
 <p>$$\tilde{T} &#x3D; T(I_d - UU^\top)$$</p>
 <p>然后对其进行 SVD 分解，提取前 $q$ 个主成分：</p>
 <p>$$P &#x3D; \text{SVD}_q(\tilde{T})$$</p>
 <p>这里的关键是，由于数学构造，<strong>$U^\top P &#x3D; 0$ 恒成立</strong>，这保证了视觉特征与先验特征在空间上绝对分离。  </p>
 <p><strong>③ 不确定性感知的残差子空间 $R$</strong></p>
 <p>定义残差投影矩阵，捕捉既非明确视觉证据又非冲突先验的模糊上下文信息：</p>
-<p>$$\Pi_R &#x3D; I_d - \Pi_U - \Pi_P$$</p>
+<p>$$\Pi_R &#x3D; I_d - \Pi_U - \Pi_P$$ </p>
 <p>（其中 $\Pi_U &#x3D; UU^\top$ 和 $\Pi_P &#x3D; PP^\top$ 分别是视觉和反先验的投影矩阵）  </p>
 <p>根据上述构造，当前的隐藏状态 $h$ 可以被完美地正交分解为三部分（能量守恒）：</p>
 <p>$$h &#x3D; h_U + h_P + h_R$$</p>
 <p>$$||h||_2^2 &#x3D; ||h_U||_2^2 + ||h_P||_2^2 + ||h_R||_2^2$$</p>
-<h3 id="3-自适应子空间编辑-Adaptive-Subspace-Editing"><a href="#3-自适应子空间编辑-Adaptive-Subspace-Editing" class="headerlink" title="3. 自适应子空间编辑 (Adaptive Subspace Editing)"></a>3. 自适应子空间编辑 (Adaptive Subspace Editing)</h3><p>在完成分解后，模型需要决定抑制哪些成分以及抑制的强度。</p>
+<h3 id="自适应子空间编辑"><a href="#自适应子空间编辑" class="headerlink" title="自适应子空间编辑"></a>自适应子空间编辑</h3><p>在完成分解后，模型需要决定抑制哪些成分以及抑制的强度。</p>
 <p><strong>① 评估冲突强弱的指标 (Certificate Metrics)</strong></p>
 <p>模型在线计算两个指标，量化当前生成的视觉依赖度与先验冲突度：</p>
 <ul>
-<li><p><strong>视觉确定性比率 (Visual Certainty Ratio, VCR)</strong>：$VCR(h) &#x3D; \frac{||h_U||_2^2}{||h||_2^2 + \epsilon}$</p>
-</li>
-<li><p><strong>先验冲突比率 (Prior Conflict Ratio, PCR)</strong>：$PCR(h) &#x3D; \frac{||h_P||_2^2}{||h||_2^2 + \epsilon}$</p>
-</li>
+<li><strong>视觉确定性比率 (Visual Certainty Ratio, VCR)</strong>：$VCR(h) &#x3D; \frac{||h_U||_2^2}{||h||_2^2 + \epsilon}$  </li>
+<li><strong>先验冲突比率 (Prior Conflict Ratio, PCR)</strong>：$PCR(h) &#x3D; \frac{||h_P||_2^2}{||h||_2^2 + \epsilon}$</li>
 </ul>
 <p><strong>② 动态编辑强度 (Evidence-Aware Strength Scheduling)</strong> 根据 VCR 和 PCR，动态计算非视觉抑制强度 $\lambda_n$ 和反先验抑制强度 $\lambda_p$。当视觉证据弱（VCR低）或先验冲突强（PCR高）时，抑制强度会自适应增大。  </p>
 <p><strong>③ 最小范数闭式解编辑 (Minimum-Norm Closed-Form Editing)</strong></p>
 <p>为了寻找在保留视觉证据前提下实现最优抑制的最小扰动 $\delta$，论文构建了一个凸优化问题：</p>
-<p>$$\min_{\delta \in \mathbb{R}^d} \frac{1}{2}||\delta||<em>2^2 + \frac{\lambda_n}{2}||\Pi</em>\perp(h+\delta)||_2^2 + \frac{\lambda_p}{2}||\Pi_P(h+\delta)||_2^2$$</p>
+<p>$$\min_{\delta \in \mathbb{R}^d} \frac{1}{2}||\delta||<em>2^2 + \frac{\lambda_n}{2}||\Pi</em>\perp(h+\delta)||_2^2 + \frac{\lambda_p}{2}||\Pi_P(h+\delta)||_2^2$$  </p>
 <p>通过令梯度为零，可以直接求出最优的编辑后隐藏状态 $h’$ 的闭式解：</p>
-<p>$$h’ &#x3D; h_U + \frac{1}{1+\lambda_n+\lambda_p}h_P + \frac{1}{1+\lambda_n}h_R$$</p>
+<p>$$h’ &#x3D; h_U + \frac{1}{1+\lambda_n+\lambda_p}h_P + \frac{1}{1+\lambda_n}h_R$$  </p>
 <p><strong>公式解析</strong>：这个闭式解非常优雅。可以看出，视觉成分 $h_U$ 前面的系数是 $1$，意味着<strong>视觉证据被 100% 完美保留</strong>；而反先验成分 $h_P$ 和残差成分 $h_R$ 的系数都小于 1，根据计算出的冲突强度 $\lambda_p$ 和 $\lambda_n$ 被不同程度地“缩小（shrinkage）”了。  </p>
 <p><strong>④ 证书感知门控 (Certificate-Aware Gating)</strong> 为了防止过度干预导致生成不流畅，最终还会使用一个门控机制 $g(h)$： 只有当幻觉风险高时（即 $VCR(h) &lt; \gamma_v$ 或 $PCR(h) &gt; \gamma_p$），$g(h)&#x3D;1$，才使用编辑后的 $h’$；否则 $g(h)&#x3D;0$，保留原始的 $h$。 最终输出状态为：  </p>
-<p>$$h_{\text{final}} &#x3D; g(h) \cdot h’ + (1 - g(h)) \cdot h$$</p>
+<p>$$h_{\text{final}} &#x3D; g(h) \cdot h’ + (1 - g(h)) \cdot h$$  </p>
 <p>通过这一系列严密的数学设计，HulluEdit 实现了在单次前向传播中，精准打击语言幻觉成分，同时构筑了保护视觉证据的数学壁垒。</p>
+<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h3 id="证据一致性证明"><a href="#证据一致性证明" class="headerlink" title="证据一致性证明"></a>证据一致性证明</h3><p><strong>定理</strong>：证明编辑后的状态 $h’$ 相比原始状态 $h$，其“视觉确定性比率 (VCR)”必然上升（或不变），而“先验冲突比率 (PCR)”必然下降（或不变）。 即证明：$VCR(h’) \ge VCR(h)$ 且 $PCR(h’) \le PCR(h)$。  </p>
+<p><strong>证明</strong>：</p>
+<ol>
+<li><p><strong>定义编辑状态与系数</strong>： 根据闭式解，编辑后的状态为 $h’ &#x3D; h_U + \alpha_P h_P + \alpha_R h_R$。 其中抑制系数定义为 $\alpha_P &#x3D; \frac{1}{1+\lambda_n+\lambda_p}$ 和 $\alpha_R &#x3D; \frac{1}{1+\lambda_n}$。 由于 $\lambda_n, \lambda_p \ge 0$，因此这两个系数严格满足 $0 &lt; \alpha_P, \alpha_R \le 1$。  </p>
+</li>
+<li><p><strong>能量（平方范数）分解</strong>： 由于 $h_U$、$h_P$、$h_R$ 相互正交，满足 $h_U^\top h_P &#x3D; h_U^\top h_R &#x3D; h_P^\top h_R &#x3D; 0$。 原状态的平方范数为：$||h||_2^2 &#x3D; ||h_U||_2^2 + ||h_P||_2^2 + ||h_R||_2^2$。 编辑后状态的平方范数为：$||h’||_2^2 &#x3D; ||h_U||_2^2 + \alpha_P^2||h_P||_2^2 + \alpha_R^2||h_R||_2^2$。 因为系数都小于等于1，显然可以得出<strong>总能量缩小（或不变）</strong>：$||h’||_2^2 \le ||h||_2^2$。  </p>
+</li>
+<li><p><strong>证明 VCR 上升</strong>： 编辑操作中 $h_U$ 的系数是 1，这意味着视觉成分毫无损耗：$||h’_U||_2^2 &#x3D; ||h_U||_2^2$。 代入 VCR 的定义：  </p>
+<p>$$VCR(h’) &#x3D; \frac{||h’_U||_2^2}{||h’||_2^2} &#x3D; \frac{||h_U||_2^2}{||h’||_2^2}$$</p>
+<p>因为分母变小了（$||h’||_2^2 \le ||h||_2^2$），分子没变，所以分数必然变大：</p>
+<p>$$VCR(h’) \ge \frac{||h_U||_2^2}{||h||_2^2} &#x3D; VCR(h)$$</p>
+</li>
+<li><p><strong>证明 PCR 下降</strong>： 编辑后的先验成分能量为：$||h’_P||_2^2 &#x3D; \alpha_P^2||h_P||_2^2 \le ||h_P||_2^2$。 代入 PCR 定义并计算编辑前后 PCR 的比值：  </p>
+<p>$$\frac{PCR(h’)}{PCR(h)} &#x3D; \frac{\frac{\alpha_P^2 ||h_P||_2^2}{||h’||_2^2}}{\frac{||h_P||_2^2}{||h||_2^2}} &#x3D; \alpha_P^2 \cdot \frac{||h||_2^2}{||h’||_2^2}$$</p>
+<p>通过分析这一比值可知，最终会满足：</p>
+<p>$$\frac{PCR(h’)}{PCR(h)} \le 1 \Rightarrow PCR(h’) \le PCR(h)$$</p>
+<p>（注：当 $\alpha_P &lt; 1$ 且 $||h_P||_2^2 &gt; 0$ 时，该不等式严格成立）。</p>
+</li>
+</ol>
+<h3 id="无干涉性证明"><a href="#无干涉性证明" class="headerlink" title="无干涉性证明"></a>无干涉性证明</h3><p><strong>定理目标</strong>：证明在相互正交的子空间中，对某一个子空间进行编辑，绝对不会影响到其他子空间。  </p>
+<p><strong>详细推导步骤</strong>：</p>
+<ol>
+<li><p><strong>确认正交前提</strong>： 在构建阶段，严格保证了三个子空间的基矩阵互相正交：  </p>
+<p>$$U^\top P &#x3D; 0, \quad U^\top R &#x3D; 0, \quad P^\top R &#x3D; 0$$</p>
+</li>
+<li><p><strong>定义投影矩阵</strong>：</p>
+<p>$$\Pi_U &#x3D; UU^\top$$</p>
+<p>$$\Pi_P &#x3D; PP^\top$$</p>
+<p>$$\Pi_R &#x3D; I - \Pi_U - \Pi_P$$  </p>
+</li>
+<li><p><strong>证明投影矩阵乘积为零（即互相独立）</strong>：</p>
+<ul>
+<li>视觉与先验互相独立：$\Pi_U \Pi_P &#x3D; UU^\top PP^\top &#x3D; U(U^\top P)P^\top &#x3D; 0$ （因为 $U^\top P&#x3D;0$）。  </li>
+<li>视觉与残差互相独立：$\Pi_U \Pi_R &#x3D; UU^\top (I - UU^\top - PP^\top) &#x3D; UU^\top - UU^\top UU^\top - UU^\top PP^\top$。因为 $U^\top U &#x3D; I$，这就变成了 $\Pi_U - \Pi_U - 0 &#x3D; 0$。  </li>
+<li>先验与残差互相独立：$\Pi_P \Pi_R &#x3D; PP^\top (I - UU^\top - PP^\top) &#x3D; \Pi_P - 0 - \Pi_P &#x3D; 0$。</li>
+</ul>
+</li>
+</ol>
+<p>由于任意两个投影矩阵相乘都为零矩阵，这就从数学上彻底证明了：<strong>作用在 $\Pi_P$ 上的任何缩小操作（干预），在经过 $\Pi_U$ 投影观察时都等于 $0$，即对视觉特征绝对没有干涉</strong>。  </p>
+<h3 id="稳定性保持证明"><a href="#稳定性保持证明" class="headerlink" title="稳定性保持证明"></a>稳定性保持证明</h3><p><strong>定理</strong>：证明编辑函数是一个“收缩映射（Contractive mapping）”，其 Lipschitz 常数 $L \le 1$。这保证了在连续生成每一个词元（Token）时，干预操作不会导致误差被级联放大。  </p>
+<p><strong>证明</strong>：</p>
+<ol>
+<li><p><strong>定义变换函数</strong>： 将 HulluEdit 的编辑操作写成一个线性变换 $T: \mathbb{R}^d \rightarrow \mathbb{R}^d$：  </p>
+<p>$$T(h) &#x3D; \Pi_U h + \alpha_P \Pi_P h + \alpha_R \Pi_R h$$</p>
+</li>
+<li><p><strong>利用系数特性证明收缩性</strong>： 对于任意两个不同的输入状态向量 $h_1$ 和 $h_2$，由于 $\alpha_P$ 和 $\alpha_R$ 都在 $(0, 1]$ 范围内，且操作是在正交空间内进行的，这个线性变换的作用是单纯地“压缩”某些维度，而绝不会“拉伸”任何维度。 因此，经过变换后的两个向量之间的距离，必然小于或等于它们原始的距离：  </p>
+<p>$$||T(h_1) - T(h_2)||_2 \le ||h_1 - h_2||_2$$</p>
+</li>
+<li><p><strong>得出结论</strong>： 根据 Lipschitz 连续性的定义，上述不等式证明了该变换的 Lipschitz 常数 $L \le 1$。这在理论上保障了模型在长文本生成（Sequential decoding）过程中的数值稳定性和生成质量。</p>
+</li>
+</ol>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>在 POPE 和 CHAIR 两个标准基准测试中，HulluEdit 在多种架构（如 LLaVA-1.5、MiniGPT-4、mPLUG-Owl2 等）上均达到了 SOTA（当前最佳）的幻觉降低效果。</p>
 <p><img src="/2019/20190323/4/1.png"></p>
 <p>由于采用了低秩近似和一次性在线编辑，其计算开销仅占 Transformer 层的不到 2%。与其他需要多重解码或外部模型的缓解方法（如 OPERA 和 HALC）相比，HulluEdit 的解码吞吐量（Tokens per second, TPS）有着显著的优势，非常适合实际落地部署。 </p>
