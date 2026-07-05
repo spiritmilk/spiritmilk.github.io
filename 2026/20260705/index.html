@@ -32,8 +32,11 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/4.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/6.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/7.png">
 <meta property="article:published_time" content="2026-07-05T03:23:05.000Z">
-<meta property="article:modified_time" content="2026-07-05T03:52:04.636Z">
+<meta property="article:modified_time" content="2026-07-05T10:03:47.939Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -304,7 +307,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          485 字
+          1.6k 字
         
       </span>
     
@@ -315,7 +318,7 @@
         
         
         
-          5 分钟
+          14 分钟
         
       </span>
     
@@ -369,7 +372,7 @@
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><img src="/2019/20190323/1.png"></p>
 <p>为了探究视觉失真在多智能体间是如何发生的，作者对注意力机制（涵盖轮次、层级和词元层面）进行了详细诊断：</p>
 <ul>
-<li>随着智能体协作轮次的增加，模型分配给视觉词元（vision tokens）的平均注意力会逐渐减少，而分配给指令词元（instruction tokens）的注意力则相应增加。  </li>
+<li>随着智能体作轮次的增加，模型分配给视觉词元（vision tokens）的平均注意力会逐渐减少，而分配给指令词元（instruction tokens）的注意力则相应增加。  </li>
 <li>在模型的中间层（middle layers）中，存在一小部分具有“单峰注意力特征”（unimodal attention peak）的视觉词元，这些词元能够最好地保留视觉特定信息。  </li>
 <li>在浅层和深层网络中，所有的视觉词元几乎同样重要或同样不重要，但在中间层，具有单峰特征的视觉词元在视觉与文本的信息交互中起着至关重要的作用。</li>
 </ul>
@@ -379,6 +382,39 @@
 </ul>
 <p><img src="/2019/20190323/2.png"></p>
 <p><img src="/2019/20190323/3.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190323/5.png"></p>
+<h3 id="视觉信息中继"><a href="#视觉信息中继" class="headerlink" title="视觉信息中继"></a>视觉信息中继</h3><p>现有的多智能体系统在传递上一轮视觉信息时，通常只依赖生成的文本流，这会丢失大量视觉特征。为了解决这个问题，ViF 引入了额外的“视觉流”（Visual Flow）。  </p>
+<ul>
+<li><p><strong>提取中继词元：</strong> 首先，将所有的视觉词元（vision tokens）表示为 $\mathcal{V}&#x3D;{v_{1},…,v_{m}}$。作者根据中间层的注意力分配趋势，从中挑选出具有“单峰形态”（unimodal morphology）的视觉词元，作为初始的视觉中继词元，记为 $\mathcal{R}&#x3D;{r_{1},…,r_{n}}\subset\mathcal{V}$，其中 $n\ll m$。  </p>
+</li>
+<li><p><strong>上下文融合与特征对齐：</strong> 因为原始选出的视觉词元缺乏特定的语义，所以作者利用指令词元（instruction tokens，记为 $\mathcal{I}$）对这些初始中继词元进行上下文融合。具体公式为：  </p>
+<p>$$\hat{\mathcal{R}}&#x3D;f(\mathcal{R}\oplus\mathcal{I})[:n]$$</p>
+<p>其中 $f(\cdot)$ 是一个轻量级的 Transformer 块，$\oplus$ 表示拼接（concatenation）操作。这里提取了前 $n$ 个组件，以保持视觉中继词元初始的长度不变。  </p>
+</li>
+<li><p><strong>传递与整合：</strong> 为了保留视觉中继词元的空间信息，该方法采用了与前序智能体相同的位置编码策略。随后，这些处理好的视觉中继词元 $\hat{\mathcal{R}}$ 会被传递给后续的智能体，并插入在原始视觉词元和指令词元之间输入给最终的大型语言模型（LLM）。</p>
+</li>
+</ul>
+<h3 id="注意力重新分配"><a href="#注意力重新分配" class="headerlink" title="注意力重新分配"></a>注意力重新分配</h3><p>由于不同类型的词元在模型的浅层、中层和深层起着不同的作用，ViF 引入了注意力重新分配机制，以激活视觉中继词元并优化注意力分布。  </p>
+<ul>
+<li><p><strong>放大单峰注意力趋势：</strong> 在模型的中间层，为了促使具备单峰形态的视觉词元更好地显现，作者在 Softmax 操作中加入了温度缩放（temperature scaling），以放大注意力的动态（上升和下降）趋势。公式如下：  </p>
+<p>$$\mathcal{A}&#x3D;Softmax_{\tau}(\mathcal{S})&#x3D;\frac{exp(\frac{s}{\tau})}{\sum_{i&#x3D;1}^{m}exp(\frac{s_{i}}{\tau})}$$</p>
+<p>其中 $\tau$ 是温度参数，$\mathcal{S}$ 和 $s$ 分别代表注意力分数矩阵和注意力分数，$\mathcal{A}$ 是缩放后的注意力矩阵。  </p>
+</li>
+<li><p><strong>中间层的注意力收集与再分配：</strong> 在中间层，系统会收集“非活跃视觉词元”和“指令词元”的注意力，然后将其重新分配给其他有用的视觉词元。具体分为收集（Collection）和重分配（Reallocation）两步公式：  </p>
+<p>$$\mathcal{C}&#x3D;\alpha\sum_{i&#x3D;1}^{m}s_{i}\circ M_{c},\quad M_{c}(i,j)&#x3D;\mathbb{I}((i\in\mathcal{T},j\in\mathcal{V}_{\emptyset})\vee(i\in\mathcal{T},j\in\mathcal{I}))$$</p>
+<p>$$\hat{s}&#x3D;s+\frac{s}{\sum_{i&#x3D;1}^{l}s_{i}}\mathcal{C}\circ M_{r},\quad M_{r}(i,j)&#x3D;\mathbb{I}(i\in\mathcal{T},j\in\mathcal{V}_{\emptyset})$$</p>
+<p>这里的 $\mathcal{T}$ 代表所有词元集合，$\mathcal{V}<em>{\emptyset}$ 是非活跃视觉词元集合，$\mathcal{V}</em>{\emptyset}$（即 $\mathcal{V}-\mathcal{V}<em>{\emptyset}$，共 $l$ 个词元）是接收重新分配注意力的活跃视觉词元集合。$M</em>{c}$ 和 $M_{r}$ 分别是收集和重分配掩码矩阵，$\alpha$ 是重分配系数。  </p>
+</li>
+<li><p><strong>深层的注意力重分配：</strong> 在深层网络中，因为视觉词元的作用变小，重新分配的方向反转为从“视觉词元”流向“指令词元”，并且使用相同的处理流程。在这个过程中，始终保证总注意力之和为 1。</p>
+</li>
+</ul>
+<h3 id="基于注意力分数的替代方案"><a href="#基于注意力分数的替代方案" class="headerlink" title="基于注意力分数的替代方案"></a>基于注意力分数的替代方案</h3><ul>
+<li><strong>适用场景：</strong> 目前一些新发布的模型（如采用 Flash-Attention 2&#x2F;3 机制的模型）为了加速计算并减少内存消耗，其注意力分数（attention scores）是不可直接获取的。  </li>
+<li><strong>Key-Norm 策略：</strong> 针对此问题，作者设计了一种基于 Key-Norm（键矩阵的 $L_2$ 范数）的替代方法。$L_2$ 范数能够反映词元的特征强度，值越高说明词元的语义越显著。选择 $L_2$ 范数而不是 $L_1$ 范数，是为了更好地放大词元之间的差异。  </li>
+<li><strong>引入缓冲词元：</strong> 考虑到纯粹基于 Key-Norm 选择的词元覆盖较为稀疏、可能会丢失部分重要视觉语义，作者在初始选定的词元周围引入了额外的“缓冲词元”（buffer tokens），即在 $3\times3$ 的空间范围内补充周围的词元（实验中默认添加 3 个缓冲词元）。这在保证运算效率的同时，维持了极其相近的性能和准确度。</li>
+</ul>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2019/20190323/6.png"></p>
+<p><img src="/2019/20190323/7.png"></p>
 
                 
               </div>
