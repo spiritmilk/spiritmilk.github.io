@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/4/1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/4/2.png">
 <meta property="article:published_time" content="2026-07-04T15:37:43.000Z">
-<meta property="article:modified_time" content="2026-07-05T02:44:26.485Z">
+<meta property="article:modified_time" content="2026-07-05T02:51:23.111Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -371,7 +371,7 @@
 <p>在不同的生成步骤中，关注的视觉内容是动态变化的。因此，模型根据当前隐藏状态 $h$，通过归一化的余弦相似度为每个视觉词元分配权重：</p>
 <p>$$w_i &#x3D; \text{softmax} \left( \frac{\text{cos}(h, V_i)}{\tau} \right)$$</p>
 <p>随后，利用加权奇异值分解（Weighted SVD）提取最重要的前 $r$ 个视觉主成分，构成正交基 $U \in \mathbb{R}^{d \times r}$（满足 $U^\top U &#x3D; I_r$）：</p>
-<p>$$U, \Sigma, V^\top &#x3D; \text{SVD}(W^{1&#x2F;2}V), \quad U &#x3D; U_{[:, 1:r]}$$</p>
+<p>$$U, \Sigma, V^\top &#x3D; \text{SVD}(W^{1&#x2F;2}V), \quad U &#x3D; U _ {[:, 1:r]}$$</p>
 <blockquote>
 <p>注意SVD里面的V代表视觉特征矩阵。外面的V则是SVD的V。</p>
 </blockquote>
@@ -397,12 +397,12 @@
 <p><strong>② 动态编辑强度 (Evidence-Aware Strength Scheduling)</strong> 根据 VCR 和 PCR，动态计算非视觉抑制强度 $\lambda_n$ 和反先验抑制强度 $\lambda_p$。当视觉证据弱（VCR低）或先验冲突强（PCR高）时，抑制强度会自适应增大。  </p>
 <p><strong>③ 最小范数闭式解编辑 (Minimum-Norm Closed-Form Editing)</strong></p>
 <p>为了寻找在保留视觉证据前提下实现最优抑制的最小扰动 $\delta$，论文构建了一个凸优化问题：</p>
-<p>$$\min_{\delta \in \mathbb{R}^d} \frac{1}{2}||\delta||<em>2^2 + \frac{\lambda_n}{2}||\Pi</em>\perp(h+\delta)||_2^2 + \frac{\lambda_p}{2}||\Pi_P(h+\delta)||_2^2$$  </p>
+<p>$$\min _ {\delta \in \mathbb{R}^d} \frac{1}{2}||\delta||<em>2^2 + \frac{\lambda_n}{2}||\Pi</em>\perp(h+\delta)||_2^2 + \frac{\lambda_p}{2}||\Pi_P(h+\delta)||_2^2$$  </p>
 <p>通过令梯度为零，可以直接求出最优的编辑后隐藏状态 $h’$ 的闭式解：</p>
 <p>$$h’ &#x3D; h_U + \frac{1}{1+\lambda_n+\lambda_p}h_P + \frac{1}{1+\lambda_n}h_R$$  </p>
 <p><strong>公式解析</strong>：这个闭式解非常优雅。可以看出，视觉成分 $h_U$ 前面的系数是 $1$，意味着<strong>视觉证据被 100% 完美保留</strong>；而反先验成分 $h_P$ 和残差成分 $h_R$ 的系数都小于 1，根据计算出的冲突强度 $\lambda_p$ 和 $\lambda_n$ 被不同程度地“缩小（shrinkage）”了。  </p>
 <p><strong>④ 证书感知门控 (Certificate-Aware Gating)</strong> 为了防止过度干预导致生成不流畅，最终还会使用一个门控机制 $g(h)$： 只有当幻觉风险高时（即 $VCR(h) &lt; \gamma_v$ 或 $PCR(h) &gt; \gamma_p$），$g(h)&#x3D;1$，才使用编辑后的 $h’$；否则 $g(h)&#x3D;0$，保留原始的 $h$。 最终输出状态为：  </p>
-<p>$$h_{\text{final}} &#x3D; g(h) \cdot h’ + (1 - g(h)) \cdot h$$  </p>
+<p>$$h _ {\text{final}} &#x3D; g(h) \cdot h’ + (1 - g(h)) \cdot h$$  </p>
 <p>通过这一系列严密的数学设计，HulluEdit 实现了在单次前向传播中，精准打击语言幻觉成分，同时构筑了保护视觉证据的数学壁垒。</p>
 <h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h3 id="证据一致性证明"><a href="#证据一致性证明" class="headerlink" title="证据一致性证明"></a>证据一致性证明</h3><p><strong>定理</strong>：证明编辑后的状态 $h’$ 相比原始状态 $h$，其“视觉确定性比率 (VCR)”必然上升（或不变），而“先验冲突比率 (PCR)”必然下降（或不变）。 即证明：$VCR(h’) \ge VCR(h)$ 且 $PCR(h’) \le PCR(h)$。  </p>
 <p><strong>证明</strong>：</p>
