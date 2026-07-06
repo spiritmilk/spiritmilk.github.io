@@ -28,13 +28,13 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICLR 2026）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/4.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/3.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/5.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/6.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/7.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260705/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260705/4.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260705/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260705/3.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260705/5.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260705/6.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260705/7.png">
 <meta property="article:published_time" content="2026-07-05T03:23:05.000Z">
 <meta property="article:modified_time" content="2026-07-05T10:03:47.939Z">
 <meta property="article:author" content="LJX">
@@ -43,7 +43,7 @@
 <meta property="article:tag" content="大模型">
 <meta property="article:tag" content="agent">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260705/1.png">
   
   
   
@@ -369,20 +369,20 @@
 <li>现有的文本传递方式会压缩并选择性地强调视觉特征，导致后续智能体将前序智能体产生的错误文本断言视为权威，从而产生滚雪球般的幻觉放大效应。  </li>
 <li>仅仅减少单个智能体的内部幻觉（以往大部分研究的重点）无法完全解决这种在多智能体交互间传播的幻觉问题。</li>
 </ul>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><img src="/2019/20190323/1.png"></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><img src="/2026/20260705/1.png"></p>
 <p>为了探究视觉失真在多智能体间是如何发生的，作者对注意力机制（涵盖轮次、层级和词元层面）进行了详细诊断：</p>
 <ul>
 <li>随着智能体作轮次的增加，模型分配给视觉词元（vision tokens）的平均注意力会逐渐减少，而分配给指令词元（instruction tokens）的注意力则相应增加。  </li>
 <li>在模型的中间层（middle layers）中，存在一小部分具有“单峰注意力特征”（unimodal attention peak）的视觉词元，这些词元能够最好地保留视觉特定信息。  </li>
 <li>在浅层和深层网络中，所有的视觉词元几乎同样重要或同样不重要，但在中间层，具有单峰特征的视觉词元在视觉与文本的信息交互中起着至关重要的作用。</li>
 </ul>
-<p><img src="/2019/20190323/4.png"></p>
+<p><img src="/2026/20260705/4.png"></p>
 <ul>
 <li>然而，这种极其重要的单峰特征在更深轮次的智能体中会逐渐消失，这表明文本信息流逐渐占据主导地位，视觉信号被忽略，进而导致了幻觉雪球效应。</li>
 </ul>
-<p><img src="/2019/20190323/2.png"></p>
-<p><img src="/2019/20190323/3.png"></p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190323/5.png"></p>
+<p><img src="/2026/20260705/2.png"></p>
+<p><img src="/2026/20260705/3.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2026/20260705/5.png"></p>
 <h3 id="视觉信息中继"><a href="#视觉信息中继" class="headerlink" title="视觉信息中继"></a>视觉信息中继</h3><p>现有的多智能体系统在传递上一轮视觉信息时，通常只依赖生成的文本流，这会丢失大量视觉特征。为了解决这个问题，ViF 引入了额外的“视觉流”（Visual Flow）。  </p>
 <ul>
 <li><p><strong>提取中继词元：</strong> 首先，将所有的视觉词元（vision tokens）表示为 $\mathcal{V}&#x3D;{v_{1},…,v_{m}}$。作者根据中间层的注意力分配趋势，从中挑选出具有“单峰形态”（unimodal morphology）的视觉词元，作为初始的视觉中继词元，记为 $\mathcal{R}&#x3D;{r_{1},…,r_{n}}\subset\mathcal{V}$，其中 $n\ll m$。  </p>
@@ -413,8 +413,8 @@
 <li><strong>Key-Norm 策略：</strong> 针对此问题，作者设计了一种基于 Key-Norm（键矩阵的 $L_2$ 范数）的替代方法。$L_2$ 范数能够反映词元的特征强度，值越高说明词元的语义越显著。选择 $L_2$ 范数而不是 $L_1$ 范数，是为了更好地放大词元之间的差异。  </li>
 <li><strong>引入缓冲词元：</strong> 考虑到纯粹基于 Key-Norm 选择的词元覆盖较为稀疏、可能会丢失部分重要视觉语义，作者在初始选定的词元周围引入了额外的“缓冲词元”（buffer tokens），即在 $3\times3$ 的空间范围内补充周围的词元（实验中默认添加 3 个缓冲词元）。这在保证运算效率的同时，维持了极其相近的性能和准确度。</li>
 </ul>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2019/20190323/6.png"></p>
-<p><img src="/2019/20190323/7.png"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2026/20260705/6.png"></p>
+<p><img src="/2026/20260705/7.png"></p>
 
                 
               </div>

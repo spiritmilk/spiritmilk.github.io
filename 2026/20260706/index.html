@@ -28,20 +28,20 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="(arxiv 2026) EMNLP 2026在投">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.2.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.3.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.4.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.1.png">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260706/0.1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260706/0.2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260706/0.3.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260706/0.4.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260706/2.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260706/2.1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260706/1.png">
 <meta property="article:published_time" content="2026-07-06T15:06:12.000Z">
-<meta property="article:modified_time" content="2026-07-06T16:10:30.697Z">
+<meta property="article:modified_time" content="2026-07-06T16:12:00.191Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/0.1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260706/0.1.png">
   
   
   
@@ -374,10 +374,10 @@
 <li><strong>输出声明图</strong>：$G _ {Y_t} &#x3D; \Phi(\mathcal{P} _ {\text{ext}}, Y_t)$</li>
 </ul>
 <p>图中的每个节点是一个事实，被严格规范为三元组：$f &#x3D; (s_f, p_f, o_f)$，即 (主体, 谓词, 客体)。共享相同实体的主题会通过“共指边（coreference edges）”连接，形成图结构。  </p>
-<p><img src="/2019/20190323/0.1.png"></p>
-<p><img src="/2019/20190323/0.2.png"></p>
-<p><img src="/2019/20190323/0.3.png"></p>
-<p><img src="/2019/20190323/0.4.png"></p>
+<p><img src="/2026/20260706/0.1.png"></p>
+<p><img src="/2026/20260706/0.2.png"></p>
+<p><img src="/2026/20260706/0.3.png"></p>
+<p><img src="/2026/20260706/0.4.png"></p>
 <h3 id="细粒度风险评分"><a href="#细粒度风险评分" class="headerlink" title="细粒度风险评分"></a>细粒度风险评分</h3><p>对于声明图 $G _ {Y_t}$ 中的每一个事实 $f$，TIGER 会通过句子特征提取器（如 Sentence-BERT）计算其与观察图 $G_X$ 中事实的相似度，进而得出精确的风险分数。  </p>
 <p>将输出事实 $f$ 和输入事实 $g$ 的主体、谓词、客体分别通过冻结的句子编码器提取特征，得到截断余弦相似度 $\sigma_s, \sigma_p, \sigma_o \in [0, 1]$。整体相似度定义为三个维度的均值：  </p>
 <p>$$\text{sim}(f, g) &#x3D; \frac{1}{3}(\sigma_s + \sigma_p + \sigma_o)$$</p>
@@ -426,25 +426,25 @@
 <li>模型被要求<strong>不要修改未被标记的声明</strong>，除非是为了保持上下文连贯性所需的最低限度的语法编辑。  </li>
 <li>每个被选中的高风险事实都保留了其在源文本中的位置，因此模型在相应的跨度（span）上进行局部修复。</li>
 </ul>
-<p><img src="/2019/20190323/2.png"></p>
-<p><img src="/2019/20190323/2.1.png"></p>
+<p><img src="/2026/20260706/2.png"></p>
+<p><img src="/2026/20260706/2.1.png"></p>
 <h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p><strong>定理 3.1（条件几何风险界限，Conditional geometric risk bound）</strong>，它证明了在多次迭代后，生成的文本的总幻觉风险会呈几何级数下降，并最终逼近一个明确的理论下界。</p>
-<p>在第 $t$ 轮迭代时，当前输出的声明图 $G_{Y_t}$ 包含 $N_t &#x3D; |G_{Y_t}|$ 个事实。  </p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>在第 $t$ 轮迭代时，当前输出的声明图 $G _ {Y_t}$ 包含 $N_t &#x3D; |G _ {Y_t}|$ 个事实。  </p>
 <ul>
-<li><p><strong>总风险 ($R^{(t)}$)</strong>：当前图谱中所有事实的风险总和被定义为 $R^{(t)} &#x3D; \sum_{f \in G_{Y_t}} r^{(t)}(f)$。  </p>
+<li><p><strong>总风险 ($R^{(t)}$)</strong>：当前图谱中所有事实的风险总和被定义为 $R^{(t)} &#x3D; \sum _ {f \in G _ {Y_t}} r^{(t)}(f)$。  </p>
 </li>
 <li><p><strong>高风险集合 ($\mathcal{F}_t$)</strong>：算法会根据预算比例 $\alpha \in (0, 1]$ 挑出风险最高的 $\lceil\alpha N_t\rceil$ 个事实构成 $\mathcal{F}_t$。  </p>
 </li>
 <li><p>因此，总风险可以分解为“被选中修复的部分”和“被保留（不修复）的部分”：  </p>
-<p>$$R^{(t)} &#x3D; \sum_{f \in \mathcal{F}<em>t} r^{(t)}(f) + \sum</em>{f \in G_{Y_t} \setminus \mathcal{F}_t} r^{(t)}(f)$$</p>
+<p>$$R^{(t)} &#x3D; \sum _ {f \in \mathcal{F}_t} r^{(t)}(f) + \sum _ {f \in G _ {Y_t} \setminus \mathcal{F}_t} r^{(t)}(f)$$</p>
 </li>
 </ul>
 <p>在执行一次局部修复后，理想状态下（假设图提取完美无缺），下一轮的理想总风险 $\tilde{R}^{(t+1)}$ 包括：修复后事实的新风险 $\tilde{r}^{(t+1)}(f)$、未修复事实的原始风险 $r^{(t)}(f)$，以及修复操作带来的增量副作用风险 $\Delta_t^+ \ge 0$。 但是，由于大模型提取事实图时存在“提取损失”，下一轮实际测量到的总风险 $R^{(t+1)}$ 与理想风险之间存在差距，定义为提取损失 $\Delta_t^{ext} &#x3D; R^{(t+1)} - \tilde{R}^{(t+1)}$。  </p>
 <p>综合起来，<strong>单步风险演化公式</strong>被严格分解为以下四部分：  </p>
-<p>$$R^{(t+1)} &#x3D; \sum_{f \in \mathcal{F}<em>t} \tilde{r}^{(t+1)}(f) + \sum</em>{f \in G_{Y_t} \setminus \mathcal{F}_t} r^{(t)}(f) + \Delta_t^+ + \Delta_t^{ext}$$</p>
-<h3 id="2-四大核心假设-Assumptions"><a href="#2-四大核心假设-Assumptions" class="headerlink" title="2. 四大核心假设 (Assumptions)"></a>2. 四大核心假设 (Assumptions)</h3><p>为了进行严密的证明，论文在 Appendix D.2 提出了四个合理的理论前提：  </p>
+<p>$$R^{(t+1)} &#x3D; \sum _ {f \in \mathcal{F}_t} \tilde{r}^{(t+1)}(f) + \sum _ {f \in G _ {Y_t} \setminus \mathcal{F}_t} r^{(t)}(f) + \Delta_t^+ + \Delta_t^{ext}$$</p>
+<h3 id="四大核心假设"><a href="#四大核心假设" class="headerlink" title="四大核心假设"></a>四大核心假设</h3><p>为了进行严密的证明，论文在 Appendix D.2 提出了四个合理的理论前提：  </p>
 <ul>
-<li><p><strong>假设 D.1 (有界图大小, Bounded graph size)</strong>：存在一个常数 $N_{max}$，使得所有轮次的事实数量 $N_t \le N_{max}$。  </p>
+<li><p><strong>假设 D.1 (有界图大小, Bounded graph size)</strong>：存在一个常数 $N _ {max}$，使得所有轮次的事实数量 $N_t \le N _ {max}$。  </p>
 </li>
 <li><p><strong>假设 D.2 (单事实修复进展, Per-fact repair progress)</strong>：存在一个常数 $\epsilon \in (0, 1]$，使得对于每个被选中的高风险事实 $f \in \mathcal{F}_t$，修复操作能在期望上将其风险降低 $\epsilon$ 比例：  </p>
 <p>$$\mathbb{E}[\tilde{r}^{(t+1)}(f) | R^{(t)}] \le (1 - \epsilon)r^{(t)}(f)$$</p>
@@ -456,24 +456,24 @@
 <p>$$\mathbb{E}[\Delta_t^{ext} | R^{(t)}] \le \xi$$</p>
 </li>
 </ul>
-<h3 id="3-定理-3-1-的证明推导过程-Proof-of-Theorem-3-1"><a href="#3-定理-3-1-的证明推导过程-Proof-of-Theorem-3-1" class="headerlink" title="3. 定理 3.1 的证明推导过程 (Proof of Theorem 3.1)"></a>3. 定理 3.1 的证明推导过程 (Proof of Theorem 3.1)</h3><p>证明的目标是推导出经过 $T$ 轮修复后，期望风险 $\mathbb{E}[R^{(T)}]$ 的上界。证明逻辑如下（详见 Appendix D.3）：  </p>
+<h3 id="证明推导过程"><a href="#证明推导过程" class="headerlink" title="证明推导过程"></a>证明推导过程</h3><p>证明的目标是推导出经过 $T$ 轮修复后，期望风险 $\mathbb{E}[R^{(T)}]$ 的上界。证明逻辑如下（详见 Appendix D.3）：  </p>
 <h4 id="步骤一：推导单步“漂移不等式”-Drift-Inequality"><a href="#步骤一：推导单步“漂移不等式”-Drift-Inequality" class="headerlink" title="步骤一：推导单步“漂移不等式” (Drift Inequality)"></a>步骤一：推导单步“漂移不等式” (Drift Inequality)</h4><p>对前面定义的单步风险分解公式两边求条件期望（给定上一轮的总风险 $R^{(t)}$），并代入上述四个假设：  </p>
-<p>$$\mathbb{E}[R^{(t+1)} | R^{(t)}] \le (1 - \epsilon)\sum_{f \in \mathcal{F}<em>t} r^{(t)}(f) + \sum</em>{f \in G_{Y_t} \setminus \mathcal{F}_t} r^{(t)}(f) + \beta + \xi$$</p>
+<p>$$\mathbb{E}[R^{(t+1)} | R^{(t)}] \le (1 - \epsilon)\sum _ {f \in \mathcal{F}_t} r^{(t)}(f) + \sum _ {f \in G _ {Y_t} \setminus \mathcal{F}_t} r^{(t)}(f) + \beta + \xi$$</p>
 <p>将其重新整理，把被修复部分的风险单独提出来：  </p>
-<p>$$\mathbb{E}[R^{(t+1)} | R^{(t)}] \le R^{(t)} - \epsilon\sum_{f \in \mathcal{F}_t} r^{(t)}(f) + \beta + \xi$$</p>
-<h4 id="步骤二：利用“Top-K-选择”特性放大减法项"><a href="#步骤二：利用“Top-K-选择”特性放大减法项" class="headerlink" title="步骤二：利用“Top-K 选择”特性放大减法项"></a>步骤二：利用“Top-K 选择”特性放大减法项</h4><p>算法在挑选 $\mathcal{F}<em>t$ 时，选的是<strong>风险最高的 $\lceil\alpha N_t\rceil$ 个事实</strong>。因此，这些被选中事实的平均风险一定<strong>大于等于</strong>全局平均风险 $R^{(t)} &#x2F; N_t$。 即：$\sum</em>{f \in \mathcal{F}_t} r^{(t)}(f) \ge \lceil\alpha N_t\rceil \frac{R^{(t)}}{N_t} \ge \alpha R^{(t)}$。 将这个不等式代入上一步，可以得到一个完美的单步衰减公式：  </p>
+<p>$$\mathbb{E}[R^{(t+1)} | R^{(t)}] \le R^{(t)} - \epsilon\sum _ {f \in \mathcal{F}_t} r^{(t)}(f) + \beta + \xi$$</p>
+<h4 id="步骤二：利用“Top-K-选择”特性放大减法项"><a href="#步骤二：利用“Top-K-选择”特性放大减法项" class="headerlink" title="步骤二：利用“Top-K 选择”特性放大减法项"></a>步骤二：利用“Top-K 选择”特性放大减法项</h4><p>算法在挑选 $\mathcal{F}_t$ 时，选的是<strong>风险最高的 $\lceil\alpha N_t\rceil$ 个事实</strong>。因此，这些被选中事实的平均风险一定<strong>大于等于</strong>全局平均风险 $R^{(t)} &#x2F; N_t$。 即：$\sum _ {f \in \mathcal{F}_t} r^{(t)}(f) \ge \lceil\alpha N_t\rceil \frac{R^{(t)}}{N_t} \ge \alpha R^{(t)}$。 将这个不等式代入上一步，可以得到一个完美的单步衰减公式：  </p>
 <p>$$\mathbb{E}[R^{(t+1)} | R^{(t)}] \le (1 - \alpha\epsilon)R^{(t)} + \beta + \xi$$</p>
 <p>这说明每一轮迭代，现有的总风险都会被硬性砍掉 $\alpha\epsilon$ 这个比例，并叠加一个固定的常数误差 $(\beta + \xi)$。  </p>
-<h4 id="步骤三：通过数学归纳法展开-T-轮-Unrolling-by-Induction"><a href="#步骤三：通过数学归纳法展开-T-轮-Unrolling-by-Induction" class="headerlink" title="步骤三：通过数学归纳法展开 $T$ 轮 (Unrolling by Induction)"></a>步骤三：通过数学归纳法展开 $T$ 轮 (Unrolling by Induction)</h4><p>去掉条件期望后得到递归式 $\mathbb{E}[R^{(t+1)}] \le (1 - \alpha\epsilon)\mathbb{E}[R^{(t)}] + \beta + \xi$。 假设这个结论在第 $t$ 轮成立，根据等比数列求和法则将其展开到第 $T$ 轮：  </p>
-<p>$$\mathbb{E}[R^{(T)}] \le (1 - \alpha\epsilon)^T R^{(0)} + (\beta + \xi)\sum_{j&#x3D;0}^{T-1}(1 - \alpha\epsilon)^j$$</p>
-<p>由于 $\sum_{j&#x3D;0}^{T-1}(1 - \alpha\epsilon)^j \le \frac{1}{\alpha\epsilon}$，最终得到定理 3.1 的结论：  </p>
+<h4 id="步骤三：通过数学归纳法展开-T-轮"><a href="#步骤三：通过数学归纳法展开-T-轮" class="headerlink" title="步骤三：通过数学归纳法展开 $T$ 轮"></a>步骤三：通过数学归纳法展开 $T$ 轮</h4><p>去掉条件期望后得到递归式 $\mathbb{E}[R^{(t+1)}] \le (1 - \alpha\epsilon)\mathbb{E}[R^{(t)}] + \beta + \xi$。 假设这个结论在第 $t$ 轮成立，根据等比数列求和法则将其展开到第 $T$ 轮：  </p>
+<p>$$\mathbb{E}[R^{(T)}] \le (1 - \alpha\epsilon)^T R^{(0)} + (\beta + \xi)\sum _ {j&#x3D;0}^{T-1}(1 - \alpha\epsilon)^j$$</p>
+<p>由于 $\sum _ {j&#x3D;0}^{T-1}(1 - \alpha\epsilon)^j \le \frac{1}{\alpha\epsilon}$，最终得到定理 3.1 的结论：  </p>
 <p>$$\mathbb{E}[R^{(T)}] \le (1 - \alpha\epsilon)^T R^{(0)} + \frac{\beta + \xi}{\alpha\epsilon}$$</p>
-<h3 id="4-理论的物理意义与结论"><a href="#4-理论的物理意义与结论" class="headerlink" title="4. 理论的物理意义与结论"></a>4. 理论的物理意义与结论</h3><p>最终得出的这个公式揭示了 TIGER 系统非常重要的运作本质：</p>
+<h3 id="物理意义与结论"><a href="#物理意义与结论" class="headerlink" title="物理意义与结论"></a>物理意义与结论</h3><p>最终得出的这个公式揭示了 TIGER 系统非常重要的运作本质：</p>
 <ol>
 <li><strong>几何级数下降（Geometric Decrease）</strong>：公式左侧的 $(1 - \alpha\epsilon)^T R^{(0)}$ 表示初始阶段的幻觉风险 $R^{(0)}$ 随着迭代轮数 $T$ 的增加，会以 $(1-\alpha\epsilon)$ 的底数呈几何级数（指数级）被消除。  </li>
 <li><strong>能力天花板&#x2F;渐近底线（Asymptotic Floor）</strong>：公式右侧的常数项 $\frac{\beta + \xi}{\alpha\epsilon}$ 代表了系统无法彻底清零的残余风险。它表明，即使无限次迭代（当 $T \to \infty$ 时，第一项趋于 0），幻觉依然无法绝对等于 0，因为总会存在提取损失（$\xi$）和局部修改带来的上下文副作用（$\beta$）。这诚实地刻画了该框架的能力边界。</li>
 </ol>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2019/20190323/1.png"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="/2026/20260706/1.png"></p>
 <h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>同是EMNLP 2026，它写得真好啊</p>
 
                 

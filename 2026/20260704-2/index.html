@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（CVPR 2026） 该论文提出了一种无需训练的模态间相关性校准解码框架，通过跨模态价值增强解码和内容驱动的注意力修正机制，有效缓解了大型视觉语言模型中由单模态过度依赖和虚假跨模态相关性引发的生成幻觉问题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/2/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260704-2/1.png">
 <meta property="article:published_time" content="2026-07-04T13:40:04.000Z">
 <meta property="article:modified_time" content="2026-07-04T14:55:22.633Z">
 <meta property="article:author" content="LJX">
@@ -36,7 +36,7 @@
 <meta property="article:tag" content="多模态">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/2/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260704-2/1.png">
   
   
   
@@ -358,7 +358,7 @@
 <span id="more"></span>
 
 <h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>历史方法忽略了由“虚假的跨模态相关性（spurious inter-modality correlations）”引起的幻觉。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2019/20190323/2/1.png"></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2026/20260704-2/1.png"></p>
 <h3 id="跨模态价值增强解码-CMVED"><a href="#跨模态价值增强解码-CMVED" class="headerlink" title="跨模态价值增强解码 (CMVED)"></a>跨模态价值增强解码 (CMVED)</h3><p>现有方法通常通过直接给视觉或文本输入加噪来构建“失真分布”，这不仅破坏了单模态内部的信息交流，还抹除了跨模态的相关性。CMVED 的思路是：<strong>有选择地屏蔽高权重的跨模态注意力对应的 Value 向量</strong>，从而放大“虚假的跨模态相关性”，然后通过对比解码（Contrastive Decoding）来惩罚并削弱这些幻觉。  </p>
 <p><strong>步骤解析：</strong></p>
 <ul>
