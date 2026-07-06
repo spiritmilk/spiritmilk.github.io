@@ -28,16 +28,20 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="(arxiv 2026, ACL ARR May)">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.1.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.2.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.3.png">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/0.4.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/2.1.png">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
 <meta property="article:published_time" content="2026-07-06T15:06:12.000Z">
-<meta property="article:modified_time" content="2026-07-06T15:58:25.862Z">
+<meta property="article:modified_time" content="2026-07-06T15:59:33.100Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/2.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/0.1.png">
   
   
   
@@ -369,6 +373,10 @@
 <li><strong>输出声明图</strong>：$G _ {Y_t} &#x3D; \Phi(\mathcal{P} _ {\text{ext}}, Y_t)$</li>
 </ul>
 <p>图中的每个节点是一个事实，被严格规范为三元组：$f &#x3D; (s_f, p_f, o_f)$，即 (主体, 谓词, 客体)。共享相同实体的主题会通过“共指边（coreference edges）”连接，形成图结构。  </p>
+<p><img src="/2019/20190323/0.1.png"></p>
+<p><img src="/2019/20190323/0.2.png"></p>
+<p><img src="/2019/20190323/0.3.png"></p>
+<p><img src="/2019/20190323/0.4.png"></p>
 <h3 id="细粒度风险评分"><a href="#细粒度风险评分" class="headerlink" title="细粒度风险评分"></a>细粒度风险评分</h3><p>对于声明图 $G _ {Y_t}$ 中的每一个事实 $f$，TIGER 会通过句子特征提取器（如 Sentence-BERT）计算其与观察图 $G_X$ 中事实的相似度，进而得出精确的风险分数。  </p>
 <p>将输出事实 $f$ 和输入事实 $g$ 的主体、谓词、客体分别通过冻结的句子编码器提取特征，得到截断余弦相似度 $\sigma_s, \sigma_p, \sigma_o \in [0, 1]$。整体相似度定义为三个维度的均值：  </p>
 <p>$$\text{sim}(f, g) &#x3D; \frac{1}{3}(\sigma_s + \sigma_p + \sigma_o)$$</p>
