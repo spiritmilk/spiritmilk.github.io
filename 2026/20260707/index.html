@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2021/1000/707/1.png">
 <meta property="article:published_time" content="2026-07-07T09:17:27.000Z">
-<meta property="article:modified_time" content="2026-07-21T06:36:20.636Z">
+<meta property="article:modified_time" content="2026-07-21T06:36:55.936Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -299,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          832 字
+          837 字
         
       </span>
     
@@ -373,12 +373,12 @@
 <p>其中 $M$ 是最大回溯窗口大小（例如论文中常设扫描窗口 $K&#x3D;10$）。</p>
 <p>在 Confident Decoding 中，算法会从最后一层 $L$ 开始，<strong>向回（由深到浅）</strong> 扫描候选层，寻找局部“熵谷”（Entropy Trough）。  </p>
 <p><strong>具体搜索规则：</strong> 对于每个 Token 的生成，算法沿着 $L, L-1, L-2 \dots$ 的顺序计算熵。如果前一层（较浅层）的熵比当前层（较深层）的熵<strong>严格更小</strong>（即 $H_t^{(l)} &lt; H_t^{(l+1)}$），则继续向回找；一旦遇到某一层无法进一步降低熵，搜索立刻冻结，并选择当前的“谷底”层作为最终输出层。  </p>
-<p>数学上，选中的最优层 $l_t^*$ 可以表示为：  </p>
-<p>$$l_t^* &#x3D; \min { l \in [L-K+1, L] : H_t^{(l)} &lt; H_t^{(l+1)} &lt; \dots &lt; H_t^{(L)} }$$</p>
-<p>找到 $l_t^<em>$ 后，算法直接将该层的 Logits $z_t^{(l_t^</em>)}$ 送入后续的采样器（Sampler）进行最终的 Token 选取。  </p>
+<p>数学上，选中的最优层 $l_t^\ast$ 可以表示为：  </p>
+<p>$$l_t^\ast &#x3D; \min { l \in [L-K+1, L] : H_t^{(l)} &lt; H_t^{(l+1)} &lt; \dots &lt; H_t^{(L)} }$$</p>
+<p>找到 $l_t^\ast$ 后，算法直接将该层的 Logits $z_t^{(l_t^\ast)}$ 送入后续的采样器（Sampler）进行最终的 Token 选取。  </p>
 <p>为了对比“熵谷”层与最后一层的影响，算法还引入了一个可选的回退概率 $1-p$。  </p>
 <ul>
-<li>有 $p$ 的概率，算法严格使用找到的熵谷层 $l_t^*$。  </li>
+<li>有 $p$ 的概率，算法严格使用找到的熵谷层 $l_t^\ast$。  </li>
 <li>有 $1-p$ 的概率，算法放弃搜索结果，强制回退到标准解码使用的最后一层 $L$。  </li>
 <li>实验证明，设置 $p&#x3D;1.0$（即 100% 确定性地使用熵谷层）能取得最佳效果，因为这彻底隔绝了最后一层引入的对齐扰动。</li>
 </ul>
