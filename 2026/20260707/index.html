@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="(arxiv 2026) Qwen 团队、清华大学和南洋理工大学">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/707/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260707/1.png">
 <meta property="article:published_time" content="2026-07-07T09:17:27.000Z">
 <meta property="article:modified_time" content="2026-07-21T06:36:55.936Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/707/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260707/1.png">
   
   
   
@@ -363,7 +363,7 @@
 <h2 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h2><p><strong>阶段 I：猜测 (Guess，浅层)</strong>：在最初的几层，模型进行大幅度的方向转移，快速建立初始的粗略统计猜测。  </p>
 <p><strong>阶段 II：细化 (Refine，中间层)</strong>：在中间的大部分层，模型沿着稳定的语义轨迹进行渐进式更新，结合上下文逐步完善推理逻辑。  </p>
 <p><strong>阶段 III：扰动 (Perturb，深层&#x2F;最后一层)</strong>：对于某些特定 Token，最后一层会发生强烈的表征偏移。这往往是因为后训练（对齐微调）促使模型偏向于生成高频、通用或“安全”的词汇。这种晚期偏差会破坏中间层已经构建好的复杂推理逻辑链。作者将这种现象称为“规划-语用权衡 (Planning-Pragmatics Tradeoff)”。 </p>
-<p><img src="/2021/1000/707/1.png"></p>
+<p><img src="/2026/20260707/1.png"></p>
 <h2 id="提出的方法：Confident-Decoding（自信解码）"><a href="#提出的方法：Confident-Decoding（自信解码）" class="headerlink" title="提出的方法：Confident Decoding（自信解码）"></a>提出的方法：Confident Decoding（自信解码）</h2><p>为了解决最后一层扰动的问题，作者提出了一种免训练、即插即用的推理期解码策略——<strong>Confident Decoding</strong>。  </p>
 <blockquote>
 <p>有点像对比解码。</p>
