@@ -29,7 +29,7 @@
 <meta property="og:description" content="(arxiv 2026) 为多媒体取证任务中的MLLMs设计的免训练视觉 token 压缩框架。 深大、哈工深、中山大学网安">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-07-22T04:36:22.000Z">
-<meta property="article:modified_time" content="2026-07-22T05:06:11.882Z">
+<meta property="article:modified_time" content="2026-07-22T05:08:13.749Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -365,28 +365,28 @@
 </ul>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>为了捕捉这些物理异常，ForensicZip 提出了两个互补的阶段：**传输新颖性估计（TNE）**和**取证打分与选择（FS）**。</p>
 <h3 id="1-传输新颖性估计-Transport-Novelty-Estimation-TNE"><a href="#1-传输新颖性估计-Transport-Novelty-Estimation-TNE" class="headerlink" title="1. 传输新颖性估计 (Transport Novelty Estimation, TNE)"></a>1. 传输新颖性估计 (Transport Novelty Estimation, TNE)</h3><p>这一阶段主要在时间域检测伪造痕迹。常规的最优传输（Balanced Optimal Transport）会强制所有目标 token 匹配到一个来源，这会稀释突然出现的生成伪影的分数。因此，TNE 引入了一个带有虚拟节点（Dummy Node）的生灭熵最优传输（Birth-Death Entropic Optimal Transport）模型，专门吸收那些无法匹配的异常质量。  </p>
-<p><strong>步骤 A：特征投影与归一化</strong> 对于第 $t$ 帧中的每个 patch token $v_{t,i} \in \mathbb{R}^{D_v}$，首先将其投影到语言嵌入空间，并进行 $l_2$ 归一化，使其映射到单位超球面上：  </p>
-<p>$$\hat{z}<em>{t,i} &#x3D; \frac{g(v</em>{t,i})}{\vert{}\vert{}g(v_{t,i})\vert{}\vert{}<em>2 + \epsilon</em>{norm}} \in \mathbb{R}^{D_p}$$</p>
-<p>其中 $\epsilon_{norm}$ 是用于数值稳定性的极小常数。  </p>
-<p><strong>步骤 B：构建带有虚拟节点的增强代价矩阵</strong> 对于连续的两帧 $t-1$ 和 $t$，先计算真实 token 之间的余弦距离矩阵 $C^{(t)}$，其元素为 $C_{ij}^{(t)} &#x3D; 1 - \hat{z}<em>{t-1,i}^\top \hat{z}</em>{t,j}$。 为了量化无来源的“突然出现”（Birth）和无目标的“突然消失”（Death），引入虚拟行和列，构建增强矩阵 $\bar{C}^{(t)} \in \mathbb{R}^{(N+1)\times(N+1)}$：  </p>
-<p>$$\bar{C}^{(t)} &#x3D; \begin{bmatrix} C^{(t)} &amp; c_{death}1_N \ c_{birth}1_N^\top &amp; 0 \end{bmatrix}$$</p>
-<p>这里 $c_{birth} \ge 0$ 和 $c_{death} \ge 0$ 是将质量路由到虚拟节点的固定惩罚代价。当真实匹配的代价超过 $c_{birth}$ 时，模型会倾向于将其判定为新生成的伪影。  </p>
-<p><strong>步骤 C：求解传输计划</strong> 设定边缘约束 $a &#x3D; [\frac{1}{N}, \dots, \frac{1}{N}, 1]^\top \in \mathbb{R}^{N+1}$（前 $N$ 项为真实 token 分配均匀质量，最后一项提供单位松弛量以吸收不匹配质量）。通过 Sinkhorn 迭代求解带有熵正则化（强度为 $\epsilon_{ot}$）的最优传输计划 $\bar{P}^{(t)}$：  </p>
-<p>$$\bar{P}^{(t)} &#x3D; \arg\min_{P \ge 0, P 1 &#x3D; a, P^\top 1 &#x3D; a} \langle P, \bar{C}^{(t)} \rangle_F + \epsilon_{ot} \sum_{i&#x3D;1}^{N+1} \sum_{j&#x3D;1}^{N+1} P_{ij}(\log P_{ij} - 1)$$</p>
+<p><strong>步骤 A：特征投影与归一化</strong> 对于第 $t$ 帧中的每个 patch token $v _ {t,i} \in \mathbb{R}^{D_v}$，首先将其投影到语言嵌入空间，并进行 $l_2$ 归一化，使其映射到单位超球面上：  </p>
+<p>$$\hat{z} _ {t,i} &#x3D; \frac{g(v _ {t,i})}{\vert{}\vert{}g(v _ {t,i})\vert{}\vert{}_2 + \epsilon _ {norm}} \in \mathbb{R}^{D_p}$$</p>
+<p>其中 $\epsilon _ {norm}$ 是用于数值稳定性的极小常数。  </p>
+<p><strong>步骤 B：构建带有虚拟节点的增强代价矩阵</strong> 对于连续的两帧 $t-1$ 和 $t$，先计算真实 token 之间的余弦距离矩阵 $C^{(t)}$，其元素为 $C _ {ij}^{(t)} &#x3D; 1 - \hat{z} _ {t-1,i}^\top \hat{z} _ {t,j}$。 为了量化无来源的“突然出现”（Birth）和无目标的“突然消失”（Death），引入虚拟行和列，构建增强矩阵 $\bar{C}^{(t)} \in \mathbb{R}^{(N+1)\times(N+1)}$：  </p>
+<p>$$\bar{C}^{(t)} &#x3D; \begin{bmatrix} C^{(t)} &amp; c _ {death}1_N \ c _ {birth}1_N^\top &amp; 0 \end{bmatrix}$$</p>
+<p>这里 $c _ {birth} \ge 0$ 和 $c _ {death} \ge 0$ 是将质量路由到虚拟节点的固定惩罚代价。当真实匹配的代价超过 $c _ {birth}$ 时，模型会倾向于将其判定为新生成的伪影。  </p>
+<p><strong>步骤 C：求解传输计划</strong> 设定边缘约束 $a &#x3D; [\frac{1}{N}, \dots, \frac{1}{N}, 1]^\top \in \mathbb{R}^{N+1}$（前 $N$ 项为真实 token 分配均匀质量，最后一项提供单位松弛量以吸收不匹配质量）。通过 Sinkhorn 迭代求解带有熵正则化（强度为 $\epsilon _ {ot}$）的最优传输计划 $\bar{P}^{(t)}$：  </p>
+<p>$$\bar{P}^{(t)} &#x3D; \arg\min _ {P \ge 0, P 1 &#x3D; a, P^\top 1 &#x3D; a} \langle P, \bar{C}^{(t)} \rangle_F + \epsilon _ {ot} \sum _ {i&#x3D;1}^{N+1} \sum _ {j&#x3D;1}^{N+1} P _ {ij}(\log P _ {ij} - 1)$$</p>
 <p><strong>步骤 D：提取每个 Token 的时间异常分数</strong> 从求解出的传输计划中，为第 $t$ 帧的每个目标 token $j$ 提取两个核心分数：  </p>
 <ol>
 <li><p><strong>传输代价 (Transport cost)</strong>：量化了偏离前驱节点但仍部分匹配的分布式异常。  </p>
-<p>$$e_j^{(t)} &#x3D; \sum_{i&#x3D;1}^N \bar{P}<em>{ij}^{(t)} C</em>{ij}^{(t)}$$</p>
+<p>$$e_j^{(t)} &#x3D; \sum _ {i&#x3D;1}^N \bar{P} _ {ij}^{(t)} C _ {ij}^{(t)}$$</p>
 </li>
 <li><p><strong>生成证据 (Birth evidence)</strong>：记录了从虚拟节点路由来的质量，直接量化了 token 凭空出现（无合理前驱）的程度。  </p>
-<p>$$b_j^{(t)} &#x3D; \bar{P}_{N+1,j}^{(t)}$$</p>
+<p>$$b_j^{(t)} &#x3D; \bar{P} _ {N+1,j}^{(t)}$$</p>
 </li>
 </ol>
 <h3 id="2-取证打分与选择-Forensic-Scoring-and-Selection-FS"><a href="#2-取证打分与选择-Forensic-Scoring-and-Selection-FS" class="headerlink" title="2. 取证打分与选择 (Forensic Scoring and Selection, FS)"></a>2. 取证打分与选择 (Forensic Scoring and Selection, FS)</h3><p>仅凭时间传输代价无法区分“合法的相机大范围运动”和“生成伪影”。为了解决这种歧义，FS 模块结合了空间的高频先验。真实的相机移动只会移动纹理而不改变频谱；而生成管道（重采样、上采样网络、混合边界）会引入强烈的高频伪影。  </p>
 <p><strong>步骤 A：高频先验提取</strong> 对输入帧 $I_t$ 应用固定的 $3\times3$ 拉普拉斯算子 $\mathcal{L}(\cdot)$，并将其平均池化到 $N$ 个 patch 网格上，得到归一化的空间高频响应代理 $U^{(t)} \in [0, 1]^N$，其中 $U_j^{(t)}$ 代表第 $j$ 个 patch 的高频响应强度。  </p>
 <p><strong>步骤 B：软与门分数融合 (Soft AND Gate)</strong> 第 $t$ 帧中第 $j$ 个 token 的最终取证分数 $s_j^{(t)}$ 被设计为时间异常项和空间调制项的乘积：  </p>
-<p>$$s_j^{(t)} &#x3D; \underbrace{(e_j^{(t)} + \lambda_{birth}b_j^{(t)})}<em>{\text{时间异常 (Temporal Anomaly)}} \cdot \underbrace{(1 + \eta</em>{forensic}U_j^{(t)})}_{\text{空间调制 (Spatial Modulation)}}$$</p>
-<p>其中，$\lambda_{birth}$ 用于平衡生成证据和传输代价，$\eta_{forensic}$ 用于控制高频特征的放大效应。 这种乘法公式实现了一个“软 AND 门”逻辑：<strong>只有在时间上具有异常移动&#x2F;生成，且在空间上具有强高频边缘活动的 token 才能获得高分</strong>。它有效剔除了单纯的平移背景或静态的高频物体边缘。  </p>
+<p>$$s_j^{(t)} &#x3D; \underbrace{(e_j^{(t)} + \lambda _ {birth}b_j^{(t)})} _ {\text{时间异常 (Temporal Anomaly)}} \cdot \underbrace{(1 + \eta _ {forensic}U_j^{(t)})} _ {\text{空间调制 (Spatial Modulation)}}$$</p>
+<p>其中，$\lambda _ {birth}$ 用于平衡生成证据和传输代价，$\eta _ {forensic}$ 用于控制高频特征的放大效应。 这种乘法公式实现了一个“软 AND 门”逻辑：<strong>只有在时间上具有异常移动&#x2F;生成，且在空间上具有强高频边缘活动的 token 才能获得高分</strong>。它有效剔除了单纯的平移背景或静态的高频物体边缘。  </p>
 <p><strong>步骤 C：Top-K 物理剪枝</strong> 给定一个保留率 $\rho \in (0, 1]$，模型对每一帧中按 $s_j^{(t)}$ 排序的 Top $K &#x3D; \lfloor \rho N \rfloor$ 个 token 进行物理保留。被选中的压缩序列（长度由原本的 $T(N+1)$ 锐减至 $T(K+1)$）将直接输入到后续的大语言模型解码器中，从而大幅消除 Transformer 层中自注意力的二次方计算开销。</p>
 
                 
