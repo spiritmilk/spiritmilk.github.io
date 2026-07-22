@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260721/1.png">
 <meta property="article:published_time" content="2026-07-21T05:26:58.000Z">
-<meta property="article:modified_time" content="2026-07-22T06:11:40.709Z">
+<meta property="article:modified_time" content="2026-07-22T09:24:12.615Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -300,7 +300,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          244 字
+          1.3k 字
         
       </span>
     
@@ -311,7 +311,7 @@
         
         
         
-          3 分钟
+          12 分钟
         
       </span>
     
@@ -365,6 +365,28 @@
 </ul>
 <p><strong>现有方法的局限性</strong>：此前的推理期“激活编辑（Activation Editing）”方法（如VTI和ICT）主要通过给图像添加噪声或模糊来构建编辑向量，它们忽略了事实文本语义提供的积极引导，因此难以明确且有效地缓解语言偏见。同时，这些方法使用的是统一的编辑向量，无法适应不同查询的具体需求。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="/2026/20260721/1.png"></p>
+<h3 id="激活编辑-Activation-Editing"><a href="#激活编辑-Activation-Editing" class="headerlink" title="激活编辑 (Activation Editing)"></a>激活编辑 (Activation Editing)</h3><p>在大型视觉语言模型（LVLM）处理图像 $x$ 和问题 $q$ 时，信息会逐层通过多头自注意力机制（Self-Attention）。第 $l$ 层的隐藏状态更新公式如下：  </p>
+<p>$$h^{l+1}&#x3D;h^{l}+Concat _ {k&#x3D;1}^{H}(z^{l,k})\cdot W _ {o}^{l}$$</p>
+<p>在这里，$z^{l,k}$ 表示第 $l$ 层第 $k$ 个注意力头输出的内部激活值，$W _ {o}^{l}$ 是输出投影矩阵。  </p>
+<p>当模型产生幻觉时，通常是因为 $z^{l,k}$ 受到了语言偏见的严重干扰。传统的激活编辑方法会构建一个统一的编辑向量 $\overline{d}$，并按一定强度 $\alpha$ 注入到模型中来强行干预：  </p>
+<p>$$h^{l+1}&#x3D;h^{l}+Concat _ {k&#x3D;1}^{H}(z^{l,k}+\alpha\cdot\overline{d})\cdot W _ {o}^{l}$$</p>
+<p>然而，传统方法通常通过模糊或添加噪声来构建 $\overline{d}$，缺乏明确的事实引导，且无法根据不同的问题动态调整。AFTER 正是为了解决这两个痛点而设计的。  </p>
+<h3 id="核心模块一：FAS-事实增强的激活引导"><a href="#核心模块一：FAS-事实增强的激活引导" class="headerlink" title="核心模块一：FAS (事实增强的激活引导)"></a>核心模块一：FAS (事实增强的激活引导)</h3><p>FAS 的目的是利用真实的图像标注（Ground-truth）构建一个<strong>通用的、正确的图文编辑方向 ($\overline{d}$)</strong>，为模型提供积极的引导。  </p>
+<p><strong>步骤 1：事实提取与文本化</strong> 首先，从图像的真实标注中提取出三种幻觉相关的事实：类别事实 $T^{c}$、属性事实 $T^{a}$ 和关系事实 $T^{r}$。然后，利用现有的 LVLM（记为 $\mathcal{F}$）将这些离散事实整合成一段连贯且客观的文本描述 $t^{+}$：  </p>
+<p>$$t^{+}&#x3D;\mathcal{F}(I _ {fst};(x,[T^{c},T^{a},T^{r}]))$$</p>
+<p>这里 $t^{+}$ 就代表了“受信任的事实语义”。  </p>
+<p><strong>步骤 2：构建通用编辑向量</strong> 针对同一组多样化的问题集合 ${q _ {i}}$，将“包含事实的文本 $t^{+}$”作为受信任输入，将“可能引发幻觉的原始图像 $x$”作为不受信任输入，分别送入模型获取激活值 $z _ {i}^{+}$ 和 $z _ {i}$。 接着，计算它们在整个图像集 $X$ 上的平均差异，得出通用引导向量 $\overline{d}$：  </p>
+<p>$$\overline{d}&#x3D;\frac{1}{n\cdot\vert{}X\vert{}}\sum _ {X}\sum _ {i&#x3D;1}^{n}(z _ {i}^{+}-z _ {i})$$</p>
+<p>这个向量 $\overline{d}$ 能够从宏观上代表“将错误视觉感知拉回到正确文本事实”的通用方向。</p>
+<h3 id="核心模块二：QAO-查询自适应偏移优化"><a href="#核心模块二：QAO-查询自适应偏移优化" class="headerlink" title="核心模块二：QAO (查询自适应偏移优化)"></a>核心模块二：QAO (查询自适应偏移优化)</h3><p>通用向量 $\overline{d}$ 只能提供一个粗略的方向，但用户的每一个查询 $q _ {i}$ 关注的视觉对象都不同。QAO 的作用是为通用向量计算一个特定的“偏移量”，实现针对当前查询的定制化编辑。  </p>
+<p><strong>步骤 1：构建查询专属的文本语义</strong> 根据当前问题 $q _ {i}$ 提到的对象，从整体事实描述 $t^{+}$ 中提取出与该对象直接相关的子描述 $t _ {i}^{<em>}$。通过这种方式，获取针对特定查询的受信任激活值 $z _ {i}^{</em>}$。  </p>
+<p><strong>步骤 2：计算期望的偏移量</strong> 对于特定的查询，其最理想的编辑向量应当是 $\tilde{d} _ {i}&#x3D;z _ {i}^{*}-z _ {i}$。因此，在通用向量 $\overline{d}$ 的基础上，我们需要补偿的期望偏移量为 $o _ {i}&#x3D;\tilde{d} _ {i}-\overline{d}$。  </p>
+<p><strong>步骤 3：训练轻量级偏移估算器</strong> 为了在推理时不依赖真实的标注，作者构建了数据集 $\mathcal{D}&#x3D;{(z _ {i},o _ {i})\vert{}i\in[1,n]}$，并训练了一个查询感知的偏移估算器 $\mathcal{G}$（由单层 MLP 构成）。其损失函数使用均方误差（MSE）：  </p>
+<p>$$\mathcal{L} _ {\mathcal{G}}&#x3D;\frac{1}{n\cdot\vert{}X\vert{}}\sum _ {X}\sum _ {i&#x3D;1}^{n}\vert{}\vert{}\mathcal{G}(z _ {i})-o _ {i}\vert{}\vert{}^{2}$$</p>
+<p>训练完成后，估算器 $\mathcal{G}$ 能够根据当前不受信任的视觉激活值 $z _ {i}$，直接预测出当前查询所需的自适应偏移量。</p>
+<h3 id="推理阶段"><a href="#推理阶段" class="headerlink" title="推理阶段"></a>推理阶段</h3><p>在实际应用（推理阶段）时，AFTER 会直接利用训练好的通用向量 $\overline{d}$ 和偏移估算器 $\mathcal{G}$，对受语言偏见影响最大的前 $K$ 个注意力头进行干预。  </p>
+<p>结合了事实引导与查询自适应的最终特征更新公式为：  </p>
+<p>$$h^{l+1}&#x3D;h^{l}+Concat _ {k&#x3D;1}^{H}(z^{l,k}+\alpha\cdot[\mathcal{G}(z^{l,k})+\overline{d}])\cdot W _ {o}^{l}$$</p>
 
                 
               </div>
