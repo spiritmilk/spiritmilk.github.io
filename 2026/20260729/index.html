@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="(CVPR 2026)">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260729/1.png">
 <meta property="article:published_time" content="2026-07-29T10:04:55.000Z">
-<meta property="article:modified_time" content="2026-07-29T15:45:42.190Z">
+<meta property="article:modified_time" content="2026-07-29T15:46:04.291Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260729/1.png">
   
   
   
@@ -357,7 +357,7 @@
 
 <p>整个方法分为两个关键部分：<strong>KV-Cache 的指数移动平均（EMA）平滑</strong> 和 <strong>熵引导的自适应系数调整</strong>。</p>
 <h2 id="为什么使用EMA"><a href="#为什么使用EMA" class="headerlink" title="为什么使用EMA"></a>为什么使用EMA</h2><p>作者观察到，幻觉物体的 Logit 得分在生成过程中会异常上升并伴随方差增加，</p>
-<p><img src="/2019/20190323/1.png"></p>
+<p><img src="/2026/20260729/1.png"></p>
 <p>这说明标准解码过程缺乏对当前状态 $h_t$ 相对于历史状态 $h _ {&lt;t}$ 的约束。为了保持解码轨迹的平滑，作者提出了以下状态转移假设：  </p>
 <p>$$h_t &#x3D; h _ {t-1} + \epsilon_t$$</p>
 <p>其中，$\epsilon_t \sim \mathcal{N}(0, \sigma_p^2)$ 表示高斯噪声。  </p>
@@ -388,7 +388,7 @@
 </li>
 </ul>
 <h2 id="作用于哪一层"><a href="#作用于哪一层" class="headerlink" title="作用于哪一层"></a>作用于哪一层</h2><p>在针对 LLaVA-1.5、MiniGPT-4 和 InstructBLIP（均为 7B 版本，通常包含 32 层）的实验中，KVSmooth 被统一应用于模型的 第 3 层到第 31 层（layers 3–31）。</p>
-<p>作者在附录 D.2 中对起始层（$L_{start}$）和终止层（$L_{end}$）进行了详细的二维敏感性分析，得出了以下结论：</p>
+<p>作者在附录 D.2 中对起始层（$L _ {start}$）和终止层（$L _ {end}$）进行了详细的二维敏感性分析，得出了以下结论：</p>
 <ul>
 <li><strong>避免在极早期的层（第 0–2 层）使用</strong>：如果在非常浅的层应用指数移动平均（EMA）平滑，会导致 $F_1$ 分数（衡量整体生成质量和召回率的指标）显著下降。这是因为在早期层进行过度平滑会损害模型捕获和表示真实物体基础特征的能力。  </li>
 <li><strong>避免在极后期的层（例如第 32 层）使用</strong>：同样地，在生成输出的最后一层进行平滑也会导致 $F_1$ 质量下降，这会干扰模型最终的词表映射和生成决策。  </li>

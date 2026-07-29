@@ -8,7 +8,7 @@
     <link href="/2026/20260729/"/>
     <url>/2026/20260729/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>(CVPR 2026)</p><span id="more"></span><p>整个方法分为两个关键部分：<strong>KV-Cache 的指数移动平均（EMA）平滑</strong> 和 <strong>熵引导的自适应系数调整</strong>。</p><h2 id="为什么使用EMA"><a href="#为什么使用EMA" class="headerlink" title="为什么使用EMA"></a>为什么使用EMA</h2><p>作者观察到，幻觉物体的 Logit 得分在生成过程中会异常上升并伴随方差增加，</p><p><img src="/2019/20190323/1.png"></p><p>这说明标准解码过程缺乏对当前状态 $h_t$ 相对于历史状态 $h _ {&lt;t}$ 的约束。为了保持解码轨迹的平滑，作者提出了以下状态转移假设：  </p><p>$$h_t &#x3D; h _ {t-1} + \epsilon_t$$</p><p>其中，$\epsilon_t \sim \mathcal{N}(0, \sigma_p^2)$ 表示高斯噪声。  </p><p>由此，状态转移的先验概率可以表示为：  </p><p>$$P(h_t \vert{} h _ {t-1}) &#x3D; \mathcal{N}(h_t; h _ {t-1}, \sigma_p^2) \propto \exp(-\frac{1}{2\sigma_p^2} \vert{}\vert{}h_t - h _ {t-1}\vert{}\vert{}^2)$$</p><p>在生成第 $t$ 个 Token 时，模型观察到的原始隐藏状态设为 $o_t$。根据最大后验概率（MAP）估计，最优的平滑隐藏状态 $\hat{h}_t$ 应使得以下目标最大化：  </p><p>$$\hat{h}_t &#x3D; \arg\max _ {h_t} [\log P(o_t \vert{} h_t) + \log P(h_t \vert{} h _ {t-1})]$$</p><p>假设观测似然 $P(o_t \vert{} h_t)$ 也服从方差为 $\sigma_o^2$ 的高斯分布，则上述目标等价于最小化以下二次误差：  </p><p>$$\hat{h}_t &#x3D; \arg\max _ {h_t} [-\frac{1}{2\sigma_o^2} \vert{}\vert{}o_t - h_t\vert{}\vert{}^2 - \frac{1}{2\sigma_p^2} \vert{}\vert{}h_t - h _ {t-1}\vert{}\vert{}^2]$$</p><p>对 $h_t$ 求导并令其等于零，可以解得：  </p><p>$$\hat{h}_t &#x3D; \frac{\sigma_p^2}{\sigma_p^2 + \sigma_o^2} o_t + \frac{\sigma_o^2}{\sigma_p^2 + \sigma_o^2} h _ {t-1}$$</p><p>如果我们定义平滑系数 $\lambda_t &#x3D; \frac{\sigma_o^2}{\sigma_p^2 + \sigma_o^2}$，上式就可以完美简化为<strong>指数移动平均（EMA）</strong> 的形式：  </p><p>$$\hat{h}_t &#x3D; (1 - \lambda_t) o_t + \lambda_t h _ {t-1}$$</p><p>这在数学上证明了：在高斯假设下，使用 EMA 对当前状态进行更新，是平衡“忠实于当前观测”与“维持时间一致性”的最优解。</p><h2 id="作用于哪里？"><a href="#作用于哪里？" class="headerlink" title="作用于哪里？"></a>作用于哪里？</h2><p>作者在实验中发现，直接对最终隐藏状态进行平滑会导致模型丢失关键物体信息（召回率下降）。 由于两个独立高斯分布的乘积仍然是高斯分布，作者选择将 EMA 更新同时应用在计算 $h_t$ 的 <strong>Key ($K_t$)</strong> 和 <strong>Value ($V_t$)</strong> 向量上。这不仅能施加更大的平滑系数以有效抑制幻觉，还能更好地保持生成质量。</p><h3 id="熵引导的自适应系数调整：如何确定-lambda-t-？"><a href="#熵引导的自适应系数调整：如何确定-lambda-t-？" class="headerlink" title="熵引导的自适应系数调整：如何确定 $\lambda_t$？"></a>熵引导的自适应系数调整：如何确定 $\lambda_t$？</h3><p>公式中的平滑系数 $\lambda_t$ 决定了平滑的强度。统一对所有 Token 使用固定的 $\lambda$ 会过度抑制正常 Token 的语义流。因为“注意力沉淀”（Sink Tokens）是引发幻觉的罪魁祸首，作者提出通过 <strong>注意力行熵（Attention Row-Entropy）</strong> 来实时评估每个 Token 的“沉淀强度”，并自适应地分配平滑系数。  </p><p><strong>步骤如下：</strong></p><ul><li><p><strong>步骤 A：计算注意力行熵</strong> 对于第 $l$ 层的第 $t$ 个 Token，其在所有注意力头（共 $H$ 个）上的注意力分布为 $\alpha _ {t,j}^{(l,h)}$。其行熵 $z_t^l$ 的计算公式为：  </p><p>$$z_t^l &#x3D; -\frac{1}{H} \sum _ {j&#x3D;0}^{L-1} \sum _ {h&#x3D;0}^{H-1} \alpha _ {t,j}^{(l,h)} \log(\alpha _ {t,j}^{(l,h)} + \epsilon)$$</p><p>行熵越大，说明该 Token 的注意力越分散，越倾向于是引发幻觉的 Sink Token。  </p></li><li><p><strong>步骤 B：维护历史队列与计算百分位</strong> 模型维护一个长度为 $M$ 的先进先出（FIFO）队列 $S^l &#x3D; {z _ {t-M+1}^l, …, z_t^l}$，记录最近生成的 Token 的行熵。 当新的 $z_t^l$ 插入时，计算它在该队列中的<strong>百分位排名 $k$</strong>（即队列中小于 $z_t^l$ 的元素个数）。 初始的自适应系数定义为该排名在队列中的占比：  </p><p>$$\hat{\lambda}_t^l &#x3D; \frac{k}{M} \in [0, \frac{M-1}{M}]$$</p></li><li><p><strong>步骤 C：截断保护（Clipping）</strong> 为了防止系数过大或过小，引入一个基础参考超参数 $\lambda _ {ref}$，将计算出的系数限制在一个安全窗口内：  </p><p>$$\tilde{\lambda}_t^l &#x3D; \max(\lambda _ {ref} - 0.2, \min(\lambda _ {ref} + 0.2, \hat{\lambda}_t^l))$$</p></li></ul><h2 id="作用于哪一层"><a href="#作用于哪一层" class="headerlink" title="作用于哪一层"></a>作用于哪一层</h2><p>在针对 LLaVA-1.5、MiniGPT-4 和 InstructBLIP（均为 7B 版本，通常包含 32 层）的实验中，KVSmooth 被统一应用于模型的 第 3 层到第 31 层（layers 3–31）。</p><p>作者在附录 D.2 中对起始层（$L_{start}$）和终止层（$L_{end}$）进行了详细的二维敏感性分析，得出了以下结论：</p><ul><li><strong>避免在极早期的层（第 0–2 层）使用</strong>：如果在非常浅的层应用指数移动平均（EMA）平滑，会导致 $F_1$ 分数（衡量整体生成质量和召回率的指标）显著下降。这是因为在早期层进行过度平滑会损害模型捕获和表示真实物体基础特征的能力。  </li><li><strong>避免在极后期的层（例如第 32 层）使用</strong>：同样地，在生成输出的最后一层进行平滑也会导致 $F_1$ 质量下降，这会干扰模型最终的词表映射和生成决策。  </li><li><strong>中间层的平滑效果最佳</strong>：随着参与 EMA 更新的层数增加，幻觉指标 $CHAIR_S$ 会逐渐下降（说明抑制幻觉的效果增强），但在排除极早和极后的层时，模型能在抑制幻觉和保留真实物体描述之间取得最佳平衡。</li></ul><h3 id="最终的-KVSmooth-更新规则"><a href="#最终的-KVSmooth-更新规则" class="headerlink" title="最终的 KVSmooth 更新规则"></a>最终的 KVSmooth 更新规则</h3><p>结合以上，在目标层进行自回归生成的第 $t$ 步时，KVSmooth 对 KV-Cache 的最终操作如下：  </p><p>$$\hat{K}_t^l &#x3D; (1 - \tilde{\lambda}_t^l) K_t^l + \tilde{\lambda}_t^l K _ {t-1}^l$$</p><p>$$\hat{V}_t^l &#x3D; (1 - \tilde{\lambda}_t^l) V_t^l + \tilde{\lambda}_t^l V _ {t-1}^l$$</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>(CVPR 2026)</p><span id="more"></span><p>整个方法分为两个关键部分：<strong>KV-Cache 的指数移动平均（EMA）平滑</strong> 和 <strong>熵引导的自适应系数调整</strong>。</p><h2 id="为什么使用EMA"><a href="#为什么使用EMA" class="headerlink" title="为什么使用EMA"></a>为什么使用EMA</h2><p>作者观察到，幻觉物体的 Logit 得分在生成过程中会异常上升并伴随方差增加，</p><p><img src="/2026/20260729/1.png"></p><p>这说明标准解码过程缺乏对当前状态 $h_t$ 相对于历史状态 $h _ {&lt;t}$ 的约束。为了保持解码轨迹的平滑，作者提出了以下状态转移假设：  </p><p>$$h_t &#x3D; h _ {t-1} + \epsilon_t$$</p><p>其中，$\epsilon_t \sim \mathcal{N}(0, \sigma_p^2)$ 表示高斯噪声。  </p><p>由此，状态转移的先验概率可以表示为：  </p><p>$$P(h_t \vert{} h _ {t-1}) &#x3D; \mathcal{N}(h_t; h _ {t-1}, \sigma_p^2) \propto \exp(-\frac{1}{2\sigma_p^2} \vert{}\vert{}h_t - h _ {t-1}\vert{}\vert{}^2)$$</p><p>在生成第 $t$ 个 Token 时，模型观察到的原始隐藏状态设为 $o_t$。根据最大后验概率（MAP）估计，最优的平滑隐藏状态 $\hat{h}_t$ 应使得以下目标最大化：  </p><p>$$\hat{h}_t &#x3D; \arg\max _ {h_t} [\log P(o_t \vert{} h_t) + \log P(h_t \vert{} h _ {t-1})]$$</p><p>假设观测似然 $P(o_t \vert{} h_t)$ 也服从方差为 $\sigma_o^2$ 的高斯分布，则上述目标等价于最小化以下二次误差：  </p><p>$$\hat{h}_t &#x3D; \arg\max _ {h_t} [-\frac{1}{2\sigma_o^2} \vert{}\vert{}o_t - h_t\vert{}\vert{}^2 - \frac{1}{2\sigma_p^2} \vert{}\vert{}h_t - h _ {t-1}\vert{}\vert{}^2]$$</p><p>对 $h_t$ 求导并令其等于零，可以解得：  </p><p>$$\hat{h}_t &#x3D; \frac{\sigma_p^2}{\sigma_p^2 + \sigma_o^2} o_t + \frac{\sigma_o^2}{\sigma_p^2 + \sigma_o^2} h _ {t-1}$$</p><p>如果我们定义平滑系数 $\lambda_t &#x3D; \frac{\sigma_o^2}{\sigma_p^2 + \sigma_o^2}$，上式就可以完美简化为<strong>指数移动平均（EMA）</strong> 的形式：  </p><p>$$\hat{h}_t &#x3D; (1 - \lambda_t) o_t + \lambda_t h _ {t-1}$$</p><p>这在数学上证明了：在高斯假设下，使用 EMA 对当前状态进行更新，是平衡“忠实于当前观测”与“维持时间一致性”的最优解。</p><h2 id="作用于哪里？"><a href="#作用于哪里？" class="headerlink" title="作用于哪里？"></a>作用于哪里？</h2><p>作者在实验中发现，直接对最终隐藏状态进行平滑会导致模型丢失关键物体信息（召回率下降）。 由于两个独立高斯分布的乘积仍然是高斯分布，作者选择将 EMA 更新同时应用在计算 $h_t$ 的 <strong>Key ($K_t$)</strong> 和 <strong>Value ($V_t$)</strong> 向量上。这不仅能施加更大的平滑系数以有效抑制幻觉，还能更好地保持生成质量。</p><h3 id="熵引导的自适应系数调整：如何确定-lambda-t-？"><a href="#熵引导的自适应系数调整：如何确定-lambda-t-？" class="headerlink" title="熵引导的自适应系数调整：如何确定 $\lambda_t$？"></a>熵引导的自适应系数调整：如何确定 $\lambda_t$？</h3><p>公式中的平滑系数 $\lambda_t$ 决定了平滑的强度。统一对所有 Token 使用固定的 $\lambda$ 会过度抑制正常 Token 的语义流。因为“注意力沉淀”（Sink Tokens）是引发幻觉的罪魁祸首，作者提出通过 <strong>注意力行熵（Attention Row-Entropy）</strong> 来实时评估每个 Token 的“沉淀强度”，并自适应地分配平滑系数。  </p><p><strong>步骤如下：</strong></p><ul><li><p><strong>步骤 A：计算注意力行熵</strong> 对于第 $l$ 层的第 $t$ 个 Token，其在所有注意力头（共 $H$ 个）上的注意力分布为 $\alpha _ {t,j}^{(l,h)}$。其行熵 $z_t^l$ 的计算公式为：  </p><p>$$z_t^l &#x3D; -\frac{1}{H} \sum _ {j&#x3D;0}^{L-1} \sum _ {h&#x3D;0}^{H-1} \alpha _ {t,j}^{(l,h)} \log(\alpha _ {t,j}^{(l,h)} + \epsilon)$$</p><p>行熵越大，说明该 Token 的注意力越分散，越倾向于是引发幻觉的 Sink Token。  </p></li><li><p><strong>步骤 B：维护历史队列与计算百分位</strong> 模型维护一个长度为 $M$ 的先进先出（FIFO）队列 $S^l &#x3D; {z _ {t-M+1}^l, …, z_t^l}$，记录最近生成的 Token 的行熵。 当新的 $z_t^l$ 插入时，计算它在该队列中的<strong>百分位排名 $k$</strong>（即队列中小于 $z_t^l$ 的元素个数）。 初始的自适应系数定义为该排名在队列中的占比：  </p><p>$$\hat{\lambda}_t^l &#x3D; \frac{k}{M} \in [0, \frac{M-1}{M}]$$</p></li><li><p><strong>步骤 C：截断保护（Clipping）</strong> 为了防止系数过大或过小，引入一个基础参考超参数 $\lambda _ {ref}$，将计算出的系数限制在一个安全窗口内：  </p><p>$$\tilde{\lambda}_t^l &#x3D; \max(\lambda _ {ref} - 0.2, \min(\lambda _ {ref} + 0.2, \hat{\lambda}_t^l))$$</p></li></ul><h2 id="作用于哪一层"><a href="#作用于哪一层" class="headerlink" title="作用于哪一层"></a>作用于哪一层</h2><p>在针对 LLaVA-1.5、MiniGPT-4 和 InstructBLIP（均为 7B 版本，通常包含 32 层）的实验中，KVSmooth 被统一应用于模型的 第 3 层到第 31 层（layers 3–31）。</p><p>作者在附录 D.2 中对起始层（$L _ {start}$）和终止层（$L _ {end}$）进行了详细的二维敏感性分析，得出了以下结论：</p><ul><li><strong>避免在极早期的层（第 0–2 层）使用</strong>：如果在非常浅的层应用指数移动平均（EMA）平滑，会导致 $F_1$ 分数（衡量整体生成质量和召回率的指标）显著下降。这是因为在早期层进行过度平滑会损害模型捕获和表示真实物体基础特征的能力。  </li><li><strong>避免在极后期的层（例如第 32 层）使用</strong>：同样地，在生成输出的最后一层进行平滑也会导致 $F_1$ 质量下降，这会干扰模型最终的词表映射和生成决策。  </li><li><strong>中间层的平滑效果最佳</strong>：随着参与 EMA 更新的层数增加，幻觉指标 $CHAIR_S$ 会逐渐下降（说明抑制幻觉的效果增强），但在排除极早和极后的层时，模型能在抑制幻觉和保留真实物体描述之间取得最佳平衡。</li></ul><h3 id="最终的-KVSmooth-更新规则"><a href="#最终的-KVSmooth-更新规则" class="headerlink" title="最终的 KVSmooth 更新规则"></a>最终的 KVSmooth 更新规则</h3><p>结合以上，在目标层进行自回归生成的第 $t$ 步时，KVSmooth 对 KV-Cache 的最终操作如下：  </p><p>$$\hat{K}_t^l &#x3D; (1 - \tilde{\lambda}_t^l) K_t^l + \tilde{\lambda}_t^l K _ {t-1}^l$$</p><p>$$\hat{V}_t^l &#x3D; (1 - \tilde{\lambda}_t^l) V_t^l + \tilde{\lambda}_t^l V _ {t-1}^l$$</p>]]></content>
     
     
     
@@ -5110,9 +5110,9 @@
       
       <tag>深度学习</tag>
       
-      <tag>人工智能</tag>
-      
       <tag>计算机视觉</tag>
+      
+      <tag>人工智能</tag>
       
       <tag>深度估计</tag>
       
@@ -5223,9 +5223,9 @@
       
       <tag>深度学习</tag>
       
-      <tag>人工智能</tag>
-      
       <tag>计算机视觉</tag>
+      
+      <tag>人工智能</tag>
       
       <tag>peer</tag>
       
@@ -5684,9 +5684,9 @@
       
       <tag>笔记</tag>
       
-      <tag>考研</tag>
-      
       <tag>学习</tag>
+      
+      <tag>考研</tag>
       
     </tags>
     
@@ -6214,9 +6214,9 @@
       
       <tag>笔记</tag>
       
-      <tag>考研</tag>
-      
       <tag>学习</tag>
+      
+      <tag>考研</tag>
       
     </tags>
     
@@ -6288,7 +6288,7 @@
     <link href="/2022/20220509/"/>
     <url>/2022/20220509/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>​                                </p><div id="aplayer-SNLcvyYg" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-SNLcvyYg"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>​                                </p><div id="aplayer-oPKxvegt" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-oPKxvegt"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
     
     
     
@@ -6374,9 +6374,9 @@
       
       <tag>深度学习</tag>
       
-      <tag>人工智能</tag>
-      
       <tag>计算机视觉</tag>
+      
+      <tag>人工智能</tag>
       
     </tags>
     
