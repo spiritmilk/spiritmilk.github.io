@@ -29,7 +29,7 @@
 <meta property="og:description" content="（NDSS 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-11T11:15:42.000Z">
-<meta property="article:modified_time" content="2026-06-11T11:33:07.563Z">
+<meta property="article:modified_time" content="2026-07-29T05:03:00.234Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="多模态">
@@ -362,28 +362,28 @@
 <p>在推理时，如果输入图像的语义特征被映射到这些具有毒性的码本索引上，模型会在进行后续的大语言模型处理前直接拒绝请求 。</p>
 <h3 id="双层向量量化"><a href="#双层向量量化" class="headerlink" title="双层向量量化"></a>双层向量量化</h3><p>Q-MLLM 引入了<strong>语义级别</strong>和<strong>像素块级别</strong>的两个独立码本（Codebook）来进行离散化 。  </p>
 <ul>
-<li><p><strong>全局语义量化</strong>：对于全局语义嵌入 $h_{cls}$，模型会在语义码本 $\mathcal{C}_{cls}$ 中寻找欧氏距离最近的向量进行替换 ：  </p>
-<p>$$\tilde{h}<em>{cls} &#x3D; e_k, \quad k &#x3D; \arg\min_i |h</em>{cls} - e_i|_2^2$$</p>
+<li><p><strong>全局语义量化</strong>：对于全局语义嵌入 $h _ {cls}$，模型会在语义码本 $\mathcal{C} _ {cls}$ 中寻找欧氏距离最近的向量进行替换 ：  </p>
+<p>$$\tilde{h} _ {cls} &#x3D; e_k, \quad k &#x3D; \arg\min_i |h _ {cls} - e_i|_2^2$$</p>
 </li>
-<li><p><strong>像素块量化</strong>：同理，对于每一个像素块特征 $H_v^j$，会在像素级码本 $\mathcal{C}_{patch}$ 中寻找最近的向量并替换 ：  </p>
-<p>$$\tilde{H}<em>v^j &#x3D; e</em>{k_j}, \quad k_j &#x3D; \arg\min_i |H_v^j - e_i|_2^2$$</p>
+<li><p><strong>像素块量化</strong>：同理，对于每一个像素块特征 $H_v^j$，会在像素级码本 $\mathcal{C} _ {patch}$ 中寻找最近的向量并替换 ：  </p>
+<p>$$\tilde{H}_v^j &#x3D; e _ {k_j}, \quad k_j &#x3D; \arg\min_i |H_v^j - e_i|_2^2$$</p>
 </li>
 </ul>
 <p>这个量化过程中的不可导操作（通过停止梯度操作实现）彻底切断了对抗攻击者利用梯度计算扰动的可能 。  </p>
-<h3 id="安全信号预检测-Safety-Signal-Detection"><a href="#安全信号预检测-Safety-Signal-Detection" class="headerlink" title="安全信号预检测 (Safety Signal Detection)"></a>安全信号预检测 (Safety Signal Detection)</h3><p>Q-MLLM 能够在上文生成的量化全局语义特征 $\tilde{h}_{cls}$（及其对应的码本索引 $k$）的基础上，直接进行有害内容的预判 。  </p>
+<h3 id="安全信号预检测-Safety-Signal-Detection"><a href="#安全信号预检测-Safety-Signal-Detection" class="headerlink" title="安全信号预检测 (Safety Signal Detection)"></a>安全信号预检测 (Safety Signal Detection)</h3><p>Q-MLLM 能够在上文生成的量化全局语义特征 $\tilde{h} _ {cls}$（及其对应的码本索引 $k$）的基础上，直接进行有害内容的预判 。  </p>
 <ul>
 <li><p>模型在离线状态下利用一个验证映射集，统计每个码本索引 $k$ 对应的主要毒性类别，如果该类别占比超过阈值 $\tau$，则定义映射函数 $M(k)$ 为该毒性类别，否则为中性 。  </p>
 </li>
 <li><p>在推理时，对于新图像的全局语义特征，直接计算其对应的分类结果 $\hat{y}$ ：  </p>
-<p>$$\hat{y} &#x3D; M(\arg\min_j |h_{cls} - e_j|_2^2)$$</p>
+<p>$$\hat{y} &#x3D; M(\arg\min_j |h _ {cls} - e_j|_2^2)$$</p>
 </li>
 <li><p>如果 $\hat{y}$ 属于毒性类别，模型将直接拒绝该输入，从而以极小的计算代价实现了有害视觉内容拦截 。</p>
 </li>
 </ul>
-<h3 id="多模态融合与生成"><a href="#多模态融合与生成" class="headerlink" title="多模态融合与生成"></a>多模态融合与生成</h3><p>如果安全检测通过（被分类为中性），系统将量化后的像素块特征 $\tilde{H}<em>v$ 与文本指令的嵌入 $H</em>{text}$ 进行拼接 ：  </p>
-<p>$$H_{fusion} &#x3D; \text{Concat}(\tilde{H}<em>v, H</em>{text})$$</p>
-<p>最后，融合后的表示被输入到大语言模型 $F_{LLM}$ 中，生成最终响应文本 $y$ ：  </p>
-<p>$$y &#x3D; F_{LLM}(H_{fusion})$$</p>
+<h3 id="多模态融合与生成"><a href="#多模态融合与生成" class="headerlink" title="多模态融合与生成"></a>多模态融合与生成</h3><p>如果安全检测通过（被分类为中性），系统将量化后的像素块特征 $\tilde{H}_v$ 与文本指令的嵌入 $H _ {text}$ 进行拼接 ：  </p>
+<p>$$H _ {fusion} &#x3D; \text{Concat}(\tilde{H}_v, H _ {text})$$</p>
+<p>最后，融合后的表示被输入到大语言模型 $F _ {LLM}$ 中，生成最终响应文本 $y$ ：  </p>
+<p>$$y &#x3D; F _ {LLM}(H _ {fusion})$$</p>
 <h3 id="Q-MLLM-的两阶段训练策略"><a href="#Q-MLLM-的两阶段训练策略" class="headerlink" title="Q-MLLM 的两阶段训练策略"></a>Q-MLLM 的两阶段训练策略</h3><p>为了在保持多模态理解能力的同时训练出有效的量化防御机制，作者设计了一个结构化的两阶段训练方法 。  </p>
 <h4 id="第一阶段：预训练-Pretraining-Phase"><a href="#第一阶段：预训练-Pretraining-Phase" class="headerlink" title="第一阶段：预训练 (Pretraining Phase)"></a>第一阶段：预训练 (Pretraining Phase)</h4><ul>
 <li><p><strong>冻结与训练</strong>：在此阶段，冻结视觉编码器和预训练的大语言模型参数，<strong>仅优化视觉投影层 $F_h$ 和双层量化码本</strong> 。  </p>
@@ -391,23 +391,23 @@
 <li><p><strong>损失函数设计</strong>：预训练的总损失由三部分整合而成。</p>
 <ol>
 <li><p><strong>向量量化损失 (Vector Quantization Loss)</strong>：为了解决离散选择不可导的问题，引入梯度逼近技术 。损失分为让码本向量逼近特征的 Codebook Loss，以及让投影特征逼近码本向量的 Commitment Loss ：  </p>
-<p>$$\mathcal{L}<em>{vq} &#x3D; \mathcal{L}</em>{codebook} + \lambda_{commit}\mathcal{L}_{commit}$$</p>
+<p>$$\mathcal{L} _ {vq} &#x3D; \mathcal{L} _ {codebook} + \lambda _ {commit}\mathcal{L} _ {commit}$$</p>
 </li>
-<li><p><strong>语义对齐损失 (Semantic Alignment Loss)</strong>：为了确保语义向量能真正捕捉图像全局含义（用于安全分类），强制量化后的语义特征 $\tilde{h}<em>{cls}$ 与图像对应的文本描述特征 $H</em>{caption}$ 对齐 ：  </p>
-<p>$$\mathcal{L}<em>{semantic} &#x3D; |\tilde{h}</em>{cls} - H_{caption}|_2^2$$</p>
+<li><p><strong>语义对齐损失 (Semantic Alignment Loss)</strong>：为了确保语义向量能真正捕捉图像全局含义（用于安全分类），强制量化后的语义特征 $\tilde{h} _ {cls}$ 与图像对应的文本描述特征 $H _ {caption}$ 对齐 ：  </p>
+<p>$$\mathcal{L} _ {semantic} &#x3D; |\tilde{h} _ {cls} - H _ {caption}|_2^2$$</p>
 </li>
-<li><p><strong>生成损失 (Generative Loss)</strong>：标准的自回归负对数似然损失 $\mathcal{L}_{generative}$，用于生成图像描述 。</p>
+<li><p><strong>生成损失 (Generative Loss)</strong>：标准的自回归负对数似然损失 $\mathcal{L} _ {generative}$，用于生成图像描述 。</p>
 </li>
 </ol>
 <p>综合起来，预训练总目标函数为 ：  </p>
-<p>$$\mathcal{L}<em>{pretrain} &#x3D; \mathcal{L}</em>{generative} + \lambda_1(\mathcal{L}<em>{vq-patch} + \mathcal{L}</em>{vq-cls}) + \lambda_2 \mathcal{L}_{semantic}$$</p>
+<p>$$\mathcal{L} _ {pretrain} &#x3D; \mathcal{L} _ {generative} + \lambda_1(\mathcal{L} _ {vq-patch} + \mathcal{L} _ {vq-cls}) + \lambda_2 \mathcal{L} _ {semantic}$$</p>
 </li>
 </ul>
 <h4 id="第二阶段：指令微调-Fine-Tuning-Phase"><a href="#第二阶段：指令微调-Fine-Tuning-Phase" class="headerlink" title="第二阶段：指令微调 (Fine-Tuning Phase)"></a>第二阶段：指令微调 (Fine-Tuning Phase)</h4><ul>
 <li><p><strong>冻结与训练</strong>：反转第一阶段的冻结策略，在这个阶段<strong>冻结所有的视觉投影和向量量化组件</strong>，仅利用多模态对话数据来微调大语言模型本身 。  </p>
 </li>
 <li><p><strong>微调目标</strong>：完全基于标准的多轮对话生成损失，优化其在给定离散多模态嵌入下的推理和生成能力 ：  </p>
-<p>$$\mathcal{L}<em>{fine-tune} &#x3D; \mathcal{L}</em>{lm}$$</p>
+<p>$$\mathcal{L} _ {fine-tune} &#x3D; \mathcal{L} _ {lm}$$</p>
 </li>
 <li><p><strong>目的</strong>：冻结量化器保证了防御机制不可导的物理屏障依然存在且稳定，而微调语言模型则强迫其适应和接受这种离散化的多模态输入，从而在维护安全性的前提下提升模型效用 。</p>
 </li>
