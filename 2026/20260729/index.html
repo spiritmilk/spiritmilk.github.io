@@ -28,12 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="(CVPR 2026)">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2019/20190323/1.png">
 <meta property="article:published_time" content="2026-07-29T10:04:55.000Z">
-<meta property="article:modified_time" content="2026-07-29T15:00:34.627Z">
+<meta property="article:modified_time" content="2026-07-29T15:40:10.419Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2019/20190323/1.png">
   
   
   
@@ -297,7 +299,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          43 字
+          475 字
         
       </span>
     
@@ -308,7 +310,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -354,7 +356,23 @@
 <span id="more"></span>
 
 <p>整个方法分为两个关键部分：<strong>KV-Cache 的指数移动平均（EMA）平滑</strong> 和 <strong>熵引导的自适应系数调整</strong>。</p>
-<h2 id="为什么使用EMA"><a href="#为什么使用EMA" class="headerlink" title="为什么使用EMA"></a>为什么使用EMA</h2>
+<h2 id="为什么使用EMA"><a href="#为什么使用EMA" class="headerlink" title="为什么使用EMA"></a>为什么使用EMA</h2><p>作者观察到，幻觉物体的 Logit 得分在生成过程中会异常上升并伴随方差增加，</p>
+<p><img src="/2019/20190323/1.png"></p>
+<p>这说明标准解码过程缺乏对当前状态 $h_t$ 相对于历史状态 $h _ {&lt;t}$ 的约束。为了保持解码轨迹的平滑，作者提出了以下状态转移假设：  </p>
+<p>$$h_t &#x3D; h _ {t-1} + \epsilon_t$$</p>
+<p>其中，$\epsilon_t \sim \mathcal{N}(0, \sigma_p^2)$ 表示高斯噪声。  </p>
+<p>由此，状态转移的先验概率可以表示为：  </p>
+<p>$$P(h_t \vert{} h _ {t-1}) &#x3D; \mathcal{N}(h_t; h _ {t-1}, \sigma_p^2) \propto \exp(-\frac{1}{2\sigma_p^2} \vert{}\vert{}h_t - h _ {t-1}\vert{}\vert{}^2)$$</p>
+<p>在生成第 $t$ 个 Token 时，模型观察到的原始隐藏状态设为 $o_t$。根据最大后验概率（MAP）估计，最优的平滑隐藏状态 $\hat{h}_t$ 应使得以下目标最大化：  </p>
+<p>$$\hat{h}_t &#x3D; \arg\max _ {h_t} [\log P(o_t \vert{} h_t) + \log P(h_t \vert{} h _ {t-1})]$$</p>
+<p>假设观测似然 $P(o_t \vert{} h_t)$ 也服从方差为 $\sigma_o^2$ 的高斯分布，则上述目标等价于最小化以下二次误差：  </p>
+<p>$$\hat{h}_t &#x3D; \arg\max _ {h_t} [-\frac{1}{2\sigma_o^2} \vert{}\vert{}o_t - h_t\vert{}\vert{}^2 - \frac{1}{2\sigma_p^2} \vert{}\vert{}h_t - h _ {t-1}\vert{}\vert{}^2]$$</p>
+<p>对 $h_t$ 求导并令其等于零，可以解得：  </p>
+<p>$$\hat{h}_t &#x3D; \frac{\sigma_p^2}{\sigma_p^2 + \sigma_o^2} o_t + \frac{\sigma_o^2}{\sigma_p^2 + \sigma_o^2} h _ {t-1}$$</p>
+<p>如果我们定义平滑系数 $\lambda_t &#x3D; \frac{\sigma_o^2}{\sigma_p^2 + \sigma_o^2}$，上式就可以完美简化为<strong>指数移动平均（EMA）</strong> 的形式：  </p>
+<p>$$\hat{h}_t &#x3D; (1 - \lambda_t) o_t + \lambda_t h _ {t-1}$$</p>
+<p>这在数学上证明了：在高斯假设下，使用 EMA 对当前状态进行更新，是平衡“忠实于当前观测”与“维持时间一致性”的最优解。</p>
+
                 
               </div>
             
