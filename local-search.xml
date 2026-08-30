@@ -4,13 +4,25 @@
   
   
   <entry>
-    <title>20260831</title>
+    <title>规模化安全：大型模型与智能体安全的综合调查</title>
     <link href="/2026/20260831/"/>
     <url>/2026/20260831/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>中文翻译版。原论文：<a href="https://arxiv.org/abs/2502.05206">arXiv:2502.05206</a>；配套项目：<a href="https://github.com/xingjunm/Awesome-Large-Model-Safety">Awesome Large Model Safety</a>。</p></blockquote><p><img src="/2026/20260831/security-research-trends.png" alt="大型模型安全研究趋势"></p><span id="more"></span><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>大模型的迅速发展，得益于其通过大规模预训练在学习和泛化方面表现出的卓越能力，重塑了人工智能（AI）领域的格局。这些模型如今已成为对话式 AI、推荐系统、自动驾驶、内容生成、医疗诊断以及科学发现等广泛应用场景的基础。然而，其广泛应用也使其面临重大的安全风险，引发了对鲁棒性、可靠性及伦理影响的担忧。</p><p>本综述系统性地回顾了当前大模型安全研究的进展，涵盖视觉基础模型（VFMs）、大语言模型（LLMs）、视觉-语言预训练（VLP）模型、视觉-语言模型（VLMs）、扩散模型（DMs）以及由大模型驱动的智能体。文章提出了针对这些模型的安全威胁分类，回顾相应的防御策略、数据集与基准，并讨论全面安全评估、可扩展高效防御、可持续数据实践以及研究界与国际协作等开放问题。</p><p>关键词：人工智能安全、大模型安全、智能体安全、攻击与防御。</p><h2 id="全文"><a href="#全文" class="headerlink" title="全文"></a>全文</h2><p>下方为保留原始 LaTeX 排版的 65 页中文全文。若浏览器不支持内嵌 PDF，可<a href="large-model-safety-survey-zh-cn.pdf">点击此处打开或下载全文</a>。</p><embed src="/2026/20260831/large-model-safety-survey-zh-cn.pdf" type="application/pdf" style="display:block;width:100%;height:85vh;min-height:720px;border:1px solid #ddd;border-radius:4px;" />]]></content>
     
     
+    
+    <tags>
+      
+      <tag>大模型</tag>
+      
+      <tag>人工智能安全</tag>
+      
+      <tag>智能体</tag>
+      
+      <tag>论文翻译</tag>
+      
+    </tags>
     
   </entry>
   
@@ -21,7 +33,7 @@
     <link href="/2026/20260830/"/>
     <url>/2026/20260830/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>来自<a href="https://artofproblemsolving.com/community/c6t243f6h3402988_single_varible_ineq">RainbowNeos</a>。</p><p>Given $x&gt;0$, show that$\left(1+\frac{1}{x}\right)^x \left(2+\frac{1}{x}\right) + e &gt;\frac{3(x+1)^x}{x^{x+1}\ln \left(1+\frac{1}{x}\right)}$</p><span id="more"></span><p>证明：<br>Let $t&#x3D;1+\frac1x&gt;1$, we need to prove<br>$$1+t+\frac{e}{t^{1&#x2F;(t-1)}}\frac{3(t-1)}{\ln t}.$$</p><p>And we use AM&#x2F;GM&#x2F;Logarithmic Mean&#x2F;Identric Mean, which</p><p>$$A&#x3D;\frac{1+t}{2},\qquad<br>G&#x3D;\sqrt t,\qquad<br>L&#x3D;\frac{t-1}{\ln t},\qquad<br>I&#x3D;\frac1e,t^{t&#x2F;(t-1)}.$$</p><p>Hence,</p><p>$$<br>1+t+\frac{e}{t^{1&#x2F;(t-1)}}<br>&#x3D;2A+\frac{G^2}{I}<br>\overset{\displaystyle I&lt;A,\<br>\frac AG+\frac GI\ge2\sqrt{\frac AI}&gt;2}{&gt;}<br>A+2G<br>\overset{\displaystyle L&lt;\frac{A+2G}{3}}{&gt;}<br>3L<br>&#x3D;\frac{3(t-1)}{\ln t}<br>$$</p><p>PS:让我想起了曾经提过的<a href="https://spiritmilk.github.io/2019/20190831/">对数平均的一个上界</a>。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://artofproblemsolving.com/community/c6t243f6h3402988_single_varible_ineq">RainbowNeos</a>。</p><p>Given $x&gt;0$, show that$\left(1+\frac{1}{x}\right)^x \left(2+\frac{1}{x}\right) + e &gt;\frac{3(x+1)^x}{x^{x+1}\ln \left(1+\frac{1}{x}\right)}$</p><span id="more"></span><p>证明：<br>Let $t&#x3D;1+\frac1x&gt;1$, we need to prove<br>$$1+t+\frac{e}{t^{1&#x2F;(t-1)}}\frac{3(t-1)}{\ln t}.$$</p><p>And we use AM&#x2F;GM&#x2F;Logarithmic Mean&#x2F;Identric Mean, which</p><p>$$A&#x3D;\frac{1+t}{2},\qquad<br>G&#x3D;\sqrt t,\qquad<br>L&#x3D;\frac{t-1}{\ln t},\qquad<br>I&#x3D;\frac1e,t^{t&#x2F;(t-1)}.$$</p><p>Hence,</p><p>$$<br>1+t+\frac{e}{t^{1&#x2F;(t-1)}}<br>&#x3D;2A+\frac{G^2}{I}<br>\overset{\displaystyle I&lt;A,\<br>\frac AG+\frac GI\ge2\sqrt{\frac AI}&gt;2}{&gt;}<br>A+2G<br>\overset{\displaystyle L&lt;\frac{A+2G}{3}}{&gt;}<br>3L<br>&#x3D;\frac{3(t-1)}{\ln t}<br>$$</p><p>PS:让我想起了曾经提过的<a href="https://spiritmilk.github.io/2019/20190831/">对数平均的一个上界</a>。</p>]]></content>
     
     
     
@@ -1980,9 +1992,9 @@
     
     <tags>
       
-      <tag>生活</tag>
-      
       <tag>回忆</tag>
+      
+      <tag>生活</tag>
       
     </tags>
     
@@ -6246,9 +6258,9 @@
     
     <tags>
       
-      <tag>生活</tag>
-      
       <tag>回忆</tag>
+      
+      <tag>生活</tag>
       
     </tags>
     
@@ -6383,7 +6395,7 @@
     <link href="/2022/20220509/"/>
     <url>/2022/20220509/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​                                </p><div id="aplayer-NpNRpMni" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-NpNRpMni"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​                                </p><div id="aplayer-YzKrWffP" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-YzKrWffP"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
     
     
     
@@ -6824,9 +6836,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
       <tag>深度学习</tag>
       
@@ -7049,9 +7061,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -7070,9 +7082,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
       <tag>深度学习</tag>
       
@@ -7133,9 +7145,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -7192,9 +7204,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -7272,9 +7284,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -7293,9 +7305,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -7373,9 +7385,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -7394,9 +7406,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>笔记</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
