@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>AOPS一则美妙不等式</title>
+    <link href="/2026/20260830/"/>
+    <url>/2026/20260830/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>来自<a href="https://artofproblemsolving.com/community/c6t243f6h3402988_single_varible_ineq">RainbowNeos</a>。</p><p>Given $x&gt;0$, show that<br>$$\left(1+\frac{1}{x}\right)^x \left(2+\frac{1}{x}\right) + e &gt;\frac{3(x+1)^x}{x^{x+1}\ln \left(1+\frac{1}{x}\right)}$$</p><p>证明：<br>Let $t&#x3D;1+\frac1x&gt;1$, we need to prove<br>$$1+t+\frac{e}{t^{1&#x2F;(t-1)}}\frac{3(t-1)}{\ln t}.$$</p><p>And we use AM&#x2F;GM&#x2F;Logarithmic Mean&#x2F;Identric Mean, which</p><p>$$A&#x3D;\frac{1+t}{2},\qquad<br>G&#x3D;\sqrt t,\qquad<br>L&#x3D;\frac{t-1}{\ln t},\qquad<br>I&#x3D;\frac1e,t^{t&#x2F;(t-1)}.$$</p><p>Hence,</p><p>$$<br>1+t+\frac{e}{t^{1&#x2F;(t-1)}}<br>&#x3D;2A+\frac{G^2}{I}<br>\overset{\displaystyle I&lt;A,\<br>\frac AG+\frac GI\ge2\sqrt{\frac AI}&gt;2}{&gt;}<br>A+2G<br>\overset{\displaystyle L&lt;\frac{A+2G}{3}}{&gt;}<br>3L<br>&#x3D;\frac{3(t-1)}{\ln t}<br>$$</p><p>让我想起了曾经提过的<a href="https://spiritmilk.github.io/2019/20190831/">对数平均的一个上界</a>。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>不等式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Understanding and Mitigating Hallucinations in Multimodal Chain-of-Thought Models</title>
     <link href="/2026/20260827/"/>
     <url>/2026/20260827/</url>
@@ -29,7 +50,7 @@
     <link href="/2026/20260826/"/>
     <url>/2026/20260826/</url>
     
-    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="3d2970cf6d746fa31daa3b3db1c8dcd9e8420e5aa839de72c26de0f16c176c49">bd25ed9264b080267271e137e33d0ce1e1069d88f9699965ec2c8f2e4412683a11965185006bffa98a0a821510d9346fc65d229e7331a54b747d6834615d959146207d6593e309cc341ac77103692d12ff39e80eb4ce7dc7eca78786036c2f20d137acdf037c191d8f175139869eb75eaccef538a1c8fb26c29e206b7bfb0dd8ae2bdd060b2555ea409716e294298469dddc7fa63f532c16d4b7732b6e0f95ad6092c42ae70540bd7de27e3c20e639082bcbbe6b5f557f29df4916fcdf91c43ccf12887a5c91f9278a7d539affc3e60c09230e4ed8929c9745a4f60ac25fab67d4ad324c5e51f06fa25d4be7b327dd28fd057dfcdf1a96881b966aa8f7749ef5478da0062b4fce203b3ce02cd1df2391105f8410af06813bf67c4f17c9bdadeabf83982c8867fdc2e8f9968653a38ea21e97e5d595ce7a5aebbd989c808a36029817f11a43a92d205fbdc05715081766921a84bb38e7f35831e3abba6faccadd73f6e2a0d3e192e05bd6ab77eb6a2caa159caadcdeb7a58acddba2226cdf37c1</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-default">      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="ffb3ab1723b57bd743b283dacfe41836d625a4cdf1644bbcdeb4e90c6a8a6869">bd25ed9264b080267271e137e33d0ce1e1069d88f9699965ec2c8f2e4412683a11965185006bffa98a0a821510d9346fc65d229e7331a54b747d6834615d959146207d6593e309cc341ac77103692d12ff39e80eb4ce7dc7eca78786036c2f20d137acdf037c191d8f175139869eb75eaccef538a1c8fb26c29e206b7bfb0dd8ae2bdd060b2555ea409716e294298469dddc7fa63f532c16d4b7732b6e0f95ad6092c42ae70540bd7de27e3c20e639082bcbbe6b5f557f29df4916fcdf91c43ccf12887a5c91f9278a7d539affc3e60c09230e4ed8929c9745a4f60ac25fab67d4ad324c5e51f06fa25d4be7b327dd28fd057dfcdf1a96881b966aa8f7749ef5478da0062b4fce203b3ce02cd1df2391105f8410af06813bf67c4f17c9bdadeabf83982c8867fdc2e8f9968653a38ea21e97e5d595ce7a5aebbd989c808a36029817f11a43a92d205fbdc05715081766921a84bb38e7f35831e3abba6faccadd73f6e2a0d3e192e05bd6ab77eb6a2caacc68bf52b84144a0dc04857709460ae3f234477d60f5396cfe7d31a19fbb98e6</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-default">      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>      </label>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
     
     
     
