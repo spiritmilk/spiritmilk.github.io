@@ -173,3 +173,9 @@ Write-Output "MISSING_CITATIONS=$($missingCitations.Count)"
 if ($missingCitations.Count -gt 0) {
     Write-Output ('MISSING_KEYS=' + (($missingCitations | Sort-Object) -join ','))
 }
+RS=$($body.Length)"
+Write-Output "REFERENCES=$($referenceEntries.Count)"
+Write-Output "MISSING_CITATIONS=$($missingCitations.Count)"
+if ($missingCitations.Count -gt 0) {
+    Write-Output ('MISSING_KEYS=' + (($missingCitations | Sort-Object) -join ','))
+}
