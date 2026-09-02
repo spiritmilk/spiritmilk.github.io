@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20260831/table-13-agent-part-2.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260831/table-14-agent-benchmarks.png">
 <meta property="article:published_time" content="2026-08-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-30T13:11:34.613Z">
+<meta property="article:modified_time" content="2026-08-30T13:21:25.919Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="大模型">
 <meta property="article:tag" content="人工智能安全">
@@ -547,12 +547,6 @@
 <p><strong>检索增强生成（RAG）提取</strong> 针对RAG系统，旨在从检索组件中泄露敏感信息。这些攻击利用了大语言模型（LLM）与其外部知识库之间的交互。Qi等 [213] 证明了对抗性提示可以在RAG系统中引发数据泄露。此类攻击突显了将LLM与外部知识源集成的安全风险，其有效性取决于RAG系统的具体实现。</p>
 <p><strong>集成攻击</strong> 结合多种攻击策略以提高效果，利用每种方法的优势以获得更高的成功率。More 等人 [214] 在 Pythia 上展示了这种集成方法的有效性。虽然强大，但集成攻击较为复杂，需要对攻击组件进行仔细协调。</p>
 <p><strong>语义信息提取</strong> 将关注点从提取原文训练数据转向生成敏感的语义内容。Zhang 等人[215] 证明，即使简单的自然问题也能促使大模型输出语义敏感信息（SemSI），例如个人信念或声誉损害性声明，并提出了一项基准以系统评估此类风险。</p>
-<pre><code class="hljs">                     Dataset                         Year    Size    \#Times
-</code></pre>
-<hr>
-<p>   RealToxicityPrompts[583]   2020    100K      135<br>             TruthfulQA[584]              2021    817       213<br>              AdvGLUE[585]              2021   5,716      12<br>              SafetyPrompts[586]              2023    100K      15<br>                DoNotAnswer[587]                2023    939        6<br>               AdvBench[93]               2023    520       52<br>                 CVALUES[588]                 2023   2,100      10<br>                   FINE[193]                   2023     90       14<br>                FLAMES[589]                 2024   2,251      17<br>                SORRYBench[590]                2024    450        8<br>           SafetyBench[591]            2024   11,435     21<br>                SALAD-Bench[592]                2024    30K       36<br>             BackdoorLLM[593]             2024     8         6<br>           JailBreakV-28K[594]            2024    28K       10<br>          STRONGREJECT[595]           2024    313        4<br>             Libra-Leaderboard[596]             2024     57       26<br>               Aegis 2.0[597]                2025    34K       17<br>              CASE-Bench[598]              2025    450       -</p>
-<p>  : LLM安全研究的数据集和基准</p>
-<p>6</p>
 <h2 id="数据集-基准"><a href="#数据集-基准" class="headerlink" title="数据集 &amp; 基准"></a>数据集 &amp; 基准</h2><p>本节回顾了LLM安全研究中常用的数据库和基准，如表6所示。这些数据集和基准根据其评估目的进行分类：<em>毒性数据集</em>、<em>真实性数据集</em>、<em>价值观基准</em>以及<em>对抗数据集和后门基准</em>。</p>
 <h3 id="毒性数据集"><a href="#毒性数据集" class="headerlink" title="毒性数据集"></a>毒性数据集</h3><p>确保大语言模型不生成有害内容对于安全性至关重要。早期的工作，如<strong>RealToxicityPrompts</strong>数据集[583]，揭示了大语言模型从无害提示中生成有毒文本的倾向。该数据集将100,000个提示与来自Perspective API的毒性得分进行配对，显示了预训练数据中的毒性与大语言模型输出之间的强相关性。然而，其对可能存在偏见的Perspective API的依赖是一个局限。 为解决更广泛的有害行为，引入了<strong>Do-Not-Answer</strong>[587]数据集。它包含939个旨在引发有害回应的提示，分为诸如错误信息和歧视等风险类别。使用此数据集对大语言模型进行人工评估突显了安全性方面的显著差异，但仍然成本高昂且耗时。 一种最近的方法[599]引入了一个众包的有毒问题和回答数据集，包含人类和大语言模型的标注。它使用带有软标签和GroupDRO的双层最优化框架，以提高对分布外风险的鲁棒性，从而减少对详尽人工标注的需求。</p>
 <h3 id="真实性数据集"><a href="#真实性数据集" class="headerlink" title="真实性数据集"></a>真实性数据集</h3><p>确保大语言模型生成真实信息同样至关重要。<strong>TruthfulQA</strong> 基准 [584] 评估大语言模型是否能对跨38个类别的817个问题提供准确答案，特别针对”模仿性虚假信息”——即从人类文本中学习到的错误答案。评估结果显示，较大的模型往往表现出”逆缩放”现象，尽管规模更大，但其真实性却更低。虽然 TruthfulQA 指出了大语言模型在事实准确性方面的挑战，但其对模仿性虚假信息的关注可能无法涵盖所有潜在的不准确来源。</p>
