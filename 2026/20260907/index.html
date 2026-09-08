@@ -28,14 +28,14 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="（ICLR 2026）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2021/1000/907/1.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20260907/1.png">
 <meta property="article:published_time" content="2026-09-07T05:26:37.000Z">
 <meta property="article:modified_time" content="2026-09-08T05:41:20.976Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/907/1.png">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20260907/1.png">
   
   
   
@@ -371,7 +371,7 @@
 <p><strong>不可学习样本（Unlearnable Examples）</strong>：为了缓解这一问题，研究者们提出向数据中添加人类肉眼难以察觉的微小扰动。当深度神经网络（DNNs）使用这些被扰动的数据进行训练时，模型在未见过的干净数据上将无法泛化，表现得就像随机猜测一样，从而使数据变得“不可学习”。  </p>
 <p><strong>现有方法的痛点</strong>：现有的主流方法（如 EM、REM、TAP 等）通常依赖复杂的深度神经网络作为“代理模型”来生成这些扰动，计算成本极其高昂。例如，REM 方法在 CIFAR-10 数据集上生成扰动需要耗费超过 15 个 GPU 小时。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>作者提出了PERTURBATION-INDUCED LINEARIZATION&#x3D;PIL。<strong>仅仅使用一个简单的无偏置线性模型</strong>作为代理模型来生成扰动。这使得其计算效率极高，在 CIFAR-10 数据集上生成扰动只需不到 1 个 GPU 分钟。</p>
-<p><img src="/2021/1000/907/1.png"></p>
+<p><img src="/2026/20260907/1.png"></p>
 <p>PIL 的核心思想是：<strong>设计一种特定的微小扰动，迫使复杂的深度神经网络在训练时“偷懒”，放弃学习图像原本的复杂语义特征，转而学习一种简单的线性映射</strong>。  </p>
 <p>为了实现这一目标，作者在一个标准的攻击者-防御者“双层优化（Bilevel Optimization）”框架下，完全依赖一个简单的<strong>无偏置线性分类器</strong>来指导扰动的生成。 </p>
 <h3 id="1-基础设定与线性代理模型"><a href="#1-基础设定与线性代理模型" class="headerlink" title="1. 基础设定与线性代理模型"></a>1. 基础设定与线性代理模型</h3><p>假设干净的训练数据集为 $\mathcal{D}<em>c &#x3D; {(x_i, y_i)} _ {i&#x3D;1}^n$，类别数为 $k$。防御者的目标是为每张图片 $x_i$ 生成一个极其微小的扰动 $\delta_i$（满足无穷范数约束 $||\delta_i||</em>\infty \le 8&#x2F;255$），构建不可学习的数据集 $\mathcal{D}_u$。  </p>
