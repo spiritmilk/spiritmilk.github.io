@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260916/cost_chart_both.png">
 <meta property="article:published_time" content="2026-09-16T01:42:59.000Z">
-<meta property="article:modified_time" content="2026-09-16T04:31:18.677Z">
+<meta property="article:modified_time" content="2026-09-16T05:10:01.979Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.space/2026/20260916/cost_chart_both.png">
@@ -372,7 +372,6 @@
 <li><strong>长问题</strong>：全部放在一个会话里反而更贵，成本约为独立会话的 <strong>1.08 倍</strong>。</li>
 <li>两种方案的成本曲线大约在 <strong>$N \approx 12\sim17$ 问</strong>附近交叉。</li>
 </ul>
-<hr>
 <h2 id="二、实测对比"><a href="#二、实测对比" class="headerlink" title="二、实测对比"></a>二、实测对比</h2><p>测试条件：</p>
 <ul>
 <li>$N&#x3D;24$</li>
@@ -454,7 +453,6 @@
 <p>因此：</p>
 <p>$$<br>\Delta T_{\text{miss}}\approx0<br>$$</p>
 <p>可以近似认为在比较中抵消。</p>
-<hr>
 <h3 id="4-单会话最大的收益来自“输出变短”"><a href="#4-单会话最大的收益来自“输出变短”" class="headerlink" title="4. 单会话最大的收益来自“输出变短”"></a>4. 单会话最大的收益来自“输出变短”</h3><p>这是最重要的结构性差异之外的<strong>行为性收益</strong>。</p>
 <p>在同一个会话中，模型会逐渐模仿自己之前的回答风格。</p>
 <p>例如长问题实验：</p>
@@ -489,7 +487,7 @@
 <h3 id="单会话额外产生的历史重发成本"><a href="#单会话额外产生的历史重发成本" class="headerlink" title="单会话额外产生的历史重发成本"></a>单会话额外产生的历史重发成本</h3><p>近似为：</p>
 <p>$$<br>C_{\text{history}}\approx\frac{N^2}{2}\cdot Q\cdot\frac{p_h}{10^6}<br>$$</p>
 <h3 id="单会话节省的输出成本"><a href="#单会话节省的输出成本" class="headerlink" title="单会话节省的输出成本"></a>单会话节省的输出成本</h3><p>近似为：</p>
-<p>$$<br>C_{\text{save}}\approxN\cdot D\cdot\frac{p_o}{10^6}<br>$$</p>
+<p>$$<br>C_{\text{save}}\approx N\cdot D\cdot\frac{p_o}{10^6}<br>$$</p>
 <p>令两者相等：</p>
 <p>$$<br>\frac{N^2}{2}Qp_h&#x3D;NDp_o<br>$$</p>
 <p>得到交叉点：</p>
@@ -537,9 +535,7 @@
 <hr>
 <h2 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h2><h3 id="第-1-步：成本差只需要看三项"><a href="#第-1-步：成本差只需要看三项" class="headerlink" title="第 1 步：成本差只需要看三项"></a>第 1 步：成本差只需要看三项</h3><p>一次请求的成本为：</p>
 <p>$$<br>C&#x3D;\frac{T_{\text{hit}}p_h+T_{\text{miss}}p_m+T_{\text{out}}p_o}{10^6}$$</p>
-<p>高峰价格：</p>
-<p>$$<br>p_h&#x3D;0.04,\qquadp_m&#x3D;2,\qquad p_o&#x3D;8<br>$$</p>
-<p>比较“一个会话”和“独立会话”时，只需要关注三项差异：</p>
+<p>高峰价格：<br>$$<br>p_h&#x3D;0.04,\qquadp_m&#x3D;2,\qquad p_o&#x3D;8<br>$$<br>比较“一个会话”和“独立会话”时，只需要关注三项差异：</p>
 <table>
 <thead>
 <tr>
@@ -568,11 +564,9 @@
 <td>$+\frac{QN^2}{2}$</td>
 </tr>
 </tbody></table>
-<p>其中：</p>
-<p>$$<br>Q&#x3D;\text{每轮新增 tokens}<br>$$</p>
+<p>其中：<br>$$<br>Q&#x3D;\text{每轮新增 tokens}<br>$$</p>
 <p>$$<br>D&#x3D;\text{每问平均节省的输出 tokens}<br>$$</p>
 <p>$$<br>N&#x3D;\text{问题数}<br>$$</p>
-<hr>
 <h3 id="第-2-步：为什么历史重发是-N-2-2"><a href="#第-2-步：为什么历史重发是-N-2-2" class="headerlink" title="第 2 步：为什么历史重发是 $N^2&#x2F;2$"></a>第 2 步：为什么历史重发是 $N^2&#x2F;2$</h3><p>在一个连续会话中：</p>
 <ul>
 <li>第 1 轮前面没有历史</li>
@@ -581,46 +575,12 @@
 <li>第 4 轮重发约 $3Q$</li>
 <li>……</li>
 </ul>
-<p>第 $i$ 轮需要重新发送大约：</p>
-<p>$$<br>iQ<br>$$</p>
-<p>个历史 tokens。</p>
-<p>因此累计历史重发量为：</p>
-<p>$$<br>Q(0+1+2+\cdots+(N-1))<br>$$</p>
-<p>根据等差数列求和：</p>
-<h1 id=""><a href="#" class="headerlink" title="$$"></a>$$</h1><p>Q\frac{N(N-1)}{2}<br>$$</p>
-<p>当 $N$ 较大时：</p>
-<p>$$<br>\approx<br>\frac{QN^2}{2}<br>$$</p>
-<p>因此单会话历史重发成本具有明显的二次增长特征。</p>
-<hr>
-<h3 id="第-3-步：令成本差为零"><a href="#第-3-步：令成本差为零" class="headerlink" title="第 3 步：令成本差为零"></a>第 3 步：令成本差为零</h3><p>单会话相对于独立会话的额外成本近似为：</p>
-<p>$$<br>\Delta C&#x3D;\underbrace{\frac{QN^2}{2}\frac{p_h}{10^6}}<em>{\text{历史重发多付}}-\underbrace{ND\frac{p_o}{10^6}}</em>{\text{输出减少所省}}<br>$$</p>
-<p>令：</p>
-<p>$$<br>\Delta C&#x3D;0<br>$$</p>
-<p>得到：</p>
-<p>$$<br>\frac{QN^2}{2}p_h&#x3D;NDp_o<br>$$</p>
-<p>约去 $N$：</p>
-<p>$$<br>\frac{QN}{2}p_h&#x3D;Dp_o<br>$$</p>
-<p>因此：</p>
-<p>$$<br>N^\ast&#x3D;\frac{2p_o}{p_h}\frac{D}{Q}<br>$$</p>
-<p>代入高峰价格：</p>
-<p>$$<br>p_o&#x3D;8<br>$$</p>
-<p>$$<br>p_h&#x3D;0.04<br>$$</p>
-<p>得到：</p>
-<p>$$<br>\frac{2p_o}{p_h}&#x3D;\frac{16}{0.04}&#x3D;400<br>$$</p>
-<p>所以：</p>
-<p>$$<br>\boxed{N^\ast&#x3D;400\frac{D}{Q}}<br>$$</p>
-<hr>
-<h4 id="为什么空闲时段仍然是-400？"><a href="#为什么空闲时段仍然是-400？" class="headerlink" title="为什么空闲时段仍然是 400？"></a>为什么空闲时段仍然是 400？</h4><p>空闲价格：</p>
-<p>$$<br>p_o&#x3D;4,\qquad p_h&#x3D;0.02<br>$$</p>
-<p>则：</p>
-<p>$$<br>\frac{2p_o}{p_h}&#x3D;\frac{2\times4}{0.02}&#x3D;400<br>$$</p>
-<p>所以虽然价格整体减半，但：</p>
-<p>$$<br>\frac{p_o}{p_h}<br>$$</p>
-<p>保持不变，因此交叉点也不变。</p>
-<p>如果未来官方调整价格，那么只需把常数 400 替换为：</p>
-<p>$$<br>\boxed{\frac{2p_o}{p_h}}<br>$$</p>
-<p>即可。</p>
-<hr>
+<p>第 $i$ 轮需要重新发送大约：<br>$$<br>iQ<br>$$<br>个历史 tokens。</p>
+<h1 id="因此累计历史重发量为：-Q-0-1-2-cdots-N-1-根据等差数列求和："><a href="#因此累计历史重发量为：-Q-0-1-2-cdots-N-1-根据等差数列求和：" class="headerlink" title="因此累计历史重发量为：$$Q(0+1+2+\cdots+(N-1))$$根据等差数列求和：$$"></a>因此累计历史重发量为：<br>$$<br>Q(0+1+2+\cdots+(N-1))<br>$$<br>根据等差数列求和：<br>$$</h1><p>Q\frac{N(N-1)}{2}<br>$$<br>当 $N$ 较大时：<br>$$<br>\approx<br>\frac{QN^2}{2}<br>$$<br>因此单会话历史重发成本具有明显的二次增长特征。</p>
+<h3 id="第-3-步：令成本差为零"><a href="#第-3-步：令成本差为零" class="headerlink" title="第 3 步：令成本差为零"></a>第 3 步：令成本差为零</h3><p>单会话相对于独立会话的额外成本近似为：<br>$$<br>\Delta C&#x3D;\underbrace{\frac{QN^2}{2}\frac{p_h}{10^6}}<em>{\text{历史重发多付}}-\underbrace{ND\frac{p_o}{10^6}}</em>{\text{输出减少所省}}<br>$$<br>令：<br>$$<br>\Delta C&#x3D;0<br>$$<br>得到：<br>$$<br>\frac{QN^2}{2}p_h&#x3D;NDp_o<br>$$<br>约去 $N$：<br>$$<br>\frac{QN}{2}p_h&#x3D;Dp_o<br>$$<br>因此：<br>$$<br>N^\ast&#x3D;\frac{2p_o}{p_h}\frac{D}{Q}<br>$$<br>代入高峰价格：<br>$$<br>p_o&#x3D;8<br>$$</p>
+<p>$$<br>p_h&#x3D;0.04<br>$$<br>得到：<br>$$<br>\frac{2p_o}{p_h}&#x3D;\frac{16}{0.04}&#x3D;400<br>$$<br>所以：<br>$$<br>\boxed{N^\ast&#x3D;400\frac{D}{Q}}<br>$$</p>
+<h4 id="为什么空闲时段仍然是-400？"><a href="#为什么空闲时段仍然是-400？" class="headerlink" title="为什么空闲时段仍然是 400？"></a>为什么空闲时段仍然是 400？</h4><p>空闲价格：<br>$$<br>p_o&#x3D;4,\qquad p_h&#x3D;0.02<br>$$<br>则：<br>$$<br>\frac{2p_o}{p_h}&#x3D;\frac{2\times4}{0.02}&#x3D;400<br>$$<br>所以虽然价格整体减半，但：<br>$$<br>\frac{p_o}{p_h}<br>$$<br>保持不变，因此交叉点也不变。</p>
+<p>如果未来官方调整价格，那么只需把常数 400 替换为：<br>$$<br>\boxed{\frac{2p_o}{p_h}}<br>$$<br>即可。</p>
 <h3 id="第-4-步：用实测数据回代验证"><a href="#第-4-步：用实测数据回代验证" class="headerlink" title="第 4 步：用实测数据回代验证"></a>第 4 步：用实测数据回代验证</h3><table>
 <thead>
 <tr>
@@ -675,17 +635,12 @@
 <li>历史重发 tokens 的理论估计与实测非常接近；</li>
 <li>最终总成本差也与理论预测高度吻合。</li>
 </ul>
-<p>这说明：</p>
-<p>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$</p>
-<p>可以作为一个相当实用的经验决策公式。</p>
-<hr>
+<p>这说明：<br>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$<br>可以作为一个相当实用的经验决策公式。</p>
 <h2 id="D-的含义"><a href="#D-的含义" class="headerlink" title="$D$ 的含义"></a>$D$ 的含义</h2><p>$D$ 表示：</p>
 <blockquote>
 <p>使用“一个连续会话”相比“每问一个独立会话”，平均每个问题节省了多少输出 tokens。</p>
 </blockquote>
-<p>定义为：</p>
-<h2 id="boxed-D-frac-T-text-out-independent"><a href="#boxed-D-frac-T-text-out-independent" class="headerlink" title="$$\boxed{D&#x3D;\frac{T_{\text{out, independent}}"></a>$$<br>\boxed{<br>D&#x3D;<br>\frac{<br>T_{\text{out, independent}}</h2><p>T_{\text{out, single}}<br>}{N}<br>}<br>$$</p>
-<p>其中：</p>
+<h2 id="定义为：-boxed-D-frac-T-text-out-independent"><a href="#定义为：-boxed-D-frac-T-text-out-independent" class="headerlink" title="定义为：$$\boxed{D&#x3D;\frac{T_{\text{out, independent}}"></a>定义为：<br>$$<br>\boxed{<br>D&#x3D;<br>\frac{<br>T_{\text{out, independent}}</h2><p>T_{\text{out, single}}<br>}{N}<br>}<br>$$<br>其中：</p>
 <ul>
 <li>$T_{\text{out, independent}}$：独立会话总输出 tokens</li>
 <li>$T_{\text{out, single}}$：单会话总输出 tokens</li>
@@ -725,9 +680,7 @@
 <td align="right">34.8</td>
 </tr>
 </tbody></table>
-<hr>
-<h3 id="为什么-D-会存在？"><a href="#为什么-D-会存在？" class="headerlink" title="为什么 $D$ 会存在？"></a>为什么 $D$ 会存在？</h3><p>因为：</p>
-<h1 id="text-输出-tokens"><a href="#text-输出-tokens" class="headerlink" title="$$\text{输出 tokens}"></a>$$<br>\text{输出 tokens}</h1><p>\text{reasoning tokens}<br>+<br>\text{回答 tokens}<br>$$</p>
+<h3 id="为什么D会存在？"><a href="#为什么D会存在？" class="headerlink" title="为什么D会存在？"></a>为什么D会存在？</h3><h1 id="因为：-text-输出-tokens"><a href="#因为：-text-输出-tokens" class="headerlink" title="因为：$$\text{输出 tokens}"></a>因为：<br>$$<br>\text{输出 tokens}</h1><p>\text{reasoning tokens}<br>+<br>\text{回答 tokens}<br>$$</p>
 <h4 id="独立会话"><a href="#独立会话" class="headerlink" title="独立会话"></a>独立会话</h4><p>每个问题都是一个全新的上下文。</p>
 <p>模型需要重新判断：</p>
 <ul>
@@ -736,9 +689,7 @@
 <li>应该回答多详细？</li>
 <li>应该采用什么格式？</li>
 </ul>
-<p>实测中，每个问题可能产生约：</p>
-<p>$$<br>12\sim120<br>$$</p>
-<p>个 reasoning tokens。</p>
+<p>实测中，每个问题可能产生约：<br>$$<br>12\sim120<br>$$<br>个 reasoning tokens。</p>
 <h4 id="连续会话"><a href="#连续会话" class="headerlink" title="连续会话"></a>连续会话</h4><p>模型能够看到自己之前的回答风格。</p>
 <p>如果前几轮都是：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">391<br>Paris<br>26<br></code></pre></td></tr></table></figure>
@@ -749,29 +700,13 @@
 <li>最终回答只有 2～3 tokens</li>
 </ul>
 <p>因此输出量会显著下降。</p>
-<hr>
 <h3 id="为什么-D-特别重要？"><a href="#为什么-D-特别重要？" class="headerlink" title="为什么 $D$ 特别重要？"></a>为什么 $D$ 特别重要？</h3><p>因为输出 token 是三类 token 中最贵的。</p>
-<p>高峰价格：</p>
-<p>$$<br>p_o&#x3D;8\text{ 元&#x2F;M}<br>$$</p>
-<p>相比之下：</p>
-<p>$$<br>p_m&#x3D;2\text{ 元&#x2F;M}<br>$$</p>
-<p>$$<br>p_h&#x3D;0.04\text{ 元&#x2F;M}<br>$$</p>
-<p>因此：</p>
-<p>$$<br>\frac{p_o}{p_m}&#x3D;4<br>$$</p>
-<p>而：</p>
-<p>$$<br>\frac{p_o}{p_h}&#x3D;200<br>$$</p>
-<p>也就是说：</p>
+<p>高峰价格：<br>$$<br>p_o&#x3D;8\text{ 元&#x2F;M}<br>$$<br>相比之下：<br>$$<br>p_m&#x3D;2\text{ 元&#x2F;M}<br>$$</p>
+<p>$$<br>p_h&#x3D;0.04\text{ 元&#x2F;M}<br>$$<br>因此：<br>$$<br>\frac{p_o}{p_m}&#x3D;4<br>$$<br>而：<br>$$<br>\frac{p_o}{p_h}&#x3D;200<br>$$<br>也就是说：</p>
 <blockquote>
 <p><strong>一个输出 token，相当于 200 个缓存命中 token 的价格。</strong></p>
 </blockquote>
-<p>例如：</p>
-<p>$$<br>D&#x3D;48<br>$$</p>
-<p>意味着每个问题可以节省：</p>
-<p>$$<br>48\times\frac{8}{10^6}<br>$$</p>
-<p>即：</p>
-<p>$$<br>0.000384\text{ 元}<br>$$</p>
-<p>左右。</p>
-<hr>
+<p>例如：<br>$$<br>D&#x3D;48<br>$$<br>意味着每个问题可以节省：<br>$$<br>48\times\frac{8}{10^6}<br>$$<br>即：<br>$$<br>0.000384\text{ 元}<br>$$<br>左右。</p>
 <h3 id="D-的三个重要性质"><a href="#D-的三个重要性质" class="headerlink" title="$D$ 的三个重要性质"></a>$D$ 的三个重要性质</h3><h4 id="1-D-是行为性的，不是结构性的"><a href="#1-D-是行为性的，不是结构性的" class="headerlink" title="1. $D$ 是行为性的，不是结构性的"></a>1. $D$ 是行为性的，不是结构性的</h4><p>这是最重要的一点。</p>
 <p>$D$ 来自模型行为：</p>
 <blockquote>
@@ -784,15 +719,8 @@
 <li>R2：$D&#x3D;34.8$</li>
 </ul>
 <p>差异已经相当明显。</p>
-<p>如果模型完全不会因为上下文而“变懒”，那么：</p>
-<p>$$<br>D\rightarrow0<br>$$</p>
-<p>于是：</p>
-<p>$$<br>N^\ast&#x3D;400\frac{D}{Q}\rightarrow0<br>$$</p>
-<p>此时单会话几乎从一开始就是亏的。</p>
-<hr>
-<h4 id="2-D-会随问题类型发生明显变化"><a href="#2-D-会随问题类型发生明显变化" class="headerlink" title="2. $D$ 会随问题类型发生明显变化"></a>2. $D$ 会随问题类型发生明显变化</h4><p>对于简单问答型任务：</p>
-<p>$$<br>D\approx30\sim50<br>$$</p>
-<p>是可能出现的。</p>
+<p>如果模型完全不会因为上下文而“变懒”，那么：<br>$$<br>D\rightarrow0<br>$$<br>于是：<br>$$<br>N^\ast&#x3D;400\frac{D}{Q}\rightarrow0<br>$$<br>此时单会话几乎从一开始就是亏的。</p>
+<h4 id="2-D-会随问题类型发生明显变化"><a href="#2-D-会随问题类型发生明显变化" class="headerlink" title="2. $D$ 会随问题类型发生明显变化"></a>2. $D$ 会随问题类型发生明显变化</h4><p>对于简单问答型任务：<br>$$<br>D\approx30\sim50<br>$$<br>是可能出现的。</p>
 <p>但如果任务本身要求：</p>
 <ul>
 <li>长回答</li>
@@ -802,38 +730,25 @@
 <li>深度分析</li>
 </ul>
 <p>那么 $D$ 可能明显减小。</p>
-<p>甚至可能出现：</p>
-<p>$$<br>D&lt;0<br>$$</p>
-<p>也就是说：</p>
+<p>甚至可能出现：<br>$$<br>D&lt;0<br>$$<br>也就是说：</p>
 <blockquote>
 <p>连续会话反而让模型回答得更长。</p>
 </blockquote>
 <p>这是因为随着上下文越来越长，模型可能引用更多历史信息、补充更多解释，从而增加输出。</p>
-<hr>
 <h4 id="3-可以主动放大-D"><a href="#3-可以主动放大-D" class="headerlink" title="3. 可以主动放大 $D$"></a>3. 可以主动放大 $D$</h4><p>如果目标是降低成本，可以在连续会话开始时明确要求：</p>
 <blockquote>
 <p>后面每个问题只回答一行。</p>
 </blockquote>
-<p>这样可以主动压缩输出，使：</p>
-<p>$$<br>D\uparrow<br>$$</p>
-<p>进而：</p>
-<p>$$<br>N^\ast&#x3D;400\frac{D}{Q}\uparrow<br>$$</p>
-<p>也就是说：</p>
+<p>这样可以主动压缩输出，使：<br>$$<br>D\uparrow<br>$$<br>进而：<br>$$<br>N^\ast&#x3D;400\frac{D}{Q}\uparrow<br>$$<br>也就是说：</p>
 <blockquote>
 <p><strong>同一个会话可以容纳更多问题，仍然保持成本优势。</strong></p>
 </blockquote>
 <p>从成本优化角度看，这通常比单纯想办法减少缓存命中的上下文更有效。</p>
-<hr>
-<h2 id="最终结论"><a href="#最终结论" class="headerlink" title="最终结论"></a>最终结论</h2><p>核心公式是：</p>
-<h1 id="boxed-N-ast"><a href="#boxed-N-ast" class="headerlink" title="$$\boxed{N^\ast"></a>$$<br>\boxed{<br>N^\ast</h1><p>\frac{2p_o}{p_h}\frac{D}{Q}<br>}<br>$$</p>
-<p>在当前高峰价和空闲价下，都可以简化为：</p>
-<p>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$</p>
-<p>因此可以直接使用下面这个经验规则：</p>
+<h2 id="最终结论"><a href="#最终结论" class="headerlink" title="最终结论"></a>最终结论</h2><h1 id="核心公式是：-boxed-N-ast"><a href="#核心公式是：-boxed-N-ast" class="headerlink" title="核心公式是：$$\boxed{N^\ast"></a>核心公式是：<br>$$<br>\boxed{<br>N^\ast</h1><p>\frac{2p_o}{p_h}\frac{D}{Q}<br>}<br>$$<br>在当前高峰价和空闲价下，都可以简化为：<br>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$<br>因此可以直接使用下面这个经验规则：</p>
 <blockquote>
 <p><strong>当 $N&lt;400D&#x2F;Q$ 时，优先使用同一个会话；当 $N&gt;400D&#x2F;Q$ 时，优先考虑每个问题开启独立会话。</strong></p>
 </blockquote>
-<p>真正决定结果的并不是系统提示词，也不是新问题产生的 cache miss，而是两股力量之间的竞争：</p>
-<p>$$<br>\boxed{<br>\text{输出变短带来的线性收益}<br>\quad\text{vs.}\quad<br>\text{历史重发带来的二次成本}<br>}<br>$$</p>
+<p>真正决定结果的并不是系统提示词，也不是新问题产生的 cache miss，而是两股力量之间的竞争：<br>$$<br>\boxed{<br>\text{输出变短带来的线性收益}<br>\quad\text{vs.}\quad<br>\text{历史重发带来的二次成本}<br>}<br>$$</p>
 <p>短问题中，$Q$ 很小，因此二次重发成本增长很慢，连续会话通常更划算。</p>
 <p>长问题中，$Q$ 很大，因此历史上下文迅速膨胀，超过一定问题数后，独立会话反而更便宜。</p>
 
