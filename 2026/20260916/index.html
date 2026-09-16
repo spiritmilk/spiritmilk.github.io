@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20260916/cost_chart_both.png">
 <meta property="article:published_time" content="2026-09-16T01:42:59.000Z">
-<meta property="article:modified_time" content="2026-09-16T05:10:01.979Z">
+<meta property="article:modified_time" content="2026-09-16T05:11:28.678Z">
 <meta property="article:author" content="LJX">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lijianxiong.space/2026/20260916/cost_chart_both.png">
@@ -409,7 +409,6 @@
 <li>缓存未命中：<strong>2 元 &#x2F; M tokens</strong></li>
 <li>输出：<strong>8 元 &#x2F; M tokens</strong></li>
 </ul>
-<hr>
 <h2 id="三、机制：钱到底花在哪里"><a href="#三、机制：钱到底花在哪里" class="headerlink" title="三、机制：钱到底花在哪里"></a>三、机制：钱到底花在哪里</h2><p>总成本近似为：</p>
 <p>$$<br>C&#x3D;\frac{<br>T_{\text{hit}}\times0.04<br>+<br>T_{\text{miss}}\times2<br>+<br>T_{\text{out}}\times8<br>}{10^6}<br>$$</p>
 <p>其中：</p>
@@ -424,7 +423,6 @@
 <p>$$<br>956\times \frac{0.04}{10^6}<br>$$</p>
 <p>几乎可以忽略。</p>
 <p>所以，真正的问题并不是“每次都要重新发送系统提示词”。</p>
-<hr>
 <h3 id="2-单会话会不断重发历史，因此成本呈二次增长"><a href="#2-单会话会不断重发历史，因此成本呈二次增长" class="headerlink" title="2. 单会话会不断重发历史，因此成本呈二次增长"></a>2. 单会话会不断重发历史，因此成本呈二次增长</h3><p>在同一个会话中，第 $i$ 轮请求需要重新携带此前全部上下文。</p>
 <p>虽然这些历史 tokens 通常都按缓存命中价计算：</p>
 <p>$$<br>0.04\text{ 元&#x2F;M}<br>$$</p>
@@ -438,7 +436,6 @@
 <p>增长。</p>
 <p>而独立会话中，每次只重新发送系统提示，因此总成本基本是：</p>
 <p>$$<br>O(N)<br>$$</p>
-<hr>
 <h3 id="3-未命中-tokens-两种方案几乎一样"><a href="#3-未命中-tokens-两种方案几乎一样" class="headerlink" title="3. 未命中 tokens 两种方案几乎一样"></a>3. 未命中 tokens 两种方案几乎一样</h3><p>例如长问题实验中：</p>
 <ul>
 <li>一个会话：约 <strong>30013 miss tokens</strong></li>
@@ -475,7 +472,6 @@
 <li>历史重发成本大约随 $N^2$ <strong>增长</strong></li>
 </ul>
 <p>因此，当问题足够多时，二次增长最终会超过输出节省。</p>
-<hr>
 <h2 id="四、决策公式"><a href="#四、决策公式" class="headerlink" title="四、决策公式"></a>四、决策公式</h2><p>定义：</p>
 <ul>
 <li>$N$：问题数量</li>
@@ -498,7 +494,6 @@
 <p>$$<br>\frac{2p_o}{p_h}&#x3D;\frac{2\times8}{0.04}&#x3D;400<br>$$</p>
 <p>最终得到非常简单的决策公式：</p>
 <p>$$<br>\boxed{N^\ast&#x3D;400\frac{D}{Q}}<br>$$</p>
-<hr>
 <h2 id="五、实际判据"><a href="#五、实际判据" class="headerlink" title="五、实际判据"></a>五、实际判据</h2><p>如果：</p>
 <p>$$<br>\boxed{N&lt;400\frac{D}{Q}}<br>$$</p>
 <p>那么使用<strong>同一个会话</strong>通常更省。</p>
@@ -532,7 +527,6 @@
 </tr>
 </tbody></table>
 <p>这说明理论公式与实测结果基本一致。</p>
-<hr>
 <h2 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h2><h3 id="第-1-步：成本差只需要看三项"><a href="#第-1-步：成本差只需要看三项" class="headerlink" title="第 1 步：成本差只需要看三项"></a>第 1 步：成本差只需要看三项</h3><p>一次请求的成本为：</p>
 <p>$$<br>C&#x3D;\frac{T_{\text{hit}}p_h+T_{\text{miss}}p_m+T_{\text{out}}p_o}{10^6}$$</p>
 <p>高峰价格：<br>$$<br>p_h&#x3D;0.04,\qquadp_m&#x3D;2,\qquad p_o&#x3D;8<br>$$<br>比较“一个会话”和“独立会话”时，只需要关注三项差异：</p>
