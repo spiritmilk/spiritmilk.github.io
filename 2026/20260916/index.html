@@ -1,0 +1,1585 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#AE945F">
+  <meta name="author" content="LJX">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="经常有一些零散的问题，但是总是迟疑是多开会话还是在会话中继续，做了一些实验来进行测试了一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多个问题的Token 成本对比与决策公式">
+<meta property="og:url" content="https://lijianxiong.space/2026/20260916/index.html">
+<meta property="og:site_name" content="小熊的小站">
+<meta property="og:description" content="经常有一些零散的问题，但是总是迟疑是多开会话还是在会话中继续，做了一些实验来进行测试了一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lijianxiong.space/2021/1000/916/cost_chart_both.png">
+<meta property="article:published_time" content="2026-09-16T01:42:59.000Z">
+<meta property="article:modified_time" content="2026-09-16T01:52:50.741Z">
+<meta property="article:author" content="LJX">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lijianxiong.space/2021/1000/916/cost_chart_both.png">
+  
+  
+  
+  <title>多个问题的Token 成本对比与决策公式 - 小熊的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"lijianxiong.space","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"woyaola":21973729,"woyaola_pro_id":"3MvycZ6wPTE8DE3p","baidu":null,"google":{"measurement_id":"G-C811PDWV2Z"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- 51.la Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript('//js.users.51.la/21973729.js');
+      }
+    </script>
+  
+  
+  
+  <!-- 51.la Analytics v6 -->
+  <script async>
+    if (!Fluid.ctx.dnt) {
+      // 1. 创建一个新的 script 元素用于加载 51.la 的 SDK
+      var script = document.createElement('script');
+      script.id = 'LA_COLLECT';
+      script.src = '//sdk.51.la/js-sdk-pro.min.js';
+      script.charset = 'UTF-8';
+
+      // 2. 关键：当外部脚本加载并执行完毕后，再执行初始化函数
+      script.onload = function() {
+        LA.init({
+          id: "3MvycZ6wPTE8DE3p",
+          ck: "3MvycZ6wPTE8DE3p"
+        });
+      };
+
+      // 3. 将创建的 script 元素插入到页面的 <head> 或 <body> 中，使其开始加载
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    }
+  </script>
+
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-C811PDWV2Z", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-C811PDWV2Z');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bear</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>目录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/latexocr1/" target="_self">
+                <i class="iconfont icon-exp-fill"></i>
+                <span>latex识别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/spotify/" target="_self">
+                <i class="iconfont icon-music"></i>
+                <span>Spotify歌词</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/arxiv/" target="_self">
+                <i class="iconfont icon-notebook"></i>
+                <span>每日arxiv</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/huogui.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">多个问题的Token 成本对比与决策公式</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-09-16 09:42" pubdate>
+          2026年9月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">多个问题的Token 成本对比与决策公式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>经常有一些零散的问题，但是总是迟疑是多开会话还是在会话中继续，做了一些实验来进行测试了一下。</p>
+<span id="more"></span>
+
+<p><img src="/2021/1000/916/cost_chart_both.png"></p>
+<h2 id="一、一句话结论"><a href="#一、一句话结论" class="headerlink" title="一、一句话结论"></a>一、一句话结论</h2><p><strong>没有绝对答案，关键取决于“每个问题有多长”。</strong></p>
+<ul>
+<li><strong>短问题</strong>：放在同一个会话里更省，成本约为独立会话的 <strong>0.6 倍</strong>。</li>
+<li><strong>长问题</strong>：全部放在一个会话里反而更贵，成本约为独立会话的 <strong>1.08 倍</strong>。</li>
+<li>两种方案的成本曲线大约在 <strong>$N \approx 12\sim17$ 问</strong>附近交叉。</li>
+</ul>
+<hr>
+<h2 id="二、实测对比"><a href="#二、实测对比" class="headerlink" title="二、实测对比"></a>二、实测对比</h2><p>测试条件：</p>
+<ul>
+<li>$N&#x3D;24$</li>
+<li>高峰价格</li>
+<li>每个场景进行了两轮实验，并互换执行顺序</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th align="right">一个会话问完</th>
+<th align="right">每问一个新会话</th>
+<th>更省</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短问题（约 20 tokens&#x2F;问）</td>
+<td align="right">0.01182 &#x2F; 0.01172 元</td>
+<td align="right">0.01728 &#x2F; 0.02030 元</td>
+<td><strong>一个会话省约 32%～42%</strong></td>
+</tr>
+<tr>
+<td>长问题（约 2173 tokens&#x2F;问）</td>
+<td align="right">0.07576 &#x2F; 0.07740 元</td>
+<td align="right">0.07069 &#x2F; 0.07167 元</td>
+<td><strong>独立会话省约 7%～8%</strong></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>每格中的两个数字分别对应两轮互换顺序后的结果。</p>
+</blockquote>
+<p>高峰价格：</p>
+<ul>
+<li>缓存命中：<strong>0.04 元 &#x2F; M tokens</strong></li>
+<li>缓存未命中：<strong>2 元 &#x2F; M tokens</strong></li>
+<li>输出：<strong>8 元 &#x2F; M tokens</strong></li>
+</ul>
+<hr>
+<h2 id="三、机制：钱到底花在哪里"><a href="#三、机制：钱到底花在哪里" class="headerlink" title="三、机制：钱到底花在哪里"></a>三、机制：钱到底花在哪里</h2><p>总成本近似为：</p>
+<h1 id="C"><a href="#C" class="headerlink" title="$$C"></a>$$<br>C</h1><p>\frac{<br>T_{\text{hit}}\times0.04<br>+<br>T_{\text{miss}}\times2<br>+<br>T_{\text{out}}\times8<br>}{10^6}<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$T_{\text{hit}}$：缓存命中的输入 tokens</li>
+<li>$T_{\text{miss}}$：缓存未命中的输入 tokens</li>
+<li>$T_{\text{out}}$：输出 tokens</li>
+</ul>
+<p>有四个关键事实。</p>
+<h3 id="1-系统提示词不是主要问题"><a href="#1-系统提示词不是主要问题" class="headerlink" title="1. 系统提示词不是主要问题"></a>1. 系统提示词不是主要问题</h3><p>系统提示词约为 <strong>956 tokens</strong>。</p>
+<p>虽然每次请求都会重新发送，但它始终命中缓存，因此成本非常低：</p>
+<p>$$<br>956\times \frac{0.04}{10^6}<br>$$</p>
+<p>几乎可以忽略。</p>
+<p>所以，真正的问题并不是“每次都要重新发送系统提示词”。</p>
+<hr>
+<h3 id="2-单会话会不断重发历史，因此成本呈二次增长"><a href="#2-单会话会不断重发历史，因此成本呈二次增长" class="headerlink" title="2. 单会话会不断重发历史，因此成本呈二次增长"></a>2. 单会话会不断重发历史，因此成本呈二次增长</h3><p>在同一个会话中，第 $i$ 轮请求需要重新携带此前全部上下文。</p>
+<p>虽然这些历史 tokens 通常都按缓存命中价计算：</p>
+<p>$$<br>0.04\text{ 元&#x2F;M}<br>$$</p>
+<p>非常便宜，但历史长度会随着问题数 $N$ 线性增长。</p>
+<p>因此累计重发量约为：</p>
+<p>$$<br>1+2+\cdots+(N-1)<br>$$</p>
+<p>也就是：</p>
+<p>$$<br>O(N^2)<br>$$</p>
+<p>准确地说，大约按：</p>
+<p>$$<br>\frac{N^2}{2}<br>$$</p>
+<p>增长。</p>
+<p>而独立会话中，每次只重新发送系统提示，因此总成本基本是：</p>
+<p>$$<br>O(N)<br>$$</p>
+<hr>
+<h3 id="3-未命中-tokens-两种方案几乎一样"><a href="#3-未命中-tokens-两种方案几乎一样" class="headerlink" title="3. 未命中 tokens 两种方案几乎一样"></a>3. 未命中 tokens 两种方案几乎一样</h3><p>例如长问题实验中：</p>
+<ul>
+<li>一个会话：约 <strong>30013 miss tokens</strong></li>
+<li>独立会话：约 <strong>29674 miss tokens</strong></li>
+</ul>
+<p>两边非常接近。</p>
+<p>原因很简单：</p>
+<blockquote>
+<p>每个新问题本身第一次出现时，都必须支付一次 cache miss。</p>
+</blockquote>
+<p>无论是否新建会话，这部分都无法避免。</p>
+<p>因此：</p>
+<p>$$<br>\Delta T_{\text{miss}}\approx0<br>$$</p>
+<p>可以近似认为在比较中抵消。</p>
+<hr>
+<h3 id="4-单会话最大的收益来自“输出变短”"><a href="#4-单会话最大的收益来自“输出变短”" class="headerlink" title="4. 单会话最大的收益来自“输出变短”"></a>4. 单会话最大的收益来自“输出变短”</h3><p>这是最重要的结构性差异之外的<strong>行为性收益</strong>。</p>
+<p>在同一个会话中，模型会逐渐模仿自己之前的回答风格。</p>
+<p>例如长问题实验：</p>
+<ul>
+<li>一个会话总输出：<strong>146 tokens</strong></li>
+<li>独立会话总输出：<strong>1305 tokens</strong></li>
+</ul>
+<p>短问题实验：</p>
+<ul>
+<li>一个会话总输出：<strong>168 tokens</strong></li>
+<li>独立会话总输出：<strong>837 tokens</strong></li>
+</ul>
+<p>也就是说：</p>
+<blockquote>
+<p>同一个会话中，模型看到前面一直在用“极简回答”，后面的回答往往也会越来越短。</p>
+</blockquote>
+<p>但需要注意：</p>
+<ul>
+<li>输出节省量大约随 $N$ <strong>线性增长</strong></li>
+<li>历史重发成本大约随 $N^2$ <strong>增长</strong></li>
+</ul>
+<p>因此，当问题足够多时，二次增长最终会超过输出节省。</p>
+<hr>
+<h2 id="四、决策公式"><a href="#四、决策公式" class="headerlink" title="四、决策公式"></a>四、决策公式</h2><p>定义：</p>
+<ul>
+<li>$N$：问题数量</li>
+<li>$Q$：每轮会话新增的 tokens，即“问题 + 回答”</li>
+<li>$D$：使用单会话后，平均每问节省的输出 tokens</li>
+<li>$p_h$：缓存命中价格</li>
+<li>$p_o$：输出价格</li>
+</ul>
+<h3 id="单会话额外产生的历史重发成本"><a href="#单会话额外产生的历史重发成本" class="headerlink" title="单会话额外产生的历史重发成本"></a>单会话额外产生的历史重发成本</h3><p>近似为：</p>
+<p>$$<br>C_{\text{history}}<br>\approx<br>\frac{N^2}{2}\cdot Q\cdot\frac{p_h}{10^6}<br>$$</p>
+<h3 id="单会话节省的输出成本"><a href="#单会话节省的输出成本" class="headerlink" title="单会话节省的输出成本"></a>单会话节省的输出成本</h3><p>近似为：</p>
+<p>$$<br>C_{\text{save}}<br>\approx<br>N\cdot D\cdot\frac{p_o}{10^6}<br>$$</p>
+<p>令两者相等：</p>
+<h1 id="frac-N-2-2-Qp-h"><a href="#frac-N-2-2-Qp-h" class="headerlink" title="$$\frac{N^2}{2}Qp_h"></a>$$<br>\frac{N^2}{2}Qp_h</h1><p>NDp_o<br>$$</p>
+<p>得到交叉点：</p>
+<h1 id="N-ast"><a href="#N-ast" class="headerlink" title="$$N^\ast"></a>$$<br>N^\ast</h1><p>\frac{2p_o}{p_h}\cdot\frac{D}{Q}<br>$$</p>
+<p>高峰价格下：</p>
+<p>$$<br>p_o&#x3D;8,\qquad p_h&#x3D;0.04<br>$$</p>
+<p>因此：</p>
+<h1 id="frac-2p-o-p-h"><a href="#frac-2p-o-p-h" class="headerlink" title="$$\frac{2p_o}{p_h}"></a>$$<br>\frac{2p_o}{p_h}</h1><h1 id="frac-2-times8-0-04"><a href="#frac-2-times8-0-04" class="headerlink" title="\frac{2\times8}{0.04}"></a>\frac{2\times8}{0.04}</h1><p>400<br>$$</p>
+<p>最终得到非常简单的决策公式：</p>
+<p>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$</p>
+<hr>
+<h2 id="五、实际判据"><a href="#五、实际判据" class="headerlink" title="五、实际判据"></a>五、实际判据</h2><p>如果：</p>
+<p>$$<br>\boxed{<br>N&lt;400\frac{D}{Q}<br>}<br>$$</p>
+<p>那么使用<strong>同一个会话</strong>通常更省。</p>
+<p>如果：</p>
+<p>$$<br>\boxed{<br>N&gt;400\frac{D}{Q}<br>}<br>$$</p>
+<p>那么<strong>每个问题开新会话</strong>通常更省。</p>
+<p>实验结果：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th align="right">$D$</th>
+<th align="right">$Q$</th>
+<th align="right">理论 $N^\ast$</th>
+<th align="right">实测交叉</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短问题</td>
+<td align="right">$\sim28$</td>
+<td align="right">$\sim34$</td>
+<td align="right">$\sim330$</td>
+<td align="right">24 问内没有交叉 ✓</td>
+</tr>
+<tr>
+<td>长问题</td>
+<td align="right">$\sim48$</td>
+<td align="right">$\sim1223$</td>
+<td align="right">$\sim16$</td>
+<td align="right">约 12～17 问 ✓</td>
+</tr>
+</tbody></table>
+<p>这说明理论公式与实测结果基本一致。</p>
+<hr>
+<h2 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h2><h3 id="第-1-步：成本差只需要看三项"><a href="#第-1-步：成本差只需要看三项" class="headerlink" title="第 1 步：成本差只需要看三项"></a>第 1 步：成本差只需要看三项</h3><p>一次请求的成本为：</p>
+<p>$$<br>C&#x3D;<br>\frac{<br>T_{\text{hit}}p_h+<br>T_{\text{miss}}p_m+<br>T_{\text{out}}p_o<br>}{10^6}<br>$$</p>
+<p>高峰价格：</p>
+<p>$$<br>p_h&#x3D;0.04,\qquad<br>p_m&#x3D;2,\qquad<br>p_o&#x3D;8<br>$$</p>
+<p>比较“一个会话”和“独立会话”时，只需要关注三项差异：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>一个会话</th>
+<th>独立会话</th>
+<th>差值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未命中</td>
+<td>每个新问题本身都要支付</td>
+<td>基本一样</td>
+<td>$\approx0$，抵消</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>较短，会模仿前文风格</td>
+<td>较长，每问重新开始</td>
+<td>$-ND$</td>
+</tr>
+<tr>
+<td>缓存命中</td>
+<td>每轮重发全部历史</td>
+<td>基本只重发系统提示</td>
+<td>$+\frac{QN^2}{2}$</td>
+</tr>
+</tbody></table>
+<p>其中：</p>
+<p>$$<br>Q&#x3D;\text{每轮新增 tokens}<br>$$</p>
+<p>$$<br>D&#x3D;\text{每问平均节省的输出 tokens}<br>$$</p>
+<p>$$<br>N&#x3D;\text{问题数}<br>$$</p>
+<hr>
+<h3 id="第-2-步：为什么历史重发是-N-2-2"><a href="#第-2-步：为什么历史重发是-N-2-2" class="headerlink" title="第 2 步：为什么历史重发是 $N^2&#x2F;2$"></a>第 2 步：为什么历史重发是 $N^2&#x2F;2$</h3><p>在一个连续会话中：</p>
+<ul>
+<li>第 1 轮前面没有历史</li>
+<li>第 2 轮重发约 $Q$</li>
+<li>第 3 轮重发约 $2Q$</li>
+<li>第 4 轮重发约 $3Q$</li>
+<li>……</li>
+</ul>
+<p>第 $i$ 轮需要重新发送大约：</p>
+<p>$$<br>iQ<br>$$</p>
+<p>个历史 tokens。</p>
+<p>因此累计历史重发量为：</p>
+<p>$$<br>Q(0+1+2+\cdots+(N-1))<br>$$</p>
+<p>根据等差数列求和：</p>
+<h1 id=""><a href="#" class="headerlink" title="$$"></a>$$</h1><p>Q\frac{N(N-1)}{2}<br>$$</p>
+<p>当 $N$ 较大时：</p>
+<p>$$<br>\approx<br>\frac{QN^2}{2}<br>$$</p>
+<p>因此单会话历史重发成本具有明显的二次增长特征。</p>
+<hr>
+<h3 id="第-3-步：令成本差为零"><a href="#第-3-步：令成本差为零" class="headerlink" title="第 3 步：令成本差为零"></a>第 3 步：令成本差为零</h3><p>单会话相对于独立会话的额外成本近似为：</p>
+<h1 id="Delta-C"><a href="#Delta-C" class="headerlink" title="$$\Delta C"></a>$$<br>\Delta C</h1><h2 id="underbrace-frac-QN-2-2-frac-p-h-10-6-text-历史重发多付"><a href="#underbrace-frac-QN-2-2-frac-p-h-10-6-text-历史重发多付" class="headerlink" title="\underbrace{\frac{QN^2}{2}\frac{p_h}{10^6}}_{\text{历史重发多付}}"></a>\underbrace{<br>\frac{QN^2}{2}\frac{p_h}{10^6}<br>}_{\text{历史重发多付}}</h2><p>\underbrace{<br>ND\frac{p_o}{10^6}<br>}_{\text{输出减少所省}}<br>$$</p>
+<p>令：</p>
+<p>$$<br>\Delta C&#x3D;0<br>$$</p>
+<p>得到：</p>
+<h1 id="frac-QN-2-2-p-h"><a href="#frac-QN-2-2-p-h" class="headerlink" title="$$\frac{QN^2}{2}p_h"></a>$$<br>\frac{QN^2}{2}p_h</h1><p>NDp_o<br>$$</p>
+<p>约去 $N$：</p>
+<h1 id="frac-QN-2-p-h"><a href="#frac-QN-2-p-h" class="headerlink" title="$$\frac{QN}{2}p_h"></a>$$<br>\frac{QN}{2}p_h</h1><p>Dp_o<br>$$</p>
+<p>因此：</p>
+<h1 id="N-ast-1"><a href="#N-ast-1" class="headerlink" title="$$N^\ast"></a>$$<br>N^\ast</h1><p>\frac{2p_o}{p_h}\frac{D}{Q}<br>$$</p>
+<p>代入高峰价格：</p>
+<p>$$<br>p_o&#x3D;8<br>$$</p>
+<p>$$<br>p_h&#x3D;0.04<br>$$</p>
+<p>得到：</p>
+<h1 id="frac-2p-o-p-h-1"><a href="#frac-2p-o-p-h-1" class="headerlink" title="$$\frac{2p_o}{p_h}"></a>$$<br>\frac{2p_o}{p_h}</h1><h1 id="frac-16-0-04"><a href="#frac-16-0-04" class="headerlink" title="\frac{16}{0.04}"></a>\frac{16}{0.04}</h1><p>400<br>$$</p>
+<p>所以：</p>
+<p>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$</p>
+<hr>
+<h4 id="为什么空闲时段仍然是-400？"><a href="#为什么空闲时段仍然是-400？" class="headerlink" title="为什么空闲时段仍然是 400？"></a>为什么空闲时段仍然是 400？</h4><p>空闲价格：</p>
+<p>$$<br>p_o&#x3D;4,\qquad p_h&#x3D;0.02<br>$$</p>
+<p>则：</p>
+<h1 id="frac-2p-o-p-h-2"><a href="#frac-2p-o-p-h-2" class="headerlink" title="$$\frac{2p_o}{p_h}"></a>$$<br>\frac{2p_o}{p_h}</h1><h1 id="frac-2-times4-0-02"><a href="#frac-2-times4-0-02" class="headerlink" title="\frac{2\times4}{0.02}"></a>\frac{2\times4}{0.02}</h1><p>400<br>$$</p>
+<p>所以虽然价格整体减半，但：</p>
+<p>$$<br>\frac{p_o}{p_h}<br>$$</p>
+<p>保持不变，因此交叉点也不变。</p>
+<p>如果未来官方调整价格，那么只需把常数 400 替换为：</p>
+<p>$$<br>\boxed{<br>\frac{2p_o}{p_h}<br>}<br>$$</p>
+<p>即可。</p>
+<hr>
+<h3 id="第-4-步：用实测数据回代验证"><a href="#第-4-步：用实测数据回代验证" class="headerlink" title="第 4 步：用实测数据回代验证"></a>第 4 步：用实测数据回代验证</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th align="right">$Q$</th>
+<th align="right">$D$</th>
+<th align="right">理论 $N^\ast$</th>
+<th align="right">实测交叉点</th>
+<th align="right">多付命中 tokens：理论 &#x2F; 实测</th>
+<th align="right">总成本差：理论 &#x2F; 实测</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短问题 R1</td>
+<td align="right">35.3</td>
+<td align="right">27.9</td>
+<td align="right">315</td>
+<td align="right">24 问内未交叉</td>
+<td align="right">9756 &#x2F; 9088</td>
+<td align="right">−0.00543 &#x2F; −0.00546</td>
+</tr>
+<tr>
+<td>短问题 R2</td>
+<td align="right">37.2</td>
+<td align="right">34.6</td>
+<td align="right">372</td>
+<td align="right">未交叉（$N&#x3D;1$ 为噪声）</td>
+<td align="right">10272 &#x2F; 11264</td>
+<td align="right">−0.00862 &#x2F; −0.00858</td>
+</tr>
+<tr>
+<td>长问题 R1</td>
+<td align="right">1236</td>
+<td align="right">48.3</td>
+<td align="right">15.6</td>
+<td align="right">12</td>
+<td align="right">341256 &#x2F; 341504</td>
+<td align="right">+0.00506 &#x2F; +0.00507</td>
+</tr>
+<tr>
+<td>长问题 R2</td>
+<td align="right">1245</td>
+<td align="right">34.8</td>
+<td align="right">11.2</td>
+<td align="right">17</td>
+<td align="right">343572 &#x2F; 343936</td>
+<td align="right">+0.00571 &#x2F; +0.00572</td>
+</tr>
+</tbody></table>
+<p>可以看到：</p>
+<ul>
+<li>历史重发 tokens 的理论估计与实测非常接近；</li>
+<li>最终总成本差也与理论预测高度吻合。</li>
+</ul>
+<p>这说明：</p>
+<p>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$</p>
+<p>可以作为一个相当实用的经验决策公式。</p>
+<hr>
+<h2 id="D-的含义"><a href="#D-的含义" class="headerlink" title="$D$ 的含义"></a>$D$ 的含义</h2><p>$D$ 表示：</p>
+<blockquote>
+<p>使用“一个连续会话”相比“每问一个独立会话”，平均每个问题节省了多少输出 tokens。</p>
+</blockquote>
+<p>定义为：</p>
+<h2 id="boxed-D-frac-T-text-out-independent"><a href="#boxed-D-frac-T-text-out-independent" class="headerlink" title="$$\boxed{D&#x3D;\frac{T_{\text{out, independent}}"></a>$$<br>\boxed{<br>D&#x3D;<br>\frac{<br>T_{\text{out, independent}}</h2><p>T_{\text{out, single}}<br>}{N}<br>}<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$T_{\text{out, independent}}$：独立会话总输出 tokens</li>
+<li>$T_{\text{out, single}}$：单会话总输出 tokens</li>
+</ul>
+<p>实测结果：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th align="right">独立会话总输出</th>
+<th align="right">单会话总输出</th>
+<th align="right">每问 $D$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短问题 R1</td>
+<td align="right">837</td>
+<td align="right">168</td>
+<td align="right">27.9</td>
+</tr>
+<tr>
+<td>短问题 R2</td>
+<td align="right">971</td>
+<td align="right">141</td>
+<td align="right">34.6</td>
+</tr>
+<tr>
+<td>长问题 R1</td>
+<td align="right">1305</td>
+<td align="right">146</td>
+<td align="right">48.3</td>
+</tr>
+<tr>
+<td>长问题 R2</td>
+<td align="right">1177</td>
+<td align="right">341</td>
+<td align="right">34.8</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="为什么-D-会存在？"><a href="#为什么-D-会存在？" class="headerlink" title="为什么 $D$ 会存在？"></a>为什么 $D$ 会存在？</h3><p>因为：</p>
+<h1 id="text-输出-tokens"><a href="#text-输出-tokens" class="headerlink" title="$$\text{输出 tokens}"></a>$$<br>\text{输出 tokens}</h1><p>\text{reasoning tokens}<br>+<br>\text{回答 tokens}<br>$$</p>
+<h4 id="独立会话"><a href="#独立会话" class="headerlink" title="独立会话"></a>独立会话</h4><p>每个问题都是一个全新的上下文。</p>
+<p>模型需要重新判断：</p>
+<ul>
+<li>要不要调用工具？</li>
+<li>用户希望什么样的回答？</li>
+<li>应该回答多详细？</li>
+<li>应该采用什么格式？</li>
+</ul>
+<p>实测中，每个问题可能产生约：</p>
+<p>$$<br>12\sim120<br>$$</p>
+<p>个 reasoning tokens。</p>
+<h4 id="连续会话"><a href="#连续会话" class="headerlink" title="连续会话"></a>连续会话</h4><p>模型能够看到自己之前的回答风格。</p>
+<p>如果前几轮都是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">391<br>Paris<br>26<br></code></pre></td></tr></table></figure>
+
+<p>这种极简回答，那么后续模型往往会直接延续这种模式：</p>
+<ul>
+<li>reasoning 接近 0</li>
+<li>最终回答只有 2～3 tokens</li>
+</ul>
+<p>因此输出量会显著下降。</p>
+<hr>
+<h3 id="为什么-D-特别重要？"><a href="#为什么-D-特别重要？" class="headerlink" title="为什么 $D$ 特别重要？"></a>为什么 $D$ 特别重要？</h3><p>因为输出 token 是三类 token 中最贵的。</p>
+<p>高峰价格：</p>
+<p>$$<br>p_o&#x3D;8\text{ 元&#x2F;M}<br>$$</p>
+<p>相比之下：</p>
+<p>$$<br>p_m&#x3D;2\text{ 元&#x2F;M}<br>$$</p>
+<p>$$<br>p_h&#x3D;0.04\text{ 元&#x2F;M}<br>$$</p>
+<p>因此：</p>
+<p>$$<br>\frac{p_o}{p_m}&#x3D;4<br>$$</p>
+<p>而：</p>
+<p>$$<br>\frac{p_o}{p_h}&#x3D;200<br>$$</p>
+<p>也就是说：</p>
+<blockquote>
+<p><strong>一个输出 token，相当于 200 个缓存命中 token 的价格。</strong></p>
+</blockquote>
+<p>例如：</p>
+<p>$$<br>D&#x3D;48<br>$$</p>
+<p>意味着每个问题可以节省：</p>
+<p>$$<br>48\times\frac{8}{10^6}<br>$$</p>
+<p>即：</p>
+<p>$$<br>0.000384\text{ 元}<br>$$</p>
+<p>左右。</p>
+<hr>
+<h3 id="D-的三个重要性质"><a href="#D-的三个重要性质" class="headerlink" title="$D$ 的三个重要性质"></a>$D$ 的三个重要性质</h3><h4 id="1-D-是行为性的，不是结构性的"><a href="#1-D-是行为性的，不是结构性的" class="headerlink" title="1. $D$ 是行为性的，不是结构性的"></a>1. $D$ 是行为性的，不是结构性的</h4><p>这是最重要的一点。</p>
+<p>$D$ 来自模型行为：</p>
+<blockquote>
+<p>模型是否会因为已有对话历史而自动缩短 reasoning 和回答。</p>
+</blockquote>
+<p>因此它并不稳定。</p>
+<p>例如同一批长问题：</p>
+<ul>
+<li>R1：$D&#x3D;48.3$</li>
+<li>R2：$D&#x3D;34.8$</li>
+</ul>
+<p>差异已经相当明显。</p>
+<p>如果模型完全不会因为上下文而“变懒”，那么：</p>
+<p>$$<br>D\rightarrow0<br>$$</p>
+<p>于是：</p>
+<p>$$<br>N^\ast&#x3D;400\frac{D}{Q}\rightarrow0<br>$$</p>
+<p>此时单会话几乎从一开始就是亏的。</p>
+<hr>
+<h4 id="2-D-会随问题类型发生明显变化"><a href="#2-D-会随问题类型发生明显变化" class="headerlink" title="2. $D$ 会随问题类型发生明显变化"></a>2. $D$ 会随问题类型发生明显变化</h4><p>对于简单问答型任务：</p>
+<p>$$<br>D\approx30\sim50<br>$$</p>
+<p>是可能出现的。</p>
+<p>但如果任务本身要求：</p>
+<ul>
+<li>长回答</li>
+<li>长推理</li>
+<li>详细解释</li>
+<li>代码生成</li>
+<li>深度分析</li>
+</ul>
+<p>那么 $D$ 可能明显减小。</p>
+<p>甚至可能出现：</p>
+<p>$$<br>D&lt;0<br>$$</p>
+<p>也就是说：</p>
+<blockquote>
+<p>连续会话反而让模型回答得更长。</p>
+</blockquote>
+<p>这是因为随着上下文越来越长，模型可能引用更多历史信息、补充更多解释，从而增加输出。</p>
+<hr>
+<h4 id="3-可以主动放大-D"><a href="#3-可以主动放大-D" class="headerlink" title="3. 可以主动放大 $D$"></a>3. 可以主动放大 $D$</h4><p>如果目标是降低成本，可以在连续会话开始时明确要求：</p>
+<blockquote>
+<p>后面每个问题只回答一行。</p>
+</blockquote>
+<p>这样可以主动压缩输出，使：</p>
+<p>$$<br>D\uparrow<br>$$</p>
+<p>进而：</p>
+<p>$$<br>N^\ast&#x3D;400\frac{D}{Q}\uparrow<br>$$</p>
+<p>也就是说：</p>
+<blockquote>
+<p><strong>同一个会话可以容纳更多问题，仍然保持成本优势。</strong></p>
+</blockquote>
+<p>从成本优化角度看，这通常比单纯想办法减少缓存命中的上下文更有效。</p>
+<hr>
+<h2 id="最终结论"><a href="#最终结论" class="headerlink" title="最终结论"></a>最终结论</h2><p>核心公式是：</p>
+<h1 id="boxed-N-ast"><a href="#boxed-N-ast" class="headerlink" title="$$\boxed{N^\ast"></a>$$<br>\boxed{<br>N^\ast</h1><p>\frac{2p_o}{p_h}\frac{D}{Q}<br>}<br>$$</p>
+<p>在当前高峰价和空闲价下，都可以简化为：</p>
+<p>$$<br>\boxed{<br>N^\ast&#x3D;400\frac{D}{Q}<br>}<br>$$</p>
+<p>因此可以直接使用下面这个经验规则：</p>
+<blockquote>
+<p><strong>当 $N&lt;400D&#x2F;Q$ 时，优先使用同一个会话；当 $N&gt;400D&#x2F;Q$ 时，优先考虑每个问题开启独立会话。</strong></p>
+</blockquote>
+<p>真正决定结果的并不是系统提示词，也不是新问题产生的 cache miss，而是两股力量之间的竞争：</p>
+<p>$$<br>\boxed{<br>\text{输出变短带来的线性收益}<br>\quad\text{vs.}\quad<br>\text{历史重发带来的二次成本}<br>}<br>$$</p>
+<p>短问题中，$Q$ 很小，因此二次重发成本增长很慢，连续会话通常更划算。</p>
+<p>长问题中，$Q$ 很大，因此历史上下文迅速膨胀，超过一定问题数后，独立会话反而更便宜。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>多个问题的Token 成本对比与决策公式</div>
+      <div>https://lijianxiong.space/2026/20260916/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LJX</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年9月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/20260909/" title="Purifying Generative LLMs from Backdoors without Prior Knowledge or Clean Reference">
+                        <span class="hidden-mobile">Purifying Generative LLMs from Backdoors without Prior Knowledge or Clean Reference</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>LJX</span> <i class="iconfont icon-love"></i> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+    </div>
+  
+
+  
+    <div style="margin-top: 8px;font-size: 16px;"> 
+      博客已经运行 <span id="daysSinceLJXCustomDate"></span> 天
+    </div>
+
+  </div>
+  
+
+
+
+  
+
+  
+</div>
+
+
+<script>
+function displayDaysSinceLJX() {
+  // 将起始日期设置为 '2019-03-14' 的零点（当地时区）
+  const startDate = new Date('2019-03-14T00:00:00'); 
+  const currentDate = new Date();
+  
+  // 获取当前日期的零点（当地时区），以确保我们计算的是完整的天数
+  const currentDayStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+
+  // 计算两个日期之间的毫秒差
+  const timeDifference = currentDayStart.getTime() - startDate.getTime();
+  
+  // 将毫秒差转换为天数，并向下取整
+  // 这样可以确保我们只计算已经过去的完整天数
+  // 例如，如果今天是2019年3月14日（但还未到2019年3月15日的零点），则结果为0天
+  let daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  // 确保天数不为负（例如，如果客户端时间不正确导致当前日期早于起始日期）
+  daysPassed = Math.max(0, daysPassed); 
+  
+  const daysElement = document.getElementById('daysSinceLJXCustomDate');
+  if (daysElement) {
+    daysElement.innerText = daysPassed;
+  } else {
+    console.error("Element with ID 'daysSinceLJXCustomDate' not found.");
+  }
+}
+
+// 确保在DOM完全加载后执行脚本
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', displayDaysSinceLJX);
+} else {
+  // DOMContentLoaded 事件已经触发
+  displayDaysSinceLJX();
+}
+</script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="https://s4.zstatic.net/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const heatmapChartDom = document.getElementById('heatmapChart');
+                if(heatmapChartDom){
+                    const heatmapChart = echarts.init(heatmapChartDom, 'light');
+                    const cellSize = [18, 18];
+                    
+                    const groupByYear = (data) => {
+                        const result = {};
+                        data.forEach(([date, value]) => {
+                            const [year] = date.split('-').map(Number);
+                            if (!result[year]) {
+                                result[year] = [];
+                            }
+                            result[year].push([date, value]);
+                        });
+                        return result;
+                    };
+                    
+                    const groupedData = groupByYear([["2019-03-14",1],["2019-03-23",1],["2019-04-30",1],["2019-06-24",1],["2019-07-18",1],["2019-07-27",1],["2019-07-29",1],["2019-08-09",1],["2019-08-10",1],["2019-08-15",1],["2019-08-31",1],["2020-01-11",1],["2020-04-26",1],["2020-09-05",1],["2020-10-09",1],["2020-10-22",1],["2020-10-25",1],["2020-10-26",1],["2020-11-15",1],["2020-11-17",1],["2020-11-24",1],["2020-12-07",1],["2020-12-10",1],["2020-12-21",1],["2020-12-31",1],["2021-01-07",1],["2021-01-15",1],["2021-01-22",2],["2021-02-24",1],["2021-03-09",1],["2021-03-13",1],["2021-03-26",1],["2021-03-31",1],["2021-04-05",1],["2021-04-10",1],["2021-04-11",1],["2021-04-15",1],["2021-05-09",1],["2021-05-14",1],["2021-05-30",1],["2021-06-06",1],["2021-06-07",1],["2021-06-08",1],["2021-06-12",1],["2021-06-14",1],["2021-07-08",1],["2021-07-10",1],["2021-07-16",1],["2021-07-18",1],["2021-07-24",1],["2021-07-27",1],["2021-08-05",1],["2021-08-13",1],["2021-08-25",1],["2021-08-28",1],["2021-08-29",1],["2021-09-19",1],["2021-09-21",1],["2021-10-09",1],["2021-11-02",1],["2022-01-11",1],["2022-01-18",1],["2022-01-19",1],["2022-01-20",1],["2022-01-21",1],["2022-01-22",1],["2022-02-01",1],["2022-02-24",1],["2022-02-25",1],["2022-02-27",1],["2022-02-28",1],["2022-03-09",1],["2022-03-11",1],["2022-03-16",1],["2022-03-28",1],["2022-04-03",1],["2022-04-08",1],["2022-04-17",1],["2022-04-29",1],["2022-04-30",1],["2022-05-05",1],["2022-05-07",1],["2022-05-08",1],["2022-05-09",1],["2022-05-13",1],["2022-05-14",1],["2022-05-15",1],["2022-05-22",1],["2022-05-31",1],["2022-06-18",1],["2022-06-27",1],["2022-07-08",1],["2022-07-10",1],["2022-07-13",1],["2022-07-19",1],["2022-07-20",1],["2022-07-30",1],["2022-08-01",1],["2022-08-15",1],["2022-08-17",1],["2022-08-18",1],["2022-08-19",1],["2022-10-09",1],["2022-10-12",1],["2022-10-13",1],["2022-11-22",1],["2022-11-26",1],["2022-11-28",1],["2023-01-01",1],["2023-01-16",1],["2023-01-18",1],["2023-01-20",1],["2023-01-26",1],["2023-01-28",1],["2023-02-04",1],["2023-02-06",1],["2023-02-21",1],["2023-03-19",1],["2023-03-20",1],["2023-03-23",1],["2023-03-24",1],["2023-03-27",1],["2023-03-30",1],["2023-04-01",1],["2023-04-02",1],["2023-06-29",1],["2023-07-01",1],["2023-07-03",1],["2023-07-05",1],["2023-07-08",1],["2023-07-11",2],["2023-07-14",1],["2023-07-18",1],["2023-08-02",1],["2024-01-13",1],["2024-01-16",1],["2024-01-31",1],["2024-02-06",1],["2024-02-11",1],["2024-02-14",1],["2024-02-19",1],["2024-02-26",1],["2024-02-27",1],["2024-02-29",1],["2024-03-03",1],["2024-03-08",1],["2024-04-03",1],["2024-04-10",1],["2024-04-29",1],["2024-05-11",1],["2024-05-12",1],["2024-05-13",1],["2024-05-16",1],["2024-05-20",1],["2024-05-21",1],["2024-06-05",1],["2024-06-29",1],["2024-07-08",1],["2024-08-11",1],["2024-08-14",1],["2024-08-24",1],["2024-08-28",1],["2024-08-30",1],["2024-10-06",1],["2024-11-01",1],["2024-12-16",1],["2024-12-26",1],["2025-01-10",1],["2025-01-15",1],["2025-02-10",1],["2025-02-15",1],["2025-02-16",1],["2025-02-17",1],["2025-02-20",1],["2025-02-22",1],["2025-02-24",1],["2025-03-15",1],["2025-03-19",1],["2025-03-21",1],["2025-04-24",1],["2025-04-25",1],["2025-04-26",1],["2025-04-27",1],["2025-05-01",1],["2025-05-02",1],["2025-05-03",1],["2025-05-11",1],["2025-05-12",1],["2025-05-13",1],["2025-05-15",1],["2025-05-17",1],["2025-05-18",1],["2025-05-20",1],["2025-05-21",1],["2025-05-22",1],["2025-05-23",1],["2025-05-26",1],["2025-05-27",1],["2025-05-30",1],["2025-06-01",1],["2025-06-03",1],["2025-06-06",1],["2025-06-09",1],["2025-06-10",1],["2025-06-11",1],["2025-06-13",1],["2025-06-15",1],["2025-06-17",1],["2025-07-05",1],["2025-07-06",1],["2025-07-11",1],["2025-07-14",1],["2025-07-16",1],["2025-07-19",1],["2025-07-20",1],["2025-07-22",1],["2025-07-24",1],["2025-07-26",1],["2025-07-27",1],["2025-08-05",1],["2025-08-07",1],["2025-08-10",1],["2025-08-12",1],["2025-08-13",1],["2025-08-17",1],["2025-08-26",1],["2025-08-29",1],["2025-08-31",1],["2025-09-02",1],["2025-09-03",1],["2025-09-07",1],["2025-09-08",1],["2025-09-10",1],["2025-09-13",1],["2025-09-14",1],["2025-09-15",1],["2025-09-17",1],["2025-09-19",1],["2025-09-26",1],["2025-09-27",1],["2025-09-28",1],["2025-10-05",1],["2025-10-06",1],["2025-10-11",1],["2025-10-14",1],["2025-10-16",1],["2025-10-21",1],["2025-10-22",1],["2025-10-26",1],["2025-10-29",1],["2025-10-31",1],["2025-11-01",1],["2025-11-02",1],["2025-11-03",1],["2025-11-04",1],["2025-11-05",3],["2025-11-06",1],["2025-11-11",1],["2025-11-12",1],["2025-11-13",1],["2025-11-17",1],["2025-11-18",1],["2025-11-20",1],["2025-11-24",1],["2025-11-26",1],["2025-11-27",1],["2025-11-28",1],["2025-11-29",1],["2025-12-02",1],["2025-12-03",1],["2025-12-04",1],["2025-12-05",1],["2025-12-10",1],["2025-12-11",1],["2025-12-12",1],["2025-12-13",1],["2025-12-14",2],["2025-12-15",1],["2025-12-16",1],["2025-12-17",1],["2025-12-18",2],["2025-12-24",1],["2025-12-25",1],["2025-12-27",1],["2025-12-28",2],["2025-12-31",2],["2026-01-06",1],["2026-01-10",1],["2026-01-14",1],["2026-01-15",1],["2026-02-02",1],["2026-02-03",1],["2026-02-05",1],["2026-02-06",3],["2026-02-08",2],["2026-02-09",3],["2026-02-11",1],["2026-02-12",2],["2026-02-13",1],["2026-02-14",2],["2026-02-15",1],["2026-02-17",1],["2026-03-08",1],["2026-03-09",1],["2026-03-12",1],["2026-03-13",1],["2026-03-16",1],["2026-03-17",1],["2026-03-22",1],["2026-03-23",1],["2026-03-27",1],["2026-03-28",1],["2026-03-30",1],["2026-03-31",1],["2026-04-10",1],["2026-04-11",2],["2026-04-12",2],["2026-04-13",1],["2026-04-15",1],["2026-04-17",1],["2026-04-21",1],["2026-04-22",1],["2026-04-23",1],["2026-04-24",1],["2026-04-25",1],["2026-05-06",1],["2026-05-11",1],["2026-05-20",1],["2026-05-21",1],["2026-05-27",1],["2026-05-28",1],["2026-05-29",1],["2026-06-01",1],["2026-06-10",1],["2026-06-11",1],["2026-06-12",1],["2026-06-15",1],["2026-06-16",1],["2026-06-17",1],["2026-06-20",1],["2026-06-21",1],["2026-06-22",1],["2026-06-23",1],["2026-07-01",1],["2026-07-02",1],["2026-07-03",1],["2026-07-04",5],["2026-07-05",1],["2026-07-06",1],["2026-07-07",2],["2026-07-09",1],["2026-07-16",1],["2026-07-17",1],["2026-07-21",1],["2026-07-22",2],["2026-07-23",2],["2026-07-29",1],["2026-08-24",1],["2026-08-26",1],["2026-08-27",1],["2026-08-30",1],["2026-08-31",1],["2026-09-07",1],["2026-09-08",2],["2026-09-16",1]]);
+                    const years = Object.keys(groupedData).reverse();
+                    
+                    var initYear = parseInt(heatmapChartDom.getAttribute('year')) || new Date().getFullYear();
+                    const minYear = years[years.length - 1];
+                    const maxYear = years[0];
+                    if (initYear < minYear || initYear > maxYear) {
+                        initYear = maxYear;
+                    }
+                    console.log('[hexo-graph]generateHeatmapChart|initYear:', initYear, 'minYear:', minYear, 'maxYear:', maxYear);
+                    
+                    heatmapChart.setOption({
+                        grid: {},
+                        tooltip: { 
+                            position: 'top', 
+                            formatter: params => `${params.value[0]}: ${params.value[1]} Articles` 
+                        },
+                        calendar: { 
+                            top: '10%',
+                            left: 'left', 
+                            right: '8%',
+                            range: initYear,
+                            cellSize: cellSize, 
+                            splitLine: { lineStyle: { color: '#E0E0E0', width: 1 } }, 
+                            itemStyle: { borderWidth: 1, borderColor: '#E0E0E0' }, 
+                            dayLabel: { show: false },
+                            monthLabel: { show: true },
+                            yearLabel: { show: false },
+                        },
+                        visualMap: { 
+                            show: true,
+                            right: '8%',
+                            bottom: '5%',
+                            type: 'piecewise',
+                            orient: 'horizontal',
+                            text: ['More', 'Less'],
+                            min: 0,
+                            max: Math.max(...groupedData[initYear].map(item => item[1])),
+                            inRange: { color: ["#ACE7AE","#69C16D","#549F57"] }
+                        },
+                        legend: {
+                            type: 'scroll',
+                            icon: 'none',
+                            data: years,
+                            orient: 'vertical',
+                            top: '5%',
+                            right: 'right',
+                            itemWidth: 20,
+                            itemHeight: 20,
+                            itemGap: 10,
+                            pageIconSize: 10,
+                            pageTextStyle: { fontSize: 14 },
+                            selectedMode: 'single',
+                        },
+                        series: years.map(year => ({
+                            type: 'heatmap',
+                            coordinateSystem: 'calendar',
+                            data: groupedData[year],
+                            name: year,
+                            emphasis: {
+                                disabled: true,
+                            },
+                            silent: year !== initYear,
+                        })),
+                    });
+                    
+                    // init selected year
+                    heatmapChart.dispatchAction({
+                        type: 'legendSelect',
+                        name: initYear,
+                    });
+                    
+                    heatmapChart.on('legendselectchanged', function(params) {
+                        console.log('[hexo-graph]generateHeatmapChart|legendselectchanged:', params);
+                        const selectedYear = Object.keys(params.selected).find(key => params.selected[key]);
+                        if (selectedYear && groupedData[selectedYear]) {
+                            heatmapChart.setOption({
+                                calendar: {
+                                    range: selectedYear,
+                                },
+                                visualMap: {
+                                    max: Math.max(...groupedData[selectedYear].map(item => item[1])),
+                                },
+                                series: years.map(year => ({
+                                    type: 'heatmap',
+                                    coordinateSystem: 'calendar',
+                                    data: groupedData[year],
+                                    name: year,
+                                    emphasis: {
+                                        disabled: true,
+                                    },
+                                    silent: year !== selectedYear,
+                                })),
+                            });
+                        }
+                    });
+                    
+                    heatmapChart.on('click', function (params) {
+                        if (params.componentType === 'series') {
+                            const [year, month] = params.value[0].split('-');
+                            window.location.href = '/archives/' + year + '/' + month;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const monthlyChartDom = document.getElementById('monthlyChart');
+                if(monthlyChartDom){
+                    const monthlyChart = echarts.init(monthlyChartDom, 'light');
+                    monthlyChart.setOption({
+                        xAxis: { 
+                            type: 'category', 
+                            data: ["2019-03","2019-04","2019-06","2019-07","2019-08","2020-01","2020-04","2020-09","2020-10","2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-10","2022-11","2023-01","2023-02","2023-03","2023-04","2023-06","2023-07","2023-08","2024-01","2024-02","2024-03","2024-04","2024-05","2024-06","2024-07","2024-08","2024-10","2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"], 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        yAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        series: [{
+                            name: 'Articles',
+                            type: 'line',
+                            data: [2,1,1,3,4,1,1,1,4,3,4,4,1,4,4,3,5,6,5,2,1,1,6,5,4,5,9,2,6,5,3,3,6,3,6,2,1,8,1,3,7,2,3,6,2,1,5,1,1,2,2,7,3,4,16,9,11,9,13,10,19,22,4,19,12,13,7,11,21,5,4],
+                            smooth: true,
+                            lineStyle: { color: '#5470C6', width: 2 },
+                            itemStyle: { color: '#5470C6' },
+                            areaStyle: { color: 'rgba(84, 112, 198, 0.4)' },
+                            symbolSize: 10,
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            }
+                        }]
+                    });
+
+                    monthlyChart.on('click', function (params) {
+                        const [year, month] = params.name.split('-');
+                        window.location.href = '/archives/' + year + '/' + month;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tagsChartDom = document.getElementById('tagsChart');
+                if(tagsChartDom){
+                    const tagsChart = echarts.init(tagsChartDom, 'light');
+                    tagsChart.setOption({
+                        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                        series: [{
+                            type: 'pie',
+                            radius: '60%',
+                            data: [{"name":"深度学习","value":242},{"name":"大模型","value":146},{"name":"多模态","value":53},{"name":"人工智能","value":47},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":26},{"name":"图神经网络","value":17}],
+                            label: {
+                                position: 'outside',
+                                formatter: '{b} {c} ({d}%)',
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            color: ["#5470C6","#91CC75","#FAC858","#EE6666","#73C0DE","#3BA272","#FC8452","#9A60B4"],
+                            labelLine: { show: true }
+                        }],
+                        legend: {
+                            bottom: '0',
+                            left: 'center',
+                            data: [{"name":"深度学习","value":242},{"name":"大模型","value":146},{"name":"多模态","value":53},{"name":"人工智能","value":47},{"name":"笔记","value":36},{"name":"机器学习","value":33},{"name":"数学","value":26},{"name":"图神经网络","value":17}].map(tag => tag.name),
+                            textStyle: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        }
+                    });
+
+                    tagsChart.on('click', function (params) {
+                        window.location.href = '/tags/' + params.name;
+                    });
+                }
+            })
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesChartDom = document.getElementById('categoriesChart');
+                if(categoriesChartDom){
+                    const categoriesChart = echarts.init(categoriesChartDom, 'light');
+                    categoriesChart.setOption({
+                        xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } } },
+                        yAxis: { 
+                            type: 'category', 
+                            data: [].map(category => category.name).reverse(), 
+                            axisLabel: { fontSize: 14, fontWeight: 'bold', fontFamily: 'Microsoft YaHei, SimSun, serif' }
+                        },
+                        series: [{
+                            name: 'Category Count',
+                            type: 'bar',
+                            data: [].map(category => category.value).reverse(),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                formatter: params => params.value,
+                                fontSize: 14,
+                                color: '#000',
+                                fontWeight: 'bold',
+                                fontFamily: 'Microsoft YaHei, SimSun, serif'
+                            },
+                            itemStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                    { offset: 0, color: '#91CC75' },
+                                    { offset: 1, color: '#73C0DE' }
+                                ])
+                            }
+                        }]
+                    });
+
+                    categoriesChart.on('click', function (params) {
+                        window.location.href = '/categories/' + params.name;
+                    });
+                }
+            });
+        </script>
+    
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const categoriesTreeChartDom = document.getElementById('categoriesTreeChart');
+                if(categoriesTreeChartDom){
+                    const treeChart = echarts.init(categoriesTreeChartDom, 'light');
+                    treeChart.setOption({
+                        title: {
+                            text: '操作提示：单击展开分类，双击进入具体分类页面',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#999',
+                                fontWeight: 'normal'
+                            },
+                            bottom: 0,
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            triggerOn: 'mousemove'
+                        },
+                        series: [{
+                            type: 'tree',
+                            data: [{"name":"Categories","children":[],"count":0,"path":""}],
+                            initialTreeDepth: -1,
+                            top: '5%',
+                            bottom: '10%',
+                            left: '0%',
+                            right: '0%',
+                            symbolSize: 15,
+                            layout: 'orthogonal',
+                            orient: 'TB',
+                            itemStyle: {
+                                color: '#91CC75',
+                                borderColor: '#73C0DE'
+                            },
+                            label: {
+                                position: 'bottom',
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                fontSize: 14,
+                                distance: 28,
+                                formatter: function(params) {
+                                    return params.data.name + (params.data.count ? ' (' + params.data.count + ')' : '');
+                                }
+                            },
+                            leaves: {
+                                label: {
+                                    position: 'top',
+                                    verticalAlign: 'middle',
+                                    align: 'center'
+                                }
+                            },
+                            emphasis: {
+                                focus: 'descendant'
+                            },
+                            expandAndCollapse: true
+                        }]
+                    });
+
+                    treeChart.on('dblclick', function (params) {
+                        if (params.data && params.data.path) {
+                            window.location.href = '/categories/' + params.data.path;
+                        }
+                    });
+                }
+            });
+        </script>
+    
+    </body>
+</html>
