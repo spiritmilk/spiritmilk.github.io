@@ -29,7 +29,7 @@
 <meta property="og:description" content="（ICLR 2026）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-09-08T05:57:49.000Z">
-<meta property="article:modified_time" content="2026-09-16T01:53:28.815Z">
+<meta property="article:modified_time" content="2026-09-22T05:40:10.291Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -309,7 +309,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1 字
+          940 字
         
       </span>
     
@@ -320,7 +320,7 @@
         
         
         
-          1 分钟
+          8 分钟
         
       </span>
     
@@ -364,6 +364,32 @@
                 
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>（ICLR 2026）</p>
 <span id="more"></span>
+
+<h2 id="核心发现"><a href="#核心发现" class="headerlink" title="核心发现"></a>核心发现</h2><p><strong>MLP 是后门的“记忆”</strong>：触发器与恶意行为之间的关联冗余地编码在多层感知机（MLP）层中，移除 MLP 的毒化更新可以可靠地消除后门行为。   </p>
+<p><strong>注意力机制只负责“放大”</strong>：注意力（Attention）模块并不负责建立恶意关联，它主要起到放大和传输触发器信号的作用。   </p>
+<p><strong>分布式且抗破坏</strong>：后门激活是分布式的且与层级顺序无关，即使打乱不同模块间的 MLP 更新，后门依然能够被一致地激活。  </p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><strong>1. 差异化参数更新（Differential Delta）的计算</strong> 为了在没有干净参考模型的情况下分离出毒化数据对模型参数的影响，作者为给定的可疑模型 $\theta _ {sus}$ 构造了 $N$ 个不同的后门变体。对于每一个变体 $i$（$i&#x3D;1,…,N$），设定一个独特的干净数据集 $D_i^{clean}$、触发器 $k_i$ 以及目标恶意行为 $b_i$。   </p>
+<p>针对每个变体 $i$，在 $\theta _ {sus}$ 的基础上微调出两个模型：</p>
+<ul>
+<li><strong>毒化模型</strong> $\theta_i^{bd}$：在包含触发器和恶意行为的混合数据集 $D_i^{clean} \cup D_i^{pois}(k_i, b_i)$ 上微调。   </li>
+<li><strong>干净模型</strong> $\theta_i^{clean}$：仅在干净数据集 $D_i^{clean}$ 上微调。</li>
+</ul>
+<p>随后，计算两者的参数更新差异 $\Delta_i$，以捕获毒化数据造成的直接影响：   </p>
+<p>$$\Delta_i &#x3D; \Delta\theta_i^{bd} - \Delta\theta_i^{clean} &#x3D; (\theta_i^{bd} - \theta _ {sus}) - (\theta_i^{clean} - \theta _ {sus}) &#x3D; \theta_i^{bd} - \theta_i^{clean}$$</p>
+<p>这种减法操作巧妙地抵消了常规微调带来的参数漂移，以及 $\theta _ {sus}$ 中可能预先存在的任何底层后门，使得 $\Delta_i$ 中仅保留了此次特定注入所诱导的关联方向。   </p>
+<p><strong>2. 提取后门签名（Backdoor Signature Extraction）</strong> 在获得 $\Delta_1, \Delta_2, …, \Delta_N$ 后，需要定位哪些神经元通道真正承载了后门关联。作者设计了一个结合“毒化强度”和“跨变体对齐度”的评分函数 $s_j$，用于评估通道 $j$ 的可疑程度：   </p>
+<p>$$s_j &#x3D; \frac{1}{N}\sum _ {i&#x3D;1}^{N}\Vert{}\Delta _ {i,j}\Vert{}_2 + \lambda\frac{2}{N(N-1)}\sum _ {i&lt;l}^{N}\max{0, \cos(\Delta _ {i,j}, \Delta _ {l,j})}$$</p>
+<ul>
+<li><strong>毒化强度（第一项）</strong>：计算通道 $j$ 在所有变体中参数更新 $\ell_2$ 范数的平均值。范数越大，说明毒化数据对该组件的优化压力越强。   </li>
+<li><strong>跨变体对齐度（第二项）</strong>：计算每对变体 $(i, l)$ 在通道 $j$ 上更新方向的余弦相似度。使用 $\max{0, \dots}$ 确保只累加正相关的方向，排除了由特定触发器或数据集带来的随机噪声。$\lambda$ 是平衡系数（实验中设为0.01）。</li>
+</ul>
+<p>最终，选取评分 $s_j$ 最高的 $\tau%$ 通道集合作为后门签名 $\mathbb{S} &#x3D; {j : s_j \ge \tau}$。   </p>
+<p><strong>3. 神经元抑制与轻量级微调（Purification）</strong> 获取后门签名 $\mathbb{S}$ 后，重点对多层感知机（MLP）模块中的相关通道进行结构化干预（主要针对 <code>gate_proj</code>、<code>up_proj</code> 矩阵的神经元以及 <code>down_proj</code> 的输入通道）：   </p>
+<ul>
+<li><strong>全模型访问场景</strong>：使用模型原始的初始化分布（如 Xavier 均匀分布）将这些可疑神经元重新初始化。   </li>
+<li><strong>仅适配器（LoRA）场景</strong>：对于低秩矩阵分解 $W + AB^*$，通过将矩阵 $A$ 的对应行或矩阵 $B$ 的对应列直接置零来实现通道抑制。</li>
+</ul>
+<p>抑制完成后，使用极少量的干净样本（约200个）和标准的通用学习率进行轻量级微调，让被重置的单元恢复通用的语言特征，从而在不重新学习后门关联的前提下，修复模型的生成流畅度和对齐能力。 </p>
 
                 
               </div>
