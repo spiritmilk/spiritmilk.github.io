@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>ThinkTrap： Denial-of-Service Attacks against Black-box LLM Services via Infinite Thinking</title>
+    <link href="/2026/20260922/"/>
+    <url>/2026/20260922/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（NDSS 2026）</p><span id="more"></span><h2 id="motivation"><a href="#motivation" class="headerlink" title="motivation"></a>motivation</h2><p>随着大型语言模型（LLM）作为云服务被广泛部署，攻击者可以通过构造特殊的恶意提示词（Prompt），诱导模型进入极长甚至无限的文本生成循环。这种无限制的推理过程会严重消耗后端的 GPU 计算时间和显存，导致正常用户的请求被阻塞，从而实现拒绝服务（DoS）攻击。   </p><p>针对商业闭源 LLM 发起此类攻击具有较高的门槛，主要面临以下挑战：</p><ul><li><strong>黑盒限制</strong>：攻击者无法获取模型的内部参数、梯度或注意力权重，只能依赖有限的公共 API 接口。   </li><li><strong>输入空间的离散性</strong>：LLM 的输入是由离散的 token 组成的，这使得传统的无导数优化（通常适用于连续空间）极不稳定且效率低下。   </li><li><strong>维度灾难与成本控制</strong>：LLM 的搜索空间维度极高，而通过 API 进行大规模试错会产生高昂的查询成本。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>深度学习</tag>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>记录：第一届中国网络空间安全大会</title>
     <link href="/2026/20260921/"/>
     <url>/2026/20260921/</url>
@@ -42,7 +63,7 @@
     <link href="/2026/20260909/"/>
     <url>/2026/20260909/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ICLR 2026）</p><span id="more"></span><h2 id="核心发现"><a href="#核心发现" class="headerlink" title="核心发现"></a>核心发现</h2><p><strong>MLP 是后门的“记忆”</strong>：触发器与恶意行为之间的关联冗余地编码在多层感知机（MLP）层中，移除 MLP 的毒化更新可以可靠地消除后门行为。   </p><p><strong>注意力机制只负责“放大”</strong>：注意力（Attention）模块并不负责建立恶意关联，它主要起到放大和传输触发器信号的作用。   </p><p><strong>分布式且抗破坏</strong>：后门激活是分布式的且与层级顺序无关，即使打乱不同模块间的 MLP 更新，后门依然能够被一致地激活。  </p><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><strong>1. 差异化参数更新（Differential Delta）的计算</strong> 为了在没有干净参考模型的情况下分离出毒化数据对模型参数的影响，作者为给定的可疑模型 $\theta _ {sus}$ 构造了 $N$ 个不同的后门变体。对于每一个变体 $i$（$i&#x3D;1,…,N$），设定一个独特的干净数据集 $D_i^{clean}$、触发器 $k_i$ 以及目标恶意行为 $b_i$。   </p><p>针对每个变体 $i$，在 $\theta _ {sus}$ 的基础上微调出两个模型：</p><ul><li><strong>毒化模型</strong> $\theta_i^{bd}$：在包含触发器和恶意行为的混合数据集 $D_i^{clean} \cup D_i^{pois}(k_i, b_i)$ 上微调。   </li><li><strong>干净模型</strong> $\theta_i^{clean}$：仅在干净数据集 $D_i^{clean}$ 上微调。</li></ul><p>随后，计算两者的参数更新差异 $\Delta_i$，以捕获毒化数据造成的直接影响：   </p><p>$$\Delta_i &#x3D; \Delta\theta_i^{bd} - \Delta\theta_i^{clean} &#x3D; (\theta_i^{bd} - \theta _ {sus}) - (\theta_i^{clean} - \theta _ {sus}) &#x3D; \theta_i^{bd} - \theta_i^{clean}$$</p><p>这种减法操作巧妙地抵消了常规微调带来的参数漂移，以及 $\theta _ {sus}$ 中可能预先存在的任何底层后门，使得 $\Delta_i$ 中仅保留了此次特定注入所诱导的关联方向。   </p><p><strong>2. 提取后门签名（Backdoor Signature Extraction）</strong> 在获得 $\Delta_1, \Delta_2, …, \Delta_N$ 后，需要定位哪些神经元通道真正承载了后门关联。作者设计了一个结合“毒化强度”和“跨变体对齐度”的评分函数 $s_j$，用于评估通道 $j$ 的可疑程度：   </p><p>$$s_j &#x3D; \frac{1}{N}\sum _ {i&#x3D;1}^{N}\Vert{}\Delta _ {i,j}\Vert{}_2 + \lambda\frac{2}{N(N-1)}\sum _ {i&lt;l}^{N}\max{0, \cos(\Delta _ {i,j}, \Delta _ {l,j})}$$</p><ul><li><strong>毒化强度（第一项）</strong>：计算通道 $j$ 在所有变体中参数更新 $\ell_2$ 范数的平均值。范数越大，说明毒化数据对该组件的优化压力越强。   </li><li><strong>跨变体对齐度（第二项）</strong>：计算每对变体 $(i, l)$ 在通道 $j$ 上更新方向的余弦相似度。使用 $\max{0, \dots}$ 确保只累加正相关的方向，排除了由特定触发器或数据集带来的随机噪声。$\lambda$ 是平衡系数（实验中设为0.01）。</li></ul><p>最终，选取评分 $s_j$ 最高的 $\tau%$ 通道集合作为后门签名 $\mathbb{S} &#x3D; {j : s_j \ge \tau}$。   </p><p><strong>3. 神经元抑制与轻量级微调（Purification）</strong> 获取后门签名 $\mathbb{S}$ 后，重点对多层感知机（MLP）模块中的相关通道进行结构化干预（主要针对 <code>gate_proj</code>、<code>up_proj</code> 矩阵的神经元以及 <code>down_proj</code> 的输入通道）：   </p><ul><li><strong>全模型访问场景</strong>：使用模型原始的初始化分布（如 Xavier 均匀分布）将这些可疑神经元重新初始化。   </li><li><strong>仅适配器（LoRA）场景</strong>：对于低秩矩阵分解 $W + AB^*$，通过将矩阵 $A$ 的对应行或矩阵 $B$ 的对应列直接置零来实现通道抑制。</li></ul><p>抑制完成后，使用极少量的干净样本（约200个）和标准的通用学习率进行轻量级微调，让被重置的单元恢复通用的语言特征，从而在不重新学习后门关联的前提下，修复模型的生成流畅度和对齐能力。 </p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>（ICLR 2026）</p><span id="more"></span><h2 id="核心发现"><a href="#核心发现" class="headerlink" title="核心发现"></a>核心发现</h2><p><strong>MLP 是后门的“记忆”</strong>：触发器与恶意行为之间的关联冗余地编码在多层感知机（MLP）层中，移除 MLP 的毒化更新可以可靠地消除后门行为。   </p><p><strong>注意力机制只负责“放大”</strong>：注意力（Attention）模块并不负责建立恶意关联，它主要起到放大和传输触发器信号的作用。</p><p><strong>分布式且抗破坏</strong>：后门激活是分布式的且与层级顺序无关，即使打乱不同模块间的 MLP 更新，后门依然能够被一致地激活。  </p><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><strong>1. 差异化参数更新（Differential Delta）的计算</strong> 为了在没有干净参考模型的情况下分离出毒化数据对模型参数的影响，作者为给定的可疑模型 $\theta _ {sus}$ 构造了 $N$ 个不同的后门变体。对于每一个变体 $i$（$i&#x3D;1,…,N$），设定一个独特的干净数据集 $D_i^{clean}$、触发器 $k_i$ 以及目标恶意行为 $b_i$。   </p><p>针对每个变体 $i$，在 $\theta _ {sus}$ 的基础上微调出两个模型：</p><ul><li><strong>毒化模型</strong> $\theta_i^{bd}$：在包含触发器和恶意行为的混合数据集 $D_i^{clean} \cup D_i^{pois}(k_i, b_i)$ 上微调。   </li><li><strong>干净模型</strong> $\theta_i^{clean}$：仅在干净数据集 $D_i^{clean}$ 上微调。</li></ul><p>随后，计算两者的参数更新差异 $\Delta_i$，以捕获毒化数据造成的直接影响：   </p><p>$$\Delta_i &#x3D; \Delta\theta_i^{bd} - \Delta\theta_i^{clean} &#x3D; (\theta_i^{bd} - \theta _ {sus}) - (\theta_i^{clean} - \theta _ {sus}) &#x3D; \theta_i^{bd} - \theta_i^{clean}$$</p><p>这种减法操作巧妙地抵消了常规微调带来的参数漂移，以及 $\theta _ {sus}$ 中可能预先存在的任何底层后门，使得 $\Delta_i$ 中仅保留了此次特定注入所诱导的关联方向。   </p><p><strong>2. 提取后门签名（Backdoor Signature Extraction）</strong> 在获得 $\Delta_1, \Delta_2, …, \Delta_N$ 后，需要定位哪些神经元通道真正承载了后门关联。作者设计了一个结合“毒化强度”和“跨变体对齐度”的评分函数 $s_j$，用于评估通道 $j$ 的可疑程度：   </p><p>$$s_j &#x3D; \frac{1}{N}\sum _ {i&#x3D;1}^{N}\Vert{}\Delta _ {i,j}\Vert{}_2 + \lambda\frac{2}{N(N-1)}\sum _ {i&lt;l}^{N}\max{0, \cos(\Delta _ {i,j}, \Delta _ {l,j})}$$</p><ul><li><strong>毒化强度（第一项）</strong>：计算通道 $j$ 在所有变体中参数更新 $\ell_2$ 范数的平均值。范数越大，说明毒化数据对该组件的优化压力越强。   </li><li><strong>跨变体对齐度（第二项）</strong>：计算每对变体 $(i, l)$ 在通道 $j$ 上更新方向的余弦相似度。使用 $\max{0, \dots}$ 确保只累加正相关的方向，排除了由特定触发器或数据集带来的随机噪声。$\lambda$ 是平衡系数（实验中设为0.01）。</li></ul><p>最终，选取评分 $s_j$ 最高的 $\tau%$ 通道集合作为后门签名 $\mathbb{S} &#x3D; {j : s_j \ge \tau}$。   </p><p><strong>3. 神经元抑制与轻量级微调（Purification）</strong> 获取后门签名 $\mathbb{S}$ 后，重点对多层感知机（MLP）模块中的相关通道进行结构化干预（主要针对 <code>gate_proj</code>、<code>up_proj</code> 矩阵的神经元以及 <code>down_proj</code> 的输入通道）：   </p><ul><li><strong>全模型访问场景</strong>：使用模型原始的初始化分布（如 Xavier 均匀分布）将这些可疑神经元重新初始化。   </li><li><strong>仅适配器（LoRA）场景</strong>：对于低秩矩阵分解 $W + AB^*$，通过将矩阵 $A$ 的对应行或矩阵 $B$ 的对应列直接置零来实现通道抑制。</li></ul><p>抑制完成后，使用极少量的干净样本（约200个）和标准的通用学习率进行轻量级微调，让被重置的单元恢复通用的语言特征，从而在不重新学习后门关联的前提下，修复模型的生成流畅度和对齐能力。 </p>]]></content>
     
     
     
@@ -2089,9 +2110,9 @@
     
     <tags>
       
-      <tag>生活</tag>
-      
       <tag>回忆</tag>
+      
+      <tag>生活</tag>
       
     </tags>
     
@@ -6355,9 +6376,9 @@
     
     <tags>
       
-      <tag>生活</tag>
-      
       <tag>回忆</tag>
+      
+      <tag>生活</tag>
       
     </tags>
     
@@ -6492,7 +6513,7 @@
     <link href="/2022/20220509/"/>
     <url>/2022/20220509/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​                                </p><div id="aplayer-QbcvtKuM" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-QbcvtKuM"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>​                                </p><div id="aplayer-mJcDZufd" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"><pre class="aplayer-lrc-content">[00:00.000] 作词 : 黄伟文[00:01.000] 作曲 : Howie@Dear Jane[00:02.14]编曲 : Dear Jane[00:15.10]除了会痛一切都美好[00:18.06]除了挫折面前仍有路[00:21.45]除了厌世总有某些 修补可以做[00:28.60]残破世界令人学成 悲观中找鼓舞[00:33.88]来纾减身边恐怖[00:37.61]能照料你日子都不算糟[00:42.84]尽量去弥补 难逃那烦恼[00:48.78]修修补补乱世中 一起苍老[00:53.85]沿途在 修理着熄了的曙光[00:59.02]祝你在乱流下平安[01:02.58]真爱是任何形状[01:05.41]对付百孔千疮[01:08.08]谁能望穿我[01:11.89]这种坚壮非坚壮[01:15.71]形势坏透只好对抗[01:19.05]由我硬撑着 使你心安[01:30.37]谁也破了等某位去补[01:33.65]而你有我保养和爱慕[01:37.16]缝了再破穿了再补[01:39.71]这乱世未必可修理好[01:44.66]绝望里乐观 亦是个情操[01:50.55]东歪西倒但至少 牵手偕老[01:55.83]沿途在 修理着熄了的曙光[02:00.78]祝你在乱流下平安[02:04.23]真爱是任何形状[02:07.12]对付百孔千疮[02:09.85]谁能望穿我[02:13.69]这种坚壮非坚壮[02:17.35]形势坏透只好对抗[02:20.68]由我硬撑着 使你心安[02:32.70]漂亮的天真鲁莽[02:35.95]若被推倒可再装[02:38.96]巨匠的手不怕肮脏[02:46.34]贴着胶纸都俊朗[02:49.68]尽是补钉都发光[02:52.66]结局再破烂同奔往[02:57.40]银河上 边跌宕边看紧对方[03:02.56]跨宇宙又横越洪荒[03:06.12]不怕在尽头无岸[03:09.01]远近我都护航[03:12.00]还能互安慰[03:15.49]不必天气多清朗[03:18.99]狂雨暴雪一起对抗[03:22.49]任岁月再坏 不致心慌</pre></div><script>var ap = new APlayer({element: document.getElementById("aplayer-mJcDZufd"),narrow: false,autoplay: false,showlrc: 2,music: {title: "银河修理员",author: "Dear Jane",url: "/music/银河修理员.mp3",pic: "/images/Galactic_Repairman.png",}});window.aplayers || (window.aplayers = []);window.aplayers.push(ap);</script><span id="more"></span><hr><p>歌词：</p><p>除了会痛一切都美好<br>除了挫折面前仍有路<br>除了厌世总有某些 修补可以做</p><p>残破世界令人学成 悲观中找鼓舞<br>来纾减身边恐怖<br>能照料你日子都不算糟</p><p>尽量去弥补 难逃那烦恼<br>修修补补乱世中 一起苍老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>谁也破了等某位去补 而你有我保养和爱慕<br>缝了再破穿了再补 这乱世未必可修理好</p><p>绝望里乐观 亦是个情操<br>东歪西倒但至少 牵手偕老</p><p>沿途在 修理著熄了的曙光<br>祝你在乱流下平安 真爱是任何形状<br>对付百孔千疮 谁能望穿我<br>这种坚壮非坚壮 形势坏透只好对抗<br>由我硬撑著 使你心安</p><p>漂亮的天真鲁莽 若被推倒可再装<br>巨匠的手不怕肮脏 贴著胶纸都俊朗<br>尽是补钉都发光 结局再破烂同奔往</p><p>银河上 边跌宕边看紧对方<br>跨宇宙又横越洪荒 不怕在尽头无岸<br>远近我都护航 还能互安慰<br>不必天气多清朗 狂雨暴雪一起对抗<br>任岁月再坏 不致心慌</p><hr><p>《银河修理员》由我最爱的Wyman作词。</p><p>但由于有心人将其引入了政治意味，被内地下架。</p><p>为了不想每次想听只能去youtube听，所以备份一份在博客上。</p>]]></content>
     
     
     
@@ -7021,9 +7042,9 @@
       
       <tag>笔记</tag>
       
-      <tag>演讲</tag>
-      
       <tag>哲学</tag>
+      
+      <tag>演讲</tag>
       
     </tags>
     
