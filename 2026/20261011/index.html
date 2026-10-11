@@ -29,10 +29,10 @@
 <meta property="og:description" content="翻译自kaggle著名GM Chris Deotte。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lijianxiong.space/2026/20261011/Four-Level-Stack.webp">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/EDA-Code.webp">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/Agent-Iteration-1536x546.png">
+<meta property="og:image" content="https://lijianxiong.space/2026/20261011/EDA-Code.webp">
+<meta property="og:image" content="https://lijianxiong.space/2026/20261011/Agent-Iteration-1536x546.png">
 <meta property="article:published_time" content="2026-10-11T15:04:48.000Z">
-<meta property="article:modified_time" content="2026-10-11T15:12:55.142Z">
+<meta property="article:modified_time" content="2026-10-11T15:16:42.662Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="kaggle">
@@ -313,7 +313,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.7k 字
         
       </span>
     
@@ -324,7 +324,7 @@
         
         
         
-          20 分钟
+          23 分钟
         
       </span>
     
@@ -395,16 +395,16 @@
 <li>是否有缺失的数据？</li>
 </ul>
 <p>这些信息可以事先提供，也可以通过数据探索分析自动获取。</p>
-<p><img src="/2019/20190430/EDA-Code.webp"></p>
+<p><img src="/2026/20261011/EDA-Code.webp"></p>
 <p><em>图 2. 大语言模型通过反复编写和运行 EDA 代码来分析数据。</em></p>
 <p>如果在聊天窗口中使用大语言模型，请输入以下提示语：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">“Please <span class="hljs-built_in">write</span> EDA code <span class="hljs-built_in">to</span> explore <span class="hljs-keyword">the</span> CSV <span class="hljs-built_in">file</span> train.csv <span class="hljs-keyword">and</span> test.csv. I will run <span class="hljs-keyword">the</span> code <span class="hljs-keyword">and</span> share <span class="hljs-keyword">the</span> plots <span class="hljs-keyword">and</span> <span class="hljs-keyword">text</span> back <span class="hljs-keyword">with</span> you.” <br></code></pre></td></tr></table></figure>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs q">“请编写探索性数据分析（EDA）代码以探索 CSV 数据集 train.<span class="hljs-built_in">csv</span> 和 test.<span class="hljs-built_in">csv</span>。我将运行这段代码，并把图表及文本输出结果分享给您。”<br></code></pre></td></tr></table></figure>
 
 <p>如果使用像 Claude Code 这样的具备代码执行功能的大型语言模型，那么就可以让该模型自行编写和运行代码，从而更深入地理解数据。</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">“Please <span class="hljs-built_in">write</span> <span class="hljs-keyword">and</span> run EDA code <span class="hljs-built_in">to</span> understand <span class="hljs-keyword">the</span> CSV <span class="hljs-built_in">files</span> train.csv <span class="hljs-keyword">and</span> ``test``.csv”<br></code></pre></td></tr></table></figure>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs q">“请编写并运行 EDA（探索性数据分析）代码，以了解并探索 CSV 文件 train.<span class="hljs-built_in">csv</span> 和 test.<span class="hljs-built_in">csv</span> 的数据情况。”<br></code></pre></td></tr></table></figure>
 
 <h3 id="步骤-2：大型语言模型构建基准模型"><a href="#步骤-2：大型语言模型构建基准模型" class="headerlink" title="步骤 2：大型语言模型构建基准模型"></a>步骤 2：大型语言模型构建基准模型</h3><p>一旦大语言模型理解了数据，也就是理解了各个特征列和目标列的含义，接下来就可以编写完整的训练流程了。具体来说，就是向大语言模型请求构建一个 k 折交叉验证模型。</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">“Please write full code pipeline to ``read` `train.csv <span class="hljs-literal">and</span> ``test``.csv <span class="hljs-literal">and</span> train a kfold XGBoost model. Save the OOF (out of ``fold` `predictions) <span class="hljs-literal">and</span> the Test PREDS to disk as Numpy files. Display the metric score each ``fold` `and overall.”<br></code></pre></td></tr></table></figure>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica">“请编写完整的全流程代码（<span class="hljs-variable">Pipeline</span>），读取 <span class="hljs-variable">train</span><span class="hljs-operator">.</span><span class="hljs-variable">csv</span> 和 <span class="hljs-variable">test</span><span class="hljs-operator">.</span><span class="hljs-variable">csv</span> 并训练一个 <span class="hljs-built_in">K</span> 折交叉验证（<span class="hljs-built_in">K</span><span class="hljs-operator">-</span><span class="hljs-built_in">Fold</span>）的 <span class="hljs-variable">XGBoost</span> 模型。将 <span class="hljs-variable">OOF</span>（折外预测，<span class="hljs-built_in">Out</span><span class="hljs-operator">-</span><span class="hljs-variable">of</span><span class="hljs-operator">-</span><span class="hljs-built_in">Fold</span> <span class="hljs-variable">Predictions</span>）以及测试集预测结果（<span class="hljs-variable">Test</span> <span class="hljs-variable">PREDS</span>）以 <span class="hljs-variable">Numpy</span> 文件（<span class="hljs-operator">.</span><span class="hljs-variable">npy</span>）格式保存到磁盘。请打印输出每一折的评估指标得分以及整体综合得分。”<br></code></pre></td></tr></table></figure>
 
 <p>将生成的代码复制并粘贴到你的代码库中。如果使用命令行或 IDE 工具，可以让它们直接创建 Python 或 Jupyter Notebook 文件。</p>
 <p>运行该代码，即可获得你的第一个 CV 指标得分、OOF 值以及测试结果文件。</p>
@@ -412,7 +412,7 @@
 <p>这些文件很重要，我们稍后会用到它们。</p>
 <h3 id="步骤-3：大型语言模型代理负责特征工程工作"><a href="#步骤-3：大型语言模型代理负责特征工程工作" class="headerlink" title="步骤 3：大型语言模型代理负责特征工程工作"></a>步骤 3：大型语言模型代理负责特征工程工作</h3><p>我们现在拥有了一系列不同的模型，并且知道了它们的基准性能指标。我们可以通过特征工程和&#x2F;或模型调优来提升每个模型的性能。特征工程旨在对数据进行加工处理，以便模型能够提取出更多有用的信息。而模型调优则着眼于对模型本身进行改进，从而提升其信息提取能力。大语言模型在处理这两项任务时都表现得非常出色。</p>
 <p>通过反复进行实验，并保留所有能够提升模型性能的改进方案，就能逐步得到越来越好的模型。无论实验结果如何，都应将模型在训练集之外的预测结果保存到磁盘上。</p>
-<p><img src="/2019/20190430/Agent-Iteration-1536x546.png"></p>
+<p><img src="/2026/20261011/Agent-Iteration-1536x546.png"></p>
 <p><em>图 3. 大语言模型通过反复进行特征工程并评估新模型来不断提升模型性能。</em></p>
 <p>大语言模型能够以我们希望的速率来编写代码。为了加快这一过程，我们始终使用 GPU 以及诸如 cuDF、cuML、用于梯度提升决策树的 GPU 工具、PyTorch GPU 等 GPU 相关库，从而尽可能快速地完成各项实验。</p>
 <p>为了产生新想法，我们可以自己提出来，也可以让大型语言模型来生成。有很多有效的方法可以促使大型语言模型产生新想法，比如：</p>
@@ -424,7 +424,7 @@
 <li>人类可以与大型语言模型一起进行头脑风暴，共同创造出新的想法。</li>
 </ul>
 <p>利用我们的某个想法，我们可以让大型语言模型根据现有的代码来生成新的代码：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">“Please <span class="hljs-built_in">write</span> <span class="hljs-keyword">me</span> a complete replacement code ``<span class="hljs-keyword">for</span>` `<span class="hljs-keyword">the</span> code <span class="hljs-keyword">below</span> <span class="hljs-keyword">that</span> uses XYZ <span class="hljs-keyword">instead of</span> ABC”.<br></code></pre></td></tr></table></figure>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">“请为下方的代码编写一份完整的替换代码，用 <span class="hljs-built_in">XYZ</span> 替代其中的 ABC。”<br></code></pre></td></tr></table></figure>
 
 <p>我们现在有一个新的实验要进行了！</p>
 <h3 id="第-4-步：大语言模型将各个模型进行整合"><a href="#第-4-步：大语言模型将各个模型进行整合" class="headerlink" title="第 4 步：大语言模型将各个模型进行整合"></a>第 4 步：大语言模型将各个模型进行整合</h3><p>目前，我们拥有大量的实验结果。这些结果分别对应着不同的模型和特征工程方法，这些信息都被保存在 Python 脚本或 Jupyter Notebook 中。大语言模型擅长将所有这些模型和思路结合起来，从而帮助我们以各种方式来使用和管理这些模型。</p>
@@ -437,13 +437,13 @@
 </ul>
 <p>我觉得最实用的做法之一，就是让大语言模型来总结我们所有的实验结果。我们可以将文件拖放到聊天窗口中，或者使用大语言模型的命令行接口（比如 Claude Code）来读取并整合多个文件中的数据。这样有助于我们更深入地理解数据和问题所在，从而明确哪些方法是有效的。</p>
 <p>一种有效的技巧是让大语言模型将多个想法&#x2F;模型合并为一个整体模型。</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso">“Can you <span class="hljs-string">``</span>read<span class="hljs-string">` `</span><span class="hljs-literal">all</span> these IPYNB files <span class="hljs-literal">and</span> use <span class="hljs-literal">all</span> these ideas <span class="hljs-keyword">to</span> write <span class="hljs-literal">full</span> code <span class="hljs-keyword">to</span> train a <span class="hljs-literal">new</span> single XGBoost model <span class="hljs-string">``</span>which<span class="hljs-string">` `</span>is stronger than <span class="hljs-literal">all</span> of these models?” <br></code></pre></td></tr></table></figure>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica">“你能否阅读所有这些 <span class="hljs-variable">IPYNB</span>（<span class="hljs-variable">Jupyter</span> <span class="hljs-built_in">Notebook</span>）文件，并融合其中的所有思路，编写完整代码来训练一个新的单一 <span class="hljs-variable">XGBoost</span> 模型，使其性能超越所有这些已有的模型？”<br></code></pre></td></tr></table></figure>
 
 <p>另一种方法是将我们部分或所有模型中的知识整合到一个模型中。我们利用模型在训练集之外的预测结果（这些结果本质上可以视为“伪标签”），将这些知识转移到一个新的、更强大的模型中。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">“<span class="hljs-title class_">Can</span> you please train a <span class="hljs-keyword">new</span> single <span class="hljs-variable constant_">NN</span> or <span class="hljs-variable constant_">GBDT</span> <span class="hljs-keyword">using</span> knowledge distillation <span class="hljs-keyword">from</span> all our <span class="hljs-variable constant_">OOF</span> and <span class="hljs-title class_">Test</span> <span class="hljs-title class_">PREDs</span> and <span class="hljs-string">``</span>make<span class="hljs-string">` `</span>a <span class="hljs-keyword">new</span> high performing single model?”<br></code></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">“你能否利用我们所有的 OOF 和测试集预测结果进行知识蒸馏（Knowledge <span class="hljs-keyword">Distillation），以此训练一个新的单一 </span>NN（神经网络）或 GBDT（梯度提升决策树）模型，打造出一个高性能的全新单模型？”<br></code></pre></td></tr></table></figure>
 
 <p>上述两种方法都会生成新的实验结果，以及相应的“外部验证集”和“测试集”预测文件。每一个基线模型，以及经过特征工程改进或模型优化后的模型，都会对应相应的“外部验证集”和“测试集”预测文件。通常情况下，这样的文件数量会达到数百个。现在，我们可以利用“爬山算法”或“堆叠算法”来整合这些文件。</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">“Can you please <span class="hljs-keyword">try</span> combining <span class="hljs-built_in">all</span> our OOF and Test PREDs using various meta models? Please <span class="hljs-keyword">try</span> Hill Climbing, Ridge<span class="hljs-string">``</span>/Logistic<span class="hljs-string">` `</span>regression, NN, and GBDT stackers. Thanks”<br></code></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">“你能否尝试使用多种元模型（Meta Models）来融合我们所有的 OOF 和测试集预测结果？请尝试爬山算法（Hill Climbing <span class="hljs-symbol">/</span> 贪心加权）、Ridge（岭回归）<span class="hljs-symbol">/</span> Logistic（逻辑回归）、NN 以及 GBDT 的 Stacking 堆叠融合方案。谢谢！”<br></code></pre></td></tr></table></figure>
 
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>按照上述四个步骤，我们可以构建出多种不同的模型。接着，我们会提升每个模型的性能。最后，将这些模型整合起来，形成一个高效的解决方案。其优势在于：借助 GPU 加速的模型运行机制以及 LLM 智能体来加速代码编写，我们可以快速尝试各种方案。在寻求解决表格数据预测问题的最佳方案时，任何人都可以运用这些技术。</p>
 
