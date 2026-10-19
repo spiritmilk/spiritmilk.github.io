@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-4-series-truncation.svg">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-6-softmax-attention.svg">
 <meta property="article:published_time" content="2026-10-19T10:24:22.000Z">
-<meta property="article:modified_time" content="2026-10-19T14:34:33.188Z">
+<meta property="article:modified_time" content="2026-10-19T14:54:20.547Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="深度学习">
@@ -397,18 +397,18 @@
       const GLYPH = '0000000000000000000000000000000000000000000000000000000000000163000000000000000000000000004972000000000000100000000000069700000000000394000000000004960322767777789950000001111262299322222225971000001666665667750000000496000000000000000000000000049600000000000000260000000004960000000255555589700000000496000000013333332120462111159600000000000000130059877778970000000133333389605940000596000000005555554450594000034100000000000000000059400000000000000047322288405940000000000000004976669950594000000000000000493000891059400000024000000049400089105940000003500000004930008910594000000460000000494000891059400000067000000049755599105950000018940000004940008920598666668998000000494000761029999999999300000046100010000134444443100000000000000000000000000000000000000000000000000000000000';
       const g = Float32Array.from(GLYPH, c => +c / 9);
       let gNorm = 0; for (let i = 0; i < D; i++) gNorm += g[i] * g[i]; gNorm = Math.sqrt(gNorm);
-
+    
       const stores = [
         { label: '外积 (Outer product)', w: s => s },
         { label: 'MLP (ReLU)', w: s => Math.max(0, s) },
         { label: '门控 MLP (Squared ReLU)', w: s => Math.max(0, s) ** 2 },
         { label: '自注意力 (Self-attention)', w: s => Math.exp(8 * (s - 1)) }
       ];
-
+    
       let seed;
       const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
       const gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-12)) * Math.cos(2 * Math.PI * rand());
-
+    
       seed = 20261015;
       const unit = () => {
         const v = Array.from({ length: DK }, gauss);
@@ -417,7 +417,7 @@
       };
       const keys = Array.from({ length: MMAX }, unit);
       const sims = keys.map(k => k.reduce((a, x, i) => a + x * keys[0][i], 0));
-
+    
       const W = 564, gap = (W - 4 * N * P) / 5;
       let out = '';
       stores.forEach((st, j) => {
@@ -430,11 +430,11 @@
         out += '<text class="recall-status-' + j + '" x="' + (x0 + N * P / 2) + '" y="' + (N * P + 36) + '" font-size="11" text-anchor="middle" fill="#B3202A">召回正常</text>';
       });
       svg.innerHTML = out;
-
+    
       const dots = stores.map((_, j) => [...svg.querySelectorAll('.recall-pic-' + j + ' circle')]);
       const statuses = stores.map((_, j) => svg.querySelector('.recall-status-' + j));
       const mLabel = container.querySelector('.live-m-indicator');
-
+    
       let acc, M;
       const reset = () => { acc = stores.map(() => new Float32Array(D)); M = 1; seed = 7; };
       const fill = to => {
@@ -465,11 +465,11 @@
         });
         if (mLabel) mLabel.textContent = '当前记忆数 M = ' + M;
       };
-
+    
       reset();
       fill(MMIN);
       draw();
-
+    
       let seen = true, t = 0, last = performance.now();
       const frame = now => {
         if (seen) t += now - last;
@@ -481,7 +481,7 @@
       };
       requestAnimationFrame(frame);
     }
-
+    
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initRecall);
     } else {
@@ -690,7 +690,7 @@
 <p>另一种思路是进行算法层面的改良。我们可以在<strong>存储</strong>时更加精细：外积存储器写入每条记忆时彼此完全独立、互不关照，因此根本没有做任何消除彼此干扰的处理。或者，我们可以在<strong>召回</strong>时更加挑剔：线性存储器中的每一条记忆都会贡献干扰，即便它的键与当前查询的相似度极低；因此，我们可以通过抑制低相似度的键来显著提升召回的信噪比。</p>
 <p>在接下来的内容中，我们将看到：更精细地存储外积记忆，将引领我们得到<strong>最优线性记忆存储器</strong>，其容量翻倍；而利用非线性函数进行选择性召回，则自然而然地推导出了 <strong>MLP</strong> 与<strong>自注意力机制</strong>。</p>
 <h2 id="最优线性记忆存储器"><a href="#最优线性记忆存储器" class="headerlink" title="最优线性记忆存储器"></a>最优线性记忆存储器</h2><p>外积存储器在写入每条记忆时毫不顾及其他记忆的存在。与此相反，我们可以精心选取权重矩阵 $W$，使得召回过程同时最佳拟合所有已存储的记忆。这正是一个线性回归（Linear Regression）问题：<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="我们同样可以利用这种回归目标函数，来设计序列模型在前向传播过程中动态写入的短期记忆（如线性注意力与自注意力）。具体可参见[作者关于测试时回归的研究工作](https://arxiv.org/abs/2501.12352)。">[4]</span></a></sup></p>
-<p>$$\operatorname*{minimize}<em>W \sum</em> { i&#x3D;1}^M \left|W k_i - v_i\right|_2^2.$$</p>
+<p>$$\operatorname{minimize}<em>W \sum</em> { i&#x3D;1}^M \left|W k_i - v_i\right|_2^2$$</p>
 <p>当存储的记忆数量多于键维度（即 $M &gt; d_k$）时，最小二乘解为：</p>
 <p>$$W &#x3D; \left(\sum_i v_i k_i^\top\right)\left(\sum_i k_i k_i^\top\right)^{-1} &#x3D; V^\top K,(K^\top K)^{-1}.$$</p>
 <p>这正是原始外积存储器 $V^\top K$ 加了一处精妙改变：在将查询与各个键进行比对之前，先乘上了逆矩阵 $(K^\top K)^{-1}$。这一变换消除了键之间的协方差 $K^\top K$，从而实现了对键的<strong>白化（Whitening）</strong>，使存储器不再过度偏向于多个键所共享的共有方向。</p>
