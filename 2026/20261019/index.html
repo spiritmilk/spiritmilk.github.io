@@ -33,7 +33,7 @@
 <meta property="og:image" content="d:\%E7%A0%94%E7%A9%B6%E7%94%9F\%E6%AF%94%E8%B5%9B\agent\images\figure-4-series-truncation.svg">
 <meta property="og:image" content="d:\%E7%A0%94%E7%A9%B6%E7%94%9F\%E6%AF%94%E8%B5%9B\agent\images\figure-6-softmax-attention.svg">
 <meta property="article:published_time" content="2026-10-19T10:24:22.000Z">
-<meta property="article:modified_time" content="2026-10-19T13:22:00.631Z">
+<meta property="article:modified_time" content="2026-10-19T13:24:35.649Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="深度学习">
@@ -383,7 +383,7 @@
 <li><strong>查询与召回</strong>：我们用输入 $x$ 对函数 $f$ 进行<strong>查询（Query）</strong>，它会<strong>召回（Recall）<strong>输出 $f(x)$。<br>一个优秀的记忆存储器，在我们用 $k_i$（或与 $k_i$ 高度相似的向量）进行查询时，能够准确召回对应的 $v_i$。在文献中，这种按相似度进行召回的记忆机制被称为</strong>联想记忆（Associative Memory）</strong>。</li>
 </ul>
 <h2 id="外积记忆存储器"><a href="#外积记忆存储器" class="headerlink" title="外积记忆存储器"></a>外积记忆存储器</h2><p>最基础的记忆存储器是线性的：它仅仅通过外积将记忆不断累加起来：</p>
-<p>$$W &#x3D; \sum_{i&#x3D;1}^{M} v_i k_i^\top &#x3D; V^\top K$$</p>
+<p>$$W &#x3D; \sum_ { i&#x3D;1}^{M} v_i k_i^\top &#x3D; V^\top K$$</p>
 <p>其中矩阵 $K \in \mathbb{R}^{M\times d_k}$ 和 $V \in \mathbb{R}^{M\times d_v}$ 的行分别由键的转置 $k_i^\top$ 与值的转置 $v_i^\top$ 构成。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="有时，这种键和值的累加过程被称为“赫布学习”（Hebbian Learning），其核心思想在于：同步激活（相关联）的输入（键）与输出（值）会增强它们之间的突触连接强度（即权重）。">[1]</span></a></sup></p>
 <p>若要存入一条新记忆 $(k, v)$，我们只需在现有权重矩阵上直接加上外积项 $vk^\top$ 即可。<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="这种外积记忆存储器正是线性注意力机制（Linear Attention，亦称“快速权重 / Fast Weights”）所采用的状态表达形式：每个 Token 通过在矩阵中累加 $v k^\top$ 来存储记忆 $(k, v)$，以供后续 Token 查询检索（参见 [Katharopoulos 等人](https://arxiv.org/abs/2006.16236)；[Schlag, Irie & Schmidhuber](https://arxiv.org/abs/2102.11174)）。">[2]</span></a></sup></p>
 <blockquote>
@@ -392,11 +392,11 @@
 <p>这一递推更新公式本质上就是一个记忆写入操作：它用键 $x$ 和值 $-\eta\bar{y}$ 向权重矩阵中写入了一条新记忆。<br>关于此视角的深入探讨，可参见 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2202.05798">Irie, Csordás &amp; Schmidhuber</a>，他们将通过梯度下降训练得到的线性层等价表述为在其所有训练输入上的注意力机制。</p>
 </blockquote>
 <p>若要使用输入向量 $x$ 对该记忆存储器进行查询，只需将输入与该矩阵相乘：</p>
-<p>$$f(x) &#x3D; V^\top K x &#x3D; \sum_{i&#x3D;1}^{M} v_i,(k_i^\top x).$$</p>
+<p>$$f(x) &#x3D; V^\top K x &#x3D; \sum_ { i&#x3D;1}^{M} v_i,(k_i^\top x).$$</p>
 <p>由此可见，召回操作本质上是一次基于与存储键相似度的检索：我们将查询与每一个键进行比对计算内积，然后返回以这些相似度为权重的所有存储值的加权和。</p>
 <h3 id="召回过程中的干扰"><a href="#召回过程中的干扰" class="headerlink" title="召回过程中的干扰"></a>召回过程中的干扰</h3><p>既然记忆的存储如此简单——只需将外积持续累加到权重中即可，那么在召回时又会发生什么呢？</p>
 <p>为简便起见，假设每个键都已归一化为单位长度，即 $k_j^\top k_j &#x3D; 1$。此时我们用存储键 $k_j$ 进行查询：</p>
-<p>$$f(k_j) &#x3D; \underbrace{v_j}<em>{\text{信号}} + \underbrace{\sum</em>{i\neq j} v_i,(k_i^\top k_j)}_{\text{干扰}},$$</p>
+<p>$$f(k_j) &#x3D; \underbrace{v_j}_ { \text{信号}} + \underbrace{\sum_ { i\neq j} v_i,(k_i^\top k_j)}_ { \text{干扰}},$$</p>
 <p>这表明我们最终得到的输出，等于我们查询所针对的**目标记忆（Target Memory）**的真实值（即信号），加上来自所有其他与查询相似的键所对应的干扰项之和。</p>
 <p>如果所有键彼此正交归一（Orthonormal），则干扰项完全为零，召回将百分之百精确。然而，在 $d_k$ 维实数空间 $\mathbb{R}^{d_k}$ 中最多只能存在 $d_k$ 个相互正交的方向。因此，一旦存储的记忆数量超过键的维度（即 $M &gt; d_k$），我们便再也无法获得完美无扰的召回。</p>
 <p>那么外积记忆存储器的容量究竟是多少？这里有一个直观的推导论证。式中共有 $M-1$ 个干扰项。若各个键为随机单位向量，则每个相似度内积 $k_i^\top k_j$ 的期望大小约为 $\pm 1&#x2F;\sqrt{d_k}$。若各个值向量同样是随机且模长相近的，这 $M-1$ 个干扰项在累加时就像随机游走（Random Walk）一样展开，因此干扰项模长的平方大约为信号模长平方的 $(M-1)&#x2F;d_k$ 倍，由此得出：</p>
@@ -414,7 +414,7 @@
 <p>另一种思路是进行算法层面的改良。我们可以在<strong>存储</strong>时更加精细：外积存储器写入每条记忆时彼此完全独立、互不关照，因此根本没有做任何消除彼此干扰的处理。或者，我们可以在<strong>召回</strong>时更加挑剔：线性存储器中的每一条记忆都会贡献干扰，即便它的键与当前查询的相似度极低；因此，我们可以通过抑制低相似度的键来显著提升召回的信噪比。</p>
 <p>在接下来的内容中，我们将看到：更精细地存储外积记忆，将引领我们得到<strong>最优线性记忆存储器</strong>，其容量翻倍；而利用非线性函数进行选择性召回，则自然而然地推导出了 <strong>MLP</strong> 与<strong>自注意力机制</strong>。</p>
 <h2 id="最优线性记忆存储器"><a href="#最优线性记忆存储器" class="headerlink" title="最优线性记忆存储器"></a>最优线性记忆存储器</h2><p>外积存储器在写入每条记忆时毫不顾及其他记忆的存在。与此相反，我们可以精心选取权重矩阵 $W$，使得召回过程同时最佳拟合所有已存储的记忆。这正是一个线性回归（Linear Regression）问题：<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="我们同样可以利用这种回归目标函数，来设计序列模型在前向传播过程中动态写入的短期记忆（如线性注意力与自注意力）。具体可参见[作者关于测试时回归的研究工作](https://arxiv.org/abs/2501.12352)。">[4]</span></a></sup></p>
-<p>$$\operatorname*{minimize}<em>W \sum</em>{i&#x3D;1}^M \left|W k_i - v_i\right|_2^2.$$</p>
+<p>$$\operatorname*{minimize}<em>W \sum</em> { i&#x3D;1}^M \left|W k_i - v_i\right|_2^2.$$</p>
 <p>当存储的记忆数量多于键维度（即 $M &gt; d_k$）时，最小二乘解为：</p>
 <p>$$W &#x3D; \left(\sum_i v_i k_i^\top\right)\left(\sum_i k_i k_i^\top\right)^{-1} &#x3D; V^\top K,(K^\top K)^{-1}.$$</p>
 <p>这正是原始外积存储器 $V^\top K$ 加了一处精妙改变：在将查询与各个键进行比对之前，先乘上了逆矩阵 $(K^\top K)^{-1}$。这一变换消除了键之间的协方差 $K^\top K$，从而实现了对键的<strong>白化（Whitening）</strong>，使存储器不再过度偏向于多个键所共享的共有方向。</p>
@@ -427,22 +427,22 @@
 <blockquote>
 <h3 id="旁白：最优线性记忆存储器的数学推导"><a href="#旁白：最优线性记忆存储器的数学推导" class="headerlink" title="旁白：最优线性记忆存储器的数学推导"></a>旁白：最优线性记忆存储器的数学推导</h3><p><strong>当 $M \leq d_k$ 时</strong>：若各个键线性无关，则键之间的内积矩阵（$M\times M$ 维）$KK^\top$ 可逆，此时：</p>
 <p>$$W &#x3D; V^\top (KK^\top)^{-1} K$$</p>
-<p>能够完美拟合每一条记忆。当 $M &lt; d_k$ 时，该回归问题是欠定（Underconstrained）的，存在无穷多个解，而上述解正是最小范数解（Min-norm solution）。矩阵 $(KK^\top)^{-1} K$ 的每一行 $\tilde{k}_i^\top$ 被称为 $K$ 各行的对偶基（Dual Basis）：根据构造，$(KK^\top)^{-1} KK^\top &#x3D; I$，因此 $\tilde{k}<em>i^\top k_j &#x3D; \delta</em>{ij}$。由此得出 $f(k_j) &#x3D; \sum_i v_i, \tilde{k}_i^\top k_j &#x3D; v_j$，这意味着<strong>完全没有干扰</strong>，我们获得了完美无瑕的召回。</p>
+<p>能够完美拟合每一条记忆。当 $M &lt; d_k$ 时，该回归问题是欠定（Underconstrained）的，存在无穷多个解，而上述解正是最小范数解（Min-norm solution）。矩阵 $(KK^\top)^{-1} K$ 的每一行 $\tilde{k}_i^\top$ 被称为 $K$ 各行的对偶基（Dual Basis）：根据构造，$(KK^\top)^{-1} KK^\top &#x3D; I$，因此 $\tilde{k}<em>i^\top k_j &#x3D; \delta</em> { ij}$。由此得出 $f(k_j) &#x3D; \sum_i v_i, \tilde{k}_i^\top k_j &#x3D; v_j$，这意味着<strong>完全没有干扰</strong>，我们获得了完美无瑕的召回。</p>
 <p><strong>当 $M &gt; d_k$ 时</strong>：令目标函数的梯度为零，可得 $W K^\top K &#x3D; V^\top K$，故 $W &#x3D; V^\top K,(K^\top K)^{-1}$。<br>两种情况下的解都可以统一写作 $W &#x3D; V^\top (K^\top)^\dagger$，其中 $A^\dagger$ 表示矩阵 $A$ 的 Moore-Penrose 伪逆（Pseudoinverse）：当键线性无关时 $(K^\top)^\dagger &#x3D; (KK^\top)^{-1} K$，而当键张成整个 $\mathbb{R}^{d_k}$ 时 $(K^\top)^\dagger &#x3D; K(K^\top K)^{-1}$。</p>
 <p>现在我们可以分析 $f(k_j) &#x3D; V^\top K,(K^\top K)^{-1} k_j$ 的干扰项。<br>对于已存入的键 $k_j$，分配给每个值 $v_i$ 的权重为 $k_i^\top (K^\top K)^{-1} k_j$，这恰好对应 $M\times M$ 投影矩阵 $P &#x3D; K(K^\top K)^{-1} K^\top$ 的第 $(i, j)$ 项元素：</p>
-<p>$$f(k_j) &#x3D; \sum_{i&#x3D;1}^M v_i, P_{ij} &#x3D; \underbrace{P_{jj}, v_j}<em>{\text{信号}} + \underbrace{\sum</em>{i\neq j} P_{ij}, v_i}_{\text{干扰}}.$$</p>
+<p>$$f(k_j) &#x3D; \sum_ { i&#x3D;1}^M v_i, P_ { ij} &#x3D; \underbrace{P_ { jj}, v_j}_ { \text{信号}} + \underbrace{\sum_ { i\neq j} P_ { ij}, v_i}_ { \text{干扰}}.$$</p>
 <p>矩阵 $P$ 是向 $K$ 的列空间（即 $\mathbb{R}^{M}$ 的一个 $d_k$ 维子空间）的正交投影矩阵。投影矩阵的两条性质有助于我们解析干扰信号比：</p>
 <ul>
 <li><p><strong>信号项</strong>：利用矩阵迹（Trace）的循环性质：</p>
-<p>$$\sum_{j&#x3D;1}^M P_{jj} &#x3D; \operatorname{tr}\left(K(K^\top K)^{-1} K^\top\right) &#x3D; \operatorname{tr}\left((K^\top K)^{-1} K^\top K\right) &#x3D; \operatorname{tr}\left(I_{d_k}\right) &#x3D; d_k,$$</p>
-<p>这表明所有 $M$ 个信号权重的总和恰好等于 $d_k$。如果键是随机选取的，没有任何一个键处于特殊地位，因此对称地有 $P_{jj} \approx d_k&#x2F;M$。</p>
+<p>$$\sum_ { j&#x3D;1}^M P_ { jj} &#x3D; \operatorname{tr}\left(K(K^\top K)^{-1} K^\top\right) &#x3D; \operatorname{tr}\left((K^\top K)^{-1} K^\top K\right) &#x3D; \operatorname{tr}\left(I_ { d_k}\right) &#x3D; d_k,$$</p>
+<p>这表明所有 $M$ 个信号权重的总和恰好等于 $d_k$。如果键是随机选取的，没有任何一个键处于特殊地位，因此对称地有 $P_ { jj} \approx d_k&#x2F;M$。</p>
 </li>
 <li><p><strong>干扰项</strong>：由于 $P$ 是对称投影矩阵，因此满足 $P^\top P &#x3D; P^2 &#x3D; P$。由此可得：</p>
-<p>$$\sum_{i\neq j} P_{ij}^2 &#x3D; \sum_{i&#x3D;1}^M P_{ij}^2 - P_{jj}^2 &#x3D; (P^\top P)<em>{jj} - P</em>{jj}^2 &#x3D; P_{jj} - P_{jj}^2 \approx \frac{d_k}{M} - \left(\frac{d_k}{M}\right)^2.$$</p>
+<p>$$\sum_ { i\neq j} P_ { ij}^2 &#x3D; \sum_ { i&#x3D;1}^M P_ { ij}^2 - P_ { jj}^2 &#x3D; (P^\top P)_ { jj} - P_ { jj}^2 &#x3D; P_ { jj} - P_ { jj}^2 \approx \frac{d_k}{M} - \left(\frac{d_k}{M}\right)^2.$$</p>
 </li>
 </ul>
 <p>若各值向量随机独立且模长相近，则：</p>
-<p>$$\frac{\left|\text{干扰}\right|}{\left|\text{信号}\right|} \approx \frac{\sqrt{P_{jj} - P_{jj}^2}}{P_{jj}} &#x3D; \sqrt{\frac{M}{d_k} - 1}.$$</p>
+<p>$$\frac{\left|\text{干扰}\right|}{\left|\text{信号}\right|} \approx \frac{\sqrt{P_ { jj} - P_ { jj}^2}}{P_ { jj}} &#x3D; \sqrt{\frac{M}{d_k} - 1}.$$</p>
 <p>与外积存储器的 $\sqrt{M&#x2F;d_k}$ 相比，根号内的 $-1$ 恰恰对应了最优存储器所完全抵消掉的整整 $d_k$ 条记忆所产生的干扰！</p>
 </blockquote>
 <p>我们可以通过数值实验来验证这一理论预测。我们随机采样 $M$ 条记忆，其键为 $d_k &#x3D; 64$ 维的单位向量，用其中一个已存储的键去查询存储器，并测算其干扰信号比：</p>
@@ -451,10 +451,10 @@
 <p>外积存储器在 $M \approx d_k &#x3D; 64$ 处达到其容量极限。而最优存储器在 $M \leq d_k$ 时召回完全精确，之后干扰从零开始按 $\sqrt{M&#x2F;d_k - 1}$ 上升，并正如理论预测的那样在 $M &#x3D; 2d_k &#x3D; 128$ 附近达到容量极限。由于最优存储器抵消掉的干扰量是固定数量（相当于抵消了 $d_k$ 条记忆的干扰），随着 $M$ 的不断增大，两者的相对差距会逐步缩小。</p>
 <p>然而，这种最优存储器对于相似度而言依然是<strong>线性的</strong>。它对无论高低的所有相似度都必须以相同的尺度进行缩放。若要取得突破，我们必须从根本上改变存储器的<strong>召回机制</strong>。</p>
 <h2 id="作为非线性记忆存储器的-MLP"><a href="#作为非线性记忆存储器的-MLP" class="headerlink" title="作为非线性记忆存储器的 MLP"></a>作为非线性记忆存储器的 MLP</h2><p>线性记忆存储器的召回形式为：</p>
-<p>$$f(x) &#x3D; \sum_{i&#x3D;1}^M v_i (k_i^\top x).$$</p>
+<p>$$f(x) &#x3D; \sum_ { i&#x3D;1}^M v_i (k_i^\top x).$$</p>
 <p>如果我们有一种机制，能在内积相似度 $k_i^\top x$ 较小时强力抑制对应的权重，那么就能大幅削减低相似度键所带来的累积干扰。</p>
 <p>为此，我们在计算值的加权和之前，让每个相似度先穿过一个非线性函数 $\sigma$：</p>
-<p>$$f(x) &#x3D; \sum_{i&#x3D;1}^{M} v_i,\sigma(k_i^\top x) &#x3D; V^\top \sigma(Kx).$$</p>
+<p>$$f(x) &#x3D; \sum_ { i&#x3D;1}^{M} v_i,\sigma(k_i^\top x) &#x3D; V^\top \sigma(Kx).$$</p>
 <p>我们竟然直接从第一性原理“重新发明”了双层多层感知机（Two-layer MLP）！第一层权重矩阵的各行正是键（Keys），第二层权重矩阵的各列正是值（Values）。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1907.01470">Sukhbaatar 等人</a>首先指出了前馈层（Feedforward Layers）与记忆存储器之间的这种相似性，而 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.14913">Geva 等人</a>发现，训练好的 Transformer 中的前馈层往往就是以这种方式运作的，其键向量会针对输入中可识别的特定模式精确激活。</p>
 <p>在理想状态下，门控激活函数 $\sigma$ 的设计应满足：当相似度较低时（$k_i^\top x \sim 0$ 甚至 $k_i^\top x &lt; 0$），该项在求和中的贡献被极大抑制，以此降低干扰。ReLU 激活函数能够直接将负相似度的键归零，引入偏置项（Bias）还能平移这个截断阈值。<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="对于随机生成的键，ReLU 能够将干扰降低 $\sqrt{2}$ 倍。因为随机键的内积相似度为正或为负的概率均等，ReLU 会将大约一半的负权重归零，保留另一半正权重。这使得干扰的方差（权重平方和）减半，从而使干扰项自身的模长缩小了 $\sqrt{2}$ 倍。完整数学推导参见 [Zhong 等人](https://arxiv.org/abs/2505.19488)。">[5]</span></a></sup> 而平方 ReLU（Squared ReLU）激活函数更进一步，能够大幅压低接近于零的正相似度键的权重——例如，0.1 的相似度平方后变为 0.01，而 1 的相似度依然保持为 1。实际上，平方 ReLU 正是在超大规模模型中得到实证检验的著名 MLP 激活函数改进方案之一（参见 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.08668">So 等人</a>）。</p>
 <p>平方 ReLU MLP 本质上就是一个门控投影与输入投影共享权重的 GLU MLP，因为 $\operatorname{ReLU}(Kx)^2 &#x3D; \operatorname{ReLU}(Kx) \odot Kx$。当今大语言模型中广泛采用的 SwiGLU MLP 则为门控赋予了独立的权重矩阵，并用 Swish 激活函数取代了 ReLU。</p>
@@ -479,7 +479,7 @@
 <li><strong>三次方 ReLU 存储器</strong>：每个干扰项缩减至约 $d_k^{-3&#x2F;2}$，容量暴增至 $M \approx 2d_k^3&#x2F;15 \approx 35000$。</li>
 </ul>
 <h2 id="作为非参数化记忆存储器的自注意力机制"><a href="#作为非参数化记忆存储器的自注意力机制" class="headerlink" title="作为非参数化记忆存储器的自注意力机制"></a>作为非参数化记忆存储器的自注意力机制</h2><p>将相似度权重提升到 $p$ 次幂，能够将容量提升至约 $d_k^p$。但如果我们把这一思路推向极限呢？与其固定选用某一个有限次幂，不如一口气选用无穷多个幂次！事实上，指数函数正是所有幂次项的加权级数和：</p>
-<p>$$e^{\beta s} &#x3D; 1 + \beta s + \frac{(\beta s)^2}{2} + \frac{(\beta s)^3}{6} + \cdots &#x3D; \sum_{p&#x3D;0}^{\infty} \frac{(\beta s)^p}{p!},$$</p>
+<p>$$e^{\beta s} &#x3D; 1 + \beta s + \frac{(\beta s)^2}{2} + \frac{(\beta s)^3}{6} + \cdots &#x3D; \sum_ { p&#x3D;0}^{\infty} \frac{(\beta s)^p}{p!},$$</p>
 <p>其中锐度参数 $\beta$ 决定了赋予更高阶幂次的权重。下述实验展示了取 $\beta &#x3D; \sqrt{d_k}$（这正是标准自注意力机制所采用的缩放值）<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="在标准的 Transformer 中，是对相似度除以 $\sqrt{d_k}$ 而非乘以该系数。但标准 Transformer 中的查询与键的向量长度通常约为 $\sqrt{d_k}$，使得完全匹配的一对键值具有 $q^\top k \approx d_k$。在本文的推导中，键和查询均被归一化为单位长度，完全匹配时的相似度为 1。因此相应的缩放系数对应为 $\beta = \sqrt{d_k}$。">[6]</span></a></sup> 时，完整指数函数与其截断为前 2、3、4 项泰勒展开后的表现对比：</p>
 <p><img src="D:\研究生\比赛\agent\images\figure-4-series-truncation.svg" alt="指数评分函数与其级数截断的干扰信号比对比"></p>
 <p><em>图：锐度为 $\beta &#x3D; \sqrt{d_k}$ 的指数函数及其截断为 2、3、4 项后的干扰信号比随 $M$ 变化曲线，附带线性记忆作为基准对比。</em></p>
@@ -490,12 +490,12 @@
 <li>而完整指数函数曲线远远落于代表容量失效的虚线下方，其容量早已超出了图表的测量上限。</li>
 </ul>
 <p>为了求得指数评分函数的容量，我们用已存储的键 $k_j$ 进行查询，此时目标记忆的自相似度为 1，权重为 $w_j &#x3D; e^{\beta}$。其他任意记忆的权重为 $w_i &#x3D; e^{\beta s_i}$，其中对于随机单位向量键，相似度内积 $s_i$ 近似服从均值为 0、方差为 $1&#x2F;d_k$ 的高斯分布。假定值向量随机且模长相近：</p>
-<p>$$\begin{aligned}<br>\frac{\left|\text{干扰}\right|}{\left|\text{信号}\right|}<br>&amp;\approx \sqrt{\sum_{i\neq j} \left(\frac{w_i}{w_j}\right)^2} &amp;&amp; \text{干扰项以随机游走方式累加} \<br>&amp;&#x3D; \sqrt{\sum_{i\neq j} e^{2\beta (s_i - 1)}} &amp;&amp; w_i &#x2F; w_j &#x3D; e^{\beta s_i} &#x2F; e^{\beta} \<br>&amp;\approx \sqrt{M, e^{-2\beta}, \mathbb{E}\left[e^{2\beta s}\right]} &amp;&amp; \text{对其余 } M \text{ 条记忆求期望均值} \<br>&amp;&#x3D; \sqrt{M, e^{-2\beta}, e^{2\beta^2&#x2F;d_k}} &amp;&amp; s \sim \mathcal{N}(0, 1&#x2F;d_k) \text{ 时，矩母函数 } \mathbb{E}\left[e^{ts}\right] &#x3D; e^{t^2&#x2F;(2d_k)} \<br>&amp;&#x3D; \sqrt{M}, e^{\beta^2&#x2F;d_k - \beta}.<br>\end{aligned}$$</p>
+<p>$$\begin{aligned}<br>\frac{\left|\text{干扰}\right|}{\left|\text{信号}\right|}<br>&amp;\approx \sqrt{\sum_ { i\neq j} \left(\frac{w_i}{w_j}\right)^2} &amp;&amp; \text{干扰项以随机游走方式累加} \<br>&amp;&#x3D; \sqrt{\sum_ { i\neq j} e^{2\beta (s_i - 1)}} &amp;&amp; w_i &#x2F; w_j &#x3D; e^{\beta s_i} &#x2F; e^{\beta} \<br>&amp;\approx \sqrt{M, e^{-2\beta}, \mathbb{E}\left[e^{2\beta s}\right]} &amp;&amp; \text{对其余 } M \text{ 条记忆求期望均值} \<br>&amp;&#x3D; \sqrt{M, e^{-2\beta}, e^{2\beta^2&#x2F;d_k}} &amp;&amp; s \sim \mathcal{N}(0, 1&#x2F;d_k) \text{ 时，矩母函数 } \mathbb{E}\left[e^{ts}\right] &#x3D; e^{t^2&#x2F;(2d_k)} \<br>&amp;&#x3D; \sqrt{M}, e^{\beta^2&#x2F;d_k - \beta}.<br>\end{aligned}$$</p>
 <p>令该比值等于 1，即可解出容量极限为：</p>
 <p>$$M \approx e^{2\beta(1 - \beta&#x2F;d_k)},$$</p>
 <p>只要 $\beta$ 显著小于 $d_k$，容量便随 $\beta$ 呈现<strong>指数级增长</strong>，而不再是之前的多项式增长！当取标准设置 $\beta &#x3D; \sqrt{d_k} &#x3D; 8$ 时，理论容量高达约 $e^{14} \approx 120$ 万条记忆，足足是线性存储器的近 20,000 倍。更大规模的数值仿真实验同样证实其容量在约 120 万条左右。</p>
 <p>在工程实践中，我们显然不能直接对数值进行朴素的指数计算，否则极小值会导致下溢，极大值会导致溢出。幸运的是，正如上述公式推导所示，干扰大小仅仅取决于各个权重之间的<strong>相对比例</strong>。因此，我们可以将每个权重除以所有权重之和（归一化），这完全不会改变干扰信号比，却能提供极强的数值稳定性：</p>
-<p>$$f(x) &#x3D; \sum_{i&#x3D;1}^{M} v_i,\frac{\exp(\beta,k_i^\top x)}{\sum_j \exp(\beta,k_j^\top x)} &#x3D; V^\top \operatorname{softmax}(\beta K x).$$</p>
+<p>$$f(x) &#x3D; \sum_ { i&#x3D;1}^{M} v_i,\frac{\exp(\beta,k_i^\top x)}{\sum_j \exp(\beta,k_j^\top x)} &#x3D; V^\top \operatorname{softmax}(\beta K x).$$</p>
 <p><strong>这，正是自注意力机制（Self-Attention）</strong>。<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="在 Transformer 的标准符号表示中，相似度通常记作 $k_i^\top q$（其中 $q = W_Q x$），并除以缩放系数 $\sqrt{d_k}$。在本文中，我将投影矩阵 $W_Q$ 吸收融合到了键的定义中。Transformer 中的键与查询模长通常约为 $\sqrt{d_k}$，这一缩放与本文在单位长度键下取 $\beta = \sqrt{d_k}$ 是完全等价的。">[7]</span></a></sup></p>
 <p>与 MLP（其键和值是固化在参数权重中的）不同，自注意力机制的键和值是从上下文中的各个 Token 动态计算而来的。每个 Token 存储了一条记忆，因此记忆条数 $M$ 就是上下文长度。这正是自注意力机制被称为“<strong>非参数化（Non-parametric）</strong>”的原因：它的记忆并不占据模型静态参数，存储器的大小随着上下文动态扩张。</p>
 <p>再次回顾记忆条柱图，从 Softmax 开始观察。在 $\beta &#x3D; 8$ 时，在滑块所能调节的范围内召回永远不会失败；但若将 $\beta$ 调低至 2 并增大 $M$，仅需几十条记忆召回就会失效。$M$ 每翻一番，都需要相应增大一点 $\beta$ 才能维持纯净召回，这正是下一小节的核心思想。</p>
