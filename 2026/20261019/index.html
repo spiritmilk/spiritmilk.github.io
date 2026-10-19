@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-4-series-truncation.svg">
 <meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-6-softmax-attention.svg">
 <meta property="article:published_time" content="2026-10-19T10:24:22.000Z">
-<meta property="article:modified_time" content="2026-10-19T15:15:30.692Z">
+<meta property="article:modified_time" content="2026-10-19T15:17:44.348Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="深度学习">
@@ -1021,9 +1021,7 @@
 </ul>
 <p>我向来对“记忆”这一课题深深着迷，或许是因为我能切身体会到人类自身记忆的局限。也许在我内心深处，一直怀抱着这样的期许：通过理解机器究竟如何铭记万物，我也能更深地读懂我们自己。</p>
 <hr>
-<h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><hr>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bibtex">@article&#123;wang2026associativememory,<br>  author = &#123;Alex Wang&#125;,<br>  title = &#123;You could have invented transformers from memory&#125;,<br>  journal = &#123;alexwang.ai&#125;,<br>  year = &#123;2026&#125;,<br>  month = &#123;Oct&#125;,<br>  url = &#123;https://alexwang.ai/posts/associative-memory/&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>有时，这种键和值的累加过程被称为“赫布学习”（Hebbian Learning），其核心思想在于：同步激活（相关联）的输入（键）与输出（值）会增强它们之间的突触连接强度（即权重）。
+<h2 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>有时，这种键和值的累加过程被称为“赫布学习”（Hebbian Learning），其核心思想在于：同步激活（相关联）的输入（键）与输出（值）会增强它们之间的突触连接强度（即权重）。
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>这种外积记忆存储器正是线性注意力机制（Linear Attention，亦称“快速权重 &#x2F; Fast Weights”）所采用的状态表达形式：每个 Token 通过在矩阵中累加 $v k^\top$ 来存储记忆 $(k, v)$，以供后续 Token 查询检索（参见 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.16236">Katharopoulos 等人</a>；<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2102.11174">Schlag, Irie &amp; Schmidhuber</a>）。
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>此处的分析针对的是召回一个纯净无噪的值向量。如果每个值只需在一个固定的候选集合中指向正确答案（例如分类任务中挑选概率最高的 Token），那么召回结果只需比错误答案更接近正确答案即可；在此类设定下，一个 $d\times d$ 维的矩阵大约能容纳 $d^2$ 个事实（参见 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2412.06538">Nichani, Lee &amp; Bietti</a>）。
 <a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>我们同样可以利用这种回归目标函数，来设计序列模型在前向传播过程中动态写入的短期记忆（如线性注意力与自注意力）。具体可参见<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12352">作者关于测试时回归的研究工作</a>。
