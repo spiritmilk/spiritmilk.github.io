@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.space/images/figure-4-series-truncation.svg">
 <meta property="og:image" content="https://lijianxiong.space/images/figure-6-softmax-attention.svg">
 <meta property="article:published_time" content="2026-10-19T10:24:22.000Z">
-<meta property="article:modified_time" content="2026-10-19T13:54:20.708Z">
+<meta property="article:modified_time" content="2026-10-19T14:23:53.807Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="深度学习">
@@ -315,7 +315,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.7k 字
+          10k 字
         
       </span>
     
@@ -326,7 +326,7 @@
         
         
         
-          81 分钟
+          85 分钟
         
       </span>
     
@@ -371,6 +371,127 @@
                 <link rel="stylesheet" type="text&#x2F;css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.3.1/dist/hexo-tag-hint.min.css"><p>转自<a target="_blank" rel="noopener" href="https://alexwang.ai/posts/associative-memory/"> You could have invented transformers from memory | Alex Wang</a></p>
 <span id="more"></span>
 
+<h3 id="记忆召回动态演示：汉字“記”的检索"><a href="#记忆召回动态演示：汉字“記”的检索" class="headerlink" title="记忆召回动态演示：汉字“記”的检索"></a>记忆召回动态演示：汉字“記”的检索</h3>
+<div class="interactive-recall-container" style="background: #F5F3EE; border: 1px solid rgba(44, 45, 48, 0.15); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2C2D30;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+    <span style="font-weight: 600; font-size: 0.95rem;">🎬 实时动态仿真（记忆数量 <i>M</i> 从 16 自动增长至 2048）</span>
+    <span class="live-m-indicator" style="font-size: 0.85rem; font-weight: bold; color: #B3202A; background: #FFEBEE; padding: 2px 8px; border-radius: 4px;">当前记忆数 M = 16</span>
+  </div>
+  <svg class="live-recall-svg" viewBox="0 0 564 142" width="100%" height="auto" style="display: block; overflow: visible;"></svg>
+  <div style="margin-top: 0.6rem; font-size: 0.82rem; color: #595A5D; line-height: 1.4;">
+    <strong>演示说明：</strong> 上方展示了从四种记忆存储器（外积、ReLU MLP、门控 MLP、自注意力）中召回汉字“記”（28×28 点阵图像）的动态过程。红色表示召回正常（目标信号大于干扰），黑色噪点表示干扰压倒目标信号导致召回失效。随着存储记忆数 <i>M</i> 从 16 增至 2048，外积图像最先崩溃，随后 ReLU MLP 瓦解，门控 MLP 逐渐模糊，而自注意力机制始终保持清晰锐利。
+  </div>
+  <script>
+  (function() {
+    function initRecall() {
+      const container = document.querySelector('.interactive-recall-container');
+      if (!container) return;
+      const svg = container.querySelector('.live-recall-svg');
+      if (!svg || svg.dataset.init) return;
+      svg.dataset.init = 'true';
+
+      const N = 28, D = N * N, P = 4;
+      const DK = 64, MMIN = 16, MMAX = 2048;
+      const GROW = 9000, HOLD = 2500;
+      const R = 1.75;
+      const GLYPH = '0000000000000000000000000000000000000000000000000000000000000163000000000000000000000000004972000000000000100000000000069700000000000394000000000004960322767777789950000001111262299322222225971000001666665667750000000496000000000000000000000000049600000000000000260000000004960000000255555589700000000496000000013333332120462111159600000000000000130059877778970000000133333389605940000596000000005555554450594000034100000000000000000059400000000000000047322288405940000000000000004976669950594000000000000000493000891059400000024000000049400089105940000003500000004930008910594000000460000000494000891059400000067000000049755599105950000018940000004940008920598666668998000000494000761029999999999300000046100010000134444443100000000000000000000000000000000000000000000000000000000000';
+      const g = Float32Array.from(GLYPH, c => +c / 9);
+      let gNorm = 0; for (let i = 0; i < D; i++) gNorm += g[i] * g[i]; gNorm = Math.sqrt(gNorm);
+
+      const stores = [
+        { label: '外积 (Outer product)', w: s => s },
+        { label: 'MLP (ReLU)', w: s => Math.max(0, s) },
+        { label: '门控 MLP (Squared ReLU)', w: s => Math.max(0, s) ** 2 },
+        { label: '自注意力 (Self-attention)', w: s => Math.exp(8 * (s - 1)) }
+      ];
+
+      let seed;
+      const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      const gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-12)) * Math.cos(2 * Math.PI * rand());
+
+      seed = 20261015;
+      const unit = () => {
+        const v = Array.from({ length: DK }, gauss);
+        const n = Math.hypot(...v);
+        return v.map(x => x / n);
+      };
+      const keys = Array.from({ length: MMAX }, unit);
+      const sims = keys.map(k => k.reduce((a, x, i) => a + x * keys[0][i], 0));
+
+      const W = 564, gap = (W - 4 * N * P) / 5;
+      let out = '';
+      stores.forEach((st, j) => {
+        const x0 = gap + j * (N * P + gap);
+        out += '<g class="recall-pic-' + j + '">';
+        for (let p = 0; p < D; p++) {
+          out += '<circle cx="' + (x0 + (p % N) * P + P / 2).toFixed(1) + '" cy="' + ((p / N | 0) * P + P / 2 + 4).toFixed(1) + '" r="0"/>';
+        }
+        out += '</g><text x="' + (x0 + N * P / 2) + '" y="' + (N * P + 22) + '" font-size="12" font-weight="600" text-anchor="middle" fill="#2C2D30">' + st.label + '</text>';
+        out += '<text class="recall-status-' + j + '" x="' + (x0 + N * P / 2) + '" y="' + (N * P + 36) + '" font-size="11" text-anchor="middle" fill="#B3202A">召回正常</text>';
+      });
+      svg.innerHTML = out;
+
+      const dots = stores.map((_, j) => [...svg.querySelectorAll('.recall-pic-' + j + ' circle')]);
+      const statuses = stores.map((_, j) => svg.querySelector('.recall-status-' + j));
+      const mLabel = container.querySelector('.live-m-indicator');
+
+      let acc, M;
+      const reset = () => { acc = stores.map(() => new Float32Array(D)); M = 1; seed = 7; };
+      const fill = to => {
+        for (; M < to; M++) {
+          const c = stores.map(st => st.w(sims[M]));
+          for (let p = 0; p < D; p++) {
+            const v = gauss() * gNorm / Math.sqrt(D);
+            for (let j = 0; j < 4; j++) acc[j][p] += c[j] * v;
+          }
+        }
+      };
+      const draw = () => {
+        stores.forEach((_, j) => {
+          const a = acc[j];
+          let aNormSq = 0;
+          for (let p = 0; p < D; p++) aNormSq += a[p] * a[p];
+          const ok = Math.sqrt(aNormSq) < gNorm;
+          const color = ok ? '#B3202A' : '#373229';
+          for (let p = 0; p < D; p++) {
+            const dot = dots[j][p];
+            dot.setAttribute('r', (R * Math.min(1, Math.max(0, g[p] + a[p]))).toFixed(2));
+            dot.setAttribute('fill', color);
+          }
+          if (statuses[j]) {
+            statuses[j].textContent = ok ? '召回正常' : '召回失效';
+            statuses[j].setAttribute('fill', color);
+          }
+        });
+        if (mLabel) mLabel.textContent = '当前记忆数 M = ' + M;
+      };
+
+      reset();
+      fill(MMIN);
+      draw();
+
+      let seen = true, t = 0, last = performance.now();
+      const frame = now => {
+        if (seen) t += now - last;
+        last = now;
+        if (t > GROW + HOLD) { reset(); t = 0; }
+        const to = Math.round(MMIN * (MMAX / MMIN) ** Math.min(1, t / GROW));
+        if (to !== M) { fill(to); draw(); }
+        requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initRecall);
+    } else {
+      initRecall();
+    }
+  })();
+  </script>
+</div>
+
+
 <p>如今的大语言模型能够回忆起世界上各个角落生僻冷门的知识。就在最近，我赶着去参加朋友的桌游之夜，路上快迟到了，于是我让 Astra 提醒我《沙丘：帝国》（Dune: Imperium）的游戏规则。它在我开车时一路娓娓道来，帮我把规则记得一清二楚，让我能立刻上手再玩一局。我们早已习惯了向大模型询问任何问题，以至于把它们海量的知识储备视作理所当然。</p>
 <p>模型究竟是如何记住如此庞大的信息的？而且，<em>它们到底能存储多少记忆？</em></p>
 <p>在这篇博文中，我将介绍一种非常直观的视角，将线性映射（Linear Map）、多层感知机（MLP）以及自注意力机制（Self-Attention）分别视为不同类型的“记忆存储器”（Memory Store）。基于这种直观理解，我们能够推导出各个网络层究竟能存储多少记忆的启发式容量公式。</p>
@@ -407,6 +528,7 @@
 <p>也就是说，一旦存储的记忆数量达到键的维度大小，干扰便会与信号相当，从而将目标信号淹没。</p>
 <p>下方的条形图展示了单次召回中，每个已存储记忆相对于目标记忆权重（红色）的贡献大小。每个小条都会向召回结果中掺入一部分它自身的值。如果将 $M$ 拖动超过 $d_k &#x3D; 64$，可以看到零碎的小条不断累加堆积，直到召回彻底失效。切换按钮可体验我们在后文中构建的高级记忆存储器。<br><a id="interactive"></a></p>
 <h3 id="交互式记忆权重柱状图演示"><a href="#交互式记忆权重柱状图演示" class="headerlink" title="交互式记忆权重柱状图演示"></a>交互式记忆权重柱状图演示</h3><p><img src="/images/figure-interactive-bars.svg" alt="各记忆存储器单次召回权重分布对比"></p>
+
 <div class="interactive-membars-widget" style="background: #F5F3EE; border: 1px solid rgba(44, 45, 48, 0.15); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2C2D30;">
   <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.9rem;">
     <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
@@ -428,7 +550,8 @@
     </div>
   </div>
 
-<p>  <canvas class="c-membars-canvas" style="width: 100%; height: 180px; display: block; border-radius: 4px; background: #EAE6DF;"></canvas></p>
+  <canvas class="c-membars-canvas" style="width: 100%; height: 180px; display: block; border-radius: 4px; background: #EAE6DF;"></canvas>
+
   <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 0.6rem; font-size: 0.85rem; color: #595A5D; gap: 0.5rem;">
     <div>
       <span style="display: inline-block; width: 10px; height: 10px; background: #B3202A; border-radius: 2px; margin-right: 4px;"></span>
@@ -447,111 +570,119 @@
   </div>
   <script>
   (function() {
-    const container = document.currentScript ? document.currentScript.parentElement : document.querySelector('.interactive-membars-widget');
-    if (!container) return;
-    const canvas = container.querySelector('.c-membars-canvas');
-    if (!canvas || canvas.dataset.ready) return;
-    canvas.dataset.ready = 'true';
+    function init() {
+      const container = document.querySelector('.interactive-membars-widget');
+      if (!container) return;
+      const canvas = container.querySelector('.c-membars-canvas');
+      if (!canvas || canvas.dataset.ready) return;
+      canvas.dataset.ready = 'true';
 
-<pre><code class="hljs">const D = 64, MMAX = 2048;
-let seed = 20261014;
-const rand = () =&gt; ((seed = (seed * 16807) % 2147483647) / 2147483647);
-const gauss = () =&gt; Math.sqrt(-2 * Math.log(rand() + 1e-12)) * Math.cos(2 * Math.PI * rand());
-const unit = () =&gt; &#123;
-  const v = Array.from(&#123; length: D &#125;, gauss);
-  const n = Math.hypot(...v);
-  return v.map(x =&gt; x / n);
-&#125;;
-const K = Array.from(&#123; length: MMAX &#125;, unit);
-const V = Array.from(&#123; length: MMAX &#125;, unit);
-const sims = K.map(k =&gt; k.reduce((a, x, i) =&gt; a + x * K[0][i], 0));
-
-const score = &#123;
-  linear: s =&gt; s,
-  relu: s =&gt; Math.max(0, s),
-  relu2: s =&gt; Math.max(0, s) ** 2,
-  softmax: (s, beta) =&gt; Math.exp(beta * (s - 1)),
-&#125;;
-
-const ctx = canvas.getContext(&#39;2d&#39;);
-const mSlider = container.querySelector(&#39;.c-m-slider&#39;);
-const bSlider = container.querySelector(&#39;.c-beta-slider&#39;);
-const mOut = container.querySelector(&#39;.c-m-val&#39;);
-const bOut = container.querySelector(&#39;.c-beta-val&#39;);
-const bRow = container.querySelector(&#39;.c-beta-row&#39;);
-const ratioOut = container.querySelector(&#39;.c-ratio-val&#39;);
-const meterFill = container.querySelector(&#39;.c-meter-fill&#39;);
-const failTag = container.querySelector(&#39;.c-fail-tag&#39;);
-const red = &#39;#B3202A&#39;;
-const ink = &#39;#373229&#39;;
-
-const draw = () =&gt; &#123;
-  const checkedRadio = container.querySelector(&#39;input[type=radio]:checked&#39;);
-  const mode = checkedRadio ? checkedRadio.value : &#39;linear&#39;;
-  const M = 2 ** +mSlider.value;
-  const beta = +bSlider.value;
-  if (mOut) mOut.textContent = M;
-  if (bOut) bOut.textContent = beta;
-  if (bRow) bRow.style.display = (mode === &#39;softmax&#39;) ? &#39;flex&#39; : &#39;none&#39;;
-
-  const w = sims.slice(0, M).map(s =&gt; score[mode](s, beta));
-  const rel = w.map(x =&gt; x / w[0]);
-
-  const noise = new Array(D).fill(0);
-  for (let i = 1; i &lt; M; i++) &#123;
-    for (let j = 0; j &lt; D; j++) &#123;
-      noise[j] += rel[i] * V[i][j];
-    &#125;
-  &#125;
-  const ratio = Math.hypot(...noise);
-  if (ratioOut) ratioOut.textContent = ratio &lt; 0.01 ? ratio.toExponential(1) : ratio.toFixed(2);
-  if (meterFill) &#123;
-    const pct = Math.min(ratio / 2, 1) * 100;
-    meterFill.style.width = pct + &#39;%&#39;;
-    meterFill.style.background = ratio &gt;= 1 ? &#39;#C62828&#39; : &#39;#2E7D32&#39;;
-  &#125;
-  if (failTag) &#123;
-    failTag.style.display = ratio &gt;= 1 ? &#39;inline-block&#39; : &#39;none&#39;;
-  &#125;
-
-  const dpr = window.devicePixelRatio || 1;
-  const W = canvas.clientWidth || 600;
-  const H = canvas.clientHeight || 180;
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, W, H);
-
-  const lo = -0.4, hi = 1.05;
-  const y = v =&gt; H * (hi - v) / (hi - lo);
-
-  ctx.strokeStyle = ink;
-  ctx.globalAlpha = 0.45;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(0, y(0));
-  ctx.lineTo(W, y(0));
-  ctx.stroke();
-
-  const bw = W / M;
-  for (let i = M - 1; i &gt;= 0; i--) &#123;
-    const v = Math.max(lo, Math.min(hi, rel[i]));
-    const isTarget = (i === 0);
-    ctx.globalAlpha = isTarget ? 1 : 0.7;
-    ctx.fillStyle = isTarget ? red : ink;
-    const x = i * bw;
-    const wPx = isTarget ? Math.max(bw, 4) : Math.max(bw * 0.8, 0.8);
-    ctx.fillRect(x, Math.min(y(v), y(0)), wPx, Math.max(Math.abs(y(v) - y(0)), 0.6));
-  &#125;
-  ctx.globalAlpha = 1;
-&#125;;
-
-container.querySelectorAll(&#39;input&#39;).forEach(el =&gt; el.addEventListener(&#39;input&#39;, draw));
-window.addEventListener(&#39;resize&#39;, draw);
-setTimeout(draw, 50);
-</code></pre>
-<p>  })();<br>  </script></p>
+      const D = 64, MMAX = 2048;
+      let seed = 20261014;
+      const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      const gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-12)) * Math.cos(2 * Math.PI * rand());
+      const unit = () => {
+        const v = Array.from({ length: D }, gauss);
+        const n = Math.hypot(...v);
+        return v.map(x => x / n);
+      };
+      const K = Array.from({ length: MMAX }, unit);
+      const V = Array.from({ length: MMAX }, unit);
+      const sims = K.map(k => k.reduce((a, x, i) => a + x * K[0][i], 0));
+      
+      const score = {
+        linear: s => s,
+        relu: s => Math.max(0, s),
+        relu2: s => Math.max(0, s) ** 2,
+        softmax: (s, beta) => Math.exp(beta * (s - 1)),
+      };
+      
+      const ctx = canvas.getContext('2d');
+      const mSlider = container.querySelector('.c-m-slider');
+      const bSlider = container.querySelector('.c-beta-slider');
+      const mOut = container.querySelector('.c-m-val');
+      const bOut = container.querySelector('.c-beta-val');
+      const bRow = container.querySelector('.c-beta-row');
+      const ratioOut = container.querySelector('.c-ratio-val');
+      const meterFill = container.querySelector('.c-meter-fill');
+      const failTag = container.querySelector('.c-fail-tag');
+      const red = '#B3202A';
+      const ink = '#373229';
+      
+      const draw = () => {
+        const checkedRadio = container.querySelector('input[type=radio]:checked');
+        const mode = checkedRadio ? checkedRadio.value : 'linear';
+        const M = 2 ** +mSlider.value;
+        const beta = +bSlider.value;
+        if (mOut) mOut.textContent = M;
+        if (bOut) bOut.textContent = beta;
+        if (bRow) bRow.style.display = (mode === 'softmax') ? 'flex' : 'none';
+      
+        const w = sims.slice(0, M).map(s => score[mode](s, beta));
+        const rel = w.map(x => x / w[0]);
+      
+        const noise = new Array(D).fill(0);
+        for (let i = 1; i < M; i++) {
+          for (let j = 0; j < D; j++) {
+            noise[j] += rel[i] * V[i][j];
+          }
+        }
+        const ratio = Math.hypot(...noise);
+        if (ratioOut) ratioOut.textContent = ratio < 0.01 ? ratio.toExponential(1) : ratio.toFixed(2);
+        if (meterFill) {
+          const pct = Math.min(ratio / 2, 1) * 100;
+          meterFill.style.width = pct + '%';
+          meterFill.style.background = ratio >= 1 ? '#C62828' : '#2E7D32';
+        }
+        if (failTag) {
+          failTag.style.display = ratio >= 1 ? 'inline-block' : 'none';
+        }
+      
+        const dpr = window.devicePixelRatio || 1;
+        const W = canvas.clientWidth || 600;
+        const H = canvas.clientHeight || 180;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, W, H);
+      
+        const lo = -0.4, hi = 1.05;
+        const y = v => H * (hi - v) / (hi - lo);
+      
+        ctx.strokeStyle = ink;
+        ctx.globalAlpha = 0.45;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, y(0));
+        ctx.lineTo(W, y(0));
+        ctx.stroke();
+      
+        const bw = W / M;
+        for (let i = M - 1; i >= 0; i--) {
+          const v = Math.max(lo, Math.min(hi, rel[i]));
+          const isTarget = (i === 0);
+          ctx.globalAlpha = isTarget ? 1 : 0.7;
+          ctx.fillStyle = isTarget ? red : ink;
+          const x = i * bw;
+          const wPx = isTarget ? Math.max(bw, 4) : Math.max(bw * 0.8, 0.8);
+          ctx.fillRect(x, Math.min(y(v), y(0)), wPx, Math.max(Math.abs(y(v) - y(0)), 0.6));
+        }
+        ctx.globalAlpha = 1;
+      };
+      
+      container.querySelectorAll('input').forEach(el => el.addEventListener('input', draw));
+      window.addEventListener('resize', draw);
+      draw();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
 </div>
+
 
 
 <h2 id="如何减少干扰？"><a href="#如何减少干扰？" class="headerlink" title="如何减少干扰？"></a>如何减少干扰？</h2><p>即便是在容量阈值（约 $d_k$ 条记忆）以下，外积存储器在召回时依然会产生不可忽视的显著干扰。<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="此处的分析针对的是召回一个纯净无噪的值向量。如果每个值只需在一个固定的候选集合中指向正确答案（例如分类任务中挑选概率最高的 Token），那么召回结果只需比错误答案更接近正确答案即可；在此类设定下，一个 $d\times d$ 维的矩阵大约能容纳 $d^2$ 个事实（参见 [Nichani, Lee & Bietti](https://arxiv.org/abs/2412.06538)）。">[3]</span></a></sup> 为了提升容量上限，或是在容量范围内获得更纯净的召回结果，我们必须<strong>减少干扰</strong>。</p>
@@ -644,6 +775,7 @@ setTimeout(draw, 50);
 <p><strong>这，正是自注意力机制（Self-Attention）</strong>。<sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="在 Transformer 的标准符号表示中，相似度通常记作 $k_i^\top q$（其中 $q = W_Q x$），并除以缩放系数 $\sqrt{d_k}$。在本文中，我将投影矩阵 $W_Q$ 吸收融合到了键的定义中。Transformer 中的键与查询模长通常约为 $\sqrt{d_k}$，这一缩放与本文在单位长度键下取 $\beta = \sqrt{d_k}$ 是完全等价的。">[7]</span></a></sup></p>
 <p>与 MLP（其键和值是固化在参数权重中的）不同，自注意力机制的键和值是从上下文中的各个 Token 动态计算而来的。每个 Token 存储了一条记忆，因此记忆条数 $M$ 就是上下文长度。这正是自注意力机制被称为“<strong>非参数化（Non-parametric）</strong>”的原因：它的记忆并不占据模型静态参数，存储器的大小随着上下文动态扩张。</p>
 <p>再次回顾记忆条柱图，从 Softmax 开始观察。在 $\beta &#x3D; 8$ 时，在滑块所能调节的范围内召回永远不会失败；但若将 $\beta$ 调低至 2 并增大 $M$，仅需几十条记忆召回就会失效。$M$ 每翻一番，都需要相应增大一点 $\beta$ 才能维持纯净召回，这正是下一小节的核心思想。</p>
+
 <div class="interactive-membars-widget-2" style="background: #F5F3EE; border: 1px solid rgba(44, 45, 48, 0.15); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2C2D30;">
   <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.9rem;">
     <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
@@ -665,7 +797,8 @@ setTimeout(draw, 50);
     </div>
   </div>
 
-<p>  <canvas class="c-membars-canvas-2" style="width: 100%; height: 180px; display: block; border-radius: 4px; background: #EAE6DF;"></canvas></p>
+  <canvas class="c-membars-canvas-2" style="width: 100%; height: 180px; display: block; border-radius: 4px; background: #EAE6DF;"></canvas>
+
   <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-top: 0.6rem; font-size: 0.85rem; color: #595A5D; gap: 0.5rem;">
     <div>
       <span style="display: inline-block; width: 10px; height: 10px; background: #B3202A; border-radius: 2px; margin-right: 4px;"></span>
@@ -684,111 +817,119 @@ setTimeout(draw, 50);
   </div>
   <script>
   (function() {
-    const container = document.currentScript ? document.currentScript.parentElement : document.querySelector('.interactive-membars-widget-2');
-    if (!container) return;
-    const canvas = container.querySelector('.c-membars-canvas-2');
-    if (!canvas || canvas.dataset.ready) return;
-    canvas.dataset.ready = 'true';
+    function init() {
+      const container = document.querySelector('.interactive-membars-widget-2');
+      if (!container) return;
+      const canvas = container.querySelector('.c-membars-canvas-2');
+      if (!canvas || canvas.dataset.ready) return;
+      canvas.dataset.ready = 'true';
 
-<pre><code class="hljs">const D = 64, MMAX = 2048;
-let seed = 20261014;
-const rand = () =&gt; ((seed = (seed * 16807) % 2147483647) / 2147483647);
-const gauss = () =&gt; Math.sqrt(-2 * Math.log(rand() + 1e-12)) * Math.cos(2 * Math.PI * rand());
-const unit = () =&gt; &#123;
-  const v = Array.from(&#123; length: D &#125;, gauss);
-  const n = Math.hypot(...v);
-  return v.map(x =&gt; x / n);
-&#125;;
-const K = Array.from(&#123; length: MMAX &#125;, unit);
-const V = Array.from(&#123; length: MMAX &#125;, unit);
-const sims = K.map(k =&gt; k.reduce((a, x, i) =&gt; a + x * K[0][i], 0));
-
-const score = &#123;
-  linear: s =&gt; s,
-  relu: s =&gt; Math.max(0, s),
-  relu2: s =&gt; Math.max(0, s) ** 2,
-  softmax: (s, beta) =&gt; Math.exp(beta * (s - 1)),
-&#125;;
-
-const ctx = canvas.getContext(&#39;2d&#39;);
-const mSlider = container.querySelector(&#39;.c-m-slider-2&#39;);
-const bSlider = container.querySelector(&#39;.c-beta-slider-2&#39;);
-const mOut = container.querySelector(&#39;.c-m-val-2&#39;);
-const bOut = container.querySelector(&#39;.c-beta-val-2&#39;);
-const bRow = container.querySelector(&#39;.c-beta-row-2&#39;);
-const ratioOut = container.querySelector(&#39;.c-ratio-val-2&#39;);
-const meterFill = container.querySelector(&#39;.c-meter-fill-2&#39;);
-const failTag = container.querySelector(&#39;.c-fail-tag-2&#39;);
-const red = &#39;#B3202A&#39;;
-const ink = &#39;#373229&#39;;
-
-const draw = () =&gt; &#123;
-  const checkedRadio = container.querySelector(&#39;input[type=radio]:checked&#39;);
-  const mode = checkedRadio ? checkedRadio.value : &#39;softmax&#39;;
-  const M = 2 ** +mSlider.value;
-  const beta = +bSlider.value;
-  if (mOut) mOut.textContent = M;
-  if (bOut) bOut.textContent = beta;
-  if (bRow) bRow.style.display = (mode === &#39;softmax&#39;) ? &#39;flex&#39; : &#39;none&#39;;
-
-  const w = sims.slice(0, M).map(s =&gt; score[mode](s, beta));
-  const rel = w.map(x =&gt; x / w[0]);
-
-  const noise = new Array(D).fill(0);
-  for (let i = 1; i &lt; M; i++) &#123;
-    for (let j = 0; j &lt; D; j++) &#123;
-      noise[j] += rel[i] * V[i][j];
-    &#125;
-  &#125;
-  const ratio = Math.hypot(...noise);
-  if (ratioOut) ratioOut.textContent = ratio &lt; 0.01 ? ratio.toExponential(1) : ratio.toFixed(2);
-  if (meterFill) &#123;
-    const pct = Math.min(ratio / 2, 1) * 100;
-    meterFill.style.width = pct + &#39;%&#39;;
-    meterFill.style.background = ratio &gt;= 1 ? &#39;#C62828&#39; : &#39;#2E7D32&#39;;
-  &#125;
-  if (failTag) &#123;
-    failTag.style.display = ratio &gt;= 1 ? &#39;inline-block&#39; : &#39;none&#39;;
-  &#125;
-
-  const dpr = window.devicePixelRatio || 1;
-  const W = canvas.clientWidth || 600;
-  const H = canvas.clientHeight || 180;
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, W, H);
-
-  const lo = -0.4, hi = 1.05;
-  const y = v =&gt; H * (hi - v) / (hi - lo);
-
-  ctx.strokeStyle = ink;
-  ctx.globalAlpha = 0.45;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(0, y(0));
-  ctx.lineTo(W, y(0));
-  ctx.stroke();
-
-  const bw = W / M;
-  for (let i = M - 1; i &gt;= 0; i--) &#123;
-    const v = Math.max(lo, Math.min(hi, rel[i]));
-    const isTarget = (i === 0);
-    ctx.globalAlpha = isTarget ? 1 : 0.7;
-    ctx.fillStyle = isTarget ? red : ink;
-    const x = i * bw;
-    const wPx = isTarget ? Math.max(bw, 4) : Math.max(bw * 0.8, 0.8);
-    ctx.fillRect(x, Math.min(y(v), y(0)), wPx, Math.max(Math.abs(y(v) - y(0)), 0.6));
-  &#125;
-  ctx.globalAlpha = 1;
-&#125;;
-
-container.querySelectorAll(&#39;input&#39;).forEach(el =&gt; el.addEventListener(&#39;input&#39;, draw));
-window.addEventListener(&#39;resize&#39;, draw);
-setTimeout(draw, 50);
-</code></pre>
-<p>  })();<br>  </script></p>
+      const D = 64, MMAX = 2048;
+      let seed = 20261014;
+      const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      const gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-12)) * Math.cos(2 * Math.PI * rand());
+      const unit = () => {
+        const v = Array.from({ length: D }, gauss);
+        const n = Math.hypot(...v);
+        return v.map(x => x / n);
+      };
+      const K = Array.from({ length: MMAX }, unit);
+      const V = Array.from({ length: MMAX }, unit);
+      const sims = K.map(k => k.reduce((a, x, i) => a + x * K[0][i], 0));
+      
+      const score = {
+        linear: s => s,
+        relu: s => Math.max(0, s),
+        relu2: s => Math.max(0, s) ** 2,
+        softmax: (s, beta) => Math.exp(beta * (s - 1)),
+      };
+      
+      const ctx = canvas.getContext('2d');
+      const mSlider = container.querySelector('.c-m-slider-2');
+      const bSlider = container.querySelector('.c-beta-slider-2');
+      const mOut = container.querySelector('.c-m-val-2');
+      const bOut = container.querySelector('.c-beta-val-2');
+      const bRow = container.querySelector('.c-beta-row-2');
+      const ratioOut = container.querySelector('.c-ratio-val-2');
+      const meterFill = container.querySelector('.c-meter-fill-2');
+      const failTag = container.querySelector('.c-fail-tag-2');
+      const red = '#B3202A';
+      const ink = '#373229';
+      
+      const draw = () => {
+        const checkedRadio = container.querySelector('input[type=radio]:checked');
+        const mode = checkedRadio ? checkedRadio.value : 'softmax';
+        const M = 2 ** +mSlider.value;
+        const beta = +bSlider.value;
+        if (mOut) mOut.textContent = M;
+        if (bOut) bOut.textContent = beta;
+        if (bRow) bRow.style.display = (mode === 'softmax') ? 'flex' : 'none';
+      
+        const w = sims.slice(0, M).map(s => score[mode](s, beta));
+        const rel = w.map(x => x / w[0]);
+      
+        const noise = new Array(D).fill(0);
+        for (let i = 1; i < M; i++) {
+          for (let j = 0; j < D; j++) {
+            noise[j] += rel[i] * V[i][j];
+          }
+        }
+        const ratio = Math.hypot(...noise);
+        if (ratioOut) ratioOut.textContent = ratio < 0.01 ? ratio.toExponential(1) : ratio.toFixed(2);
+        if (meterFill) {
+          const pct = Math.min(ratio / 2, 1) * 100;
+          meterFill.style.width = pct + '%';
+          meterFill.style.background = ratio >= 1 ? '#C62828' : '#2E7D32';
+        }
+        if (failTag) {
+          failTag.style.display = ratio >= 1 ? 'inline-block' : 'none';
+        }
+      
+        const dpr = window.devicePixelRatio || 1;
+        const W = canvas.clientWidth || 600;
+        const H = canvas.clientHeight || 180;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, W, H);
+      
+        const lo = -0.4, hi = 1.05;
+        const y = v => H * (hi - v) / (hi - lo);
+      
+        ctx.strokeStyle = ink;
+        ctx.globalAlpha = 0.45;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, y(0));
+        ctx.lineTo(W, y(0));
+        ctx.stroke();
+      
+        const bw = W / M;
+        for (let i = M - 1; i >= 0; i--) {
+          const v = Math.max(lo, Math.min(hi, rel[i]));
+          const isTarget = (i === 0);
+          ctx.globalAlpha = isTarget ? 1 : 0.7;
+          ctx.fillStyle = isTarget ? red : ink;
+          const x = i * bw;
+          const wPx = isTarget ? Math.max(bw, 4) : Math.max(bw * 0.8, 0.8);
+          ctx.fillRect(x, Math.min(y(v), y(0)), wPx, Math.max(Math.abs(y(v) - y(0)), 0.6));
+        }
+        ctx.globalAlpha = 1;
+      };
+      
+      container.querySelectorAll('input').forEach(el => el.addEventListener('input', draw));
+      window.addEventListener('resize', draw);
+      draw();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
 </div>
+
 
 
 <h3 id="处理长上下文中的海量键值对"><a href="#处理长上下文中的海量键值对" class="headerlink" title="处理长上下文中的海量键值对"></a>处理长上下文中的海量键值对</h3><p>既然 $\beta$ 决定了对低相似度键的压制力度，那么随着键值对数量的膨胀，我们理应相应增大 $\beta$。那为什么不直接把 $\beta$ 设得极大呢？当 $\beta \to \infty$ 时，Softmax 会退化为不可微的硬性 $\operatorname{argmax}$，仅选取唯一的最高相似度键；而在训练过程中，过大的 $\beta$ 也会导致 Softmax 快速饱和，使得传递给其他所有键的梯度彻底消失，导致训练困难。因此，我们只需要随着 $M$ 的需求温和地调大 $\beta$。</p>
