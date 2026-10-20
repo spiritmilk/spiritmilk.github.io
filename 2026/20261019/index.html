@@ -28,18 +28,18 @@
 <meta property="og:site_name" content="小熊的小站">
 <meta property="og:description" content="转自 You could have invented transformers from memory | Alex Wang">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-interactive-bars.svg">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-2-linear-memories.svg">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-3-mlp-higher-powers.svg">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-4-series-truncation.svg">
-<meta property="og:image" content="https://lijianxiong.space/2019/20190430/figure-6-softmax-attention.svg">
+<meta property="og:image" content="https://lijianxiong.space/2026/20261019/figure-interactive-bars.svg">
+<meta property="og:image" content="https://lijianxiong.space/2026/20261019/figure-2-linear-memories.svg">
+<meta property="og:image" content="https://lijianxiong.space/2026/20261019/figure-3-mlp-higher-powers.svg">
+<meta property="og:image" content="https://lijianxiong.space/2026/20261019/figure-4-series-truncation.svg">
+<meta property="og:image" content="https://lijianxiong.space/2026/20261019/figure-6-softmax-attention.svg">
 <meta property="article:published_time" content="2026-10-19T10:24:22.000Z">
 <meta property="article:modified_time" content="2026-10-19T15:17:44.348Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lijianxiong.space/2019/20190430/figure-interactive-bars.svg">
+<meta name="twitter:image" content="https://lijianxiong.space/2026/20261019/figure-interactive-bars.svg">
   
   
   
@@ -527,7 +527,7 @@
 <p>$$M \approx d_k,$$</p>
 <p>也就是说，一旦存储的记忆数量达到键的维度大小，干扰便会与信号相当，从而将目标信号淹没。</p>
 <p>下方的条形图展示了单次召回中，每个已存储记忆相对于目标记忆权重（红色）的贡献大小。每个小条都会向召回结果中掺入一部分它自身的值。如果将 $M$ 拖动超过 $d_k &#x3D; 64$，可以看到零碎的小条不断累加堆积，直到召回彻底失效。切换按钮可体验我们在后文中构建的高级记忆存储器。<br><a id="interactive"></a></p>
-<h3 id="交互式记忆权重柱状图演示"><a href="#交互式记忆权重柱状图演示" class="headerlink" title="交互式记忆权重柱状图演示"></a>交互式记忆权重柱状图演示</h3><p><img src="/2019/20190430/figure-interactive-bars.svg" alt="各记忆存储器单次召回权重分布对比"></p>
+<h3 id="交互式记忆权重柱状图演示"><a href="#交互式记忆权重柱状图演示" class="headerlink" title="交互式记忆权重柱状图演示"></a>交互式记忆权重柱状图演示</h3><p><img src="/2026/20261019/figure-interactive-bars.svg" alt="各记忆存储器单次召回权重分布对比"></p>
 
 <div class="interactive-membars-widget" style="background: #F5F3EE; border: 1px solid rgba(44, 45, 48, 0.15); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #2C2D30;">
   <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.9rem;">
@@ -722,7 +722,7 @@
 <p>与外积存储器的 $\sqrt{M&#x2F;d_k}$ 相比，根号内的 $-1$ 恰恰对应了最优存储器所完全抵消掉的整整 $d_k$ 条记忆所产生的干扰！</p>
 </blockquote>
 <p>我们可以通过数值实验来验证这一理论预测。我们随机采样 $M$ 条记忆，其键为 $d_k &#x3D; 64$ 维的单位向量，用其中一个已存储的键去查询存储器，并测算其干扰信号比：</p>
-<p><img src="/2019/20190430/figure-2-linear-memories.svg" alt="两种线性记忆存储器（d&#x3D;64）的干扰信号比对比"></p>
+<p><img src="/2026/20261019/figure-2-linear-memories.svg" alt="两种线性记忆存储器（d&#x3D;64）的干扰信号比对比"></p>
 <p><em>图：在 $d_k &#x3D; 64$ 下两种线性存储器的干扰信号比随 $M$ 变化曲线。当查询等于已存键时，外积记忆在 $M &#x3D; 64$ 处干扰达到信号大小；而最优最小二乘记忆在 $M \leq 64$ 时完全无干扰，并在 $M \approx 128$ 处干扰达到信号大小。</em></p>
 <p>外积存储器在 $M \approx d_k &#x3D; 64$ 处达到其容量极限。而最优存储器在 $M \leq d_k$ 时召回完全精确，之后干扰从零开始按 $\sqrt{M&#x2F;d_k - 1}$ 上升，并正如理论预测的那样在 $M &#x3D; 2d_k &#x3D; 128$ 附近达到容量极限。由于最优存储器抵消掉的干扰量是固定数量（相当于抵消了 $d_k$ 条记忆的干扰），随着 $M$ 的不断增大，两者的相对差距会逐步缩小。</p>
 <p>然而，这种最优存储器对于相似度而言依然是<strong>线性的</strong>。它对无论高低的所有相似度都必须以相同的尺度进行缩放。若要取得突破，我们必须从根本上改变存储器的<strong>召回机制</strong>。</p>
@@ -744,7 +744,7 @@
 <p>$$M \approx d_k^p$$</p>
 <p>条记忆，容量相比之前呈现出<strong>几何级数&#x2F;多项式级的爆发式增长</strong>！</p>
 <p>为了验证这一点，我们针对五种不同的 $\sigma$ 选择进行了相同的数值模拟实验：</p>
-<p><img src="/2019/20190430/figure-3-mlp-higher-powers.svg" alt="不同激活函数下干扰信号比随记忆数量 M 变化的双对数坐标图"></p>
+<p><img src="/2026/20261019/figure-3-mlp-higher-powers.svg" alt="不同激活函数下干扰信号比随记忆数量 M 变化的双对数坐标图"></p>
 <p><em>图：在双对数坐标系下，干扰信号比随存储记忆数量 $M$ 的变化曲线。查询等于已存键时，线性记忆在 $M \approx 64$ 处达到容量极限，ReLU 记忆在约 128 处达到，平方 ReLU 和 SwiGLU 记忆在约 3,000 处达到，而三次方 ReLU 记忆在超过 16,384 处仍未失效。</em></p>
 <p>由于干扰均以 $\sqrt{M}$ 的速度增长，各条曲线在双对数坐标图上几乎呈平行线。改变的仅仅是它们在图中的高度，以及随之变化的容量极限（即曲线穿过横线 1 的位置）：</p>
 <ul>
@@ -757,7 +757,7 @@
 <h2 id="作为非参数化记忆存储器的自注意力机制"><a href="#作为非参数化记忆存储器的自注意力机制" class="headerlink" title="作为非参数化记忆存储器的自注意力机制"></a>作为非参数化记忆存储器的自注意力机制</h2><p>将相似度权重提升到 $p$ 次幂，能够将容量提升至约 $d_k^p$。但如果我们把这一思路推向极限呢？与其固定选用某一个有限次幂，不如一口气选用无穷多个幂次！事实上，指数函数正是所有幂次项的加权级数和：</p>
 <p>$$e ^ {\beta s} &#x3D; 1 + \beta s + \frac{(\beta s)^2}{2} + \frac{(\beta s)^3}{6} + \cdots &#x3D; \sum_ { p&#x3D;0} ^ {\infty} \frac{(\beta s)^p}{p!},$$</p>
 <p>其中锐度参数 $\beta$ 决定了赋予更高阶幂次的权重。下述实验展示了取 $\beta &#x3D; \sqrt{d_k}$（这正是标准自注意力机制所采用的缩放值）<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="在标准的 Transformer 中，是对相似度除以 $\sqrt{d_k}$ 而非乘以该系数。但标准 Transformer 中的查询与键的向量长度通常约为 $\sqrt{d_k}$，使得完全匹配的一对键值具有 $q^\top k \approx d_k$。在本文的推导中，键和查询均被归一化为单位长度，完全匹配时的相似度为 1。因此相应的缩放系数对应为 $\beta = \sqrt{d_k}$。">[6]</span></a></sup> 时，完整指数函数与其截断为前 2、3、4 项泰勒展开后的表现对比：</p>
-<p><img src="/2019/20190430/figure-4-series-truncation.svg" alt="指数评分函数与其级数截断的干扰信号比对比"></p>
+<p><img src="/2026/20261019/figure-4-series-truncation.svg" alt="指数评分函数与其级数截断的干扰信号比对比"></p>
 <p><em>图：锐度为 $\beta &#x3D; \sqrt{d_k}$ 的指数函数及其截断为 2、3、4 项后的干扰信号比随 $M$ 变化曲线，附带线性记忆作为基准对比。</em></p>
 <ul>
 <li>仅保留 2 项时，容量仅为约 40，甚至不如线性存储器，因为常数项赋予了每个无关键大小为 1 的固定底噪权重。</li>
@@ -940,7 +940,7 @@
 <li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.15383">Qwen2.5-1M</a> 采用了 YaRN 的注意力缩放机制，将 Logits 乘以 $(0.1 \log(M&#x2F;L) + 1)^2$，从而使其随 $(\log M)^2$ 增长。</li>
 </ul>
 <p>下图展示了在 $L &#x3D; 1024$、初始 $\beta &#x3D; \sqrt{d_k} &#x3D; 8$ 的设置下，各规则在数值实验中的表现：</p>
-<p><img src="/2019/20190430/figure-6-softmax-attention.svg" alt="不同锐度缩放规则下 Softmax 注意力的干扰信号比"></p>
+<p><img src="/2026/20261019/figure-6-softmax-attention.svg" alt="不同锐度缩放规则下 Softmax 注意力的干扰信号比"></p>
 <p><em>图：在 $d_k &#x3D; 64$ 下，四种锐度规则对应的 Softmax 注意力干扰信号比随记忆数量 $M$（最高至 200 万对）的变化曲线。固定 $\beta &#x3D; 8$ 时，干扰在约 120 万对处达到信号水平；而按对数缩放的规则下，干扰信号比随着 $M$ 的增长反而持续下降。</em></p>
 <p>Qwen 的规则与苏剑林的规则在超出参考长度 $L$ 后完全重合，其干扰信号比随着存储容量的增加不升反降，在达到 200 万条记忆时甚至下降至约 0.004。而 YaRN 增速更快的缩放法则将该比值直接压低到了 $10 ^ {-4}$ 量级。<br>在这些方案中，让 $\beta$ 随 $\log M$ 动态扩展，使得自注意力机制理论上能够容纳<strong>近乎无界、无限多条</strong>拥有不同键的记忆！</p>
 <h2 id="总结与思考"><a href="#总结与思考" class="headerlink" title="总结与思考"></a>总结与思考</h2><p>以下是我们探讨过的所有记忆存储器汇总，以及在查询已存储键且键和值均为随机向量时的理论容量对比：</p>
