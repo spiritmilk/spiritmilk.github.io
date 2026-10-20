@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20261019/figure-4-series-truncation.svg">
 <meta property="og:image" content="https://lijianxiong.space/2026/20261019/figure-6-softmax-attention.svg">
 <meta property="article:published_time" content="2026-10-19T10:24:22.000Z">
-<meta property="article:modified_time" content="2026-10-19T15:17:44.348Z">
+<meta property="article:modified_time" content="2026-10-20T02:12:45.906Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="深度学习">
@@ -703,7 +703,7 @@
 <blockquote>
 <h3 id="旁白：最优线性记忆存储器的数学推导"><a href="#旁白：最优线性记忆存储器的数学推导" class="headerlink" title="旁白：最优线性记忆存储器的数学推导"></a>旁白：最优线性记忆存储器的数学推导</h3><p><strong>当 $M \leq d_k$ 时</strong>：若各个键线性无关，则键之间的内积矩阵（$M\times M$ 维）$KK^\top$ 可逆，此时：</p>
 <p>$$W &#x3D; V^\top (KK^\top) ^ {-1} K$$</p>
-<p>能够完美拟合每一条记忆。当 $M &lt; d_k$ 时，该回归问题是欠定（Underconstrained）的，存在无穷多个解，而上述解正是最小范数解（Min-norm solution）。矩阵 $(KK^\top) ^ {-1} K$ 的每一行 $\tilde{k}_i^\top$ 被称为 $K$ 各行的对偶基（Dual Basis）：根据构造，$(KK^\top) ^ {-1} KK^\top &#x3D; I$，因此 $\tilde{k}<em>i^\top k_j &#x3D; \delta</em> { ij}$。由此得出 $f(k_j) &#x3D; \sum_i v_i, \tilde{k}_i^\top k_j &#x3D; v_j$，这意味着<strong>完全没有干扰</strong>，我们获得了完美无瑕的召回。</p>
+<p>能够完美拟合每一条记忆。当 $M &lt; d_k$ 时，该回归问题是欠定（Underconstrained）的，存在无穷多个解，而上述解正是最小范数解（Min-norm solution）。矩阵 $(KK^\top) ^ {-1} K$ 的每一行 $\tilde{k}_i^\top$ 被称为 $K$ 各行的对偶基（Dual Basis）：根据构造，$(KK ^ \top) ^ {-1} KK ^ \top &#x3D; I$，因此 $\tilde{k}  _ i ^ \top k _ j &#x3D; \delta _ { ij}$。由此得出 $f(k _ j) &#x3D; \sum _ i v _ i, \tilde{k} _ i ^ \top k _ j &#x3D; v _ j$，这意味着<strong>完全没有干扰</strong>，我们获得了完美无瑕的召回。</p>
 <p><strong>当 $M &gt; d_k$ 时</strong>：令目标函数的梯度为零，可得 $W K^\top K &#x3D; V^\top K$，故 $W &#x3D; V^\top K,(K^\top K) ^ {-1}$。<br>两种情况下的解都可以统一写作 $W &#x3D; V^\top (K^\top)^\dagger$，其中 $A^\dagger$ 表示矩阵 $A$ 的 Moore-Penrose 伪逆（Pseudoinverse）：当键线性无关时 $(K^\top)^\dagger &#x3D; (KK^\top) ^ {-1} K$，而当键张成整个 $\mathbb{R} ^ {d_k}$ 时 $(K^\top)^\dagger &#x3D; K(K^\top K) ^ {-1}$。</p>
 <p>现在我们可以分析 $f(k_j) &#x3D; V^\top K,(K^\top K) ^ {-1} k_j$ 的干扰项。<br>对于已存入的键 $k_j$，分配给每个值 $v_i$ 的权重为 $k_i^\top (K^\top K) ^ {-1} k_j$，这恰好对应 $M\times M$ 投影矩阵 $P &#x3D; K(K^\top K) ^ {-1} K^\top$ 的第 $(i, j)$ 项元素：</p>
 <p>$$f(k_j) &#x3D; \sum_ { i&#x3D;1}^M v_i, P_ { ij} &#x3D; \underbrace{P_ { jj}, v_j}_ { \text{信号}} + \underbrace{\sum_ { i\neq j} P_ { ij}, v_i}_ { \text{干扰}}.$$</p>
