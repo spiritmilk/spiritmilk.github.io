@@ -81,7 +81,7 @@
 <meta property="og:image" content="https://lijianxiong.space/2026/20261017/51_ICML_Scaling_Aware_Adapter_for_Structure_Grounded_method.png">
 <meta property="og:image" content="https://lijianxiong.space/2026/20261017/52_ICML_The_Truth_Stays_in_the_Family_Enhancing_Conte_method.png">
 <meta property="article:published_time" content="2026-10-17T04:50:59.000Z">
-<meta property="article:modified_time" content="2026-10-21T07:15:45.720Z">
+<meta property="article:modified_time" content="2026-10-21T12:18:19.548Z">
 <meta property="article:author" content="LJX">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="大模型">
@@ -362,7 +362,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          111k 字
+          112k 字
         
       </span>
     
@@ -373,7 +373,7 @@
         
         
         
-          929 分钟
+          932 分钟
         
       </span>
     
@@ -462,7 +462,7 @@
 <li><strong>局限与未来工作</strong>：论文未设 Limitation 章节，未明确说明局限；结论仅泛泛表示本工作”provides both theoretical insights and practical tools for enhancing LVLM faithfulness, and opens new avenues for causal control in multimodal generation”。可注意：α、β 需按基座逐个人工调参，(τ, T, λ) 亦为经验值，且主实验仅覆盖 500 张 MSCOCO 图像。</li>
 </ul>
 <blockquote>
-<p>有点像clearsight</p>
+<p>批注：有点像clearsight</p>
 </blockquote>
 <hr>
 <h2 id="2-AAAI2026-—-Ground-What-You-See-Hallucination-Resistant-MLLMs-via-Caption-Feedback-Diversity-Aware-Sampling-and-Conflict-Regularization"><a href="#2-AAAI2026-—-Ground-What-You-See-Hallucination-Resistant-MLLMs-via-Caption-Feedback-Diversity-Aware-Sampling-and-Conflict-Regularization" class="headerlink" title="[2] AAAI2026 — Ground What You See: Hallucination-Resistant MLLMs via Caption Feedback, Diversity-Aware Sampling, and Conflict Regularization"></a>[2] AAAI2026 — Ground What You See: Hallucination-Resistant MLLMs via Caption Feedback, Diversity-Aware Sampling, and Conflict Regularization</h2><ul>
@@ -559,7 +559,7 @@
 <h3 id="4-研究方法-3"><a href="#4-研究方法-3" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（游戏系统）</strong>：系统 S 由四元组构成——问题 Q、N 个智能体 A&#x3D;{Ai}、辩论函数集合 F 与响应集合 R，t 时刻状态 St &#x3D; (Q, A, F, Rt)；问题本身写作 Q &#x3D; (Q, I+, I−)。开局一名智能体被赋予反事实图 I− 扮演卧底（Role(Ai)&#x3D;U），其余为常规辩论者（Role(Aj)&#x3D;D）。游戏在 Undercover Detection Game（Game(St)&#x3D;D）与 Summarization Game（Game(St)&#x3D;M）两种模式间切换：检测到卧底前一直处于检测模式，卧底出局后转入总结模式产出最终答案。</li>
 <li><strong>反事实图 I− 的生成（Generation of Counterfactual Image）</strong>：先做跨模态分析确定编辑类型与目标对象（LLM 分类问题 → 预定义编辑类型；对 I+ 建场景图定位目标），再提示图像生成器（Step1X-Edit）执行修改。生成须同时满足三条约束：Maximal Visual Similarity Cvs&#x3D;SimV(I+,I−)（ViT 嵌入比较，让卧底不易被过早识破）、Semantic Consistency Csc&#x3D;CLIPS(I+,I−)（CLIP 嵌入比较，保留整体语义）、Naturalness Cna&#x3D;FID(I−)（避免人工痕迹）；生成被接受的条件是 α·Cvs + β·Csc + γ·Cna ≥ c，否则重复生成。作者强调刻意讨论细微差异（而非 captioning 式的宽泛概念）能引导细粒度语义辨析。</li>
-<li><strong>Undercover Detection Game</strong>：推理阶段每轮智能体产出 Rti &#x3D; freason(Q, Ii, Role(Ai), Ht−1)；常规智能体按 Rt i &#x3D; argmax_r [Acc(r,Q,I+) + λ·Det(r,Ht−1)]（准确推理＋揭露卧底），卧底按 Rt u &#x3D; argmax_r [Pla(r,Q,I−) − µ·Sus(r,Ht−1)]（在反事实图上保持合理并压低被怀疑度）。投票阶段每票 Vt i &#x3D; argmax_{j≠i} Σ_{k&#x3D;1..4} wk·ϕij k(t)，四类信号为不一致性分数 ϕ1、偏离共识分数 ϕ2、细节准确度 ϕ3、行为可疑度 ϕ4；淘汰由多数票决定 ĵ &#x3D; argmax_j |{i : Vt i &#x3D; j}|。</li>
+<li><strong>Undercover Detection Game</strong>：推理阶段每轮智能体产出 Rti &#x3D; freason(Q, Ii, Role(Ai), Ht−1)；常规智能体按 Rt i &#x3D; argmax_r [Acc(r,Q,I+) + λ·Det(r,Ht−1)]（准确推理＋揭露卧底），卧底按 Rt u &#x3D; argmax_r [Pla(r,Q,I−) − µ·Sus(r,Ht−1)]（在反事实图上保持合理并压低被怀疑度）。投票阶段每票 Vt i &#x3D; argmax _ {j≠i} Σ _ {k&#x3D;1..4} wk·ϕij k(t)，四类信号为不一致性分数 ϕ1、偏离共识分数 ϕ2、细节准确度 ϕ3、行为可疑度 ϕ4；淘汰由多数票决定 ĵ &#x3D; argmax_j |{i : Vt i &#x3D; j}|。</li>
 <li><strong>终止与轮次推进</strong>：Tt 为真的条件有三个——卧底被找到（Role(Aĵ)&#x3D;U）、常规智能体剩余数 |A*| ≤ 1、或超时 t &gt; tmax；否则继续。信息不对称制造的策略张力迫使常规智能体用具体细节自证看到 I+，卧底则必须在合理性与准确性间权衡，从而提升整体推理的细节精度。</li>
 <li><strong>Summarization Game</strong>：卧底出局后，剩余智能体按 Rsum_i &#x3D; fsum(Q, I+, Rt−1_collect, Ht−1) 互相借鉴、结构化对话，最终 Ranswer &#x3D; fanswer(Rsum, Q, I+)；当达成足够共识或超过最大总结轮数时终止。全部辩论函数集合 F &#x3D; {freason, fsum, fanswer}。</li>
 <li><strong>训练&#x2F;推理策略</strong>：免训练（无需微调），完全是测试时的多智能体推理协议；关键外部组件为 Step1X-Edit 图像编辑模型与 ViT&#x2F;CLIP&#x2F;FID 三项质量校验。</li>
@@ -603,7 +603,7 @@
 <li><strong>探测维度一：查询条件</strong>：比较 MC 与 YN 两种问题格式、以及是否给出物体参照（”Is someone holding a cup?” vs “Is someone eating something?”），以观察动词理解对物体参照的依赖程度。</li>
 <li><strong>探测维度二：成像条件</strong>：加入胡椒盐噪声（每像素以 75% 概率受影响）比较高质量与失真图像下的表现，并用 Cohen’s Kappa 形式的 Error Consistency 度量跨视觉条件的一致性；另用 CharadesEgo 的同一场景第一人称&#x2F;第三人称录像比较 egocentric 与 exocentric 动词理解。</li>
 <li><strong>探测维度三：语义条件</strong>：把负样本分为 rare 与 common 两个子集（rare 为在同一物体类相关 HOI 中占比不足 20% 的长尾；common 为 hold&#x2F;ride&#x2F;sit on&#x2F;straddle&#x2F;carry 这 5 个占 HICO 动词标注 50% 的高频动词）；并构造 ambiguous 子集（人-物相对尺寸失衡、拥挤场景、遮挡）与非歧义图对比。</li>
-<li><strong>探测维度四：模型行为分析</strong>：定义 Visual Token Attention &#x3D; mean_j [Σ_{i∈V}αij &#x2F; (Σ_{i∈V}αij + Σ_{k∈T}αkj)]（αij 为最后一层第 j 头对 token i 的注意力权重，V&#x2F;T 为视觉&#x2F;文本 token 集合），统计幻觉&#x2F;非幻觉样本的关键区域注意力、token 概率分布与视野裁剪影响；用 Yes token 概率计算 mAP 并与 HICO 微调 CLIP 对照。</li>
+<li><strong>探测维度四：模型行为分析</strong>：定义 Visual Token Attention &#x3D; mean_j [Σ _ {i∈V}αij &#x2F; (Σ _ {i∈V}αij + Σ _ {k∈T}αkj)]（αij 为最后一层第 j 头对 token i 的注意力权重，V&#x2F;T 为视觉&#x2F;文本 token 集合），统计幻觉&#x2F;非幻觉样本的关键区域注意力、token 概率分布与视野裁剪影响；用 Yes token 概率计算 mAP 并与 HICO 微调 CLIP 对照。</li>
 <li><strong>缓解基线（rich verb knowledge tuning）</strong>：用 Pangea 按其源数据集比例抽 60K 样本，借助 VerbNet 选取 290 个高频动词节点建立一对 290 映射以携带动词结构知识，构成指令微调集（覆盖 Pangea P2S 映射中 290 个节点里的 280 个），按常规做法用 LoRA 微调 LLaVA V1.5。</li>
 </ul>
 <h3 id="5-实验结果-4"><a href="#5-实验结果-4" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -627,6 +627,9 @@
 <li><strong>作者自述贡献</strong>：(1) 首次指出并分析 MLLM 的动词幻觉，并在不同条件下进行探测；(2) 研究现有免训练与微调方法对动词幻觉的影响，发现微调仍是最有希望的方向；(3) 从视觉-语言交互与 token 不确定性角度探测模型行为，考察 MLLM 学习动词的程度。</li>
 <li><strong>局限与未来工作</strong>：论文明确表示”how to fine-tune existing models efficiently is still a problem to be explored”，且”whether there are effective training-free verb hallucination mitigation methods is still an open question”；作者自评所提方法虽成功缓解动词幻觉但”its performance is still far from satisfactory”，并提出未来可按结构化动词语义挖掘更多动作数据来微调 MLLM，或将方法接入 MoE 以规避干扰。作者还指出因相当比例的动词是及物动词，物体幻觉的影响无法被完全排除。</li>
 </ul>
+<blockquote>
+<p>批注：动词幻觉这块可能可以做做。</p>
+</blockquote>
 <hr>
 <h2 id="6-ACL2026-—-Aligning-with-Your-Own-Voice-Self-Corrected-Preference-Learning-for-Hallucination-Mitigation-in-LVLMs"><a href="#6-ACL2026-—-Aligning-with-Your-Own-Voice-Self-Corrected-Preference-Learning-for-Hallucination-Mitigation-in-LVLMs" class="headerlink" title="[6] ACL2026 — Aligning with Your Own Voice: Self-Corrected Preference Learning for Hallucination Mitigation in LVLMs"></a>[6] ACL2026 — Aligning with Your Own Voice: Self-Corrected Preference Learning for Hallucination Mitigation in LVLMs</h2><ul>
 <li><strong>会议</strong>：ACL 2026（arXiv 录用说明：Accepted to ACL 2026）</li>
@@ -729,9 +732,9 @@
 <h3 id="4-研究方法-7"><a href="#4-研究方法-7" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（Algorithm 1: MADR, Multi-Agent Adversarial Dialectic Reasoning）</strong>：输入图像 I、查询 Q、最大轮数 T_max；初始化为 G ← ({h0}, ∅)，h_curr ← Proponent(I, Q)；随后每轮依次做 ① 视觉证伪 ② 图扩张 ③ 中介修正；图上出现环（IsCyclic）时跳过该修正；循环结束后由 Aggregator(G) 给出 D*，Mediator 再产出解释 E。</li>
 <li><strong>Visual Falsification Module（VFM，核心创新）</strong>：Opponent 不做纯语义反驳。第一步 Counterfactual Probe Generation：由当前假设 H_t 与领域知识 K_med 生成反事实探针 Q_cf &#x3D; GenProbe(H_t, K_med)（例如若 H_t 蕴含”应该有 opacity”，则探针指向 “sharp costophrenic angles” 或 “clear lung fields”）。第二步 Falsification Attention：用医学视觉语言编码器 PubMedCLIP 把 Q_cf 接地到图像 patch 嵌入 V&#x3D;{v_1,…,v_N}，按缩放余弦相似度 s_i &#x3D; qᵀv_i &#x2F;(‖q‖‖v_i‖√d) 再做温度 τ 归一化得到 α_i &#x3D; exp(s_i&#x2F;τ)&#x2F;Σ_j exp(s_j&#x2F;τ)；高 α_i 区域即”反事实前提的视觉支持区”，充当原诊断的”缺失证据”。</li>
-<li><strong>Adversarial Dialectic Reasoning Loop</strong>：Phase 1 Hypothesis Generation 由 Proponent 产生 h_0；Phase 2 Adversarial Attack 中 Opponent 取 M_cf 的 top-k 区域 R_k，产出反证节点 e_t &#x3D; Opponent(I, h_{t-1}, R_k)，攻击强度 S_attack(e_t) &#x3D; (1&#x2F;|R_k|)·Σ_{r∈R_k} α_r；作者特意区分像素级注意力权重 α_r 与图结构边权 w。若 S_attack &lt; θ_thresh 则判为弱攻击、循环终止（Consensus Reached），否则加入证伪边 (h_{t-1}, e_t) 且 w &#x3D; S_attack。Phase 3 Mediated Revision 中 Mediator 评估 e_t 的视觉接地性并给出 MediatorFeedback，Proponent 据此生成修正假设 h_t &#x3D; Proponent(h_{t-1}, e_t, fb_t)，并加入权重取自 Proponent 自报置信度的修正边。</li>
-<li><strong>Consensus Aggregation（动态共识图聚合）</strong>：对叶节点 h 定义累积可信度 Φ(h) &#x3D; Σ_{π∈Π(h0→h)} exp( (1&#x2F;|π|) Σ_{(u,v)∈π} log w_uv )，最终诊断 D* &#x3D; argmax_{h∈V_leaf} Φ(h)，即最能”经受住证伪—修正链”的那条路径；Mediator 再把胜出路径总结成解释 E。这使早期被检索到的高置信视觉反证不会被后续轮次覆盖（对抗 “lost-in-the-middle”）。</li>
-<li><strong>训练目标（Counterfactual Grounding Loss）</strong>：为增强 VFM 分辨细微病理的能力，用三元组 (I, Q⁺, Q⁻) 微调（Q⁺ 与金标匹配、Q⁻ 为反事实查询），损失 L_CFG &#x3D; −log( e^{s(Q⁺,M⁺)&#x2F;τ} &#x2F; Σ_{k∈{+,−}} e^{s(Q^k,M^k)&#x2F;τ} )，让正例注意力图对齐金标区域、负例注意力图被推开。</li>
+<li><strong>Adversarial Dialectic Reasoning Loop</strong>：Phase 1 Hypothesis Generation 由 Proponent 产生 h_0；Phase 2 Adversarial Attack 中 Opponent 取 M_cf 的 top-k 区域 R_k，产出反证节点 e_t &#x3D; Opponent(I, h _ {t-1}, R_k)，攻击强度 S_attack(e_t) &#x3D; (1&#x2F;|R_k|)·Σ _ {r∈R_k} α_r；作者特意区分像素级注意力权重 α_r 与图结构边权 w。若 S_attack &lt; θ_thresh 则判为弱攻击、循环终止（Consensus Reached），否则加入证伪边 (h _ {t-1}, e_t) 且 w &#x3D; S_attack。Phase 3 Mediated Revision 中 Mediator 评估 e_t 的视觉接地性并给出 MediatorFeedback，Proponent 据此生成修正假设 h_t &#x3D; Proponent(h _ {t-1}, e_t, fb_t)，并加入权重取自 Proponent 自报置信度的修正边。</li>
+<li><strong>Consensus Aggregation（动态共识图聚合）</strong>：对叶节点 h 定义累积可信度 Φ(h) &#x3D; Σ _ {π∈Π(h0→h)} exp( (1&#x2F;|π|) Σ _ {(u,v)∈π} log w_uv )，最终诊断 D* &#x3D; argmax _ {h∈V_leaf} Φ(h)，即最能”经受住证伪—修正链”的那条路径；Mediator 再把胜出路径总结成解释 E。这使早期被检索到的高置信视觉反证不会被后续轮次覆盖（对抗 “lost-in-the-middle”）。</li>
+<li><strong>训练目标（Counterfactual Grounding Loss）</strong>：为增强 VFM 分辨细微病理的能力，用三元组 (I, Q⁺, Q⁻) 微调（Q⁺ 与金标匹配、Q⁻ 为反事实查询），损失 L_CFG &#x3D; −log( e^{s(Q⁺,M⁺)&#x2F;τ} &#x2F; Σ _ {k∈{+,−}} e^{s(Q^k,M^k)&#x2F;τ} )，让正例注意力图对齐金标区域、负例注意力图被推开。</li>
 <li><strong>实现细节</strong>：所有多 agent 框架统一限制最多 T_max &#x3D; 3 轮辩证；VFM 以 PubMedCLIP ViT-B&#x2F;16 为骨干，在 ROCO 数据集上微调；默认攻击阈值 θ_attack &#x3D; 0.3、语义相似度阈值 θ_sim &#x3D; 0.8。</li>
 </ul>
 <h3 id="5-实验结果-7"><a href="#5-实验结果-7" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -873,11 +876,21 @@
 <li><strong>机制层面的假设</strong>：以往工作显示注意力头常承担信息复制、上下文追踪等具体功能，而 MLP 更偏参数知识存储，因此作者把分析集中在注意力头上，并假设敲除 PIH 头可能通过”抑制复制”或”增加对图像的注意力”两种机制之一起效。</li>
 </ul>
 <h3 id="4-研究方法-10"><a href="#4-研究方法-10" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
-<li><strong>PIH 的受控构造</strong>：对每张真值为 N 的图，先用基线提示 P_B &#x3D; “How many [objects] are there in the image?”，只保留模型答对 N 的样本；再用错配提示 “Describe the N + k [objects] in the image”，k ∈ {1,2,…,5} 表示提示与视觉输入的偏差距离（另做 k ∈ {10,20,50} 的极端偏移）。当模型描述了 N + k 个物体而不纠正计数时即记为 PIH。</li>
-<li><strong>Attention Head Knockout（核心方法）</strong>：用 mean ablation 做注意力头敲除，直觉上是移除该头携带的 token 特异信息但保留其整体激活量级（技术细节见附录 D）。逐头施加干预，把 knockout success 定义为”在错配提示下，从提示数切换到真值数的样本比例”，据此排序取每模型 top-m 头；随后做第二阶段分组敲除（同时敲除全部 top-m 头），m ∈ {1,3,5,10}，最终选定 m &#x3D; 3（Qwen-VL）与 m &#x3D; 10（LLaVA-OneVision、Janus-Pro）作为每模型超参，这组头称为 PIH attention heads。</li>
-<li><strong>对照与鲁棒性设计</strong>：为证明效果来自 PIH 头而非”任意敲除”，从 PIH 头所在层中随机抽取同等数量的头做 random baseline；并检验敲除是否损伤常规计数（基线提示的 exact match、被描述的物体是否仍正确）与通用能力。</li>
-<li><strong>功能分析三件套</strong>：① 复制形态分类——把响应分为 no-copying（NC）、format-copying（FC）、soft-copying（SC）、exact-copying（EC），并区分正确&#x2F;错误，比较敲除前后分布；② 注意力质量迁移——逐层计算 assistant token 分配给 image token 的注意力占比（与 text 互补，和为 1），找变化最大的层；③ 数字&#x2F;单词形式概率——用 “Describe the N_digit [objects]” 提示，比较敲除前后 P(N_digit|N_digit) 与 P(N_word|N_digit)，用单个 token 把 format copying 与 soft copying 分开。</li>
-<li><strong>跨任务泛化验证</strong>：把同一组 PIH 头直接用到颜色识别任务上——基线提示 “What color is the [object] in the image?”，错配提示 “Describe the C + k [object]”，C 为真值颜色、k ∈ {1,2,3} 表示色轮上的感知距离，数据来自 Visual CounterFact。</li>
+<li><p><strong>PIH 的受控构造</strong>：对每张真值为 N 的图，先用基线提示 P_B &#x3D; “How many [objects] are there in the image?”，只保留模型答对 N 的样本；再用错配提示 “Describe the N + k [objects] in the image”，k ∈ {1,2,…,5} 表示提示与视觉输入的偏差距离（另做 k ∈ {10,20,50} 的极端偏移）。当模型描述了 N + k 个物体而不纠正计数时即记为 PIH。</p>
+</li>
+<li><p><strong>Attention Head Knockout（核心方法）</strong>：用 mean ablation</p>
+<blockquote>
+<p><strong>对某个头</strong>，将各 token 位置的输出替换为该头在序列上的平均输出</p>
+</blockquote>
+</li>
+<li><p>做注意力头敲除，直觉上是移除该头携带的 token 特异信息但保留其整体激活量级（技术细节见附录 D）。逐头施加干预，把 knockout success 定义为”在错配提示下，从提示数切换到真值数的样本比例”，据此排序取每模型 top-m 头；随后做第二阶段分组敲除（同时敲除全部 top-m 头），m ∈ {1,3,5,10}，最终选定 m &#x3D; 3（Qwen-VL）与 m &#x3D; 10（LLaVA-OneVision、Janus-Pro）作为每模型超参，这组头称为 PIH attention heads。</p>
+</li>
+<li><p><strong>对照与鲁棒性设计</strong>：为证明效果来自 PIH 头而非”任意敲除”，从 PIH 头所在层中随机抽取同等数量的头做 random baseline；并检验敲除是否损伤常规计数（基线提示的 exact match、被描述的物体是否仍正确）与通用能力。</p>
+</li>
+<li><p><strong>功能分析三件套</strong>：① 复制形态分类——把响应分为 no-copying（NC）、format-copying（FC）、soft-copying（SC）、exact-copying（EC），并区分正确&#x2F;错误，比较敲除前后分布；② 注意力质量迁移——逐层计算 assistant token 分配给 image token 的注意力占比（与 text 互补，和为 1），找变化最大的层；③ 数字&#x2F;单词形式概率——用 “Describe the N_digit [objects]” 提示，比较敲除前后 P(N_digit|N_digit) 与 P(N_word|N_digit)，用单个 token 把 format copying 与 soft copying 分开。</p>
+</li>
+<li><p><strong>跨任务泛化验证</strong>：把同一组 PIH 头直接用到颜色识别任务上——基线提示 “What color is the [object] in the image?”，错配提示 “Describe the C + k [object]”，C 为真值颜色、k ∈ {1,2,3} 表示色轮上的感知距离，数据来自 Visual CounterFact。</p>
+</li>
 </ul>
 <h3 id="5-实验结果-10"><a href="#5-实验结果-10" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
 <li><strong>基座模型</strong>：LLaVA-OneVision-7B、Qwen2-VL-7B、Janus-Pro-7B（Qwen-VL 与 LLaVA-OneVision 共享 Qwen2 语言骨干，但视觉编码器与融合结构不同）。论文未报告更大规模模型。</li>
@@ -909,8 +922,6 @@
 </ul>
 <h3 id="1-中文摘要-11"><a href="#1-中文摘要-11" class="headerlink" title="1. 中文摘要"></a>1. 中文摘要</h3><p>论文针对 LVLM 幻觉问题指出：用人工标注的无幻觉数据微调虽最直接但算力昂贵，近年流行的”表示干预”方法虽然高效，却会损害通用生成能力，作者把原因归结为两点——(1) 抽取幻觉成分时不彻底（幻觉成分与通用语义成分高度耦合，把通用语义一起删掉），(2) 参数更新不具选择性（对目标层内所有权重都施加扰动，动辄修改上亿参数，导致过拟合并破坏原参数分布）。为此作者提出 MPD，一个双阶段、免训练、基于编辑的框架：第一阶段 Semantic-aware Component Disentanglement，用辅助 LLM 构造”诱发幻觉的提问 &#x2F; 语义等价的忠实提问”对比样本对，把忠实表示的 SVD 行空间当作接地语义子空间，将幻觉表示投影到其正交补上，从而抽出纯幻觉成分；第二阶段 Interpretable Parameter Updates，用余弦相似度挑出与幻觉成分最对齐的 top-K 权重向量，把它们的行向量投影到幻觉成分的零空间，实现选择性参数编辑。实验显示 MPD 在降低幻觉的同时保持 97.4% 的通用生成能力，且推理阶段不引入额外开销。</p>
 <h3 id="2-方法图-11"><a href="#2-方法图-11" class="headerlink" title="2. 方法图"></a>2. 方法图</h3><p><img src="/2026/20261017/12_ACL_Mitigating_Hallucinations_in_Large_Vision_Lan_method.png" alt="Mitigating Hallucinations in LVLMs without Performance Degradation 方法总览图"></p>
-<p>（选图说明：本文没有 architecture &#x2F; framework 总览图，故改选 Figure 1 作为方法总览图——它一图给出 MPD 与既有表示干预方法的四点对比（生成质量、隐表示是否漂离原分布、MPD 如何对齐原分布、参数更新量与 FLOPs 的下降），最能概括方法思想与收益。原文其余配图为 Figure 2 柱状图、Figure 3 PCA 分布、Figure 4 趋势曲线、Figure 5 案例研究；MPD 的完整流程只以 Algorithm 1（正文第 4 页）的文字算法框给出，此处如实标注。该图已重裁并用 read_image 目视复核：三栏子图与完整 caption 齐全，无截断、无正文夹杂。）*</p>
-<p>（选图说明：本文<strong>没有 architecture &#x2F; framework 总览图</strong>。全文配图为 Figure 1（传统表示干预与 MPD 的对比：模型响应、隐表示漂移、参数更新量 −42%&#x2F;−37%）、Figure 2（MME 分数柱状图）、Figure 3（编辑前后隐表示 PCA 分布）、Figure 4（样本数对 CHAIRS 的影响）、Figure 5（LLaVA-Bench 案例研究），分别属动机对比图与结果图。因此按说明书允许的”算法流程”取正文第 4 页的 Algorithm 1 原框裁切——它是全文唯一的流程式描述，逐步给出 MPD 的完整 pipeline（算隐状态 → 抽忠实子空间正交分量 → 按余弦相似度挑 top-K 权重 → 构造零空间投影 → 选择性更新参数）。该图已亲自重裁并用 read_image 复核：外框、标题、Input 行与 1–7 步完整，无截断、无正文夹杂。）</p>
 <h3 id="3-研究动机-11"><a href="#3-研究动机-11" class="headerlink" title="3. 研究动机"></a>3. 研究动机</h3><ul>
 <li><strong>现有做法的缺陷</strong>：传统做法是靠人工标注清洗数据再微调，属 labor-intensive dataset curation，”inherently suffering from time-consuming bottlenecks”。而新近的表示干预方法虽然免去数据重建，却有一个关键问题：post-intervened LVLMs would lose general generative capabilities——论文在 Figure 1(a) 量化了这一点，干预后模型的语义不连贯与词汇重复率上升。</li>
 <li><strong>作者归因的两个缺陷</strong>：① 抽取幻觉成分时，这些成分 typically highly coupled with general semantic components，现有方法忽略共享成分，导致 unintended removal of general semantics（Figure 1(b) 左显示干预后表示分布明显偏离原模型）；② 参数更新时 substantial perturbations are often applied to all weights within the targeted layers，一次性改动数亿参数（Figure 1(c) 给出 721M 的量级），造成过拟合并严重扰乱原参数分布。</li>
@@ -919,9 +930,9 @@
 </ul>
 <h3 id="4-研究方法-11"><a href="#4-研究方法-11" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（Algorithm 1 Pipeline of MPD）</strong>：输入对比数据 D 与 LVLM 中的目标层集合 {ℓ}；对每个目标层依次执行：算隐状态 → 抽正交幻觉分量 → 按相似度挑 top-K 权重向量 → 算投影矩阵 → 更新参数。MPD 是两阶段、免训练（editing-based）框架，作者称推理阶段不增加额外计算开销。</li>
-<li><strong>问题设定与对比数据</strong>：LVLM 由视觉编码器、文本编码器与作解码器的 LLM 组成。作者构造共享同一图像、仅文本不同的对比视觉—语言对：x_i⁻ 含幻觉内容，x_i⁺ 是与图像一致的忠实描述，数据集记为 D &#x3D; {(x_i⁺, x_i⁻)}_{i&#x3D;1}^N（沿用 LURE 的配对数据构造方式）；评测统一提示 “Please describe this image in detail.”。</li>
+<li><strong>问题设定与对比数据</strong>：LVLM 由视觉编码器、文本编码器与作解码器的 LLM 组成。作者构造共享同一图像、仅文本不同的对比视觉—语言对：x_i⁻ 含幻觉内容，x_i⁺ 是与图像一致的忠实描述，数据集记为 D &#x3D; {(x_i⁺, x_i⁻)} _ {i&#x3D;1}^N（沿用 LURE 的配对数据构造方式）；评测统一提示 “Please describe this image in detail.”。</li>
 <li><strong>阶段一 Semantic-aware Component Disentanglement（幻觉成分抽取）</strong>：对每对样本取各层 ℓ ∈ {L_0,…,L} 的 token 嵌入并沿序列平均，堆成矩阵 X_ℓ⁺, X_ℓ⁻ ∈ R^{N×D}；把幻觉表示建模为 X_ℓ⁻ &#x3D; X_ℓ^real + X_ℓ^hall + ϵ⁻（接地语义 + 幻觉语义 + 残差噪声）。因为 X_ℓ⁺ 的行空间近似接地语义子空间，对其做 SVD：X_ℓ⁺ &#x3D; U_ℓΣ_ℓV_ℓᵀ，取前 C 个左奇异向量得投影矩阵 P_ℓ &#x3D; U_ℓU_ℓᵀ，于是幻觉成分为 X̃_ℓ &#x3D; X_ℓ⁻ − P_ℓX_ℓ⁻ &#x3D; (I − P_ℓ)X_ℓ⁻，与忠实子空间正交。</li>
-<li><strong>阶段二 Interpretable Parameter Updates（参数选择与编辑）</strong>：对第 ℓ 层权重矩阵 W_ℓ ∈ R^{L×D}，每行 w_ℓ^(i) 对应一个神经元，用与所有幻觉成分的平均余弦相似度打分 s_i &#x3D; (1&#x2F;N)Σ_j cos(w_ℓ^(i), x̃_{ℓ,j})&#x2F;(‖w_ℓ^(i)‖·‖x̃_{ℓ,j}‖)，取相似度最高的 top-K 权重（索引集 I_ℓ^hall）作为编辑目标。随后构造幻觉成分正交补（零空间）上的投影矩阵 Q̃_ℓ &#x3D; I − X̃_ℓᵀ(X̃_ℓX̃_ℓᵀ)⁻¹X̃_ℓ，对每个被选中的权重做 w_ℓ^(i) ← Q̃_ℓ w_ℓ^(i)，从而消除落在幻觉子空间内的方向，只改动极少量权重。</li>
+<li><strong>阶段二 Interpretable Parameter Updates（参数选择与编辑）</strong>：对第 ℓ 层权重矩阵 W_ℓ ∈ R^{L×D}，每行 w_ℓ^(i) 对应一个神经元，用与所有幻觉成分的平均余弦相似度打分 s_i &#x3D; (1&#x2F;N)Σ_j cos(w_ℓ^(i), x̃ _ {ℓ,j})&#x2F;(‖w_ℓ^(i)‖·‖x̃ _ {ℓ,j}‖)，取相似度最高的 top-K 权重（索引集 I_ℓ^hall）作为编辑目标。随后构造幻觉成分正交补（零空间）上的投影矩阵 Q̃_ℓ &#x3D; I − X̃_ℓᵀ(X̃_ℓX̃_ℓᵀ)⁻¹X̃_ℓ，对每个被选中的权重做 w_ℓ^(i) ← Q̃_ℓ w_ℓ^(i)，从而消除落在幻觉子空间内的方向，只改动极少量权重。</li>
 <li><strong>理论分析（Section 3.4, Proposition 1）</strong>：把 X_ℓ^hall 拆成忠实子空间内的平行分量 X_ℓ^{hall,∥} &#x3D; P_ℓX_ℓ^hall 与正交分量 X_ℓ^{hall,⊥} &#x3D; (I−P_ℓ)X_ℓ^hall；证明正交投影残差 X̃_ℓ 在期望平方误差意义下比朴素差分估计 X̃_ℓ^diff &#x3D; X_ℓ⁻ − X_ℓ⁺ 更接近真正的解耦幻觉信号：E‖X̃_ℓ − X_ℓ^{hall,⊥}‖_F² ≤ E‖X̃_ℓ^diff − X_ℓ^{hall,⊥}‖_F²（因为差分会把共享语义 X_ℓ^{hall,∥} 纠缠进来）。</li>
 </ul>
 <h3 id="5-实验结果-11"><a href="#5-实验结果-11" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -946,6 +957,66 @@
 <li><strong>机制结论</strong>：阶段一的正交投影避免了幻觉成分与通用语义的相互污染（隐表示分布更贴合原模型）；阶段二的选择性编辑把参数扰动大幅削减（mPLUG-Owl2 −42%、MiniGPT4 −37%），这是”不掉能力”的直接来源。</li>
 <li><strong>局限与未来工作</strong>：Limitations 有三点：① MPD 只在现有基准上改善对齐，不解决来自更广泛数据偏置或提示局限的幻觉；② 自动基准可能无法充分刻画长文本连贯性与风格多样性；③ 在高度歧义的视觉输入下的鲁棒性仍有待评估。</li>
 </ul>
+<blockquote>
+<p>和Nullu的不同：</p>
+<p><strong>不完全是。两者本来都有“提取幻觉子空间 → 投影编辑”两步。MPD 改了第一步的提取公式，并在第二步增加了权重筛选。</strong></p>
+<p>下面统一符号，并区分论文原式与几何解释。</p>
+<p>设：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$X_T,X_H\in\mathbb R^{n\times d}$</td>
+<td>忠实／幻觉表征，行对应样本</td>
+</tr>
+<tr>
+<td>$W\in\mathbb R^{d\times m}$</td>
+<td>待编辑矩阵，列向量 $w_i$ 对应一个权重向量</td>
+</tr>
+<tr>
+<td>$r$</td>
+<td>Nullu 保留的幻觉方向数</td>
+</tr>
+<tr>
+<td>$c,K$</td>
+<td>MPD 保留的忠实主成分数、选中权重数</td>
+</tr>
+</tbody></table>
+<p><strong>1．Nullu 的公式</strong></p>
+<p>先计算真假表征差：</p>
+<p>$$<br>\Delta&#x3D;X_H-X_T.<br>$$</p>
+<p>做 SVD，取前 $r$ 个<strong>右奇异向量</strong>：</p>
+<p>$$<br>\Delta&#x3D;U_\Delta\Sigma_\Delta V_\Delta^\top,<br>\qquad<br>B_\Delta&#x3D;V_\Delta[:,1:r].<br>$$</p>
+<p>得到幻觉子空间投影矩阵：</p>
+<p>$$<br>P_\Delta&#x3D;B_\Delta B_\Delta^\top\in\mathbb R^{d\times d}.<br>$$</p>
+<p>对目标矩阵整体编辑：</p>
+<p>$$<br>\boxed{W_{\text{Nullu}}&#x3D;(I_d-P_\Delta)W.}<br>$$</p>
+<p>即所有列向量都执行 $w_i’&#x3D;w_i-P_\Delta w_i$。</p>
+<p><strong>2．MPD 的公式</strong></p>
+<p>先对忠实表征做 SVD：</p>
+<p>$$<br>X_T&#x3D;U_T\Sigma_TV_T^\top.<br>$$</p>
+<p><strong>按原文使用左奇异向量的写法</strong>，取：</p>
+<p>$$<br>A_T&#x3D;U_T[:,1:c]\in\mathbb R^{n\times c},<br>$$</p>
+<p>再提取残差：</p>
+<p>$$<br>\boxed{<br>R&#x3D;(I_n-A_TA_T^\top)X_H<br>\in\mathbb R^{n\times d}.<br>}<br>$$</p>
+<p>接着，根据各权重与残差向量的平均余弦相似度排名，选出集合 $\mathcal S_K$。</p>
+<p>用 $R$ 的行空间构造投影：</p>
+<p>$$<br>P_R&#x3D;R^\top(RR^\top)^\dagger R.<br>$$</p>
+<p>这里用伪逆 ${}^\dagger$ 覆盖秩亏情况；可逆时就是原文的普通逆。对选中权重编辑：</p>
+<p>$$<br>\boxed{<br>w_i’&#x3D;<br>\begin{cases}<br>(I_d-P_R)w_i,&amp;i\in\mathcal S_K,\<br>w_i,&amp;i\notin\mathcal S_K.<br>\end{cases}<br>}<br>$$</p>
+<p>如果用对角掩码 $M_K\in\mathbb R^{m\times m}$ 标记选中列，整体可写成：</p>
+<p>$$<br>\boxed{W_{\text{MPD}}&#x3D;W-P_RWM_K.}<br>$$</p>
+<p><strong>并排来看：</strong><br>$$<br>\begin{aligned}<br>\text{Nullu:}\quad<br>&amp;W’&#x3D;W-\underbrace{P_\Delta}<em>{\text{由真假差估计}}W,\<br>\text{MPD:}\quad<br>&amp;W’&#x3D;W-\underbrace{P_R}</em>{\text{由忠实参考残差估计}}<br>W\underbrace{M_K}_{\text{只编辑部分权重}}.<br>\end{aligned}<br>$$</p>
+<p>所以，<strong>“增加权重筛选”只是一个区别；$P_\Delta$ 换成 $P_R$ 是另一个区别。</strong></p>
+<p>还有一个必须纠正的细节：MPD 原文的 $U_TU_T^\top$ 在<strong>样本维</strong>上投影；若要在 <strong>$d$ 维特征空间</strong>中排除忠实方向，应改用右奇异向量并右乘：</p>
+<p>$$<br>R_{\text{feature}}<br>&#x3D;X_H\left(I_d-V_{T,c}V_{T,c}^\top\right).<br>$$</p>
+<p><strong>这与原文使用 $U_T$ 的公式并不等价。</strong> 原文还将相应单位矩阵写成了 $d\times d$，存在维度不一致。</p>
+<p>批注：疑似论文有问题</p>
+</blockquote>
 <hr>
 <h2 id="13-ACL2026-—-Spotlight-and-Shadow-Attention-Guided-Dual-Anchor-Introspective-Decoding-for-MLLM-Hallucination-Mitigation"><a href="#13-ACL2026-—-Spotlight-and-Shadow-Attention-Guided-Dual-Anchor-Introspective-Decoding-for-MLLM-Hallucination-Mitigation" class="headerlink" title="[13] ACL2026 — Spotlight and Shadow: Attention-Guided Dual-Anchor Introspective Decoding for MLLM Hallucination Mitigation"></a>[13] ACL2026 — Spotlight and Shadow: Attention-Guided Dual-Anchor Introspective Decoding for MLLM Hallucination Mitigation</h2><ul>
 <li><strong>会议</strong>：ACL 2026（arXiv 录用说明：Accepted for Findings of ACL 2026）</li>
@@ -962,8 +1033,8 @@
 </ul>
 <h3 id="4-研究方法-12"><a href="#4-研究方法-12" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：DAID 是免训练解码框架，在第 t 步先生成候选 token 的终点层分布，再按视觉注意力选出 Spotlight &#x2F; Shadow 两层，用两层 logits 对终点层分布做双重校准，最后经合理性约束输出。只走一次前向（single forward pass）。</li>
-<li><strong>模块 A：Visual Attention Score（VAS）</strong>：<code>VAS_t(l) = (1/H) Σ_h Σ_&#123;k∈V&#125; A^&#123;l,h&#125;_&#123;t,k&#125;</code>，即在第 l 层、第 t 个解码步对所有 head 累加落在视觉 token 集合 V 上的注意力质量。VAS 高说明该层真的在做视觉 grounding，低则说明由语言先验主导。</li>
-<li><strong>模块 B：Attention-Guided Dynamic Anchoring</strong>：Spotlight 层取 VAS 最大层 <code>L_spot = argmax_l VAS_t(l)</code>；Shadow 层在 Spotlight 之前的层中取 VAS 最小层 <code>L_shad = argmin_&#123;l &lt; L_spot&#125; VAS_t(l)</code>。加 <code>L_shad &lt; L_spot</code> 的拓扑约束是为了保证负锚落在”视觉失认”的纯语言噪声区；附录 Figure 9 显示，若不限制（w&#x2F;o Constraints）性能明显下降，加上该约束后 POPE 准确率由 83.14% 升到 85.08%（+1.94%）、F1 由 83.62% 升到 85.92%（+2.30%）。锚点是逐 token 动态选的，单条样本 20 步内平均负锚约 2.4<del>4.3 层、正锚约 23.3</del>24.2 层。</li>
+<li><strong>模块 A：Visual Attention Score（VAS）</strong>：<code>VAS_t(l) = (1/H) Σ_h Σ _ &#123;k∈V&#125; A^&#123;l,h&#125; _ &#123;t,k&#125;</code>，即在第 l 层、第 t 个解码步对所有 head 累加落在视觉 token 集合 V 上的注意力质量。VAS 高说明该层真的在做视觉 grounding，低则说明由语言先验主导。</li>
+<li><strong>模块 B：Attention-Guided Dynamic Anchoring</strong>：Spotlight 层取 VAS 最大层 <code>L_spot = argmax_l VAS_t(l)</code>；Shadow 层在 Spotlight 之前的层中取 VAS 最小层 <code>L_shad = argmin _ &#123;l &lt; L_spot&#125; VAS_t(l)</code>。加 <code>L_shad &lt; L_spot</code> 的拓扑约束是为了保证负锚落在”视觉失认”的纯语言噪声区；附录 Figure 9 显示，若不限制（w&#x2F;o Constraints）性能明显下降，加上该约束后 POPE 准确率由 83.14% 升到 85.08%（+1.94%）、F1 由 83.62% 升到 85.92%（+2.30%）。锚点是逐 token 动态选的，单条样本 20 步内平均负锚约 2.4<del>4.3 层、正锚约 23.3</del>24.2 层。</li>
 <li><strong>模块 C：Dual-Anchor Introspective Decoding</strong>：<code>L_DAID = [L_Lfinal + α·L_Lspot]·(1+β) − β·L_Lshad</code>。前半项 Visual Perception Reinforcement 把中层峰值视觉信号重新注入，后半项 Language Prior Suppression 惩罚纯语言相关性驱动的 token。超参 α&#x3D;0.8（视觉增强强度）、β&#x3D;0.2（语言先验压制强度）。</li>
 <li><strong>模块 D：Adaptive Plausibility Constraint</strong>：只对满足 <code>p_θ(y_t|L_final) ≥ γ·max_w p_θ(w|L_final)</code> 的候选集 V′ 施加双锚调整，其余置零；POPE 这类判别式任务用 γ&#x3D;0.9，开放生成任务（CHAIR）用 γ&#x3D;0.1。作者解释这样能避免把中层”视觉相关但语法不合适”的 token 直接塞进输出。</li>
 </ul>
@@ -1001,10 +1072,10 @@
 </ul>
 <h3 id="4-研究方法-13"><a href="#4-研究方法-13" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：PM 是逐解码步执行的插件式解码流程。每一步做三件事：由注意力构造感知图 P → 按 P 重采样得到放大图 Î &#x3D; T(I, P) → 用 Î 重新前向得到 logits 并采样下一 token；magnified logits 直接 softmax 采样，不再与原 logits 做比例或对比融合。</li>
-<li><strong>模块 A：Perception Map Construction</strong>：<code>H = Σ_&#123;l=L&#125;^&#123;N_l&#125; max_h Attn_&#123;l,h&#125;</code>，即中后层注意力对 head 取 max 后跨层求和，得到 H×W 的 token 级热图，反映 VLM 的中间推理显著性。</li>
+<li><strong>模块 A：Perception Map Construction</strong>：<code>H = Σ _ &#123;l=L&#125;^&#123;N_l&#125; max_h Attn _ &#123;l,h&#125;</code>，即中后层注意力对 head 取 max 后跨层求和，得到 H×W 的 token 级热图，反映 VLM 的中间推理显著性。</li>
 <li><strong>模块 B：Post-Processing to Pixel Space</strong>：先把 H 归一化到 [0,1] 得 H′，再 <code>H_proc = sigmoid(α·(H′−μ)/σ)</code> 放大方差，然后用 kernel size k 的均匀平滑滤波 + bilinear 上采样得到像素级 P。这一步专门提升低幅注意力值，保证”小但重要”的区域不被忽略。</li>
 <li><strong>模块 C：Iterative Refinement（IR，Algorithm 1）</strong>：为覆盖那些因 information register 被漏掉的同类物体区域，迭代执行”前向→算热图 H(i)→2-means 聚类取高质心 token 集 T(i)→用 M(i+1) &#x3D; M(i) ∩ ¬T(i) 在 token 级把它们屏蔽→再前向”，直到 <code>Σ H(i) &lt; β</code> 或达到 T_max；最后把各轮热图累加并除以计数 C 归一化得 H*。作者强调在 token 级而非图像级屏蔽，避免重新 tokenize 的开销。</li>
-<li><strong>模块 D：Attention-Based Magnification</strong>：把 P 当质量函数，先求横&#x2F;纵两个方向的边缘累计分布 <code>F_x(n)=Σ_&#123;j≤n&#125; max_i P_&#123;i,j&#125;</code>、<code>F_y(n)=Σ_&#123;i≤n&#125; max_j P_&#123;i,j&#125;</code>，再用逆变换采样重映射坐标 <code>Î = Interp(I, F_x^&#123;-1&#125;(i), F_y^&#123;-1&#125;(j))</code>（双线性插值）。高感知值区域被拉伸放大、低值区域被压缩而非丢弃，因此保留整体结构。</li>
+<li><strong>模块 D：Attention-Based Magnification</strong>：把 P 当质量函数，先求横&#x2F;纵两个方向的边缘累计分布 <code>F_x(n)=Σ _ &#123;j≤n&#125; max_i P _ &#123;i,j&#125;</code>、<code>F_y(n)=Σ _ &#123;i≤n&#125; max_j P _ &#123;i,j&#125;</code>，再用逆变换采样重映射坐标 <code>Î = Interp(I, F_x^&#123;-1&#125;(i), F_y^&#123;-1&#125;(j))</code>（双线性插值）。高感知值区域被拉伸放大、低值区域被压缩而非丢弃，因此保留整体结构。</li>
 <li><strong>超参</strong>：骨干 LLaVA-1.5-7B，注意力聚合起点 L&#x3D;12，方差增强系数 α&#x3D;10，平滑核 k&#x3D;3，IR 停止阈值 β&#x3D;0.3（Shikra 上 β&#x3D;1.5），IR 最多 8 轮。</li>
 </ul>
 <h3 id="5-实验结果-13"><a href="#5-实验结果-13" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -1050,8 +1121,8 @@
 <li><strong>总体流程</strong>：先在 COCO 2014 验证集抽 500 张图、用 “Please help me describe the image in detail” 做贪心解码，统计出词表级 Hijacking Anchors 与 token 级 Inert Tokens；再由此计算每个头的 NHAR 并选 top-K 头作为 H_target；推理时对这些头做注意力增强。整个干预免训练、零额外计算开销。</li>
 <li><strong>模块 A（Trace &amp; Hijacking Score）</strong>：<code>S_hijack(v_i) = D(v_i)·F(v_i)·A(v_i)</code>，D 是 Anchor 在 Trace 中的占比（Dominance），F 是该 Anchor 在所有 Anchor 中的对数平滑频率，A 是该 token 前 10 个解码步收到注意力的对数平滑均值。</li>
 <li><strong>模块 B（Hijacking Anchors 与 HABI）</strong>：对词表词 w 求其名下所有 token 的 Mean Hijacking Score <code>S̄(w)</code>，取长尾分布的离群阈值 <code>τ_s = Q3 + 1.5·IQR</code> 得到 A_hijack；再定义 <code>r_hijack(v_i) = (1/|T_vi|)Σ_t I(t ∈ A_hijack)</code>，在高关注 token（top 5% 注意力质量）上该比例呈明显双峰，用 Otsu 法自动求阈值 τ_r，<code>I_inert = &#123;v_i | r_hijack(v_i) &gt; τ_r&#125;</code>。</li>
-<li><strong>模块 C（HAR &#x2F; NHAR 指标）</strong>：<code>HAR(ℓ,h) = Σ_&#123;v∈I_inert&#125; A / Σ_&#123;v∈I_v&#125; A</code>（诊断被劫持的程度）；<code>NHAR(ℓ,h)(y_k) = Σ_&#123;v∈I_v \ I_inert&#125; A_&#123;k,v&#125;</code>（直接度量分配给有效视觉内容的全局限度预算）；选头时用真实物体 token 集 O_real 上的平均值 <code>NHAR(ℓ,h) = (1/|O_real|)Σ NHAR(y_k)</code>，取 top-K 个入 H_target。</li>
-<li><strong>模块 D（Stage 2: Collective Attention Reinforcement）</strong>：对 H_target 中的头，把视觉 token 的注意力改成 <code>A ← A + α·(1/H)Σ_&#123;h&#39;&#125; A^&#123;(ℓ,h&#39;)&#125;</code>，即用同层所有头的平均注意力幅度做温和加法增强（不引入外部噪声）。默认 α&#x3D;0.1；长上下文任务（Captioning、POPE-Chat）提高到 0.6（LLaVA-1.5-7B、MiniGPT-4、Qwen2-VL）或 0.7（LLaVA-1.5-13B、Shikra）。K&#x3D;450（Qwen2-VL 为 300）。</li>
+<li><strong>模块 C（HAR &#x2F; NHAR 指标）</strong>：<code>HAR(ℓ,h) = Σ _ &#123;v∈I_inert&#125; A / Σ _ &#123;v∈I_v&#125; A</code>（诊断被劫持的程度）；<code>NHAR(ℓ,h)(y_k) = Σ _ &#123;v∈I_v \ I_inert&#125; A _ &#123;k,v&#125;</code>（直接度量分配给有效视觉内容的全局限度预算）；选头时用真实物体 token 集 O_real 上的平均值 <code>NHAR(ℓ,h) = (1/|O_real|)Σ NHAR(y_k)</code>，取 top-K 个入 H_target。</li>
+<li><strong>模块 D（Stage 2: Collective Attention Reinforcement）</strong>：对 H_target 中的头，把视觉 token 的注意力改成 <code>A ← A + α·(1/H)Σ _ &#123;h&#39;&#125; A^&#123;(ℓ,h&#39;)&#125;</code>，即用同层所有头的平均注意力幅度做温和加法增强（不引入外部噪声）。默认 α&#x3D;0.1；长上下文任务（Captioning、POPE-Chat）提高到 0.6（LLaVA-1.5-7B、MiniGPT-4、Qwen2-VL）或 0.7（LLaVA-1.5-13B、Shikra）。K&#x3D;450（Qwen2-VL 为 300）。</li>
 <li><strong>关键设计取舍</strong>：作者实测”直接惩罚 Inert Token 注意力”（引入惩罚系数 β）反而更差（β&#x3D;0.1 时 CHAIR_S 从 18.2 升到 20.2），因此选择”正向增强未被劫持的头”而不是”负向压制被劫持的 token”。</li>
 </ul>
 <h3 id="5-实验结果-14"><a href="#5-实验结果-14" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -1092,8 +1163,8 @@
 </ul>
 <h3 id="4-研究方法-15"><a href="#4-研究方法-15" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：对一个 LVLM 生成的每个物体 token，逐层计算 ADS 与 CGC 两个 patch 级指标，拼成特征向量后送轻量分类器判定该 token 是”真实物体”还是”幻觉物体”。</li>
-<li><strong>模块 A（Attention Dispersion Score, ADS）</strong>：先把各头注意力平均得层内 patch 注意力图 <code>Ā_t^(n) = (1/H)Σ_h A_t^(n,h)</code>；保留 top-x%（x&#x3D;10）patch 得到前景集 F，其余为背景 B；对保留 patch 做 8-connected 连通域分组，删掉面积小于阈值 τ_ADS 的碎块以剔除 attention sink，得到有效连通域 C*；再组合两个信号：前景 blob 质量 <code>m = Σ_&#123;c∈C*&#125; Σ_&#123;p∈c&#125; Ā(p)</code> 与背景上的归一化 Shannon 熵 <code>Ĥ = −Σ_&#123;p∈B&#125; E(p)logE(p) / log|P|</code>，最终 <code>ADS_t^(n) = (1 − m_t^(n))·Ĥ_t^(n)</code>。ADS 低＝注意力集中在连贯前景块、背景安静（有落点）；ADS 高＝blob 质量散、背景噪声大（幻觉）。只用 ADS 逐层向量的线性分类器 F1 已在 0.73–0.77。</li>
-<li><strong>模块 B（Cross-modal Grounding Consistency, CGC）</strong>：在第 n 层取 token 隐状态 h_t 与 patch 隐状态 v_p，算余弦相似度 <code>S_t,p = ⟨h_t,v_p⟩/(‖h_t‖‖v_p‖)</code>，取 top-k 个 patch 平均得 <code>C_t^(n) = (1/k)Σ_&#123;p∈T&#125; S_t,p</code>。真实 token 在相关 patch 上出现尖峰，幻觉 token 整体低且弥散（Figure 9）。CGC 分类器在三个模型上 F1 分别为 0.79（LLaVA-1.5-7B）、0.81（Qwen2.5-VL-7B）、0.76（InternVL-2.5-8B）。</li>
+<li><strong>模块 A（Attention Dispersion Score, ADS）</strong>：先把各头注意力平均得层内 patch 注意力图 <code>Ā_t^(n) = (1/H)Σ_h A_t^(n,h)</code>；保留 top-x%（x&#x3D;10）patch 得到前景集 F，其余为背景 B；对保留 patch 做 8-connected 连通域分组，删掉面积小于阈值 τ_ADS 的碎块以剔除 attention sink，得到有效连通域 C*；再组合两个信号：前景 blob 质量 <code>m = Σ _ &#123;c∈C*&#125; Σ _ &#123;p∈c&#125; Ā(p)</code> 与背景上的归一化 Shannon 熵 <code>Ĥ = −Σ _ &#123;p∈B&#125; E(p)logE(p) / log|P|</code>，最终 <code>ADS_t^(n) = (1 − m_t^(n))·Ĥ_t^(n)</code>。ADS 低＝注意力集中在连贯前景块、背景安静（有落点）；ADS 高＝blob 质量散、背景噪声大（幻觉）。只用 ADS 逐层向量的线性分类器 F1 已在 0.73–0.77。</li>
+<li><strong>模块 B（Cross-modal Grounding Consistency, CGC）</strong>：在第 n 层取 token 隐状态 h_t 与 patch 隐状态 v_p，算余弦相似度 <code>S_t,p = ⟨h_t,v_p⟩/(‖h_t‖‖v_p‖)</code>，取 top-k 个 patch 平均得 <code>C_t^(n) = (1/k)Σ _ &#123;p∈T&#125; S_t,p</code>。真实 token 在相关 patch 上出现尖峰，幻觉 token 整体低且弥散（Figure 9）。CGC 分类器在三个模型上 F1 分别为 0.79（LLaVA-1.5-7B）、0.81（Qwen2.5-VL-7B）、0.76（InternVL-2.5-8B）。</li>
 <li><strong>模块 C（特征拼接与分类器）</strong>：把逐层指标拼成 <code>f_t = [ADS_t || C_t] ∈ R^&#123;2L&#125;</code>，用 XGBoost &#x2F; Random Forest &#x2F; MLP 三种轻量模型做二分类；超参由 grid search 选出（XGB：depth 6、lr 0.05、500 estimators；RF：depth 10、400 trees；MLP：hidden 128、lr 0.001、Adam）。</li>
 <li><strong>模块 D（数据与标签）</strong>：从 MS-COCO 2014 验证集随机取 4000 张图（90&#x2F;10 划分），用 “Describe this image” 提示生成描述；token 级真&#x2F;幻标签不用 CHAIR 工具包而改用 GPT-4o，同时提供图像、COCO 人工 caption 和 ground-truth 物体清单，以减少歧义导致的漏标&#x2F;过标；非视觉 token（如功能词）在训练与推理中都排除。POPE 上用 “Yes”&#x2F;问题中的物体词做特征提取，正负样本 3339&#x2F;217（约 6.1% 幻觉，严重不平衡），采用 5 折验证并报 F1 与 AUC。</li>
 <li><strong>默认超参</strong>：ADS 前景阈值 top-x% &#x3D; 10，连通域 k &#x3D; 8；CGC top-k% &#x3D; 5。</li>
@@ -1133,9 +1204,9 @@
 </ul>
 <h3 id="4-研究方法-16"><a href="#4-研究方法-16" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：离线造反事实数据 → 抽幻觉子空间并存基银行 → 推理时逐层正交投影。全程免训练、不修改模型参数，单次前向完成。</li>
-<li><strong>模块 A（Counterfactual Dataset Generation, OHC-25K）</strong>：<code>z0 = E(I_i)</code>；<code>˜z_th = √(ᾱ_th)·z0 + √(1−ᾱ_th)·ϵ</code>；以幻觉 caption 为条件反向去噪 <code>˜z_&#123;t−1&#125; = f_θ(˜z_t, t, ˜C_i)</code>；解码得 <code>˜I_&#123;i,j&#125; = D(˜z0)</code>，j&#x3D;1..B（B&#x3D;5）。最终 <code>OHC-25K = &#123;(˜I_&#123;i,j&#125;, C_i)&#125;</code>，即反事实图仍配原始 GT caption，形成”图文冲突但结构对齐”的样本；幻觉 caption 的生成沿用 LURE 的做法。</li>
-<li><strong>模块 B（Hallucination Subspace Estimation）</strong>：对每个图文对取 caption token 在层 ℓ 的隐状态并做均值池化得 <code>h_ℓ^(i)</code>；B 个变体先各自池化再对 B 求平均得 <code>˜h_ℓ^(i)</code>；方向 <code>δ_ℓ^(i) = ˜h_ℓ^(i) − h_ℓ^(i)</code>；堆叠成 <code>Δ_ℓ ∈ R^&#123;M×d&#125;</code> 后做 SVD <code>Δ_ℓ = U_ℓ Σ_ℓ V_ℓ^T</code>，取前 r 个右奇异向量 <code>V_&#123;ℓ,r&#125;</code> 组成该层的幻觉子空间（hallucination basis bank）。</li>
-<li><strong>模块 C（Test-Time Nullification）</strong>：<code>h_clean = h_test − Σ_&#123;j=1&#125;^r ⟨h_test, v_&#123;ℓ,j&#125;⟩v_&#123;ℓ,j&#125;</code>，等价于投影矩阵 <code>P_ℓ = I − V_&#123;ℓ,r&#125;V_&#123;ℓ,r&#125;^T</code> 作用在隐状态上；在生成每个 token 之前对选定层施加。</li>
+<li><strong>模块 A（Counterfactual Dataset Generation, OHC-25K）</strong>：<code>z0 = E(I_i)</code>；<code>˜z_th = √(ᾱ_th)·z0 + √(1−ᾱ_th)·ϵ</code>；以幻觉 caption 为条件反向去噪 <code>˜z _ &#123;t−1&#125; = f_θ(˜z_t, t, ˜C_i)</code>；解码得 <code>˜I _ &#123;i,j&#125; = D(˜z0)</code>，j&#x3D;1..B（B&#x3D;5）。最终 <code>OHC-25K = &#123;(˜I _ &#123;i,j&#125;, C_i)&#125;</code>，即反事实图仍配原始 GT caption，形成”图文冲突但结构对齐”的样本；幻觉 caption 的生成沿用 LURE 的做法。</li>
+<li><strong>模块 B（Hallucination Subspace Estimation）</strong>：对每个图文对取 caption token 在层 ℓ 的隐状态并做均值池化得 <code>h_ℓ^(i)</code>；B 个变体先各自池化再对 B 求平均得 <code>˜h_ℓ^(i)</code>；方向 <code>δ_ℓ^(i) = ˜h_ℓ^(i) − h_ℓ^(i)</code>；堆叠成 <code>Δ_ℓ ∈ R^&#123;M×d&#125;</code> 后做 SVD <code>Δ_ℓ = U_ℓ Σ_ℓ V_ℓ^T</code>，取前 r 个右奇异向量 <code>V _ &#123;ℓ,r&#125;</code> 组成该层的幻觉子空间（hallucination basis bank）。</li>
+<li><strong>模块 C（Test-Time Nullification）</strong>：<code>h_clean = h_test − Σ _ &#123;j=1&#125;^r ⟨h_test, v _ &#123;ℓ,j&#125;⟩v _ &#123;ℓ,j&#125;</code>，等价于投影矩阵 <code>P_ℓ = I − V _ &#123;ℓ,r&#125;V _ &#123;ℓ,r&#125;^T</code> 作用在隐状态上；在生成每个 token 之前对选定层施加。</li>
 <li><strong>关键超参</strong>：子空间秩 r 按模型网格搜索——LLaVA-1.5 用 r&#x3D;8、MiniGPT-4 用 r&#x3D;64、mPLUG-Owl2 用 r&#x3D;32；投影层 16–32；扩散步 th&#x3D;0.5T；SD v1.5、classifier-free guidance 7.5；beam size 3、temperature 0；CHAIR 最多生成 64 token、OPOPE 256、LLaVA-Bench 1024。</li>
 </ul>
 <h3 id="5-实验结果-16"><a href="#5-实验结果-16" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -1250,7 +1321,7 @@
 <li><strong>本地 PDF</strong>：<code>CVPR2026-KVSmooth Mitigating Hallucination in Multi-modal Large Language Models through Key-Value Smoothing.pdf</code></li>
 <li><strong>一句话定位</strong>：用注意力熵自适应地对 KV-Cache 的键值做 EMA 平滑，压制 sink token 引发的语义漂移。</li>
 </ul>
-<h3 id="1-中文摘要-19"><a href="#1-中文摘要-19" class="headerlink" title="1. 中文摘要"></a>1. 中文摘要</h3><p>本文提出 KVSmooth——一个免训练、即插即用的多模态大模型（MLLM）幻觉缓解方法，核心是对 KV-Cache 中的键与值施加注意力熵引导的自适应指数滑动平均（EMA）。作者先给出三点观测：真值物体 logit 的均值与方差随解码单调下降，而幻觉物体 logit 的均值与方差持续上升；注意力”行熵”（row-entropy）可作为 sink 强度的实时代理，与传统列和指标强正相关（余弦相似度分布集中在 0.79）；幻觉物体的 logit 排名与其行熵正相关，说明注意力越弥散越会抬高幻觉分数。方法据此设计：假设隐状态满足随机游走先验 h_t &#x3D; h_{t−1} + ε_t，推出其 MAP 估计恰好化为 EMA 形式 ĥ_t &#x3D; (1−λ_t)o_t + λ_t h_{t−1}，并把平滑落在键与值缓存上；再用长度为 M 的 FIFO 队列统计当前 token 行熵的分位排名 k，得到逐 token、逐层的系数 λ̂_t &#x3D; k&#x2F;M，并截断在 [λref−0.2, λref+0.2] 区间内。LLaVA-1.5 上 CHAIR_S 由 41.8 降至 18.2、F1 由 77.5 升至 79.2，精度与召回同时提升。</p>
+<h3 id="1-中文摘要-19"><a href="#1-中文摘要-19" class="headerlink" title="1. 中文摘要"></a>1. 中文摘要</h3><p>本文提出 KVSmooth——一个免训练、即插即用的多模态大模型（MLLM）幻觉缓解方法，核心是对 KV-Cache 中的键与值施加注意力熵引导的自适应指数滑动平均（EMA）。作者先给出三点观测：真值物体 logit 的均值与方差随解码单调下降，而幻觉物体 logit 的均值与方差持续上升；注意力”行熵”（row-entropy）可作为 sink 强度的实时代理，与传统列和指标强正相关（余弦相似度分布集中在 0.79）；幻觉物体的 logit 排名与其行熵正相关，说明注意力越弥散越会抬高幻觉分数。方法据此设计：假设隐状态满足随机游走先验 h_t &#x3D; h _ {t−1} + ε_t，推出其 MAP 估计恰好化为 EMA 形式 ĥ_t &#x3D; (1−λ_t)o_t + λ_t h _ {t−1}，并把平滑落在键与值缓存上；再用长度为 M 的 FIFO 队列统计当前 token 行熵的分位排名 k，得到逐 token、逐层的系数 λ̂_t &#x3D; k&#x2F;M，并截断在 [λref−0.2, λref+0.2] 区间内。LLaVA-1.5 上 CHAIR_S 由 41.8 降至 18.2、F1 由 77.5 升至 79.2，精度与召回同时提升。</p>
 <h3 id="2-方法图-19"><a href="#2-方法图-19" class="headerlink" title="2. 方法图"></a>2. 方法图</h3><p><img src="/2026/20261017/20_CVPR_KVSmooth_Mitigating_Hallucination_in_Multi_mo_method.png" alt="KVSmooth 方法架构图"></p>
 <h3 id="3-研究动机-19"><a href="#3-研究动机-19" class="headerlink" title="3. 研究动机"></a>3. 研究动机</h3><ul>
 <li><strong>现有做法的缺陷</strong>：论文把已有缓解方法归为对比解码（VCD 等）与注意力重分配（PAI、SPARC、MiddleLayer 等）两类，但认为这些方法要么需要额外计算，要么改善精度时牺牲召回——原文在 PR 分析里指出其他方法 “can improve precision, they often result in significant recall degradation—sometimes even falling below the baseline at comparable precision levels”。此外，识别 sink token 的传统指标是注意力列和，计算它 “requires multiple decoding steps and backtracking, which is computationally inefficient”。</li>
@@ -1259,8 +1330,8 @@
 </ul>
 <h3 id="4-研究方法-19"><a href="#4-研究方法-19" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：不改模型参数、不改结构，只在解码过程中对指定层的 KV-Cache 做逐 token 的自适应 EMA 平滑；系数由该 token 的注意力行熵在最近窗口内的分位排名决定。</li>
-<li><strong>模块 A：EMA Smoothing on KV-Cache（Sec. 4.1）</strong>：假设 h_t &#x3D; h_{t−1} + ε_t, ε_t ~ N(0, σ²_p)，则转移先验 P(h_t|h_{t−1}) 为高斯；对 log P(o_t|h_t) + log P(h_t|h_{t−1}) 做 MAP，解得 ĥ_t &#x3D; σ²_p&#x2F;(σ²_p+σ²_o)·o_t + σ²_o&#x2F;(σ²_p+σ²_o)·h_{t−1}，令 λ_t &#x3D; σ²_o&#x2F;(σ²_p+σ²_o) 即得 EMA 形式。作者进一步用”两个独立高斯之积仍为高斯”论证：与其平滑隐状态本身，不如同时平滑缓存中的 K_t 与 V_t，抑制 logit 均值与方差的效果最强。</li>
-<li><strong>模块 B：Entropy-Guided Coefficient Adaptation（Sec. 4.2）</strong>：行熵定义为 z^l_t &#x3D; −(1&#x2F;H)Σ_h Σ_j α^{(l,h)}<em>{t,j} log(α^{(l,h)}</em>{t,j}+ε)（式 5），作为 sink 强度的实时代理。维护长度为 M 的 FIFO 队列 S^l 保存最近 token 的行熵，取当前 z^l_t 在队列中的百分位排名 k，得到 λ̂^l_t &#x3D; k&#x2F;M，再截断为 λ̃^l_t &#x3D; max(λref−0.2, min(λref+0.2, λ̂^l_t))（式 13–14）——作者说明这是为了在保留当前状态自身性质的同时抑制高熵 sink token。</li>
+<li><strong>模块 A：EMA Smoothing on KV-Cache（Sec. 4.1）</strong>：假设 h_t &#x3D; h _ {t−1} + ε_t, ε_t ~ N(0, σ²_p)，则转移先验 P(h_t|h _ {t−1}) 为高斯；对 log P(o_t|h_t) + log P(h_t|h _ {t−1}) 做 MAP，解得 ĥ_t &#x3D; σ²_p&#x2F;(σ²_p+σ²_o)·o_t + σ²_o&#x2F;(σ²_p+σ²_o)·h _ {t−1}，令 λ_t &#x3D; σ²_o&#x2F;(σ²_p+σ²_o) 即得 EMA 形式。作者进一步用”两个独立高斯之积仍为高斯”论证：与其平滑隐状态本身，不如同时平滑缓存中的 K_t 与 V_t，抑制 logit 均值与方差的效果最强。</li>
+<li><strong>模块 B：Entropy-Guided Coefficient Adaptation（Sec. 4.2）</strong>：行熵定义为 z^l_t &#x3D; −(1&#x2F;H)Σ_h Σ_j α^{(l,h)} _ {t,j} log(α^{(l,h)} _ {t,j}+ε)（式 5），作为 sink 强度的实时代理。维护长度为 M 的 FIFO 队列 S^l 保存最近 token 的行熵，取当前 z^l_t 在队列中的百分位排名 k，得到 λ̂^l_t &#x3D; k&#x2F;M，再截断为 λ̃^l_t &#x3D; max(λref−0.2, min(λref+0.2, λ̂^l_t))（式 13–14）——作者说明这是为了在保留当前状态自身性质的同时抑制高熵 sink token。</li>
 <li><strong>最终形式（式 15）</strong>：K̂^l_t &#x3D; (1−λ̃^l_t)K^l_t + λ̃^l_t K^l_t−1，V̂^l_t &#x3D; (1−λ̃^l_t)V^l_t + λ̃^l_t V^l_t−1，只在选定的目标层集合上执行；全程免训练、免额外模型，直接插入注意力前向（见 Algorithm 1 与 Algorithm 2）。</li>
 <li><strong>实现细节</strong>：对三个模型都取 7B 版本；EMA 施加在 3–31 层；FIFO 队列长度固定为 15；λref 分别设为 LLaVA-1.5 0.9、MiniGPT-4 0.5、InstructBLIP 0.7；全部使用 greedy decoding，最多生成 512 token。</li>
 </ul>
@@ -1298,7 +1369,7 @@
 <h3 id="4-研究方法-20"><a href="#4-研究方法-20" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（三步）</strong>：构造双粒度幻觉数据集 → 用因果干预归因定位幻觉相关层 → 按层稀疏化地分配特征干预强度（框架图见 Fig. 3）。</li>
 <li><strong>模块 A：Bi-granularity Dataset Construction</strong>：token 级样本来自 POPE、Antidote 这类 wh-&#x2F;yes-no 问句，可用规则定位幻觉 token；sentence 级样本来自 CHAIR 风格的多句描述，按句子切分后用 CHAIR 的物体一致性判据标注”整句是否为幻觉”，再由人工专家归入两个粒度。整套归因只使用训练 split（或其中的小标定子集），不含任何评测 benchmark 样本，策略一旦确定即固定用于后续所有测试。</li>
-<li><strong>模块 B：Hallucination-Relevant Layer Localization（式 1–7）</strong>：把第 l 层的 MHA 输出 a_l 的某个头按掩码 M^h 置零，度量幻觉 token y 的对数概率变化，得到 token 级归因 s_tok^l &#x3D; Σ_h log[ P(y | h^{l−1}, a_l) &#x2F; P(y | h^{l−1}, a_l ⊙ M^h) ]；句级分数则对句内 token 做加权求和 s_sent^l &#x3D; Σ_{y_t∈T_sent} w(y_t|T_sent)·s_tok^l，权重来自三项指标的可乘形式 w̃ &#x3D; (1+λcue·u)·(1+λpos·r)·(1+λhall·v) 再归一化，其中 u 为 cue 指示（总结词&#x2F;句号，取 0&#x2F;1）、r 为位置指示（越靠后越大，∈[0,1]）、v 为幻觉指示（该 token 是否含事实错误，取 0&#x2F;1）。任务简单（问答）时用 token 级分数，任务通用（captioning）时用句级分数。</li>
+<li><strong>模块 B：Hallucination-Relevant Layer Localization（式 1–7）</strong>：把第 l 层的 MHA 输出 a_l 的某个头按掩码 M^h 置零，度量幻觉 token y 的对数概率变化，得到 token 级归因 s_tok^l &#x3D; Σ_h log[ P(y | h^{l−1}, a_l) &#x2F; P(y | h^{l−1}, a_l ⊙ M^h) ]；句级分数则对句内 token 做加权求和 s_sent^l &#x3D; Σ _ {y_t∈T_sent} w(y_t|T_sent)·s_tok^l，权重来自三项指标的可乘形式 w̃ &#x3D; (1+λcue·u)·(1+λpos·r)·(1+λhall·v) 再归一化，其中 u 为 cue 指示（总结词&#x2F;句号，取 0&#x2F;1）、r 为位置指示（越靠后越大，∈[0,1]）、v 为幻觉指示（该 token 是否含事实错误，取 0&#x2F;1）。任务简单（问答）时用 token 级分数，任务通用（captioning）时用句级分数。</li>
 <li><strong>模块 C：Layerwise Feature Steering（Algorithm 1）</strong>：硬稀疏 + 软加权。① 阈值 τ &#x3D; rs·(1&#x2F;L)Σ_l s_l；② 掩码 m_l &#x3D; 1[s_l ≥ τ]；③ 屏蔽低分层 s_l ← m_l·s_l；④ 归一化 s̃_l &#x3D; s_l&#x2F;Σ_i s_i；⑤ 层的 steering 强度 λ_l &#x3D; λ·m_l + λ·s̃_l；⑥ 调用任意特征干预函数 h̃_l &#x3D; f(h_l, λ_l)。因此方法只决定”强度分配”，与具体 steering 实现解耦，可插到 Nullu 与 VTI 上。</li>
 <li><strong>超参数与训练策略</strong>：λpos &#x3D; λcue &#x3D; λhall &#x3D; 1，rs &#x3D; 0.5；不需要训练，只在推理期改特征；作者也试验了按样本归因分布自适应选 rs 的 soft gating，效果与固定 rs 相差极小，故实验统一用硬门控。</li>
 </ul>
@@ -1335,9 +1406,9 @@
 </ul>
 <h3 id="4-研究方法-21"><a href="#4-研究方法-21" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>模块 0：Gradient-Based Token Influence Estimation（Sec. 3.2）</strong>：在参考点对第 m 步 logits 做一阶泰勒展开 z*_m ≈ Σ_s g^v_ms t^v_s + Σ_n g^p_mn t^p_n + Σ_i g^y_mi y_i + Const，其中 g^v_ms &#x3D; ∂z*_m&#x2F;∂t^v_s 等为 token 级 Jacobian；用曼哈顿范数作为影响力 I^v_ms &#x3D; ∥g^v_ms∥₁（同理 I^p_mn、I^y_mi），并按组聚合 I^v_m &#x3D; Σ_s I^v_ms、I^p_m、I^y_m，给出”视觉 &#x2F; prompt &#x2F; 前序输出”三路贡献的样本级分解。</li>
-<li><strong>模块 A：Object-aware Visual Token Grouping（式 8–10）</strong>：对每个已生成名词 y_i，选出对其影响力最大的视觉 token 构成 M_is，累积物体掩码 M_ms &#x3D; 1[Σ_{i&lt;m} M_is &gt; 0]；再用 Hadamard 积划分 t^o &#x3D; t^v ⊙ M_m 与 t^u &#x3D; t^v ⊙ (1−M_m)，对应影响力 I^o_m、I^u_m。该分组只在预测名词时启用（共现幻觉发生在物体对之间），非名词步令 t^o &#x3D; ∅、统一放大所有视觉 token 以对抗文本–视觉偏置。</li>
+<li><strong>模块 A：Object-aware Visual Token Grouping（式 8–10）</strong>：对每个已生成名词 y_i，选出对其影响力最大的视觉 token 构成 M_is，累积物体掩码 M_ms &#x3D; 1[Σ _ {i&lt;m} M_is &gt; 0]；再用 Hadamard 积划分 t^o &#x3D; t^v ⊙ M_m 与 t^u &#x3D; t^v ⊙ (1−M_m)，对应影响力 I^o_m、I^u_m。该分组只在预测名词时启用（共现幻觉发生在物体对之间），非名词步令 t^o &#x3D; ∅、统一放大所有视觉 token 以对抗文本–视觉偏置。</li>
 <li><strong>模块 B：Anchor-specific Influence-weighted Decoding（式 11–13）</strong>：令 z^o_m &#x3D; π(t^o, t^p, y_&lt;m) 为 anchor-specific 负向 logits，修正为 ẑ_m &#x3D; (1+α_m)z*_m − α_m z^o_m。作者论证沿 z*_m − z^o_m 方向增大会提高 KL(σ(z*_m)∥σ(z^o_m))，等价于强调只出现在原始分支里的 t^u。α_m 由”让 t^u 的影响力对齐主导文本层级 I^t_m :&#x3D; max(I^p_m, I^y_m)”解析求出：α_m &#x3D; (I^t_m − I^v_m)&#x2F;(I^v_m − Ĩ^o_m + Ĩ^t_m − I^t_m)；为保证物体相关视觉与 prompt 的影响力非负，还有上界约束 0 ≤ α_m ≤ min(I^o_m&#x2F;(Ĩ^o_m−I^o_m), I^p_m&#x2F;(Ĩ^p_m−I^p_m))。与依赖置信度阈值、需要调参的自适应合理性约束（VCD&#x2F;M3ID 等）不同，这里的约束是影响力层面的显式条件。</li>
-<li><strong>模块 C：Sample-dependent Early Stopping（式 14）</strong>：定义视觉影响力占比 r^v_m &#x3D; I^v_m&#x2F;(I^v_m+I^p_m+I^y_m)；当 y_{m−1} &#x3D; EOS 之后的一个 token 的 r^v_m 低于阈值 ε 时提前停止，避免在视觉扎根极弱时继续生成。</li>
+<li><strong>模块 C：Sample-dependent Early Stopping（式 14）</strong>：定义视觉影响力占比 r^v_m &#x3D; I^v_m&#x2F;(I^v_m+I^p_m+I^y_m)；当 y _ {m−1} &#x3D; EOS 之后的一个 token 的 r^v_m 低于阈值 ε 时提前停止，避免在视觉扎根极弱时继续生成。</li>
 <li><strong>实现细节</strong>：最大输出长度 256；梯度用 torch.autograd.grad 直接对输入 token 求取；名词用 spaCy 的 en_core_web_sm 抽取；α_m 上限在判别任务取 5、生成任务取 3；早停阈值 ε 为 LLaVA-v1.5&#x2F;v1.6 7%、InstructBLIP 25%、mPLUG-Owl2 2.5%、InternVL2 10%；单张 NVIDIA A40、batch size 1、默认 greedy 采样。全程免训练、免额外模型。</li>
 </ul>
 <h3 id="5-实验结果-21"><a href="#5-实验结果-21" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -1456,7 +1527,7 @@
 </ul>
 <h3 id="4-研究方法-24"><a href="#4-研究方法-24" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：在标准 MHA 中旁路地物化注意力矩阵 A(h,ℓ)，按”模态注意力比例 + 深度边界”筛出两组功能头，然后在 per-head 输出之后、输出投影 W_O 之前对这两组头乘增益，其余不变，保持最小编辑（minimal editing）原则：min_ΔΘ I(Θ+ΔΘ) 且 ‖ΔΘ‖ 尽量小。</li>
-<li><strong>Functional Head Identification（功能头识别）</strong>：对层 ℓ、头 h 计算 S(ℓ)m(h) &#x3D; Σ_{j∈Tm} a(h,ℓ)_{i*j}，即分配到视觉&#x2F;文本 token 上的注意力质量（S_v + S_t &#x3D; 1）。再用阈值分层：H(ℓ)perc &#x3D; {h : ℓ ≤ ℓperc ∧ S_v(h) ≥ τperc}，H(ℓ)reas &#x3D; {h : ℓ ≥ ℓreas ∧ S_v(h) ≤ τreas}，τreas &lt; τperc；落在阈值之间或边界之外的头不标注、不干预。</li>
+<li><strong>Functional Head Identification（功能头识别）</strong>：对层 ℓ、头 h 计算 S(ℓ)m(h) &#x3D; Σ _ {j∈Tm} a(h,ℓ) _ {i*j}，即分配到视觉&#x2F;文本 token 上的注意力质量（S_v + S_t &#x3D; 1）。再用阈值分层：H(ℓ)perc &#x3D; {h : ℓ ≤ ℓperc ∧ S_v(h) ≥ τperc}，H(ℓ)reas &#x3D; {h : ℓ ≥ ℓreas ∧ S_v(h) ≤ τreas}，τreas &lt; τperc；落在阈值之间或边界之外的头不标注、不干预。</li>
 <li><strong>Class-Conditioned Rescaling（类条件重标定）</strong>：g(h,ℓ) &#x3D; gperc·1[h∈Hperc] + greas·1[h∈Hreas] + 1·1[其他]，两个增益都 ≥1、与层无关（layer-agnostic），只做放大不做衰减。改写后的层输出为 Y(ℓ)out &#x3D; Concat(g(1,ℓ)O(1,ℓ), …, g(H,ℓ)O(H,ℓ))·W(ℓ)O，替换残差通路里的标准输出，故影响会跨层累积。</li>
 <li><strong>免训练&#x2F;推理期插件</strong>：实现只需改 <code>eager_attention_forward</code>（modeling_qwen2_5_vl.py &#x2F; modeling_kimi_vl.py），权重冻结，并用缓存保存视觉 token 范围与超参；无损失函数、无训练步，纯粹是推理期干预。复杂度分析显示附加项 O(H·N²) 仍被标准注意力的 O(N²) 支配。</li>
 </ul>
@@ -1494,8 +1565,8 @@
 <h3 id="4-研究方法-25"><a href="#4-研究方法-25" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：不改权重、不加对比分支，只在解码循环里复用已经被算出来的历史 logits，聚合成 residual 信号后融合到当前步的 logits。</li>
 <li><strong>Candidate Token Pool 与 JSD 分段</strong>：以当前步 top-k 构成候选池 Ω_t；在长度 W 的滑动历史窗内计算相邻步分布间的 JSD（JSD(P_t1‖P_t2) &#x3D; ½D_KL(P_t1‖M) + ½D_KL(P_t2‖M)，M 为均值分布），取 U 型最低点切分 PSAP &#x2F; SAP &#x2F; EDP，并把 SAP+EDP 拼成”半 U 型”历史聚合窗 Δ_t。默认 W &#x3D; 8。</li>
-<li><strong>Confidence-Weighted Aggregation（置信度加权聚合）</strong>：用 token 级局部置信度 C_i &#x3D; −(1&#x2F;|Ω_t|)Σ_{j&#x3D;1}^{Ω_t} log P_i(j)（低熵&#x3D;高置信），历史残差信号 logit^res_θ(y_t) &#x3D; Σ_{i∈Δ_t} (C_i &#x2F; Σ_j C_j) · logit_θ(ŷ_i | T_{&lt;i})；对最早生成、历史不足的 token，用 query x 对应位置的解码结果补历史区间。</li>
-<li><strong>Assembly of History and Present（历史与当前融合）</strong>：p_ResDec(y_t|v,x,y_&lt;t) &#x3D; Softmax[(1−α)·logit_θ(y_t|T_{&lt;t−1}) + α·logit^res_θ(y_t|T_{&lt;t−1})]，α∈[0,1]（α&#x3D;0 退化为常规解码）；再用 V_head(y_&lt;t) &#x3D; {y_t : p_θ ≥ β·max_w p_θ} 做自适应截断，域外 token 的 logits 置为 −∞，防止只校准整体分布时反而抬升不合理输出。默认 α &#x3D; 0.5、β &#x3D; 0.1。</li>
+<li><strong>Confidence-Weighted Aggregation（置信度加权聚合）</strong>：用 token 级局部置信度 C_i &#x3D; −(1&#x2F;|Ω_t|)Σ _ {j&#x3D;1}^{Ω_t} log P_i(j)（低熵&#x3D;高置信），历史残差信号 logit^res_θ(y_t) &#x3D; Σ _ {i∈Δ_t} (C_i &#x2F; Σ_j C_j) · logit_θ(ŷ_i | T _ {&lt;i})；对最早生成、历史不足的 token，用 query x 对应位置的解码结果补历史区间。</li>
+<li><strong>Assembly of History and Present（历史与当前融合）</strong>：p_ResDec(y_t|v,x,y_&lt;t) &#x3D; Softmax[(1−α)·logit_θ(y_t|T _ {&lt;t−1}) + α·logit^res_θ(y_t|T _ {&lt;t−1})]，α∈[0,1]（α&#x3D;0 退化为常规解码）；再用 V_head(y_&lt;t) &#x3D; {y_t : p_θ ≥ β·max_w p_θ} 做自适应截断，域外 token 的 logits 置为 −∞，防止只校准整体分布时反而抬升不合理输出。默认 α &#x3D; 0.5、β &#x3D; 0.1。</li>
 </ul>
 <h3 id="5-实验结果-25"><a href="#5-实验结果-25" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
 <li><strong>基座模型</strong>：LLaVA-1.5 (7B)、Qwen2.5-VL-Instruct (7B)、InstructBLIP (Vicuna-7B)</li>
@@ -1532,9 +1603,9 @@
 <h3 id="4-研究方法-26"><a href="#4-研究方法-26" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：把 ECRD 拆成”监督器协商重加权 + 不确定时按需调用视觉判定器”两个部件，环绕在冻结的基座 VLM 外层，只改测试期解码过程。</li>
 <li><strong>候选集与 VDGD 起点</strong>：用 knee truncation 取 top-k⋆（k⋆ &#x3D; argmax_k (p(k) − p(k+1))）构成候选集 C_i；相比前置方法 VDGD 的”对固定 caption 做 min-over-prefix KL 并替换 logits”，ECRD 改为 mean-over-prefix 概率并做混合而非覆盖。</li>
-<li><strong>Distribution Supervisor（证据诱导分布）</strong>：q_E(w) &#x3D; (1&#x2F;L)Σ_j p_VLM(w | e_&lt;j)，对池中 N 条证据求平均得 S_i(w) &#x3D; −log((1&#x2F;N)Σ_E q_E(w))，再在 C_i 上归一化为 r_i(w)，并做质量匹配缩放 r̃<em>i(w) &#x3D; r_i(w)·(Σ</em>{C_i}p_i&#x2F;Σ_{C_i}r_i)，使 C_i 内的总概率质量与原分布一致。</li>
+<li><strong>Distribution Supervisor（证据诱导分布）</strong>：q_E(w) &#x3D; (1&#x2F;L)Σ_j p_VLM(w | e_&lt;j)，对池中 N 条证据求平均得 S_i(w) &#x3D; −log((1&#x2F;N)Σ_E q_E(w))，再在 C_i 上归一化为 r_i(w)，并做质量匹配缩放 r̃_i(w) &#x3D; r_i(w)·(Σ _ {C_i}p_i&#x2F;Σ _ {C_i}r_i)，使 C_i 内的总概率质量与原分布一致。</li>
 <li><strong>协商与免超参权重</strong>：p_i^mix(w) &#x3D; α_i p_i(w) + (1−α_i) r̃<em>i(w)（w∈C_i；否则为 α_i p_i(w)），其中 α_i &#x3D; p</em>(1) 直接取基础模型 top-1 概率、无需调参：基础分布尖锐（自信步）时以原分布为主，弥散（幻觉临界步）时证据权重更高。</li>
-<li><strong>触发与视觉判定器</strong>：计算协商间隔 Δ_i &#x3D; p^mix_(1) − p^mix_(2)，当 k⋆ &gt; 1 且 Δ_i ≤ δ 时判定为可能幻觉步，调用由 GRIT-3B（基于 Qwen2.5-VL-3B、面向视觉 grounding）实现的轻量判定器；它接收图像、文本前缀尾部与候选集 C_i（故意不给原问题，只解决当前步），输出选项 w⋆ 与一句人类可读证据 E_i，强制 w⋆ 并把句子并入池 E_{i+1} ← E_i ∪ {E_i}；坐标只作标注、不参与打分。证据池以全局描述 d_global 初始化，之后按需增长，默认 δ &#x3D; 0.08。</li>
+<li><strong>触发与视觉判定器</strong>：计算协商间隔 Δ_i &#x3D; p^mix_(1) − p^mix_(2)，当 k⋆ &gt; 1 且 Δ_i ≤ δ 时判定为可能幻觉步，调用由 GRIT-3B（基于 Qwen2.5-VL-3B、面向视觉 grounding）实现的轻量判定器；它接收图像、文本前缀尾部与候选集 C_i（故意不给原问题，只解决当前步），输出选项 w⋆ 与一句人类可读证据 E_i，强制 w⋆ 并把句子并入池 E _ {i+1} ← E_i ∪ {E_i}；坐标只作标注、不参与打分。证据池以全局描述 d_global 初始化，之后按需增长，默认 δ &#x3D; 0.08。</li>
 </ul>
 <h3 id="5-实验结果-26"><a href="#5-实验结果-26" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
 <li><strong>基座模型</strong>：LLaVA-OneVision（7B、72B）、Qwen2.5-VL（7B、32B、72B）、InternVL3（8B、38B、78B）；视觉判定器为 GRIT-3B（基于 Qwen2.5-VL-3B），消融时也用 Qwen2.5-VL-3B</li>
@@ -1570,11 +1641,11 @@
 <li><strong>对比解码与特征编辑的代价</strong>：对比解码类方法通常需要额外前向；嵌入空间的特征编辑在高维空间易引入噪声。</li>
 </ul>
 <h3 id="4-研究方法-27"><a href="#4-研究方法-27" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
-<li><strong>Visual Semantic Confidence（VSC，物体导向 grounding）</strong>：定义 c_{v_i}(O) &#x3D; softmax[logit_{v_i}(O)]，并用物体首个 token o0 近似（c_{v_i}(O) ≈ c_{v_i}(o0)）；整图置信度取 max pooling c(O) &#x3D; max_i c_{v_i}(o0)；grounding 向量 G_O &#x3D; Norm[{c_{v_i}(o0)}] ∈ R^m。阈值 log[c(O)] &gt; −2.5 由 COCO Random 子集上网格搜索 F1 得到。</li>
-<li><strong>Visual Semantic Salience（VSS，无物体导向 grounding）</strong>：面向图像描述这类 object-agnostic 任务，用输出不确定度度量语义显著度，c_{v_i} &#x3D; −Σ_k log c_{v_i}(w_k) &#x2F; log K（{w_k} 为该 token 的 Top-K），显著度高的 token 对应明确物体、背景区域得分低。</li>
-<li><strong>Vision-Guided Attention 注入</strong>：用 NLP 工具（Stanza）从问题中抽物体，多个物体时取 α̂_{h,−1,s:e} &#x3D; α_{h,−1,s:e} + β·G（G &#x3D; max_j G_{O_j}，β 为超参）；利用加法结合律得 ẑ &#x3D; (α + β·G)V &#x3D; z + β·Δz，无需显式注意力权重，因而兼容 FlashAttention；每个 token 只前向一次（预计算 VSC 后走 KV cache）。</li>
+<li><strong>Visual Semantic Confidence（VSC，物体导向 grounding）</strong>：定义 c _ {v_i}(O) &#x3D; softmax[logit _ {v_i}(O)]，并用物体首个 token o0 近似（c _ {v_i}(O) ≈ c _ {v_i}(o0)）；整图置信度取 max pooling c(O) &#x3D; max_i c _ {v_i}(o0)；grounding 向量 G_O &#x3D; Norm[{c _ {v_i}(o0)}] ∈ R^m。阈值 log[c(O)] &gt; −2.5 由 COCO Random 子集上网格搜索 F1 得到。</li>
+<li><strong>Visual Semantic Salience（VSS，无物体导向 grounding）</strong>：面向图像描述这类 object-agnostic 任务，用输出不确定度度量语义显著度，c _ {v_i} &#x3D; −Σ_k log c _ {v_i}(w_k) &#x2F; log K（{w_k} 为该 token 的 Top-K），显著度高的 token 对应明确物体、背景区域得分低。</li>
+<li><strong>Vision-Guided Attention 注入</strong>：用 NLP 工具（Stanza）从问题中抽物体，多个物体时取 α̂ _ {h,−1,s:e} &#x3D; α _ {h,−1,s:e} + β·G（G &#x3D; max_j G _ {O_j}，β 为超参）；利用加法结合律得 ẑ &#x3D; (α + β·G)V &#x3D; z + β·Δz，无需显式注意力权重，因而兼容 FlashAttention；每个 token 只前向一次（预计算 VSC 后走 KV cache）。</li>
 <li><strong>Attention Heads Balancing</strong>：多头天然分化出视觉头，为避免破坏其固有视觉能力，对视觉功能强的头给弱引导、非视觉头给强引导：γ’ &#x3D; Norm(sim(z, Δz))，γ &#x3D; ReLU(2 − H·γ’)，更新式为 ẑ &#x3D; z + β·γ·Δz。</li>
-<li><strong>Programmed Vision-Guidance（PVG，用于图像描述）</strong>：生成过程中动态抑制已描述区域，G_{t+1} &#x3D; (1+λ)G_t − λG_w（w 为当前步生成的 token），再做 G’<em>{t+1} &#x3D; Norm(ReLU(G</em>{t+1}))；并按 ẑ &#x3D; z + ‖G‖_0·γ·β·Δz 随生成推进逐步衰减引导强度。</li>
+<li><strong>Programmed Vision-Guidance（PVG，用于图像描述）</strong>：生成过程中动态抑制已描述区域，G _ {t+1} &#x3D; (1+λ)G_t − λG_w（w 为当前步生成的 token），再做 G’ _ {t+1} &#x3D; Norm(ReLU(G _ {t+1}))；并按 ẑ &#x3D; z + ‖G‖_0·γ·β·Δz 随生成推进逐步衰减引导强度。</li>
 </ul>
 <h3 id="5-实验结果-27"><a href="#5-实验结果-27" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
 <li><strong>基座模型</strong>：LLaVA-1.5-7B（表中作 LLaVA-7B）、LLaVA-1.5-13B（LLaVA-13B）、LLaVA-Next、Qwen2.5-VL</li>
@@ -1609,7 +1680,7 @@
 <li><strong>待解难点</strong>：发散思维没有明确定义的标签，很难直接识别；即使识别出来，如何纠正这段推理也是开放问题。作者假设：发散思维时模型”重推理、轻感知”，对图像的不确定性会升高，因此可用图像侧的不确定度来指代它。</li>
 </ul>
 <h3 id="4-研究方法-28"><a href="#4-研究方法-28" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
-<li><strong>Visual Entropy（视觉熵）</strong>：把视觉 token 经语言头 + softmax 映射为词表分布 p_v ∈ R^{|V|×m}，取预测 token y_t 对应的视觉激活概率 p_v(y_t) ∈ R^m，定义 E(y_t, v) &#x3D; −Σ_{i&#x3D;1}^m p_{v,i}(y_t)·log p_{v,i}(y_t) &#x2F; log m，用 log m 归一到 [0,1]。含义是”当前 token 在各视觉 token 上的激活分布有多不确定”。</li>
+<li><strong>Visual Entropy（视觉熵）</strong>：把视觉 token 经语言头 + softmax 映射为词表分布 p_v ∈ R^{|V|×m}，取预测 token y_t 对应的视觉激活概率 p_v(y_t) ∈ R^m，定义 E(y_t, v) &#x3D; −Σ _ {i&#x3D;1}^m p _ {v,i}(y_t)·log p _ {v,i}(y_t) &#x2F; log m，用 log m 归一到 [0,1]。含义是”当前 token 在各视觉 token 上的激活分布有多不确定”。</li>
 <li><strong>用视觉熵识别发散思维（Application 1）</strong>：按 Sec. 3.4 的片段标签分别统计两类片段的平均熵，正常思维明显低于发散思维；再用 logistic 回归做思维模式二分类，McFadden’s pseudo-R² 超过 0.9，说明高视觉熵能可靠预测发散思维步骤。</li>
 <li><strong>用视觉熵干预解码（Application 2）</strong>：第 t 步若 E(y_t,v) &gt; γ（判为发散思维步），则修正分布 p̂<em>t(·|v,q,y</em>&lt;t) &#x3D; p_t(·|v,q,y_&lt;t)·e^(−α·E(·,v))，其中 α∈[0,1] 为干预强度；否则保持原分布。该式鼓励低视觉熵 token、惩罚高视觉熵 token，形式上是受约束解码；只在发散步骤生效，避免”全程干预”。</li>
 <li><strong>免训练与效率</strong>：干预只发生在解码阶段，不做二次推理（避免对比解码的双倍开销），也不做隐状态编辑或视觉注意力 steering；p_v 可在 prefilling 阶段预计算，解码期额外开销可忽略。超参 γ 与 α 经实验证明与模型无关（换 GRIT-3B、R1-Onevision-7B 仍适用），默认 γ &#x3D; 0.5、α &#x3D; 0.75。完整流程见论文 Algorithm 1。</li>
@@ -1731,9 +1802,9 @@
 <li><strong>任务背景</strong>：真实性与视觉感知两类能力需同时处理，作者据此设计”真实性向量（纠偏语言先验）+ 视觉感知向量（增强看图的注意力）”的双干预。</li>
 </ul>
 <h3 id="4-研究方法-30"><a href="#4-研究方法-30" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
-<li><strong>Step 1 真实性引导向量数据库（Truthfulness Steering Vector Database）</strong>：数据源为 AMBER 与 SEED，按语义分成 4 个簇。因两数据集的题目是判别式&#x2F;选择题，构造幻觉答案很方便（判别题取反、选择题随机选错误选项），每个簇 C_i 内含 (T, V, Y_pos, Y_neg)。把 (V, T+Y_pos) 与 (V, T+Y_neg) 分别喂入 LVLM，取每层最后一个 token 的注意力头激活 A_pos、A_neg，簇级向量为 D_i &#x3D; (1&#x2F;|C_i|) Σ_{j∈C_i} (A_pos,j − A_neg,j)（式 1），再用 PCA 去噪、提取影响真实性的主成分。数据库以各簇问题的平均嵌入为 key、D_i 为 value；key 与输入文本嵌入均由 sentence transformer（all-mpnet-base-v2）得到。</li>
+<li><strong>Step 1 真实性引导向量数据库（Truthfulness Steering Vector Database）</strong>：数据源为 AMBER 与 SEED，按语义分成 4 个簇。因两数据集的题目是判别式&#x2F;选择题，构造幻觉答案很方便（判别题取反、选择题随机选错误选项），每个簇 C_i 内含 (T, V, Y_pos, Y_neg)。把 (V, T+Y_pos) 与 (V, T+Y_neg) 分别喂入 LVLM，取每层最后一个 token 的注意力头激活 A_pos、A_neg，簇级向量为 D_i &#x3D; (1&#x2F;|C_i|) Σ _ {j∈C_i} (A_pos,j − A_neg,j)（式 1），再用 PCA 去噪、提取影响真实性的主成分。数据库以各簇问题的平均嵌入为 key、D_i 为 value；key 与输入文本嵌入均由 sentence transformer（all-mpnet-base-v2）得到。</li>
 <li><strong>Step 2 视觉感知引导向量（Visual Perception Steering Vector）</strong>：对图像 V 加噪（按前向扩散过程）得到失真图 V′；用 <strong>YOLOv11</strong> 检出图中物体 O，填入模板 “The image depicts {objects}” 得 Y_O；再从预定义物体库中随机选同类别但不存在的物体 O′ 填入得 Y_O′，提示词固定为 “Please describe this image.”。把 (V, T+Y_O) 与 (V′, T+Y_O′) 分别输入模型取末 token 激活，定义 D_v &#x3D; A_v − A_v′（式 2），同样用 PCA 提取与视觉感知最相关的主成分。</li>
-<li><strong>Step 3 推理期动态干预</strong>：用输入文本嵌入与数据库各 key 的余弦相似度做检索，D_f &#x3D; D_î, î &#x3D; argmax_i sim(E(T), Key_i)（式 3）。随后用二值掩码 M_f、M_v 只对 D_f、D_v 中差异最大的 top-K 个注意力头置 1（式 4），并把式 5 改写为：x^(l+1) &#x3D; x^(l) + Concat_{0∼H}[ Attn^(l,h)(x^(l)) + α·M_f^(l,h)·D_f^(l,h) + β·M_v^(l,h)·D_v^(l,h) ] · W_o^(l)，其中 α、β 分别控制真实性与视觉感知的干预强度。<strong>全流程免训练</strong>，仅在推理时改注意力输出。</li>
+<li><strong>Step 3 推理期动态干预</strong>：用输入文本嵌入与数据库各 key 的余弦相似度做检索，D_f &#x3D; D_î, î &#x3D; argmax_i sim(E(T), Key_i)（式 3）。随后用二值掩码 M_f、M_v 只对 D_f、D_v 中差异最大的 top-K 个注意力头置 1（式 4），并把式 5 改写为：x^(l+1) &#x3D; x^(l) + Concat _ {0∼H}[ Attn^(l,h)(x^(l)) + α·M_f^(l,h)·D_f^(l,h) + β·M_v^(l,h)·D_v^(l,h) ] · W_o^(l)，其中 α、β 分别控制真实性与视觉感知的干预强度。<strong>全流程免训练</strong>，仅在推理时改注意力输出。</li>
 <li><strong>超参与实现</strong>：α、β ∈ {0.5,1,2,…,10}，K ∈ {32,64,128,256,512,1024}，网格搜索；temperature&#x3D;0、top_p&#x3D;1；实验在 NVIDIA RTX 4090(48GB) 上完成。簇数量在 {2,3,4,5} 中搜索，最终 4 个簇最优。</li>
 </ul>
 <h3 id="5-实验结果-31"><a href="#5-实验结果-31" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -1774,7 +1845,7 @@
 </ul>
 <h3 id="4-研究方法-31"><a href="#4-研究方法-31" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>诊断指标 LVLMs-Saliency</strong>：对输入序列 x 取模型输出 (y, {A^(l,h)}, s)，以交叉熵损失 L(y,s) 对注意力矩阵求梯度 ∇_A^(l,h)，再做逐元素积并保留下三角：S^(l,h) &#x3D; tril(|A^(l,h) ⊙ ∇_A^(l,h)|)（式 4），层内跨头平均后 ℓ2 归一化得 S̄^(l)（式 5）。它是无监督、token 级的”接地强度”度量，量化前序输出对下一个 token 的影响。</li>
-<li><strong>SGRS（Saliency-Guided Rejection Sampling）</strong>：位置 P 上取 top-K 候选 C^(P)，对每个候选 c_i 计算显著性 S(c_i) &#x3D; (1&#x2F;(|L_target|·|J|)) Σ_{l∈L_target} Σ_{j∈J} S̄^(l)<em>{P,j}（式 6），其中 L_target 是选定的中深层，J &#x3D; {j | SysL + ImgL ≤ j &lt; P} 只覆盖”已生成的输出 token”位置（LLaVA-1.5 取 SysL&#x3D;35、ImgL&#x3D;576）。接受条件为 S(c_i) ≥ τ(P)，自适应阈值 τ(P) &#x3D; α · (1&#x2F;|H|) Σ</em>{j∈H} S(x_j)，H 为最近 W 个输出 token（式 7），α∈(0,1) 控制”当前候选显著性要达到历史平均的多少倍”。若 R 轮内全部候选被拒，则回退选择原候选中显著性最高者。SGRS 在 token 进入序列之前就把低显著性候选拦下，防止级联幻觉。</li>
+<li><strong>SGRS（Saliency-Guided Rejection Sampling）</strong>：位置 P 上取 top-K 候选 C^(P)，对每个候选 c_i 计算显著性 S(c_i) &#x3D; (1&#x2F;(|L_target|·|J|)) Σ _ {l∈L_target} Σ _ {j∈J} S̄^(l) _ {P,j}（式 6），其中 L_target 是选定的中深层，J &#x3D; {j | SysL + ImgL ≤ j &lt; P} 只覆盖”已生成的输出 token”位置（LLaVA-1.5 取 SysL&#x3D;35、ImgL&#x3D;576）。接受条件为 S(c_i) ≥ τ(P)，自适应阈值 τ(P) &#x3D; α · (1&#x2F;|H|) Σ _ {j∈H} S(x_j)，H 为最近 W 个输出 token（式 7），α∈(0,1) 控制”当前候选显著性要达到历史平均的多少倍”。若 R 轮内全部候选被拒，则回退选择原候选中显著性最高者。SGRS 在 token 进入序列之前就把低显著性候选拦下，防止级联幻觉。</li>
 <li><strong>LocoRE（Local Coherence Reinforcement）</strong>：在位置 P 预测 P+1 时，对 J_P &#x3D; {j | SysL + ImgL ≤ j &lt; P}（历史输出位置）定义距离加权增益 γ_j^(P) &#x3D; 1 + β·I((P−j) ≤ w_s)（式 8），并把注意力矩阵从 query P+1 到这些 key 的子块整体乘以该增益（式 9&#x2F;10），再进入 softmax 与加权求和。它”operates purely on the attention structure — no gradient computation or model parameter modification is required”，是前向、即插即用、免训练的模块。</li>
 <li><strong>协同工作流</strong>：每一步解码中 SGRS 先按对前序输出的显著性筛出当前 token x_P，LocoRE 再修改下一次前向（位置 P+1）的注意力权重以强化对近期 token 的依赖，形成”入口把关 + 事后稳定”的闭环。超参：α 控制 SGRS 敏感度、W 为历史窗口、w_s 为局部窗口、β 为强化强度；推荐 α&#x3D;0.6（LLaVA-1.5 用 β&#x3D;0.15、Qwen2-VL 用 β&#x3D;0.20）。</li>
 </ul>
@@ -1816,7 +1887,7 @@
 <h3 id="4-研究方法-32"><a href="#4-研究方法-32" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：AIR 作用在每个 Transformer block 的 FFN 里，先把视觉 token 压缩成紧凑子集，再用 patch 级 OT 对齐挑出对齐良好的 patch，最后只把这些 patch 注入 FFN。作者依据”mid-to-deep 层对视觉—语言融合更关键”的既有结论，把操作层范围定在中深层（消融显示 24–32 与 26–32 最合适）。</li>
 <li><strong>Prototype-based token reduction</strong>：标准 FFN 为 FFN(H) &#x3D; φ(H W1) W2^⊤（式 5），全量重注入为 FFN(H|Z) &#x3D; φ(H Z^⊤) Z（式 6），但视觉 token 长度 K 很大（LLaVA 中 K&#x3D;576）带来冗余与噪声。作者计算原型 h_p &#x3D; (1&#x2F;K) Σ_k h_k 作为视觉语义的粗略概括，按 d(h_k, h_p) &#x3D; ‖h_k − h_p‖₂（式 7）排序，”Tokens with larger distances encode more distinctive cues not captured by the global prototype”，只保留 TopQ 个 token 得到 H′（式 8）。</li>
-<li><strong>OT-guided patch reinforcement</strong>：把图像裁成 M 个 patch {v̂<em>m} 与其嵌入 {Ẑ_m}（每个含 N 个细粒度 token）。将压缩后的隐状态与某 patch 的 token 视为离散分布 P(h) &#x3D; Σ</em>{k&#x3D;1}^{Q} a_k δ(h_k − h) 与 Q_m(ẑ) &#x3D; Σ_{n&#x3D;1}^{N} b^m_n δ(ẑ^m_n − ẑ)（式 9），其中权重取均匀 a&#x3D;[1&#x2F;Q,…]、b^m&#x3D;[1&#x2F;N,…]，代价矩阵 C_m(k,n) &#x3D; 1 − cos(z_k, ẑ^m_n)。用 OT 距离 d_OT(P, Q_m; C_m) &#x3D; min_{T_m≥0} ⟨T_m, C_m⟩（式 10）并用 Sinkhorn-Knopp 高效求解传输计划 T_m；聚合得到 d_OT(m) &#x3D; Σ_k Σ_n T_m(k,n) C_m(k,n)（式 11）。<strong>OT 距离越小表示与原始图像对齐越强、patch 越关键</strong>，据此以阈值 τ 选择 M &#x3D; {m | d_OT(m) ≤ τ}（式 12），把选中 patch 的嵌入拼接为 Z̃（式 13），最终注入形式为 FFN(H|Z̃) &#x3D; φ(H W1) W2^⊤ + φ(H′ Z̃^⊤) Z̃（式 14）。</li>
+<li><strong>OT-guided patch reinforcement</strong>：把图像裁成 M 个 patch {v̂_m} 与其嵌入 {Ẑ_m}（每个含 N 个细粒度 token）。将压缩后的隐状态与某 patch 的 token 视为离散分布 P(h) &#x3D; Σ _ {k&#x3D;1}^{Q} a_k δ(h_k − h) 与 Q_m(ẑ) &#x3D; Σ _ {n&#x3D;1}^{N} b^m_n δ(ẑ^m_n − ẑ)（式 9），其中权重取均匀 a&#x3D;[1&#x2F;Q,…]、b^m&#x3D;[1&#x2F;N,…]，代价矩阵 C_m(k,n) &#x3D; 1 − cos(z_k, ẑ^m_n)。用 OT 距离 d_OT(P, Q_m; C_m) &#x3D; min _ {T_m≥0} ⟨T_m, C_m⟩（式 10）并用 Sinkhorn-Knopp 高效求解传输计划 T_m；聚合得到 d_OT(m) &#x3D; Σ_k Σ_n T_m(k,n) C_m(k,n)（式 11）。<strong>OT 距离越小表示与原始图像对齐越强、patch 越关键</strong>，据此以阈值 τ 选择 M &#x3D; {m | d_OT(m) ≤ τ}（式 12），把选中 patch 的嵌入拼接为 Z̃（式 13），最终注入形式为 FFN(H|Z̃) &#x3D; φ(H W1) W2^⊤ + φ(H′ Z̃^⊤) Z̃（式 14）。</li>
 <li><strong>理论分析</strong>：作者把 OT 距离与均匀加权的余弦基线 d_cos(m) &#x3D; (1&#x2F;KN) Σ_k Σ_n C_m(k,n) 对比，证明 |d_OT(m1) − d_OT(m2)| &gt; |d_cos(m1) − d_cos(m2)|（式 15，除 C_m1 &#x3D; C_m2 的退化情形），原因是 OT 的自适应传输计划会优先匹配低成本（高余弦相似）对，从而放大语义对齐差异，而余弦的均匀平均会”dilute discriminative features”。</li>
 <li><strong>训练&#x2F;推理策略</strong>：完全免训练（training-free）、不引入辅助模型，只在推理时修改 FFN 的视觉注入项；超参为保留 token 数 TopQ、OT 距离阈值 τ、参与 patch 数与熵正则强度 ϵ。</li>
 </ul>
@@ -1857,10 +1928,10 @@
 <li><strong>任务背景&#x2F;动机</strong>：作者主张幻觉的”源头”在编码器特征，因此干预点应放在视觉 token 上，并且要求方法免训练、可跨模型族使用。</li>
 </ul>
 <h3 id="4-研究方法-33"><a href="#4-研究方法-33" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
-<li><strong>推理形式化</strong>：视觉编码器 E(·) 把图像 v 编码为 N 个 token x_v &#x3D; E(v)（式 1）；LLM 依 logit(y_i | x_v, t, y_{&lt;i}) &#x3D; LLM(x_v, t, y_{&lt;i})（式 2）产生 logits，softmax 后按解码策略取 token（式 3）。</li>
-<li><strong>Mitigating Statistical Bias（Token Re-weighting）</strong>：先用 vanilla LVLM 生成 naive caption c_naive &#x3D; VanillaLVLM(v, “Please describe this image”)（式 4），用与 E(·) 配对的 CLIP 文本编码器 E_t(·) 得到 P 个 caption token（式 5）；计算相似度矩阵 M &#x3D; x_v c^⊤ &#x2F; (‖x_v‖₂·‖c‖₂)（式 6），沿 caption 维取最大并归一化到 [0,1] 得权重 W_v &#x3D; norm(max_j M_{i,j})（式 7），最后以残差方式重加权 x_v′ &#x3D; x_v + x_v ⊙ W_v（式 8）。作者强调即使 naive caption 本身含幻觉也不影响重加权，因为幻觉物体在相似度矩阵里匹配不到高相似度的视觉 token。</li>
-<li><strong>Reducing Inherent Bias（Token Subtraction）</strong>：取 K 个与图同尺寸的随机噪声 n_i 过编码器，平均后从统计偏置修正过的 token 中减去：x_v″ &#x3D; x_v′ − (1&#x2F;K)Σ_{i&#x3D;1}^{K} E(n_i)（式 9）；由于固有偏置只取决于编码器参数，”the estimation of erroneous representations from noise inputs can be pre-calculated for each model to improve efficiency”。修正后的 token 与 query 一起送入 LLM 得 logit(y_i | x_v″, t, y_{&lt;i})（式 10）。</li>
-<li><strong>Address Vulnerability（对抗攻击 + 对比解码）</strong>：在图上加可学习扰动 δ，用对抗损失 l_adv &#x3D; cos(E(v+δ), E_t(c_naive))（式 11）由梯度下降（学习率 l）最小化得到攻击张量 δ*（式 12）——注意是最小化余弦相似度以破坏图文一致性；推理时把 δ* 加到图上得易致幻表征 x̄<em>v &#x3D; E(v+δ*)（式 13）与对抗 logits（式 14）；再在每个解码步用 α 控制对比强度：p_shield(y_i) &#x3D; softmax[(1+α)·logit(y_i | x_v″, t, y</em>{&lt;i}) − α·logit(y_i | x̄<em>v, t, y</em>{&lt;i})]（式 15）。此外引入自适应合理性约束（式 16），只保留概率不低于最大概率 β 倍的 token，其余置零。</li>
+<li><strong>推理形式化</strong>：视觉编码器 E(·) 把图像 v 编码为 N 个 token x_v &#x3D; E(v)（式 1）；LLM 依 logit(y_i | x_v, t, y _ {&lt;i}) &#x3D; LLM(x_v, t, y _ {&lt;i})（式 2）产生 logits，softmax 后按解码策略取 token（式 3）。</li>
+<li><strong>Mitigating Statistical Bias（Token Re-weighting）</strong>：先用 vanilla LVLM 生成 naive caption c_naive &#x3D; VanillaLVLM(v, “Please describe this image”)（式 4），用与 E(·) 配对的 CLIP 文本编码器 E_t(·) 得到 P 个 caption token（式 5）；计算相似度矩阵 M &#x3D; x_v c^⊤ &#x2F; (‖x_v‖₂·‖c‖₂)（式 6），沿 caption 维取最大并归一化到 [0,1] 得权重 W_v &#x3D; norm(max_j M _ {i,j})（式 7），最后以残差方式重加权 x_v′ &#x3D; x_v + x_v ⊙ W_v（式 8）。作者强调即使 naive caption 本身含幻觉也不影响重加权，因为幻觉物体在相似度矩阵里匹配不到高相似度的视觉 token。</li>
+<li><strong>Reducing Inherent Bias（Token Subtraction）</strong>：取 K 个与图同尺寸的随机噪声 n_i 过编码器，平均后从统计偏置修正过的 token 中减去：x_v″ &#x3D; x_v′ − (1&#x2F;K)Σ _ {i&#x3D;1}^{K} E(n_i)（式 9）；由于固有偏置只取决于编码器参数，”the estimation of erroneous representations from noise inputs can be pre-calculated for each model to improve efficiency”。修正后的 token 与 query 一起送入 LLM 得 logit(y_i | x_v″, t, y _ {&lt;i})（式 10）。</li>
+<li><strong>Address Vulnerability（对抗攻击 + 对比解码）</strong>：在图上加可学习扰动 δ，用对抗损失 l_adv &#x3D; cos(E(v+δ), E_t(c_naive))（式 11）由梯度下降（学习率 l）最小化得到攻击张量 δ*（式 12）——注意是最小化余弦相似度以破坏图文一致性；推理时把 δ* 加到图上得易致幻表征 x̄_v &#x3D; E(v+δ*)（式 13）与对抗 logits（式 14）；再在每个解码步用 α 控制对比强度：p_shield(y_i) &#x3D; softmax[(1+α)·logit(y_i | x_v″, t, y _ {&lt;i}) − α·logit(y_i | x̄_v, t, y _ {&lt;i})]（式 15）。此外引入自适应合理性约束（式 16），只保留概率不低于最大概率 β 倍的 token，其余置零。</li>
 <li><strong>训练&#x2F;推理策略</strong>：完全免训练；默认 α&#x3D;2、β&#x3D;0.35、K&#x3D;32、l&#x3D;0.02，跨三个 LVLM 通用；SHIELD 用基于采样的解码（从修改后的 post-softmax 分布采样），vanilla 与 VCD 也按各自原文采用采样解码、OPERA 用 beam search + logit 惩罚；全部实验在单张 RTX A6000 上完成。</li>
 </ul>
 <h3 id="5-实验结果-34"><a href="#5-实验结果-34" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -1901,9 +1972,9 @@
 <li><strong>任务背景&#x2F;定位</strong>：作者明确界定干预范围——RUDDER 作用在隐残差流而非最终 logit 分布，”its objective is therefore not to provide a formal guarantee on the token-level likelihood, but to preserve and reassert an input-specific visual evidence direction during decoding”，正好对应”生成轨迹从视觉前缀漂向语言先验”这一失效模式。</li>
 </ul>
 <h3 id="4-研究方法-34"><a href="#4-研究方法-34" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
-<li><strong>CARD 向量（零成本样本级证据方向）</strong>：在一次标准的 prefill 前向中，在目标解码层 l 放只读 hook 缓存每个 prefill token i 的自注意力输出 A_i^l；pre-norm 解码器中残差更新即 Δ_i^l &#x3D; A_i^l（式 1）；随后池化并 L2 归一化：v_CARD &#x3D; Pool({Δ_i^l}_{i∈T_pre}) &#x2F; ‖Pool({Δ_i^l})‖₂（式 2），其中 Pool(·) 可取均值或按 ‖Δ_i^l‖ 加权均值。由于自注意力更新在信息量大的 token 上幅度大、在功能&#x2F;syntax token 上轻，加权池化天然过滤噪声，蒸馏出该输入专属的视觉影响方向；”The entire process occurs within the single prefill pass and introduces negligible overhead, as no additional forward pass or calibration is required.”</li>
-<li><strong>Beta Gate（基于 Beta 分布的自适应门控）</strong>：令 h_{l,t} 为目标层生成第 t 个 token 时的隐状态，用 s_t &#x3D; cos(h_{l,t}, v_CARD) 度量其与视觉证据的对齐度；再用 Beta-Bernoulli 共轭后验形式把 s_t 视作”视觉接地概率”的伪计数：α_t &#x3D; softplus(k·s_t + c)、β_t &#x3D; softplus(−k·s_t + c)、g_t &#x3D; α_t&#x2F;(α_t+β_t)（式 3），并把 g_t clamp 到 [g_min, g_max] 以防止门控完全关闭或过早饱和。作者刻意采用单调设计——s_t 高说明当前隐状态已与视觉证据相容，加强注入不易破坏生成；s_t 低或为负说明在生成非视觉功能词或轨迹不稳，此时抑制注入以免伤流畅度或物体召回。这不是”误差探测器”而是”对当前视觉对齐程度的信任度量”。</li>
-<li><strong>注入方式</strong>：每个答案 token 的 steering 更新为 v_steer_t &#x3D; (α_max · g_t) · v_CARD（式 4），即在自适应门控之外再乘一个全局上限 α_max；注入位置在 Self-Attention(SA) 之后：h_new_{l,t} &#x3D; (h_{l,t} + SA(h_{l,t})) + v_steer_t（式 5），且注入限定在答案 span 内。</li>
+<li><strong>CARD 向量（零成本样本级证据方向）</strong>：在一次标准的 prefill 前向中，在目标解码层 l 放只读 hook 缓存每个 prefill token i 的自注意力输出 A_i^l；pre-norm 解码器中残差更新即 Δ_i^l &#x3D; A_i^l（式 1）；随后池化并 L2 归一化：v_CARD &#x3D; Pool({Δ_i^l} _ {i∈T_pre}) &#x2F; ‖Pool({Δ_i^l})‖₂（式 2），其中 Pool(·) 可取均值或按 ‖Δ_i^l‖ 加权均值。由于自注意力更新在信息量大的 token 上幅度大、在功能&#x2F;syntax token 上轻，加权池化天然过滤噪声，蒸馏出该输入专属的视觉影响方向；”The entire process occurs within the single prefill pass and introduces negligible overhead, as no additional forward pass or calibration is required.”</li>
+<li><strong>Beta Gate（基于 Beta 分布的自适应门控）</strong>：令 h _ {l,t} 为目标层生成第 t 个 token 时的隐状态，用 s_t &#x3D; cos(h _ {l,t}, v_CARD) 度量其与视觉证据的对齐度；再用 Beta-Bernoulli 共轭后验形式把 s_t 视作”视觉接地概率”的伪计数：α_t &#x3D; softplus(k·s_t + c)、β_t &#x3D; softplus(−k·s_t + c)、g_t &#x3D; α_t&#x2F;(α_t+β_t)（式 3），并把 g_t clamp 到 [g_min, g_max] 以防止门控完全关闭或过早饱和。作者刻意采用单调设计——s_t 高说明当前隐状态已与视觉证据相容，加强注入不易破坏生成；s_t 低或为负说明在生成非视觉功能词或轨迹不稳，此时抑制注入以免伤流畅度或物体召回。这不是”误差探测器”而是”对当前视觉对齐程度的信任度量”。</li>
+<li><strong>注入方式</strong>：每个答案 token 的 steering 更新为 v_steer_t &#x3D; (α_max · g_t) · v_CARD（式 4），即在自适应门控之外再乘一个全局上限 α_max；注入位置在 Self-Attention(SA) 之后：h_new _ {l,t} &#x3D; (h _ {l,t} + SA(h _ {l,t})) + v_steer_t（式 5），且注入限定在答案 span 内。</li>
 <li><strong>变体与训练性</strong>：主配置称 RUDDER-Beta（自适应门控），对照配置 RUDDER-Add 以固定强度注入 CARD、不含门控。方法免训练（training-free）：少量部署超参只在 100 张 held-out MSCOCO 图像（与评测子集不相交）上做一次轻量校准，用来选层与调参，不是训练过程，也不使用任务监督。校准两步：Step 1 层选择 L（线性扫描最大化 CARD 对齐）→ LLaVA-1.5 取中层偏后 L&#x3D;30、Idefics2 取 L&#x3D;28、InstructBLIP 取较早的 L&#x3D;1；Step 2 网格搜索 α_max 与门控灵敏度 k，目标是最小化 CHAIR 同时保持 ≥95% 的原模型 recall，其余参数固定为 c&#x3D;1、g∈[0.05,1]。最终 (α_max, k) 为 LLaVA-1.5 (20, 5.0)、Idefics2 (8.0, 5.0)、InstructBLIP (6.5, 8.0)。</li>
 <li><strong>评测设置</strong>：CHAIR 用 500 张 MSCOCO 验证集样本，提示 “Please help me describe the image in detail”，最长 512 token，报句级 CHAIR_S 与物体级 CHAIR_I；POPE 用 “Is there a <object> in the image?”，报 random&#x2F;popular&#x2F;adversarial 三拆分平均的 Accuracy 与 F1；MME 用来确证通用能力；temperature&#x3D;1.0，测试 greedy、beam search(beam&#x3D;5)、nucleus sampling(p&#x3D;0.9)；效率实验在单张 A100 80GB、batch size 1 上完成。</li>
 </ul>
@@ -1943,7 +2014,7 @@
 </ul>
 <h3 id="4-研究方法-35"><a href="#4-研究方法-35" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（免训练、推理期）</strong>：输入 X &#x3D; [X_S; X_V; X_T]（system instruction &#x2F; 视觉 token &#x2F; query token）。先在预填充阶段算出视觉显著性图 Ŝ，再在解码阶段用 Ŝ 做注意力引导，不训练任何参数。</li>
-<li><strong>Gaze shift 显著性图</strong>：在每层取对视觉 token 累计注意力最高的前 50% 注意力头 H^l_TV；只用 POS 标注出的信息密集 query token X_Tr，计算 ΔA^l_{h,i,j} &#x3D; max(A^l_{h,i,j} − A^l_{h,i−1,j}, 0)，即相邻 query token 间视觉注意力的正向增量，再对头与 token 求平均得到 Ŝ^l（Eq. 3）。负增量被置零，因为负增量只表示”移开视线”、会抵消有意义的新增。Ŝ 在 min-max 归一化前按三倍标准差裁剪，避免过度强化单一区域。</li>
+<li><strong>Gaze shift 显著性图</strong>：在每层取对视觉 token 累计注意力最高的前 50% 注意力头 H^l_TV；只用 POS 标注出的信息密集 query token X_Tr，计算 ΔA^l _ {h,i,j} &#x3D; max(A^l _ {h,i,j} − A^l _ {h,i−1,j}, 0)，即相邻 query token 间视觉注意力的正向增量，再对头与 token 求平均得到 Ŝ^l（Eq. 3）。负增量被置零，因为负增量只表示”移开视线”、会抵消有意义的新增。Ŝ 在 min-max 归一化前按三倍标准差裁剪，避免过度强化单一区域。</li>
 <li><strong>峰值层选择</strong>：以未归一化的 Ŝ^l 之和最大者作为提取层，Figure 2 显示峰值落在早中期层；实现中为 LLaVA-1.5 7B 第 11 层、13B 第 10 层、Qwen2-VL 7B 第 14 层、Qwen3-VL 8B 第 18 层。</li>
 <li><strong>跨模态融合增强（解码）</strong>：先用输出 token 对视觉&#x2F;query 的注意力比例 R^l_V、R^l_T 选出两者都高的层 L（实现中分别为 12-22、14-20、5-18、13-23）。对 h∈H^l_OV 的视觉 token 做 Â &#x3D; A · exp(α·Ŝ_j)（等价于在 softmax logits 上加偏置 B &#x3D; αŜ_j）；对 h∈H^l_OT 的 query token 做 Â &#x3D; A · β·r^l，其中 r^l 是本层视觉注意力的整体放大倍数，α 取 5.0（LLaVA）&#x2F;4.0（Qwen），β 固定 1.0 以保持原平衡，最后按行重新归一化。</li>
 <li><strong>信息密集词抽取</strong>：默认 spaCy POS 标注（NOUN&#x2F;PROPN&#x2F;VERB&#x2F;ADJ&#x2F;ADV&#x2F;NUM），成本可忽略；另提供用 Qwen3-VL 8B 提示词挑词的 LLM 版本，效果更强但更贵。</li>
@@ -1981,9 +2052,9 @@
 </ul>
 <h3 id="4-研究方法-36"><a href="#4-研究方法-36" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：推理期两阶段注意力改造，全部在内部注意力上完成，不训练、不改架构（仅调整 attention weights）。</li>
-<li><strong>Step 1 — 视觉证据显著性图（Inter-Layer Visual Attention Discrepancy）</strong>：对生成的前 T&#x3D;10 个 token 的注意力，在每层按视觉注意力总和对 head 排序取前 50%（H^l_v），求平均得 Ā^l_j（Eq. 4）；用 Ā^l_j &gt; τ·mean(Ā^l) 二值化得 Ã^l（Eq. 5，τ&#x3D;5）；再做层间差分累积 S &#x3D; Σ_{l&#x3D;1}^{L−1} max(Ã^{l+1} − Ã^l, 0)（Eq. 6），从而剔除”每层都显著”的 attention sink，只保留新激活的证据 token，最后归一化得到 Ŝ ∈ [0,1]^{|Xv|}。</li>
-<li><strong>Step 2.1 — 增强视觉证据注意力</strong>：对每个生成文本 token 定义 evidence ratio e^l,h_i &#x3D; Σ_{j∈Xv} Ŝ_j·A^l,h_{i,j} &#x2F; Σ_{j∈Xv} A^l,h_{i,j}（Eq. 7），据此选前 50% 的”证据敏感头” H^l_e，按注意力引导公式 Â &#x3D; A·exp(α·Ŝ_j) 增强视觉证据注意力（Eq. 8），α 控制强度；作用在每一步解码上以对抗视觉遗忘。</li>
-<li><strong>Step 2.2 — 证据引导的文本增强</strong>：用证据加权分 w_i &#x3D; (1&#x2F;(L·|H^l_t|))·Σ_h Σ_{j∈Xv} Σ_l Ŝ_j·A^l,h_{i,j}（Eq. 9）度量每个已生成文本 token 对视觉证据的依赖，归一化为 ŵ 后按 Â &#x3D; A·(ŵ_i + β) 强化（Eq. 10），其中 H^l_t 为文本敏感头（前 50%），X_{&lt;t} 是此前生成的文本 token；β 调节文本增强&#x2F;抑制程度，最后对每行重新归一化。</li>
+<li><strong>Step 1 — 视觉证据显著性图（Inter-Layer Visual Attention Discrepancy）</strong>：对生成的前 T&#x3D;10 个 token 的注意力，在每层按视觉注意力总和对 head 排序取前 50%（H^l_v），求平均得 Ā^l_j（Eq. 4）；用 Ā^l_j &gt; τ·mean(Ā^l) 二值化得 Ã^l（Eq. 5，τ&#x3D;5）；再做层间差分累积 S &#x3D; Σ _ {l&#x3D;1}^{L−1} max(Ã^{l+1} − Ã^l, 0)（Eq. 6），从而剔除”每层都显著”的 attention sink，只保留新激活的证据 token，最后归一化得到 Ŝ ∈ [0,1]^{|Xv|}。</li>
+<li><strong>Step 2.1 — 增强视觉证据注意力</strong>：对每个生成文本 token 定义 evidence ratio e^l,h_i &#x3D; Σ _ {j∈Xv} Ŝ_j·A^l,h _ {i,j} &#x2F; Σ _ {j∈Xv} A^l,h _ {i,j}（Eq. 7），据此选前 50% 的”证据敏感头” H^l_e，按注意力引导公式 Â &#x3D; A·exp(α·Ŝ_j) 增强视觉证据注意力（Eq. 8），α 控制强度；作用在每一步解码上以对抗视觉遗忘。</li>
+<li><strong>Step 2.2 — 证据引导的文本增强</strong>：用证据加权分 w_i &#x3D; (1&#x2F;(L·|H^l_t|))·Σ_h Σ _ {j∈Xv} Σ_l Ŝ_j·A^l,h _ {i,j}（Eq. 9）度量每个已生成文本 token 对视觉证据的依赖，归一化为 ŵ 后按 Â &#x3D; A·(ŵ_i + β) 强化（Eq. 10），其中 H^l_t 为文本敏感头（前 50%），X _ {&lt;t} 是此前生成的文本 token；β 调节文本增强&#x2F;抑制程度，最后对每行重新归一化。</li>
 <li><strong>超参数选择</strong>：τ&#x3D;5 全局；α&#x3D;5（LLaVA-1.5-7B、Qwen2-VL-7B、Qwen3-VL-8B、InternVL3-8B），LLaVA-NeXT-7B 用 α&#x3D;3；判别式基准（POPE&#x2F;MME）β&#x3D;1，描述式基准（CHAIR，长序列）β∈[0.2, 0.5]；显著性图固定用前 10 个生成 token 提取，head 比例 ρ&#x3D;0.5。</li>
 </ul>
 <h3 id="5-实验结果-37"><a href="#5-实验结果-37" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -2100,9 +2171,9 @@
 </ul>
 <h3 id="4-研究方法-39"><a href="#4-研究方法-39" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（三步、免训练）</strong>：Step 1 计算每个注意力头的模态因果效应；Step 2 按符号判定冲突并选出 top-k 冲突头；Step 3 对选中头的文本路由施加按秩平滑门控，视觉路由保持 1。</li>
-<li><strong>精确路由拆分</strong>：以 S_vis &#x3D; diag(1[i∈I_vis])、S_txt &#x3D; diag(1[i∈I_txt])（两者互补且正交）切分 V，得 O^vis_{l,h} &#x3D; α_{l,h}(S_vis V_{l,h})、O^txt_{l,h} &#x3D; α_{l,h}(S_txt V_{l,h})，且 O_{l,h} &#x3D; O^vis + O^txt 精确成立，经 W^O_l 拼接投影后层输出同样拆成 Y^vis + Y^txt。</li>
-<li><strong>因果估计量（CRE）</strong>：给路由加标量门 Õ &#x3D; g^vis O^vis + g^txt O^txt，单头干预、其余头保持 (1,1)，定义 Δ^vis_{l,h} :&#x3D; ℓ_{l,h}(1,1) − ℓ_{l,h}(0,1)、Δ^txt_{l,h} :&#x3D; ℓ_{l,h}(1,1) − ℓ_{l,h}(1,0)（Eq. 1）；正值表示该路由支持当前决策，负值表示抑制。标量目标 ℓ 在二分类（POPE&#x2F;MME&#x2F;AMBER-D）取 Yes&#x2F;No log-odds margin，开放式生成取当前 token 的 log 概率。</li>
-<li><strong>一次前向估计（Proposition 3.1）</strong>：只跑一次标准解码前向（保留 KV-cache）、缓存 O^vis、O^txt，再用 torch.autograd.grad 在 pre-W^O 张量上取 G_{l,h} &#x3D; ∂ℓ&#x2F;∂Õ_{l,h}，则 Δ̂^vis &#x3D; ⟨G, O^vis⟩、Δ̂^txt &#x3D; ⟨G, O^txt⟩ 与精确 do-差异的一阶项一致；作者给出 Lipschitz 条件下的误差上界（附录 B.1）并做了符号一致性的实证校验（附录 B.2&#x2F;B.3）。VRI &#x3D; |Δ^vis|&#x2F;(|Δ^vis|+|Δ^txt|+ε)，ε &#x3D; 1e-8，越小越偏文本。</li>
+<li><strong>精确路由拆分</strong>：以 S_vis &#x3D; diag(1[i∈I_vis])、S_txt &#x3D; diag(1[i∈I_txt])（两者互补且正交）切分 V，得 O^vis _ {l,h} &#x3D; α _ {l,h}(S_vis V _ {l,h})、O^txt _ {l,h} &#x3D; α _ {l,h}(S_txt V _ {l,h})，且 O _ {l,h} &#x3D; O^vis + O^txt 精确成立，经 W^O_l 拼接投影后层输出同样拆成 Y^vis + Y^txt。</li>
+<li><strong>因果估计量（CRE）</strong>：给路由加标量门 Õ &#x3D; g^vis O^vis + g^txt O^txt，单头干预、其余头保持 (1,1)，定义 Δ^vis _ {l,h} :&#x3D; ℓ _ {l,h}(1,1) − ℓ _ {l,h}(0,1)、Δ^txt _ {l,h} :&#x3D; ℓ _ {l,h}(1,1) − ℓ _ {l,h}(1,0)（Eq. 1）；正值表示该路由支持当前决策，负值表示抑制。标量目标 ℓ 在二分类（POPE&#x2F;MME&#x2F;AMBER-D）取 Yes&#x2F;No log-odds margin，开放式生成取当前 token 的 log 概率。</li>
+<li><strong>一次前向估计（Proposition 3.1）</strong>：只跑一次标准解码前向（保留 KV-cache）、缓存 O^vis、O^txt，再用 torch.autograd.grad 在 pre-W^O 张量上取 G _ {l,h} &#x3D; ∂ℓ&#x2F;∂Õ _ {l,h}，则 Δ̂^vis &#x3D; ⟨G, O^vis⟩、Δ̂^txt &#x3D; ⟨G, O^txt⟩ 与精确 do-差异的一阶项一致；作者给出 Lipschitz 条件下的误差上界（附录 B.1）并做了符号一致性的实证校验（附录 B.2&#x2F;B.3）。VRI &#x3D; |Δ^vis|&#x2F;(|Δ^vis|+|Δ^txt|+ε)，ε &#x3D; 1e-8，越小越偏文本。</li>
 <li><strong>冲突分类与 top-k 选择</strong>：由符号得四种情形（Table 1）——Agreement(+ ,+)、Agreement(−,−) 不动；Conflict-A(+,−) 为”视觉支持但文本阻挠”，按文本噪声处理；Conflict-B(−,+) 是”视觉反对而文本推着走”的幻觉标志。只在两个冲突集合内各取 VRI 最小的 k 个 head。</li>
 <li><strong>按秩门控（Algorithm 1）</strong>：对选中头按 VRI 升序排名 i，s_i &#x3D; i&#x2F;(n−1)，g^txt_(i) &#x3D; g_min + (g_max−g_min)·clip(s_i^γ, ϵ, 1−ϵ)，γ 控制非线性；Conflict-A 用 (0.5, 1.0) 轻度抑制，Conflict-B 用 (0.5→0) 强抑制，视觉门始终 1。层范围、k、γ 按模型与基准搜索（如 POPE-popular：LLaVA-1.5-7B 为 (8,19)、k&#x3D;11、γ&#x3D;0.5）。</li>
 </ul>
@@ -2181,10 +2252,10 @@
 </ul>
 <h3 id="4-研究方法-41"><a href="#4-研究方法-41" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程</strong>：输入 X&#x3D;⟨I,T⟩，先由 pθ(Z|X) 采样感知流 Z，再自条件生成答案，联合分布分解为 pθ(Y,Z|X) &#x3D; pθ(Z|X)·pθ(Y|Z,⟨X,I_RoI⟩)。训练走”数据合成 → SFT 冷启动 → 变分 RFT”的渐进式范式，目标是在摆脱专家几何先验束缚的同时保持视觉可靠性。</li>
-<li><strong>Perceptual Flow（结构化隐轨迹）</strong>：Z&#x3D;(z0→z1…zK)。Planning State z0 是 ⟨analyze⟩…⟨&#x2F;analyze⟩ 包裹的语言序列，负责拆解问题、圈定候选视觉内容；Perceptual States z≥1 是 ⟨localize⟩…⟨&#x2F;localize⟩ 内的链式接地观察，每个 zk&#x3D;⟨rk, ck⟩ 含相对坐标（0~1000）的 RoI rk 与描述该区域证据的 caption ck。优化上用 Sub-Trajectory Balance（Sub-TB）这类层次化变分目标替代 PPO 式 RL，以获得稠密的中间监督：min_θ Σ_{i,j} D(F(zi)TF(zi:j) ‖ F(zj)TB(zj:i))，其中 TF&#x2F;TB 为前向&#x2F;后向转移、F(z) 为经过状态 z 的总概率质量。</li>
+<li><strong>Perceptual Flow（结构化隐轨迹）</strong>：Z&#x3D;(z0→z1…zK)。Planning State z0 是 ⟨analyze⟩…⟨&#x2F;analyze⟩ 包裹的语言序列，负责拆解问题、圈定候选视觉内容；Perceptual States z≥1 是 ⟨localize⟩…⟨&#x2F;localize⟩ 内的链式接地观察，每个 zk&#x3D;⟨rk, ck⟩ 含相对坐标（0~1000）的 RoI rk 与描述该区域证据的 caption ck。优化上用 Sub-Trajectory Balance（Sub-TB）这类层次化变分目标替代 PPO 式 RL，以获得稠密的中间监督：min_θ Σ _ {i,j} D(F(zi)TF(zi:j) ‖ F(zj)TB(zj:i))，其中 TF&#x2F;TB 为前向&#x2F;后向转移、F(z) 为经过状态 z 的总概率质量。</li>
 <li><strong>数据构造与冷启动</strong>：遵循 Diverse Tasks &#x2F; Diverse RoIs 两原则，对每个样本做跨专家标注并保留 RoI 空间覆盖足够广的样本。用 teacher 模型（Gemini3flash、GPT-4o）合成轨迹：先把专家 RoI 随机膨胀以削弱专家归纳偏置，再让 teacher 产出 Planning State 与每块证据的 caption，拼成合成感知流 Zs。随后做 verifier-based 过滤（Table 1）：无 Zs 就能答对 → 视为 trivial 丢弃；有 Zs 仍答不对 → 视为 unverified flow 丢弃；2≤k_pass≤16 的进 RFT 集，k_pass&gt;16 的进冷启动集。冷启动对 (X,Zs) 做交叉熵 SFT，教会策略”生成对下游推理有用的感知流”。</li>
-<li><strong>变分 RFT 与奖励设计</strong>：把式(1)重排为 L_vRFT(θ)，对同一子流前缀共享的转移概率与奖励做并行计算以支撑长感知链。多维奖励定义为 R(z_{0:k}⊤)&#x3D;∏_{i&#x3D;1}^{k} (p⁺<em>φ(zi)&#x2F;p⁻<em>φ(zi)) · p_φ(Y|z</em>{0:k}⊤,X)，其中 p⁺<em>φ(zi)&#x3D;p_φ(ci|I</em>{ri}) 是裁剪区域内生成 caption 的似然、p⁻<em>φ(zi)&#x3D;p_φ(ci|I\I</em>{ri}) 是区域外（互补区域）的似然，φ 是与 PFlowNet 同初始化的冻结奖励模型。作者给出解释：最大化对比项等价于让策略 caption 分布靠拢”privileged teacher 分布”、远离信息量低的区域分布，可抑制语言先验带来的泛泛描述与 reward hacking；第二项 log p_φ(Y|z</em>{0:k}⊤,X) 度量该流对目标答案的信息增益（因 log p_φ(Y|X) 对采样流是常数）。</li>
-<li><strong>Vicinal Geometric Shaping</strong>：纯奖励不含几何约束，可能过度探索落到 SV 之外。受 Vicinal Risk Minimization 启发，定义有向 Chamfer IoU 与对称化距离 d_IoU(A,B)&#x3D;1−0.5·(IoU_{A→B}+IoU_{B→A})，再定义先验 E 的 ε-邻域 B_ε(E) 与能量权重 ω_λ(z_{0:k},E)&#x3D;exp(−λ·I(z_{0:k}∉B_ε(E)))，最终的 shaping 奖励为 R_λ(z_{0:k}⊤)&#x3D;R(z_{0:k}⊤)·ω_λ(z_{0:k},E)。关键区别在于：与既有方法强制策略对齐先验不同，”our scheme targets only samples outside the vicinity”，从而在充分探索与有效性之间取得平衡。消融后取 λ&#x3D;4.5、ε&#x3D;0.5。</li>
+<li><strong>变分 RFT 与奖励设计</strong>：把式(1)重排为 L_vRFT(θ)，对同一子流前缀共享的转移概率与奖励做并行计算以支撑长感知链。多维奖励定义为 R(z _ {0:k}⊤)&#x3D;∏ _ {i&#x3D;1}^{k} (p⁺_φ(zi)&#x2F;p⁻_φ(zi)) · p_φ(Y|z _ {0:k}⊤,X)，其中 p⁺_φ(zi)&#x3D;p_φ(ci|I _ {ri}) 是裁剪区域内生成 caption 的似然、p⁻_φ(zi)&#x3D;p_φ(ci|I\I _ {ri}) 是区域外（互补区域）的似然，φ 是与 PFlowNet 同初始化的冻结奖励模型。作者给出解释：最大化对比项等价于让策略 caption 分布靠拢”privileged teacher 分布”、远离信息量低的区域分布，可抑制语言先验带来的泛泛描述与 reward hacking；第二项 log p_φ(Y|z _ {0:k}⊤,X) 度量该流对目标答案的信息增益（因 log p_φ(Y|X) 对采样流是常数）。</li>
+<li><strong>Vicinal Geometric Shaping</strong>：纯奖励不含几何约束，可能过度探索落到 SV 之外。受 Vicinal Risk Minimization 启发，定义有向 Chamfer IoU 与对称化距离 d_IoU(A,B)&#x3D;1−0.5·(IoU _ {A→B}+IoU _ {B→A})，再定义先验 E 的 ε-邻域 B_ε(E) 与能量权重 ω_λ(z _ {0:k},E)&#x3D;exp(−λ·I(z _ {0:k}∉B_ε(E)))，最终的 shaping 奖励为 R_λ(z _ {0:k}⊤)&#x3D;R(z _ {0:k}⊤)·ω_λ(z _ {0:k},E)。关键区别在于：与既有方法强制策略对齐先验不同，”our scheme targets only samples outside the vicinity”，从而在充分探索与有效性之间取得平衡。消融后取 λ&#x3D;4.5、ε&#x3D;0.5。</li>
 <li><strong>理论保证</strong>：在 Assump. A.1&#x2F;A.2 下给出 TV 距离上界（Theorem 3.1）与严格改进定理（Theorem 3.4）：对满足 B_ε⊆SV 的 ε，存在 λ* 使 DTV(λ*,ε) ≤ min{1−s_V, 1−q}。Remark 3.2 指出 λ→0 时退化为标准 MLE、λ→∞ 时退化为专家引导 RLVR，从而把两种既有范式收成特例。</li>
 </ul>
 <h3 id="5-实验结果-42"><a href="#5-实验结果-42" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
@@ -2221,7 +2292,7 @@
 </ul>
 <h3 id="4-研究方法-42"><a href="#4-研究方法-42" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（三阶段，免训练）</strong>：①Orthogonal Visual Vector Construction（构造纯视觉向量）；②Layer Selection via Calibration（标定选层与阈值）；③Dynamic Steering Mechanism（推理时风险触发式注入）。向量与标定只需一次性离线计算，干预只发生在单层、单步的隐藏状态上。</li>
-<li><strong>阶段一：正交视觉向量构造</strong>：在提取集 D_ext（Nullu 中随机取 N&#x3D;100 对样本）上计算 v(ℓ)<em>raw &#x3D; E[h(ℓ)<em>gt − h(ℓ)</em>∅gt]（有视觉输入的事实态减去无视觉输入的”盲”态，得到净视觉贡献）与 v(ℓ)<em>prior &#x3D; E[h(ℓ)</em>∅hall − h(ℓ)</em>∅unk]（无视觉时”幻觉猜”与”我不知道”之差，隔离出无接地猜测的方向）。再用 Gram-Schmidt 把 v_raw 投到 v_prior 的正交补：v⊥(ℓ)_vis &#x3D; v(ℓ)<em>raw − proj</em>{v(ℓ)_prior} v(ℓ)_raw &#x3D; v(ℓ)_raw − [(v(ℓ)_raw·v(ℓ)_prior)&#x2F;‖v(ℓ)_prior‖²] v(ℓ)_prior，保证 v⊥_vis ⊥ v_prior，从而”steering along this vector injects visual information without projecting magnitude onto the pure fabrication manifold”。</li>
+<li><strong>阶段一：正交视觉向量构造</strong>：在提取集 D_ext（Nullu 中随机取 N&#x3D;100 对样本）上计算 v(ℓ)<em>raw &#x3D; E[h(ℓ)<em>gt − h(ℓ)</em>∅gt]（有视觉输入的事实态减去无视觉输入的”盲”态，得到净视觉贡献）与 v(ℓ)<em>prior &#x3D; E[h(ℓ)</em>∅hall − h(ℓ)</em>∅unk]（无视觉时”幻觉猜”与”我不知道”之差，隔离出无接地猜测的方向）。再用 Gram-Schmidt 把 v_raw 投到 v_prior 的正交补：v⊥(ℓ)_vis &#x3D; v(ℓ)_raw − proj _ {v(ℓ)_prior} v(ℓ)_raw &#x3D; v(ℓ)_raw − [(v(ℓ)_raw·v(ℓ)_prior)&#x2F;‖v(ℓ)_prior‖²] v(ℓ)_prior，保证 v⊥_vis ⊥ v_prior，从而”steering along this vector injects visual information without projecting magnitude onto the pure fabrication manifold”。</li>
 <li><strong>阶段二：标定选层与阈值</strong>：标定集 D_cal 由 COCO train 2014 的 N&#x3D;100 张图按 POPE-like 协议构造，对每图做二值存在性提问，把回答正确（factual）与错误（hallucinated）的隐状态分别聚合为 H(ℓ)_fact 与 H(ℓ)_hall。定义风险分 R(h) &#x3D; −CosSim(h, v⊥(ℓ)_vis)，并从 L 向 1 反向搜索，取”最深且满足可分性约束”的层：L* &#x3D; max{ ℓ | R(H(ℓ)_hall) − R(H(ℓ)_fact) &gt; 0 }。阈值取事实集风险分的分位数：τ &#x3D; Percentile(S_fact, k)，k 是模型相关超参（Qwen2.5-VL-7B 用 k&#x3D;0.8），作者称”ensures intervention only occurs when the representation drifts beyond the typical risk profile of factual generations”。</li>
 <li><strong>阶段三：推理时动态干预</strong>：在第 t 步计算瞬时风险 R_t &#x3D; R(h(L*)_t)，用指示函数门控：λ(t) &#x3D; α·1(R_t &gt; τ)；若 R_t ≤ τ 则门关闭（λ(t)&#x3D;0）”preserving model capability”，否则以固定强度注入 h̃(L*)_t &#x3D; h(L*)_t + λ(t)·v⊥(L*)_vis。超参 α&#x3D;1.6（Qwen2.5-VL-7B-Instruct 默认）。这是一种”只在需要时把隐状态对齐回视觉证据”的 precision filter。</li>
 <li><strong>关键机制细节</strong>：作者特别说明极高强度下模型会退化为输出视觉占位符（如 “image.jpg”），并在附录 E.3 讨论；同时强调 v⊥_vis 相对 v_raw 在高 α 下保持生成稳定，这是正交化有效性的行为证据。</li>
@@ -2262,10 +2333,10 @@
 <li><strong>构型假设</strong>：人类认知天然交织 System-1（快、联想）与 System-2（慢、审慎），所以应让二者协同而非只在前训练或 CoT 阶段强行诱导 System-2。</li>
 </ul>
 <h3 id="4-研究方法-43"><a href="#4-研究方法-43" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
-<li><strong>总体流程（三阶段智能体流水线）</strong>：System-2 被形式化为函数复合 F_sys2 &#x3D; F_verify ∘ F_neurosymbolic ∘ F_concept。F_concept: X→P(C) 产出可读概念；F_neurosymbolic: P(C)→P(L) 产出逻辑规则 l&#x3D;⋀_{s_i∈s} s_i；F_verify: P(L)→Y 给符号打分再聚合为规则的可蕴含置信度。最终预测为式(4) ŷ &#x3D; (1−λ)F_sys1(x) + λF_sys2(x)，λ 控制 System-2 的影响权重。</li>
+<li><strong>总体流程（三阶段智能体流水线）</strong>：System-2 被形式化为函数复合 F_sys2 &#x3D; F_verify ∘ F_neurosymbolic ∘ F_concept。F_concept: X→P(C) 产出可读概念；F_neurosymbolic: P(C)→P(L) 产出逻辑规则 l&#x3D;⋀ _ {s_i∈s} s_i；F_verify: P(L)→Y 给符号打分再聚合为规则的可蕴含置信度。最终预测为式(4) ŷ &#x3D; (1−λ)F_sys1(x) + λF_sys2(x)，λ 控制 System-2 的影响权重。</li>
 <li><strong>阶段一 Image-conditioned Visual Concept Extraction</strong>：用 VLM 智能体 A_V 对每类标签 y 的训练子集抽取概念，c_y &#x3D; ⋃ A_V(x_i, y, M), ∀x_i∈X^train_y，其中 M 是概念数量；对随机挑选的同标签图像重复抽取后去重，得到该类”观测到的视觉概念集合”。作者依据”VLMs 擅长识别属性但不擅长识别属性间的复杂关系”这一既有发现，选择抽低层属性型概念（bag-of-visual-attributes）而非关系型概念。</li>
 <li><strong>阶段二 Context-dependent Symbol Exploration and Rule Formation</strong>：分为 exploration 与 rule formation 两步。符号集先用 IS(y,K) 初始化 S &#x3D; A_L(IS(y,K))（K 为初始符号数），再迭代扩张 S &#x3D; S ∪ A_L(ES(c_y, y))，关键在于探索函数 ES 同时以任务标签与阶段一的概念 c_y 为条件，从而”provide grounded context to A_L during exploration to minimize hallucinations”。规则生成把符号组成 DNF 形式 l*&#x3D;{⋀s_i→y}，再用蕴含函数过滤 l&#x3D;{l_i∈l* | A_L(EN(c_y, l_i))&gt;ε}，ε 是规则可信度的蕴含阈值；规则评分同样同时依赖标签 y 与上一阶段抽取的视觉概念。每条规则长度被限制为 N 个符号以防过拟合。IS &#x2F; ES &#x2F; EN 三者均由 prompt 模板实现。</li>
-<li><strong>阶段三 Neurosymbolic Rule-based Predictions</strong>：对形如 l_i&#x3D;s_{i1}∧…∧s_{ik} 的规则，先由验证智能体 F_V 给每个符号打分，规则分取符号分的最小值，再在所有规则上取最大：F_verify(l) &#x3D; max_i min{F_V(x,s_{i1}),…,F_V(x,s_{ik})}。符号置信度用作者改造的 VQAScore 式做法：把视觉描述改写成二值 “Yes&#x2F;No” 问题，取 P(“yes”|x,s) &#x3D; e^{F̂_V[“yes”]}&#x2F;(e^{F̂_V[“yes”]}+e^{F̂_V[“no”]}) 作为符号存在概率。论文给出算例（Figure 3）：System-1 给 Basophil 0.48、Eosinophil 0.52，神经符号支路给出 Basophil 0.95，加权后”corrects System-1 output to instill higher trust in predictions”。</li>
+<li><strong>阶段三 Neurosymbolic Rule-based Predictions</strong>：对形如 l_i&#x3D;s _ {i1}∧…∧s _ {ik} 的规则，先由验证智能体 F_V 给每个符号打分，规则分取符号分的最小值，再在所有规则上取最大：F_verify(l) &#x3D; max_i min{F_V(x,s _ {i1}),…,F_V(x,s _ {ik})}。符号置信度用作者改造的 VQAScore 式做法：把视觉描述改写成二值 “Yes&#x2F;No” 问题，取 P(“yes”|x,s) &#x3D; e^{F̂_V[“yes”]}&#x2F;(e^{F̂_V[“yes”]}+e^{F̂_V[“no”]}) 作为符号存在概率。论文给出算例（Figure 3）：System-1 给 Basophil 0.48、Eosinophil 0.52，神经符号支路给出 Basophil 0.95，加权后”corrects System-1 output to instill higher trust in predictions”。</li>
 <li><strong>Concept-RuleNet++ 扩展</strong>：引入反事实符号 s̃_i（取其他类规则中符号的”不存在”概率）组成 l&#x3D;{⋀{⋁{s̃_i, s_i}}→y}，规则结构由纯 DNF 变为 DNF 与 CNF 混合的 Mixed Normal Form。</li>
 <li><strong>超参与实现</strong>：概念抽取温度 0.2；5 个初始前提符号、规则最大长度 3、蕴含阈值 ε&gt;0.7；MedMNIST 与其他数据集分别做 10 次与 7 次递归符号探索 &#x2F; 规则组合；探索温度 0.7、蕴含温度 0；λ 在 Blood&#x2F;Derma 取 0.5，在 Satellite&#x2F;WHU&#x2F;iNaturalist 分别取 0.7&#x2F;0.5&#x2F;0.7（按验证集调）。基线 Symbol-LLM 由作者在相同数据集上重实现，规则长度同样限 3、蕴含阈值降到 0.7 以加速。复杂度上，设图像数 n、类数 c，概念抽取为 O(nc)，CRN 与 S-LLM 在其他部分复杂度相同。</li>
 </ul>
@@ -2467,7 +2538,7 @@
 <li><strong>总体流程</strong>：沿用 LLaVA 的两阶段协议（视觉编码器 + adapter + 预训练 LLM），MoDA 作为新组件插在 adapter 之后、LLM 之前；视觉编码器抽 patch 特征 → adapter 投影到语言嵌入空间 → MoDA 估计通道级调制权重 → 调制后的视觉嵌入作为 prefix token 交给 LLM，自回归生成回答。</li>
 <li><strong>MoDA 设计（核心公式）</strong>：设已对齐视觉特征 V_aligned∈R^{B×N×E}，语言 token 嵌入 T∈R^{B×M×E}（取自 LLM 初始层）。先按 Ṽ &#x3D; V ⊙ F(T, V) 定义调制算子（⊙ 为沿嵌入维的 Hadamard 积），再具体化为 Ṽ &#x3D; V ⊙ σ(W·F(T,V))：F(·) 由一叠 Transformer 层实现（视觉特征作 target 序列、语言 token 嵌入作 memory），W∈R^{E×E} 为可学习线性投影，σ 为逐元素 sigmoid 把掩码约束在 [0,1]，该掩码可解释为”a channel-wise mask that independently re-weights each feature channel”。每个 cross-attention Transformer 层含多头 cross-attention、FFN、残差与 LayerNorm。</li>
 <li><strong>与 Q-Former 的三点区别（原文自述）</strong>：(1) 粒度——在 token 内部嵌入维上操作而非选择&#x2F;重加权整个 token；(2) 操作——乘性 Hadamard 调制可选择性抑制无关维度，而非加性残差；(3) 位置——作用于<strong>已对齐之后</strong>的特征，是补充而非替代现有 adapter。</li>
-<li><strong>训练&#x2F;推理策略</strong>：第一阶段只训原 adapter（编码器与 LLM 冻结，自回归语言建模目标）；第二阶段引入 MoDA（Xavier 初始化），联合微调 MoDA 与 LLM，adapter 保留第一阶段权重；两阶段目标一致，均为自回归交叉熵 L_CE &#x3D; −Σ_t log P(y_t | y_{&lt;t}, Ṽ_aligned, T)。无需额外监督或数据；多轮场景下视觉特征只缓存一次，后续查询仅需重算调制（&lt;1% 计算）。</li>
+<li><strong>训练&#x2F;推理策略</strong>：第一阶段只训原 adapter（编码器与 LLM 冻结，自回归语言建模目标）；第二阶段引入 MoDA（Xavier 初始化），联合微调 MoDA 与 LLM，adapter 保留第一阶段权重；两阶段目标一致，均为自回归交叉熵 L_CE &#x3D; −Σ_t log P(y_t | y _ {&lt;t}, Ṽ_aligned, T)。无需额外监督或数据；多轮场景下视觉特征只缓存一次，后续查询仅需重算调制（&lt;1% 计算）。</li>
 </ul>
 <h3 id="5-实验结果-49"><a href="#5-实验结果-49" class="headerlink" title="5. 实验结果"></a>5. 实验结果</h3><ul>
 <li><strong>基座模型</strong>：LLaVA-1.5（LLM 为 Vicuna-7B；消融中还用到 Vicuna-13B 的官方基线）、LLaVA-MoRE（LLM 为 LLaMA 3.1-8B，视觉编码器分别为 OpenAI CLIP 与 SigLIP-S2）、Qwen3-VL-2B-Instruct（Qwen3-2B，其原生 ViT 不属于 CLIP 家族）；消融中视觉编码器为 CLIP ViT-L&#x2F;14@336 与 SigLIP-S2。</li>
@@ -2504,7 +2575,7 @@
 </ul>
 <h3 id="4-研究方法-49"><a href="#4-研究方法-49" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>总体流程（Sec. 3.1 &#x2F; Figure 2）</strong>：原子坐标与特征先经 SE(3)-等变 EGNN 编码为原子级模态嵌入；(2) instruction-conditioned scoring gate 依累积质量阈值挑选关键 anchor 原子；(3) soft patch-growing 依空间邻近度与 gate logits 决定原子归属，并做 in-patch weighted pooling 生成结构 query token；(4) query 通过 cross-attention 检索几何细节得到 modality token，最终注入 LLM embedding 的指定位置。</li>
-<li><strong>Scaling-Aware Patching（Sec. 3.2 &#x2F; Algorithm 1）</strong>：由指令嵌入 z、图批分配 b、等变节点嵌入 X 算 anchor logits ℓ&#x3D;G_anc(z,X,b)；对每张图按 Softmax(ℓ) 排序，取最小的 k 使累积质量超阈值 ρ，得自适应 anchor 数 k_g&#x3D;min{k∈{1..N_g}: Σ_{j≤k} prob_{π_j} ≥ ρ}；soft patch growth 用 W_{i,a}&#x3D;exp(−‖P_i−P_a‖²+ℓ_a)&#x2F;Σ_{a’}exp(−‖P_i−P_{a’}‖²+ℓ_{a’}) 把”指令相关性高的 anchor 扩张到更大感受野”与几何局部性结合；最后 in-patch weighted pooling 得 patch token t_a&#x3D;Σ_i (W_{i,a}&#x2F;Σ_j W_{j,a}) X_i。</li>
+<li><strong>Scaling-Aware Patching（Sec. 3.2 &#x2F; Algorithm 1）</strong>：由指令嵌入 z、图批分配 b、等变节点嵌入 X 算 anchor logits ℓ&#x3D;G_anc(z,X,b)；对每张图按 Softmax(ℓ) 排序，取最小的 k 使累积质量超阈值 ρ，得自适应 anchor 数 k_g&#x3D;min{k∈{1..N_g}: Σ _ {j≤k} prob _ {π_j} ≥ ρ}；soft patch growth 用 W _ {i,a}&#x3D;exp(−‖P_i−P_a‖²+ℓ_a)&#x2F;Σ _ {a’}exp(−‖P_i−P _ {a’}‖²+ℓ _ {a’}) 把”指令相关性高的 anchor 扩张到更大感受野”与几何局部性结合；最后 in-patch weighted pooling 得 patch token t_a&#x3D;Σ_i (W _ {i,a}&#x2F;Σ_j W _ {j,a}) X_i。</li>
 <li><strong>Geometry Grounding Adapter（Sec. 3.3 &#x2F; Algorithm 2）</strong>：patch token 归一化后投影为 query Q，模态嵌入投影为 K,V；经 L_f 个 fusion block（Self-Attn → Cross-Attn(Q,K,V) → FFN）检索 patching 阶段被抽象掉的完整几何细节（”while the anchor gate identifies instruction-relevant substructure positions, the fusion blocks recover full geometric detail at and around those positions rather than performing a second selection”）；输出投影到 LLM 维度后，按指令中的 modality placeholder token 位置插入，并同步更新 attention&#x2F;label mask。</li>
 <li><strong>训练（Sec. 3.4）</strong>：三阶段。(1) 编码器预训练——SE(3)-等变 EGNN 做 masked reconstruction，预测元素类型、成对距离与注入方向噪声，L_enc&#x3D;L_type+λ_d L_dist+λ_u L_dir；(2) Modality Alignment Tuning——冻结 EGNN 与 LLM，只训连接器（Scaling-Aware Patching + Geometry Grounding Adapter），数据为自建 GEO-AT；(3) LLM Adaptation Tuning——解冻 LLM，用更小学习率端到端微调。</li>
 </ul>
@@ -2545,7 +2616,7 @@
 <li><p><strong>一句话定位</strong>：真值头在模型家族内继承，软门控压制幻觉</p>
 </li>
 </ul>
-<h3 id="1-中文摘要-51"><a href="#1-中文摘要-51" class="headerlink" title="1. 中文摘要"></a>1. 中文摘要</h3><p>本文研究一个此前未被检验的问题：下游 MLLM 与其基础 LLM 之间是否存在根本性的行为联系。作者用<strong>线性探针</strong>在每个注意力头上量化”语境真值性”：把输入组织为 {context, question, answer}，探针在最后一个答案 token 的激活上训练二分类器区分忠实&#x2F;幻觉答案，其验证准确率即该头的 Truth Score。在 Vicuna、Qwen2.5、LLaMA2、Mistral 等多个模型家族上，作者发现 Truth Score 在家族内被强保留（指令微调或多模态适配之后依然如此），且跨数据集探测时家族内相关性仍显著高于无关家族；这与注意力头<strong>参数权重保留</strong>一致（家族内权重漂移的 Frobenius 范数极小），而高真值头确实关注与查询相关的证据。基于此提出 <strong>TruthProbe</strong>：用归一化 Truth Score 构成软门 g_l^h &#x3D; 1 + λ·norm(S)，在残差连接前逐头缩放注意力输出并拼接回残差流（x_{l+1} &#x3D; x_l + Concat_h(g_l^h·o_l^h)）。该门控在 HaluEval 上提升语境真值性，在 POPE 与 CHAIR 上降低多模态幻觉，且基础 LLM 的 Truth Score 可有效迁移给同家族微调 LLM 与 MLLM 后代。</p>
+<h3 id="1-中文摘要-51"><a href="#1-中文摘要-51" class="headerlink" title="1. 中文摘要"></a>1. 中文摘要</h3><p>本文研究一个此前未被检验的问题：下游 MLLM 与其基础 LLM 之间是否存在根本性的行为联系。作者用<strong>线性探针</strong>在每个注意力头上量化”语境真值性”：把输入组织为 {context, question, answer}，探针在最后一个答案 token 的激活上训练二分类器区分忠实&#x2F;幻觉答案，其验证准确率即该头的 Truth Score。在 Vicuna、Qwen2.5、LLaMA2、Mistral 等多个模型家族上，作者发现 Truth Score 在家族内被强保留（指令微调或多模态适配之后依然如此），且跨数据集探测时家族内相关性仍显著高于无关家族；这与注意力头<strong>参数权重保留</strong>一致（家族内权重漂移的 Frobenius 范数极小），而高真值头确实关注与查询相关的证据。基于此提出 <strong>TruthProbe</strong>：用归一化 Truth Score 构成软门 g_l^h &#x3D; 1 + λ·norm(S)，在残差连接前逐头缩放注意力输出并拼接回残差流（x _ {l+1} &#x3D; x_l + Concat_h(g_l^h·o_l^h)）。该门控在 HaluEval 上提升语境真值性，在 POPE 与 CHAIR 上降低多模态幻觉，且基础 LLM 的 Truth Score 可有效迁移给同家族微调 LLM 与 MLLM 后代。</p>
 <h3 id="2-方法图-51"><a href="#2-方法图-51" class="headerlink" title="2. 方法图"></a>2. 方法图</h3><p><img src="/2026/20261017/52_ICML_The_Truth_Stays_in_the_Family_Enhancing_Conte_method.png" alt="The Truth Stays in the Family: Enhancing Contextual Grounding via Inherited Truthful Heads in Model Lineages 方法架构图"></p>
 <h3 id="3-研究动机-51"><a href="#3-研究动机-51" class="headerlink" title="3. 研究动机"></a>3. 研究动机</h3><ul>
 <li><strong>现有做法的缺陷</strong>：幻觉已成为 LLM&#x2F;MLLM 落地的关键瓶颈，但既有缓解策略”often treat models as isolated instances, overlooking the persistent functional roles that specific attention heads may maintain when a base LLM is adapted into downstream variants”——即每个下游模型都要单独探测与干预，忽视了模型家族层面的可迁移结构；此外常见的硬掩码（hard masking）会直接丢弃不可信头的信息。</li>
@@ -2554,7 +2625,7 @@
 </ul>
 <h3 id="4-研究方法-50"><a href="#4-研究方法-50" class="headerlink" title="4. 研究方法"></a>4. 研究方法</h3><ul>
 <li><strong>Truth Score（head 级语境真值性度量）</strong>：输入结构化 x &#x3D; {x_context, x_question, x_answer}，x_context 可以是世界知识文本或真实图像，x_answer 可以是忠实或幻觉答案；在<strong>最后一个答案 token</strong> 的激活上（自回归模型该位置累积了前文全部特征）为每个头训练一个二分类线性探针，判断该头是否可靠地纳入给定语境；探针的验证准确率即该头的 Truth Score。全流程用 5 折交叉验证保证稳健性（协议见附录 A）。</li>
-<li><strong>TruthProbe（软头门控）</strong>：在第 l 层，注意力输出 o_l 被 reshape 成 head-wise 分量 o_l^h ∈ R^{n_h×d_h}，每个分量乘以对应门值 g_l^h ∈ R^{n_h}，再拼接加回残差流：x_{l+1} &#x3D; x_l + Concat_{h&#x3D;1}^{H}(g_l^h · o_l^h)，其中 g_l^h &#x3D; 1 + λ·norm(S)，S 为归一化后的 Truth Score，λ 为缩放参数。因此”when the norm-based score S is larger, the corresponding head output is amplified beyond the baseline level, whereas smaller values reduce its relative impact”。与硬掩码不同，所有头都保持激活，只是影响被自适应调制，从而保住多头表达的多样性并让残差流偏向可信信号。</li>
+<li><strong>TruthProbe（软头门控）</strong>：在第 l 层，注意力输出 o_l 被 reshape 成 head-wise 分量 o_l^h ∈ R^{n_h×d_h}，每个分量乘以对应门值 g_l^h ∈ R^{n_h}，再拼接加回残差流：x _ {l+1} &#x3D; x_l + Concat _ {h&#x3D;1}^{H}(g_l^h · o_l^h)，其中 g_l^h &#x3D; 1 + λ·norm(S)，S 为归一化后的 Truth Score，λ 为缩放参数。因此”when the norm-based score S is larger, the corresponding head output is amplified beyond the baseline level, whereas smaller values reduce its relative impact”。与硬掩码不同，所有头都保持激活，只是影响被自适应调制，从而保住多头表达的多样性并让残差流偏向可信信号。</li>
 <li><strong>探测数据配置</strong>：LLM 的 Truth Score 用 HaluEval 的一个子集（292 样本）；MLLM 的 Truth Score 用 RLHF-V 的问答划分（2,726 样本）——作者说明 MLLM 的视觉处理会产生远多于此的 token，需要更多样本才能得到稳定 Truth Score。所有 Truth Score 均用 5 折交叉验证。</li>
 <li><strong>推理与实现细节</strong>：全部输出用 greedy decoding；软门控用缩放参数 λ 加归一化方式控制 Truth Score 的影响——HaluEval 与 CHAIR 用 centered normalization，POPE 用 min-max normalization，同一 POPE 数据源间 λ 取值一致以保证可复现（超参见附录 C）。</li>
 <li><strong>迁移范式</strong>：TruthProbe_LLM 使用各模型<strong>基础 LLM</strong>（LLaVA-1.5&#x2F;LLaVA-NeXT 用 Vicuna-7B；Qwen2.5-VL-Instruct&#x2F;Omni 用 Qwen2.5）的 Truth Score；TruthProbe_MLLM 直接用对应 MLLM 自身的 Truth Score，两者对比即为可迁移性证据。</li>
